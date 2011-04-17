@@ -12,10 +12,6 @@ import android.graphics.RectF;
 import android.graphics.BitmapFactory.Options;
 import android.util.AttributeSet;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
-import android.view.animation.Animation.AnimationListener;
-import android.widget.ImageView;
 
 public class PieChart extends View {
 	private static final int WAIT = 0;

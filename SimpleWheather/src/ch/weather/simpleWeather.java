@@ -6,14 +6,15 @@ import java.util.List;
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
-import android.graphics.drawable.BitmapDrawable;
+import android.graphics.Matrix;
 import android.os.Bundle;
 import android.view.GestureDetector;
 import android.view.MotionEvent;
 import android.view.ViewGroup.LayoutParams;
 import android.view.animation.Animation;
+import android.view.animation.LinearInterpolator;
+import android.view.animation.RotateAnimation;
 import android.view.animation.Animation.AnimationListener;
-import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 import android.widget.Toast;
 
@@ -23,7 +24,7 @@ import android.widget.Toast;
 public class simpleWeather extends Activity {
 	
 	private GestureDetector mGestureDetector;
-	Animation hyperspaceJump ;
+	private RotateAnimation rotateAnim;
 
     /** Called when the activity is first created. */
 	@Override public void onCreate(Bundle savedInstanceState) {
@@ -62,23 +63,9 @@ public class simpleWeather extends Activity {
         myPie.draw(new Canvas(mBackgroundImage));
         myPie = null;
         
-        /*
-        // Create ImageView of Canvas
-        ImageView mImageView = new ImageView(this);
-	    mImageView.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-	    mImageView.setBackgroundColor(BgColor);
-	    mImageView.setImageBitmap( mBackgroundImage );
-        
-        // Add ImageView to Layout
-        RelativeLayout myLayout = (RelativeLayout) findViewById(R.id.pieGraph);
-        myLayout.addView(mImageView);
-        */
-        
 	    // Add created PieChart ImageView to ImageView interface
         ImageView image = (ImageView) findViewById(R.id.pieGraph);
-        //image.setImageBitmap(mBackgroundImage);
-        image.setImageDrawable(new BitmapDrawable(mBackgroundImage));
-
+        image.setImageBitmap(mBackgroundImage);
     }
 	
 	@Override public boolean onTouchEvent(MotionEvent ev) {
@@ -88,58 +75,11 @@ public class simpleWeather extends Activity {
 		else
 			return false;
 	}
-	
-	public void rotate(int direction){                      
-		int angle;
-		
-		if (direction == 0){
-			angle = -280;
-			hyperspaceJump = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fling_rotate_left);
-		}
-		else{
-			angle = 280;
-			hyperspaceJump = AnimationUtils.loadAnimation(getApplicationContext(), R.anim.fling_rotate_right);
-		}
-		
-		hyperspaceJump.setFillBefore(false);
-		ImageView myImage = (ImageView) findViewById(R.id.pieGraph);
-		
 
-		hyperspaceJump.setAnimationListener(new AnimationListener(){
-	        private boolean doEnd = true;
-			
-	        @Override public void onAnimationEnd(Animation animation) {
-	            if (doEnd){
-	                doEnd = false;
-	                hyperspaceJump.set
-	                //setViewPos(view, animation, anim.getStartTime() + anim.getDuration());
-	            }
-	        }
-
-	        @Override public void onAnimationRepeat(Animation animation) {
-	        }
-
-	        @Override public void onAnimationStart(Animation animation) {
-	        }
-
-	    });
-
-		
-		
-		myImage.startAnimation(hyperspaceJump);
-		
-		/*Matrix mat = myImage.getImageMatrix();
-	    mat.postScale(1, 1);
-	    mat.postRotate(angle, myImage.getWidth()/2, myImage.getHeight()/2);
-	    myImage.setImageMatrix(mat);
-		myImage.setScaleType(ScaleType.CENTER);
-		myImage.invalidate();
-		*/
-
-	}	
     
     /*
      * Class to listen to gestures
+     * @author: Julien Freudiger
      */
     public class myGestureListener extends GestureDetector.SimpleOnGestureListener{
     	private static final int SWIPE_MIN_DISTANCE = 120;
@@ -212,5 +152,51 @@ public class simpleWeather extends Activity {
 	    	return false;
     	    
     	}
+    	
+    	/*
+    	 * Method to define and apply animation 
+    	 * @author: Julien Freudiger
+    	 */
+    	public void rotate(int direction){                      
+    		 
+    		ImageView myImage = (ImageView) findViewById(R.id.pieGraph);
+
+    		// Define animation
+			float from=0;
+			float to = 260;
+ 			rotateAnim = new RotateAnimation(from, to, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+			rotateAnim.setInterpolator(new LinearInterpolator());
+			rotateAnim.setDuration(2000);
+			
+			rotateAnim.setAnimationListener(new AnimationListener(){
+				private boolean doEnd = true;
+    			
+    	        public void onAnimationEnd(Animation animation) {
+    	            float angle = 260;
+    	        	if (doEnd){
+    	                doEnd = false;
+    	                 
+    	                ImageView myImage = (ImageView) findViewById(R.id.pieGraph);
+    	        		Matrix mat = myImage.getImageMatrix();
+    	        	    mat.postRotate(angle, myImage.getWidth()/2, myImage.getHeight()/2);
+    	        	    myImage.setImageMatrix(mat);
+    	        	    myImage.invalidate();
+    	        		
+    	            }
+    	        }
+
+    	        public void onAnimationRepeat(Animation animation) {
+    	        }
+
+    	        public void onAnimationStart(Animation animation) {
+    	        }
+
+    	    });
+    
+			// Apply animation
+			myImage.startAnimation(rotateAnim);
+    		
+    		
+    	}	
     }
 }
