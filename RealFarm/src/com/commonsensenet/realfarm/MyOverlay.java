@@ -1,9 +1,11 @@
-package com.google.realfarm;
+package com.commonsensenet.realfarm;
 
 import java.util.ArrayList;
+
 import android.app.AlertDialog;
 import android.content.Context;
 import android.graphics.drawable.Drawable;
+
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.OverlayItem;
 
