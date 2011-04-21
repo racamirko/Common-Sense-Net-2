@@ -19,7 +19,7 @@ import android.widget.EditText;
 public class csn extends Activity {
 	private EditText text;
 	private EditText text2;
-	
+	  
 	int market=0;
 	int news=0;
 	int radio=0;
