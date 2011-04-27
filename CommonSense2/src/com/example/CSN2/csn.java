@@ -50,12 +50,9 @@ public class csn extends Activity {
 	
 		try { // catches IOException below
 	        TESTSTRING ="Hello Android";
-	        
 	      
-	        FileOutputStream fOut = openFileOutput("csnlog.txt",
-	        MODE_WORLD_READABLE);
+	        FileOutputStream fOut = openFileOutput("csnlog.txt", MODE_WORLD_READABLE);
 	        OutputStreamWriter osw = new OutputStreamWriter(fOut);
-	        
 	        
 	        // Write the string to the file
 	        osw.write(TESTSTRING);
@@ -72,7 +69,6 @@ public class csn extends Activity {
 	        
 	        // Transform the chars to a String
 	        TESTA = String.valueOf(inputBuffer); 
-	        
 	       
 	    } 
 		catch (IOException ioe) {
@@ -81,27 +77,28 @@ public class csn extends Activity {
 		
 		
 		switch (view.getId()) {
+
 		case R.id.button1:
 			market++;
-			
-			
 			text.setText(STR_MARKET.concat(String.valueOf(market)));
-			
 			break;
 		case R.id.button2:
 			news++;
 			text.setText(STR_NEWS.concat(String.valueOf(news)));
 			break;
+			
 		case R.id.button3:
 			radio++;
 			text.setText(STR_RADIO.concat(String.valueOf(radio)));
 			break;
+			
 		case R.id.button4:
 			weather++;
 			text.setText(STR_WEATHER.concat(String.valueOf(weather)));
 			break;
-			default:
-				text2.setText(TESTA);
+			
+		default:
+			text2.setText(TESTA);
 		}
     }
 }
