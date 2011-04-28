@@ -3,9 +3,9 @@
       package="ch.weather"
       android:versionCode="1"
       android:versionName="1.0">
-    <uses-sdk android:minSdkVersion="10" />
+    <uses-sdk android:minSdkVersion="7" />
 
-    <application android:icon="@drawable/icon" android:label="@string/app_name">
+    <application android:icon="@drawable/icon" android:label="@string/app_name" android:debuggable="true">
         <activity android:name=".simpleWeather"
                   android:label="@string/app_name">
             <intent-filter>
