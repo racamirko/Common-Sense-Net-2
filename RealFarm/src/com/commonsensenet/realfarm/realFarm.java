@@ -24,19 +24,28 @@ public class realFarm extends MapActivity {
         MapView mapView = (MapView) findViewById(R.id.mapview);
         myMapController = mapView.getController();
         mapView.setSatellite(true);
+        mapView.setBuiltInZoomControls(true);
+        
+        myMapController.setZoom(20);
 
         List<Overlay> mapOverlays = mapView.getOverlays();
         
         Drawable drawable = this.getResources().getDrawable(R.drawable.icon);
-        MyOverlay itemizedoverlay = new MyOverlay(drawable);
+        MyOverlay itemizedoverlay = new MyOverlay(drawable, this);
         
-        GeoPoint ckPura = new GeoPoint(13194200,78225000);
+        GeoPoint ckPura = new GeoPoint(14054563,77167003);
         myMapController.animateTo(ckPura);
+        
         OverlayItem overlayitem = new OverlayItem(ckPura, "Hello!", "I'm in ckPura!");
         itemizedoverlay.addOverlay(overlayitem);
         
         mapOverlays.add(itemizedoverlay);
-                
+        
+        /*
+         * Custom drawings
+         */
+        Drawable drawable2 = this.getResources().getDrawable(R.drawable.here);
+        
     }
  
     
