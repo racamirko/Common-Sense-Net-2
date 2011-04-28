@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
+    <TextView android:layout_height="wrap_content" android:id="@+id/textView1" android:text="Common Sense Application 2.0" android:layout_width="wrap_content"></TextView>
+    <LinearLayout android:id="@+id/linearLayout1" android:layout_height="wrap_content" android:layout_width="match_parent" android:orientation="vertical">
+        <Button android:layout_height="wrap_content" android:layout_width="120px" android:id="@+id/button1" android:text="@string/market" android:onClick="myClickHandler"></Button>
+        <Button android:layout_height="wrap_content" android:id="@+id/button2" android:text="@string/news" android:onClick="myClickHandler" android:layout_width="120px"></Button>
+        <Button android:layout_height="wrap_content" android:layout_width="120px" android:id="@+id/button3" android:text="@string/radio" android:onClick="myClickHandler"></Button>
+            <Button android:layout_height="wrap_content" android:layout_width="120px" android:id="@+id/button4" android:text="@string/weather" android:onClick="myClickHandler"></Button>
+    </LinearLayout>
+    <LinearLayout android:id="@+id/linearLayout2" android:layout_height="wrap_content" android:layout_width="match_parent">
+    </LinearLayout>
+    <EditText android:layout_height="wrap_content" android:text="Log Statistics" android:layout_width="match_parent" android:id="@+id/editText1"></EditText>
+    <Button android:layout_height="wrap_content" android:layout_width="120px" android:text="@string/send" android:id="@+id/button5" android:onClick="myClickHandler"></Button>
+    <TextView android:text="TextView" android:id="@+id/textView3" android:layout_width="wrap_content" android:layout_height="wrap_content"></TextView>
+
+</LinearLayout>
