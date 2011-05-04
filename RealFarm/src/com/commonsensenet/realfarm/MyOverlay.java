@@ -59,6 +59,8 @@ public class MyOverlay extends ItemizedOverlay {
        /*
         * Load set of points to draw in overlays
         */
+
+        ManageDatabase db = new ManageDatabase(mContext);
         
         /*
          * Draw set of overlays
@@ -73,9 +75,10 @@ public class MyOverlay extends ItemizedOverlay {
         paint.setAntiAlias(true);
         paint.setStyle(Style.FILL);
         paint.setDither(true);
-        paint.setColor(android.graphics.Color.RED);
+//        paint.setColor(android.graphics.Color.RED);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
-         
+        paint.setARGB (100, 100, 100, 100);
+
         
         /*
          * Define points of figure to draw
@@ -97,7 +100,6 @@ public class MyOverlay extends ItemizedOverlay {
          */
         Path path = new Path();
         path.setFillType(Path.FillType.EVEN_ODD);
-        paint.setARGB (100, 100, 100, 100);
         path.moveTo(screenCoords.x,screenCoords.y);
         path.lineTo(screenCoords1.x,screenCoords1.y);
         path.lineTo(screenCoords2.x,screenCoords2.y);
