@@ -6,10 +6,14 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.PathShape;
+import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
+import com.google.android.maps.Projection;
 
 public class PlotOverlay extends Overlay {
 	private Context mContext;
@@ -117,9 +121,15 @@ public class PlotOverlay extends Overlay {
                 /*
                  * Draw the filled form
                  */
-                canvas.drawPath(path, paint);
+//                canvas.drawPath(path, paint);
                 
+                PathShape pShape = new PathShape(path, (float) 100, (float) 100);
+                ShapeDrawable mShape = new ShapeDrawable(pShape); 
+                mShape.getPaint().set(paint);
+                mShape.setBounds(0, 0, 100, 100);
                 
+                mShape.draw(canvas);
+
                 
         	} 
         	while (c.moveToNext());
@@ -135,6 +145,12 @@ public class PlotOverlay extends Overlay {
 		// Need to test where the tap is in the one of the above defined areas and which one		
         //Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
 
+        Projection mProjection = mapView.getProjection();
+        Point touched = new Point();
+        mProjection.toPixels(p, touched);
+        
+//        if (mPoly.contains(touched.x, touched.y))
+        	Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
 		
 		return true;
 	}
