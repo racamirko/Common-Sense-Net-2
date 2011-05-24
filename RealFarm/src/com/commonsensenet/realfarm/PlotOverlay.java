@@ -21,6 +21,7 @@ public class PlotOverlay extends Overlay {
 	private String user;
 	private int time;
 	private int x1, y1, x2, y2, x3, y3, x4, y4;
+	private Polygon mPoly[];
 
 	PlotOverlay(ManageDatabase database, Context context){
 		this.db = database;
@@ -69,6 +70,7 @@ public class PlotOverlay extends Overlay {
        
         if (c.getCount() > 0)
         {
+        	int i = 0;
         	c.moveToFirst();
         	do {
         		
@@ -123,6 +125,20 @@ public class PlotOverlay extends Overlay {
                  */
 //                canvas.drawPath(path, paint);
                 
+                int[] polyX = new int[4];
+                polyX[0] = screenCoords.x;
+                polyX[1] = screenCoords1.x;
+                polyX[2] = screenCoords2.x;
+                polyX[3] = screenCoords3.x;
+                
+                int[] polyY= new int[4];
+                polyY[0] = screenCoords.y;
+                polyY[1] = screenCoords1.y;
+                polyY[2] = screenCoords2.y;
+                polyY[3] = screenCoords3.y;
+                
+                mPoly[i] = new Polygon(polyX, polyY, polyX.length);
+                
                 PathShape pShape = new PathShape(path, (float) 100, (float) 100);
                 ShapeDrawable mShape = new ShapeDrawable(pShape); 
                 mShape.getPaint().set(paint);
@@ -130,7 +146,7 @@ public class PlotOverlay extends Overlay {
                 
                 mShape.draw(canvas);
 
-                
+                i = i + 1;
         	} 
         	while (c.moveToNext());
         } 
@@ -149,7 +165,7 @@ public class PlotOverlay extends Overlay {
         Point touched = new Point();
         mProjection.toPixels(p, touched);
         
-//        if (mPoly.contains(touched.x, touched.y))
+        if (mPoly.contains(touched.x, touched.y))
         	Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
 		
 		return true;
