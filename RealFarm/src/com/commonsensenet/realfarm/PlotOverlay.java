@@ -21,7 +21,7 @@ public class PlotOverlay extends Overlay {
 	private String user;
 	private int time;
 	private int x1, y1, x2, y2, x3, y3, x4, y4;
-	private Polygon[] mPoly;
+	private Polygon mPoly[] = new Polygon[4];
 
 	PlotOverlay(ManageDatabase database, Context context){
 		this.db = database;
@@ -158,16 +158,16 @@ public class PlotOverlay extends Overlay {
 	
 	@Override public boolean onTap(GeoPoint p, MapView mapView){
 		
-		// Need to test where the tap is in the one of the above defined areas and which one		
-        //Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
-
         Projection mProjection = mapView.getProjection();
         Point touched = new Point();
         mProjection.toPixels(p, touched);
         
-        for (int i=0; i< mPoly.length ;i++ ){
-        	if (mPoly[i].contains(touched.x, touched.y))
-        		Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
+        if (mPoly[0]!=null){
+
+        	for (int i=0; i < 3 ;i++ ){
+	        	if (mPoly[i].contains(touched.x, touched.y))
+	        		Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
+	        }
         }
 		return true;
 	}
