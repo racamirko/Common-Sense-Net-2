@@ -1,12 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
+
+<RelativeLayout
   xmlns:android="http://schemas.android.com/apk/res/android"
+  android:orientation="vertical"
   android:layout_width="fill_parent"
-  android:layout_height="fill_parent">
+  android:layout_height="fill_parent"> 
   
-  <TextView android:id="@+id/text"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Plot" />
-  
+<LinearLayout android:layout_width="fill_parent" android:layout_height="fill_parent" android:id="@+id/linearLayout1" android:orientation="vertical"   xmlns:android="http://schemas.android.com/apk/res/android">
+        <TextView android:text="@string/you" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="40sp" android:id="@+id/text"></TextView>
+		<View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#D3CACA66"/>
+
+        <TextView android:text="@string/firstname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/text"></TextView><EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/editText1"></EditText>
+        <TextView android:text="@string/lastname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/text"></TextView><EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/editText1"></EditText>
+        <ImageView android:maxWidth="50px" android:layout_width="100dp" android:src="@drawable/male" android:layout_height="100dp" android:id="@+id/profileImage" android:maxHeight="50px"></ImageView>
+                
+        <TextView android:text="@string/map" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="40sp" android:id="@+id/text"></TextView>
+		<View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#D3CACA66"/>
+		
+		
+        
 </LinearLayout>
+
+</RelativeLayout>
