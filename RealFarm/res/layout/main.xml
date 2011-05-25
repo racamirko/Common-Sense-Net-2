@@ -61,15 +61,11 @@
 	    	android:background="#BF000000" 
 	    	android:orientation="horizontal">
 	    		
-	    		
-			<TextView android:id="@+id/text"
-              android:layout_width="wrap_content"
-              android:layout_height="wrap_content"
-              android:text="Plot" />
 
 	    		<Button android:id="@+id/Button01" 
 	    			android:layout_width="wrap_content" 
-	    			android:layout_height="wrap_content" 
+	    			android:layout_height="wrap_content"
+	    			android:drawableTop="@android:drawable/ic_menu_add" 
 	    			android:text="Plot"></Button>
 				<Button android:id="@+id/Button02" 
 					android:layout_width="wrap_content" 

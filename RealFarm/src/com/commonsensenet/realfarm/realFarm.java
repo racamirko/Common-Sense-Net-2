@@ -9,6 +9,7 @@ import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -39,7 +40,8 @@ public class realFarm extends MapActivity {
     private GeoPoint ckPura;
     private ManageDatabase db;
     private PopupPanel panel;
-
+    private MediaPlayer mp;
+    private MyOverlay overlayOld = null;
 	@Override public void onCreate(Bundle savedInstanceState) {
     	
 		super.onCreate(savedInstanceState);
@@ -52,28 +54,18 @@ public class realFarm extends MapActivity {
         mapView.setSatellite(true);
         myMapController = mapView.getController();
 		myMapController.setZoom(20);
-
-
-		
 		
         // Define location manager
         lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE);
 
         // Define overlays
         List<Overlay> mapOverlays = mapView.getOverlays();
-        
-//        Drawable drawable = this.getResources().getDrawable(R.drawable.marker);
-//        MyOverlay itemizedoverlay = new MyOverlay(drawable, this, mapView, panel);
         ckPura = new GeoPoint(14054563,77167003);
 
 		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null){
 			myMapController.animateTo(ckPura);
 		}
 		
-//        OverlayItem overlayitem = new OverlayItem(ckPura, "Hello!", "CKPura!");
-//        itemizedoverlay.addOverlay(overlayitem);
-//        mapOverlays.add(itemizedoverlay);
-        
         
         // Create popup panel that is displayed when tapping on an element
         panel = new PopupPanel(R.layout.popup);
@@ -94,11 +86,16 @@ public class realFarm extends MapActivity {
 	    criteria.setBearingRequired(false);
 	    criteria.setCostAllowed(true);
 	    criteria.setPowerRequirement(Criteria.POWER_LOW);
+	    
+	    // Load sounds
+	    mp = MediaPlayer.create(this, R.raw.sound22);
+	    
 
-        // Define action on press on "here" button
+        // Define action on short click on "here" button
         final Button button = (Button) findViewById(R.id.topBtn);
         button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
+        	
+        	public void onClick(View v) {
             	
         	    // Get best location provider given criteria
         	    //String provider = lm.getBestProvider(criteria, true);
@@ -107,7 +104,26 @@ public class realFarm extends MapActivity {
         		//lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
         		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 10000, locationListenerGps);
         		//lm.requestLocationUpdates(provider, 0, 0, locationListenerGps);
-        		
+            
+
+            }
+        });
+        
+        // Action on long click of here button
+        button.setOnLongClickListener(new View.OnLongClickListener() {
+        	
+        	public boolean onLongClick(View v) {
+            	
+        		mp.start();
+        	    // Get best location provider given criteria
+        	    //String provider = lm.getBestProvider(criteria, true);
+
+//        	    LocationListener locationListenerGps = new MyLocationListener();
+        		//lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0, locationListenerGps);
+//        		lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0, 10000, locationListenerGps);
+        		//lm.requestLocationUpdates(provider, 0, 0, locationListenerGps);
+            
+        		return true;
             }
         });
 
@@ -151,8 +167,14 @@ public class realFarm extends MapActivity {
     }
     
         
+    /**
+     * Listen to location requests
+     * @author julien
+     */
     public class MyLocationListener implements LocationListener {
-	    public void onLocationChanged(Location location) {
+	    
+    	
+    	public void onLocationChanged(Location location) {
 
 	    	if (location != null) {
 	    		int lat = (int) (location.getLatitude()* 1000000);
@@ -162,17 +184,18 @@ public class realFarm extends MapActivity {
     			myMapController.setZoom(20);
     			
 	    		// Display icon at my current location
+    			
 	            List<Overlay> mapOverlays = mapView.getOverlays();
 	            Drawable drawable = getResources().getDrawable(R.drawable.marker);
 	            MyOverlay itemizedoverlay = new MyOverlay(drawable,getApplicationContext(), mapView, panel);
-
 	            OverlayItem overlayitem = new OverlayItem(p, "Hello!", "You are here");
 	            itemizedoverlay.addOverlay(overlayitem);
-	            
-	            mapOverlays.removeAll(mapOverlays);
-	            
+	            	
+	            //mapOverlays.removeAll(mapOverlays);
+	            mapView.getOverlays().remove(overlayOld);
 	            mapOverlays.add(itemizedoverlay);
-	            
+	            overlayOld = itemizedoverlay;
+	            mapView.invalidate();
 	    	}
 
 	    	
@@ -251,6 +274,9 @@ public class realFarm extends MapActivity {
 	}
  
 	
+	/*
+	 * Menu definition
+	 */
 	
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
