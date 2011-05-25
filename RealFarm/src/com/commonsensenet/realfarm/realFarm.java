@@ -70,16 +70,17 @@ public class realFarm extends MapActivity {
 //        mapOverlays.add(itemizedoverlay);
         
         
+        // Create popup panel that is displayed when tapping on an element
+        panel = new PopupPanel(R.layout.popup);
+
         
     	db = new ManageDatabase(this);
 		db.open();
 		db.initValues();
 		db.close();
-        PlotOverlay myPlot = new PlotOverlay(db, this);
+        PlotOverlay myPlot = new PlotOverlay(db, this, panel);
         mapOverlays.add(myPlot);
         
-        // Create popup panel that is displayed when tapping on an element
-        panel = new PopupPanel(R.layout.popup);
        
 	    // Criteria on how to obtain location information
 	    final Criteria criteria = new Criteria();

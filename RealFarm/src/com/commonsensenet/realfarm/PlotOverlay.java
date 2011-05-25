@@ -8,8 +8,11 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
+import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.commonsensenet.realfarm.realFarm.PopupPanel;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
@@ -22,10 +25,13 @@ public class PlotOverlay extends Overlay {
 	private int time;
 	private int x1, y1, x2, y2, x3, y3, x4, y4;
 	private Polygon mPoly[] = new Polygon[4];
+	private PopupPanel panel;
 
-	PlotOverlay(ManageDatabase database, Context context){
+
+	PlotOverlay(ManageDatabase database, Context context, PopupPanel RPanel){
 		this.db = database;
 		mContext = context;
+		panel = RPanel;
 		
 		// Define database
     	db = new ManageDatabase(mContext);
@@ -165,8 +171,20 @@ public class PlotOverlay extends Overlay {
         if (mPoly[0]!=null){
 
         	for (int i=0; i < 3 ;i++ ){
-	        	if (mPoly[i].contains(touched.x, touched.y))
-	        		Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
+	        	if (mPoly[i].contains(touched.x, touched.y)){
+//	        		Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
+	        	
+	        		View view = panel.getView();
+	        		
+
+	        		((TextView) view.findViewById(R.id.latitude)).setText(String.valueOf(p.getLatitudeE6() / 1000000.0));
+	        		((TextView) view.findViewById(R.id.longitude)).setText(String.valueOf(p.getLongitudeE6() / 1000000.0));
+	        		((TextView) view.findViewById(R.id.x)).setText(String.valueOf(touched.x));
+	        		((TextView) view.findViewById(R.id.y)).setText(String.valueOf(touched.y));
+	        		
+	        		panel.show(touched.y * 2 > mapView.getHeight());
+
+	        	}
 	        }
         }
 		return true;
