@@ -8,4 +8,10 @@
     <string name="firstname">Firstname</string>
     <string name="lastname">Lastname</string>
     <string name="map">Map</string>
+    <string name="plot">Plots</string>
+    <string name="news">News</string>
+    <string name="friends">Friends</string>
+    <string name="mylocation">Find me</string>
+    <string name="village">Village</string>
+    <string name="menu">Menu</string>
 </resources>
