@@ -39,13 +39,13 @@
 			android:background="#BF000000" android:orientation="horizontal">
 
 			<LinearLayout android:layout_width="wrap_content" android:paddingRight="10dip"
-				android:layout_height="fill_parent" android:orientation="vertical">
+				android:layout_height="fill_parent" android:orientation="vertical" android:id="@+id/contentplot">
 
 				<TextView android:text="@string/plot" android:layout_width="wrap_content"
 					android:layout_height="wrap_content" android:textSize="20sp"
 					android:id="@+id/plots"></TextView>
 
-				<Button android:layout_width="wrap_content" android:text="ref1"
+				<!-- <Button android:layout_width="wrap_content" android:text="ref1"
 					android:layout_height="wrap_content" android:id="@+id/plotRef1">
 				</Button>
 
@@ -53,7 +53,7 @@
 					android:layout_height="wrap_content" android:id="@+id/plotRef2">
 				</Button>
 				
-				<!-- <ImageView android:id="@+id/Button01" android:layout_width="30dip" 
+				<ImageView android:id="@+id/Button01" android:layout_width="30dip" 
 					android:layout_height="30dip" android:clickable="true" android:src="@android:drawable/ic_menu_add"></ImageView> -->
 
 			</LinearLayout>

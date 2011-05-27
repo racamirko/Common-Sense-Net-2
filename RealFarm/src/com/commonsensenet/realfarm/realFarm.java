@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
 import android.widget.Toast;
@@ -155,8 +156,8 @@ public class realFarm extends MapActivity {
         // Create slider
         slidingDrawer = (SlidingDrawer) this.findViewById(R.id.slidingDrawer);
         
-        
-        
+        // manage plots in menu
+        managePlots();
         
     }
  
@@ -302,5 +303,37 @@ public class realFarm extends MapActivity {
 	        return super.onOptionsItemSelected(item);
 	    }
 	}
+	
+	/**
+	 * Manage submenu of plots
+	 * @author Julien Freudiger
+	 * @return boolean indicating success/failure of operations
+	 */
+	public boolean managePlots(){
+
+		// Read entries for this user
+		db.open();
+		// todo: need way to query all plots of a given user
+		// todo: need way to know current user
+		db.close();
+
+		
+		// Load layout in which to add buttons
+		LinearLayout container = (LinearLayout) findViewById(R.id.contentplot);
+
+		
+		// for each plot entry, add button
+		for (int i=0; i<2; i++){
+			Button b = new Button (this);
+	        b.setText("ref"+i);
+	        b.setOnClickListener(new View.OnClickListener() { public void onClick(View v) { myMapController.animateTo(ckPura); } });
+	        container.addView(b);
+		}
+		
+		
+		return true;
+		
+	}
+	
 	
 }
