@@ -14,4 +14,8 @@
     <string name="mylocation">Find me</string>
     <string name="village">Village</string>
     <string name="menu">Menu</string>
+    <string name="ok">ok</string>
+    <string name="cancel">Cancel</string>
+    <string name="exitMsg">Sure you want to quit?</string>
+    <string name="exitTitle">Exit</string>
 </resources>

@@ -2,7 +2,9 @@ package com.commonsensenet.realfarm;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
@@ -43,6 +45,12 @@ public class realFarm extends MapActivity {
     private PopupPanel panel;
     private MediaPlayer mp;
     private MyOverlay overlayOld = null;
+    
+    /**
+     * default method called by android on activity creation
+     * @param Bundle current state of application 
+     * @author Julien Freudiger
+     */
 	@Override public void onCreate(Bundle savedInstanceState) {
     	
 		super.onCreate(savedInstanceState);
@@ -167,10 +175,14 @@ public class realFarm extends MapActivity {
         return false;
     }
     
-        
+    
+    /*
+     * location class   
+     */
+    
     /**
-     * Listen to location requests
-     * @author julien
+     * Class that listens to location requests
+     * @author Julien Freudiger
      */
     public class MyLocationListener implements LocationListener {
 	    
@@ -217,6 +229,9 @@ public class realFarm extends MapActivity {
     }
     
     
+    /*
+	 * Popup class
+	 */
 
 	/**
 	 * Class that defines popup format
@@ -279,6 +294,12 @@ public class realFarm extends MapActivity {
 	 * Menu definition
 	 */
 	
+	/**
+	 * Create options menu
+	 * @param Menu android menu object
+	 * @return boolean true if options menu created successfully
+	 * @author Julien Freudiger
+	 */
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 	    MenuInflater inflater = getMenuInflater();
@@ -287,7 +308,12 @@ public class realFarm extends MapActivity {
 	}
 	
 	
-	
+	/**
+	 * Detects presses on options menu and creates corresponding activity
+	 * @param MenuItem clicked menu item
+	 * @return boolean true if item pressed
+	 * @author Julien Freudiger
+	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 	    // Handle item selection
@@ -297,11 +323,31 @@ public class realFarm extends MapActivity {
 	    	startActivity(myIntent);
 	        return true;
 	    case R.id.help:
-	        
+	        // todo: add help support
 	        return true;
 	    default:
 	        return super.onOptionsItemSelected(item);
 	    }
+	}
+	
+	/**
+	 * Intercept back button press by user in main screen and request quitting confirmation from user
+	 * @author Julien Freudiger
+	 */
+	@Override
+	public void onBackPressed(){
+		new AlertDialog.Builder(this)
+		.setIcon(android.R.drawable.ic_dialog_alert)
+		.setTitle(R.string.exitTitle)
+		.setMessage(R.string.exitMsg)
+		.setNegativeButton(android.R.string.cancel, null)
+		.setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+			public void onClick(DialogInterface dialog, int which){
+			// Exit the activity
+				realFarm.this.finish();
+			}
+		}).show();
+		 
 	}
 	
 	/**
