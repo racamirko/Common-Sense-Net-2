@@ -1,5 +1,5 @@
 package com.commonsensenet.realfarm.maps.utils;
 
-public enum ImageDownloaderMode {
+public enum DownloadMode {
 	ASYNC_TASK, NO_ASYNC_TASK;
 }

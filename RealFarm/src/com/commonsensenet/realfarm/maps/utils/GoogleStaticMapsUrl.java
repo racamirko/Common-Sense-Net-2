@@ -20,6 +20,12 @@ public class GoogleStaticMapsUrl {
 	// maptype=satellite
 	// center=14.054162,77.16711
 	
+//	private String mCenter;
+//	private MapType mMapType;
+//	private Boolean mSensor;
+//	private String mSize;
+//	private int mZoom;
+	
 	/**
 	 * Hashtable that contains all the keys all the keys and values used to
 	 * request a Google Map.

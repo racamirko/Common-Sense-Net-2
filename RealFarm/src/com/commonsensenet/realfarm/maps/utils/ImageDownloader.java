@@ -58,7 +58,7 @@ public class ImageDownloader {
 				// Or if we don't use any bitmap to task association
 				// (NO_DOWNLOADED_DRAWABLE mode)
 				if ((this == bitmapDownloaderTask)
-						|| (mMode != ImageDownloaderMode.ASYNC_TASK)) {
+						|| (mMode != DownloadMode.ASYNC_TASK)) {
 					imageView.setImageBitmap(bitmap);
 				}
 			}
@@ -183,7 +183,7 @@ public class ImageDownloader {
 	}
 
 	/** Mode in which the image will be downloaded. */
-	private ImageDownloaderMode mMode = ImageDownloaderMode.ASYNC_TASK;
+	private DownloadMode mMode = DownloadMode.ASYNC_TASK;
 
 	private final Handler purgeHandler = new Handler();
 	private final Runnable purger = new Runnable() {
@@ -386,7 +386,7 @@ public class ImageDownloader {
 	 * 
 	 * @param mode Mode in which the image will be downloaded.
 	 */
-	public void setMode(ImageDownloaderMode mode) {
+	public void setMode(DownloadMode mode) {
 		mMode = mode;
 		clearCache();
 	}

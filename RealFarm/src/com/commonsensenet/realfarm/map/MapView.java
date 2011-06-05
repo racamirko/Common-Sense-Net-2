@@ -15,16 +15,14 @@ public class MapView extends View {
 	// private Rect _size;
 	// private int _zoom;
 
-	/** Total height of the map in pixels. */
-	private int mMapHeight;
-	/** Total width of the map in pixels. */
-	private int mMapWidth;
-	/** Matrix containing the tiles of the map. */
-	private ArrayList<MapTile> mTiles;
 	/** Height if the display area in pixels. */
 	private int mDisplayHeight;
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
+	/** Total height of the map in pixels. */
+	private int mMapHeight;
+	/** Total width of the map in pixels. */
+	private int mMapWidth;
 	/** Amount to scroll in the x coordinate product of the last ACTION_MOVE. */
 	private float mScrollByX;
 	/** Amount to scroll in the y coordinate product of the last ACTION_MOVE. */
@@ -37,6 +35,8 @@ public class MapView extends View {
 	private float mStartX;
 	/** Initial position in the y coordinate used to track the movement. */
 	private float mStartY;
+	/** Matrix containing the tiles of the map. */
+	private ArrayList<MapTile> mTiles;
 
 	public MapView(Context context, int displayWidth, int displayHeight) {
 		super(context);
@@ -130,7 +130,8 @@ public class MapView extends View {
 			// checks if the tile is inside the viewport
 			if (isInside(currentTile.getX(), currentTile.getY(),
 					currentTile.getWidth(), currentTile.getHeight(),
-					newScrollRectX, newScrollRectY, mDisplayWidth, mDisplayHeight)) {
+					newScrollRectX, newScrollRectY, mDisplayWidth,
+					mDisplayHeight)) {
 				tilesToDraw.add(currentTile);
 			}
 		}

@@ -8,7 +8,6 @@ public class GeoPoint {
 	public GeoPoint(int latitude, int longitude) {
 		_latitude = latitude;
 		_longitude = longitude;
-
 	}
 
 	public int getLatitude() {
