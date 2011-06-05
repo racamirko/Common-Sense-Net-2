@@ -1,13 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="hello">Hello World, realFarm!</string>
-    <string name="app_name">RealFarm</string>
-    <string name="menu_settings">Settings</string>
-    <string name="menu_help">Help</string>
-    <string name="you">You</string>
-    <string name="firstname">Firstname</string>
-    <string name="lastname">Lastname</string>
-    <string name="map">Map</string>
+	<string name="hello">Hello World, realFarm!</string>
+	<string name="app_name">RealFarm</string>
+	<string name="menu_settings">Settings</string>
+	<string name="menu_help">Help</string>
+	<string name="you">You</string>
+	<string name="firstname">Firstname</string>
+	<string name="lastname">Lastname</string>
+	<string name="map">Map</string>
+	<string name="txtMapDownloaderTitle">Map Downloader</string>
+	<string name="txtCenter">Center</string>
+	<string name="txtMapType">Map Type</string>
+	<string name="txtRadius">Radius (in km)</string>
+	<string name="txtInitialZoom">Initial Zoom</string>
+	<string-array name="arrayMapTypes">
+		<item>Satellite</item>
+		<item>Roadmap</item>
+		<item>Hybrid</item>
+		<item>Terrain</item>
+	</string-array>
+	<string name="txtDefaultCenter">14.054162,77.16711</string>
+	<string name="txtDefaultRadius">230</string>
+	<string name="txtDefaultZoom">17</string>
+	<string name="txtPreviewButton">Preview</string>
+	<string name="txtDownloadButton">Download</string>
     <string name="plot">Plots</string>
     <string name="news">News</string>
     <string name="friends">Friends</string>
