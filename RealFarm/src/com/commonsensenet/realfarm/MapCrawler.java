@@ -1,7 +1,15 @@
 package com.commonsensenet.realfarm;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
 import android.app.Activity;
+import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
@@ -9,11 +17,13 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
-import com.commonsensenet.realfarm.maps.utils.GoogleStaticMapsUrl;
-import com.commonsensenet.realfarm.maps.utils.ImageDownloader;
+import com.commonsensenet.realfarm.map.utils.GoogleStaticMapsUrl;
+import com.commonsensenet.realfarm.map.utils.ImageDownloader;
+import com.commonsensenet.realfarm.map.utils.ImageDownloaderNotifiable;
 
-public class MapCrawler extends Activity {
+public class MapCrawler extends Activity implements ImageDownloaderNotifiable {
 
 	/**
 	 * Defines the ratio between pixels and distance in GoogleMaps. This ratio
@@ -29,8 +39,6 @@ public class MapCrawler extends Activity {
 	/** Defines the maximum level of zoom that will be fetched. */
 	public static final int MAX_ZOOM_LEVEL = 20;
 
-	// private String mExternalDirectoryPath;
-
 	/**
 	 * Defines the maximum amount of zoom levels that can be obtained from the
 	 * initial zoom.
@@ -39,6 +47,8 @@ public class MapCrawler extends Activity {
 
 	// min size should be 100x100
 	public static final String TILE_SIZE = "400x400";
+
+	private String mExternalDirectoryPath;
 	/**
 	 * Class used to download images. It handles the downloading process
 	 * asynchronously.
@@ -91,7 +101,7 @@ public class MapCrawler extends Activity {
 			// watermark.
 			final double CONSTANT = 0.0043125;
 			final double WATERMARK = 0.000280;
-			
+
 			centerLat -= WATERMARK * 0.5; // 13px with 17 zoom.
 
 			// gets the first center
@@ -100,16 +110,24 @@ public class MapCrawler extends Activity {
 
 			for (int x = 0; x < tilesNeeded; x++) {
 				for (int y = 0; y < tilesNeeded; y++) {
-					grid[x][y] = prepareURL(lat + "," + lon,
-							mapType, zoomLevel, "400x426");
-					
+					grid[x][y] = prepareURL(lat + "," + lon, mapType,
+							zoomLevel, "400x426");
+
 					lon += CONSTANT;
 
 				}
-				lat -= CONSTANT + WATERMARK; 
+				lat += -CONSTANT + WATERMARK * 0.5;
 				lon = centerLon - CONSTANT * 0.5;
 			}
 			Log.w("MapCrawler", "Grid created");
+
+			// sends the strings to download using the helper class
+			for (int x = 0; x < tilesNeeded; x++) {
+				for (int y = 0; y < tilesNeeded; y++) {
+					mImageDownloader.download(grid[x][y], null);
+				}
+			}
+
 		} else // odd number
 		{
 
@@ -154,21 +172,18 @@ public class MapCrawler extends Activity {
 				Spinner spMapType = (Spinner) findViewById(R.id.spMapType);
 				EditText etZoom = (EditText) findViewById(R.id.etZoom);
 
-				// gets the view where the image will be saved.
-				ImageView imgView = (ImageView) findViewById(R.id.imgPreview);
-
 				// downloads the image
 				mImageDownloader.download(
 						prepareURL(etCenter.getText().toString(), spMapType
 								.getSelectedItem().toString().toLowerCase(),
 								etZoom.getText().toString(), TILE_SIZE),
-						imgView);
+						MapCrawler.this);
 			}
 		});
 
 		// gets the path of the external storage
-		// mExternalDirectoryPath =
-		// Environment.getExternalStorageDirectory().toString();
+		mExternalDirectoryPath = Environment.getExternalStorageDirectory()
+				.toString();
 
 		/*
 		 * mBitmap =
@@ -176,6 +191,13 @@ public class MapCrawler extends Activity {
 		 * ImageView img = (ImageView) findViewById(R.id.imgPreview);
 		 * img.setImageBitmap(mBitmap); saveImage("Prueba.png");
 		 */
+	}
+
+	public void onDownloadComplete(Bitmap bitmap) {
+	
+		// gets the view where the image will be saved.
+		ImageView imgView = (ImageView) findViewById(R.id.imgPreview);
+		imgView.setImageBitmap(bitmap);
 	}
 
 	protected String prepareURL(String center, String maptype, String zoom,
@@ -191,27 +213,41 @@ public class MapCrawler extends Activity {
 
 		return params.getUrlString();
 	}
-	//
-	// public void saveImage(String fileName) {
-	// //
-	// OutputStream outStream = null;
-	// File file = new File(mExternalDirectoryPath, fileName);
-	// try {
-	// outStream = new FileOutputStream(file);
-	// mBitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
-	// outStream.flush();
-	// outStream.close();
-	//
-	// Toast.makeText(MapCrawler.this, "Saved", Toast.LENGTH_LONG).show();
-	//
-	// } catch (FileNotFoundException e) {
-	// e.printStackTrace();
-	// Toast.makeText(MapCrawler.this, e.toString(), Toast.LENGTH_LONG)
-	// .show();
-	// } catch (IOException e) {
-	// e.printStackTrace();
-	// Toast.makeText(MapCrawler.this, e.toString(), Toast.LENGTH_LONG)
-	// .show();
-	// }
-	// }
+
+	/**
+	 * Saves the given Bitmap in the specified path. The Bitmap is stored
+	 * using the PNG format.
+	 * 
+	 * @param fileName name that the file will have
+	 * @param bitmap Bitmap to save as a file.
+	 * 
+	 * @return returns true if the file was saved successfully.
+	 */
+	public Boolean saveImage(String fileName, Bitmap bitmap) {
+		//
+		OutputStream outStream = null;
+		File file = new File(mExternalDirectoryPath, fileName);
+		try {
+			outStream = new FileOutputStream(file);
+			bitmap.compress(Bitmap.CompressFormat.PNG, 100, outStream);
+			outStream.flush();
+			outStream.close();
+
+			Toast.makeText(MapCrawler.this, "Saved", Toast.LENGTH_LONG).show();
+
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+			Toast.makeText(MapCrawler.this, e.toString(), Toast.LENGTH_LONG)
+					.show();
+			return false;
+		} catch (IOException e) {
+			e.printStackTrace();
+			Toast.makeText(MapCrawler.this, e.toString(), Toast.LENGTH_LONG)
+					.show();
+			
+			return false;
+		}
+		
+		return true;
+	}
 }
