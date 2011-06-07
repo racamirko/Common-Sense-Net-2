@@ -13,12 +13,6 @@ public class MapUrl {
 	private static final String SIZE_PARAM = "size";
 	private static final String ZOOM_PARAM = "zoom";
 
-	// size=400x400
-	// zoom=17
-	// sensor=false
-	// maptype=satellite
-	// center=14.054162,77.16711
-
 	private Hashtable<String, String> mValues;
 
 	/**
@@ -33,6 +27,12 @@ public class MapUrl {
 		addParam(SENSOR_PARAM, "false");
 	}
 
+	// size=400x400
+	// zoom=17
+	// sensor=false
+	// maptype=satellite
+	// center=14.054162,77.16711
+	
 	/**
 	 * Adds a parameters to parameters list.
 	 * 

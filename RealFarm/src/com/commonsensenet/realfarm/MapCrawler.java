@@ -21,9 +21,9 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.map.utils.MapUrl;
 import com.commonsensenet.realfarm.map.utils.ImageDownloader;
-import com.commonsensenet.realfarm.map.utils.ImageDownloaderNotifiable;
+import com.commonsensenet.realfarm.map.utils.Notifiable;
 
-public class MapCrawler extends Activity implements ImageDownloaderNotifiable {
+public class MapCrawler extends Activity implements Notifiable {
 
 	/**
 	 * Defines the ratio between pixels and distance in GoogleMaps. This ratio
