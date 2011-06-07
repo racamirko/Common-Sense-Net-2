@@ -10,7 +10,7 @@ import android.view.View;
 
 import com.commonsensenet.realfarm.R;
 
-public class MapView extends View {
+public class OfflineMapView extends View {
 
 	// private Rect _size;
 	// private int _zoom;
@@ -38,7 +38,7 @@ public class MapView extends View {
 	/** Matrix containing the tiles of the map. */
 	private ArrayList<MapTile> mTiles;
 
-	public MapView(Context context, int displayWidth, int displayHeight) {
+	public OfflineMapView(Context context, int displayWidth, int displayHeight) {
 		super(context);
 
 		// sets the current size of the screen in pixels.

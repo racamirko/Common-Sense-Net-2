@@ -19,7 +19,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.map.utils.GoogleStaticMapsUrl;
+import com.commonsensenet.realfarm.map.utils.MapUrl;
 import com.commonsensenet.realfarm.map.utils.ImageDownloader;
 import com.commonsensenet.realfarm.map.utils.ImageDownloaderNotifiable;
 
@@ -87,7 +87,7 @@ public class MapCrawler extends Activity implements ImageDownloaderNotifiable {
 		// creates the grid in order to assign the URLs
 		String[][] grid = new String[tilesNeeded][tilesNeeded];
 
-		if (tilesNeeded % 2 == 0) // even number
+		if (tilesNeeded % 2 == 0) // even number of tiles
 		{
 			// since it's an even grid, first the top left coordinate must be
 			// located.
@@ -203,15 +203,9 @@ public class MapCrawler extends Activity implements ImageDownloaderNotifiable {
 	protected String prepareURL(String center, String maptype, String zoom,
 			String size) {
 
-		GoogleStaticMapsUrl params = new GoogleStaticMapsUrl();
-		params.addParam(GoogleStaticMapsUrl.CENTER_PARAM,
-				center.replaceAll(" ", "+"));
-		params.addParam(GoogleStaticMapsUrl.MAP_TYPE_PARAM, maptype);
-		params.addParam(GoogleStaticMapsUrl.ZOOM_PARAM, zoom);
-		params.addParam(GoogleStaticMapsUrl.SIZE_PARAM, size);
-		params.addParam(GoogleStaticMapsUrl.SENSOR_PARAM, "false");
+		MapUrl mapUrl = new MapUrl(center.replaceAll(" ", "+"), maptype, size, zoom );
 
-		return params.getUrlString();
+		return mapUrl.getUrlString();
 	}
 
 	/**
