@@ -32,7 +32,7 @@ public class MapCrawler extends Activity implements Notifiable {
 	 * accordingly
 	 */
 	public static final double DISTANCE_PIXEL_RATIO = 400.0 / 230.0;
-	/** Indicates the size of the watermark in pixels. 25.8 */
+	/** Indicates the size of the watermark in pixels.*/
 	public static final int GOOGLE_MAPS_WATERMARK_SIZE = 26;
 	/** Path where the maps will be downloaded. */
 	public static final String MAPS_FOLDER = "/realfarm/maps/";
@@ -44,9 +44,8 @@ public class MapCrawler extends Activity implements Notifiable {
 	 * initial zoom.
 	 */
 	public static final int MAX_ZOOM_LEVELS = 3;
-
-	// min size should be 100x100
-	public static final String TILE_SIZE = "400x400";
+	public static final String TILE_SIZE = "400x426";
+	public static final int MINIMUM_TILE_SIZE = 100;
 
 	private String mExternalDirectoryPath;
 	/**
@@ -111,7 +110,7 @@ public class MapCrawler extends Activity implements Notifiable {
 			for (int x = 0; x < tilesNeeded; x++) {
 				for (int y = 0; y < tilesNeeded; y++) {
 					grid[x][y] = prepareURL(lat + "," + lon, mapType,
-							zoomLevel, "400x426");
+							zoomLevel, TILE_SIZE);
 
 					lon += CONSTANT;
 
@@ -119,12 +118,13 @@ public class MapCrawler extends Activity implements Notifiable {
 				lat += -CONSTANT + WATERMARK * 0.5;
 				lon = centerLon - CONSTANT * 0.5;
 			}
+			
 			Log.w("MapCrawler", "Grid created");
 
 			// sends the strings to download using the helper class
 			for (int x = 0; x < tilesNeeded; x++) {
 				for (int y = 0; y < tilesNeeded; y++) {
-					mImageDownloader.download(grid[x][y], null);
+					mImageDownloader.download(grid[x][y], MapCrawler.this);
 				}
 			}
 
