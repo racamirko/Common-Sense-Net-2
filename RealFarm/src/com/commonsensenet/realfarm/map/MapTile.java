@@ -6,13 +6,12 @@ public class MapTile {
 
 	/** Bitmap image contained by the tile. */
 	private Bitmap mBitmap;
+	/** Geographical coordinates of the center of the image. */
+	private GeoPoint mCenter;
 	/** Position of the tile in the x coordinate in the map. */
 	private int mX;
 	/** Position of the tile in the y coordinate in the map. */
 	private int mY;
-
-	// /** Geographical coordinates of the center of the image. */
-	// private GeoPoint _center;
 
 	/**
 	 * Creates a new MapTile instance.
@@ -35,6 +34,10 @@ public class MapTile {
 		return mBitmap;
 	}
 
+	public GeoPoint getCenter() {
+		return mCenter;
+	}
+
 	public int getHeight() {
 		return mBitmap.getHeight();
 	}
@@ -49,5 +52,9 @@ public class MapTile {
 
 	public int getY() {
 		return mY;
+	}
+
+	public void setCenter(GeoPoint value) {
+		mCenter = value;
 	}
 }
