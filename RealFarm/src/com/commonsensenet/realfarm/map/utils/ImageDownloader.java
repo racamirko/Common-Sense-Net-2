@@ -45,8 +45,7 @@ public class ImageDownloader {
 			// complete.
 			if (mNotifiableReference != null) {
 				Notifiable notifiable = mNotifiableReference.get();
-
-				notifiable.onDownloadComplete(bitmap);
+				notifiable.onDownloadComplete(bitmap, mUrl);
 			}
 		}
 	}
@@ -95,6 +94,7 @@ public class ImageDownloader {
 	 *            The URL of the image to download.
 	 * @param notifiable
 	 *            Object that will be notified once the download is complete.
+	 * 			 
 	 */
 	public void download(String url, Notifiable notifiable) {
 
@@ -107,7 +107,7 @@ public class ImageDownloader {
 		switch (mMode) {
 		case NO_ASYNC_TASK:
 			Bitmap bitmap = downloadBitmap(url);
-			notifiable.onDownloadComplete(bitmap);
+			notifiable.onDownloadComplete(bitmap, url);
 			break;
 		case ASYNC_TASK:
 			BitmapDownloaderTask task = new BitmapDownloaderTask(notifiable);
