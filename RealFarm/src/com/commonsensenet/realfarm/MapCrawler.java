@@ -69,7 +69,6 @@ public class MapCrawler extends Activity implements Notifiable {
 	private int mImagesToDownload = 0;
 	/** Information about the tiles that constitute the map. */
 	private Hashtable<String, TileData> mMapTiles;
-
 	/** Folder in which the images will be saved. */
 	private String mTargetFolder;
 
@@ -150,8 +149,9 @@ public class MapCrawler extends Activity implements Notifiable {
 	private void generateMapTiles(double centerLat, double centerLon,
 			double radius, int zoomLevel, String mapType) {
 
-		// distance between centers, in degrees, with zoom level 17, with 400px images.
-		final double CONSTANT =  0.0043125;
+		// distance between centers, in degrees, with zoom level 17, with 400px
+		// images.
+		final double CONSTANT = 0.0043125;
 		// size of the watermark in degrees, with zoom level 17.
 		// the watermark will always be 26px high, given that the tile size
 		// is between 100 and 640 pixels.
