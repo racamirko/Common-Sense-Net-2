@@ -158,9 +158,10 @@ public class MapCrawler extends Activity implements Notifiable {
 
 				}
 
-				// updates the latitude and longitude
+				// updates latitude
 				lat += -CONSTANT + WATERMARK * 0.5;
-				lon = centerLon - CONSTANT * 0.5;
+				// resets the longitude
+				lon = centerLon - CONSTANT * tileOffset;
 			}
 
 			Log.w("MapCrawler", "Grid created");
