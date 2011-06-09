@@ -36,7 +36,7 @@ public class MapUrlBuilder {
 		// adds the necessary parameters to the URL
 		urlParams.append(CENTER_PARAM + "=" + tileData.getCenter().toString());
 		urlParams.append("&");
-		urlParams.append(MAP_TYPE_PARAM + "=" + tileData.getMaptype());
+		urlParams.append(MAP_TYPE_PARAM + "=" + tileData.getMapType());
 		urlParams.append("&");
 		urlParams.append(ZOOM_PARAM + "=" + tileData.getZoom());
 		urlParams.append("&");

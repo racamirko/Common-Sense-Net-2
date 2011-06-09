@@ -11,7 +11,7 @@ public class TileData {
 	/** Coordinates of the center of the tile. */
 	private GeoPoint mCenter;
 	/** Type of map that represents the tile. */
-	private String mMaptype;
+	private String mMapType;
 	/** Size of the tile in pixels. */
 	private String mSize;
 	/** Position in the map grid of the tile in the x coordinate.*/
@@ -22,9 +22,9 @@ public class TileData {
 	private int mZoom;
 
 	public TileData(GeoPoint center, int x, int y, String size, int zoom,
-			String maptype) {
+			String mapType) {
 		mCenter = center;
-		mMaptype = maptype;
+		mMapType = mapType;
 		mSize = size;
 		mX = x;
 		mY = y;
@@ -35,8 +35,8 @@ public class TileData {
 		return mCenter;
 	}
 
-	public String getMaptype() {
-		return mMaptype;
+	public String getMapType() {
+		return mMapType;
 	}
 
 	public String getSize() {
