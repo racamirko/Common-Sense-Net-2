@@ -169,7 +169,10 @@ public class realFarm extends MapActivity {
         
     }
  
-	
+    public ManageDatabase getDatabase(){
+        return db;
+    }
+
     
     @Override protected boolean isRouteDisplayed() {
         return false;
@@ -321,6 +324,7 @@ public class realFarm extends MapActivity {
 	    case R.id.settings:
 	    	Intent myIntent = new Intent(realFarm.this, Settings.class);
 	    	startActivity(myIntent);
+	    	
 	        return true;
 	    case R.id.help:
 	        // todo: add help support

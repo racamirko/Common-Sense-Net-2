@@ -21,12 +21,9 @@ import com.google.android.maps.Projection;
 public class PlotOverlay extends Overlay {
 	private Context mContext;
 	private ManageDatabase db;
-	private String user;
-	private int time;
-	private int x1, y1, x2, y2, x3, y3, x4, y4;
-	private Polygon mPoly[] = new Polygon[4];
+	private Polygon mPoly[];
 	private PopupPanel panel;
-
+	private int nbofPlots;
 
 	PlotOverlay(ManageDatabase database, Context context, PopupPanel RPanel){
 		this.db = database;
@@ -57,16 +54,6 @@ public class PlotOverlay extends Overlay {
         paint.setStrokeWidth(3);
         paint.setStyle(Paint.Style.FILL_AND_STROKE);
         
-
-        /*
-         * Define points of figure to draw
-         */
-       // Point screenCoords = new Point();
-        Point screenCoords1 = new Point();
-        Point screenCoords2 = new Point();
-        Point screenCoords3 = new Point();
-        
-		
        /*
         * Load set of points to draw in overlays
         */
@@ -79,13 +66,14 @@ public class PlotOverlay extends Overlay {
         if ((!c.isClosed()) && (c.getCount() > 0)) // if there are users in the table
         {
         	int i = 0;
+        	nbofPlots = c.getCount();
+        	 mPoly = new Polygon[nbofPlots];
+        	 
         	c.moveToFirst();
         	do { // for each plot, draw them
         		
         		int id = c.getInt(0);
 
-        		//Toast.makeText(mContext, "count:" + c.getCount() + " id: " +id + ", i: "+i,Toast.LENGTH_SHORT).show();
-        		
         		// Draw path
                 Path path = new Path();
                 path.setFillType(Path.FillType.EVEN_ODD);
@@ -119,11 +107,7 @@ public class PlotOverlay extends Overlay {
                         polyX[j] = screenCoords.x;
                         polyY[j] = screenCoords.y;
 
-                		//Toast.makeText(mContext, "x: " +screenCoords.x,Toast.LENGTH_SHORT).show();
-
                         j = j + 1;
-                        
-                        
         			}
         			while (c2.moveToNext());
         			
@@ -162,12 +146,10 @@ public class PlotOverlay extends Overlay {
         
         if (mPoly[0]!=null){
 
-        	for (int i=0; i < 3 ;i++ ){
+        	for (int i=0; i < nbofPlots ;i++ ){
 	        	if (mPoly[i].contains(touched.x, touched.y)){
-//	        		Toast.makeText(mContext, "Hell yeah",Toast.LENGTH_SHORT).show();
 	        	
 	        		View view = panel.getView();
-	        		
 
 	        		((TextView) view.findViewById(R.id.latitude)).setText(String.valueOf(p.getLatitudeE6() / 1000000.0));
 	        		((TextView) view.findViewById(R.id.longitude)).setText(String.valueOf(p.getLongitudeE6() / 1000000.0));
@@ -175,7 +157,6 @@ public class PlotOverlay extends Overlay {
 	        		((TextView) view.findViewById(R.id.y)).setText(String.valueOf(touched.y));
 	        		
 	        		panel.show(touched.y * 2 > mapView.getHeight());
-
 	        	}
 	        }
         }
