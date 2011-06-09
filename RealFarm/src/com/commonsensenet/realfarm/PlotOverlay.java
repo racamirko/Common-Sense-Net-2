@@ -61,7 +61,7 @@ public class PlotOverlay extends Overlay {
         /*
          * Define points of figure to draw
          */
-        Point screenCoords = new Point();
+       // Point screenCoords = new Point();
         Point screenCoords1 = new Point();
         Point screenCoords2 = new Point();
         Point screenCoords3 = new Point();
@@ -70,87 +70,79 @@ public class PlotOverlay extends Overlay {
        /*
         * Load set of points to draw in overlays
         */
+        
         db.open();
-        c = db.GetAllEntries();
-
-       
-        if (c.getCount() > 0)
+        
+        // Get all plots
+        c = db.GetAllEntries("plots", new String[] {"id", "userID"});
+        
+        if ((!c.isClosed()) && (c.getCount() > 0)) // if there are users in the table
         {
         	int i = 0;
         	c.moveToFirst();
-        	do {
+        	do { // for each plot, draw them
         		
-        		int x1 = c.getInt(1);
-        		int y1 = c.getInt(2);
-        		int x2 = c.getInt(3);
-        		int y2 = c.getInt(4);
-        		int x3 = c.getInt(5);
-        		int y3 = c.getInt(6);
-        		int x4 = c.getInt(7);
-        		int y4 = c.getInt(8);
+        		int id = c.getInt(0);
+
+        		//Toast.makeText(mContext, "count:" + c.getCount() + " id: " +id + ", i: "+i,Toast.LENGTH_SHORT).show();
         		
-        		/*
-                 * Draw set of overlays
-                 */
-                
-                GeoPoint ckPura = new GeoPoint(x1,y1);
-                GeoPoint ckPura1 = new GeoPoint(x2,y2);
-                GeoPoint ckPura2 = new GeoPoint(x3,y3);
-                GeoPoint ckPura3 = new GeoPoint(x4,y4);
-                
-                mapView.getProjection().toPixels(ckPura, screenCoords);
-                mapView.getProjection().toPixels(ckPura1, screenCoords1);
-                mapView.getProjection().toPixels(ckPura2, screenCoords2);
-                mapView.getProjection().toPixels(ckPura3, screenCoords3);
-                     
-                /*
-                 * Define path
-                 */
+        		// Draw path
                 Path path = new Path();
                 path.setFillType(Path.FillType.EVEN_ODD);
-                path.moveTo(screenCoords.x,screenCoords.y);
-                path.lineTo(screenCoords1.x,screenCoords1.y);
-                path.lineTo(screenCoords2.x,screenCoords2.y);
-                path.lineTo(screenCoords3.x,screenCoords3.y);
-                path.lineTo(screenCoords.x,screenCoords.y);
-                path.close();
-                
-                /*
-                 * Change paint style depending on user
-                 */
-                
-                String user = c.getString(10);
+        		
+        		// Read points from database for each user
+        		Cursor c2 = db.GetEntries("points", new String[] {"x", "y"}, "plotID ="+ id, null, null, null, null);
+        		
+        		if (c2.getCount() > 0) // if there are points to plot
+        		{
+        			int j = 0;
+        			c2.moveToFirst();
+                    int[] polyX = new int[c2.getCount()];
+                    int[] polyY= new int[c2.getCount()];
 
-                if (user.compareTo("Nitish")==0)
-               		paint.setARGB(100, 100, 100, 100);
-                else
-                	paint.setARGB(100, 200, 200, 100);
-                
-                /*
-                 * Draw the filled form
-                 */
-//                canvas.drawPath(path, paint);
-                
-                int[] polyX = new int[4];
-                polyX[0] = screenCoords.x;
-                polyX[1] = screenCoords1.x;
-                polyX[2] = screenCoords2.x;
-                polyX[3] = screenCoords3.x;
-                
-                int[] polyY= new int[4];
-                polyY[0] = screenCoords.y;
-                polyY[1] = screenCoords1.y;
-                polyY[2] = screenCoords2.y;
-                polyY[3] = screenCoords3.y;
-                
-                mPoly[i] = new Polygon(polyX, polyY, polyX.length);
-                
-                PathShape pShape = new PathShape(path, (float) 100, (float) 100);
-                ShapeDrawable mShape = new ShapeDrawable(pShape); 
-                mShape.getPaint().set(paint);
-                mShape.setBounds(0, 0, 100, 100);
-                
-                mShape.draw(canvas);
+        			do { // for each point in the plot, draw it
+        				
+        				int x1 = c2.getInt(0);
+            			int y1 = c2.getInt(1);
+            			
+                		// Draw overlays
+                        GeoPoint ckPura = new GeoPoint(x1,y1);
+                        Point screenCoords = new Point();
+                        mapView.getProjection().toPixels(ckPura, screenCoords);
+                        paint.setARGB(100, 100, 100, 100);
+                        
+                        if (j==0)
+                            path.moveTo(screenCoords.x,screenCoords.y); // for first point, move to it
+                        else
+                        	path.lineTo(screenCoords.x,screenCoords.y); // For rest, add lines
+                        
+                        polyX[j] = screenCoords.x;
+                        polyY[j] = screenCoords.y;
+
+                		//Toast.makeText(mContext, "x: " +screenCoords.x,Toast.LENGTH_SHORT).show();
+
+                        j = j + 1;
+                        
+                        
+        			}
+        			while (c2.moveToNext());
+        			
+                    path.close();
+
+                    // Change paint style depending on user
+
+                    PathShape pShape = new PathShape(path, (float) 100, (float) 100);
+                    ShapeDrawable mShape = new ShapeDrawable(pShape); 
+                    mShape.getPaint().set(paint);
+                    mShape.setBounds(0, 0, 100, 100);
+                    
+                    mShape.draw(canvas);
+
+                    // Change overlay depending on user
+                    
+                    mPoly[i] = new Polygon(polyX, polyY, polyX.length);
+
+        		}
 
                 i = i + 1;
         	} 
