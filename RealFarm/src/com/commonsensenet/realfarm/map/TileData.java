@@ -1,10 +1,10 @@
 package com.commonsensenet.realfarm.map;
 
 /**
- * 
+ * Contains the information about a Tile used in a map.
  * 
  * @author Oscar Bola–os (oscar.bolanos@epfl.ch)
- *
+ * 
  */
 public class TileData {
 
@@ -12,22 +12,29 @@ public class TileData {
 	private GeoPoint mCenter;
 	/** Type of map that represents the tile. */
 	private String mMapType;
-	/** Size of the tile in pixels. */
-	private String mSize;
-	/** Position in the map grid of the tile in the x coordinate.*/
+	/** Height of the tile in pixels. */
+	private int mTileHeight;
+	/** Width of the tile in pixels. */
+	private int mTileWidth;
+	/** Position in the map grid of the tile in the x coordinate. */
 	private int mX;
-	/** Position in the map grid of the tile in the y coordinate.*/
+	/** Position in the map grid of the tile in the y coordinate. */
 	private int mY;
 	/** Zoom level of the tile. */
 	private int mZoom;
 
-	public TileData(GeoPoint center, int x, int y, String size, int zoom,
-			String mapType) {
+	public TileData(GeoPoint center, int x, int y, int tileWidth,
+			int tileHeight, int zoom, String mapType) {
+
 		mCenter = center;
 		mMapType = mapType;
-		mSize = size;
+		// saves the size
+		mTileWidth = tileWidth;
+		mTileHeight = tileHeight;
+		// sets the position in the grid of the map.
 		mX = x;
 		mY = y;
+
 		mZoom = zoom;
 	}
 
@@ -40,7 +47,7 @@ public class TileData {
 	}
 
 	public String getSize() {
-		return mSize;
+		return mTileWidth + "x" + mTileHeight;
 	}
 
 	public String getUrl() {

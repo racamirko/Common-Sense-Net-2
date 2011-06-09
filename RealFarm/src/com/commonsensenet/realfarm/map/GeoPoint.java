@@ -7,8 +7,7 @@ package com.commonsensenet.realfarm.map;
  * 
  */
 public class GeoPoint {
-
-	// (double)Math.round(value * 100000) / 100000
+	
 	/** Latitude of the GeoPoint in degrees. */
 	private double _latitude;
 	/** Longitude of the GeoPoint in degrees. */
@@ -24,9 +23,12 @@ public class GeoPoint {
 	 * @param longitude
 	 *            the point's longitude
 	 */
+	
+	private static final int PRECISION = 1000000;
+	
 	public GeoPoint(double latitude, double longitude) {
-		_latitude = latitude;
-		_longitude = longitude;
+		_latitude = (double)Math.round(latitude * PRECISION) / PRECISION;
+		_longitude = (double)Math.round(longitude * PRECISION) / PRECISION;
 	}
 
 	/**
