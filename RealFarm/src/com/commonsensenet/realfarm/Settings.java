@@ -25,13 +25,14 @@ public class Settings extends Activity {
 		telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceID = telephonyManager.getDeviceId();
 
-		
-		db = new ManageDatabase(getApplicationContext());
+		realFarm mainApp = ((realFarm)getApplicationContext());
+		db = mainApp.getDatabase();
     	db.open();
     	Cursor c = db.GetEntries("users", new String[] {"firstName", "lastName"}, "mobileNumber=" + deviceID, null, null, null, null);
     	
     	if (c.getCount()>0) { // user exists in database
     		c.moveToFirst();
+           	
 
     		// display his information in box
         	EditText firstname = (EditText) this.findViewById(R.id.editText1);
@@ -53,24 +54,20 @@ public class Settings extends Activity {
         firstnameString = firstname.getText().toString();
     	lastnameString = lastname.getText().toString();
         String origVal = getResources().getText(R.string.firstname).toString();
-
-        Toast.makeText(getApplicationContext(),"firstname "+firstnameString + ", origVal: "+origVal,Toast.LENGTH_SHORT).show();
-        
+       
         if (!firstnameString.equalsIgnoreCase(origVal)) // user defined a name
         {	
         	// check whether to store name in database
-           	Toast.makeText(getApplicationContext(),"user defined name",Toast.LENGTH_SHORT).show();
-
            	// if user exits in database, do nothing, else add him
             String userPhone = telephonyManager.getDeviceId();
 
             db.open();
-            Cursor c = db.GetEntries("users", new String[] {"firstName", "lastName"}, "mobileNumber="+ userPhone, null, null, null, null);
-            
+            Cursor c = db.GetEntries("users", new String[] {"firstName", "lastName", "id"}, "mobileNumber="+ userPhone, null, null, null, null);
+            c.moveToFirst();
         	if (c.getCount()>0) // user is in database
         	{
         		// modify name if needed
-        		// todo: code update method in database class
+        		db.updateUserName(c.getInt(2), firstnameString, lastnameString);
         	}
         	else
         	{
@@ -83,7 +80,6 @@ public class Settings extends Activity {
         	}
         	db.close();
         }
-        
         finish();
 	}
 }

@@ -9,10 +9,10 @@ import android.graphics.Point;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
 import android.view.View;
+import android.widget.SlidingDrawer;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import com.commonsensenet.realfarm.realFarm.PopupPanel;
+import com.commonsensenet.realfarm.realFarmMainActivity.PopupPanel;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
@@ -24,14 +24,16 @@ public class PlotOverlay extends Overlay {
 	private Polygon mPoly[];
 	private PopupPanel panel;
 	private int nbofPlots;
+	private SlidingDrawer slidingDrawer;
+	private boolean sliderClicked = false;
 
-	PlotOverlay(ManageDatabase database, Context context, PopupPanel RPanel){
+	PlotOverlay(ManageDatabase database, Context context, PopupPanel RPanel, SlidingDrawer slidingDrawer){
 		this.db = database;
 		mContext = context;
 		panel = RPanel;
+		this.slidingDrawer = slidingDrawer;
 		
-		// Define database
-    	db = new ManageDatabase(mContext);
+		// Load database if needed
 		db.open();
 		db.initValues();
 		db.close();
@@ -42,6 +44,7 @@ public class PlotOverlay extends Overlay {
 	@Override public void draw(Canvas canvas, MapView mapView, boolean shadow){
 		super.draw(canvas, mapView, shadow);
 		
+		sliderClicked = false;
 		 Cursor c;
 	        
         /*
@@ -160,6 +163,22 @@ public class PlotOverlay extends Overlay {
 	        	}
 	        }
         }
+        
+        
+        // close the sliding drawer in case it is opened and user clicked outside of it
+        slidingDrawer.setOnClickListener(new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				sliderClicked = true;
+				
+			}
+		});
+        
+        if ((slidingDrawer!=null) && (slidingDrawer.isOpened()) && (!sliderClicked)){
+            slidingDrawer.animateClose();
+        }
+
+        
 		return true;
 	}
 	

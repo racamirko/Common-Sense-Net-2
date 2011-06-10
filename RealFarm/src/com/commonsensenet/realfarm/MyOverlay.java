@@ -9,7 +9,7 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.commonsensenet.realfarm.realFarm.PopupPanel;
+import com.commonsensenet.realfarm.realFarmMainActivity.PopupPanel;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;

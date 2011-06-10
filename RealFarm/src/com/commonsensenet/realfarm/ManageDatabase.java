@@ -81,213 +81,217 @@ public class ManageDatabase{
 	 */
 	public void initValues(){
 		
-		// Delete current elements in table
-		db.delete(ACTION_NAME, null, null);
-		db.delete(ACTION, null, null);
-		db.delete(GROWING, null, null);
-		db.delete(PLOT, null, null);
-		db.delete(POINT, null, null);
-		db.delete(SEED, null, null);
-		db.delete(SEEDTYPE, null, null);
-		db.delete(USER, null, null);
+		if (db.getVersion() == 0){
 		
-		// Get current time
-		Calendar c = Calendar.getInstance(); 
-		int seconds = c.get(Calendar.SECOND);
+			// Delete current elements in table
+			db.delete(ACTION_NAME, null, null);
+			db.delete(ACTION, null, null);
+			db.delete(GROWING, null, null);
+			db.delete(PLOT, null, null);
+			db.delete(POINT, null, null);
+			db.delete(SEED, null, null);
+			db.delete(SEEDTYPE, null, null);
+			db.delete(USER, null, null);
+			
+			// Get current time
+			Calendar c = Calendar.getInstance(); 
+			int seconds = c.get(Calendar.SECOND);
+	
+			// users 
+			ContentValues users = new ContentValues();
+			// 1
+			users.put("id", 1);
+			users.put("firstName", "Julien");
+			users.put("lastName", "Freudiger");
+			users.put("mobileNumber", 763949342);
+			insertEntries(USER, users);
+			users.clear();
+			// 2		
+			users.put("id", 2);
+			users.put("firstName", "Hendrik");
+			users.put("lastName", "Knoche");
+			users.put("mobileNumber", 781827182);
+			insertEntries(USER, users);
+			Log.d("RealFarm","users works");
+	
+			
+			// actionNames
+			ContentValues actionNames = new ContentValues();
+			actionNames.put("id", 1);
+			actionNames.put("name", "plough");
+			insertEntries(ACTION_NAME, actionNames);
+			actionNames.clear();
+			actionNames.put("id", 2);
+			actionNames.put("name", "seed");
+			Log.d("RealFarm","actionName works");
+	
+			
+			// actions
+			ContentValues actions = new ContentValues();
+			actions.put("actionID", 1);
+			actions.put("growingID", 1);
+			insertEntries(ACTION, actions);
+			actions.clear();
+			actions.put("actionID", 2);
+			actions.put("growingID", 1);
+			insertEntries(ACTION, actions);
+			actions.clear();
+			actions.put("actionID", 1);
+			actions.put("growingID", 2);
+			insertEntries(ACTION, actions);
+			actions.clear();
+			actions.put("actionID", 1);
+			actions.put("growingID", 3);
+			insertEntries(ACTION, actions);
+			actions.clear();
+			
+			Log.d("RealFarm","ACTION works");
+			
+			// growing 
+			ContentValues growing = new ContentValues();
+			growing.put("id", 1);
+			growing.put("plotID", 1);
+			growing.put("seedID", 1);
+			insertEntries(GROWING, growing);
+			growing.clear();
+			growing.put("id", 2);
+			growing.put("plotID", 2);
+			growing.put("seedID", 1);
+			insertEntries(GROWING, growing);
+			growing.clear();
+			growing.put("id", 3);
+			growing.put("plotID", 3);
+			growing.put("seedID", 1);
+			insertEntries(GROWING, growing);
+			growing.clear();
+			
+			Log.d("RealFarm","growing works");
+	
+			// plots
+			ContentValues plots = new ContentValues();
+			plots.put("id", 1);
+			plots.put("userID", 1);
+			insertEntries(PLOT, plots);
+			plots.clear();
+			plots.put("id", 2);
+			plots.put("userID", 1);
+			insertEntries(PLOT, plots);
+			plots.clear();
+			plots.put("id", 3);
+			plots.put("userID", 2);
+			insertEntries(PLOT, plots);
+			plots.clear();
+			Log.d("RealFarm","plots works");
+	
+	
+			// points 
+			ContentValues pointstoadd = new ContentValues();
+			pointstoadd.put(X, (int)14053519);
+			pointstoadd.put(Y, (int)77170492);
+			pointstoadd.put("plotID", 1);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			Log.d("RealFarm","points 1a works");
+			
+			pointstoadd.put(X, (int)14053333);
+			pointstoadd.put(Y, (int)77170486);
+			pointstoadd.put("plotID", 1);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			
+			pointstoadd.put(X, (int)14053322);
+			pointstoadd.put(Y, (int)77170775);
+			pointstoadd.put("plotID", 1);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			
+			pointstoadd.put(X, (int)14053508);
+			pointstoadd.put(Y, (int)77170769);
+			pointstoadd.put("plotID", 1);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			Log.d("RealFarm","points 1 works");
+	
+	//		values.put(DATE, (int) seconds);
+			
+			// User 2
+			pointstoadd.put(X, (int)14053733);
+			pointstoadd.put(Y, (int)77169697);
+			pointstoadd.put("plotID", 2);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			
+			pointstoadd.put(X, (int)14053689);
+			pointstoadd.put(Y, (int)77170225);
+			pointstoadd.put("plotID", 2);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			pointstoadd.put(X, (int)14053372);
+			pointstoadd.put(Y, (int)77170200);
+			pointstoadd.put("plotID", 2);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			pointstoadd.put(X, (int)14053442);
+			pointstoadd.put(Y, (int)77169622);
+			pointstoadd.put("plotID", 2);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			Log.d("RealFarm","points 2 works");
+	
+	//		values.put(DATE, (int)seconds+1);
+	
+			
+			// User 1 again
+			pointstoadd.put(X, (int)14054019);
+			pointstoadd.put(Y, (int)77170783);
+			pointstoadd.put("plotID", 3);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			
+			pointstoadd.put(X, (int)14054017);
+			pointstoadd.put(Y, (int)77171331);
+			pointstoadd.put("plotID", 3);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			
+			pointstoadd.put(X, (int)14053656);
+			pointstoadd.put(Y, (int)77171344);
+			pointstoadd.put("plotID", 3);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			
+			pointstoadd.put(X, (int)14053675);
+			pointstoadd.put(Y, (int)77170778);
+			pointstoadd.put("plotID", 3);
+			insertEntries(POINT, pointstoadd);
+			pointstoadd.clear();
+			
+			Log.d("RealFarm","points works");
+	
+			ContentValues seed = new ContentValues();
+			seed.put("id", 1);
+			seed.put("seedID", 1);
+			insertEntries(SEED, seed);
+			seed.clear();
+			Log.d("RealFarm","seed works");
+			
+	
+			ContentValues seedtype = new ContentValues();
+			seedtype.put("id", 1);
+			seedtype.put("name", "Groundnut");
+			seedtype.put("variety", "TMV2");
+			insertEntries(SEEDTYPE, seedtype);
+			seedtype.clear();
+			seedtype.put("id", 2);
+			seedtype.put("name", "Groundnut");
+			seedtype.put("variety", "Samrat");
+			insertEntries(SEEDTYPE, seedtype);
+			seedtype.clear();
+			Log.d("RealFarm","seedtype works");
+			
+			db.setVersion(1);
 
-		// users 
-		ContentValues users = new ContentValues();
-		// 1
-		users.put("id", 1);
-		users.put("firstName", "Julien");
-		users.put("lastName", "Freudiger");
-		users.put("mobileNumber", 763949342);
-		insertEntries(USER, users);
-		users.clear();
-		// 2		
-		users.put("id", 2);
-		users.put("firstName", "Hendrik");
-		users.put("lastName", "Knoche");
-		users.put("mobileNumber", 781827182);
-		insertEntries(USER, users);
-		Log.d("RealFarm","users works");
-
-		
-		// actionNames
-		ContentValues actionNames = new ContentValues();
-		actionNames.put("id", 1);
-		actionNames.put("name", "plough");
-		insertEntries(ACTION_NAME, actionNames);
-		actionNames.clear();
-		actionNames.put("id", 2);
-		actionNames.put("name", "seed");
-		Log.d("RealFarm","actionName works");
-
-		
-		// actions
-		ContentValues actions = new ContentValues();
-		actions.put("actionID", 1);
-		actions.put("growingID", 1);
-		insertEntries(ACTION, actions);
-		actions.clear();
-		actions.put("actionID", 2);
-		actions.put("growingID", 1);
-		insertEntries(ACTION, actions);
-		actions.clear();
-		actions.put("actionID", 1);
-		actions.put("growingID", 2);
-		insertEntries(ACTION, actions);
-		actions.clear();
-		actions.put("actionID", 1);
-		actions.put("growingID", 3);
-		insertEntries(ACTION, actions);
-		actions.clear();
-		
-		Log.d("RealFarm","ACTION works");
-		
-		// growing 
-		ContentValues growing = new ContentValues();
-		growing.put("id", 1);
-		growing.put("plotID", 1);
-		growing.put("seedID", 1);
-		insertEntries(GROWING, growing);
-		growing.clear();
-		growing.put("id", 2);
-		growing.put("plotID", 2);
-		growing.put("seedID", 1);
-		insertEntries(GROWING, growing);
-		growing.clear();
-		growing.put("id", 3);
-		growing.put("plotID", 3);
-		growing.put("seedID", 1);
-		insertEntries(GROWING, growing);
-		growing.clear();
-		
-		Log.d("RealFarm","growing works");
-
-		// plots
-		ContentValues plots = new ContentValues();
-		plots.put("id", 1);
-		plots.put("userID", 1);
-		insertEntries(PLOT, plots);
-		plots.clear();
-		plots.put("id", 2);
-		plots.put("userID", 1);
-		insertEntries(PLOT, plots);
-		plots.clear();
-		plots.put("id", 3);
-		plots.put("userID", 2);
-		insertEntries(PLOT, plots);
-		plots.clear();
-		Log.d("RealFarm","plots works");
-
-
-		// points 
-		ContentValues pointstoadd = new ContentValues();
-		pointstoadd.put(X, (int)14053519);
-		pointstoadd.put(Y, (int)77170492);
-		pointstoadd.put("plotID", 1);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		Log.d("RealFarm","points 1a works");
-		
-		pointstoadd.put(X, (int)14053333);
-		pointstoadd.put(Y, (int)77170486);
-		pointstoadd.put("plotID", 1);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		
-		pointstoadd.put(X, (int)14053322);
-		pointstoadd.put(Y, (int)77170775);
-		pointstoadd.put("plotID", 1);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		
-		pointstoadd.put(X, (int)14053508);
-		pointstoadd.put(Y, (int)77170769);
-		pointstoadd.put("plotID", 1);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		Log.d("RealFarm","points 1 works");
-
-//		values.put(DATE, (int) seconds);
-		
-		// User 2
-		pointstoadd.put(X, (int)14053733);
-		pointstoadd.put(Y, (int)77169697);
-		pointstoadd.put("plotID", 2);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		
-		pointstoadd.put(X, (int)14053689);
-		pointstoadd.put(Y, (int)77170225);
-		pointstoadd.put("plotID", 2);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		pointstoadd.put(X, (int)14053372);
-		pointstoadd.put(Y, (int)77170200);
-		pointstoadd.put("plotID", 2);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		pointstoadd.put(X, (int)14053442);
-		pointstoadd.put(Y, (int)77169622);
-		pointstoadd.put("plotID", 2);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		Log.d("RealFarm","points 2 works");
-
-//		values.put(DATE, (int)seconds+1);
-
-		
-		// User 1 again
-		pointstoadd.put(X, (int)14054019);
-		pointstoadd.put(Y, (int)77170783);
-		pointstoadd.put("plotID", 3);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		
-		pointstoadd.put(X, (int)14054017);
-		pointstoadd.put(Y, (int)77171331);
-		pointstoadd.put("plotID", 3);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		
-		pointstoadd.put(X, (int)14053656);
-		pointstoadd.put(Y, (int)77171344);
-		pointstoadd.put("plotID", 3);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		
-		pointstoadd.put(X, (int)14053675);
-		pointstoadd.put(Y, (int)77170778);
-		pointstoadd.put("plotID", 3);
-		insertEntries(POINT, pointstoadd);
-		pointstoadd.clear();
-		
-		Log.d("RealFarm","points works");
-
-		ContentValues seed = new ContentValues();
-		seed.put("id", 1);
-		seed.put("seedID", 1);
-		insertEntries(SEED, seed);
-		seed.clear();
-		Log.d("RealFarm","seed works");
-		
-
-		ContentValues seedtype = new ContentValues();
-		seedtype.put("id", 1);
-		seedtype.put("name", "Groundnut");
-		seedtype.put("variety", "TMV2");
-		insertEntries(SEEDTYPE, seedtype);
-		seedtype.clear();
-		seedtype.put("id", 2);
-		seedtype.put("name", "Groundnut");
-		seedtype.put("variety", "Samrat");
-		insertEntries(SEEDTYPE, seedtype);
-		seedtype.clear();
-		Log.d("RealFarm","seedtype works");
-
-		
+		}
 	}	        
 	
 	/**
@@ -331,6 +335,22 @@ public class ManageDatabase{
 		return db.query(TableName, parameters, null, null, null, null, null);
 		 //new String[] {ID, X1, Y1, X2, Y2, X3, Y3, X4, Y4, DATE, OWNER}
 	}
+	
+	/**
+	 * Method to update user name in database
+	 * @param id
+	 * @param firstname
+	 * @param lastname
+	 * @return boolean indicating success of database update
+	 * @author Julien Freudiger
+	 */
+	public boolean updateUserName(int id, String firstname, String lastname) {
+        ContentValues args = new ContentValues();
+        args.put("id", id);
+        args.put("firstName", firstname);
+        args.put("lastName", lastname);
+        return db.update(USER, args, "id =" + id, null) > 0;
+    }
 	
 	/**
 	 * Class to facilitate creation of database. The database is created only if needed.
