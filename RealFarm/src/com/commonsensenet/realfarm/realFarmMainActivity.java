@@ -21,12 +21,14 @@ import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.maps.GeoPoint;
@@ -36,7 +38,7 @@ import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
 
-public class realFarmMainActivity extends MapActivity {
+public class realFarmMainActivity extends MapActivity{
 
 	private MapController myMapController;
 	private SlidingDrawer slidingDrawer;
@@ -67,6 +69,10 @@ public class realFarmMainActivity extends MapActivity {
 		// Define map
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setSatellite(true);
+		
+//		((RelativeLayout)findViewById(R.id.container)).setOnClickListener(this);
+
+		
 		myMapController = mapView.getController();
 		myMapController.setZoom(20);
 
@@ -86,7 +92,18 @@ public class realFarmMainActivity extends MapActivity {
 
 		// Create slider
 		slidingDrawer = (SlidingDrawer) this.findViewById(R.id.slidingDrawer);
-
+		slidingDrawer.setOnTouchListener(new View.OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				if (slidingDrawer.isOpened())
+				{
+					if (slidingDrawer.getHandle().isPressed()) // default behavior
+						return false;
+					return true; // else do not do anything
+				}
+				return false; // else default behavior
+			}
+		});
+		
 		// Create popup panel that is displayed when tapping on an element
 		panel = new PopupPanel(R.layout.popup);
 
@@ -184,7 +201,7 @@ public class realFarmMainActivity extends MapActivity {
 //	public ManageDatabase getDatabase() {
 //		return db;
 //	}
-
+	
 	@Override
 	protected boolean isRouteDisplayed() {
 		return false;
@@ -438,8 +455,9 @@ public class realFarmMainActivity extends MapActivity {
 		// for each plot entry, add button
 		pointToFocus = new ArrayList<GeoPoint>(c1.getCount());
 		for (int i = 0; i < c1.getCount(); i++) {
-			Button b = new Button(this);
-			b.setText("ref" + i);
+			TextView b = new TextView(this);
+//			Button b = new Button(this);
+			b.setText("Plot " + i);
 			pointToFocus.add(new GeoPoint(averageX[i], averageY[i]));
 			//Toast.makeText(getApplicationContext(), "ptf:"+pointToFocus ,Toast.LENGTH_SHORT).show();
 			b.setId(i);

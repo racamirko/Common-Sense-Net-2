@@ -100,7 +100,7 @@ public class PlotOverlay extends Overlay {
                         GeoPoint ckPura = new GeoPoint(x1,y1);
                         Point screenCoords = new Point();
                         mapView.getProjection().toPixels(ckPura, screenCoords);
-                        paint.setARGB(100, 100, 100, 100);
+                        paint.setARGB(100, 228, 29, 29);
                         
                         if (j==0)
                             path.moveTo(screenCoords.x,screenCoords.y); // for first point, move to it
@@ -117,14 +117,13 @@ public class PlotOverlay extends Overlay {
                     path.close();
 
                     // Change paint style depending on user
-
                     PathShape pShape = new PathShape(path, (float) 100, (float) 100);
                     ShapeDrawable mShape = new ShapeDrawable(pShape); 
                     mShape.getPaint().set(paint);
                     mShape.setBounds(0, 0, 100, 100);
                     
                     mShape.draw(canvas);
-
+                    
                     // Change overlay depending on user
                     
                     mPoly[i] = new Polygon(polyX, polyY, polyX.length);
@@ -164,20 +163,11 @@ public class PlotOverlay extends Overlay {
 	        }
         }
         
-        
-        // close the sliding drawer in case it is opened and user clicked outside of it
-        slidingDrawer.setOnClickListener(new View.OnClickListener() {
-			
-			public void onClick(View v) {
-				sliderClicked = true;
-				
-			}
-		});
-        
-        if ((slidingDrawer!=null) && (slidingDrawer.isOpened()) && (!sliderClicked)){
-            slidingDrawer.animateClose();
+        // When user clicks out of slidingDrawer, close the sliding drawer.
+        if (slidingDrawer.isOpened()) {
+        	slidingDrawer.animateClose();
+        	return false;
         }
-
         
 		return true;
 	}
