@@ -15,7 +15,7 @@ public class Settings extends Activity {
 	private String firstnameString;
 	private String lastnameString;
 	TelephonyManager telephonyManager;
-	private ManageDatabase db;
+	private ManageDatabase managedb;
 	
 	@Override 
 	public void onCreate(Bundle savedInstanceState){
@@ -26,9 +26,10 @@ public class Settings extends Activity {
 		String deviceID = telephonyManager.getDeviceId();
 
 		realFarm mainApp = ((realFarm)getApplicationContext());
-		db = mainApp.getDatabase();
-    	db.open();
-    	Cursor c = db.GetEntries("users", new String[] {"firstName", "lastName"}, "mobileNumber=" + deviceID, null, null, null, null);
+		managedb = mainApp.getDatabase();
+		managedb.open();
+    	
+    	Cursor c = managedb.GetEntries("users", new String[] {"firstName", "lastName"}, "mobileNumber=" + deviceID, null, null, null, null);
     	
     	if (c.getCount()>0) { // user exists in database
     		c.moveToFirst();
@@ -41,7 +42,9 @@ public class Settings extends Activity {
             firstname.setText(c.getString(0));
             lastname.setText(c.getString(1));
     	}
-        db.close();
+    	managedb.close();
+        
+        
 	}
 	
 	
@@ -61,13 +64,13 @@ public class Settings extends Activity {
            	// if user exits in database, do nothing, else add him
             String userPhone = telephonyManager.getDeviceId();
 
-            db.open();
-            Cursor c = db.GetEntries("users", new String[] {"firstName", "lastName", "id"}, "mobileNumber="+ userPhone, null, null, null, null);
+            managedb.open();
+            Cursor c = managedb.GetEntries("users", new String[] {"firstName", "lastName", "id"}, "mobileNumber="+ userPhone, null, null, null, null);
             c.moveToFirst();
         	if (c.getCount()>0) // user is in database
         	{
         		// modify name if needed
-        		db.updateUserName(c.getInt(2), firstnameString, lastnameString);
+        		managedb.updateUserName(c.getInt(2), firstnameString, lastnameString);
         	}
         	else
         	{
@@ -76,9 +79,9 @@ public class Settings extends Activity {
     			usertoadd.put("firstName", firstnameString);
     			usertoadd.put("lastName", lastnameString);
     			usertoadd.put("mobileNumber", userPhone);
-    			db.insertEntries("users", usertoadd);
+    			managedb.insertEntriesdb("users", usertoadd);
         	}
-        	db.close();
+        	managedb.close();
         }
         finish();
 	}

@@ -1,14 +1,17 @@
 package com.commonsensenet.realfarm;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
+import android.widget.Toast;
 
 /**
  * Class to manage database, i.e., input, remove and read data. 
@@ -16,8 +19,9 @@ import android.util.Log;
  */
 public class ManageDatabase{
 
-	private static final String DB_NAME = "realFarm22.db"; // hardcoded database name
-	
+	private static final String DB_NAME = "realFarm.db"; // hardcoded database name
+    private static final int DB_VERSION = 1;  
+    private static final String DB_PATH = "/data/data/com.commonsensenet.realfarm/"; 
 	// Tables
 	private static final String ACTION_NAME = "actionsNames"; // hardcoded table name
 	private static final String ACTION = "actions"; // hardcoded table name
@@ -39,7 +43,7 @@ public class ManageDatabase{
 	// variables
 	private Context mContext;
 	private SQLiteDatabase db;
-	private ManageDatabaseHelper mDB;
+	private ManageDatabaseHelper helperDB;
 
 
 	/**
@@ -50,7 +54,7 @@ public class ManageDatabase{
 	 */
 	public ManageDatabase(Context context){
 		mContext = context;
-		mDB = new ManageDatabaseHelper(mContext);
+		helperDB = new ManageDatabaseHelper(mContext);
 	}
 	
 	/**
@@ -60,10 +64,15 @@ public class ManageDatabase{
 	 * @author Julien Freudiger 
 	 */
 	public ManageDatabase open() throws SQLException{
-        // Opens the database object in "write" mode.
-		db = mDB.getWritableDatabase();
+         
+		// Opens the database object in "write" mode.
+		
 
-        return this;
+		db = helperDB.getWritableDatabase();
+		int test = db.getVersion();
+	//	initValues();
+		
+		return this;
 	}
 	
 	/**
@@ -71,27 +80,37 @@ public class ManageDatabase{
 	 * @author Julien Freudiger 
 	 */
 	public void close(){
-		mDB.close();
+		helperDB.close();
 	}
 
+	
+	public void clearValues(){
+		// Delete current elements in table
+		db.delete(ACTION_NAME, null, null);
+		db.delete(ACTION, null, null);
+		db.delete(GROWING, null, null);
+		db.delete(PLOT, null, null);
+		db.delete(POINT, null, null);
+		db.delete(SEED, null, null);
+		db.delete(SEEDTYPE, null, null);
+		db.delete(USER, null, null);
+		Log.d("RealFarm","Cleared existing content if any");
+	}
+	
 	/**
 	 * Defines hardcoded initial values for database. This method is for testing purposes only 
 	 * and should be replaced by method to obtain location of plots from farmers directly. 
 	 * @author Julien Freudiger 
+	 * @param db 
 	 */
-	public void initValues(){
+	public void initValues(SQLiteDatabase db){
 		
-		if (db.getVersion() == 0){
+		Log.d("RealFarm","Try to fill up tables with content"+db.getVersion());
 		
-			// Delete current elements in table
-			db.delete(ACTION_NAME, null, null);
-			db.delete(ACTION, null, null);
-			db.delete(GROWING, null, null);
-			db.delete(PLOT, null, null);
-			db.delete(POINT, null, null);
-			db.delete(SEED, null, null);
-			db.delete(SEEDTYPE, null, null);
-			db.delete(USER, null, null);
+		//if (db.getVersion() == 1){
+		
+	//		db.setVersion(2);
+			int test = db.getVersion();
 			
 			// Get current time
 			Calendar c = Calendar.getInstance(); 
@@ -104,25 +123,29 @@ public class ManageDatabase{
 			users.put("firstName", "Julien");
 			users.put("lastName", "Freudiger");
 			users.put("mobileNumber", 763949342);
-			insertEntries(USER, users);
+			insertEntries(USER, users, db);
 			users.clear();
 			// 2		
 			users.put("id", 2);
 			users.put("firstName", "Hendrik");
 			users.put("lastName", "Knoche");
 			users.put("mobileNumber", 781827182);
-			insertEntries(USER, users);
+			insertEntries(USER, users, db);
 			Log.d("RealFarm","users works");
 	
+//		    db.setLocale(Locale.getDefault());
+//	        db.setLockingEnabled(true);
+//			Toast.makeText(mContext, "Version= "+db.getVersion(),Toast.LENGTH_SHORT).show();
 			
 			// actionNames
 			ContentValues actionNames = new ContentValues();
 			actionNames.put("id", 1);
 			actionNames.put("name", "plough");
-			insertEntries(ACTION_NAME, actionNames);
+			insertEntries(ACTION_NAME, actionNames, db);
 			actionNames.clear();
 			actionNames.put("id", 2);
 			actionNames.put("name", "seed");
+			insertEntries(ACTION_NAME, actionNames, db);
 			Log.d("RealFarm","actionName works");
 	
 			
@@ -130,19 +153,19 @@ public class ManageDatabase{
 			ContentValues actions = new ContentValues();
 			actions.put("actionID", 1);
 			actions.put("growingID", 1);
-			insertEntries(ACTION, actions);
+			insertEntries(ACTION, actions, db);
 			actions.clear();
 			actions.put("actionID", 2);
 			actions.put("growingID", 1);
-			insertEntries(ACTION, actions);
+			insertEntries(ACTION, actions, db);
 			actions.clear();
 			actions.put("actionID", 1);
 			actions.put("growingID", 2);
-			insertEntries(ACTION, actions);
+			insertEntries(ACTION, actions, db);
 			actions.clear();
 			actions.put("actionID", 1);
 			actions.put("growingID", 3);
-			insertEntries(ACTION, actions);
+			insertEntries(ACTION, actions, db);
 			actions.clear();
 			
 			Log.d("RealFarm","ACTION works");
@@ -152,17 +175,17 @@ public class ManageDatabase{
 			growing.put("id", 1);
 			growing.put("plotID", 1);
 			growing.put("seedID", 1);
-			insertEntries(GROWING, growing);
+			insertEntries(GROWING, growing, db);
 			growing.clear();
 			growing.put("id", 2);
 			growing.put("plotID", 2);
 			growing.put("seedID", 1);
-			insertEntries(GROWING, growing);
+			insertEntries(GROWING, growing, db);
 			growing.clear();
 			growing.put("id", 3);
 			growing.put("plotID", 3);
 			growing.put("seedID", 1);
-			insertEntries(GROWING, growing);
+			insertEntries(GROWING, growing, db);
 			growing.clear();
 			
 			Log.d("RealFarm","growing works");
@@ -171,15 +194,15 @@ public class ManageDatabase{
 			ContentValues plots = new ContentValues();
 			plots.put("id", 1);
 			plots.put("userID", 1);
-			insertEntries(PLOT, plots);
+			insertEntries(PLOT, plots, db);
 			plots.clear();
 			plots.put("id", 2);
 			plots.put("userID", 1);
-			insertEntries(PLOT, plots);
+			insertEntries(PLOT, plots, db);
 			plots.clear();
 			plots.put("id", 3);
 			plots.put("userID", 2);
-			insertEntries(PLOT, plots);
+			insertEntries(PLOT, plots, db);
 			plots.clear();
 			Log.d("RealFarm","plots works");
 	
@@ -189,28 +212,26 @@ public class ManageDatabase{
 			pointstoadd.put(X, (int)14053519);
 			pointstoadd.put(Y, (int)77170492);
 			pointstoadd.put("plotID", 1);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
-			Log.d("RealFarm","points 1a works");
 			
 			pointstoadd.put(X, (int)14053333);
 			pointstoadd.put(Y, (int)77170486);
 			pointstoadd.put("plotID", 1);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			
 			pointstoadd.put(X, (int)14053322);
 			pointstoadd.put(Y, (int)77170775);
 			pointstoadd.put("plotID", 1);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			
 			pointstoadd.put(X, (int)14053508);
 			pointstoadd.put(Y, (int)77170769);
 			pointstoadd.put("plotID", 1);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
-			Log.d("RealFarm","points 1 works");
 	
 	//		values.put(DATE, (int) seconds);
 			
@@ -218,25 +239,25 @@ public class ManageDatabase{
 			pointstoadd.put(X, (int)14053733);
 			pointstoadd.put(Y, (int)77169697);
 			pointstoadd.put("plotID", 2);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			
 			pointstoadd.put(X, (int)14053689);
 			pointstoadd.put(Y, (int)77170225);
 			pointstoadd.put("plotID", 2);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			pointstoadd.put(X, (int)14053372);
 			pointstoadd.put(Y, (int)77170200);
 			pointstoadd.put("plotID", 2);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			pointstoadd.put(X, (int)14053442);
 			pointstoadd.put(Y, (int)77169622);
 			pointstoadd.put("plotID", 2);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
-			Log.d("RealFarm","points 2 works");
+	
 	
 	//		values.put(DATE, (int)seconds+1);
 	
@@ -245,25 +266,25 @@ public class ManageDatabase{
 			pointstoadd.put(X, (int)14054019);
 			pointstoadd.put(Y, (int)77170783);
 			pointstoadd.put("plotID", 3);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			
 			pointstoadd.put(X, (int)14054017);
 			pointstoadd.put(Y, (int)77171331);
 			pointstoadd.put("plotID", 3);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			
 			pointstoadd.put(X, (int)14053656);
 			pointstoadd.put(Y, (int)77171344);
 			pointstoadd.put("plotID", 3);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			
 			pointstoadd.put(X, (int)14053675);
 			pointstoadd.put(Y, (int)77170778);
 			pointstoadd.put("plotID", 3);
-			insertEntries(POINT, pointstoadd);
+			insertEntries(POINT, pointstoadd, db);
 			pointstoadd.clear();
 			
 			Log.d("RealFarm","points works");
@@ -271,7 +292,7 @@ public class ManageDatabase{
 			ContentValues seed = new ContentValues();
 			seed.put("id", 1);
 			seed.put("seedID", 1);
-			insertEntries(SEED, seed);
+			insertEntries(SEED, seed, db);
 			seed.clear();
 			Log.d("RealFarm","seed works");
 			
@@ -280,18 +301,18 @@ public class ManageDatabase{
 			seedtype.put("id", 1);
 			seedtype.put("name", "Groundnut");
 			seedtype.put("variety", "TMV2");
-			insertEntries(SEEDTYPE, seedtype);
+			insertEntries(SEEDTYPE, seedtype, db);
 			seedtype.clear();
 			seedtype.put("id", 2);
 			seedtype.put("name", "Groundnut");
 			seedtype.put("variety", "Samrat");
-			insertEntries(SEEDTYPE, seedtype);
+			insertEntries(SEEDTYPE, seedtype, db);
 			seedtype.clear();
 			Log.d("RealFarm","seedtype works");
 			
-			db.setVersion(1);
-
-		}
+			
+			
+		//}
 	}	        
 	
 	/**
@@ -300,18 +321,35 @@ public class ManageDatabase{
 	 * @return long result is 0 if db close, -1 if error, rowID if success
 	 * @author Julien Freudiger 
 	 */
-	public long insertEntries(String TableName, ContentValues values){
-
-		long result = db.insert(TableName, null, values);
-	
-		if (result == -1){
-			throw new SQLException("Failed to insert row");
-		} 
-
+	public long insertEntries(String TableName, ContentValues values, SQLiteDatabase db){
+		long result = -1;
+		
+		if ( (TableName != null) && (values != null)){
+			//result = db.insert(TableName, null, values);
+			try{
+				result = db.insertOrThrow(TableName, null, values);
+			}
+			catch (SQLException e){
+				Log.d("RealFarm","Exception"+e);
+			}
+		}
 		return result;
-
 	}
-	
+
+	public long insertEntriesdb(String TableName, ContentValues values){
+		long result = -1;
+		
+		if ( (TableName != null) && (values != null)){
+			//result = db.insert(TableName, null, values);
+			try{
+				result = db.insertOrThrow(TableName, null, values);
+			}
+			catch (SQLException e){
+				Log.d("RealFarm","Exception"+e);
+			}
+		}
+		return result;
+	}
 	/**
 	 * Method to read specfic values from table. 
 	 * @return A cursor containing the result of the query.
@@ -319,7 +357,6 @@ public class ManageDatabase{
 	 */
 	
 	public Cursor GetEntries(String TableName, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy){
-		
 		return db.query(TableName, columns, selection, selectionArgs, groupBy, having, orderBy);
 
 	}
@@ -352,6 +389,25 @@ public class ManageDatabase{
         return db.update(USER, args, "id =" + id, null) > 0;
     }
 	
+	
+	private boolean checkDatabase(){
+		SQLiteDatabase checkDB = null;
+	    boolean exist = false;
+	    try {
+	        String dbPath = DB_PATH + DB_NAME;
+	        checkDB = SQLiteDatabase.openDatabase(dbPath, null, SQLiteDatabase.OPEN_READONLY);
+	    } catch (SQLiteException e) {
+	        Log.v("RealFarm", "database does't exist");
+	    }
+
+	    if (checkDB != null) {
+	        exist = true;
+	        checkDB.close();
+	    }
+	    return exist;
+
+	}
+	
 	/**
 	 * Class to facilitate creation of database. The database is created only if needed.
 	 * @author Julien Freudiger 
@@ -359,7 +415,9 @@ public class ManageDatabase{
 	private class ManageDatabaseHelper extends SQLiteOpenHelper{
 				
 		public ManageDatabaseHelper(Context context){
-			super(context,DB_NAME, null, 1);
+			
+			super(context, DB_NAME, null, 1);
+			
 		}		
 	
 		/**
@@ -444,25 +502,13 @@ public class ManageDatabase{
 	        	Log.d("RealFarm","Created user table");
 	        	
 	        	Log.d("RealFarm","Database created successfully");
-
-/*	        	
-	        	db.execSQL("create table " + TABLE_NAME + " ( "
-					+ ID + " integer primary key autoincrement, "
-					+ X1 + " integer, "
-					+ Y1 + " integer, "
-					+ X2 + " integer, " 
-					+ Y2 + " integer, "
-					+ X3 + " integer, " 
-					+ Y3 + " integer, "
-					+ X4 + " integer, "
-					+ Y4 + " integer, "
-					+ DATE + " integer, "
-					+ OWNER + " text not null" + " ); ");
-	        	*/
 	        	
+	        	initValues(db);
+	        		        	
         	} catch (SQLException e){
         		e.printStackTrace();
         	}
+
 
 		}
 		
@@ -471,8 +517,12 @@ public class ManageDatabase{
 		 */
 		@Override public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
-	         // Recreates the database with a new version
-	         onCreate(db);
+	    }
+		
+		@Override public void onOpen(SQLiteDatabase db) {
+
+			super.onOpen(db);
+			
 		}
 	}
 	

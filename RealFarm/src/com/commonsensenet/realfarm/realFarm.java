@@ -19,7 +19,10 @@ public class realFarm extends Application {
 		  }
 	  
 	  public ManageDatabase setDatabase(){
-		  db = new ManageDatabase(this);
+		  // comment out if you want to reuse existing database
+		//  getApplicationContext().deleteDatabase("realFarm.db");
+		  
+		  db = new ManageDatabase(getApplicationContext());
 		  return db;
 	  }
 	  

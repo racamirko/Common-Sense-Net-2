@@ -46,7 +46,7 @@ public class realFarmMainActivity extends MapActivity{
 	LocationManager lm;
 	private MapView mapView = null;
 	private GeoPoint ckPura;
-	private ManageDatabase db;
+	private ManageDatabase managedb;
 	private PopupPanel panel;
 	private MediaPlayer mp;
 	private MyOverlay overlayOld = null;
@@ -69,9 +69,6 @@ public class realFarmMainActivity extends MapActivity{
 		// Define map
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setSatellite(true);
-		
-//		((RelativeLayout)findViewById(R.id.container)).setOnClickListener(this);
-
 		
 		myMapController = mapView.getController();
 		myMapController.setZoom(20);
@@ -106,13 +103,12 @@ public class realFarmMainActivity extends MapActivity{
 		
 		// Create popup panel that is displayed when tapping on an element
 		panel = new PopupPanel(R.layout.popup);
-
+		
 	    realFarm mainApp = ((realFarm)getApplicationContext());
-		db = mainApp.setDatabase();
-		db.open();
-		db.initValues();
-		db.close();
-		PlotOverlay myPlot = new PlotOverlay(db, this, panel, slidingDrawer );
+	    managedb = mainApp.setDatabase();
+	    managedb.open();
+	    managedb.close();
+		PlotOverlay myPlot = new PlotOverlay(managedb, this, panel, slidingDrawer );
 		mapOverlays.add(myPlot);
 
 		// Criteria on how to obtain location information
@@ -305,12 +301,50 @@ public class realFarmMainActivity extends MapActivity{
 				lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
 				lp.setMargins(0, 0, 0, 60);
 			}
+			
 
 			hide();
-
+			
 			((ViewGroup) mapView.getParent()).addView(popup, lp);
-
+			
 			isVisible = true;
+
+				
+			LinearLayout contentPopup = (LinearLayout) popup.findViewById(R.id.contentpopup);
+			
+			contentPopup.removeAllViews();
+			managedb.open();
+////			LinearLayout contentPopup = (LinearLayout) findViewById(R.id.contentpopup);
+			// query all actions
+			Cursor c = managedb.GetEntries("actionsNames", new String[] {"id", "name"}, null, null, null, null, null);
+			c.moveToFirst();
+			
+			if (c.getCount()>0) {
+				int j = 0;
+				do { // for each action
+					
+					TextView b = new TextView(getApplicationContext());
+					b.setText(c.getString(1));
+
+					contentPopup.addView(b);
+					b.setId(c.getInt(0));
+					
+					b.setOnClickListener(new View.OnClickListener() {
+						public void onClick(View v) {
+							Toast.makeText(getApplicationContext(), "Action pressed",Toast.LENGTH_SHORT).show();	
+						}
+					});
+					
+					j = j + 1;
+				}
+				while (c.moveToNext());
+			}
+
+			managedb.close();
+
+
+			
+			
 		}
 
 		void hide() {
@@ -401,22 +435,22 @@ public class realFarmMainActivity extends MapActivity{
 		int[] averageX= null;
 		int[] averageY= null;
 		
-		db.open();
+		managedb.open();
 
 		// query all plots of a given user
-		
 		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceID = telephonyManager.getDeviceId();
 
-		Cursor c = db.GetEntries("users", new String[] {"id"}, "mobileNumber=" + deviceID, null, null, null, null);
+		Cursor c = managedb.GetEntries("users", new String[] {"id"}, "mobileNumber=" + deviceID, null, null, null, null);
     	
 		
-
-		c.moveToFirst();
-		int id = c.getInt(0);
+		if (c.getCount()>0){
+			c.moveToFirst();
+			int id = c.getInt(0);
+		}
 		
 		//Cursor c1 = db.GetEntries("plots", new String[] {"id"}, "userID ="+ id, null, null, null, null);
-		Cursor c1 = db.GetEntries("plots", new String[] {"id"}, "userID ="+ 1, null, null, null, null);
+		Cursor c1 = managedb.GetEntries("plots", new String[] {"id"}, "userID ="+ 1, null, null, null, null);
 		//Toast.makeText(getApplicationContext(), "c1"+c1.getCount(),Toast.LENGTH_SHORT).show();
 		if (c1.getCount()>0) {
 			c1.moveToFirst();
@@ -425,7 +459,7 @@ public class realFarmMainActivity extends MapActivity{
 			averageY = new int[c1.getCount()];
 			
 			do { // for each plot
-				Cursor c2 = db.GetEntries("points", new String[] {"x", "y"}, "plotID ="+ c1.getInt(0), null, null, null, null);
+				Cursor c2 = managedb.GetEntries("points", new String[] {"x", "y"}, "plotID ="+ c1.getInt(0), null, null, null, null);
 				c2.moveToFirst();
 				float[] x = new float[c2.getCount()];
 				float[] y = new float[c2.getCount()];
@@ -447,11 +481,12 @@ public class realFarmMainActivity extends MapActivity{
 			while (c1.moveToNext());
 		}
 
-		db.close();
+		managedb.close();
 
 		// Load layout in which to add buttons
 		LinearLayout container = (LinearLayout) findViewById(R.id.contentplot);
-
+		
+		
 		// for each plot entry, add button
 		pointToFocus = new ArrayList<GeoPoint>(c1.getCount());
 		for (int i = 0; i < c1.getCount(); i++) {

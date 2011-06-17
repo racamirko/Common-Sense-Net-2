@@ -33,11 +33,6 @@ public class PlotOverlay extends Overlay {
 		panel = RPanel;
 		this.slidingDrawer = slidingDrawer;
 		
-		// Load database if needed
-		db.open();
-		db.initValues();
-		db.close();
-		
 	}
 
 	
@@ -60,7 +55,6 @@ public class PlotOverlay extends Overlay {
        /*
         * Load set of points to draw in overlays
         */
-        
         db.open();
         
         // Get all plots
