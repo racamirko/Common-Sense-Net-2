@@ -123,7 +123,7 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 		((TextView) view.findViewById(R.id.x)).setText(String.valueOf(pt.x));
 		((TextView) view.findViewById(R.id.y)).setText(String.valueOf(pt.y));
 
-		panel.show(pt.y * 2 > map.getHeight());
+		panel.show(pt.y * 2 > map.getHeight(), index);
 
 		return true;
 	}

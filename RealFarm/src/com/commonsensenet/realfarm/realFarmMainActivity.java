@@ -17,6 +17,7 @@ import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
+import android.view.Display;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -37,6 +38,7 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.google.android.maps.Projection;
 
 public class realFarmMainActivity extends MapActivity{
 
@@ -51,6 +53,11 @@ public class realFarmMainActivity extends MapActivity{
 	private MediaPlayer mp;
 	private MyOverlay overlayOld = null;
 	private ArrayList<GeoPoint> pointToFocus; 
+	private PlotOverlay myPlot;
+    
+	private int[] averageX= null;
+	private int[] averageY= null;
+	
 	/**
 	 * default method called by android on activity creation
 	 * 
@@ -108,7 +115,7 @@ public class realFarmMainActivity extends MapActivity{
 	    managedb = mainApp.setDatabase();
 	    managedb.open();
 	    managedb.close();
-		PlotOverlay myPlot = new PlotOverlay(managedb, this, panel, slidingDrawer );
+		myPlot = new PlotOverlay(managedb, this, panel, slidingDrawer );
 		mapOverlays.add(myPlot);
 
 		// Criteria on how to obtain location information
@@ -144,22 +151,8 @@ public class realFarmMainActivity extends MapActivity{
 
 		// Action on long click of here button
 		button.setOnLongClickListener(new View.OnLongClickListener() {
-
 			public boolean onLongClick(View v) {
-
 				mp.start();
-				// Get best location provider given criteria
-				// String provider = lm.getBestProvider(criteria, true);
-
-				// LocationListener locationListenerGps = new
-				// MyLocationListener();
-				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				// locationListenerGps);
-				// lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER,
-				// 0, 10000, locationListenerGps);
-				// lm.requestLocationUpdates(provider, 0, 0,
-				// locationListenerGps);
-
 				return true;
 			}
 		});
@@ -194,10 +187,7 @@ public class realFarmMainActivity extends MapActivity{
 
 	}
 
-//	public ManageDatabase getDatabase() {
-//		return db;
-//	}
-	
+
 	@Override
 	protected boolean isRouteDisplayed() {
 		return false;
@@ -285,23 +275,35 @@ public class realFarmMainActivity extends MapActivity{
 		}
 
 		View getView() {
-			return (popup);
+			return (popup);	
 		}
 
-		void show(boolean alignTop) {
-
+		void show(boolean alignTop, int indexPlot) {
+			
+			Polygon mPolygon = myPlot.getOverlay(indexPlot);
+			int[] average = mPolygon.getAverageLL();
+			
+			// Animate selected plot to bottom
+			Projection P = mapView.getProjection();
+			GeoPoint G = P.fromPixels(mapView.getWidth()/2, 0);
+			GeoPoint G1 = mapView.getMapCenter();
+			myMapController.animateTo(new GeoPoint(average[0] - (G1.getLatitudeE6() - G.getLatitudeE6()), average[1]));
+			
+			
 			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
 					RelativeLayout.LayoutParams.WRAP_CONTENT,
 					RelativeLayout.LayoutParams.WRAP_CONTENT);
-
-			if (alignTop) {
-				lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-				lp.setMargins(0, 20, 0, 0);
-			} else {
-				lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-				lp.setMargins(0, 0, 0, 60);
-			}
 			
+			lp.setMargins(0, 60, 0, 20);
+			
+//			if (alignTop) {
+//				lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
+//				lp.setMargins(0, 20, 0, 0);
+//			} else {
+//				lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
+//				lp.setMargins(0, 0, 0, 60);
+//			}
+//			
 
 			hide();
 			
@@ -314,7 +316,6 @@ public class realFarmMainActivity extends MapActivity{
 			
 			contentPopup.removeAllViews();
 			managedb.open();
-////			LinearLayout contentPopup = (LinearLayout) findViewById(R.id.contentpopup);
 			// query all actions
 			Cursor c = managedb.GetEntries("actionsNames", new String[] {"id", "name"}, null, null, null, null, null);
 			c.moveToFirst();
@@ -420,7 +421,6 @@ public class realFarmMainActivity extends MapActivity{
 								realFarmMainActivity.this.finish();
 							}
 						}).show();
-
 	}
 
 	
@@ -432,11 +432,53 @@ public class realFarmMainActivity extends MapActivity{
 	 * @return boolean indicating success/failure of operations
 	 */
 	public boolean managePlots() {
-		int[] averageX= null;
-		int[] averageY= null;
 		
 		managedb.open();
 
+		// Create objects to display in plotOverlay
+        Cursor c0 = managedb.GetAllEntries("plots", new String[] {"id", "userID"});
+        
+        if ((!c0.isClosed()) && (c0.getCount() > 0)) // if there are users in the table
+        {
+        	int i = 0;
+        	        	 
+        	c0.moveToFirst();
+        	do { // for each plot, draw them
+        		
+        		int id = c0.getInt(0);
+	
+        		// Read points from database for each user
+        		Cursor c02 = managedb.GetEntries("points", new String[] {"x", "y"}, "plotID ="+ id, null, null, null, null);
+        		
+        		if (c02.getCount() > 0) // if there are points to plot
+        		{
+        			int j = 0;
+        			c02.moveToFirst();
+                    int[] polyX = new int[c02.getCount()];
+                    int[] polyY= new int[c02.getCount()];
+
+        			do { // for each point in the plot, draw it
+        				
+        				int x1 = c02.getInt(0);
+            			int y1 = c02.getInt(1);
+            			
+                        polyX[j] = x1;
+                        polyY[j] = y1;
+                        
+                        j = j + 1;
+        			}
+        			while (c02.moveToNext());
+        			
+                    // Change overlay depending on user
+        			myPlot.addOverlay(new Polygon(polyX, polyY, polyX.length, id));
+
+        		}
+
+                i = i + 1;
+        	} 
+        	while (c0.moveToNext());
+        } 
+		
 		// query all plots of a given user
 		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceID = telephonyManager.getDeviceId();
@@ -451,7 +493,7 @@ public class realFarmMainActivity extends MapActivity{
 		
 		//Cursor c1 = db.GetEntries("plots", new String[] {"id"}, "userID ="+ id, null, null, null, null);
 		Cursor c1 = managedb.GetEntries("plots", new String[] {"id"}, "userID ="+ 1, null, null, null, null);
-		//Toast.makeText(getApplicationContext(), "c1"+c1.getCount(),Toast.LENGTH_SHORT).show();
+		
 		if (c1.getCount()>0) {
 			c1.moveToFirst();
 			int j = 0;
@@ -491,10 +533,8 @@ public class realFarmMainActivity extends MapActivity{
 		pointToFocus = new ArrayList<GeoPoint>(c1.getCount());
 		for (int i = 0; i < c1.getCount(); i++) {
 			TextView b = new TextView(this);
-//			Button b = new Button(this);
 			b.setText("Plot " + i);
 			pointToFocus.add(new GeoPoint(averageX[i], averageY[i]));
-			//Toast.makeText(getApplicationContext(), "ptf:"+pointToFocus ,Toast.LENGTH_SHORT).show();
 			b.setId(i);
 			b.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
