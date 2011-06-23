@@ -7,13 +7,13 @@ package com.commonsensenet.realfarm.map;
  * 
  */
 public class GeoPoint {
-	
+
 	private static final int PRECISION = 1000000;
 	/** Latitude of the GeoPoint in degrees. */
 	private double _latitude;
 	/** Longitude of the GeoPoint in degrees. */
 	private double _longitude;
-	
+
 	/**
 	 * Creates a new instance of GeoPoint with the given coordinates. The values
 	 * received for latitude and longitude are not trimmed to match the Mercator
@@ -25,8 +25,8 @@ public class GeoPoint {
 	 *            the point's longitude
 	 */
 	public GeoPoint(double latitude, double longitude) {
-		_latitude = (double)Math.round(latitude * PRECISION) / PRECISION;
-		_longitude = (double)Math.round(longitude * PRECISION) / PRECISION;
+		_latitude = (double) Math.round(latitude * PRECISION) / PRECISION;
+		_longitude = (double) Math.round(longitude * PRECISION) / PRECISION;
 	}
 
 	/**
@@ -53,6 +53,10 @@ public class GeoPoint {
 		return _latitude;
 	}
 
+	public int getLatitudeMicroDegrees() {
+		return (int) (_latitude * PRECISION);
+	}
+
 	/**
 	 * Returns the longitude of the GeoPoint in degrees.
 	 * 
@@ -61,15 +65,9 @@ public class GeoPoint {
 	public double getLongitude() {
 		return _longitude;
 	}
-	
-	public int getLatitudeMicroDegrees()
-	{
-		return (int)(_latitude *  PRECISION);
-	}
-	
-	public int getLongitudMicroDegrees()
-	{
-		return (int)(_longitude * PRECISION);
+
+	public int getLongitudMicroDegrees() {
+		return (int) (_longitude * PRECISION);
 	}
 
 	@Override
