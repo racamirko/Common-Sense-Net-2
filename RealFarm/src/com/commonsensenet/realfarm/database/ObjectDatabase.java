@@ -6,11 +6,9 @@ import java.util.Map;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.realFarm;
 import com.commonsensenet.realfarm.overlay.PlotOverlay;
@@ -22,14 +20,12 @@ import com.google.android.maps.MapView;
 public class ObjectDatabase {
 	private ManageDatabase managedb;
 	private Context context;
-	private MapView mapView;
 	private MapController myMapController;
 	private ArrayList<GeoPoint> pointToFocus; 
 	private Map<Integer, String> hm;
 	
 	public ObjectDatabase(realFarm mainApp, Context context, MapView mapView){
 		this.context = context;
-		this.mapView = mapView;
 		
 		myMapController = mapView.getController();
 	    
@@ -91,18 +87,19 @@ public class ObjectDatabase {
         	while (c0.moveToNext());
         } 
 		
-		// query all plots of a given user
-		TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
-		String deviceID = telephonyManager.getDeviceId();
-
-		Cursor c = managedb.GetEntries("users", new String[] {"id"}, "mobileNumber=" + deviceID, null, null, null, null);
-    	
-		// get main user id
-		if (c.getCount()>0){
-			c.moveToFirst();
-			int id = c.getInt(0);
-		}
-		// todo: use main user id in the following
+        // todo: use main user id in the following
+//		// query all plots of a given user
+//		TelephonyManager telephonyManager = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+//		String deviceID = telephonyManager.getDeviceId();
+//
+//		Cursor c = managedb.GetEntries("users", new String[] {"id"}, "mobileNumber=" + deviceID, null, null, null, null);
+//    	
+//		// get main user id
+//		if (c.getCount()>0){
+//			c.moveToFirst();
+//			int id = c.getInt(0);
+//		}
+		
 		Cursor c1 = managedb.GetEntries("plots", new String[] {"id"}, "userID ="+ 1, null, null, null, null);
 		Polygon[] a = null;
 		

@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -24,12 +23,10 @@ import android.widget.LinearLayout;
 import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.database.ManageDatabase;
 import com.commonsensenet.realfarm.database.ObjectDatabase;
 import com.commonsensenet.realfarm.overlay.MyOverlay;
 import com.commonsensenet.realfarm.overlay.PlotOverlay;
 import com.commonsensenet.realfarm.overlay.PopupPanel;
-
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
@@ -45,15 +42,10 @@ public class realFarmMainActivity extends MapActivity{
 	LocationManager lm;
 	private MapView mapView = null;
 	private GeoPoint ckPura;
-	private ManageDatabase managedb;
 	private PopupPanel panel;
 	private MediaPlayer mp;
 	private MyOverlay overlayOld = null;
-	private ArrayList<GeoPoint> pointToFocus; 
 	private PlotOverlay myPlot;
-    
-	private int[] averageX= null;
-	private int[] averageY= null;
 	
 	/**
 	 * default method called by android on activity creation
@@ -84,8 +76,12 @@ public class realFarmMainActivity extends MapActivity{
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		ckPura = new GeoPoint(14054563, 77167003);
 
-		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null) 
+		
+	    		
+		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
 			myMapController.animateTo(ckPura);
+
+			
 
 		// Create slider button
 		drawerButton = (Button) findViewById(R.id.drawerHandle);
@@ -311,9 +307,5 @@ public class realFarmMainActivity extends MapActivity{
 						}).show();
 	}
 
-	
-
-
-	
 
 }

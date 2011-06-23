@@ -3,15 +3,13 @@ package com.commonsensenet.realfarm;
 import com.commonsensenet.realfarm.database.ManageDatabase;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.ContentValues;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
 import android.widget.EditText;
-import android.widget.Toast;
+
 
 public class Settings extends Activity {
 	private String firstnameString;

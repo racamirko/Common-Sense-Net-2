@@ -3,7 +3,6 @@ package com.commonsensenet.realfarm;
 import com.commonsensenet.realfarm.database.ManageDatabase;
 
 import android.app.Application;
-import android.content.Intent;
 
 /**
  * Main class of application. This class is used to share global information across activities such as the database 

@@ -1,8 +1,6 @@
 package com.commonsensenet.realfarm.database;
 
 import java.util.Calendar;
-import java.util.Locale;
-
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -11,7 +9,6 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteException;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.util.Log;
-import android.widget.Toast;
 
 /**
  * Class to manage database, i.e., input, remove and read data. 
@@ -20,7 +17,7 @@ import android.widget.Toast;
 public class ManageDatabase{
 
 	private static final String DB_NAME = "realFarm.db"; // hardcoded database name
-    private static final int DB_VERSION = 1;  
+    
     private static final String DB_PATH = "/data/data/com.commonsensenet.realfarm/"; 
 	// Tables
 	private static final String ACTION_NAME = "actionsNames"; // hardcoded table name
@@ -66,12 +63,7 @@ public class ManageDatabase{
 	public ManageDatabase open() throws SQLException{
          
 		// Opens the database object in "write" mode.
-		
-
 		db = helperDB.getWritableDatabase();
-		int test = db.getVersion();
-	//	initValues();
-		
 		return this;
 	}
 	

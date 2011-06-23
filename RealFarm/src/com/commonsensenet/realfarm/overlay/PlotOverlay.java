@@ -14,7 +14,6 @@ import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.R.id;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
