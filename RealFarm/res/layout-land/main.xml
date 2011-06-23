@@ -23,7 +23,7 @@
 	<Button android:id="@+id/topBtn"
 		android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="Find Me"
+	    android:text="@string/mylocation"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true">
 	 </Button>
@@ -31,7 +31,7 @@
 	 <Button android:id="@+id/topBtn2"
 		android:layout_width="wrap_content"
 	    android:layout_height="wrap_content"
-	    android:text="CKPura"
+	    android:text="@string/village"
 	    android:layout_alignParentLeft="true"
 	    android:layout_alignParentTop="true">
 	 </Button>

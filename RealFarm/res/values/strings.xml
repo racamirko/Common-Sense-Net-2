@@ -34,4 +34,6 @@
     <string name="cancel">Cancel</string>
     <string name="exitMsg">Sure you want to quit?</string>
     <string name="exitTitle">Exit</string>
+    <string name="diary">Diary</string>
+    <string name="actions">Actions</string>
 </resources>

@@ -17,8 +17,9 @@ android:orientation="vertical"
         <TextView android:text="@string/you" android:layout_width="wrap_content" android:layout_height="wrap_content" android:textSize="40sp" android:id="@+id/text"></TextView>
 		<View android:layout_height="1dip" android:layout_width="fill_parent" android:background="#D3CACA66"/>
 
-        <TextView android:text="@string/firstname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/text"></TextView><EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/editText1"></EditText>
-        <TextView android:text="@string/lastname" android:layout_width="wrap_content" android:layout_height="wrap_content" android:id="@+id/text"></TextView><EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:id="@+id/editText1"></EditText>
+
+        <EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/firstname" android:id="@+id/editText1" android:singleLine="true"></EditText>
+        <EditText android:layout_width="fill_parent" android:layout_height="wrap_content" android:hint="@string/lastname"  android:id="@+id/editText2" android:singleLine="true"></EditText>
         <ImageView android:maxWidth="50px" android:layout_width="100dp" android:src="@drawable/male" android:layout_height="100dp" android:id="@+id/profileImage" android:maxHeight="50px"></ImageView>
                 
         <TextView android:text="@string/map" android:layout_width="wrap_content" android:layout_height="wrap_content"  android:textSize="40sp" android:id="@+id/text"></TextView>
