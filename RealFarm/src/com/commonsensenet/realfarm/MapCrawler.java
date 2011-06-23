@@ -287,7 +287,10 @@ public class MapCrawler extends Activity implements Notifiable {
 			// saves the image.
 			saveImage(
 					mTargetFolder + "mapTile_" + data.getX() + "_"
-							+ data.getY() + ".png", bitmap);
+							+ data.getY() + "_"
+							+ data.getCenter().getLatitudeMicroDegrees() + "_"
+							+ data.getCenter().getLongitudMicroDegrees()
+							+ ".png", bitmap);
 
 			if (mMapTiles.isEmpty()) {
 				Toast.makeText(MapCrawler.this,
