@@ -94,7 +94,7 @@ public class ImageDownloader {
 	 *            The URL of the image to download.
 	 * @param notifiable
 	 *            Object that will be notified once the download is complete.
-	 * 			 
+	 * 
 	 */
 	public void download(String url, Notifiable notifiable) {
 
