@@ -1,5 +1,7 @@
 package com.commonsensenet.realfarm;
 
+import com.commonsensenet.realfarm.database.ManageDatabase;
+
 import android.app.Application;
 import android.content.Intent;
 
@@ -20,7 +22,7 @@ public class realFarm extends Application {
 	  
 	  public ManageDatabase setDatabase(){
 		  // comment out if you want to reuse existing database
-		//  getApplicationContext().deleteDatabase("realFarm.db");
+		  getApplicationContext().deleteDatabase("realFarm.db");
 		  
 		  db = new ManageDatabase(getApplicationContext());
 		  return db;

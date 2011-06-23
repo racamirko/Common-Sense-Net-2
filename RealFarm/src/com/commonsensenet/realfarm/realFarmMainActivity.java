@@ -1,14 +1,12 @@
 package com.commonsensenet.realfarm;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.drawable.Drawable;
 import android.location.Criteria;
 import android.location.Location;
@@ -16,21 +14,21 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
-import android.view.Display;
-import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.SlidingDrawer;
-import android.widget.TextView;
 import android.widget.Toast;
+
+import com.commonsensenet.realfarm.database.ManageDatabase;
+import com.commonsensenet.realfarm.database.ObjectDatabase;
+import com.commonsensenet.realfarm.overlay.MyOverlay;
+import com.commonsensenet.realfarm.overlay.PlotOverlay;
+import com.commonsensenet.realfarm.overlay.PopupPanel;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -38,7 +36,6 @@ import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
-import com.google.android.maps.Projection;
 
 public class realFarmMainActivity extends MapActivity{
 
@@ -87,10 +84,9 @@ public class realFarmMainActivity extends MapActivity{
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		ckPura = new GeoPoint(14054563, 77167003);
 
-		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null) {
+		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null) 
 			myMapController.animateTo(ckPura);
-		}
-		
+
 		// Create slider button
 		drawerButton = (Button) findViewById(R.id.drawerHandle);
 
@@ -108,16 +104,22 @@ public class realFarmMainActivity extends MapActivity{
 			}
 		});
 		
-		// Create popup panel that is displayed when tapping on an element
-		panel = new PopupPanel(R.layout.popup);
-		
-	    realFarm mainApp = ((realFarm)getApplicationContext());
-	    managedb = mainApp.setDatabase();
-	    managedb.open();
-	    managedb.close();
-		myPlot = new PlotOverlay(managedb, this, panel, slidingDrawer );
-		mapOverlays.add(myPlot);
 
+	    // Create class managing objects from database 
+		realFarm mainApp = ((realFarm)getApplicationContext());
+		ObjectDatabase od = new ObjectDatabase(mainApp, this, mapView);
+	    
+	    // Create popup panel that is displayed when tapping on an element
+	    panel = new PopupPanel(R.layout.popup, mapView, this, od);
+	    
+	    // create overlay for field plots (includes calls to panel when field tap and closing drawer)
+	    myPlot = new PlotOverlay(panel, slidingDrawer);
+		mapOverlays.add(myPlot); // Add overlay to mapView
+		
+		// Create plots on overlay and in menu
+		LinearLayout container = (LinearLayout) findViewById(R.id.contentplot);
+		od.managePlots(myPlot, container);		
+		
 		// Criteria on how to obtain location information
 		final Criteria criteria = new Criteria();
 		criteria.setAccuracy(Criteria.ACCURACY_FINE);
@@ -180,11 +182,6 @@ public class realFarmMainActivity extends MapActivity{
 			}
 		});
 
-
-		
-		// manage plots in menu
-		managePlots();
-
 	}
 
 
@@ -246,116 +243,7 @@ public class realFarmMainActivity extends MapActivity{
 
 	}
 
-	/*
-	 * Popup class
-	 */
-
-	/**
-	 * Class that defines popup format
-	 * 
-	 * @author Julien Freudiger
-	 */
-	class PopupPanel {
-		View popup;
-		boolean isVisible = false;
-		ViewGroup parent;
-		LayoutInflater inflater;
-
-		// Constructor
-		PopupPanel(int layout) {
-
-			parent = (ViewGroup) mapView.getParent();
-			popup = getLayoutInflater().inflate(layout, parent, false);
-			popup.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					hide();
-				}
-			});
-
-		}
-
-		View getView() {
-			return (popup);	
-		}
-
-		void show(boolean alignTop, int indexPlot) {
-			
-			Polygon mPolygon = myPlot.getOverlay(indexPlot);
-			int[] average = mPolygon.getAverageLL();
-			
-			// Animate selected plot to bottom
-			Projection P = mapView.getProjection();
-			GeoPoint G = P.fromPixels(mapView.getWidth()/2, 0);
-			GeoPoint G1 = mapView.getMapCenter();
-			myMapController.animateTo(new GeoPoint(average[0] - (G1.getLatitudeE6() - G.getLatitudeE6()), average[1]));
-			
-			
-			RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
-					RelativeLayout.LayoutParams.WRAP_CONTENT,
-					RelativeLayout.LayoutParams.WRAP_CONTENT);
-			
-			lp.setMargins(0, 60, 0, 20);
-			
-//			if (alignTop) {
-//				lp.addRule(RelativeLayout.ALIGN_PARENT_TOP);
-//				lp.setMargins(0, 20, 0, 0);
-//			} else {
-//				lp.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM);
-//				lp.setMargins(0, 0, 0, 60);
-//			}
-//			
-
-			hide();
-			
-			((ViewGroup) mapView.getParent()).addView(popup, lp);
-			
-			isVisible = true;
-
-				
-			LinearLayout contentPopup = (LinearLayout) popup.findViewById(R.id.contentpopup);
-			
-			contentPopup.removeAllViews();
-			managedb.open();
-			// query all actions
-			Cursor c = managedb.GetEntries("actionsNames", new String[] {"id", "name"}, null, null, null, null, null);
-			c.moveToFirst();
-			
-			if (c.getCount()>0) {
-				int j = 0;
-				do { // for each action
-					
-					TextView b = new TextView(getApplicationContext());
-					b.setText(c.getString(1));
-
-					contentPopup.addView(b);
-					b.setId(c.getInt(0));
-					
-					b.setOnClickListener(new View.OnClickListener() {
-						public void onClick(View v) {
-							Toast.makeText(getApplicationContext(), "Action pressed",Toast.LENGTH_SHORT).show();	
-						}
-					});
-					
-					j = j + 1;
-				}
-				while (c.moveToNext());
-			}
-
-			managedb.close();
-
-
-			
-			
-		}
-
-		void hide() {
-			if (isVisible) {
-				isVisible = false;
-				((ViewGroup) popup.getParent()).removeView(popup);
-			}
-		}
-	}
-
+	
 	/*
 	 * Menu definition
 	 */
@@ -425,129 +313,7 @@ public class realFarmMainActivity extends MapActivity{
 
 	
 
-	/**
-	 * Manage submenu of plots
-	 * 
-	 * @author Julien Freudiger
-	 * @return boolean indicating success/failure of operations
-	 */
-	public boolean managePlots() {
-		
-		managedb.open();
 
-		// Create objects to display in plotOverlay
-        Cursor c0 = managedb.GetAllEntries("plots", new String[] {"id", "userID"});
-        
-        if ((!c0.isClosed()) && (c0.getCount() > 0)) // if there are users in the table
-        {
-        	int i = 0;
-        	        	 
-        	c0.moveToFirst();
-        	do { // for each plot, draw them
-        		
-        		int id = c0.getInt(0);
 	
-        		// Read points from database for each user
-        		Cursor c02 = managedb.GetEntries("points", new String[] {"x", "y"}, "plotID ="+ id, null, null, null, null);
-        		
-        		if (c02.getCount() > 0) // if there are points to plot
-        		{
-        			int j = 0;
-        			c02.moveToFirst();
-                    int[] polyX = new int[c02.getCount()];
-                    int[] polyY= new int[c02.getCount()];
-
-        			do { // for each point in the plot, draw it
-        				
-        				int x1 = c02.getInt(0);
-            			int y1 = c02.getInt(1);
-            			
-                        polyX[j] = x1;
-                        polyY[j] = y1;
-                        
-                        j = j + 1;
-        			}
-        			while (c02.moveToNext());
-        			
-                    // Change overlay depending on user
-        			myPlot.addOverlay(new Polygon(polyX, polyY, polyX.length, id));
-
-        		}
-
-                i = i + 1;
-        	} 
-        	while (c0.moveToNext());
-        } 
-		
-		// query all plots of a given user
-		TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-		String deviceID = telephonyManager.getDeviceId();
-
-		Cursor c = managedb.GetEntries("users", new String[] {"id"}, "mobileNumber=" + deviceID, null, null, null, null);
-    	
-		
-		if (c.getCount()>0){
-			c.moveToFirst();
-			int id = c.getInt(0);
-		}
-		
-		//Cursor c1 = db.GetEntries("plots", new String[] {"id"}, "userID ="+ id, null, null, null, null);
-		Cursor c1 = managedb.GetEntries("plots", new String[] {"id"}, "userID ="+ 1, null, null, null, null);
-		
-		if (c1.getCount()>0) {
-			c1.moveToFirst();
-			int j = 0;
-			averageX = new int[c1.getCount()];
-			averageY = new int[c1.getCount()];
-			
-			do { // for each plot
-				Cursor c2 = managedb.GetEntries("points", new String[] {"x", "y"}, "plotID ="+ c1.getInt(0), null, null, null, null);
-				c2.moveToFirst();
-				float[] x = new float[c2.getCount()];
-				float[] y = new float[c2.getCount()];
-				int k = 0;
-				do {
-					// compute average point
-					x[k] = (float)c2.getInt(0);
-					y[k] = (float)c2.getInt(1);
-					k=k+1;
-				}
-				while (c2.moveToNext());
-				
-				Arrays.sort(x);
-				Arrays.sort(y);
-				averageX[j]= (int) x[0] - (int) ((x[0] - x[x.length-1])/2);
-				averageY[j]= (int) y[0] - (int) (y[0] - y[y.length-1])/2;
-				j = j + 1;
-			}
-			while (c1.moveToNext());
-		}
-
-		managedb.close();
-
-		// Load layout in which to add buttons
-		LinearLayout container = (LinearLayout) findViewById(R.id.contentplot);
-		
-		
-		// for each plot entry, add button
-		pointToFocus = new ArrayList<GeoPoint>(c1.getCount());
-		for (int i = 0; i < c1.getCount(); i++) {
-			TextView b = new TextView(this);
-			b.setText("Plot " + i);
-			pointToFocus.add(new GeoPoint(averageX[i], averageY[i]));
-			b.setId(i);
-			b.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					myMapController.animateTo(pointToFocus.get(v.getId()));
-				}
-			});
-			
-			container.addView(b);
-			
-		}
-
-		return true;
-
-	}
 
 }

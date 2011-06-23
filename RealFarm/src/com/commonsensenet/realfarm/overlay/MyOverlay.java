@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm;
+package com.commonsensenet.realfarm.overlay;
 
 import java.util.ArrayList;
 
@@ -9,7 +9,8 @@ import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.TextView;
 
-import com.commonsensenet.realfarm.realFarmMainActivity.PopupPanel;
+import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.R.id;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.ItemizedOverlay;
 import com.google.android.maps.MapView;
@@ -123,7 +124,7 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 		((TextView) view.findViewById(R.id.x)).setText(String.valueOf(pt.x));
 		((TextView) view.findViewById(R.id.y)).setText(String.valueOf(pt.y));
 
-		panel.show(pt.y * 2 > map.getHeight(), index);
+		panel.show(geo, null);
 
 		return true;
 	}

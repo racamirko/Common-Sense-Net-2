@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm;
+package com.commonsensenet.realfarm.database;
 
 import java.util.Calendar;
 import java.util.Locale;

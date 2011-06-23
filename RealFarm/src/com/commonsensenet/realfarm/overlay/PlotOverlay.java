@@ -1,10 +1,8 @@
-package com.commonsensenet.realfarm;
+package com.commonsensenet.realfarm.overlay;
 
 import java.util.HashMap;
 import java.util.Map;
 
-import android.content.Context;
-import android.database.Cursor;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -15,29 +13,25 @@ import android.view.View;
 import android.widget.SlidingDrawer;
 import android.widget.TextView;
 
-import com.commonsensenet.realfarm.realFarmMainActivity.PopupPanel;
+import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.R.id;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.Projection;
 
 public class PlotOverlay extends Overlay {
-	private Context mContext;
-	private ManageDatabase db;
-
+	
 	private PopupPanel panel;
 	private SlidingDrawer slidingDrawer;
-			
-	Map<Integer, Polygon> hm; 
+	private Map<Integer, Polygon> hm; 
 	
-	PlotOverlay(ManageDatabase database, Context context, PopupPanel RPanel, SlidingDrawer slidingDrawer){
-		this.db = database;
-		mContext = context;
+	public PlotOverlay(PopupPanel RPanel, SlidingDrawer slidingDrawer){
 		panel = RPanel;
 		this.slidingDrawer = slidingDrawer;
 		hm = new HashMap<Integer, Polygon>(); 
 	}
-
+	
 	public void addOverlay(Polygon polygon){
 		hm.put(polygon.getID(), polygon);
 	}
@@ -114,7 +108,7 @@ public class PlotOverlay extends Overlay {
 	        		((TextView) view.findViewById(R.id.x)).setText(String.valueOf(touched.x));
 	        		((TextView) view.findViewById(R.id.y)).setText(String.valueOf(touched.y));
 	        		
-	        		panel.show(touched.y * 2 > mapView.getHeight(), mPolygon.getID());
+	        		panel.show(p, mPolygon);
 	        	}
 	        }
         }
