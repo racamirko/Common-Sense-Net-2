@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Display;
 import android.view.WindowManager;
 
+import com.commonsensenet.realfarm.map.GeoPoint;
 import com.commonsensenet.realfarm.map.OfflineMapView;
 
 public class OfflineMapDemo extends Activity {
@@ -26,6 +27,6 @@ public class OfflineMapDemo extends Activity {
 		// SampleView constructor must be constructed last as it needs the
 		// displayWidth and displayHeight we just got.
 		setContentView(new OfflineMapView(this, display.getWidth(),
-				display.getHeight()));
+				display.getHeight(), new GeoPoint("14.054162,77.16711")));
 	}
 }

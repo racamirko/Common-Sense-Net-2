@@ -286,11 +286,11 @@ public class MapCrawler extends Activity implements Notifiable {
 			TileData data = mMapTiles.remove(url);
 			// saves the image.
 			saveImage(
-					mTargetFolder + "mapTile_" + data.getX() + "_"
-							+ data.getY() + "_"
-							+ data.getCenter().getLatitudeMicroDegrees() + "_"
-							+ data.getCenter().getLongitudMicroDegrees()
-							+ ".png", bitmap);
+
+			mTargetFolder + "tile_" + data.getX() + "_" + data.getY() + "_"
+					+ data.getCenter().getLatitudeMicroDegrees() + "_"
+					+ data.getCenter().getLongitudMicroDegrees() + "_.png",
+					bitmap);
 
 			if (mMapTiles.isEmpty()) {
 				Toast.makeText(MapCrawler.this,
