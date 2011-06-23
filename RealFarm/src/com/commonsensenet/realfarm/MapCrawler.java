@@ -290,7 +290,7 @@ public class MapCrawler extends Activity implements Notifiable {
 			mTargetFolder + "tile_" + data.getX() + "_" + data.getY() + "_"
 					+ data.getCenter().getLatitudeMicroDegrees() + "_"
 					+ data.getCenter().getLongitudMicroDegrees() + "_.png",
-					bitmap);
+					bitmap); 
 
 			if (mMapTiles.isEmpty()) {
 				Toast.makeText(MapCrawler.this,

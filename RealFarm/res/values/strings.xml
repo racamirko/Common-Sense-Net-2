@@ -19,6 +19,7 @@
 		<item>Hybrid</item>
 		<item>Terrain</item>
 	</string-array>
+	<string name="ckPuraLocation">14.054162,77.16711</string>
 	<string name="txtDefaultCenter">14.054162,77.16711</string>
 	<string name="txtDefaultRadius">230</string>
 	<string name="txtDefaultZoom">17</string>

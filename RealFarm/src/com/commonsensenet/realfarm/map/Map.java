@@ -3,13 +3,13 @@ package com.commonsensenet.realfarm.map;
 import java.io.File;
 import java.util.ArrayList;
 
-import com.commonsensenet.realfarm.MapCrawler;
-import com.commonsensenet.realfarm.R;
-
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+
+import com.commonsensenet.realfarm.MapCrawler;
+import com.commonsensenet.realfarm.R;
 
 public class Map {
 
@@ -29,15 +29,18 @@ public class Map {
 		String externalDirectoryPath = Environment
 				.getExternalStorageDirectory().toString()
 				+ MapCrawler.MAPS_FOLDER;
-		File mapDir = new File(externalDirectoryPath + +center.getLatitude()
+		File mapDir = new File(externalDirectoryPath +center.getLatitude()
 				+ "," + center.getLongitude() + "/");
 
 		File[] mapFiles = mapDir.listFiles();
+		
+		// BitmapFactory.decodeFile()
 
-		for (int x = 0; x < tiles.length; x++) {
-			String[] fileName = mapFiles[x].getName().split("_,.");
-			Log.d("test", fileName.toString());
-		}
+//		for (int x = 0; x < tiles.length; x++) {
+//			String[] fileName = mapFiles[x].getName().split("_");
+//			tmpMap.mTiles.add(0, new MapTile(bitmap, x, y))
+//			Log.d("test", fileName.toString());
+//		}
 
 		for (int x = 0; x < tiles.length; x++) {
 			for (int y = 0; y < tiles[x].length; y++) {
