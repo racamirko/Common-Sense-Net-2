@@ -21,7 +21,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.map.GeoPoint;
-import com.commonsensenet.realfarm.map.TileData;
+import com.commonsensenet.realfarm.map.MapTile;
 import com.commonsensenet.realfarm.map.utils.ImageDownloader;
 import com.commonsensenet.realfarm.map.utils.MapUrlBuilder;
 import com.commonsensenet.realfarm.map.utils.Notifiable;
@@ -68,7 +68,7 @@ public class MapCrawler extends Activity implements Notifiable {
 	/** Number of images that needs to be downloaded to complete the maps. */
 	private int mImagesToDownload = 0;
 	/** Information about the tiles that constitute the map. */
-	private Hashtable<String, TileData> mMapTiles;
+	private Hashtable<String, MapTile> mMapTiles;
 	/** Folder in which the images will be saved. */
 	private String mTargetFolder;
 
@@ -188,19 +188,18 @@ public class MapCrawler extends Activity implements Notifiable {
 		double lon = centerLon - CONSTANT * tileOffset;
 
 		// object used to create all the desired data.
-		TileData tmpTileData;
+		MapTile tmpMapTile;
 
 		// calculates the coordinates.
 		for (int x = 0; x < tilesNeeded; x++) {
 			for (int y = 0; y < tilesNeeded; y++) {
 
 				// creates the new tile data
-				tmpTileData = new TileData(new GeoPoint(lat, lon), x, y,
-						TILE_SIZE, TILE_SIZE + GOOGLE_MAPS_WATERMARK_SIZE,
-						zoomLevel, mapType);
+				tmpMapTile = new MapTile(null, TILE_SIZE, TILE_SIZE
+						+ GOOGLE_MAPS_WATERMARK_SIZE, x, y, new GeoPoint(lat,
+						lon), zoomLevel, mapType);
 				// stores the tile data using the URL as a key.
-				mMapTiles.put(MapUrlBuilder.getTileUrl(tmpTileData),
-						tmpTileData);
+				mMapTiles.put(MapUrlBuilder.getTileUrl(tmpMapTile), tmpMapTile);
 
 				lon += CONSTANT;
 			}
@@ -222,7 +221,7 @@ public class MapCrawler extends Activity implements Notifiable {
 		mExternalDirectoryPath = Environment.getExternalStorageDirectory()
 				.toString() + MAPS_FOLDER;
 		// structure were the generated tiles are stored.
-		mMapTiles = new Hashtable<String, TileData>();
+		mMapTiles = new Hashtable<String, MapTile>();
 
 		// sets the layout
 		setContentView(R.layout.crawler);
@@ -283,14 +282,13 @@ public class MapCrawler extends Activity implements Notifiable {
 			imgView.setImageBitmap(bitmap);
 
 			// obtains and removes the value from the hash.
-			TileData data = mMapTiles.remove(url);
+			MapTile data = mMapTiles.remove(url);
 			// saves the image.
 			saveImage(
 
 			mTargetFolder + "tile_" + data.getX() + "_" + data.getY() + "_"
-					+ data.getCenter().getLatitudeMicroDegrees() + "_"
-					+ data.getCenter().getLongitudMicroDegrees() + "_.png",
-					bitmap); 
+					+ data.getCenter().getLatitudeE6() + "_"
+					+ data.getCenter().getLongitudE6() + "_.png", bitmap);
 
 			if (mMapTiles.isEmpty()) {
 				Toast.makeText(MapCrawler.this,
