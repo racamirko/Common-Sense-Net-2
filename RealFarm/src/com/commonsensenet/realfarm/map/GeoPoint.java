@@ -8,7 +8,7 @@ package com.commonsensenet.realfarm.map;
  */
 public class GeoPoint {
 
-	private static final int PRECISION = 1000000;
+	private static final double PRECISION = 1000000.0;
 	/** Latitude of the GeoPoint in degrees. */
 	private double _latitude;
 	/** Longitude of the GeoPoint in degrees. */
@@ -27,6 +27,11 @@ public class GeoPoint {
 	public GeoPoint(double latitude, double longitude) {
 		_latitude = (double) Math.round(latitude * PRECISION) / PRECISION;
 		_longitude = (double) Math.round(longitude * PRECISION) / PRECISION;
+	}
+
+	public GeoPoint(int latitudeE6, int longitudeE6) {
+		_latitude = (double) (latitudeE6 / PRECISION);
+		_longitude = (double) (longitudeE6 / PRECISION);
 	}
 
 	/**
@@ -53,7 +58,7 @@ public class GeoPoint {
 		return _latitude;
 	}
 
-	public int getLatitudeMicroDegrees() {
+	public int getLatitudeE6() {
 		return (int) (_latitude * PRECISION);
 	}
 
@@ -66,7 +71,7 @@ public class GeoPoint {
 		return _longitude;
 	}
 
-	public int getLongitudMicroDegrees() {
+	public int getLongitudE6() {
 		return (int) (_longitude * PRECISION);
 	}
 
