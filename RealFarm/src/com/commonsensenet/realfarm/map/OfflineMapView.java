@@ -7,15 +7,24 @@ import android.graphics.Canvas;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.commonsensenet.realfarm.R;
+
 public class OfflineMapView extends View {
 
+	public static int[][] DEFAULT_MAP = {
+			{ R.drawable.maptile_0_0, R.drawable.maptile_0_1,
+					R.drawable.maptile_0_2, R.drawable.maptile_0_3 },
+			{ R.drawable.maptile_1_0, R.drawable.maptile_1_1,
+					R.drawable.maptile_1_2, R.drawable.maptile_1_3 },
+			{ R.drawable.maptile_2_0, R.drawable.maptile_2_1,
+					R.drawable.maptile_2_2, R.drawable.maptile_2_3 },
+			{ R.drawable.maptile_3_0, R.drawable.maptile_3_1,
+					R.drawable.maptile_3_2, R.drawable.maptile_3_3 } };
 	/** Height of the display area in pixels. */
 	private int mDisplayHeight;
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
-	/**
-	 * Underlying map representation. Contains the tiles and current zoom level.
-	 */
+	/** Underlying map representation in charge of the tile system. */
 	private Map mMap;
 	/** Amount to scroll in the x coordinate product of the last ACTION_MOVE. */
 	private float mScrollByX;
@@ -47,7 +56,7 @@ public class OfflineMapView extends View {
 		mStartY = 0;
 
 		// creates the underlying map information
-		mMap = Map.createMapFromCoordinate(center, this);
+		mMap = Map.createMapFromCoordinate(center);
 	}
 
 	private int clamp(int value, int min, int max) {
@@ -74,10 +83,8 @@ public class OfflineMapView extends View {
 
 		// Our move updates are calculated in ACTION_MOVE in the opposite
 		// direction from how we want to move the scroll rectangle. Think of
-		// this
-		// as dragging to the left being the same as sliding the scroll
-		// rectangle
-		// to the right.
+		// this as dragging to the left being the same as sliding the scroll
+		// rectangle to the right.
 		int newScrollRectX = clamp(mScrollRectX - (int) mScrollByX, 0,
 				mMap.getWidth() - mDisplayWidth);
 		int newScrollRectY = clamp(mScrollRectY - (int) mScrollByY, 0,
