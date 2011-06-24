@@ -1,15 +1,52 @@
 package com.commonsensenet.realfarm.map;
 
+import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.os.AsyncTask;
 import android.view.MotionEvent;
 import android.view.View;
 
 import com.commonsensenet.realfarm.R;
 
 public class OfflineMapView extends View {
+
+	private class MapLoaderTask extends AsyncTask<GeoPoint, Void, Map> {
+
+		private GeoPoint mCenter;
+		private WeakReference<View> mView;
+		
+		public MapLoaderTask(View view)
+		{
+			mView = new WeakReference<View>(view);
+		}
+
+		@Override
+		protected Map doInBackground(GeoPoint... params) {
+			mCenter = params[0];
+			return Map.createMapFromCoordinate(mCenter);
+		}
+
+		/**
+		 * Once the image is downloaded, the referenced notifiable is notified.
+		 */
+		@Override
+		protected void onPostExecute(Map map) {
+
+			// result is nulled if the task has been canceled.
+			if (isCancelled()) {
+				map = null;
+			}
+
+			mMap = map;
+			// forces the UI to update the map.
+			if(mView.get() != null)
+				mView.get().invalidate();
+			
+		}
+	}
 
 	public static int[][] DEFAULT_MAP = {
 			{ R.drawable.maptile_0_0, R.drawable.maptile_0_1,
@@ -55,8 +92,9 @@ public class OfflineMapView extends View {
 		mStartX = 0;
 		mStartY = 0;
 
-		// creates the underlying map information
-		mMap = Map.createMapFromCoordinate(center);
+		// loads the map asynchronously.
+		MapLoaderTask mapLoaderTask = new MapLoaderTask(this);
+		mapLoaderTask.execute(center);
 	}
 
 	private int clamp(int value, int min, int max) {
@@ -80,6 +118,10 @@ public class OfflineMapView extends View {
 	protected void onDraw(Canvas canvas) {
 
 		super.onDraw(canvas);
+		
+		// maps is not yet available.
+		if(mMap == null)
+			return;
 
 		// Our move updates are calculated in ACTION_MOVE in the opposite
 		// direction from how we want to move the scroll rectangle. Think of
@@ -130,6 +172,9 @@ public class OfflineMapView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
+		if(mMap == null)
+			return true;
+		
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			// Remember our initial down event location.
