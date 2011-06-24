@@ -11,6 +11,7 @@ import com.commonsensenet.realfarm.map.OfflineMapView;
 
 public class OfflineMapDemo extends Activity {
 
+	private OfflineMapView mOfflineMap;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -24,9 +25,19 @@ public class OfflineMapDemo extends Activity {
 		Display display = ((WindowManager) getSystemService(Context.WINDOW_SERVICE))
 				.getDefaultDisplay();
 
+		mOfflineMap = new OfflineMapView(this, display.getWidth(),
+				display.getHeight(), new GeoPoint("14.054162,77.16711"));
 		// SampleView constructor must be constructed last as it needs the
 		// displayWidth and displayHeight we just got.
-		setContentView(new OfflineMapView(this, display.getWidth(),
-				display.getHeight(), new GeoPoint("14.054162,77.16711")));
+		setContentView(mOfflineMap);
+	}
+	
+	@Override
+	public void onDestroy()
+	{
+		super.onDestroy();
+		
+		mOfflineMap.dispose();
+			
 	}
 }

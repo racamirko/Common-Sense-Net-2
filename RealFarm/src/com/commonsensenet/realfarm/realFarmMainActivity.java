@@ -38,8 +38,7 @@ public class realFarmMainActivity extends MapActivity{
 
 	private MapController myMapController;
 	private SlidingDrawer slidingDrawer;
-	Button drawerButton;
-	LocationManager lm;
+	private LocationManager lm;
 	private MapView mapView = null;
 	private GeoPoint ckPura;
 	private PopupPanel panel;
@@ -75,16 +74,9 @@ public class realFarmMainActivity extends MapActivity{
 		// Define overlays
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		ckPura = new GeoPoint(14054563, 77167003);
-
-		
 	    		
 		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
 			myMapController.animateTo(ckPura);
-
-			
-
-		// Create slider button
-		drawerButton = (Button) findViewById(R.id.drawerHandle);
 
 		// Create slider
 		slidingDrawer = (SlidingDrawer) this.findViewById(R.id.slidingDrawer);

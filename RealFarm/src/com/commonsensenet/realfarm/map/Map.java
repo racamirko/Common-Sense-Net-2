@@ -52,7 +52,8 @@ public class Map {
 			tmpMap.mWidth = MapCrawler.TILE_SIZE * numberOfTiles;
 			tmpMap.mHeight = MapCrawler.TILE_SIZE * numberOfTiles;
 
-			// sorts the images according to the grid position to be able to render them correctly.
+			// sorts the images according to the grid position to be able to
+			// render them correctly.
 			Collections.sort(tmpMap.mTiles);
 
 			return tmpMap;
@@ -75,6 +76,12 @@ public class Map {
 		mZoom = 17;
 		mTiles = new ArrayList<MapTile>();
 
+	}
+
+	public void dispose() {
+		for (int x = 0; x < mTiles.size(); x++) {
+			mTiles.get(x).getBitmap().recycle();
+		}
 	}
 
 	public int getHeight() {

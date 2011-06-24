@@ -13,13 +13,24 @@ public class OfflineMapView extends View {
 
 	private class MapLoaderTask extends AsyncTask<GeoPoint, Void, Map> {
 
+		/** Center of the map being loaded. */
 		private GeoPoint mCenter;
+		/** View where the map be displayed. */
 		private WeakReference<View> mView;
 
+		/**
+		 * Creates a new MapLoaderTask.
+		 * 
+		 * @param view
+		 *            A view where the map is displayed
+		 */
 		public MapLoaderTask(View view) {
 			mView = new WeakReference<View>(view);
 		}
 
+		/**
+		 * Loads the map in the background.
+		 */
 		@Override
 		protected Map doInBackground(GeoPoint... params) {
 			mCenter = params[0];
@@ -27,7 +38,8 @@ public class OfflineMapView extends View {
 		}
 
 		/**
-		 * Once the map is loaded it is asigned to the interface and it is forced to update.
+		 * After the map is loaded it is assigned to the application and the
+		 * view is refreshed.
 		 */
 		@Override
 		protected void onPostExecute(Map map) {
@@ -44,9 +56,10 @@ public class OfflineMapView extends View {
 
 		}
 	}
-	
+
 	/** Height of the display area in pixels. */
 	private int mDisplayHeight;
+
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
 	/** Underlying map representation in charge of the tile system. */
@@ -89,6 +102,12 @@ public class OfflineMapView extends View {
 		return value < min ? min : (value > max ? max : value);
 	}
 
+	public void dispose() {
+		if (mMap != null)
+			mMap.dispose();
+		mMap = null;
+	}
+
 	public GeoPoint getMapCenter() {
 		throw new UnsupportedOperationException();
 	}
@@ -97,6 +116,7 @@ public class OfflineMapView extends View {
 		throw new UnsupportedOperationException();
 	}
 
+	
 	private Boolean isInside(int r2x, int r2y, int r2w, int r2h, int r1x,
 			int r1y, int r1w, int r1h) {
 		return !(r2x > (r1x + r1w) || (r2x + r2w) < r1x || r2y > (r1y + r1h) || (r2y + r2h) < r1y);
