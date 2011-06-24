@@ -9,8 +9,6 @@ import android.os.AsyncTask;
 import android.view.MotionEvent;
 import android.view.View;
 
-import com.commonsensenet.realfarm.R;
-
 public class OfflineMapView extends View {
 
 	private class MapLoaderTask extends AsyncTask<GeoPoint, Void, Map> {
