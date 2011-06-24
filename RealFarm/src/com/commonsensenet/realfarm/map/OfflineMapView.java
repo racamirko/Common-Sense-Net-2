@@ -46,16 +46,7 @@ public class OfflineMapView extends View {
 
 		}
 	}
-
-	public static int[][] DEFAULT_MAP = {
-			{ R.drawable.maptile_0_0, R.drawable.maptile_0_1,
-					R.drawable.maptile_0_2, R.drawable.maptile_0_3 },
-			{ R.drawable.maptile_1_0, R.drawable.maptile_1_1,
-					R.drawable.maptile_1_2, R.drawable.maptile_1_3 },
-			{ R.drawable.maptile_2_0, R.drawable.maptile_2_1,
-					R.drawable.maptile_2_2, R.drawable.maptile_2_3 },
-			{ R.drawable.maptile_3_0, R.drawable.maptile_3_1,
-					R.drawable.maptile_3_2, R.drawable.maptile_3_3 } };
+	
 	/** Height of the display area in pixels. */
 	private int mDisplayHeight;
 	/** Width of the display area in pixels. */
