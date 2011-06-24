@@ -17,9 +17,8 @@ public class OfflineMapView extends View {
 
 		private GeoPoint mCenter;
 		private WeakReference<View> mView;
-		
-		public MapLoaderTask(View view)
-		{
+
+		public MapLoaderTask(View view) {
 			mView = new WeakReference<View>(view);
 		}
 
@@ -30,7 +29,7 @@ public class OfflineMapView extends View {
 		}
 
 		/**
-		 * Once the image is downloaded, the referenced notifiable is notified.
+		 * Once the map is loaded it is asigned to the interface and it is forced to update.
 		 */
 		@Override
 		protected void onPostExecute(Map map) {
@@ -42,9 +41,9 @@ public class OfflineMapView extends View {
 
 			mMap = map;
 			// forces the UI to update the map.
-			if(mView.get() != null)
+			if (mView.get() != null)
 				mView.get().invalidate();
-			
+
 		}
 	}
 
@@ -118,9 +117,9 @@ public class OfflineMapView extends View {
 	protected void onDraw(Canvas canvas) {
 
 		super.onDraw(canvas);
-		
+
 		// maps is not yet available.
-		if(mMap == null)
+		if (mMap == null)
 			return;
 
 		// Our move updates are calculated in ACTION_MOVE in the opposite
@@ -172,9 +171,9 @@ public class OfflineMapView extends View {
 	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
-		if(mMap == null)
+		if (mMap == null)
 			return true;
-		
+
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
 			// Remember our initial down event location.
