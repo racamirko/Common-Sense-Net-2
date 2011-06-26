@@ -6,10 +6,43 @@ import java.util.Collections;
 
 import android.graphics.BitmapFactory;
 import android.os.Environment;
+import android.view.View;
 
 import com.commonsensenet.realfarm.MapCrawler;
 
+import com.commonsensenet.realfarm.R;
+
 public class Map {
+
+	public static Map createDefaultMap(GeoPoint center, View view) {
+
+		Map tmpMap = new Map();
+
+		final int[][] tiles = {
+				{ R.drawable.tile_0_0_14056179_77164847_,
+						R.drawable.tile_0_1_14056179_77169159_ },
+				{
+
+				R.drawable.tile_1_0_14052007_77164847_,
+						R.drawable.tile_1_1_14052007_77169159_ } };
+
+		for (int x = 0; x < tiles.length; x++) {
+			for (int y = 0; y < tiles[x].length; y++) {
+				if (tiles[x][y] != -1) {
+					tmpMap.mTiles.add(new MapTile(BitmapFactory.decodeResource(
+							view.getResources(), tiles[x][y]),
+							MapCrawler.TILE_SIZE, MapCrawler.TILE_SIZE, y, x,
+							new GeoPoint(0, 0), 17, "satellite"));
+				}
+			}
+		}
+
+		// sets the size of the map.
+		tmpMap.mWidth = MapCrawler.TILE_SIZE * tiles.length;
+		tmpMap.mHeight = MapCrawler.TILE_SIZE * tiles.length;
+
+		return tmpMap;
+	}
 
 	public static Map createMapFromCoordinate(GeoPoint center) {
 		Map tmpMap = new Map();
