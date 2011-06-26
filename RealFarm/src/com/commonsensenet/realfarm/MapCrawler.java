@@ -286,7 +286,7 @@ public class MapCrawler extends Activity implements Notifiable {
 			// saves the image.
 			saveImage(
 
-			mTargetFolder + "tile_" + data.getX() + "_" + data.getY() + "_"
+			mTargetFolder + "tile_" + data.getGridX() + "_" + data.getGridY() + "_"
 					+ data.getCenter().getLatitudeE6() + "_"
 					+ data.getCenter().getLongitudE6() + "_.png", bitmap);
 
