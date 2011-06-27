@@ -24,21 +24,30 @@ import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.database.ObjectDatabase;
+import com.commonsensenet.realfarm.overlay.ActionItem;
 import com.commonsensenet.realfarm.overlay.MyOverlay;
 import com.commonsensenet.realfarm.overlay.PlotOverlay;
 import com.commonsensenet.realfarm.overlay.PopupPanel;
+import com.commonsensenet.realfarm.overlay.QuickAction;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
 import com.google.android.maps.MapController;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.OverlayItem;
+import com.markupartist.android.widget.ActionBar;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class realFarmMainActivity extends MapActivity{
 
 	private MapController myMapController;
 	private SlidingDrawer slidingDrawer;
-	private LocationManager lm;
+	private SlidingDrawer newsSlidingDrawer;
+	
+	Button drawerButton;
+	Button newsDrawerButton;
+	
+	LocationManager lm;
 	private MapView mapView = null;
 	private GeoPoint ckPura;
 	private PopupPanel panel;
@@ -74,9 +83,95 @@ public class realFarmMainActivity extends MapActivity{
 		// Define overlays
 		List<Overlay> mapOverlays = mapView.getOverlays();
 		ckPura = new GeoPoint(14054563, 77167003);
+
+		
 	    		
 		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
 			myMapController.animateTo(ckPura);
+
+			
+
+		/*
+		 * Define action bar
+		 */
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+		
+		// Home action button
+		actionBar.setHomeAction(new Action() {
+			public void performAction(View view) {
+				myMapController.animateTo(ckPura);
+				myMapController.setZoom(20);
+
+				List<Overlay> mapOverlays = mapView.getOverlays();
+				Drawable drawable = getResources().getDrawable(R.drawable.marker);
+				MyOverlay itemizedoverlay = new MyOverlay(drawable, getApplicationContext(), mapView, panel);
+
+				OverlayItem overlayitem = new OverlayItem(ckPura, "Hello!","CKPura");
+				itemizedoverlay.addOverlay(overlayitem);
+
+				// mapOverlays.removeAll(mapOverlays);
+				mapOverlays.add(itemizedoverlay);
+			}
+			
+			public int getDrawable() {
+				return R.drawable.ic_title_home_default;
+			}
+		});
+		
+		// locate me action button
+		actionBar.addAction(new Action() {
+			public int getDrawable() {
+			        return R.drawable.ic_menu_mylocation;
+		    }
+		    public void performAction(View view) {
+				LocationListener locationListenerGps = new MyLocationListener();
+				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+				// locationListenerGps);
+				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
+						10000, locationListenerGps);
+		    }
+		});
+		
+		// plots action button		
+		final ActionItem first = new ActionItem();
+		first.setTitle("plot1");
+		first.setIcon(getResources().getDrawable(R.drawable.dashboard));
+		
+		final ActionItem second = new ActionItem();
+		second.setTitle("plot1");
+		second.setIcon(getResources().getDrawable(R.drawable.dashboard));
+		
+		actionBar.addAction(new Action() {
+			public int getDrawable() {
+				return R.drawable.ic_menu_sort_by_size;
+			}
+			public void performAction(View view) {
+				QuickAction qa = new QuickAction(view);
+
+				
+//				List<ActionItem> items = getActionItems()
+//				
+//				getActionItems(){
+//					od.getPlots
+//					
+//					for each plot
+//					new action
+//					add
+//				}
+				
+				qa.addActionItem(first);
+				qa.addActionItem(second);
+				qa.show();
+			}
+		});
+		
+		
+		// news action button
+		
+		
+		
+		// Create slider button
+		drawerButton = (Button) findViewById(R.id.drawerHandle);
 
 		// Create slider
 		slidingDrawer = (SlidingDrawer) this.findViewById(R.id.slidingDrawer);
@@ -93,6 +188,25 @@ public class realFarmMainActivity extends MapActivity{
 		});
 		
 
+		
+		// Create news slider button
+		newsDrawerButton = (Button) findViewById(R.id.newsDrawerHandle);
+
+		// Create news slider
+		newsSlidingDrawer = (SlidingDrawer) this.findViewById(R.id.newsDrawer);
+		newsSlidingDrawer.setOnTouchListener(new View.OnTouchListener() {
+			public boolean onTouch(View v, MotionEvent event) {
+				if (newsSlidingDrawer.isOpened())
+				{
+					if (newsSlidingDrawer.getHandle().isPressed()) // default behavior
+						return false;
+					return true; // else do not do anything
+				}
+				return false; // else default behavior
+			}
+		});
+
+		
 	    // Create class managing objects from database 
 		realFarm mainApp = ((realFarm)getApplicationContext());
 		ObjectDatabase od = new ObjectDatabase(mainApp, this, mapView);
@@ -101,7 +215,7 @@ public class realFarmMainActivity extends MapActivity{
 	    panel = new PopupPanel(R.layout.popup, mapView, this, od);
 	    
 	    // create overlay for field plots (includes calls to panel when field tap and closing drawer)
-	    myPlot = new PlotOverlay(panel, slidingDrawer);
+	    myPlot = new PlotOverlay(panel, slidingDrawer, newsSlidingDrawer);
 		mapOverlays.add(myPlot); // Add overlay to mapView
 		
 		// Create plots on overlay and in menu
@@ -298,6 +412,5 @@ public class realFarmMainActivity extends MapActivity{
 							}
 						}).show();
 	}
-
-
+	
 }

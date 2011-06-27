@@ -119,15 +119,13 @@ public class ObjectDatabase {
 		
 		if (a.length>0) // plots to show 
 		{
-			// Load layout in which to add buttons
-			
-			
 			// for each plot entry, add button
 			pointToFocus = new ArrayList<GeoPoint>(c1.getCount());
 			for (int i = 0; i < c1.getCount(); i++) {
 				TextView b = new TextView(context);
 				b.setText("Plot " + i);
-				
+				b.setTextSize(20);
+				b.setPadding(20, 0, 20, 0);
 				int[] average = a[i].getAverageLL();
 				pointToFocus.add(new GeoPoint(average[0], average[1]));
 				b.setId(i);

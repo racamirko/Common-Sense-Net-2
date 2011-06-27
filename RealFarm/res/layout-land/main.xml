@@ -1,109 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<RelativeLayout
-  xmlns:android="http://schemas.android.com/apk/res/android"
-  android:orientation="horizontal"
-  android:layout_width="fill_parent"
-  android:layout_height="fill_parent"> 
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
 
 	<com.google.android.maps.MapView
-	    xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:id="@+id/mapview"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:enabled="true"
-	    android:clickable="true"
-	    android:apiKey="0Zn33DzPcEB9dV6ztClpuA8RWKrp4hQnKPLXHaA"/>
-	
-	<LinearLayout 
-		android:orientation="horizontal"
-		android:layout_width="fill_parent"
-  		android:layout_height="fill_parent">
-	
-	<Button android:id="@+id/topBtn"
-		android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/mylocation"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true">
-	 </Button>
-	 
-	 <Button android:id="@+id/topBtn2"
-		android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:text="@string/village"
-	    android:layout_alignParentLeft="true"
-	    android:layout_alignParentTop="true">
-	 </Button>
-  </LinearLayout>
-	<SlidingDrawer
-		android:id="@+id/slidingDrawer"
-		android:handle="@+id/drawerHandle"
-		android:content="@+id/contentLayout"
-		android:layout_width="200dip"
-		android:layout_height="fill_parent"
-		android:layout_alignParentRight="true"
-		android:orientation="horizontal">
+		xmlns:android="http://schemas.android.com/apk/res/android" android:id="@+id/mapview"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:enabled="true" android:clickable="true"
+		android:apiKey="0Zn33DzPcEB9dV6ztClpuA8RWKrp4hQnKPLXHaA" />
 
-	 	<Button android:id="@+id/drawerHandle" android:layout_width="wrap_content"
+	<SlidingDrawer android:id="@+id/slidingDrawer"
+		android:handle="@+id/drawerHandle" android:content="@+id/contentLayout"
+		android:layout_width="200dip" android:layout_height="fill_parent"
+		android:layout_alignParentRight="true" android:orientation="horizontal">
+
+		<Button android:id="@+id/drawerHandle" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:text="@string/menu">
 		</Button>
 
-	 	<LinearLayout
-	    	xmlns:android="http://schemas.android.com/apk/res/android"
-			android:id="@+id/contentLayout"
-	    	android:gravity="center"
-	    	android:layout_width="fill_parent"
-	    	android:layout_height="fill_parent"
-	    	android:background="#BF000000" 
-	    	android:orientation="vertical">
-	  <LinearLayout android:layout_width="wrap_content" android:paddingRight="10dip"
-				android:layout_height="fill_parent" android:orientation="vertical" android:id="@+id/contentplot">
+		<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+			android:id="@+id/contentLayout" android:gravity="center"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:background="#BF000000" android:orientation="vertical">
 
-				<TextView android:text="@string/plot" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:textSize="20sp"
-					android:id="@+id/plots"></TextView>
+			<Button android:id="@+id/topBtn" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="@string/mylocation"
+				android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+			</Button>
 
-				<!-- <Button android:layout_width="wrap_content" android:text="ref1"
-					android:layout_height="wrap_content" android:id="@+id/plotRef1">
-				</Button>
+			<Button android:id="@+id/topBtn2" android:layout_width="wrap_content"
+				android:layout_height="wrap_content" android:text="@string/village"
+				android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+			</Button>
 
-				<Button android:layout_width="wrap_content" android:text="ref2"
-					android:layout_height="wrap_content" android:id="@+id/plotRef2">
-				</Button>
-				
-				<ImageView android:id="@+id/Button01" android:layout_width="30dip" 
-					android:layout_height="30dip" android:clickable="true" android:src="@android:drawable/ic_menu_add"></ImageView> -->
-
+			<LinearLayout android:layout_width="wrap_content"
+				android:paddingRight="10dip" android:layout_height="fill_parent"
+				android:orientation="vertical" android:id="@+id/contentplot"
+				android:gravity="center">
 			</LinearLayout>
 
-			<View android:layout_height="fill_parent" android:layout_width="1dip"
-				android:background="#DADDDAFF" />
 
+		</LinearLayout>
 
-			<LinearLayout android:layout_width="wrap_content"  android:paddingRight="10dip"  android:paddingLeft="10dip"
-				android:layout_height="fill_parent" android:orientation="horizontal">
-
-				<TextView android:id="@+id/news" android:layout_width="wrap_content"
-					android:textSize="20sp" android:layout_height="wrap_content"
-					android:text="@string/news"></TextView>
-
-			</LinearLayout>
-
-			<View android:layout_height="fill_parent" android:layout_width="1dip"
-				android:background="#DADDDAFF" />
-
-			<LinearLayout android:layout_width="wrap_content"  android:paddingLeft="10dip"
-				android:layout_height="fill_parent" android:orientation="horizontal">
-
-				<TextView android:id="@+id/friends" android:layout_width="wrap_content"
-					android:textSize="20sp" android:layout_height="wrap_content"
-					android:text="@string/friends"></TextView>
-
-			</LinearLayout>
-					
-	 	</LinearLayout>
-	 	
 	</SlidingDrawer>
-        
+	
+	<!-- News drawer -->
+	<SlidingDrawer android:id="@+id/newsDrawer"
+		android:handle="@+id/newsDrawerHandle" android:content="@+id/newsContentLayout"
+		android:layout_height="250dp" android:layout_width="fill_parent"
+		android:clickable="false" android:layout_alignParentBottom="true"
+		android:orientation="vertical">
+
+		<!-- Handle -->
+		<Button android:id="@+id/newsDrawerHandle" android:layout_width="wrap_content"
+			android:layout_height="wrap_content" android:text="@string/news">
+		</Button>
+		
+		<LinearLayout android:id="@+id/newsContentLayout"
+			android:gravity="center" android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:background="#BF000000"
+			android:orientation="vertical">
+		</LinearLayout>	
+	
+	</SlidingDrawer>
+	
+
 </RelativeLayout>

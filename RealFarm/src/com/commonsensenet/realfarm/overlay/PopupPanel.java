@@ -78,16 +78,20 @@ public class PopupPanel {
 		
 		hide();
 		
+		// add popup window
 		((ViewGroup) mapView.getParent()).addView(popup, lp);
 		
 		isVisible = true;
 
-			
+		// fill up layout of popup	
 		LinearLayout contentPopup = (LinearLayout) popup.findViewById(R.id.contentpopup);
-		
 		contentPopup.removeAllViews();
 		
-		// populate list of actions
+		// check if intercropping
+		
+		// check if existing actions in diary
+		
+		// check list of actions
 		Map<Integer, String> hm = od.manageActions(); // get list of actions
 		
 		for (Integer key : hm.keySet()){

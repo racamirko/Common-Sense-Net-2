@@ -23,11 +23,13 @@ public class PlotOverlay extends Overlay {
 	
 	private PopupPanel panel;
 	private SlidingDrawer slidingDrawer;
+	private SlidingDrawer newsSlidingDrawer;
 	private Map<Integer, Polygon> hm; 
 	
-	public PlotOverlay(PopupPanel RPanel, SlidingDrawer slidingDrawer){
+	public PlotOverlay(PopupPanel RPanel, SlidingDrawer slidingDrawer, SlidingDrawer newsSlidingDrawer){
 		panel = RPanel;
 		this.slidingDrawer = slidingDrawer;
+		this.newsSlidingDrawer = newsSlidingDrawer;
 		hm = new HashMap<Integer, Polygon>(); 
 	}
 	
@@ -117,6 +119,12 @@ public class PlotOverlay extends Overlay {
         	slidingDrawer.animateClose();
         	return false;
         }
+        
+        if (newsSlidingDrawer.isOpened()) {
+        	newsSlidingDrawer.animateClose();
+        	return false;
+        }
+        
         
 		return true;
 	}
