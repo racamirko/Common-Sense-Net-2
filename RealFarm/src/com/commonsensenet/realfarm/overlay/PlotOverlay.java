@@ -34,7 +34,7 @@ public class PlotOverlay extends Overlay {
 	}
 	
 	public void addOverlay(Polygon polygon){
-		hm.put(polygon.getID(), polygon);
+		hm.put(polygon.getId(), polygon);
 	}
 	
 	public Polygon getOverlay(int id){

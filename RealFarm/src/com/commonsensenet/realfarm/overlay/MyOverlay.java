@@ -98,8 +98,10 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
      * @param lon
      * @return GeoPoint
      */
-    private GeoPoint getPoint(double lat, double lon) {
-    	return(new GeoPoint((int)(lat*1000000.0), (int)(lon*1000000.0)));
+    public GeoPoint getPoint(double lat, double lon) {
+    	
+    	final double PRECISION = 1000000.0;
+    	return(new GeoPoint((int)(lat*PRECISION), (int)(lon*PRECISION)));
     }
 
     
