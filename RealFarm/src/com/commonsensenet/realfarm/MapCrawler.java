@@ -195,7 +195,7 @@ public class MapCrawler extends Activity implements Notifiable {
 			for (int y = 0; y < tilesNeeded; y++) {
 
 				// creates the new tile data
-				tmpMapTile = new MapTile(null, TILE_SIZE, TILE_SIZE
+				tmpMapTile = new MapTile((Bitmap)null, TILE_SIZE, TILE_SIZE
 						+ GOOGLE_MAPS_WATERMARK_SIZE, x, y, new GeoPoint(lat,
 						lon), zoomLevel, mapType);
 				// stores the tile data using the URL as a key.
