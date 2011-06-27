@@ -1,65 +1,18 @@
 package com.commonsensenet.realfarm.map;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
 import android.graphics.Canvas;
-import android.os.AsyncTask;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class OfflineMapView extends View {
 
-	private class MapLoaderTask extends AsyncTask<GeoPoint, Void, Map> {
-
-		/** Center of the map being loaded. */
-		private GeoPoint mCenter;
-		/** View where the map be displayed. */
-		private WeakReference<View> mView;
-
-		/**
-		 * Creates a new MapLoaderTask.
-		 * 
-		 * @param view
-		 *            A view where the map is displayed
-		 */
-		public MapLoaderTask(View view) {
-			mView = new WeakReference<View>(view);
-		}
-
-		/**
-		 * Loads the map in the background.
-		 */
-		@Override
-		protected Map doInBackground(GeoPoint... params) {
-			mCenter = params[0];
-			return Map.createMapFromCoordinate(mCenter);
-		}
-
-		/**
-		 * After the map is loaded it is assigned to the application and the
-		 * view is refreshed.
-		 */
-		@Override
-		protected void onPostExecute(Map map) {
-
-			// result is nulled if the task has been canceled.
-			if (isCancelled()) {
-				map = null;
-			}
-
-			mMap = map;
-			// forces the UI to update the map.
-			if (mView.get() != null)
-				mView.get().invalidate();
-
-		}
-	}
-
 	/** Height of the display area in pixels. */
 	private int mDisplayHeight;
-
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
 	/** Underlying map representation in charge of the tile system. */
@@ -77,25 +30,32 @@ public class OfflineMapView extends View {
 	/** Initial position in the y coordinate used to track the movement. */
 	private float mStartY;
 
-	public OfflineMapView(Context context, int displayWidth, int displayHeight,
-			GeoPoint center) {
+	public OfflineMapView(Context context, AttributeSet attrs) {
+		super(context, attrs);
+
+		initOfflineMapView();
+
+		// mMap = Map.createDefaultMap(this);
+		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
+				this);
+	}
+
+	public OfflineMapView(Context context, GeoPoint center) {
 		super(context);
 
-		// sets the current size of the screen in pixels.
-		mDisplayWidth = displayWidth;
-		mDisplayHeight = displayHeight;
+		initOfflineMapView();
 
-		// initial values of scrolling variables.
-		mScrollRectX = 0;
-		mScrollRectY = 0;
-		mScrollByX = 0;
-		mScrollByY = 0;
-		mStartX = 0;
-		mStartY = 0;
+		// creates a new map instance
+		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
+				this);
+	}
 
-		// loads the map asynchronously.
-		MapLoaderTask mapLoaderTask = new MapLoaderTask(this);
-		mapLoaderTask.execute(center);
+	public void animateTo(com.google.android.maps.GeoPoint point) {
+
+	}
+
+	public void animateTo(GeoPoint point) {
+
 	}
 
 	private int clamp(int value, int min, int max) {
@@ -112,11 +72,29 @@ public class OfflineMapView extends View {
 		throw new UnsupportedOperationException();
 	}
 
+	public final List<Overlay> getOverlays() {
+		return new ArrayList<Overlay>();
+	}
+
 	public int getZoomLevel() {
 		throw new UnsupportedOperationException();
 	}
 
-	
+	private void initOfflineMapView() {
+
+		// sets the current size of the screen in pixels.
+		mDisplayWidth = getWidth();
+		mDisplayHeight = getHeight();
+
+		// initial values of scrolling variables.
+		mScrollRectX = 0;
+		mScrollRectY = 0;
+		mScrollByX = 0;
+		mScrollByY = 0;
+		mStartX = 0;
+		mStartY = 0;
+	}
+
 	private Boolean isInside(int r2x, int r2y, int r2w, int r2h, int r1x,
 			int r1y, int r1w, int r1h) {
 		return !(r2x > (r1x + r1w) || (r2x + r2w) < r1x || r2y > (r1y + r1h) || (r2y + r2h) < r1y);
@@ -178,6 +156,13 @@ public class OfflineMapView extends View {
 	}
 
 	@Override
+	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
+		super.onSizeChanged(w, h, oldw, oldh);
+		mDisplayWidth = w;
+		mDisplayHeight = h;
+	}
+
+	@Override
 	public boolean onTouchEvent(MotionEvent event) {
 
 		if (mMap == null)
@@ -210,6 +195,10 @@ public class OfflineMapView extends View {
 		}
 		// done with this event so consume it
 		return true;
+	}
+
+	public void setCenter(GeoPoint center) {
+		throw new UnsupportedOperationException();
 	}
 
 	public void setZoomLevel(int value) {

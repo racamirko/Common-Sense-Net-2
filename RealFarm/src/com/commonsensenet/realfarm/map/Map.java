@@ -4,17 +4,17 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.view.View;
 
 import com.commonsensenet.realfarm.MapCrawler;
-
 import com.commonsensenet.realfarm.R;
 
 public class Map {
 
-	public static Map createDefaultMap(GeoPoint center, View view) {
+	public static Map createDefaultMap(View view) {
 
 		Map tmpMap = new Map();
 
@@ -44,9 +44,12 @@ public class Map {
 		return tmpMap;
 	}
 
-	public static Map createMapFromCoordinate(GeoPoint center) {
+	public static Map createMapFromCoordinate(GeoPoint center, View view) {
 		Map tmpMap = new Map();
 
+		try{
+			
+		
 		// gets the path from the system
 		String externalDirectoryPath = Environment
 				.getExternalStorageDirectory().toString()
@@ -56,6 +59,10 @@ public class Map {
 		File mapDir = new File(externalDirectoryPath + center.getLatitude()
 				+ "," + center.getLongitude() + "/");
 
+		
+		Bitmap tmp = BitmapFactory.decodeResource(
+				view.getResources(), R.drawable.tile_0_0_14056179_77164847_);
+				
 		// if the folder exists loads the map from it.
 		if (mapDir.exists()) {
 			String[] fileNames = mapDir.list();
@@ -69,12 +76,12 @@ public class Map {
 				String[] fileName = fileNames[x].split("_");
 				String imagePath = mapDir.getPath() + "/" + fileNames[x];
 
-				// position in the grid.
+				// position in the grid (x and y values are inverted)
 				xValue = Integer.parseInt(fileName[2]);
 				yValue = Integer.parseInt(fileName[1]);
 
-				tmpMap.mTiles.add(new MapTile(BitmapFactory
-						.decodeFile(imagePath), MapCrawler.TILE_SIZE,
+				// BitmapFactory.decodeFile(imagePath)
+				tmpMap.mTiles.add(new MapTile(imagePath, tmp, MapCrawler.TILE_SIZE,
 						MapCrawler.TILE_SIZE, xValue, yValue, new GeoPoint(
 								Integer.parseInt(fileName[3]), Integer
 										.parseInt(fileName[4])), 17,
@@ -91,6 +98,11 @@ public class Map {
 
 			return tmpMap;
 		}
+		}catch (Exception e)
+		{
+			e.printStackTrace();
+		}
+		
 		return null;
 	}
 
@@ -108,12 +120,11 @@ public class Map {
 	public Map() {
 		mZoom = 17;
 		mTiles = new ArrayList<MapTile>();
-
 	}
 
 	public void dispose() {
 		for (int x = 0; x < mTiles.size(); x++) {
-			mTiles.get(x).getBitmap().recycle();
+			mTiles.get(x).dispose();
 		}
 	}
 
