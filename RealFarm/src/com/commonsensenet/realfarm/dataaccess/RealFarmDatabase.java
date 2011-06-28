@@ -34,7 +34,6 @@ public class RealFarmDatabase {
 		 * @param SQLiteDatabase
 		 *            to create
 		 * @throws SQLException
-		 * @author Julien Freudiger
 		 */
 		@Override
 		public void onCreate(SQLiteDatabase db) {
@@ -147,7 +146,6 @@ public class RealFarmDatabase {
 	 * Class constructor
 	 * 
 	 * @param context
-	 * @author Julien Freudiger
 	 */
 	public RealFarmDatabase(Context context) {
 		mContext = context;
@@ -195,7 +193,6 @@ public class RealFarmDatabase {
 	 * Method to read specfic values from table.
 	 * 
 	 * @return A cursor containing the result of the query.
-	 * @author Julien Freudiger
 	 */
 
 	public Cursor getEntries(String tableName, String[] columns,
@@ -211,7 +208,6 @@ public class RealFarmDatabase {
 	 * purposes only and should be replaced by method to obtain location of
 	 * plots from farmers directly.
 	 * 
-	 * @author Julien Freudiger
 	 * @param db
 	 */
 	public void initValues(SQLiteDatabase db) {
@@ -409,7 +405,6 @@ public class RealFarmDatabase {
 	 * @param ContentValues
 	 *            to insert
 	 * @return long result is 0 if db close, -1 if error, rowID if success
-	 * @author Julien Freudiger
 	 */
 	public long insertEntries(String TableName, ContentValues values,
 			SQLiteDatabase db) {
@@ -445,7 +440,6 @@ public class RealFarmDatabase {
 	 * 
 	 * @return ManageDatabase Object
 	 * @throws SQLException
-	 * @author Julien Freudiger
 	 */
 	public synchronized void open() throws SQLException {
 		// opens the database
@@ -460,7 +454,6 @@ public class RealFarmDatabase {
 	 * @param firstname
 	 * @param lastname
 	 * @return boolean indicating success of database update
-	 * @author Julien Freudiger
 	 */
 	public boolean updateUserName(int id, String firstname, String lastname) {
 		ContentValues args = new ContentValues();
