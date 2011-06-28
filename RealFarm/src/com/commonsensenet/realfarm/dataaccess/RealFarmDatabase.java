@@ -175,7 +175,7 @@ public class RealFarmDatabase {
 	public synchronized void close() {
 		mOpenHelper.close();
 
-		if (mDb != null && mDb.isOpen())
+		if (mDb != null)
 			mDb.close();
 		mDb = null;
 	}
@@ -449,7 +449,7 @@ public class RealFarmDatabase {
 	 */
 	public synchronized void open() throws SQLException {
 		// opens the database
-		if (mDb != null && !mDb.isOpen())
+		if (mDb == null || !mDb.isOpen())
 			mDb = mOpenHelper.getWritableDatabase();
 	}
 
