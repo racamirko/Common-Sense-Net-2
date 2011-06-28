@@ -17,6 +17,7 @@ public class OfflineMapView extends View {
 	private int mDisplayWidth;
 	/** Underlying map representation in charge of the tile system. */
 	private Map mMap;
+	private ArrayList<Overlay> mOverlays;
 	/** Amount to scroll in the x coordinate product of the last ACTION_MOVE. */
 	private float mScrollByX;
 	/** Amount to scroll in the y coordinate product of the last ACTION_MOVE. */
@@ -27,6 +28,7 @@ public class OfflineMapView extends View {
 	private int mScrollRectY;
 	/** Initial position in the x coordinate used to track the movement. */
 	private float mStartX;
+
 	/** Initial position in the y coordinate used to track the movement. */
 	private float mStartY;
 
@@ -73,7 +75,7 @@ public class OfflineMapView extends View {
 	}
 
 	public final List<Overlay> getOverlays() {
-		return new ArrayList<Overlay>();
+		return mOverlays;
 	}
 
 	public int getZoomLevel() {
