@@ -1,9 +1,10 @@
 package com.commonsensenet.realfarm;
 
-import net.londatiga.android.ActionItem;
-import net.londatiga.android.QuickAction;
-import net.londatiga.android.R;
+import java.util.List;
+
 import android.app.Activity;
+import android.content.Context;
+import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -13,11 +14,17 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Toast;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.map.GeoPoint;
 import com.commonsensenet.realfarm.map.OfflineMapView;
+import com.commonsensenet.realfarm.map.Overlay;
+import com.commonsensenet.realfarm.overlay.ActionItem;
 import com.commonsensenet.realfarm.overlay.MyOverlay;
 import com.commonsensenet.realfarm.overlay.PlotOverlay;
+import com.commonsensenet.realfarm.overlay.Polygon;
 import com.commonsensenet.realfarm.overlay.PopupPanel;
+import com.commonsensenet.realfarm.overlay.QuickAction;
 import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
@@ -25,13 +32,15 @@ public class OfflineMapDemo extends Activity {
 
 	private OfflineMapView mOfflineMap;	
 	private LocationManager lm;
-	private GeoPoint ckPura;
+	public static final GeoPoint CKPURA_LOCATION = new GeoPoint(14054563, 77167003);
 	private MyOverlay overlayOld = null;
 	private PlotOverlay myPlot;
-	private MediaPlayer mp;
+	private MediaPlayer mMediaPlayer;
 	private PopupPanel panel;
+	/** Class used to extract the data from the database. */
+	private RealFarmProvider mDataProvider;
+	private List<Polygon> mMyPlots;
 
-	
 //	<com.markupartist.android.widget.ActionBar
 //	android:id="@+id/actionBar" style="@style/ActionBar" />
 //  <com.commonsensenet.realfarm.map.OfflineMapView
@@ -52,7 +61,6 @@ public class OfflineMapDemo extends Activity {
 				int lng = (int) (location.getLongitude() * 1000000);
 				GeoPoint p = new GeoPoint(lat, lng);
 				mOfflineMap.animateTo(p);
-				// myMapController.setZoom(20);
 
 				// Display icon at my current location
 
@@ -88,17 +96,8 @@ public class OfflineMapDemo extends Activity {
 		}
 	}
 	
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-
-		super.onCreate(savedInstanceState);
-		
-		// sets the layout
-		setContentView(R.layout.main);
-		
-		// gets the map from the UI.
-		mOfflineMap = (OfflineMapView) findViewById(R.id.offlineMap);
-		
+	private void setUpActionBar()
+	{
 		final ActionItem first = new ActionItem();
 
 		first.setTitle("Dashboard");
@@ -113,7 +112,7 @@ public class OfflineMapDemo extends Activity {
 		final ActionItem second = new ActionItem();
 
 		second.setTitle("Users & Groups");
-		second.setIcon(getResources().getDrawable(R.drawable.kontak));
+		second.setIcon(getResources().getDrawable(R.drawable.dashboard));
 		second.setOnClickListener(new OnClickListener() {
 			public void onClick(View v) {
 				Toast.makeText(OfflineMapDemo.this, "User & Group",
@@ -123,7 +122,7 @@ public class OfflineMapDemo extends Activity {
 		
 		
 		// gets the action bar.
-		ActionBar actionBar = (ActionBar) findViewById(R.id.actionBar);
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
 		actionBar.setTitle(R.string.app_name);
 		
 		// adds the required actions
@@ -172,44 +171,54 @@ public class OfflineMapDemo extends Activity {
 				return R.drawable.ic_news_white;
 			}
 		});
-//		
-//		
-//		// Define location manager
-//		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-//		
-//		// Define overlays
-//		List<Overlay> mapOverlays = mOfflineMap.getOverlays();
-//		ckPura = new GeoPoint(14054563, 77167003);
-//	    		
-//		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
-//			mOfflineMap.animateTo(ckPura);
-//		
-//	    // Create class managing objects from database 
-//		realFarm mainApp = ((realFarm)getApplicationContext());
-//		ObjectDatabase od = new ObjectDatabase(mainApp, this, mOfflineMap);
-//	    
+	}
+	
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+
+		super.onCreate(savedInstanceState);
+		
+		// sets the layout
+		setContentView(R.layout.main);
+		
+		// gets the map from the UI.
+		// mOfflineMap = (OfflineMapView) findViewById(R.id.offlineMap);
+		
+		// sets the items included in the action bar.
+		setUpActionBar();
+
+		// Define location manager
+		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
+		
+		// Define overlays
+		List<Overlay> mapOverlays = mOfflineMap.getOverlays();
+	    		
+		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
+			mOfflineMap.animateTo(CKPURA_LOCATION);
+		
+		// comment out if you want to reuse existing database
+		getApplicationContext().deleteDatabase("realFarm.db");
+		
+		// creates the data provider of the application.
+		mDataProvider = new RealFarmProvider(new RealFarmDatabase(getApplicationContext()));
+	    
 //	    // Create popup panel that is displayed when tapping on an element
 //	    panel = new PopupPanel(R.layout.popup, mOfflineMap, this, od);
-//	    
-//	    // create overlay for field plots (includes calls to panel when field tap and closing drawer)
-//	    // myPlot = new PlotOverlay(panel, slidingDrawer);
-//		// mapOverlays.add(myPlot); // Add overlay to mapView
-//		
-//		// Create plots on overlay and in menu
-//		// LinearLayout container = null; // = (LinearLayout) findViewById(R.id.contentplot);
-//		// od.managePlots(myPlot, container);		
-//		
-//		// Criteria on how to obtain location information
-//		final Criteria criteria = new Criteria();
-//		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-//		criteria.setAltitudeRequired(false);
-//		criteria.setBearingRequired(false);
-//		criteria.setCostAllowed(true);
-//		criteria.setPowerRequirement(Criteria.POWER_LOW);
-//
-//		// Load sounds
-//		mp = MediaPlayer.create(this, R.raw.sound22);
-//
+
+		mMyPlots = mDataProvider.getPlots(1);
+		// TODO: create action items and plot overlays.
+		
+		// Criteria on how to obtain location information
+		final Criteria criteria = new Criteria();
+		criteria.setAccuracy(Criteria.ACCURACY_FINE);
+		criteria.setAltitudeRequired(false);
+		criteria.setBearingRequired(false);
+		criteria.setCostAllowed(true);
+		criteria.setPowerRequirement(Criteria.POWER_LOW);
+
+		// Load sounds
+		mMediaPlayer = MediaPlayer.create(this, R.raw.sound22);
+
 //		// Define action on short click on "here" button
 //		final Button button = (Button) findViewById(R.id.topBtn);
 //		button.setOnClickListener(new View.OnClickListener() {
@@ -233,7 +242,7 @@ public class OfflineMapDemo extends Activity {
 //		// Action on long click of here button
 //		button.setOnLongClickListener(new View.OnLongClickListener() {
 //			public boolean onLongClick(View v) {
-//				mp.start();
+//				mMediaPlayer.start();
 //				return true;
 //			}
 //		});
