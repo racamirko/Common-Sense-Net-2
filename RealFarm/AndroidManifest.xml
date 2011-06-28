@@ -12,7 +12,16 @@
 	<application android:label="@string/app_name" android:name=".realFarm"
 		android:debuggable="true" android:icon="@drawable/app_social">
 		<uses-library android:name="com.google.android.maps" />
+		
 		<activity android:name=".realFarmMainActivity" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
+			<intent-filter>
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		
+		<activity android:name=".OfflineMapDemo" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar">
 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />

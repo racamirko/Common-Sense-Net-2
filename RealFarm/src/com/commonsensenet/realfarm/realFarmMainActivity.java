@@ -18,15 +18,19 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.database.ObjectDatabase;
 import com.commonsensenet.realfarm.overlay.ActionItem;
 import com.commonsensenet.realfarm.overlay.MyOverlay;
 import com.commonsensenet.realfarm.overlay.PlotOverlay;
+import com.commonsensenet.realfarm.overlay.Polygon;
 import com.commonsensenet.realfarm.overlay.PopupPanel;
 import com.commonsensenet.realfarm.overlay.QuickAction;
 import com.google.android.maps.GeoPoint;
@@ -41,19 +45,24 @@ import com.markupartist.android.widget.ActionBar.Action;
 public class realFarmMainActivity extends MapActivity{
 
 	private MapController myMapController;
-	private SlidingDrawer slidingDrawer;
-	private SlidingDrawer newsSlidingDrawer;
 	
 	Button drawerButton;
 	Button newsDrawerButton;
 	
 	LocationManager lm;
 	private MapView mapView = null;
-	private GeoPoint ckPura;
 	private PopupPanel panel;
 	private MediaPlayer mp;
+	
 	private MyOverlay overlayOld = null;
-	private PlotOverlay myPlot;
+	private PlotOverlay myPlotOverlay;
+	private List<Overlay> mapOverlays ;
+	
+	/** Class used to extract the data from the database. */
+	private RealFarmProvider mDataProvider;
+	/** List of Polygons that represent the plots of the user. */
+	private List<Polygon> mMyPlots;
+	public static final GeoPoint CKPURA_LOCATION = new GeoPoint(14054563,77167003);
 	
 	/**
 	 * default method called by android on activity creation
@@ -73,217 +82,62 @@ public class realFarmMainActivity extends MapActivity{
 		// Define map
 		mapView = (MapView) findViewById(R.id.mapview);
 		mapView.setSatellite(true);
-		
 		myMapController = mapView.getController();
 		myMapController.setZoom(20);
 
 		// Define location manager
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		// Define overlays
-		List<Overlay> mapOverlays = mapView.getOverlays();
-		ckPura = new GeoPoint(14054563, 77167003);
-
-		
-	    		
 		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
-			myMapController.animateTo(ckPura);
+			myMapController.animateTo(CKPURA_LOCATION);
+		
+		// Create data provider
+		getApplicationContext().deleteDatabase("realFarm.db");		// comment out if you want to reuse existing database
+		mDataProvider = new RealFarmProvider(new RealFarmDatabase(getApplicationContext()));
+		
+		// Get mapView overlay
+		mapOverlays = mapView.getOverlays();
 
-			
-
-		/*
-		 * Define action bar
-		 */
-		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		
-		// Home action button
-		actionBar.setHomeAction(new Action() {
-			public void performAction(View view) {
-				myMapController.animateTo(ckPura);
-				myMapController.setZoom(20);
-
-				List<Overlay> mapOverlays = mapView.getOverlays();
-				Drawable drawable = getResources().getDrawable(R.drawable.marker);
-				MyOverlay itemizedoverlay = new MyOverlay(drawable, getApplicationContext(), mapView, panel);
-
-				OverlayItem overlayitem = new OverlayItem(ckPura, "Hello!","CKPura");
-				itemizedoverlay.addOverlay(overlayitem);
-
-				// mapOverlays.removeAll(mapOverlays);
-				mapOverlays.add(itemizedoverlay);
-			}
-			
-			public int getDrawable() {
-				return R.drawable.ic_title_home_default;
-			}
-		});
-		
-		// locate me action button
-		actionBar.addAction(new Action() {
-			public int getDrawable() {
-			        return R.drawable.ic_menu_mylocation;
-		    }
-		    public void performAction(View view) {
-				LocationListener locationListenerGps = new MyLocationListener();
-				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				// locationListenerGps);
-				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
-						10000, locationListenerGps);
-		    }
-		});
-		
-		// plots action button		
-		final ActionItem first = new ActionItem();
-		first.setTitle("plot1");
-		first.setIcon(getResources().getDrawable(R.drawable.dashboard));
-		
-		final ActionItem second = new ActionItem();
-		second.setTitle("plot1");
-		second.setIcon(getResources().getDrawable(R.drawable.dashboard));
-		
-		actionBar.addAction(new Action() {
-			public int getDrawable() {
-				return R.drawable.ic_menu_sort_by_size;
-			}
-			public void performAction(View view) {
-				QuickAction qa = new QuickAction(view);
-
-				
-//				List<ActionItem> items = getActionItems()
-//				
-//				getActionItems(){
-//					od.getPlots
-//					
-//					for each plot
-//					new action
-//					add
-//				}
-				
-				qa.addActionItem(first);
-				qa.addActionItem(second);
-				qa.show();
-			}
-		});
-		
-		
-		// news action button
-		
-		
-		
-		// Create slider button
-		drawerButton = (Button) findViewById(R.id.drawerHandle);
-
-		// Create slider
-		slidingDrawer = (SlidingDrawer) this.findViewById(R.id.slidingDrawer);
-		slidingDrawer.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				if (slidingDrawer.isOpened())
-				{
-					if (slidingDrawer.getHandle().isPressed()) // default behavior
-						return false;
-					return true; // else do not do anything
-				}
-				return false; // else default behavior
-			}
-		});
-		
-
-		
-		// Create news slider button
-		newsDrawerButton = (Button) findViewById(R.id.newsDrawerHandle);
-
-		// Create news slider
-		newsSlidingDrawer = (SlidingDrawer) this.findViewById(R.id.newsDrawer);
-		newsSlidingDrawer.setOnTouchListener(new View.OnTouchListener() {
-			public boolean onTouch(View v, MotionEvent event) {
-				if (newsSlidingDrawer.isOpened())
-				{
-					if (newsSlidingDrawer.getHandle().isPressed()) // default behavior
-						return false;
-					return true; // else do not do anything
-				}
-				return false; // else default behavior
-			}
-		});
-
-		
-	    // Create class managing objects from database 
-		realFarm mainApp = ((realFarm)getApplicationContext());
-		ObjectDatabase od = new ObjectDatabase(mainApp, this, mapView);
+		// create overlay for field plots
+	    myPlotOverlay = new PlotOverlay();
 	    
-	    // Create popup panel that is displayed when tapping on an element
-	    panel = new PopupPanel(R.layout.popup, mapView, this, od);
+		onUpdateUI();
+		
 	    
-	    // create overlay for field plots (includes calls to panel when field tap and closing drawer)
-	    myPlot = new PlotOverlay(panel, slidingDrawer, newsSlidingDrawer);
-		mapOverlays.add(myPlot); // Add overlay to mapView
-		
-		// Create plots on overlay and in menu
-		LinearLayout container = (LinearLayout) findViewById(R.id.contentplot);
-		od.managePlots(myPlot, container);		
-		
-		// Criteria on how to obtain location information
-		final Criteria criteria = new Criteria();
-		criteria.setAccuracy(Criteria.ACCURACY_FINE);
-		criteria.setAltitudeRequired(false);
-		criteria.setBearingRequired(false);
-		criteria.setCostAllowed(true);
-		criteria.setPowerRequirement(Criteria.POWER_LOW);
-
-		// Load sounds
-		mp = MediaPlayer.create(this, R.raw.sound22);
-
-		// Define action on short click on "here" button
-		final Button button = (Button) findViewById(R.id.topBtn);
-		button.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-
-				// Get best location provider given criteria
-				// String provider = lm.getBestProvider(criteria, true);
-
-				LocationListener locationListenerGps = new MyLocationListener();
-				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				// locationListenerGps);
-				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
-						10000, locationListenerGps);
-				// lm.requestLocationUpdates(provider, 0, 0,
-				// locationListenerGps);
-
-			}
-		});
-
-		// Action on long click of here button
-		button.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View v) {
-				mp.start();
-				return true;
-			}
-		});
-
-		// Define action on home button
-		final Button button2 = (Button) findViewById(R.id.topBtn2);
-		button2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				myMapController.animateTo(ckPura);
-				myMapController.setZoom(20);
-
-				List<Overlay> mapOverlays = mapView.getOverlays();
-
-				Drawable drawable = getResources().getDrawable(
-						R.drawable.marker);
-				MyOverlay itemizedoverlay = new MyOverlay(drawable, getApplicationContext(), mapView, panel);
-
-				OverlayItem overlayitem = new OverlayItem(ckPura, "Hello!",
-						"CKPura");
-				itemizedoverlay.addOverlay(overlayitem);
-
-				// mapOverlays.removeAll(mapOverlays);
-				mapOverlays.add(itemizedoverlay);
-
-			}
-		});
-
+//	    // Create popup panel that is displayed when tapping on an element
+//	    //panel = new PopupPanel(R.layout.popup, mapView, this, od);
+//	    
+//		// Load sounds
+//		mp = MediaPlayer.create(this, R.raw.sound22);
+//
+//		// Define action on short click on "here" button
+//		final Button button = (Button) findViewById(R.id.topBtn);
+//		button.setOnClickListener(new View.OnClickListener() {
+//
+//			public void onClick(View v) {
+//
+//				// Get best location provider given criteria
+//				// String provider = lm.getBestProvider(criteria, true);
+//
+//				LocationListener locationListenerGps = new MyLocationListener();
+//				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+//				// locationListenerGps);
+//				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
+//						10000, locationListenerGps);
+//				// lm.requestLocationUpdates(provider, 0, 0,
+//				// locationListenerGps);
+//
+//			}
+//		});
+//
+//		// Action on long click of here button
+//		button.setOnLongClickListener(new View.OnLongClickListener() {
+//			public boolean onLongClick(View v) {
+//				mp.start();
+//				return true;
+//			}
+//		});
+//
+//		
 	}
 
 
@@ -292,6 +146,21 @@ public class realFarmMainActivity extends MapActivity{
 		return false;
 	}
 
+	
+	public void onUpdateUI(){
+		
+		// define action bar
+		mMyPlots = mDataProvider.getPlots(1);
+		setUpActionBar();
+		
+	    List<Polygon> mPolygons = mDataProvider.getPlots();
+	    for (int x = 0; x < mPolygons.size(); x++) {
+	    	myPlotOverlay.addOverlay(mPolygons.get(x));
+	    }
+	    mapOverlays.add(myPlotOverlay); // Add overlay to mapView
+		
+	}
+	
 	/*
 	 * location class
 	 */
@@ -411,6 +280,111 @@ public class realFarmMainActivity extends MapActivity{
 								realFarmMainActivity.this.finish();
 							}
 						}).show();
+	}
+
+	
+	
+	
+
+	private void setUpActionBar() {
+		
+		// gets the action bar.
+		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
+
+		// Home action button
+		actionBar.setHomeAction(new Action() {
+			public void performAction(View view) {
+				myMapController.animateTo(CKPURA_LOCATION);
+
+				// TODO: add marker
+				// List<Overlay> mapOverlays = mOfflineMap.getOverlays();
+				// Drawable drawable =
+				// getResources().getDrawable(R.drawable.marker);
+				// MarkerOverlay itemizedoverlay = new MarkerOverlay(drawable,
+				// getApplicationContext());
+
+				// OverlayItem overlayitem = new OverlayItem(CKPURA_LOCATION,
+				// "Hello!","CKPura");
+				// itemizedoverlay.addOverlay(overlayitem);
+
+				// mapOverlays.removeAll(mapOverlays);
+				// mapOverlays.(itemizedoverlay);
+			}
+			
+			public int getDrawable() {
+				return R.drawable.ic_title_home_default;
+			}
+			
+		});
+
+		// locate me action button
+		actionBar.addAction(new Action() {
+
+			public void performAction(View view) {
+				LocationListener locationListenerGps = new MyLocationListener();
+				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
+				// locationListenerGps);
+				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
+						10000, locationListenerGps);
+			}
+			
+			public int getDrawable() {
+				return R.drawable.ic_menu_mylocation;
+			}
+		});
+
+		actionBar.addAction(new Action() {
+
+			public void performAction(View view) {
+				final QuickAction qa = new QuickAction(view);
+
+				// creates an action item for each available plot.
+				ActionItem tmpItem;
+				for (int x = 0; x < mMyPlots.size(); x++) {
+					// creates a new item based
+					tmpItem = new ActionItem();
+					tmpItem.setTitle("Plot " + mMyPlots.get(x).getId());
+					tmpItem.setId(x);
+					tmpItem.setIcon(getResources().getDrawable(R.drawable.ic_dialog_map));
+					tmpItem.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+							
+							// animates to the center of the plot
+							int[] average = mMyPlots.get(v.getId()).getAverageLL();
+							myMapController.animateTo(new GeoPoint(average[0], average[1]));
+						}
+
+					});
+					// adds the item
+					qa.addActionItem(tmpItem);
+				}
+
+				qa.show();
+			}
+			
+			public int getDrawable() {
+				return R.drawable.ic_menu_sort_by_size;
+			}
+		});
+
+		// news button in action bar
+		actionBar.addAction(new Action() {
+
+			public void performAction(View view) {
+				
+				final QuickAction qa = new QuickAction(view);
+
+				ActionItem tmpItem;				
+				
+				
+			}
+			
+			public int getDrawable() {
+				return R.drawable.ic_menu_news;
+			}
+		});
+		
+		
 	}
 	
 }

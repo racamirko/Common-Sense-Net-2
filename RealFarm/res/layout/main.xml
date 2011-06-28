@@ -7,80 +7,21 @@
 	<com.markupartist.android.widget.ActionBar
 		android:id="@+id/actionbar" style="@style/ActionBar" />
 
-
 	<RelativeLayout android:orientation="vertical"
 		android:layout_width="wrap_content" android:layout_height="wrap_content"
 		android:id="@+id/container" android:clickable="true">
 
+	<!--<com.commonsensenet.realfarm.map.OfflineMapView
+	android:id="@+id/offlineMap" android:layout_width="fill_parent" android:layout_height="fill_parent" />
+-->	
+	 
 		<com.google.android.maps.MapView
 			xmlns:android="http://schemas.android.com/apk/res/android"
 			android:id="@+id/mapview" android:layout_width="wrap_content"
 			android:layout_height="wrap_content" android:enabled="true"
 			android:clickable="true" android:apiKey="0Zn33DzPcEB9dV6ztClpuA8RWKrp4hQnKPLXHaA" />
-
-		<!-- Navigation drawer -->
-		<SlidingDrawer android:id="@+id/slidingDrawer"
-			android:handle="@+id/drawerHandle" android:content="@+id/contentLayout"
-			android:layout_height="200dp" android:layout_width="fill_parent"
-			android:clickable="false" android:layout_alignParentBottom="true"
-			android:orientation="vertical">
-
-			<!-- Handle -->
-			<Button android:id="@+id/drawerHandle" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:text="@string/menu">
-			</Button>
-
-			<!-- Layout navigation drawer -->
-			<LinearLayout android:id="@+id/contentLayout"
-				android:gravity="center" android:layout_width="fill_parent"
-				android:layout_height="fill_parent" android:background="#BF000000"
-				android:orientation="horizontal">
-
-				<!-- User Location Fixed Button in navigation drawer -->
-				<Button android:id="@+id/topBtn" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="@string/mylocation"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentTop="true">
-				</Button>
-
-				<!-- Village Location Fixed Button in navigation drawer -->
-				<Button android:id="@+id/topBtn2" android:layout_width="wrap_content"
-					android:layout_height="wrap_content" android:text="@string/village"
-					android:layout_alignParentLeft="true"
-					android:layout_alignParentTop="true">
-				</Button>
-
-				<!-- Sub-layout for dynamic buttons to plots -->
-				<LinearLayout android:layout_width="wrap_content"
-					android:layout_height="fill_parent" android:id="@+id/contentplot"
-					android:paddingRight="10dip" android:gravity="center"></LinearLayout>
-
-			</LinearLayout>
-
-		</SlidingDrawer>
-
-
-		<!-- News drawer -->
-		<SlidingDrawer android:id="@+id/newsDrawer"
-			android:handle="@+id/newsDrawerHandle" android:content="@+id/newsContentLayout"
-			android:layout_height="fill_parent" android:layout_width="250dp"
-			android:clickable="false" android:layout_alignParentRight="true"
-			android:orientation="horizontal">
-
-			<!-- Handle -->
-			<Button android:id="@+id/newsDrawerHandle"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:text="@string/news">
-			</Button>
-
-			<LinearLayout android:id="@+id/newsContentLayout"
-				android:gravity="center" android:layout_width="fill_parent"
-				android:layout_height="fill_parent" android:background="#BF000000"
-				android:orientation="horizontal">
-			</LinearLayout>
-
-		</SlidingDrawer>
-
+ 
+		
 	</RelativeLayout>
 
 

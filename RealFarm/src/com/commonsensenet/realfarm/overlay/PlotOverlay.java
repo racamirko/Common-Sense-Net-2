@@ -9,27 +9,24 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.view.View;
-import android.widget.SlidingDrawer;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.realFarmMainActivity.MyLocationListener;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.Projection;
+import com.markupartist.android.widget.ActionBar.Action;
 
 public class PlotOverlay extends Overlay {
 	
-	private PopupPanel panel;
-	private SlidingDrawer slidingDrawer;
-	private SlidingDrawer newsSlidingDrawer;
 	private Map<Integer, Polygon> hm; 
 	
-	public PlotOverlay(PopupPanel RPanel, SlidingDrawer slidingDrawer, SlidingDrawer newsSlidingDrawer){
-		panel = RPanel;
-		this.slidingDrawer = slidingDrawer;
-		this.newsSlidingDrawer = newsSlidingDrawer;
+	public PlotOverlay(){
 		hm = new HashMap<Integer, Polygon>(); 
 	}
 	
@@ -102,29 +99,19 @@ public class PlotOverlay extends Overlay {
             	Polygon mPolygon = hm.get(key);// get Polygon
 	        	if (mPolygon.contains(touched.x, touched.y, mapView)){
 	        	
-	        		View view = panel.getView();
-
-	        		((TextView) view.findViewById(R.id.latitude)).setText(String.valueOf(p.getLatitudeE6() / 1000000.0));
-	        		((TextView) view.findViewById(R.id.longitude)).setText(String.valueOf(p.getLongitudeE6() / 1000000.0));
-	        		((TextView) view.findViewById(R.id.x)).setText(String.valueOf(touched.x));
-	        		((TextView) view.findViewById(R.id.y)).setText(String.valueOf(touched.y));
 	        		
-	        		panel.show(p, mPolygon);
+	        		
+	        		final QuickAction qa = new QuickAction(mapView);
+	        		ActionItem first = new ActionItem();
+	        		first.setTitle("test");
+	        		first.setIcon(mapView.getResources().getDrawable(R.drawable.ic_dialog_map));
+	        		first.setId(1);
+	        		qa.addActionItem(first);
+	        		qa.show();
+	        		
 	        	}
 	        }
         }
-        
-        // When user clicks out of slidingDrawer, close the sliding drawer.
-        if (slidingDrawer.isOpened()) {
-        	slidingDrawer.animateClose();
-        	return false;
-        }
-        
-        if (newsSlidingDrawer.isOpened()) {
-        	newsSlidingDrawer.animateClose();
-        	return false;
-        }
-        
         
 		return true;
 	}

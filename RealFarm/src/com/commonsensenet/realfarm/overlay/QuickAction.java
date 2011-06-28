@@ -240,7 +240,7 @@ public class QuickAction extends CustomPopupWindow {
 				xPos = anchorRect.left;
 			}
 		}
-
+		
 		int dyTop = anchorRect.top;
 		int dyBottom = screenHeight - anchorRect.bottom;
 

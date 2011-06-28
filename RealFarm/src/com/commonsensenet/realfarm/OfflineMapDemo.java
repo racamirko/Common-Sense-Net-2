@@ -106,7 +106,7 @@ public class OfflineMapDemo extends Activity {
 		setContentView(R.layout.main);
 
 		// gets the map from the UI.
-		mOfflineMap = (OfflineMapView) findViewById(R.id.offlineMap);
+	//	mOfflineMap = (OfflineMapView) findViewById(R.id.offlineMap);
 
 		// sets the items included in the action bar.
 		setUpActionBar();
@@ -268,8 +268,7 @@ public class OfflineMapDemo extends Activity {
 					tmpItem = new ActionItem();
 					tmpItem.setTitle("Plot " + mMyPlots.get(x).getId());
 					tmpItem.setId(x);
-					tmpItem.setIcon(getResources().getDrawable(
-							R.drawable.ic_crops_white));
+					tmpItem.setIcon(getResources().getDrawable(R.drawable.ic_dialog_map));
 					tmpItem.setOnClickListener(new OnClickListener() {
 						public void onClick(View v) {
 							
