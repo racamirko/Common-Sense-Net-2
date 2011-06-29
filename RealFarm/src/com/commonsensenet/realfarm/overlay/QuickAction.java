@@ -206,6 +206,75 @@ public class QuickAction extends CustomPopupWindow {
 	 * anchor view.
 	 * 
 	 */
+
+	public void show(int[] coordinates) {
+		
+		preShow();
+
+		int xPos, yPos; 
+		int[] location = new int[2];
+		
+		location[0] = coordinates[0];
+		location[1] = coordinates[1];
+		
+		Rect anchorRect = new Rect(location[0], location[1], location[0] + coordinates[2], location[1] + coordinates[3]);
+
+		createActionList();
+	
+		root.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		root.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+	
+		int rootHeight = root.getMeasuredHeight();
+		int rootWidth = root.getMeasuredWidth();
+	
+		int screenWidth = windowManager.getDefaultDisplay().getWidth();
+		int screenHeight = windowManager.getDefaultDisplay().getHeight();
+	
+		// automatically get X coord of popup (top left)
+		if ((anchorRect.left + rootWidth) > screenWidth) {
+			xPos = anchorRect.left - (rootWidth - anchor.getWidth());
+		} else {
+			if (anchor.getWidth() > rootWidth) {
+				xPos = anchorRect.centerX() - (rootWidth / 2);
+			} else {
+				xPos = anchorRect.left;
+			}
+		}
+		
+		int dyTop = anchorRect.top;
+		int dyBottom = screenHeight - anchorRect.bottom;
+	
+		boolean onTop = (dyTop > dyBottom) ? true : false;
+	
+		if (onTop) {
+			if (rootHeight > dyTop) {
+				yPos = 15;
+				LayoutParams l = scroller.getLayoutParams();
+				l.height = dyTop - anchor.getHeight();
+			} else {
+				yPos = anchorRect.top - rootHeight;
+			}
+		} else {
+			yPos = anchorRect.bottom;
+	
+			if (rootHeight > dyBottom) {
+				LayoutParams l = scroller.getLayoutParams();
+				l.height = dyBottom;
+			}
+		}
+		
+		
+	
+		showArrow(((onTop) ? R.id.arrow_down : R.id.arrow_up),
+				anchorRect.centerX() - xPos);
+	
+		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
+		                                              		
+		window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
+
+		
+	}
+	
 	public void show() {
 		preShow();
 

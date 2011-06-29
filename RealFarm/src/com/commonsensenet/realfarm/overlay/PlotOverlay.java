@@ -9,18 +9,12 @@ import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
-import android.location.LocationListener;
-import android.location.LocationManager;
-import android.view.View;
-import android.widget.ImageView;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.realFarmMainActivity.MyLocationListener;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
 import com.google.android.maps.Overlay;
 import com.google.android.maps.Projection;
-import com.markupartist.android.widget.ActionBar.Action;
 
 public class PlotOverlay extends Overlay {
 	
@@ -49,7 +43,6 @@ public class PlotOverlay extends Overlay {
         paint.setAntiAlias(true);
         paint.setDither(true);
         paint.setStrokeWidth(3);
-        paint.setStyle(Paint.Style.FILL_AND_STROKE);
         
        /*
         * Load set of points to draw in overlays
@@ -60,12 +53,17 @@ public class PlotOverlay extends Overlay {
             Path path = new Path(); // Draw path
             path.setFillType(Path.FillType.EVEN_ODD);
             
+            paint.setARGB(100, 55, 175, 35);
+            if (mPolygon.getOwner() == 1)
+            	paint.setARGB(100, 228, 29, 29);
+            
+            	
             int[] x = mPolygon.getX(mapView);
 			int[] y = mPolygon.getY(mapView);
 			
 			for (int i=0; i<x.length; i++){
-	            paint.setARGB(100, 228, 29, 29);
-	            
+				
+				
 	            if (i==0)
 	                path.moveTo(x[i],y[i]); // for first point, move to it
 	            else
@@ -80,6 +78,7 @@ public class PlotOverlay extends Overlay {
             ShapeDrawable mShape = new ShapeDrawable(pShape); 
             mShape.getPaint().set(paint);
             mShape.setBounds(0, 0, 100, 100);
+            
             
             mShape.draw(canvas);
             
@@ -99,15 +98,13 @@ public class PlotOverlay extends Overlay {
             	Polygon mPolygon = hm.get(key);// get Polygon
 	        	if (mPolygon.contains(touched.x, touched.y, mapView)){
 	        	
-	        		
-	        		
 	        		final QuickAction qa = new QuickAction(mapView);
 	        		ActionItem first = new ActionItem();
-	        		first.setTitle("test");
+	        		first.setTitle(Integer.toString(mPolygon.getId()));
 	        		first.setIcon(mapView.getResources().getDrawable(R.drawable.ic_dialog_map));
 	        		first.setId(1);
-	        		qa.addActionItem(first);
-	        		qa.show();
+	        		qa.addActionItem(first);	        		
+	        		qa.show(mPolygon.getCoordinates(mapView));
 	        		
 	        	}
 	        }

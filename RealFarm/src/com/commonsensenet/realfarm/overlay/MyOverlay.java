@@ -18,8 +18,7 @@ import com.google.android.maps.OverlayItem;
 public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 	private ArrayList<OverlayItem> mOverlays = new ArrayList<OverlayItem>();
 	Context mContext;
-	MapView map;
-	private PopupPanel panel;
+	MapView mapView;
 	
 	
     /**
@@ -39,6 +38,17 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 	    mOverlays.add(overlay);
 	    populate();
 	}
+	
+	public void removeOverlay(OverlayItem overlay) {
+	    mOverlays.remove(overlay);
+	    populate();
+	}
+	
+	public void removeAll() {
+	    mOverlays.removeAll(mOverlays);
+	    populate();
+	}
+	
 	
 	/**
 	 * Create Overlay item
@@ -67,13 +77,12 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 	 * @param defaultMarker
 	 * @param context
 	 */
-	public MyOverlay(Drawable defaultMarker, Context context, MapView mapView, PopupPanel RPanel) {
+	public MyOverlay(Drawable defaultMarker, Context context, MapView mapView) {
 
 		super(boundCenterBottom(defaultMarker));
 
 		mContext = context;
-		map = mapView;
-		panel = RPanel;
+		this.mapView = mapView;
 
 	}
 
@@ -115,18 +124,18 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 	protected boolean onTap(int index) {
 
 		OverlayItem item = mOverlays.get(index);
-
+		
 		GeoPoint geo = item.getPoint();
-		Point pt = map.getProjection().toPixels(geo, null);
-		View view = panel.getView();
-
-		((TextView) view.findViewById(R.id.latitude)).setText(String.valueOf(geo.getLatitudeE6() / 1000000.0));
-		((TextView) view.findViewById(R.id.longitude)).setText(String.valueOf(geo.getLongitudeE6() / 1000000.0));
-		((TextView) view.findViewById(R.id.x)).setText(String.valueOf(pt.x));
-		((TextView) view.findViewById(R.id.y)).setText(String.valueOf(pt.y));
-
-		panel.show(geo, null);
-
+		Point pt = mapView.getProjection().toPixels(geo, null);
+		
+		final QuickAction qa = new QuickAction(mapView);
+		ActionItem first = new ActionItem();
+		first.setTitle(item.getSnippet());
+		first.setIcon(mapView.getResources().getDrawable(R.drawable.ic_dialog_map));
+		first.setId(1);
+		qa.addActionItem(first);
+		qa.show(new int[]{pt.x, pt.y, 2, 1});
+		
 		return true;
 	}
 	

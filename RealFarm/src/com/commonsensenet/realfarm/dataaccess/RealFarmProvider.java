@@ -23,6 +23,7 @@ public class RealFarmProvider {
 		mDb.close();
 	}
 
+	
 	public List<Polygon> getPlots(int userId) {
 		List<Polygon> tmpList = new ArrayList<Polygon>();
 
@@ -97,7 +98,7 @@ public class RealFarmProvider {
 
 			do { // for each plot, draw them
 				int id = c0.getInt(0);
-
+				int ownerId = c0.getInt(1);
 				// Read points from database for each user
 				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
 						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
@@ -125,7 +126,7 @@ public class RealFarmProvider {
 					} while (c02.moveToNext());
 
 					// adds the polygon to the list.
-					tmpList.add(new Polygon(polyX, polyY, polyX.length, id));
+					tmpList.add(new Polygon(polyX, polyY, polyX.length, id, ownerId));
 				}
 				i = i + 1;
 			} while (c0.moveToNext());

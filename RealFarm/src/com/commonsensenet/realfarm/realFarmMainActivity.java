@@ -7,31 +7,23 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.drawable.Drawable;
-import android.location.Criteria;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.SlidingDrawer;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.database.ObjectDatabase;
 import com.commonsensenet.realfarm.overlay.ActionItem;
 import com.commonsensenet.realfarm.overlay.MyOverlay;
 import com.commonsensenet.realfarm.overlay.PlotOverlay;
 import com.commonsensenet.realfarm.overlay.Polygon;
-import com.commonsensenet.realfarm.overlay.PopupPanel;
 import com.commonsensenet.realfarm.overlay.QuickAction;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -43,25 +35,23 @@ import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
 public class realFarmMainActivity extends MapActivity{
-
-	private MapController myMapController;
-	
-	Button drawerButton;
-	Button newsDrawerButton;
 	
 	LocationManager lm;
 	private MapView mapView = null;
-	private PopupPanel panel;
-	private MediaPlayer mp;
+	private MapController myMapController;
 	
-	private MyOverlay overlayOld = null;
 	private PlotOverlay myPlotOverlay;
+	private MyOverlay itemizedoverlay ;
 	private List<Overlay> mapOverlays ;
+	
+	
 	
 	/** Class used to extract the data from the database. */
 	private RealFarmProvider mDataProvider;
+	
 	/** List of Polygons that represent the plots of the user. */
 	private List<Polygon> mMyPlots;
+	
 	public static final GeoPoint CKPURA_LOCATION = new GeoPoint(14054563,77167003);
 	
 	/**
@@ -94,18 +84,20 @@ public class realFarmMainActivity extends MapActivity{
 		getApplicationContext().deleteDatabase("realFarm.db");		// comment out if you want to reuse existing database
 		mDataProvider = new RealFarmProvider(new RealFarmDatabase(getApplicationContext()));
 		
+		
+		Drawable drawable = getResources().getDrawable(R.drawable.marker);
+		itemizedoverlay = new MyOverlay(drawable, getApplicationContext(), mapView);
+	    
 		// Get mapView overlay
 		mapOverlays = mapView.getOverlays();
 
 		// create overlay for field plots
 	    myPlotOverlay = new PlotOverlay();
 	    
+	    
 		onUpdateUI();
 		
 	    
-//	    // Create popup panel that is displayed when tapping on an element
-//	    //panel = new PopupPanel(R.layout.popup, mapView, this, od);
-//	    
 //		// Load sounds
 //		mp = MediaPlayer.create(this, R.raw.sound22);
 //
@@ -180,21 +172,17 @@ public class realFarmMainActivity extends MapActivity{
 				GeoPoint p = new GeoPoint(lat, lng);
 				myMapController.animateTo(p);
 				myMapController.setZoom(20);
-
+				
+				// remove existing itemizedoverlays 
+				mapOverlays.remove(itemizedoverlay);
+				itemizedoverlay.removeAll();
+				
 				// Display icon at my current location
-
 				List<Overlay> mapOverlays = mapView.getOverlays();
-				Drawable drawable = getResources().getDrawable(
-						R.drawable.marker);
-				MyOverlay itemizedoverlay = new MyOverlay(drawable, getApplicationContext(), mapView, panel);
-				OverlayItem overlayitem = new OverlayItem(p, "Hello!",
-						"You are here");
+				OverlayItem overlayitem = new OverlayItem(p, "Hello!","You are here");
 				itemizedoverlay.addOverlay(overlayitem);
-
-				// mapOverlays.removeAll(mapOverlays);
-				mapView.getOverlays().remove(overlayOld);
 				mapOverlays.add(itemizedoverlay);
-				overlayOld = itemizedoverlay;
+
 				mapView.invalidate();
 			}
 
@@ -252,7 +240,7 @@ public class realFarmMainActivity extends MapActivity{
 
 			return true;
 		case R.id.help:
-			// todo: add help support
+			// TODO: add help support
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -291,24 +279,27 @@ public class realFarmMainActivity extends MapActivity{
 		// gets the action bar.
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
 
+		
+		actionBar.removeAllActions();
+		
 		// Home action button
 		actionBar.setHomeAction(new Action() {
 			public void performAction(View view) {
 				myMapController.animateTo(CKPURA_LOCATION);
 
-				// TODO: add marker
-				// List<Overlay> mapOverlays = mOfflineMap.getOverlays();
-				// Drawable drawable =
-				// getResources().getDrawable(R.drawable.marker);
-				// MarkerOverlay itemizedoverlay = new MarkerOverlay(drawable,
-				// getApplicationContext());
+				 List<Overlay> mapOverlays = mapView.getOverlays();
+				 
+				 mapOverlays.remove(itemizedoverlay);
+				 itemizedoverlay.removeAll();
+				 
+				 OverlayItem overlayitem = new OverlayItem(CKPURA_LOCATION, "Hello!","CKPura");
+				 itemizedoverlay.addOverlay(overlayitem);
 
-				// OverlayItem overlayitem = new OverlayItem(CKPURA_LOCATION,
-				// "Hello!","CKPura");
-				// itemizedoverlay.addOverlay(overlayitem);
-
-				// mapOverlays.removeAll(mapOverlays);
-				// mapOverlays.(itemizedoverlay);
+				 mapOverlays.add(itemizedoverlay);
+				
+				 
+				 mapView.invalidate();
+				 
 			}
 			
 			public int getDrawable() {
@@ -374,7 +365,8 @@ public class realFarmMainActivity extends MapActivity{
 				
 				final QuickAction qa = new QuickAction(view);
 
-				ActionItem tmpItem;				
+				ActionItem tmpItem;			
+				
 				
 				
 			}

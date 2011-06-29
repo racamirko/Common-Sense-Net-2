@@ -19,14 +19,27 @@ public class Polygon {
 	/** Identifier number of the plot. */
 	private int mPlotId;
 	private int[] polyY, polyX;
+	private int ownerId;
+
+
+	
+	public Polygon(int[] lat, int[] lon, int ps, int id, int ownerId) {
+		latit = lat;
+		longi = lon;
+		mNumberOfSides = ps;
+		mPlotId = id;
+		this.ownerId = ownerId;
+	}
 
 	public Polygon(int[] lat, int[] lon, int ps, int id) {
 		latit = lat;
 		longi = lon;
 		mNumberOfSides = ps;
 		mPlotId = id;
+		ownerId = 0;
 	}
 
+	
 	/**
 	 * Checks if the Polygon contains a point.
 	 * 
@@ -77,6 +90,35 @@ public class Polygon {
 
 	}
 
+	public int getOwner(){
+		return ownerId;
+	}
+	
+	public int[] getCoordinates(MapView mapView) {
+
+		int[] coord = new int[4];
+
+		convert(latit, longi, mapView);
+		
+		Arrays.sort(polyX);
+		Arrays.sort(polyY);
+		
+		int minx =  polyX[0];
+		int maxx =  polyX[polyX.length-1];
+		int miny = polyY[0];
+		int maxy = polyY[polyY.length-1];
+		
+		int width = maxx - minx;
+		int height = maxy - miny; 
+		
+		coord[0] = minx;
+		coord[1] = maxy;
+		coord[2] = width;
+		coord[3] = height;
+		
+		return coord;
+	}
+	
 	public int[] getAverage(MapView mapView) {
 
 		int[] average = new int[2];
