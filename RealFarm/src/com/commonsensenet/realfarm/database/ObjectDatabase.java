@@ -29,7 +29,7 @@ public class ObjectDatabase {
 		
 		myMapController = mapView.getController();
 	    
-		managedb = mainApp.setDatabase();
+		//managedb = mainApp.setDatabase();
 	    managedb.open();
 	    managedb.close();
 	}

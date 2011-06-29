@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm;
 
 import android.app.Application;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.database.ManageDatabase;
 
 /**
@@ -14,22 +15,24 @@ import com.commonsensenet.realfarm.database.ManageDatabase;
 public class realFarm extends Application {
 
 	private ManageDatabase mDb;
+	private RealFarmDatabase db;
 	private int mId = 0;
 
-	public ManageDatabase getDatabase() {
-		return mDb;
+	public RealFarmDatabase getDatabase() {
+		//return mDb;
+		return db;
 	}
 
 	public int getUserId() {
 		return mId;
 	}
 
-	public ManageDatabase setDatabase() {
-		// comment out if you want to reuse existing database
-		getApplicationContext().deleteDatabase("realFarm.db");
+	public RealFarmDatabase setDatabase() {
+		db = new RealFarmDatabase(getApplicationContext());
 
-		mDb = new ManageDatabase(getApplicationContext());
-		return mDb;
+		//mDb = new ManageDatabase(getApplicationContext());
+		//return mDb;
+		return db;
 	}
 
 	public void setUserId(int userId) {

@@ -92,8 +92,9 @@ public class RealFarmDatabase {
 			// users
 			db.execSQL("create table " + TABLE_NAME_USER + " ( "
 					+ COLUMN_NAME_USER_ID + " integer primary key, "
-					+ "firstName text not null, " + "lastName text, "
-					+ "mobileNumber integer " + " ); ");
+					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, " 
+					+ COLUMN_NAME_USER_LASTNAME + " text, "
+					+ COLUMN_NAME_USER_MOBILE + " integer " + " ); ");
 			Log.d("RealFarm", "Created user table");
 
 			Log.d("RealFarm", "Database created successfully");
@@ -125,6 +126,10 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_USER_ID = "id";
+	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
+	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
+	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
+	
 
 	private static final String DB_NAME = "realFarm.db";
 	private static final int DB_VERSION = 2;

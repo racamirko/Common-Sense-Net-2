@@ -82,8 +82,10 @@ public class realFarmMainActivity extends MapActivity{
 		
 		// Create data provider
 		getApplicationContext().deleteDatabase("realFarm.db");		// comment out if you want to reuse existing database
-		mDataProvider = new RealFarmProvider(new RealFarmDatabase(getApplicationContext()));
-		
+		realFarm mainApp = ((realFarm)getApplicationContext());
+		//RealFarmDatabase db = new RealFarmDatabase(getApplicationContext());
+		RealFarmDatabase db = mainApp.setDatabase();
+		mDataProvider = new RealFarmProvider(db);
 		
 		Drawable drawable = getResources().getDrawable(R.drawable.marker);
 		itemizedoverlay = new MyOverlay(drawable, getApplicationContext(), mapView);

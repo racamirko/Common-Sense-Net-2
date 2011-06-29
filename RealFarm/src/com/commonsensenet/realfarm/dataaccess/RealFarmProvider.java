@@ -23,6 +23,24 @@ public class RealFarmProvider {
 		mDb.close();
 	}
 
+	public String[] getUserInfo(String deviceID){
+		mDb.open();
+    	
+		String[] name = new String[2];
+		
+    	Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER, new String[] {RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, RealFarmDatabase.COLUMN_NAME_USER_LASTNAME}, RealFarmDatabase.COLUMN_NAME_USER_MOBILE + deviceID, null, null, null, null);
+    	
+    	if (c.getCount()>0) { // user exists in database
+    		c.moveToFirst();
+    	
+    		name[0] = c.getString(0);
+    		name[1] = c.getString(1);
+    		
+    	}    	
+    	mDb.close();
+
+    	return name;
+	}
 	
 	public List<Polygon> getPlots(int userId) {
 		List<Polygon> tmpList = new ArrayList<Polygon>();
