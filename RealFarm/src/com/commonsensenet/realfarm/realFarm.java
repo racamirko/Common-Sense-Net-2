@@ -14,7 +14,6 @@ import com.commonsensenet.realfarm.database.ManageDatabase;
  */
 public class realFarm extends Application {
 
-	private ManageDatabase mDb;
 	private RealFarmDatabase db;
 	private int mId = 0;
 

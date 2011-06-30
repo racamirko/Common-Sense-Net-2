@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.content.ContentValues;
 import android.database.Cursor;
 
 import com.commonsensenet.realfarm.overlay.Polygon;
@@ -23,25 +24,6 @@ public class RealFarmProvider {
 		mDb.close();
 	}
 
-	public String[] getUserInfo(String deviceID){
-		mDb.open();
-    	
-		String[] name = new String[2];
-		
-    	Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER, new String[] {RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, RealFarmDatabase.COLUMN_NAME_USER_LASTNAME}, RealFarmDatabase.COLUMN_NAME_USER_MOBILE + deviceID, null, null, null, null);
-    	
-    	if (c.getCount()>0) { // user exists in database
-    		c.moveToFirst();
-    	
-    		name[0] = c.getString(0);
-    		name[1] = c.getString(1);
-    		
-    	}    	
-    	mDb.close();
-
-    	return name;
-	}
-	
 	public List<Polygon> getPlots(int userId) {
 		List<Polygon> tmpList = new ArrayList<Polygon>();
 
@@ -144,7 +126,8 @@ public class RealFarmProvider {
 					} while (c02.moveToNext());
 
 					// adds the polygon to the list.
-					tmpList.add(new Polygon(polyX, polyY, polyX.length, id, ownerId));
+					tmpList.add(new Polygon(polyX, polyY, polyX.length, id,
+							ownerId));
 				}
 				i = i + 1;
 			} while (c0.moveToNext());
@@ -189,4 +172,52 @@ public class RealFarmProvider {
 
 		return tmpMap;
 	}
+
+	public String[] getUserInfo(String deviceID) {
+		mDb.open();
+
+		String[] name = new String[2];
+
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
+				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME },
+				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + deviceID, null,
+				null, null, null);
+
+		if (c.getCount() > 0) { // user exists in database
+			c.moveToFirst();
+
+			name[0] = c.getString(0);
+			name[1] = c.getString(1);
+
+		}
+		mDb.close();
+
+		return name;
+	}
+
+	public long setUserInfo(String deviceId, String firstname, String lastname) {
+		mDb.open();
+		
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILE, deviceId);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
+		long result;
+		
+		if (getUserInfo(deviceId).length > 0){ // user exists in database => update
+			result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args, RealFarmDatabase.COLUMN_NAME_USER_MOBILE+" =" + deviceId, null);
+		}
+		else{ // user must be created
+			result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_USER, args);			
+		}
+		
+		if  ( (result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1) ) // if main id is undefined and result is good 
+			RealFarmDatabase.MAIN_USER_ID = (int) result;
+
+		mDb.close();
+
+		return result;
+	}
+
 }

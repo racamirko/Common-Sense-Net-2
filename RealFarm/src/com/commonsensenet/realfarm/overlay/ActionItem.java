@@ -19,6 +19,8 @@ public class ActionItem {
 	/** Displayed title of the ActionItem. */
 	private String mTitle;
 
+	private String mOwner;
+	
 	/**
 	 * Creates a new ActionItem instance.
 	 */
@@ -66,6 +68,10 @@ public class ActionItem {
 		return mTitle;
 	}
 
+	public String getOwner() {
+		return mOwner;
+	}
+	
 	/**
 	 * Set action icon
 	 * 
@@ -99,4 +105,9 @@ public class ActionItem {
 	public void setTitle(String title) {
 		mTitle = title;
 	}
+	
+	public void setOwner(String owner) {
+		mOwner = owner;
+	}
+	
 }

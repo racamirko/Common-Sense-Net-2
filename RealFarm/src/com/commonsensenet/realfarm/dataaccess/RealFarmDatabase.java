@@ -109,6 +109,8 @@ public class RealFarmDatabase {
 		}
 	}
 
+	public static int MAIN_USER_ID = -1;
+	
 	// table
 	private static final String ACTIONDATE = "actionDate";
 	public static final String COLUMN_NAME_ACTION_ID = "id";
@@ -452,20 +454,10 @@ public class RealFarmDatabase {
 			mDb = mOpenHelper.getWritableDatabase();
 	}
 
-	/**
-	 * Method to update user name in database
-	 * 
-	 * @param id
-	 * @param firstname
-	 * @param lastname
-	 * @return boolean indicating success of database update
-	 */
-	public boolean updateUserName(int id, String firstname, String lastname) {
-		ContentValues args = new ContentValues();
-		args.put("id", id);
-		args.put("firstName", firstname);
-		args.put("lastName", lastname);
-		return mDb.update(TABLE_NAME_USER, args, "id =" + id, null) > 0;
+	public int update(String tableName, ContentValues args, String whereClause, String[] whereArgs) {
+		
+		return mDb.update(tableName, args, whereClause, whereArgs);
+		
 	}
 
 }
