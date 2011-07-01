@@ -13,10 +13,10 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
 public class Settings extends Activity {
 	
-	TelephonyManager telephonyManager;
+	private TelephonyManager telephonyManager;
 	private RealFarmProvider mDataProvider;
-	String origFirstname;
-	String origLastname;
+	private String origFirstname;
+	private String origLastname;
 	
 	@Override 
 	public void onCreate(Bundle savedInstanceState){
