@@ -181,7 +181,7 @@ public class RealFarmProvider {
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME },
-				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + deviceID, null,
+						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + deviceID + "'", null,
 				null, null, null);
 
 		if (c.getCount() > 0) { // user exists in database
@@ -197,16 +197,18 @@ public class RealFarmProvider {
 	}
 
 	public long setUserInfo(String deviceId, String firstname, String lastname) {
-		mDb.open();
+		
 		
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILE, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
 		long result;
+		String[] name = getUserInfo(deviceId); 
 		
-		if (getUserInfo(deviceId).length > 0){ // user exists in database => update
-			result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args, RealFarmDatabase.COLUMN_NAME_USER_MOBILE+" =" + deviceId, null);
+		mDb.open();
+		if (name[0] != null){ // user exists in database => update
+			result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args, RealFarmDatabase.COLUMN_NAME_USER_MOBILE+" = '" + deviceId + "'", null);
 		}
 		else{ // user must be created
 			result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_USER, args);			

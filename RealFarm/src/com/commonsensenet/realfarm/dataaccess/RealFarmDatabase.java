@@ -1,11 +1,13 @@
 package com.commonsensenet.realfarm.dataaccess;
 
+import android.R.integer;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
+import android.telephony.TelephonyManager;
 import android.util.Log;
 
 /**
@@ -94,7 +96,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_USER_ID + " integer primary key, "
 					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, " 
 					+ COLUMN_NAME_USER_LASTNAME + " text, "
-					+ COLUMN_NAME_USER_MOBILE + " integer " + " ); ");
+					+ COLUMN_NAME_USER_MOBILE + " text " + " ); ");
 			Log.d("RealFarm", "Created user table");
 
 			Log.d("RealFarm", "Database created successfully");
@@ -110,6 +112,7 @@ public class RealFarmDatabase {
 	}
 
 	public static int MAIN_USER_ID = -1;
+	public static String DEFAULT_NUMBER = "000000000";
 	
 	// table
 	private static final String ACTIONDATE = "actionDate";
@@ -225,17 +228,27 @@ public class RealFarmDatabase {
 		// users
 		ContentValues users = new ContentValues();
 		// 1
+		
+		TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+		String deviceID = telephonyManager.getLine1Number(); 
+		String mobileNumber ;
+		if (deviceID == null)
+			mobileNumber = DEFAULT_NUMBER;
+		else
+			mobileNumber = deviceID;
+		
 		users.put(COLUMN_NAME_USER_ID, 1);
-		users.put("firstName", "Julien");
-		users.put("lastName", "Freudiger");
-		users.put("mobileNumber", 763949342);
+		users.put(COLUMN_NAME_USER_FIRSTNAME, "John");
+		users.put(COLUMN_NAME_USER_LASTNAME, "Doe");
+		users.put(COLUMN_NAME_USER_MOBILE, mobileNumber);
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
+
 		// 2
 		users.put(COLUMN_NAME_USER_ID, 2);
-		users.put("firstName", "Hendrik");
-		users.put("lastName", "Knoche");
-		users.put("mobileNumber", 781827182);
+		users.put(COLUMN_NAME_USER_FIRSTNAME, "Hendrik");
+		users.put(COLUMN_NAME_USER_LASTNAME, "Knoche");
+		users.put(COLUMN_NAME_USER_MOBILE, "781827182");
 		insertEntries(TABLE_NAME_USER, users, db);
 		Log.d("RealFarm", "users works");
 

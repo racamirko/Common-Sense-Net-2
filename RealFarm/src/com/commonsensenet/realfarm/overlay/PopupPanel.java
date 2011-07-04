@@ -84,8 +84,8 @@ public class PopupPanel {
 		isVisible = true;
 
 		// fill up layout of popup	
-		LinearLayout contentPopup = (LinearLayout) popup.findViewById(R.id.contentpopup);
-		contentPopup.removeAllViews();
+//		LinearLayout contentPopup = (LinearLayout) popup.findViewById(R.id.contentpopup);
+//		contentPopup.removeAllViews();
 		
 		// check if intercropping
 		
@@ -100,7 +100,7 @@ public class PopupPanel {
 			
 			TextView b = new TextView(context);
 			b.setText(name);
-			contentPopup.addView(b);
+//			contentPopup.addView(b);
 			b.setId(key);
 			
 			b.setOnClickListener(new View.OnClickListener() {

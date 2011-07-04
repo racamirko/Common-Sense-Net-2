@@ -112,7 +112,7 @@ public class Polygon {
 		int height = maxy - miny; 
 		
 		coord[0] = minx;
-		coord[1] = maxy;
+		coord[1] = miny;
 		coord[2] = width;
 		coord[3] = height;
 		

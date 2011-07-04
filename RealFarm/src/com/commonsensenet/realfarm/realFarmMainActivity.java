@@ -364,11 +364,17 @@ public class realFarmMainActivity extends MapActivity{
 		actionBar.addAction(new Action() {
 
 			public void performAction(View view) {
-				
-				final QuickAction qa = new QuickAction(view);
+				final QuickAction qa1 = new QuickAction(view);
 
-				ActionItem tmpItem;			
-				
+				ActionItem tem = new ActionItem();		
+				tem.setTitle("No news yet");
+				tem.setOnClickListener(new OnClickListener() {
+					public void onClick(View v) {
+						int test;
+					}
+				});
+				qa1.addActionItem(tem);
+				qa1.show();
 				
 				
 			}

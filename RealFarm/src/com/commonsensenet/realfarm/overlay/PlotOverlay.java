@@ -98,13 +98,31 @@ public class PlotOverlay extends Overlay {
             	Polygon mPolygon = hm.get(key);// get Polygon
 	        	if (mPolygon.contains(touched.x, touched.y, mapView)){
 	        	
-	        		final QuickAction qa = new QuickAction(mapView);
+//	        		final QuickAction qa = new QuickAction(mapView);
+//	        		ActionItem first = new ActionItem();
+//	        		first.setTitle(Integer.toString(mPolygon.getId()));
+//	        		first.setIcon(mapView.getResources().getDrawable(R.drawable.ic_dialog_map));
+//	        		first.setId(1);
+//	        		qa.addActionItem(first);	        		
+//	        		qa.show(mPolygon.getCoordinates(mapView));
+
+	        		
+	        		final QuickPlot qa = new QuickPlot(mapView);
+	        		
 	        		ActionItem first = new ActionItem();
 	        		first.setTitle(Integer.toString(mPolygon.getId()));
 	        		first.setIcon(mapView.getResources().getDrawable(R.drawable.ic_dialog_map));
 	        		first.setId(1);
-	        		qa.addActionItem(first);	        		
+	        		qa.addActionItem(first);
+	        		
+	        		ActionItem second = new ActionItem();
+	        		second.setTitle(Integer.toString(mPolygon.getId()));
+	        		second.setIcon(mapView.getResources().getDrawable(R.drawable.ic_title_home_default));
+	        		second.setId(2);
+	        		qa.addDiaryItem(second);
+	        		
 	        		qa.show(mPolygon.getCoordinates(mapView));
+
 	        		
 	        	}
 	        }

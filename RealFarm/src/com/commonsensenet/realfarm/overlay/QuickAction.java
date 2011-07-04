@@ -96,10 +96,12 @@ public class QuickAction extends CustomPopupWindow {
 
 			view = getActionItem(title, icon, listener);
 			view.setId(id);
-
+			
 			view.setFocusable(true);
 			view.setClickable(true);
-
+			
+			view.invalidate();
+			view.forceLayout();
 			mTrack.addView(view);
 		}
 	}
@@ -120,17 +122,23 @@ public class QuickAction extends CustomPopupWindow {
 		LinearLayout container = (LinearLayout) inflater.inflate(
 				R.layout.action_item, null);
 
+
+		
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
 		TextView text = (TextView) container.findViewById(R.id.title);
 
 		if (icon != null) {
-			img.setImageDrawable(icon);
+            img.setImageDrawable(icon);
+            img.setVisibility(View.VISIBLE);
 		}
-
+		else
+			img.setImageResource(R.drawable.ic_menu_mylocation);
+			
+		
 		if (title != null) {
 			text.setText(title);
 		}
-
+		
 		if (listener != null) {
 			container.setOnClickListener(listener);
 		}
@@ -213,7 +221,7 @@ public class QuickAction extends CustomPopupWindow {
 
 		int xPos, yPos; 
 		int[] location = new int[2];
-		
+
 		location[0] = coordinates[0];
 		location[1] = coordinates[1];
 		
