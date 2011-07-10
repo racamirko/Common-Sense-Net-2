@@ -17,6 +17,7 @@ public class OfflineMapView extends View {
 	private int mDisplayWidth;
 	/** Underlying map representation in charge of the tile system. */
 	private Map mMap;
+	/** List of overlays added in the current map. */
 	private ArrayList<Overlay> mOverlays;
 	/** Amount to scroll in the x coordinate product of the last ACTION_MOVE. */
 	private float mScrollByX;
@@ -37,7 +38,8 @@ public class OfflineMapView extends View {
 
 		initOfflineMapView();
 
-		// mMap = Map.createDefaultMap(this);
+		// loads the disired map.
+		// TODO: pass the coordinates as a parameter.
 		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
 				this);
 	}
@@ -87,6 +89,9 @@ public class OfflineMapView extends View {
 		// sets the current size of the screen in pixels.
 		mDisplayWidth = getWidth();
 		mDisplayHeight = getHeight();
+
+		// initializes the overlay list
+		mOverlays = new ArrayList<Overlay>();
 
 		// initial values of scrolling variables.
 		mScrollRectX = 0;
@@ -155,6 +160,13 @@ public class OfflineMapView extends View {
 		// resets the current scroll coordinates to reflect the latest update
 		mScrollRectX = newScrollRectX;
 		mScrollRectY = newScrollRectY;
+
+		// draws the overlays on top of the map.
+		synchronized (mOverlays) {
+			for (int x = 0; x < mOverlays.size(); x++) {
+				mOverlays.get(x).draw(canvas, this);
+			}
+		}
 	}
 
 	@Override
