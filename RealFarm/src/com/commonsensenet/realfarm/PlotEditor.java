@@ -1,6 +1,8 @@
 package com.commonsensenet.realfarm;
 
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -20,9 +22,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 public class PlotEditor extends Activity {
 
 	private RealFarmProvider mDataProvider;
-	private int actionID = 0;
 	private int[][] seeds;
-	private int lastActionID ;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -109,7 +109,7 @@ public class PlotEditor extends Activity {
 		tv.setText(R.string.recommendation);
 		tv.setTextSize(30);
 		container0.addView(tv);
-		
+
 	}
 
 	public void updateActions() {
@@ -125,7 +125,7 @@ public class PlotEditor extends Activity {
 		Map<Integer, String> tmpMap = mDataProvider.getActions();
 
 		// Get all executed actions
-		int[][] res = mDataProvider.getDiary(seeds[0][0]);
+		long[][] res = mDataProvider.getDiary(seeds[0][0]);
 
 		// for each possible action
 		for (Integer key : tmpMap.keySet()) {
@@ -133,30 +133,38 @@ public class PlotEditor extends Activity {
 			String action = tmpMap.get(key);
 
 			// Remove actions already executed
-			if ((res==null) || (!arrayContains(res[1], key))) {
+			if ((res == null) || (!arrayContains(res[1], key))) {
 
 				Button b = new Button(this);
 				b.setText(action);
-				actionID = key;
+				int actionID = key;
 
-				b.setOnClickListener(new OnClickListener() {
-
-					public void onClick(View v) {
-						mDataProvider.setAction(actionID, seeds[0][0]);
-						updateDiary();
-					}
-				});
+				b.setOnClickListener(OnClickAction(actionID));
 				container.addView(b);
 			}
 		}
 
 	}
 
-	private boolean arrayContains(int[] res, int key) {
+	View.OnClickListener OnClickAction(final int actionID) {
+		return new View.OnClickListener() {
+
+			public void onClick(View v) {
+				SimpleDateFormat dateFormat = new SimpleDateFormat(
+						"yyyy-MM-dd HH:mm:ss");
+				Date date = new Date();
+				mDataProvider.setAction(actionID, seeds[0][0],
+						dateFormat.format(date));
+				updateDiary();
+			}
+		};
+	}
+
+	private boolean arrayContains(long[] res, int key) {
 
 		if (res == null)
 			return false;
-		
+
 		for (int i = 0; i < res.length; i++) {
 
 			if (res[i] == key)
@@ -176,32 +184,41 @@ public class PlotEditor extends Activity {
 		tv.setTextSize(30);
 		container2.addView(tv);
 
-		int[][] res = mDataProvider.getDiary(seeds[0][0]);
+		long[][] res = mDataProvider.getDiary(seeds[0][0]);
 
-		if (res != null){
+		if (res != null) {
 			for (int i = 0; i < res[0].length; i++) {
 				TextView nameView1 = new TextView(this);
-	
-				nameView1.setText(i + " " + mDataProvider.getActionName(res[1][i])
-						+ " " + res[2][i]);
-				lastActionID = res[0][i];
-				
-				nameView1.setOnClickListener(new OnClickListener() {
-	
-					public void onClick(View v) {
-						mDataProvider.removeAction(lastActionID);
-						updateActions();
-						updateDiary();
-					}
-				});
-	
+
+				Date date = new Date();
+				date.setTime(res[2][i]);
+
+				nameView1.setText(i + " "
+						+ mDataProvider.getActionName((int) res[1][i]) + " "
+						+ date.toLocaleString());
+				int lastActionID = (int) res[0][i];
+
+				nameView1.setOnClickListener(OnClickDiary(lastActionID));
+
 				container2.addView(nameView1);
-	
+
 			}
 		}
 		updateActions();
 
 	}
+	
+	View.OnClickListener OnClickDiary(final int lastActionID){
+		return new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				mDataProvider.removeAction(lastActionID);
+				updateActions();
+				updateDiary();
+			}
+		};
+	}
+	
 
 	@Override
 	public void onBackPressed() {

@@ -1,6 +1,9 @@
 package com.commonsensenet.realfarm.dataaccess;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -190,63 +193,60 @@ public class RealFarmProvider {
 			mobileNumber = RealFarmDatabase.DEFAULT_NUMBER;
 		else
 			mobileNumber = deviceID;
-		
+
 		mDb.open();
 
 		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID },
-				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + mobileNumber + "'", null,
-				null, null, null);
-		
-			
-		if (c0.getCount()>0){
+				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + mobileNumber
+						+ "'", null, null, null, null);
+
+		if (c0.getCount() > 0) {
 			c0.moveToFirst();
-			
+
 			userID = c0.getInt(0);
 		}
-		
+
 		mDb.close();
 		return userID;
 	}
 
-	
-	public long setPoint(int plotID, int lat, int lon){
-		
+	public long setPoint(int plotID, int lat, int lon) {
+
 		ContentValues pointstoadd = new ContentValues();
 		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_X, lat);
 		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, lon);
 		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
-		
+
 		mDb.open();
-		
+
 		// add to points list
-		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_POINT, pointstoadd);
-		
+		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
+				pointstoadd);
+
 		mDb.close();
-		
+
 		return result;
-				
+
 	}
-	
-	public long setPlot(int plotID, int userID){
-		
+
+	public long setPlot(int plotID, int userID) {
+
 		ContentValues args = new ContentValues();
-//		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, plotID);
+		// args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, plotID);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userID);
-		
-		
+
 		mDb.open();
-		
+
 		// add to plot list
 		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT,
 				args);
 
-		
 		mDb.close();
 		return result;
-		
+
 	}
-	
+
 	public List<Polygon> getPlots(int userId) {
 		List<Polygon> tmpList = new ArrayList<Polygon>();
 
@@ -370,11 +370,11 @@ public class RealFarmProvider {
 		mDb.close();
 	}
 
-	public int[][] getDiary(int growingID) {
+	public long[][] getDiary(int growingID) {
 
 		mDb.open();
 
-		int[][] res = null;
+		long[][] res = null;
 
 		Cursor c02 = mDb
 				.getEntries(RealFarmDatabase.TABLE_NAME_ACTION, new String[] {
@@ -387,14 +387,26 @@ public class RealFarmProvider {
 		if (c02.getCount() > 0) {
 
 			c02.moveToFirst();
-			res = new int[3][c02.getCount()];
+			res = new long[3][c02.getCount()];
 			int i = 0;
 			do {
 
 				res[0][i] = c02.getInt(0); // ID
 				res[1][i] = c02.getInt(1); // actionID
-				res[2][i] = c02.getInt(2); // actionDate
-
+				String dateString = c02.getString(2); // actionDate
+				
+				String format = "yyyy-MM-dd HH:mm:ss";
+				SimpleDateFormat sdf = new SimpleDateFormat(format);
+				
+				Date date = null;
+				try {
+					date = sdf.parse(dateString);
+				} catch (ParseException e) {
+					e.printStackTrace();
+				}
+				
+				res[2][i] = date.getTime();
+						
 				i = i + 1;
 
 			} while (c02.moveToNext());
@@ -464,12 +476,12 @@ public class RealFarmProvider {
 		return name;
 	}
 
-	public long setAction(int actionID, int growingID) {
+	public long setAction(int actionID, int growingID, String date) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID, growingID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONID, actionID);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE, 0);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE, date);
 
 		mDb.open();
 

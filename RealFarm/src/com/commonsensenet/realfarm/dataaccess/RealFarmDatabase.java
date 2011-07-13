@@ -1,6 +1,9 @@
 package com.commonsensenet.realfarm.dataaccess;
 
-import android.R.integer;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -53,7 +56,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_ID	+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_ACTION_GROWINGID + " references growing(id), "
 					+ COLUMN_NAME_ACTION_ACTIONID + " references actionsNames(id), " 
-					+ COLUMN_NAME_ACTION_ACTIONDATE + " integer " + " ); ");
+					+ COLUMN_NAME_ACTION_ACTIONDATE + " date " + " ); ");
 			Log.d("RealFarm", "Created action table");
 
 			// growing
@@ -280,21 +283,27 @@ public class RealFarmDatabase {
 		Log.d("RealFarm", "actionName works");
 
 		// actions
+		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		Date date = new Date();
 		ContentValues actions = new ContentValues();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 1);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 2);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 1);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 2);
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 1);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 3);
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		actions.clear();
 
