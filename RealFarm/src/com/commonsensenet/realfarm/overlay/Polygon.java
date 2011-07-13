@@ -2,7 +2,14 @@ package com.commonsensenet.realfarm.overlay;
 
 import java.util.Arrays;
 
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Paint;
+import android.graphics.Path;
 import android.graphics.Point;
+import android.graphics.drawable.ShapeDrawable;
+import android.graphics.drawable.shapes.PathShape;
 
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapView;
@@ -21,8 +28,6 @@ public class Polygon {
 	private int[] polyY, polyX;
 	private int ownerId;
 
-
-	
 	public Polygon(int[] lat, int[] lon, int ps, int id, int ownerId) {
 		latit = lat;
 		longi = lon;
@@ -39,6 +44,14 @@ public class Polygon {
 		ownerId = 0;
 	}
 
+	
+	public int[] getLat(){
+		return latit;
+	}
+	
+	public int[] getLon(){
+		return longi;
+	}
 	
 	/**
 	 * Checks if the Polygon contains a point.
@@ -90,35 +103,75 @@ public class Polygon {
 
 	}
 
-	public int getOwner(){
+	public int getOwner() {
 		return ownerId;
 	}
-	
+
+	public Path getDrawable(MapView mapView) {
+
+		Paint paint = new Paint();
+		paint.setStrokeWidth(7);
+		paint.setAntiAlias(true);
+		paint.setDither(true);
+		paint.setStrokeWidth(3);
+		paint.setARGB(100, 55, 175, 35);
+
+		if (getOwner() == 1)
+			paint.setARGB(100, 228, 29, 29);
+
+		Path path = new Path(); // Draw path
+		path.setFillType(Path.FillType.EVEN_ODD);
+
+		int[] x = getX(mapView);
+		int[] y = getY(mapView);
+
+		for (int i = 0; i < x.length; i++) {
+
+			if (i == 0)
+				path.moveTo(x[i], y[i]); // for first point, move to it
+			else
+				path.lineTo(x[i], y[i]); // For rest, add lines
+
+		}
+
+		path.close();
+
+		// Change paint style depending on user
+//		PathShape pShape = new PathShape(path, (float) 100, (float) 100);
+//		ShapeDrawable mShape = new ShapeDrawable(pShape);
+//		mShape.getPaint().set(paint);
+//		mShape.setBounds(0, 0, 100, 100);
+//		
+		
+		return path;
+
+	}
+
 	public int[] getCoordinates(MapView mapView) {
 
 		int[] coord = new int[4];
 
 		convert(latit, longi, mapView);
-		
+
 		Arrays.sort(polyX);
 		Arrays.sort(polyY);
-		
-		int minx =  polyX[0];
-		int maxx =  polyX[polyX.length-1];
+
+		int minx = polyX[0];
+		int maxx = polyX[polyX.length - 1];
 		int miny = polyY[0];
-		int maxy = polyY[polyY.length-1];
-		
+		int maxy = polyY[polyY.length - 1];
+
 		int width = maxx - minx;
-		int height = maxy - miny; 
-		
+		int height = maxy - miny;
+
 		coord[0] = minx;
 		coord[1] = miny;
 		coord[2] = width;
 		coord[3] = height;
-		
+
 		return coord;
 	}
-	
+
 	public int[] getAverage(MapView mapView) {
 
 		int[] average = new int[2];

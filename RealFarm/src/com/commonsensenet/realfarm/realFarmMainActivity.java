@@ -99,6 +99,9 @@ public class realFarmMainActivity extends MapActivity{
 	    
 		onUpdateUI();
 		
+		
+		
+		
 	    
 //		// Load sounds
 //		mp = MediaPlayer.create(this, R.raw.sound22);
@@ -144,7 +147,10 @@ public class realFarmMainActivity extends MapActivity{
 	public void onUpdateUI(){
 		
 		// define action bar
-		mMyPlots = mDataProvider.getPlots(1);
+		
+		int userId = mDataProvider.getUserId(RealFarmDatabase.DEVICE_ID);
+		
+		mMyPlots = mDataProvider.getPlots(userId);
 		setUpActionBar();
 		
 	    List<Polygon> mPolygons = mDataProvider.getPlots();
@@ -203,6 +209,9 @@ public class realFarmMainActivity extends MapActivity{
 		}
 
 	}
+
+	
+	
 
 	
 	/*

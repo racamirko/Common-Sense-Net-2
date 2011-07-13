@@ -24,6 +24,229 @@ public class RealFarmProvider {
 		mDb.close();
 	}
 
+	private String[] getUserName(int userId) {
+		String[] name = new String[2];
+
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
+				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME },
+				RealFarmDatabase.COLUMN_NAME_USER_ID + "= '" + userId + "'",
+				null, null, null, null);
+
+		if (c.getCount() > 0) { // user exists in database
+			c.moveToFirst();
+
+			name[0] = c.getString(0);
+			name[1] = c.getString(1);
+		}
+
+		return name;
+
+	}
+
+	/**
+	 * Get first/last name of owner of a plot
+	 * 
+	 * @param plotId
+	 * @return
+	 */
+	public String[] getPlotOwner(int plotId) {
+
+		String[] name = new String[2];
+		int userId = 0;
+
+		// opens the db.
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_USERID },
+				RealFarmDatabase.COLUMN_NAME_PLOT_ID + "=" + plotId, null,
+				null, null, null);
+
+		// if there is information about this plot in the table
+		if ((!c0.isClosed()) && (c0.getCount() == 1)) {
+
+			// go to the first entry
+			c0.moveToFirst();
+
+			// get user name
+			userId = c0.getInt(0);
+		}
+
+		name = getUserName(userId);
+		mDb.close();
+
+		return name;
+
+	}
+
+	public String getSeedName(int seedId) {
+
+		String res = null;
+		mDb.open();
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
+				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME },
+				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
+				null, null, null);
+
+		if (c0.getCount() > 0) {
+			c0.moveToFirst();
+			res = c0.getString(0);
+		}
+		mDb.close();
+		return res;
+
+	}
+
+	public int[][] getPlotSeed(int plotId) {
+
+		int[][] res = null;
+
+		// opens the db.
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_GROWING,
+				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
+						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID },
+				RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID + "=" + plotId,
+				null, null, null, null);
+
+		if (c0.getCount() > 0) {
+			c0.moveToFirst();
+			res = new int[c0.getCount()][2];
+			int i = 0;
+			do {
+				// get growing+seed id
+				int growingID = c0.getInt(0);
+				int seedID = c0.getInt(1);
+				res[i][0] = growingID;
+				res[i][1] = seedID;
+				i = i + 1;
+			} while (c0.moveToNext()); // there may be intercropping (i.e.,
+										// multiple seeds per plot)
+
+		}
+		mDb.close();
+
+		return res;
+
+	}
+
+	public String getActionName(int actionId) {
+
+		mDb.open();
+
+		String name = null;
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
+				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME },
+				RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "=" + actionId,
+				null, null, null, null);
+
+		if (c0.getCount() > 0) {
+			c0.moveToFirst();
+
+			name = c0.getString(0);
+
+		}
+
+		mDb.close();
+
+		return name;
+	}
+
+	public int getLastAction(int growingId) {
+
+		int l = 0;
+
+		// opens the db.
+		mDb.open();
+
+		Cursor c0 = mDb
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_ACTION,
+						new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID },
+						RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
+								+ growingId, null, null, null, null);
+		mDb.close();
+
+		if (c0.getCount() > 0) {
+
+			c0.moveToLast();
+			l = c0.getInt(0);
+
+		}
+
+		mDb.close();
+		return l;
+
+	}
+
+	public int getUserId(String deviceID) {
+
+		int userID = 0;
+		String mobileNumber = null;
+		if (deviceID == null)
+			mobileNumber = RealFarmDatabase.DEFAULT_NUMBER;
+		else
+			mobileNumber = deviceID;
+		
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
+				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID },
+				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + mobileNumber + "'", null,
+				null, null, null);
+		
+			
+		if (c0.getCount()>0){
+			c0.moveToFirst();
+			
+			userID = c0.getInt(0);
+		}
+		
+		mDb.close();
+		return userID;
+	}
+
+	
+	public long setPoint(int plotID, int lat, int lon){
+		
+		ContentValues pointstoadd = new ContentValues();
+		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_X, lat);
+		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, lon);
+		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
+		
+		mDb.open();
+		
+		// add to points list
+		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_POINT, pointstoadd);
+		
+		mDb.close();
+		
+		return result;
+				
+	}
+	
+	public long setPlot(int plotID, int userID){
+		
+		ContentValues args = new ContentValues();
+//		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, plotID);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userID);
+		
+		
+		mDb.open();
+		
+		// add to plot list
+		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT,
+				args);
+
+		
+		mDb.close();
+		return result;
+		
+	}
+	
 	public List<Polygon> getPlots(int userId) {
 		List<Polygon> tmpList = new ArrayList<Polygon>();
 
@@ -77,6 +300,7 @@ public class RealFarmProvider {
 				i = i + 1;
 			} while (c0.moveToNext());
 		}
+		mDb.close();
 
 		return tmpList;
 	}
@@ -137,6 +361,51 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public void removeAction(int ID) {
+		mDb.open();
+
+		mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				RealFarmDatabase.COLUMN_NAME_ACTION_ID + "=" + ID, null);
+
+		mDb.close();
+	}
+
+	public int[][] getDiary(int growingID) {
+
+		mDb.open();
+
+		int[][] res = null;
+
+		Cursor c02 = mDb
+				.getEntries(RealFarmDatabase.TABLE_NAME_ACTION, new String[] {
+						RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE },
+						RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
+								+ growingID, null, null, null, null);
+
+		if (c02.getCount() > 0) {
+
+			c02.moveToFirst();
+			res = new int[3][c02.getCount()];
+			int i = 0;
+			do {
+
+				res[0][i] = c02.getInt(0); // ID
+				res[1][i] = c02.getInt(1); // actionID
+				res[2][i] = c02.getInt(2); // actionDate
+
+				i = i + 1;
+
+			} while (c02.moveToNext());
+
+		}
+
+		mDb.close();
+		return res;
+
+	}
+
 	/**
 	 * 
 	 * 
@@ -161,7 +430,6 @@ public class RealFarmProvider {
 
 		if (c.getCount() > 0) {
 			do {
-
 				actionId = c.getInt(0);
 				actionName = c.getString(1);
 				tmpMap.put(actionId, actionName);
@@ -181,8 +449,8 @@ public class RealFarmProvider {
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME },
-						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + deviceID + "'", null,
-				null, null, null);
+				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + deviceID
+						+ "'", null, null, null, null);
 
 		if (c.getCount() > 0) { // user exists in database
 			c.moveToFirst();
@@ -196,25 +464,49 @@ public class RealFarmProvider {
 		return name;
 	}
 
+	public long setAction(int actionID, int growingID) {
+
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID, growingID);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONID, actionID);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE, 0);
+
+		mDb.open();
+
+		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
+
+		mDb.close();
+
+		return result;
+	}
+
 	public long setUserInfo(String deviceId, String firstname, String lastname) {
-		
-		
+
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILE, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
 		long result;
-		String[] name = getUserInfo(deviceId); 
-		
+		String[] name = getUserInfo(deviceId);
+
 		mDb.open();
-		if (name[0] != null){ // user exists in database => update
-			result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args, RealFarmDatabase.COLUMN_NAME_USER_MOBILE+" = '" + deviceId + "'", null);
+
+		if (name[0] != null) { // user exists in database => update
+			result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args,
+					RealFarmDatabase.COLUMN_NAME_USER_MOBILE + " = '"
+							+ deviceId + "'", null);
+		} else { // user must be created
+			result = mDb
+					.insertEntriesdb(RealFarmDatabase.TABLE_NAME_USER, args);
 		}
-		else{ // user must be created
-			result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_USER, args);			
-		}
-		
-		if  ( (result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1) ) // if main id is undefined and result is good 
+
+		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1)) // if main id
+																	// is
+																	// undefined
+																	// and
+																	// result is
+																	// good
 			RealFarmDatabase.MAIN_USER_ID = (int) result;
 
 		mDb.close();

@@ -38,6 +38,9 @@
 		<activity android:name=".Settings" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar">
 		</activity>
+		<activity android:name=".PlotEditor" android:label="@string/app_name"
+			android:theme="@android:style/Theme.NoTitleBar">
+		</activity>
 	</application>
 	
 </manifest>
