@@ -202,11 +202,12 @@ public class Settings extends Activity {
 			final int plotID) {
 		return new View.OnClickListener() {
 			public void onClick(View v) {
-				long result = addPlotxy(plotID);
+				int[] res = addPlotxy(plotID);
 
-				if (result > 0) {
+				
+				if (res[0] > 0) {
 					v.setBackgroundColor(Color.GREEN);
-					v.setOnClickListener(null);
+					v.setOnClickListener(Settings.this.OnClickAllowEdit(res[1], res[2]));
 					addButton(plotLayout, plotID);
 				}
 			}
@@ -233,17 +234,6 @@ public class Settings extends Activity {
 				alert.setTitle("Latitude and longitude");
 				alert.setMessage("Edit them to change values.");
 
-				
-				// Set an EditText view to get user input
-//				final EditText input1 = new EditText(Settings.this);
-//				input1.setText(Integer.toString(lat));
-//
-//				alert.setView(input1);
-
-//				final EditText input2 = new EditText(Settings.this);
-//				input2.setText(Integer.toString(lon));
-//				alert.setView(input2);
-
 				alert.setPositiveButton("ok",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
@@ -266,8 +256,10 @@ public class Settings extends Activity {
 		};
 	}
 
-	private long addPlotxy(int plotID) {
+	private int[] addPlotxy(int plotID) {
 
+		int[] res = new int[3];
+		
 		// use location from gps
 		int lat = 0;
 		int lon = 0;
@@ -314,7 +306,10 @@ public class Settings extends Activity {
 		// add plot to list and coordinates
 		long result = mDataProvider.setPoint(plotID, lat, lon);
 
-		return result;
+		res[0] = (int) result;
+		res[1] = lat; 
+		res[2] = lon;
+		return res;
 	}
 
 	@Override
