@@ -125,6 +125,10 @@ public class Polygon {
 		int[] x = getX(mapView);
 		int[] y = getY(mapView);
 
+		// TODO: reorder array to create path automatically: need to compute convex hull
+		
+		
+		
 		for (int i = 0; i < x.length; i++) {
 
 			if (i == 0)

@@ -204,7 +204,6 @@ public class Settings extends Activity {
 			public void onClick(View v) {
 				int[] res = addPlotxy(plotID);
 
-				
 				if (res[0] > 0) {
 					v.setBackgroundColor(Color.GREEN);
 					v.setOnClickListener(Settings.this.OnClickAllowEdit(res[1], res[2]));
