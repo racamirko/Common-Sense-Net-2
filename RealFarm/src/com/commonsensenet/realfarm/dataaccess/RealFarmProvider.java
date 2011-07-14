@@ -11,6 +11,7 @@ import java.util.Map;
 import android.content.ContentValues;
 import android.database.Cursor;
 
+import com.commonsensenet.realfarm.realFarmMainActivity;
 import com.commonsensenet.realfarm.overlay.Polygon;
 
 public class RealFarmProvider {
@@ -210,6 +211,57 @@ public class RealFarmProvider {
 		mDb.close();
 		return userID;
 	}
+	
+	public long removePoint(int plotID, int lat, int lon){
+		
+		mDb.open();
+		
+		long result = mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
+				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
+						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon, null);
+		
+		mDb.close();
+		return result;
+		
+	}
+
+	public long updatePoint(int plotID, int lat, int lon, int newLat, int newLon) {
+
+		long result = 0;
+
+		// find point id
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_POINT_ID },
+				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
+						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon,
+				null, null, null, null);
+
+		// if there is such point in the table, update
+		if (c0.getCount() > 0) {
+
+			c0.moveToFirst();
+
+			int pointID = c0.getInt(0); // pointID to modify
+
+			ContentValues pointtoupdate = new ContentValues();
+			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_X, newLat);
+			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, newLon);
+			pointtoupdate
+					.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
+
+			result = mDb.update(RealFarmDatabase.TABLE_NAME_POINT,
+					pointtoupdate, RealFarmDatabase.COLUMN_NAME_POINT_ID
+							+ " = " + pointID, null);
+
+		}
+
+		//
+
+		mDb.close();
+		return result;
+	}
 
 	public long setPoint(int plotID, int lat, int lon) {
 
@@ -230,10 +282,9 @@ public class RealFarmProvider {
 
 	}
 
-	public long setPlot(int plotID, int userID) {
+	public long setPlot(int userID) {
 
 		ContentValues args = new ContentValues();
-		// args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, plotID);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userID);
 
 		mDb.open();
@@ -326,7 +377,8 @@ public class RealFarmProvider {
 				// Read points from database for each user
 				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
 						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
-								RealFarmDatabase.COLUMN_NAME_POINT_Y },
+								RealFarmDatabase.COLUMN_NAME_POINT_Y,
+								RealFarmDatabase.COLUMN_NAME_POINT_ID },
 						RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + "=" + id,
 						null, null, null, null);
 
@@ -394,19 +446,19 @@ public class RealFarmProvider {
 				res[0][i] = c02.getInt(0); // ID
 				res[1][i] = c02.getInt(1); // actionID
 				String dateString = c02.getString(2); // actionDate
-				
+
 				String format = "yyyy-MM-dd HH:mm:ss";
 				SimpleDateFormat sdf = new SimpleDateFormat(format);
-				
+
 				Date date = null;
 				try {
 					date = sdf.parse(dateString);
 				} catch (ParseException e) {
 					e.printStackTrace();
 				}
-				
+
 				res[2][i] = date.getTime();
-						
+
 				i = i + 1;
 
 			} while (c02.moveToNext());

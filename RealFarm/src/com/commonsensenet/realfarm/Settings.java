@@ -88,29 +88,10 @@ public class Settings extends Activity {
 		/*
 		 * Manage list of plots
 		 */
-		LinearLayout container2 = (LinearLayout) findViewById(R.id.linearLayout2);
-		container2.removeAllViews();
-
-		// Set header
-		TextView tv = new TextView(this);
-		tv.setText(R.string.plot);
-		tv.setTextSize(30);
-		container2.addView(tv);
-
+		
 		// plot list of things
 		plotList();
 
-		// Set + button
-		ib = new ImageButton(this);
-		ib.setImageResource(android.R.drawable.ic_input_add);
-
-		ib.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				addPlot();
-			}
-		});
-
-		container2.addView(ib);
 
 	}
 
@@ -118,6 +99,14 @@ public class Settings extends Activity {
 
 		LinearLayout container2 = (LinearLayout) findViewById(R.id.linearLayout2);
 
+		container2.removeAllViews();
+
+		// Set header
+		TextView tvHeader = new TextView(this);
+		tvHeader.setText(R.string.plot);
+		tvHeader.setTextSize(30);
+		container2.addView(tvHeader);
+		
 		userId = mDataProvider.getUserId(RealFarmDatabase.DEVICE_ID);
 
 		// get plot list from db
@@ -145,13 +134,27 @@ public class Settings extends Activity {
 				// b.setText(valueX.get(j) + ", " + valueY.get(j));
 				b.setText("x, y");
 				b.setBackgroundColor(Color.GREEN);
-				b.setOnClickListener(OnClickAllowEdit(lat[j], lon[j]));
+				b.setOnClickListener(OnClickAllowEdit(poly.get(i).getId(), lat[j], lon[j]));
 				plotLayout.addView(b);
 			}
 			int plotId = poly.get(i).getId();
 			addButton(plotLayout, plotId);
 			container2.addView(plotLayout);
 		}
+		
+		// Set + button
+		ib = new ImageButton(this);
+		ib.setImageResource(android.R.drawable.ic_input_add);
+
+		ib.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				addPlot();
+			}
+		});
+
+		container2.addView(ib);
+
+		
 	}
 
 	/**
@@ -173,7 +176,7 @@ public class Settings extends Activity {
 		TextView tv = new TextView(this);
 
 		tv.setText("plot " + plotNumber);
-		long plotID = mDataProvider.setPlot(plotNumber, userId);
+		long plotID = mDataProvider.setPlot(userId);
 
 		plotNumber = plotNumber + 1;
 
@@ -206,15 +209,39 @@ public class Settings extends Activity {
 
 				if (res[0] > 0) {
 					v.setBackgroundColor(Color.GREEN);
-					v.setOnClickListener(Settings.this.OnClickAllowEdit(res[1], res[2]));
+					v.setOnClickListener(Settings.this.OnClickAllowEdit(plotID, res[1], res[2]));
 					addButton(plotLayout, plotID);
 				}
 			}
 		};
 	}
 
-	View.OnClickListener OnClickAllowEdit(final int lat, final int lon) {
+	public void changeLatLon(int plotID, int lat, int lon, int newLat, int newLon){
+		mDataProvider.updatePoint(plotID, lat, lon, newLat, newLon);
+		plotList();
+	}
+
+	public void deleteLatLon(int plotID, int lat, int lon){
+		mDataProvider.removePoint(plotID, lat, lon);
+		plotList();
+	}
+	
+	View.OnClickListener OnClickAllowEdit(final int plotID, final int lat, final int lon) {
 		return new View.OnClickListener() {
+		
+			private EditText text;
+			private EditText text2;
+			
+			public void editValue(int param){
+				
+				if (param == 1)
+					changeLatLon(plotID, lat, lon, Integer.parseInt(text.getText().toString()), Integer.parseInt(text2.getText().toString()));
+				else if (param==2)
+					deleteLatLon(plotID, lat, lon);
+				
+			}
+					
+			
 			public void onClick(View v) {
 
 				
@@ -224,9 +251,9 @@ public class Settings extends Activity {
 
 				AlertDialog.Builder alert = new AlertDialog.Builder(Settings.this);
 				
-				EditText text = (EditText) layout.findViewById(R.id.lat);
+				text = (EditText) layout.findViewById(R.id.lat);
 				text.setText(Integer.toString(lat));
-				EditText text2 = (EditText) layout.findViewById(R.id.lon);
+				text2 = (EditText) layout.findViewById(R.id.lon);
 				text2.setText(Integer.toString(lon));		
 				
 				alert.setView(layout);
@@ -238,6 +265,9 @@ public class Settings extends Activity {
 							public void onClick(DialogInterface dialog,
 									int whichButton) {
 								/* User clicked ok so do some stuff */
+								
+								editValue(1);		
+								
 							}
 						});
 
@@ -247,12 +277,16 @@ public class Settings extends Activity {
 									int whichButton) {
 
 								/* User clicked cancel so do some stuff */
+								editValue(2);
 							}
 						});
 				alert.show();
 
 			}
 		};
+		
+		
+		
 	}
 
 	private int[] addPlotxy(int plotID) {
