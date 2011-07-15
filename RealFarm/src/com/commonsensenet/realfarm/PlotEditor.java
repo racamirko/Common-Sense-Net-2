@@ -109,6 +109,12 @@ public class PlotEditor extends Activity {
 		tv.setText(R.string.recommendation);
 		tv.setTextSize(30);
 		container0.addView(tv);
+		
+		TextView nameView = new TextView(this);
+		nameView.setText("No recommendations so far");
+		container0.addView(nameView);
+		
+		
 
 	}
 
