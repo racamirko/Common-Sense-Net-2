@@ -274,12 +274,30 @@ public class RealFarmDatabase {
 		// actionNames
 		ContentValues actionNames = new ContentValues();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 1);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "plough");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Sow");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 2);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "seed");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Fertilize");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
+		actionNames.clear();
+		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 3);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Spray");
+		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
+		actionNames.clear();
+		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 4);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Irrigate");
+		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
+		actionNames.clear();
+		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 5);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Harvest");
+		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
+		actionNames.clear();
+		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 6);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Report");
+		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
+		
+		
 		Log.d("RealFarm", "actionName works");
 
 		// actions

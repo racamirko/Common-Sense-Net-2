@@ -1,19 +1,18 @@
 package com.commonsensenet.realfarm;
 
 import java.text.SimpleDateFormat;
-import java.util.Arrays;
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -109,12 +108,10 @@ public class PlotEditor extends Activity {
 		tv.setText(R.string.recommendation);
 		tv.setTextSize(30);
 		container0.addView(tv);
-		
+
 		TextView nameView = new TextView(this);
 		nameView.setText("No recommendations so far");
 		container0.addView(nameView);
-		
-		
 
 	}
 
@@ -131,24 +128,44 @@ public class PlotEditor extends Activity {
 		Map<Integer, String> tmpMap = mDataProvider.getActions();
 
 		// Get all executed actions
-		long[][] res = mDataProvider.getDiary(seeds[0][0]);
+//		long[][] res = mDataProvider.getDiary(seeds[0][0]);
 
+		// Create table layout to add
+		TableLayout tl = new TableLayout(this);
+		TableRow row1 = new TableRow(this);
+		
+		
+		
 		// for each possible action
 		for (Integer key : tmpMap.keySet()) {
-
+			
+			int iterNb = (key % 3)-1;
+			
+			if (iterNb==0){
+				tl.addView(row1);
+				row1 = new TableRow(this);
+			}
+			
+			
 			String action = tmpMap.get(key);
 
-			// Remove actions already executed
-			if ((res == null) || (!arrayContains(res[1], key))) {
+//			// Remove actions already executed
+//			if ((res == null) || (!arrayContains(res[1], key))) {
 
 				Button b = new Button(this);
 				b.setText(action);
 				int actionID = key;
 
 				b.setOnClickListener(OnClickAction(actionID));
-				container.addView(b);
-			}
+//				container.addView(b);
+				
+				row1.addView(b, iterNb);				
+				
+//			}
 		}
+		tl.addView(row1);
+		
+		container.addView(tl);
 
 	}
 
@@ -213,10 +230,10 @@ public class PlotEditor extends Activity {
 		updateActions();
 
 	}
-	
-	View.OnClickListener OnClickDiary(final int lastActionID){
+
+	View.OnClickListener OnClickDiary(final int lastActionID) {
 		return new View.OnClickListener() {
-			
+
 			public void onClick(View v) {
 				mDataProvider.removeAction(lastActionID);
 				updateActions();
@@ -224,7 +241,6 @@ public class PlotEditor extends Activity {
 			}
 		};
 	}
-	
 
 	@Override
 	public void onBackPressed() {
