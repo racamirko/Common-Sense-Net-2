@@ -251,7 +251,7 @@ public class QuickAction extends CustomPopupWindow {
 		
 		int dyTop = anchorRect.top;
 		int dyBottom = screenHeight - anchorRect.bottom;
-	
+		int margin = 20;
 		boolean onTop = (dyTop > dyBottom) ? true : false;
 	
 		if (onTop) {
@@ -260,10 +260,10 @@ public class QuickAction extends CustomPopupWindow {
 				LayoutParams l = scroller.getLayoutParams();
 				l.height = dyTop - anchor.getHeight();
 			} else {
-				yPos = anchorRect.top - rootHeight;
+				yPos = anchorRect.top - (rootHeight/2) - margin;
 			}
 		} else {
-			yPos = anchorRect.bottom;
+			yPos = anchorRect.bottom + (rootHeight/2) + margin;
 	
 			if (rootHeight > dyBottom) {
 				LayoutParams l = scroller.getLayoutParams();

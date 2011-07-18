@@ -22,6 +22,8 @@ public class PlotEditor extends Activity {
 
 	private RealFarmProvider mDataProvider;
 	private int[][] seeds;
+	private static int TABLE_NB_COLUMN = 3;
+	private static int TEXT_HEADER_SIZE = 30;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -61,7 +63,7 @@ public class PlotEditor extends Activity {
 
 		TextView tv = new TextView(this);
 		tv.setText(R.string.plot);
-		tv.setTextSize(30);
+		tv.setTextSize(TEXT_HEADER_SIZE);
 		container0.addView(tv);
 
 		String plotID = null;
@@ -94,10 +96,6 @@ public class PlotEditor extends Activity {
 			container0.addView(nameView1);
 		}
 
-		// String lastActionName =
-		// int lastActionID =
-		// mDataProvider.getLastAction(Integer.parseInt(plotID));
-
 	}
 
 	public void updateRecommendations() {
@@ -106,7 +104,7 @@ public class PlotEditor extends Activity {
 
 		TextView tv = new TextView(this);
 		tv.setText(R.string.recommendation);
-		tv.setTextSize(30);
+		tv.setTextSize(TEXT_HEADER_SIZE);
 		container0.addView(tv);
 
 		TextView nameView = new TextView(this);
@@ -121,7 +119,7 @@ public class PlotEditor extends Activity {
 
 		TextView tv = new TextView(this);
 		tv.setText(R.string.actions);
-		tv.setTextSize(30);
+		tv.setTextSize(TEXT_HEADER_SIZE);
 		container.addView(tv);
 
 		// get all possible actions
@@ -136,10 +134,11 @@ public class PlotEditor extends Activity {
 		
 		
 		
+		
 		// for each possible action
 		for (Integer key : tmpMap.keySet()) {
 			
-			int iterNb = (key % 3)-1;
+			int iterNb = (key % TABLE_NB_COLUMN)-1;
 			
 			if (iterNb==0){
 				tl.addView(row1);
@@ -204,7 +203,7 @@ public class PlotEditor extends Activity {
 
 		TextView tv = new TextView(this);
 		tv.setText(R.string.diary);
-		tv.setTextSize(30);
+		tv.setTextSize(TEXT_HEADER_SIZE);
 		container2.addView(tv);
 
 		long[][] res = mDataProvider.getDiary(seeds[0][0]);

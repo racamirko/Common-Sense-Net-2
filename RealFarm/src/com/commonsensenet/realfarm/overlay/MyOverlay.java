@@ -134,8 +134,7 @@ public class MyOverlay extends ItemizedOverlay<OverlayItem> {
 		first.setIcon(mapView.getResources().getDrawable(R.drawable.ic_dialog_map));
 		first.setId(1);
 		qa.addActionItem(first);
-		qa.show(new int[]{pt.x, pt.y, 2, 1});
-		
+		qa.show(new int[]{pt.x, pt.y, 10, 10});
 		return true;
 	}
 	

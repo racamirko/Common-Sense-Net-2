@@ -327,7 +327,7 @@ public class realFarmMainActivity extends MapActivity{
 				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
 				// locationListenerGps);
 				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
-						10000, locationListenerGps);
+						0, locationListenerGps);
 			}
 			
 			public int getDrawable() {
