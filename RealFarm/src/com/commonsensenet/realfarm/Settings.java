@@ -281,7 +281,7 @@ public class Settings extends Activity {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-		realFarm mainApp = ((realFarm) getApplicationContext());
+		RealFarmApp mainApp = ((RealFarmApp) getApplicationContext());
 		RealFarmDatabase db = mainApp.getDatabase();
 		mDataProvider = new RealFarmProvider(db);
 

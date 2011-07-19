@@ -32,7 +32,7 @@ public class PlotEditor extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.plot_editor);
 
-		realFarm mainApp = ((realFarm) getApplicationContext());
+		RealFarmApp mainApp = ((RealFarmApp) getApplicationContext());
 		RealFarmDatabase db = mainApp.getDatabase();
 		mDataProvider = new RealFarmProvider(db);
 

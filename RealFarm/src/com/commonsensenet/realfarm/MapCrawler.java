@@ -195,7 +195,7 @@ public class MapCrawler extends Activity implements Notifiable {
 			for (int y = 0; y < tilesNeeded; y++) {
 
 				// creates the new tile data
-				tmpMapTile = new MapTile((Bitmap)null, TILE_SIZE, TILE_SIZE
+				tmpMapTile = new MapTile((Bitmap) null, TILE_SIZE, TILE_SIZE
 						+ GOOGLE_MAPS_WATERMARK_SIZE, x, y, new GeoPoint(lat,
 						lon), zoomLevel, mapType);
 				// stores the tile data using the URL as a key.
@@ -286,8 +286,8 @@ public class MapCrawler extends Activity implements Notifiable {
 			// saves the image.
 			saveImage(
 
-			mTargetFolder + "tile_" + data.getGridX() + "_" + data.getGridY() + "_"
-					+ data.getCenter().getLatitudeE6() + "_"
+			mTargetFolder + "tile_" + data.getGridX() + "_" + data.getGridY()
+					+ "_" + data.getCenter().getLatitudeE6() + "_"
 					+ data.getCenter().getLongitudE6() + "_.png", bitmap);
 
 			if (mMapTiles.isEmpty()) {
