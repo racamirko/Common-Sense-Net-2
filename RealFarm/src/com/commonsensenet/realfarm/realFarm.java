@@ -3,7 +3,6 @@ package com.commonsensenet.realfarm;
 import android.app.Application;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.database.ManageDatabase;
 
 /**
  * Main class of application. This class is used to share global information
@@ -18,7 +17,6 @@ public class realFarm extends Application {
 	private int mId = 0;
 
 	public RealFarmDatabase getDatabase() {
-		//return mDb;
 		return db;
 	}
 
@@ -28,9 +26,6 @@ public class realFarm extends Application {
 
 	public RealFarmDatabase setDatabase() {
 		db = new RealFarmDatabase(getApplicationContext());
-
-		//mDb = new ManageDatabase(getApplicationContext());
-		//return mDb;
 		return db;
 	}
 
