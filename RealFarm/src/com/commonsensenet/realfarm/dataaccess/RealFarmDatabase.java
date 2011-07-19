@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm.dataaccess;
 
-
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -50,12 +49,14 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTIONNAME_ID + " integer primary key, "
 					+ COLUMN_NAME_ACTIONNAME_NAME + " text not null " + " ); ");
 			Log.d("RealFarm", "Created actionName table");
-			
+
 			// actions
 			db.execSQL("create table " + TABLE_NAME_ACTION + "  ( "
-					+ COLUMN_NAME_ACTION_ID	+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_ACTION_GROWINGID + " references growing(id), "
-					+ COLUMN_NAME_ACTION_ACTIONID + " references actionsNames(id), " 
+					+ COLUMN_NAME_ACTION_ID
+					+ " integer primary key autoincrement, "
+					+ COLUMN_NAME_ACTION_GROWINGID
+					+ " references growing(id), " + COLUMN_NAME_ACTION_ACTIONID
+					+ " references actionsNames(id), "
 					+ COLUMN_NAME_ACTION_ACTIONDATE + " date " + " ); ");
 			Log.d("RealFarm", "Created action table");
 
@@ -63,27 +64,31 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_GROWING + " ( "
 					+ COLUMN_NAME_GROWING_ID + " integer primary key, "
 					+ COLUMN_NAME_GROWING_PLOTID + " references plots(id), "
-					+ COLUMN_NAME_GROWING_SEEDID + " references seeds(id) " + " ); ");
+					+ COLUMN_NAME_GROWING_SEEDID + " references seeds(id) "
+					+ " ); ");
 			Log.d("RealFarm", "Created growing table");
-			
+
 			// plots
 			db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
 					+ COLUMN_NAME_PLOT_ID + " integer primary key, "
-					+ COLUMN_NAME_PLOT_USERID + " references users(id) " + " ); ");
+					+ COLUMN_NAME_PLOT_USERID + " references users(id) "
+					+ " ); ");
 			Log.d("RealFarm", "Created plot table");
 
 			// points
 			db.execSQL("create table " + TABLE_NAME_POINT + " ( "
-					+ COLUMN_NAME_POINT_ID + " integer primary key autoincrement, " 
-					+ COLUMN_NAME_POINT_X + " integer, "
-					+ COLUMN_NAME_POINT_Y + " integer, " 
-					+ COLUMN_NAME_POINT_PLOTID + " references plots(id) " + " ); ");
+					+ COLUMN_NAME_POINT_ID
+					+ " integer primary key autoincrement, "
+					+ COLUMN_NAME_POINT_X + " integer, " + COLUMN_NAME_POINT_Y
+					+ " integer, " + COLUMN_NAME_POINT_PLOTID
+					+ " references plots(id) " + " ); ");
 			Log.d("RealFarm", "Created point table");
 
 			// seeds
 			db.execSQL("create table " + TABLE_NAME_SEED + " ( "
 					+ COLUMN_NAME_SEED_ID + " integer primary key, "
-					+ COLUMN_NAME_SEED_SEEDID + " references seedTypes(id) " + " ); ");
+					+ COLUMN_NAME_SEED_SEEDID + " references seedTypes(id) "
+					+ " ); ");
 			Log.d("RealFarm", "Created seed table");
 
 			// seedTypes
@@ -92,11 +97,11 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETY + " text " + " ); ");
 			Log.d("RealFarm", "Created seedtype table");
-			
+
 			// users
 			db.execSQL("create table " + TABLE_NAME_USER + " ( "
 					+ COLUMN_NAME_USER_ID + " integer primary key, "
-					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, " 
+					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, "
 					+ COLUMN_NAME_USER_LASTNAME + " text, "
 					+ COLUMN_NAME_USER_MOBILE + " text " + " ); ");
 			Log.d("RealFarm", "Created user table");
@@ -113,47 +118,46 @@ public class RealFarmDatabase {
 		}
 	}
 
-	public static int MAIN_USER_ID = -1;
-	public static String DEFAULT_NUMBER = "000000000";
-	public static String DEVICE_ID;
-	
-	// table
-	
-	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
-	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
-	
-	public static final String COLUMN_NAME_ACTION_ID = "id";
-	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingID";
-	public static final String COLUMN_NAME_ACTION_ACTIONID = "actionID";
 	public static final String COLUMN_NAME_ACTION_ACTIONDATE = "actionDate";
-	
+	public static final String COLUMN_NAME_ACTION_ACTIONID = "actionID";
+	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingID";
+
+	// table
+
+	public static final String COLUMN_NAME_ACTION_ID = "id";
+	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
+
+	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_GROWING_ID = "id";
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
 	public static final String COLUMN_NAME_GROWING_SEEDID = "seedID";
 
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_USERID = "userID";
-	
 	public static final String COLUMN_NAME_POINT_ID = "id";
-	public static final String COLUMN_NAME_POINT_X = "x";
-	public static final String COLUMN_NAME_POINT_Y = "y";
-	public static final String COLUMN_NAME_POINT_PLOTID = "plotID";
 
+	public static final String COLUMN_NAME_POINT_PLOTID = "plotID";
+	public static final String COLUMN_NAME_POINT_X = "x";
+
+	public static final String COLUMN_NAME_POINT_Y = "y";
 	public static final String COLUMN_NAME_SEED_ID = "id";
 	public static final String COLUMN_NAME_SEED_SEEDID = "seedID";
-	
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
+
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
 
-	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
+	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
-	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
-	
 
+	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
 	private static final String DB_NAME = "realFarm.db";
 	private static final int DB_VERSION = 2;
+	public static String DEFAULT_NUMBER = "000000000";
+
+	public static String DEVICE_ID;
+	public static int MAIN_USER_ID = -1;
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONNAME = "actionName";
@@ -204,6 +208,21 @@ public class RealFarmDatabase {
 		mDb = null;
 	}
 
+	public long deleteEntriesdb(String TableName, String whereClause,
+			String[] whereArgs) {
+		long result = -1;
+
+		if (TableName != null) {
+			// result = db.insert(TableName, null, values);
+			try {
+				result = mDb.delete(TableName, whereClause, whereArgs);
+			} catch (SQLException e) {
+				Log.d("RealFarm", "Exception" + e);
+			}
+		}
+		return result;
+	}
+
 	/**
 	 * Method to read values from the database.
 	 * 
@@ -244,18 +263,19 @@ public class RealFarmDatabase {
 		// users
 		ContentValues users = new ContentValues();
 		// 1
-		
-		TelephonyManager telephonyManager = (TelephonyManager) mContext.getSystemService(Context.TELEPHONY_SERVICE);
+
+		TelephonyManager telephonyManager = (TelephonyManager) mContext
+				.getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceID = telephonyManager.getLine1Number();
-		
+
 		DEVICE_ID = deviceID;
-		
-		String mobileNumber ;
+
+		String mobileNumber;
 		if (deviceID == null)
 			mobileNumber = DEFAULT_NUMBER;
 		else
 			mobileNumber = deviceID;
-		
+
 		users.put(COLUMN_NAME_USER_ID, 1);
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "John");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Doe");
@@ -296,12 +316,12 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 6);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Report");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
-		
-		
+
 		Log.d("RealFarm", "actionName works");
 
 		// actions
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss"); 
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
 		ContentValues actions = new ContentValues();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 1);
@@ -497,21 +517,6 @@ public class RealFarmDatabase {
 		}
 		return result;
 	}
-	
-	public long deleteEntriesdb(String TableName, String whereClause, String[] whereArgs){
-		long result = -1;
-		
-		if (TableName != null) {
-			// result = db.insert(TableName, null, values);
-			try {
-				result = mDb.delete(TableName, whereClause, whereArgs);
-			}
-			catch (SQLException e){
-				Log.d("RealFarm", "Exception" + e);
-			}
-		}
-		return result;
-	}
 
 	/**
 	 * Open database helper for writing
@@ -525,10 +530,11 @@ public class RealFarmDatabase {
 			mDb = mOpenHelper.getWritableDatabase();
 	}
 
-	public int update(String tableName, ContentValues args, String whereClause, String[] whereArgs) {
-		
+	public int update(String tableName, ContentValues args, String whereClause,
+			String[] whereArgs) {
+
 		return mDb.update(tableName, args, whereClause, whereArgs);
-		
+
 	}
 
 }

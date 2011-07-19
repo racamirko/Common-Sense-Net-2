@@ -4,15 +4,15 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
-import java.util.Map;
 
 import android.content.ContentValues;
 import android.database.Cursor;
 
-import com.commonsensenet.realfarm.realFarmMainActivity;
-import com.commonsensenet.realfarm.overlay.Polygon;
+import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.User;
 
 public class RealFarmProvider {
 	/** Real farm database access. */
@@ -28,119 +28,11 @@ public class RealFarmProvider {
 		mDb.close();
 	}
 
-	private String[] getUserName(int userId) {
-		String[] name = new String[2];
-
-		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
-				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME },
-				RealFarmDatabase.COLUMN_NAME_USER_ID + "= '" + userId + "'",
-				null, null, null, null);
-
-		if (c.getCount() > 0) { // user exists in database
-			c.moveToFirst();
-
-			name[0] = c.getString(0);
-			name[1] = c.getString(1);
-		}
-
-		return name;
-
-	}
-
-	/**
-	 * Get first/last name of owner of a plot
-	 * 
-	 * @param plotId
-	 * @return
-	 */
-	public String[] getPlotOwner(int plotId) {
-
-		String[] name = new String[2];
-		int userId = 0;
-
-		// opens the db.
-		mDb.open();
-
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_USERID },
-				RealFarmDatabase.COLUMN_NAME_PLOT_ID + "=" + plotId, null,
-				null, null, null);
-
-		// if there is information about this plot in the table
-		if ((!c0.isClosed()) && (c0.getCount() == 1)) {
-
-			// go to the first entry
-			c0.moveToFirst();
-
-			// get user name
-			userId = c0.getInt(0);
-		}
-
-		name = getUserName(userId);
-		mDb.close();
-
-		return name;
-
-	}
-
-	public String getSeedName(int seedId) {
-
-		String res = null;
-		mDb.open();
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME },
-				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
-				null, null, null);
-
-		if (c0.getCount() > 0) {
-			c0.moveToFirst();
-			res = c0.getString(0);
-		}
-		mDb.close();
-		return res;
-
-	}
-
-	public int[][] getPlotSeed(int plotId) {
-
-		int[][] res = null;
-
-		// opens the db.
-		mDb.open();
-
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_GROWING,
-				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID },
-				RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID + "=" + plotId,
-				null, null, null, null);
-
-		if (c0.getCount() > 0) {
-			c0.moveToFirst();
-			res = new int[c0.getCount()][2];
-			int i = 0;
-			do {
-				// get growing+seed id
-				int growingID = c0.getInt(0);
-				int seedID = c0.getInt(1);
-				res[i][0] = growingID;
-				res[i][1] = seedID;
-				i = i + 1;
-			} while (c0.moveToNext()); // there may be intercropping (i.e.,
-										// multiple seeds per plot)
-
-		}
-		mDb.close();
-
-		return res;
-
-	}
-
-	public String getActionName(int actionId) {
+	public Action getActionById(int actionId) {
 
 		mDb.open();
 
-		String name = null;
+		Action tmpAction = null;
 
 		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME },
@@ -150,276 +42,47 @@ public class RealFarmProvider {
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
 
-			name = c0.getString(0);
-
+			tmpAction = new Action(actionId, c0.getString(0));
 		}
 
 		mDb.close();
 
-		return name;
+		return tmpAction;
 	}
 
-	public int getLastAction(int growingId) {
+	/**
+	 * 
+	 * 
+	 * @return
+	 */
+	public List<Action> getActions() {
 
-		int l = 0;
-
-		// opens the db.
+		// opens the database.
 		mDb.open();
 
-		Cursor c0 = mDb
-				.getEntries(
-						RealFarmDatabase.TABLE_NAME_ACTION,
-						new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID },
-						RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
-								+ growingId, null, null, null, null);
-		mDb.close();
-
-		if (c0.getCount() > 0) {
-
-			c0.moveToLast();
-			l = c0.getInt(0);
-
-		}
-
-		mDb.close();
-		return l;
-
-	}
-
-	public int getUserId(String deviceID) {
-
-		int userID = 0;
-		String mobileNumber = null;
-		if (deviceID == null)
-			mobileNumber = RealFarmDatabase.DEFAULT_NUMBER;
-		else
-			mobileNumber = deviceID;
-
-		mDb.open();
-
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
-				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID },
-				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + mobileNumber
-						+ "'", null, null, null, null);
-
-		if (c0.getCount() > 0) {
-			c0.moveToFirst();
-
-			userID = c0.getInt(0);
-		}
-
-		mDb.close();
-		return userID;
-	}
-	
-	public long removePoint(int plotID, int lat, int lon){
-		
-		mDb.open();
-		
-		long result = mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
-				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
-						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon, null);
-		
-		mDb.close();
-		return result;
-		
-	}
-
-	public long updatePoint(int plotID, int lat, int lon, int newLat, int newLon) {
-
-		long result = 0;
-
-		// find point id
-		mDb.open();
-
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_POINT_ID },
-				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
-						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon,
+		// query all actions
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
+				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID,
+						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME }, null,
 				null, null, null, null);
+		c.moveToFirst();
 
-		// if there is such point in the table, update
-		if (c0.getCount() > 0) {
+		List<Action> tmpList = new LinkedList<Action>();
 
-			c0.moveToFirst();
+		int actionId;
+		String actionName;
 
-			int pointID = c0.getInt(0); // pointID to modify
-
-			ContentValues pointtoupdate = new ContentValues();
-			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_X, newLat);
-			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, newLon);
-			pointtoupdate
-					.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
-
-			result = mDb.update(RealFarmDatabase.TABLE_NAME_POINT,
-					pointtoupdate, RealFarmDatabase.COLUMN_NAME_POINT_ID
-							+ " = " + pointID, null);
-
+		if (c.getCount() > 0) {
+			do {
+				actionId = c.getInt(0);
+				actionName = c.getString(1);
+				tmpList.add(new Action(actionId, actionName));
+			} while (c.moveToNext());
 		}
 
-		//
-
-		mDb.close();
-		return result;
-	}
-
-	public long setPoint(int plotID, int lat, int lon) {
-
-		ContentValues pointstoadd = new ContentValues();
-		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_X, lat);
-		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, lon);
-		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
-
-		mDb.open();
-
-		// add to points list
-		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
-				pointstoadd);
-
-		mDb.close();
-
-		return result;
-
-	}
-
-	public long setPlot(int userID) {
-
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userID);
-
-		mDb.open();
-
-		// add to plot list
-		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT,
-				args);
-
-		mDb.close();
-		return result;
-
-	}
-
-	public List<Polygon> getPlots(int userId) {
-		List<Polygon> tmpList = new ArrayList<Polygon>();
-
-		// opens the db.
-		mDb.open();
-
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID },
-				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId, null,
-				null, null, null);
-
-		// if there are users in the table
-		if ((!c0.isClosed()) && (c0.getCount() > 0)) {
-			int i = 0;
-
-			// goes to the first entry
-			c0.moveToFirst();
-
-			do { // for each plot, draw them
-				int id = c0.getInt(0);
-
-				// Read points from database for each user
-				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
-						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
-								RealFarmDatabase.COLUMN_NAME_POINT_Y },
-						RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + "=" + id,
-						null, null, null, null);
-
-				// if there are points to plotx
-				if (c02.getCount() > 0) {
-					int j = 0;
-					c02.moveToFirst();
-
-					int[] polyX = new int[c02.getCount()];
-					int[] polyY = new int[c02.getCount()];
-
-					do { // for each point in the plot, draw it
-
-						int x1 = c02.getInt(0);
-						int y1 = c02.getInt(1);
-
-						polyX[j] = x1;
-						polyY[j] = y1;
-
-						j = j + 1;
-					} while (c02.moveToNext());
-
-					// adds the polygon to the list.
-					tmpList.add(new Polygon(polyX, polyY, polyX.length, id));
-				}
-				i = i + 1;
-			} while (c0.moveToNext());
-		}
 		mDb.close();
 
 		return tmpList;
-	}
-
-	public List<Polygon> getPlots() {
-		List<Polygon> tmpList = new ArrayList<Polygon>();
-
-		mDb.open();
-
-		// Create objects to display in plotOverlay for all users
-		Cursor c0 = mDb.getAllEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_USERID });
-
-		// if there are users in the table
-		if ((!c0.isClosed()) && (c0.getCount() > 0)) {
-			int i = 0;
-			c0.moveToFirst();
-
-			do { // for each plot, draw them
-				int id = c0.getInt(0);
-				int ownerId = c0.getInt(1);
-				// Read points from database for each user
-				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
-						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
-								RealFarmDatabase.COLUMN_NAME_POINT_Y,
-								RealFarmDatabase.COLUMN_NAME_POINT_ID },
-						RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + "=" + id,
-						null, null, null, null);
-
-				// if there are points to plot
-				if (c02.getCount() > 0) {
-					int j = 0;
-					c02.moveToFirst();
-
-					int[] polyX = new int[c02.getCount()];
-					int[] polyY = new int[c02.getCount()];
-
-					do { // creates each polygon object using the given points.
-
-						int x1 = c02.getInt(0);
-						int y1 = c02.getInt(1);
-
-						polyX[j] = x1;
-						polyY[j] = y1;
-
-						j = j + 1;
-					} while (c02.moveToNext());
-
-					// adds the polygon to the list.
-					tmpList.add(new Polygon(polyX, polyY, polyX.length, id,
-							ownerId));
-				}
-				i = i + 1;
-			} while (c0.moveToNext());
-		}
-		mDb.close();
-
-		return tmpList;
-	}
-
-	public void removeAction(int ID) {
-		mDb.open();
-
-		mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
-				RealFarmDatabase.COLUMN_NAME_ACTION_ID + "=" + ID, null);
-
-		mDb.close();
 	}
 
 	public long[][] getDiary(int growingID) {
@@ -470,62 +133,313 @@ public class RealFarmProvider {
 
 	}
 
-	/**
-	 * 
-	 * 
-	 * @return
-	 */
-	public Map<Integer, String> getActions() {
+	public int getLastAction(int growingId) {
 
-		// opens the database.
+		int l = 0;
+
+		// opens the database
 		mDb.open();
 
-		// query all actions
-		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME }, null,
-				null, null, null, null);
-		c.moveToFirst();
+		Cursor c0 = mDb
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_ACTION,
+						new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID },
+						RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
+								+ growingId, null, null, null, null);
+		mDb.close();
 
-		Map<Integer, String> tmpMap = new HashMap<Integer, String>();
+		if (c0.getCount() > 0) {
 
-		int actionId;
-		String actionName;
+			c0.moveToLast();
+			l = c0.getInt(0);
 
-		if (c.getCount() > 0) {
-			do {
-				actionId = c.getInt(0);
-				actionName = c.getString(1);
-				tmpMap.put(actionId, actionName);
-			} while (c.moveToNext());
 		}
 
 		mDb.close();
+		return l;
 
-		return tmpMap;
 	}
 
-	public String[] getUserInfo(String deviceID) {
+	/**
+	 * Get first/last name of owner of a plot
+	 * 
+	 * @param plotId
+	 * @return
+	 */
+	public User getPlotOwner(int plotId) {
+
+		User tmpUser;
+		int userId = 0;
+
+		// opens the database
 		mDb.open();
 
-		String[] name = new String[2];
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_USERID },
+				RealFarmDatabase.COLUMN_NAME_PLOT_ID + "=" + plotId, null,
+				null, null, null);
+
+		// if there is information about this plot in the table
+		if ((!c0.isClosed()) && (c0.getCount() == 1)) {
+
+			// go to the first entry
+			c0.moveToFirst();
+
+			// get user name
+			userId = c0.getInt(0);
+		}
+
+		tmpUser = getUserById(userId);
+		mDb.close();
+
+		return tmpUser;
+
+	}
+
+	public List<Plot> getPlots() {
+		List<Plot> tmpList = new ArrayList<Plot>();
+
+		mDb.open();
+
+		// Create objects to display in plotOverlay for all users
+		Cursor c0 = mDb.getAllEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_USERID });
+
+		// if there are users in the table
+		if ((!c0.isClosed()) && (c0.getCount() > 0)) {
+			int i = 0;
+			c0.moveToFirst();
+
+			do { // for each plot, draw them
+				int id = c0.getInt(0);
+				int ownerId = c0.getInt(1);
+				// Read points from database for each user
+				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
+						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
+								RealFarmDatabase.COLUMN_NAME_POINT_Y,
+								RealFarmDatabase.COLUMN_NAME_POINT_ID },
+						RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + "=" + id,
+						null, null, null, null);
+
+				// if there are points to plot
+				if (c02.getCount() > 0) {
+					int j = 0;
+					c02.moveToFirst();
+
+					int[] polyX = new int[c02.getCount()];
+					int[] polyY = new int[c02.getCount()];
+
+					do { // creates each polygon object using the given points.
+
+						int x1 = c02.getInt(0);
+						int y1 = c02.getInt(1);
+
+						polyX[j] = x1;
+						polyY[j] = y1;
+
+						j = j + 1;
+					} while (c02.moveToNext());
+
+					// adds the polygon to the list.
+					tmpList.add(new Plot(polyX, polyY, polyX.length, id,
+							ownerId));
+				}
+				i = i + 1;
+			} while (c0.moveToNext());
+		}
+		mDb.close();
+
+		return tmpList;
+	}
+
+	public List<Plot> getPlots(int userId) {
+		List<Plot> tmpList = new ArrayList<Plot>();
+
+		// opens the database
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID },
+				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId, null,
+				null, null, null);
+
+		// if there are users in the table
+		if ((!c0.isClosed()) && (c0.getCount() > 0)) {
+			int i = 0;
+
+			// goes to the first entry
+			c0.moveToFirst();
+
+			do { // for each plot, draw them
+				int id = c0.getInt(0);
+
+				// Read points from database for each user
+				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
+						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
+								RealFarmDatabase.COLUMN_NAME_POINT_Y },
+						RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + "=" + id,
+						null, null, null, null);
+
+				// if there are points to plotx
+				if (c02.getCount() > 0) {
+					int j = 0;
+					c02.moveToFirst();
+
+					int[] polyX = new int[c02.getCount()];
+					int[] polyY = new int[c02.getCount()];
+
+					do { // for each point in the plot, draw it
+
+						int x1 = c02.getInt(0);
+						int y1 = c02.getInt(1);
+
+						polyX[j] = x1;
+						polyY[j] = y1;
+
+						j = j + 1;
+					} while (c02.moveToNext());
+
+					// adds the polygon to the list.
+					tmpList.add(new Plot(polyX, polyY, polyX.length, id, userId));
+				}
+				i = i + 1;
+			} while (c0.moveToNext());
+		}
+		mDb.close();
+
+		return tmpList;
+	}
+
+	public int[][] getPlotSeed(int plotId) {
+
+		int[][] res = null;
+
+		// opens the database
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_GROWING,
+				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
+						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID },
+				RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID + "=" + plotId,
+				null, null, null, null);
+
+		if (c0.getCount() > 0) {
+			c0.moveToFirst();
+			res = new int[c0.getCount()][2];
+			int i = 0;
+			do {
+				// get growing+seed id
+				int growingID = c0.getInt(0);
+				int seedID = c0.getInt(1);
+				res[i][0] = growingID;
+				res[i][1] = seedID;
+				i = i + 1;
+			} while (c0.moveToNext()); // there may be intercropping (i.e.,
+										// multiple seeds per plot)
+
+		}
+		mDb.close();
+
+		return res;
+
+	}
+
+	public String getSeedName(int seedId) {
+
+		String res = null;
+		mDb.open();
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
+				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME },
+				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
+				null, null, null);
+
+		if (c0.getCount() > 0) {
+			c0.moveToFirst();
+			res = c0.getString(0);
+		}
+		mDb.close();
+		return res;
+
+	}
+
+	public User getUserById(int userId) {
+
+		User tmpUser = null;
 
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_MOBILE },
+				RealFarmDatabase.COLUMN_NAME_USER_ID + "= '" + userId + "'",
+				null, null, null, null);
+
+		// user exists in database
+		if (c.getCount() > 0) {
+			c.moveToFirst();
+
+			tmpUser = new User(userId, c.getString(0), c.getString(1),
+					c.getString(2));
+		}
+
+		return tmpUser;
+
+	}
+
+	public User getUserByMobile(String deviceID) {
+		mDb.open();
+
+		User tmpUser = null;
+		String mobile;
+
+		if (deviceID == null)
+			mobile = RealFarmDatabase.DEFAULT_NUMBER;
+		else
+			mobile = deviceID;
+
+		Cursor c = mDb
+				.getEntries(RealFarmDatabase.TABLE_NAME_USER, new String[] {
+						RealFarmDatabase.COLUMN_NAME_USER_ID,
+						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME },
-				RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '" + deviceID
-						+ "'", null, null, null, null);
+
+						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
+								+ mobile + "'", null, null, null, null);
 
 		if (c.getCount() > 0) { // user exists in database
 			c.moveToFirst();
 
-			name[0] = c.getString(0);
-			name[1] = c.getString(1);
+			tmpUser = new User(c.getInt(0), c.getString(1), c.getString(2),
+					mobile);
 
 		}
 		mDb.close();
 
-		return name;
+		return tmpUser;
+	}
+
+	public void removeAction(int id) {
+		mDb.open();
+
+		mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				RealFarmDatabase.COLUMN_NAME_ACTION_ID + "=" + id, null);
+
+		mDb.close();
+	}
+
+	public long removePoint(int plotId, int lat, int lon) {
+
+		mDb.open();
+		
+		long result = mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
+				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
+						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon + " and "
+						+ RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + " = " + plotId,
+				null);
+
+		mDb.close();
+		return result;
+
 	}
 
 	public long setAction(int actionID, int growingID, String date) {
@@ -545,18 +459,55 @@ public class RealFarmProvider {
 		return result;
 	}
 
+	public long setPlot(int userID) {
+
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userID);
+
+		mDb.open();
+
+		// add to plot list
+		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT,
+				args);
+
+		mDb.close();
+		return result;
+
+	}
+
+	public long setPoint(int plotID, int lat, int lon) {
+
+		ContentValues pointstoadd = new ContentValues();
+		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_X, lat);
+		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, lon);
+		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
+
+		mDb.open();
+
+		// add to points list
+		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
+				pointstoadd);
+
+		mDb.close();
+
+		return result;
+
+	}
+
 	public long setUserInfo(String deviceId, String firstname, String lastname) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILE, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
+
 		long result;
-		String[] name = getUserInfo(deviceId);
+
+		User user = getUserByMobile(deviceId);
 
 		mDb.open();
 
-		if (name[0] != null) { // user exists in database => update
+		if (user != null) { // user exists in database => update
 			result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args,
 					RealFarmDatabase.COLUMN_NAME_USER_MOBILE + " = '"
 							+ deviceId + "'", null);
@@ -565,12 +516,8 @@ public class RealFarmProvider {
 					.insertEntriesdb(RealFarmDatabase.TABLE_NAME_USER, args);
 		}
 
-		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1)) // if main id
-																	// is
-																	// undefined
-																	// and
-																	// result is
-																	// good
+		// if main id is undefined and result is good
+		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1))
 			RealFarmDatabase.MAIN_USER_ID = (int) result;
 
 		mDb.close();
@@ -578,4 +525,39 @@ public class RealFarmProvider {
 		return result;
 	}
 
+	public long updatePoint(int plotID, int lat, int lon, int newLat, int newLon) {
+
+		long result = 0;
+
+		// find point id
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_POINT_ID },
+				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
+						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon,
+				null, null, null, null);
+
+		// if there is such point in the table, update
+		if (c0.getCount() > 0) {
+
+			c0.moveToFirst();
+
+			int pointID = c0.getInt(0); // pointID to modify
+
+			ContentValues pointtoupdate = new ContentValues();
+			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_X, newLat);
+			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, newLon);
+			pointtoupdate
+					.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
+
+			result = mDb.update(RealFarmDatabase.TABLE_NAME_POINT,
+					pointtoupdate, RealFarmDatabase.COLUMN_NAME_POINT_ID
+							+ " = " + pointID, null);
+
+		}
+
+		mDb.close();
+		return result;
+	}
 }
