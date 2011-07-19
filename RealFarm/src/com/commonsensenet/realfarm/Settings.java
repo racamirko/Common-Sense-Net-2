@@ -26,135 +26,27 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.overlay.Polygon;
+import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.User;
 
 public class Settings extends Activity {
 
-	private TelephonyManager telephonyManager;
-	private RealFarmProvider mDataProvider;
-
-	private String origFirstname;
-	private String origLastname;
 	private boolean flagNewSim = false;
 	private ImageButton ib;
+
+	private RealFarmProvider mDataProvider;
+	private String origFirstname;
+	private String origLastname;
 	private int plotNumber = 0;
+	private TelephonyManager telephonyManager;
 	private int userId;
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.settings);
-		String deviceID = RealFarmDatabase.DEVICE_ID;
-
-		EditText firstname = (EditText) this.findViewById(R.id.editText1);
-		EditText lastname = (EditText) this.findViewById(R.id.editText2);
-
-		// hide soft keyboard by default
-		getWindow().setSoftInputMode(
-				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
-
-		realFarm mainApp = ((realFarm) getApplicationContext());
-		RealFarmDatabase db = mainApp.getDatabase();
-		mDataProvider = new RealFarmProvider(db);
-
-		if (deviceID != null) { // sim car exists
-			String[] name = mDataProvider.getUserInfo(deviceID); // get current
-																	// information
-																	// about
-																	// user
-
-			if (name[0] == null) { // if no information, try to fetch default
-									// number in case user configured phone
-									// without sim card
-				name = mDataProvider
-						.getUserInfo(RealFarmDatabase.DEFAULT_NUMBER);
-				flagNewSim = true;
-			}
-
-			firstname.setText(name[0]);
-			lastname.setText(name[1]);
-		} else { // user must insert a sim card, use default user mode
-			Toast.makeText(getApplicationContext(), "Insert SIM card",
-					Toast.LENGTH_SHORT).show();
-			String[] name = mDataProvider
-					.getUserInfo(RealFarmDatabase.DEFAULT_NUMBER);
-			firstname.setText(name[0]);
-			lastname.setText(name[1]);
-		}
-
-		origFirstname = firstname.getText().toString();
-		origLastname = lastname.getText().toString();
-
-		/*
-		 * Manage list of plots
-		 */
-		
-		// plot list of things
-		plotList();
-
-
-	}
-
-	private void plotList() {
-
-		LinearLayout container2 = (LinearLayout) findViewById(R.id.linearLayout2);
-
-		container2.removeAllViews();
-
-		// Set header
-		TextView tvHeader = new TextView(this);
-		tvHeader.setText(R.string.plot);
-		tvHeader.setTextSize(30);
-		container2.addView(tvHeader);
-		
-		userId = mDataProvider.getUserId(RealFarmDatabase.DEVICE_ID);
-
-		// get plot list from db
-		List<Polygon> poly = mDataProvider.getPlots(userId);
-		plotNumber = poly.size();
-
-		// for each stored row
-		for (int i = 0; i < plotNumber; i++) {
-
-			LinearLayout plotLayout = new LinearLayout(this);
-			LayoutParams layoutParams = new LinearLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			plotLayout.setLayoutParams(layoutParams);
-			plotLayout.setWeightSum(1);
-
-			TextView tv = new TextView(this);
-			tv.setText("plot " + i);
-			plotLayout.addView(tv);
-
-			int[] lat = poly.get(i).getLat();
-			int[] lon = poly.get(i).getLon();
-
-			for (int j = 0; j < lat.length; j++) {
-				Button b = new Button(this);
-				// b.setText(valueX.get(j) + ", " + valueY.get(j));
-				b.setText("x, y");
-				b.setBackgroundColor(Color.GREEN);
-				b.setOnClickListener(OnClickAllowEdit(poly.get(i).getId(), lat[j], lon[j]));
-				plotLayout.addView(b);
-			}
-			int plotId = poly.get(i).getId();
-			addButton(plotLayout, plotId);
-			container2.addView(plotLayout);
-		}
-		
-		// Set + button
-		ib = new ImageButton(this);
-		ib.setImageResource(android.R.drawable.ic_input_add);
-
-		ib.setOnClickListener(new OnClickListener() {
-			public void onClick(View v) {
-				addPlot();
-			}
-		});
-
-		container2.addView(ib);
-
-		
+	private void addButton(LinearLayout plotLayout, int plotID) {
+		Button b = new Button(this);
+		b.setText("x, y");
+		b.setBackgroundColor(Color.RED);
+		b.setOnClickListener(OnClickDoSomething(plotLayout, plotID));
+		plotLayout.addView(b);
 	}
 
 	/**
@@ -193,106 +85,10 @@ public class Settings extends Activity {
 
 	}
 
-	private void addButton(LinearLayout plotLayout, int plotID) {
-		Button b = new Button(this);
-		b.setText("x, y");
-		b.setBackgroundColor(Color.RED);
-		b.setOnClickListener(OnClickDoSomething(plotLayout, plotID));
-		plotLayout.addView(b);
-	}
-
-	View.OnClickListener OnClickDoSomething(final LinearLayout plotLayout,
-			final int plotID) {
-		return new View.OnClickListener() {
-			public void onClick(View v) {
-				int[] res = addPlotxy(plotID);
-
-				if (res[0] > 0) {
-					v.setBackgroundColor(Color.GREEN);
-					v.setOnClickListener(Settings.this.OnClickAllowEdit(plotID, res[1], res[2]));
-					addButton(plotLayout, plotID);
-				}
-			}
-		};
-	}
-
-	public void changeLatLon(int plotID, int lat, int lon, int newLat, int newLon){
-		mDataProvider.updatePoint(plotID, lat, lon, newLat, newLon);
-		plotList();
-	}
-
-	public void deleteLatLon(int plotID, int lat, int lon){
-		mDataProvider.removePoint(plotID, lat, lon);
-		plotList();
-	}
-	
-	View.OnClickListener OnClickAllowEdit(final int plotID, final int lat, final int lon) {
-		return new View.OnClickListener() {
-		
-			private EditText text;
-			private EditText text2;
-			
-			public void editValue(int param){
-				
-				if (param == 1)
-					changeLatLon(plotID, lat, lon, Integer.parseInt(text.getText().toString()), Integer.parseInt(text2.getText().toString()));
-				else if (param==2)
-					deleteLatLon(plotID, lat, lon);
-				
-			}
-					
-			
-			public void onClick(View v) {
-
-				
-				LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layout = inflater.inflate(R.layout.custom_dialog,
-				                               (ViewGroup) findViewById(R.id.layout_root));
-
-				AlertDialog.Builder alert = new AlertDialog.Builder(Settings.this);
-				
-				text = (EditText) layout.findViewById(R.id.lat);
-				text.setText(Integer.toString(lat));
-				text2 = (EditText) layout.findViewById(R.id.lon);
-				text2.setText(Integer.toString(lon));		
-				
-				alert.setView(layout);
-				alert.setTitle("Latitude and longitude");
-				alert.setMessage("Edit them to change values.");
-
-				alert.setPositiveButton("ok",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								/* User clicked ok so do some stuff */
-								
-								editValue(1);		
-								
-							}
-						});
-
-				alert.setNegativeButton("Delete",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-
-								/* User clicked cancel so do some stuff */
-								editValue(2);
-							}
-						});
-				alert.show();
-
-			}
-		};
-		
-		
-		
-	}
-
 	private int[] addPlotxy(int plotID) {
 
 		int[] res = new int[3];
-		
+
 		// use location from gps
 		int lat = 0;
 		int lon = 0;
@@ -340,9 +136,20 @@ public class Settings extends Activity {
 		long result = mDataProvider.setPoint(plotID, lat, lon);
 
 		res[0] = (int) result;
-		res[1] = lat; 
+		res[1] = lat;
 		res[2] = lon;
 		return res;
+	}
+
+	public void changeLatLon(int plotID, int lat, int lon, int newLat,
+			int newLon) {
+		mDataProvider.updatePoint(plotID, lat, lon, newLat, newLon);
+		plotList();
+	}
+
+	public void deleteLatLon(int plotID, int lat, int lon) {
+		mDataProvider.removePoint(plotID, lat, lon);
+		plotList();
 	}
 
 	@Override
@@ -379,5 +186,198 @@ public class Settings extends Activity {
 		}
 
 		finish();
+	}
+
+	View.OnClickListener OnClickAllowEdit(final int plotID, final int lat,
+			final int lon) {
+		return new View.OnClickListener() {
+
+			private EditText text;
+			private EditText text2;
+
+			public void editValue(int param) {
+
+				if (param == 1)
+					changeLatLon(plotID, lat, lon,
+							Integer.parseInt(text.getText().toString()),
+							Integer.parseInt(text2.getText().toString()));
+				else if (param == 2)
+					deleteLatLon(plotID, lat, lon);
+
+			}
+
+			public void onClick(View v) {
+
+				LayoutInflater inflater = (LayoutInflater) getApplicationContext()
+						.getSystemService(LAYOUT_INFLATER_SERVICE);
+				View layout = inflater.inflate(R.layout.custom_dialog,
+						(ViewGroup) findViewById(R.id.layout_root));
+
+				AlertDialog.Builder alert = new AlertDialog.Builder(
+						Settings.this);
+
+				text = (EditText) layout.findViewById(R.id.lat);
+				text.setText(Integer.toString(lat));
+				text2 = (EditText) layout.findViewById(R.id.lon);
+				text2.setText(Integer.toString(lon));
+
+				alert.setView(layout);
+				alert.setTitle("Latitude and longitude");
+				alert.setMessage("Edit them to change values.");
+
+				alert.setPositiveButton("ok",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								/* User clicked ok so do some stuff */
+
+								editValue(1);
+
+							}
+						});
+
+				alert.setNegativeButton("Delete",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+
+								/* User clicked cancel so do some stuff */
+								editValue(2);
+							}
+						});
+				alert.show();
+
+			}
+		};
+
+	}
+
+	View.OnClickListener OnClickDoSomething(final LinearLayout plotLayout,
+			final int plotID) {
+		return new View.OnClickListener() {
+			public void onClick(View v) {
+				int[] res = addPlotxy(plotID);
+
+				if (res[0] > 0) {
+					v.setBackgroundColor(Color.GREEN);
+					v.setOnClickListener(Settings.this.OnClickAllowEdit(plotID,
+							res[1], res[2]));
+					addButton(plotLayout, plotID);
+				}
+			}
+		};
+	}
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.settings);
+		String deviceID = RealFarmDatabase.DEVICE_ID;
+
+		EditText firstname = (EditText) this.findViewById(R.id.editText1);
+		EditText lastname = (EditText) this.findViewById(R.id.editText2);
+
+		// hide soft keyboard by default
+		getWindow().setSoftInputMode(
+				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
+		realFarm mainApp = ((realFarm) getApplicationContext());
+		RealFarmDatabase db = mainApp.getDatabase();
+		mDataProvider = new RealFarmProvider(db);
+
+		User tmpUser;
+
+		if (deviceID != null) { // SIM card exists
+			// get current information about user.
+			tmpUser = mDataProvider.getUserByMobile(deviceID);
+
+			if (tmpUser == null) { // if no information, try to fetch default
+									// number in case user configured phone
+									// without SIM card
+				tmpUser = mDataProvider
+						.getUserByMobile(RealFarmDatabase.DEFAULT_NUMBER);
+				flagNewSim = true;
+			}
+
+		} else { // user must insert a SIM card, use default user mode
+			Toast.makeText(getApplicationContext(), "Insert SIM card",
+					Toast.LENGTH_SHORT).show();
+			tmpUser = mDataProvider
+					.getUserByMobile(RealFarmDatabase.DEFAULT_NUMBER);
+		}
+
+		// sets the textfields
+		firstname.setText(tmpUser.getFirstName());
+		lastname.setText(tmpUser.getLastName());
+
+		origFirstname = firstname.getText().toString();
+		origLastname = lastname.getText().toString();
+
+		// plot list of things
+		plotList();
+
+	}
+
+	private void plotList() {
+
+		LinearLayout container2 = (LinearLayout) findViewById(R.id.linearLayout2);
+
+		container2.removeAllViews();
+
+		// Set header
+		TextView tvHeader = new TextView(this);
+		tvHeader.setText(R.string.plot);
+		tvHeader.setTextSize(30);
+		container2.addView(tvHeader);
+
+		userId = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
+				.getUserId();
+
+		// get plot list from db
+		List<Plot> poly = mDataProvider.getPlots(userId);
+		plotNumber = poly.size();
+
+		// for each stored row
+		for (int i = 0; i < plotNumber; i++) {
+
+			LinearLayout plotLayout = new LinearLayout(this);
+			LayoutParams layoutParams = new LinearLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			plotLayout.setLayoutParams(layoutParams);
+			plotLayout.setWeightSum(1);
+
+			TextView tv = new TextView(this);
+			tv.setText("plot " + i);
+			plotLayout.addView(tv);
+
+			int[] lat = poly.get(i).getLat();
+			int[] lon = poly.get(i).getLon();	
+
+			for (int j = 0; j < lat.length; j++) {
+				Button b = new Button(this);
+				// b.setText(valueX.get(j) + ", " + valueY.get(j));
+				b.setText("x, y");
+				b.setBackgroundColor(Color.GREEN);
+				b.setOnClickListener(OnClickAllowEdit(poly.get(i).getId(),
+						lat[j], lon[j]));
+				plotLayout.addView(b);
+			}
+			int plotId = poly.get(i).getId();
+			addButton(plotLayout, plotId);
+			container2.addView(plotLayout);
+		}
+
+		// Set + button
+		ib = new ImageButton(this);
+		ib.setImageResource(android.R.drawable.ic_input_add);
+
+		ib.setOnClickListener(new OnClickListener() {
+			public void onClick(View v) {
+				addPlot();
+			}
+		});
+
+		container2.addView(ib);
+
 	}
 }
