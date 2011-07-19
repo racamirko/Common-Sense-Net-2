@@ -27,22 +27,24 @@ public class MapTile implements Comparable<MapTile> {
 				bitmap = null;
 			}
 
-			synchronized(mTileBitmap)
-			{
+			synchronized (mTileBitmap) {
 				mIsBitmapLoaded = true;
 				mTileBitmap = bitmap;
 			}
 		}
 	}
-	
+
 	/** Geographical coordinates of the center of the image. */
 	private GeoPoint mCenter;
 	/** Position in the map grid of the tile in the x coordinate. */
 	private int mGridX;
 	/** Position in the map grid of the tile in the y coordinate. */
 	private int mGridY;
+	private String mImagePath;
 	/** Indicates whether the bitmap has already been loaded. */
 	private boolean mIsBitmapLoaded;
+	/** Task used to load the bitmap when needed. */
+	private BitmapLoaderTask mLoaderTask;
 	/** Type of map that represents the tile. */
 	private String mMapType;
 	/** Bitmap that represents the tile. */
@@ -53,13 +55,12 @@ public class MapTile implements Comparable<MapTile> {
 	private int mTileWidth;
 	/** Position of the tile in the x coordinate in the map. */
 	private int mX;
+
 	/** Position of the tile in the y coordinate in the map. */
 	private int mY;
+
 	/** Zoom level of the tile. */
 	private int mZoom;
-	
-	/** Task used to load the bitmap when needed. */
-	private BitmapLoaderTask mLoaderTask;
 
 	public MapTile(Bitmap bitmap, int tileWidth, int tileHeight, int gridX,
 			int gridY, GeoPoint center, int zoom, String mapType) {
@@ -84,8 +85,6 @@ public class MapTile implements Comparable<MapTile> {
 		mX = mGridX * mTileWidth;
 		mY = mGridY * mTileHeight;
 	}
-	
-	private String mImagePath;
 
 	/**
 	 * Creates a new MapTipe instance.
@@ -149,12 +148,11 @@ public class MapTile implements Comparable<MapTile> {
 	}
 
 	public synchronized Bitmap getBitmap() {
-		
-		if(!mIsBitmapLoaded && mLoaderTask == null)
-		{
+
+		if (!mIsBitmapLoaded && mLoaderTask == null) {
 			mLoaderTask = new BitmapLoaderTask();
 			mLoaderTask.execute(mImagePath);
-			
+
 		}
 		return mTileBitmap;
 	}

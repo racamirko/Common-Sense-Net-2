@@ -14,6 +14,9 @@ import com.commonsensenet.realfarm.R;
 
 public class Map {
 
+	/** Default zoom level of the map. */
+	public static int DEFAULT_ZOOM_LEVEL = 17;
+
 	public static Map createDefaultMap(View view) {
 
 		Map tmpMap = new Map();
@@ -47,65 +50,61 @@ public class Map {
 	public static Map createMapFromCoordinate(GeoPoint center, View view) {
 		Map tmpMap = new Map();
 
-		try{
-			
-		
-		// gets the path from the system
-		String externalDirectoryPath = Environment
-				.getExternalStorageDirectory().toString()
-				+ MapCrawler.MAPS_FOLDER;
+		try {
 
-		// gets the file that represents the location
-		File mapDir = new File(externalDirectoryPath + center.getLatitude()
-				+ "," + center.getLongitude() + "/");
+			// gets the path from the system
+			String externalDirectoryPath = Environment
+					.getExternalStorageDirectory().toString()
+					+ MapCrawler.MAPS_FOLDER;
 
-		
-		Bitmap tmp = BitmapFactory.decodeResource(
-				view.getResources(), R.drawable.tile_0_0_14056179_77164847_);
-				
-		// if the folder exists loads the map from it.
-		if (mapDir.exists()) {
-			String[] fileNames = mapDir.list();
+			// gets the file that represents the location
+			File mapDir = new File(externalDirectoryPath + center.getLatitude()
+					+ "," + center.getLongitude() + "/");
 
-			int numberOfTiles = (int) Math.sqrt(fileNames.length);
+			Bitmap tmp = BitmapFactory.decodeResource(view.getResources(),
+					R.drawable.tile_0_0_14056179_77164847_);
 
-			int xValue, yValue;
+			// if the folder exists loads the map from it.
+			if (mapDir.exists()) {
+				String[] fileNames = mapDir.list();
 
-			// !! x and y are inverted when loading.
-			for (int x = 0; x < fileNames.length; x++) {
-				String[] fileName = fileNames[x].split("_");
-				String imagePath = mapDir.getPath() + "/" + fileNames[x];
+				int numberOfTiles = (int) Math.sqrt(fileNames.length);
 
-				// position in the grid (x and y values are inverted)
-				xValue = Integer.parseInt(fileName[2]);
-				yValue = Integer.parseInt(fileName[1]);
+				int xValue, yValue;
 
-				// BitmapFactory.decodeFile(imagePath)
-				tmpMap.mTiles.add(new MapTile(imagePath, tmp, MapCrawler.TILE_SIZE,
-						MapCrawler.TILE_SIZE, xValue, yValue, new GeoPoint(
-								Integer.parseInt(fileName[3]), Integer
-										.parseInt(fileName[4])), 17,
-						"satellite"));
+				// !! x and y are inverted when loading.
+				for (int x = 0; x < fileNames.length; x++) {
+					String[] fileName = fileNames[x].split("_");
+					String imagePath = mapDir.getPath() + "/" + fileNames[x];
+
+					// position in the grid (x and y values are inverted)
+					xValue = Integer.parseInt(fileName[2]);
+					yValue = Integer.parseInt(fileName[1]);
+
+					// BitmapFactory.decodeFile(imagePath)
+					tmpMap.mTiles.add(new MapTile(imagePath, tmp,
+							MapCrawler.TILE_SIZE, MapCrawler.TILE_SIZE, xValue,
+							yValue, new GeoPoint(Integer.parseInt(fileName[3]),
+									Integer.parseInt(fileName[4])), 17,
+							"satellite"));
+				}
+
+				// sets the size of the map.
+				tmpMap.mWidth = MapCrawler.TILE_SIZE * numberOfTiles;
+				tmpMap.mHeight = MapCrawler.TILE_SIZE * numberOfTiles;
+
+				// sorts the images according to the grid position to be able to
+				// render them correctly.
+				Collections.sort(tmpMap.mTiles);
+
+				return tmpMap;
 			}
-
-			// sets the size of the map.
-			tmpMap.mWidth = MapCrawler.TILE_SIZE * numberOfTiles;
-			tmpMap.mHeight = MapCrawler.TILE_SIZE * numberOfTiles;
-
-			// sorts the images according to the grid position to be able to
-			// render them correctly.
-			Collections.sort(tmpMap.mTiles);
-
-			return tmpMap;
-		}
-		}catch (Exception e)
-		{
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
+
 		return null;
 	}
-
 	/** Total height of the map in pixels. */
 	private int mHeight;
 	/** Initial center coordinate of the map. */
@@ -118,7 +117,7 @@ public class Map {
 	private int mZoom;
 
 	public Map() {
-		mZoom = 17;
+		mZoom = DEFAULT_ZOOM_LEVEL;
 		mTiles = new ArrayList<MapTile>();
 	}
 
