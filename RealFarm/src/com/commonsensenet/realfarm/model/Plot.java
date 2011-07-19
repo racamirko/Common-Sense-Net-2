@@ -19,11 +19,16 @@ public class Plot {
 	/**
 	 * Creates a new Plot instance.
 	 * 
-	 * @param coordX array with x coordinates
-	 * @param coordY array with y coordinates
-	 * @param sides number of sides that the plot has
-	 * @param id id of the plot
-	 * @param ownerId id of the owner.
+	 * @param coordX
+	 *            array with x coordinates
+	 * @param coordY
+	 *            array with y coordinates
+	 * @param sides
+	 *            number of sides that the plot has
+	 * @param id
+	 *            id of the plot
+	 * @param ownerId
+	 *            id of the owner.
 	 */
 	public Plot(int[] coordX, int[] coordY, int sides, int id, int ownerId) {
 		mCoordX = coordX;
@@ -63,7 +68,7 @@ public class Plot {
 		return oddTransitions;
 	}
 
-	public int[] getAverage(OfflineMapView mapView) {
+	public int[] getAverage() {
 
 		int[] average = new int[2];
 
