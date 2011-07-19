@@ -2,42 +2,36 @@ package com.commonsensenet.realfarm.model;
 
 import java.util.Arrays;
 
-import android.graphics.Rect;
+import android.graphics.Point;
 
 import com.commonsensenet.realfarm.map.OfflineMapView;
 
 public class Plot {
-	/** Coordinates in pixels of the polygon. */
 	private int[] mCoordX, mCoordY;
 	/** Number of sides that the polygon has. */
 	private int mNumberOfSides;
-	/** Identifier of the owner of the plot. */
-	private int mOwnerId;
 	/** Identifier number of the plot. */
 	private int mPlotId;
+	private int[] polyY, polyX;
+	/** Identifier of the owner of the plot. */
+	private int mOwnerId;
 
-	/**
-	 * Creates a new Plot instance.
-	 * 
-	 * @param coordX
-	 *            array with x coordinates
-	 * @param coordY
-	 *            array with y coordinates
-	 * @param sides
-	 *            number of sides that the plot has
-	 * @param id
-	 *            id of the plot
-	 * @param ownerId
-	 *            id of the owner.
-	 */
-	public Plot(int[] coordX, int[] coordY, int sides, int id, int ownerId) {
+	public Plot(int[] coordX, int[] coordY, int numberOfSides, int id, int ownerId) {
 		mCoordX = coordX;
 		mCoordY = coordY;
-		mNumberOfSides = sides;
+		mNumberOfSides = numberOfSides;
 		mPlotId = id;
 		mOwnerId = ownerId;
 	}
-
+	
+	public int[] getLat(){
+		return mCoordX;
+	}
+	
+	public int[] getLon(){
+		return mCoordY;
+	}
+	
 	/**
 	 * Checks if the Polygon contains a point.
 	 * 
@@ -53,13 +47,15 @@ public class Plot {
 
 		boolean oddTransitions = false;
 
+		convert(mCoordX, mCoordY, mapView);
+
 		for (int i = 0, j = mNumberOfSides - 1; i < mNumberOfSides; j = i++) {
 
-			if ((mCoordY[i] < y && mCoordY[j] >= y)
-					|| (mCoordY[j] < y && mCoordY[i] >= y)) {
+			if ((polyY[i] < y && polyY[j] >= y)
+					|| (polyY[j] < y && polyY[i] >= y)) {
 
-				if (mCoordX[i] + (y - mCoordY[i]) / (mCoordY[j] - mCoordY[i])
-						* (mCoordX[j] - mCoordX[i]) < x) {
+				if (polyX[i] + (y - polyY[i]) / (polyY[j] - polyY[i])
+						* (polyX[j] - polyX[i]) < x) {
 
 					oddTransitions = !oddTransitions;
 				}
@@ -68,49 +64,94 @@ public class Plot {
 		return oddTransitions;
 	}
 
-	public int[] getAverage() {
+	public void convert(int[] x1, int[] y1, OfflineMapView mapView) {
 
-		int[] average = new int[2];
+		int coord[][] = new int[2][x1.length];
 
-		// sorts both arrays.
-		// Arrays.sort(mCoordX);
-		// Arrays.sort(mCoordY);
-		average[0] = (int) mCoordX[0]
-				- (int) ((mCoordX[0] - mCoordX[mCoordX.length - 1]) / 2);
-		average[1] = (int) mCoordY[0]
-				- (int) ((mCoordY[0] - mCoordY[mCoordY.length - 1]) / 2);
-		return average;
-	}
+		for (int i = 0; i < x1.length; i++) {
+			// TODO: do proper convertion.
+//			GeoPoint gPoint = new GeoPoint(x1[i], y1[i]);
+			Point screenCoords = new Point();
+//			mapView.getProjection().toPixels(gPoint, screenCoords);
 
-	public Rect getBounds(OfflineMapView mapView) {
+			coord[0][i] = screenCoords.x;
+			coord[1][i] = screenCoords.y;
+		}
 
-		Arrays.sort(mCoordX);
-		Arrays.sort(mCoordY);
+		polyX = coord[0];
+		polyY = coord[1];
 
-		// gets minimum values
-		int minx = mCoordX[0];
-		int miny = mCoordY[0];
-
-		// gets max values
-		int maxx = mCoordX[mCoordX.length - 1];
-		int maxy = mCoordY[mCoordY.length - 1];
-
-		return new Rect(minx, miny, maxx, maxy);
-	}
-
-	public int getId() {
-		return mPlotId;
 	}
 
 	public int getOwnerId() {
 		return mOwnerId;
 	}
 
+	public int[] getCoordinates(OfflineMapView mapView) {
+
+		int[] coord = new int[4];
+
+		convert(mCoordX, mCoordY, mapView);
+
+		Arrays.sort(polyX);
+		Arrays.sort(polyY);
+
+		int minx = polyX[0];
+		int maxx = polyX[polyX.length - 1];
+		int miny = polyY[0];
+		int maxy = polyY[polyY.length - 1];
+
+		int width = maxx - minx;
+		int height = maxy - miny;
+
+		coord[0] = minx;
+		coord[1] = miny;
+		coord[2] = width;
+		coord[3] = height;
+
+		return coord;
+	}
+
+	public int[] getAverage(OfflineMapView mapView) {
+
+		int[] average = new int[2];
+
+		convert(mCoordX, mCoordY, mapView);
+		Arrays.sort(polyX);
+		Arrays.sort(polyY);
+		average[0] = (int) polyX[0]
+				- (int) ((polyX[0] - polyX[polyX.length - 1]) / 2);
+		average[1] = (int) polyY[0]
+				- (int) ((polyY[0] - polyY[polyY.length - 1]) / 2);
+		return average;
+	}
+
+	public int[] getAverageLL() {
+
+		int[] average = new int[2];
+
+		int[] tempLatit = mCoordX.clone();
+		int[] tempLongi = mCoordY.clone();
+		Arrays.sort(tempLatit);
+		Arrays.sort(tempLongi);
+		average[0] = (int) tempLatit[0]
+				- (int) ((tempLatit[0] - tempLatit[tempLatit.length - 1]) / 2);
+		average[1] = (int) tempLongi[0]
+				- (int) ((tempLongi[0] - tempLongi[tempLongi.length - 1]) / 2);
+		return average;
+	}
+
+	public int getId() {
+		return mPlotId;
+	}
+
 	public int[] getX(OfflineMapView mapView) {
-		return mCoordX;
+		convert(mCoordX, mCoordY, mapView);
+		return polyX;
 	}
 
 	public int[] getY(OfflineMapView mapView) {
-		return mCoordY;
+		convert(mCoordX, mCoordY, mapView);
+		return polyY;
 	}
 }
