@@ -2,7 +2,7 @@ package com.commonsensenet.realfarm;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Map;
+import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
@@ -17,6 +17,8 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.User;
 
 public class PlotEditor extends Activity {
 
@@ -79,11 +81,11 @@ public class PlotEditor extends Activity {
 		container0.addView(ima);
 
 		seeds = mDataProvider.getPlotSeed(Integer.parseInt(plotID));
-		String[] name = mDataProvider.getPlotOwner(Integer.parseInt(plotID));
+		User plotOwner = mDataProvider.getPlotOwner(Integer.parseInt(plotID));
 
 		TextView nameView = new TextView(this);
-		if (name[0] != null)
-			nameView.setText(name[0] + " " + name[1]);
+		if (plotOwner != null)
+			nameView.setText(plotOwner.getFirstName() + " " + plotOwner.getLastName());
 		else
 			nameView.setText("Unknown");
 
@@ -123,7 +125,7 @@ public class PlotEditor extends Activity {
 		container.addView(tv);
 
 		// get all possible actions
-		Map<Integer, String> tmpMap = mDataProvider.getActions();
+		List<Action> tmpActionList = mDataProvider.getActions();
 
 		// Get all executed actions
 //		long[][] res = mDataProvider.getDiary(seeds[0][0]);
@@ -132,28 +134,25 @@ public class PlotEditor extends Activity {
 		TableLayout tl = new TableLayout(this);
 		TableRow row1 = new TableRow(this);
 		
-		
-		
-		
+		Action tmpAction;
 		// for each possible action
-		for (Integer key : tmpMap.keySet()) {
+		for(int x = 0; x < tmpActionList.size(); x++)
+		{
+			tmpAction = tmpActionList.get(x);
 			
-			int iterNb = (key % TABLE_NB_COLUMN)-1;
+			int iterNb = (tmpAction.getId() % TABLE_NB_COLUMN)-1;
 			
-			if (iterNb==0){
+			if (iterNb == 0){
 				tl.addView(row1);
 				row1 = new TableRow(this);
 			}
-			
-			
-			String action = tmpMap.get(key);
 
 //			// Remove actions already executed
 //			if ((res == null) || (!arrayContains(res[1], key))) {
 
 				Button b = new Button(this);
-				b.setText(action);
-				int actionID = key;
+				b.setText(tmpAction.getName());
+				int actionID = tmpAction.getId();
 
 				b.setOnClickListener(OnClickAction(actionID));
 //				container.addView(b);
@@ -216,7 +215,7 @@ public class PlotEditor extends Activity {
 				date.setTime(res[2][i]);
 
 				nameView1.setText(i + " "
-						+ mDataProvider.getActionName((int) res[1][i]) + " "
+						+ mDataProvider.getActionById((int) res[1][i]).getName() + " "
 						+ date.toLocaleString());
 				int lastActionID = (int) res[0][i];
 
