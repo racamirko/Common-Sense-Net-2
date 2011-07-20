@@ -105,6 +105,7 @@ public class Map {
 
 		return null;
 	}
+
 	/** Total height of the map in pixels. */
 	private int mHeight;
 	/** Initial center coordinate of the map. */
