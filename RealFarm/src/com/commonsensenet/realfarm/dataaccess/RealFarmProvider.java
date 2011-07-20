@@ -9,6 +9,7 @@ import java.util.List;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.graphics.Point;
 
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Plot;
@@ -50,11 +51,6 @@ public class RealFarmProvider {
 		return tmpAction;
 	}
 
-	/**
-	 * 
-	 * 
-	 * @return
-	 */
 	public List<Action> getActions() {
 
 		// opens the database.
@@ -227,22 +223,20 @@ public class RealFarmProvider {
 					int j = 0;
 					c02.moveToFirst();
 
-					int[] polyX = new int[c02.getCount()];
-					int[] polyY = new int[c02.getCount()];
+					Point[] polyPoints = new Point[c02.getCount()];
 
 					do { // creates each polygon object using the given points.
 
 						int x1 = c02.getInt(0);
 						int y1 = c02.getInt(1);
 
-						polyX[j] = x1;
-						polyY[j] = y1;
+						polyPoints[j] = new Point(x1, y1);
 
 						j = j + 1;
 					} while (c02.moveToNext());
 
 					// adds the polygon to the list.
-					tmpList.add(new Plot(polyX, polyY, polyX.length, id,
+					tmpList.add(new Plot(polyPoints, polyPoints.length, id,
 							ownerId));
 				}
 				i = i + 1;
@@ -286,22 +280,21 @@ public class RealFarmProvider {
 					int j = 0;
 					c02.moveToFirst();
 
-					int[] polyX = new int[c02.getCount()];
-					int[] polyY = new int[c02.getCount()];
+					Point[] polyPoints = new Point[c02.getCount()];
 
 					do { // for each point in the plot, draw it
 
 						int x1 = c02.getInt(0);
 						int y1 = c02.getInt(1);
 
-						polyX[j] = x1;
-						polyY[j] = y1;
+						polyPoints[j] = new Point(x1, y1);
 
 						j = j + 1;
 					} while (c02.moveToNext());
 
 					// adds the polygon to the list.
-					tmpList.add(new Plot(polyX, polyY, polyX.length, id, userId));
+					tmpList.add(new Plot(polyPoints, polyPoints.length, id,
+							userId));
 				}
 				i = i + 1;
 			} while (c0.moveToNext());
@@ -430,12 +423,12 @@ public class RealFarmProvider {
 	public long removePoint(int plotId, int lat, int lon) {
 
 		mDb.open();
-		
+
 		long result = mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
 				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
-						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon + " and "
-						+ RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + " = " + plotId,
-				null);
+						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon
+						+ " and " + RealFarmDatabase.COLUMN_NAME_POINT_PLOTID
+						+ " = " + plotId, null);
 
 		mDb.close();
 		return result;
