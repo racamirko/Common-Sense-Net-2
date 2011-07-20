@@ -149,7 +149,7 @@ public class OfflineMapDemo extends Activity {
 		int userId = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
 				.getUserId();
 
-		// adds an overlay for each plot found.
+//		// adds an overlay for each plot found.
 		mMyPlots = mDataProvider.getPlots(userId);
 		for (int x = 0; x < mMyPlots.size(); x++) {
 			mapOverlays.add(new PlotOverlay(mMyPlots.get(x)));
@@ -165,7 +165,7 @@ public class OfflineMapDemo extends Activity {
 	 * Create options menu
 	 * 
 	 * @param Menu
-	 *            android menu object
+	 *            Android menu object
 	 * @return boolean true if options menu created successfully
 	 */
 	@Override

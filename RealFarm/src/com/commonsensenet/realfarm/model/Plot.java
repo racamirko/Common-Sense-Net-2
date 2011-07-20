@@ -20,7 +20,8 @@ public class Plot {
 
 	public Plot(Point[] coordinates, int numberOfSides, int id, int ownerId) {
 
-		mPoints = coordinates;
+		mCoordinates = coordinates;
+		mPoints = null;
 		mNumberOfSides = numberOfSides;
 		mPlotId = id;
 		mOwnerId = ownerId;

@@ -53,10 +53,6 @@ public class OfflineMapView extends View {
 				this);
 	}
 
-	public void animateTo(com.google.android.maps.GeoPoint point) {
-
-	}
-
 	public void animateTo(GeoPoint point) {
 
 	}
