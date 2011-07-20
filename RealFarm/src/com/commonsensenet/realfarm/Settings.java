@@ -4,13 +4,14 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.graphics.Color;
+import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -33,12 +34,11 @@ public class Settings extends Activity {
 
 	private boolean flagNewSim = false;
 	private ImageButton ib;
-
 	private RealFarmProvider mDataProvider;
 	private String origFirstname;
 	private String origLastname;
 	private int plotNumber = 0;
-	private TelephonyManager telephonyManager;
+	// private TelephonyManager telephonyManager;
 	private int userId;
 
 	private void addButton(LinearLayout plotLayout, int plotID) {
@@ -89,21 +89,19 @@ public class Settings extends Activity {
 
 		int[] res = new int[3];
 
-		// use location from gps
+		// use location from the GPS
 		int lat = 0;
 		int lon = 0;
 
-		LocationManager lm = (LocationManager) getSystemService(getApplicationContext().LOCATION_SERVICE);
+		getApplicationContext();
+		LocationManager lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
 		LocationListener locationListenerGps = new LocationListener() {
 
-			int lat;
-			int lon;
-
 			public void onLocationChanged(Location location) {
 				if (location != null) {
-					lat = (int) (location.getLatitude() * 1000000);
-					lon = (int) (location.getLongitude() * 1000000);
+					// lat = (int) (location.getLatitude() * 1000000);
+					// lon = (int) (location.getLongitude() * 1000000);
 				}
 			}
 
@@ -350,16 +348,14 @@ public class Settings extends Activity {
 			tv.setText("plot " + i);
 			plotLayout.addView(tv);
 
-			int[] lat = poly.get(i).getLat();
-			int[] lon = poly.get(i).getLon();	
+			Point[] coords = poly.get(i).getCoordinates();
 
-			for (int j = 0; j < lat.length; j++) {
+			for (int j = 0; j < coords.length; j++) {
 				Button b = new Button(this);
-				// b.setText(valueX.get(j) + ", " + valueY.get(j));
 				b.setText("x, y");
 				b.setBackgroundColor(Color.GREEN);
 				b.setOnClickListener(OnClickAllowEdit(poly.get(i).getId(),
-						lat[j], lon[j]));
+						coords[j].x, coords[j].y));
 				plotLayout.addView(b);
 			}
 			int plotId = poly.get(i).getId();
