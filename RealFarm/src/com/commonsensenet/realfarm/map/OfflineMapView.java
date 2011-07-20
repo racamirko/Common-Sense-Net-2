@@ -29,7 +29,6 @@ public class OfflineMapView extends View {
 	private int mScrollRectY;
 	/** Initial position in the x coordinate used to track the movement. */
 	private float mStartX;
-
 	/** Initial position in the y coordinate used to track the movement. */
 	private float mStartY;
 
@@ -38,7 +37,7 @@ public class OfflineMapView extends View {
 
 		initOfflineMapView();
 
-		// loads the disired map.
+		// loads the desired map.
 		// TODO: pass the coordinates as a parameter.
 		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
 				this);
@@ -139,7 +138,7 @@ public class OfflineMapView extends View {
 			// gets the current tile of the iteration
 			currentTile = mMap.getTiles().get(x);
 
-			// checks if the tile is inside the Viewport
+			// checks if the tile is inside the view port
 			if (isInside(currentTile.getX(), currentTile.getY(),
 					currentTile.getWidth(), currentTile.getHeight(),
 					newScrollRectX, newScrollRectY, mDisplayWidth,
