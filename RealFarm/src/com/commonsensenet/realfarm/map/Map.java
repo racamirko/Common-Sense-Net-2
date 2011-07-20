@@ -6,6 +6,7 @@ import java.util.Collections;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Point;
 import android.os.Environment;
 import android.view.View;
 
@@ -19,14 +20,12 @@ public class Map {
 
 	public static Map createDefaultMap(View view) {
 
-		Map tmpMap = new Map();
+		Map tmpMap = new Map(new GeoPoint(0, 0));
 
 		final int[][] tiles = {
 				{ R.drawable.tile_0_0_14056179_77164847_,
 						R.drawable.tile_0_1_14056179_77169159_ },
-				{
-
-				R.drawable.tile_1_0_14052007_77164847_,
+				{ R.drawable.tile_1_0_14052007_77164847_,
 						R.drawable.tile_1_1_14052007_77169159_ } };
 
 		for (int x = 0; x < tiles.length; x++) {
@@ -48,7 +47,7 @@ public class Map {
 	}
 
 	public static Map createMapFromCoordinate(GeoPoint center, View view) {
-		Map tmpMap = new Map();
+		Map tmpMap = new Map(center);
 
 		try {
 
@@ -72,7 +71,7 @@ public class Map {
 
 				int xValue, yValue;
 
-				// !! x and y are inverted when loading.
+				// NOTE: x and y are inverted when loading.
 				for (int x = 0; x < fileNames.length; x++) {
 					String[] fileName = fileNames[x].split("_");
 					String imagePath = mapDir.getPath() + "/" + fileNames[x];
@@ -106,10 +105,10 @@ public class Map {
 		return null;
 	}
 
+	/** Initial center coordinate of the map. */
+	private GeoPoint mCenter;
 	/** Total height of the map in pixels. */
 	private int mHeight;
-	/** Initial center coordinate of the map. */
-	private GeoPoint mMapCenter;
 	/** Matrix containing the tiles of the map. */
 	private ArrayList<MapTile> mTiles;
 	/** Total width of the map in pixels. */
@@ -117,8 +116,15 @@ public class Map {
 	/** Current zoom of the map. */
 	private int mZoom;
 
-	public Map() {
+	/**
+	 * Creates a new Map instance.
+	 * 
+	 * @param center
+	 *            geographical center of the map
+	 */
+	public Map(GeoPoint center) {
 		mZoom = DEFAULT_ZOOM_LEVEL;
+		mCenter = center;
 		mTiles = new ArrayList<MapTile>();
 	}
 
@@ -128,12 +134,16 @@ public class Map {
 		}
 	}
 
-	public int getHeight() {
-		return mHeight;
+	public GeoPoint getCenter() {
+		return mCenter;
 	}
 
-	public GeoPoint getMapCenter() {
-		return mMapCenter;
+	public Point getCenterPoint() {
+		return new Point((int) (mWidth * 0.5), (int) (mHeight * 0.5));
+	}
+
+	public int getHeight() {
+		return mHeight;
 	}
 
 	public ArrayList<MapTile> getTiles() {

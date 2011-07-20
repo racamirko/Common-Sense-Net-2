@@ -82,8 +82,10 @@ public class Plot {
 			// GeoPoint gPoint = new GeoPoint(x1[i], y1[i]);
 			// Point screenCoords = new Point();
 			// mapView.getProjection().toPixels(gPoint, screenCoords);
+			Point mapCenter = mapView.getCenterPoint();
+			mapCenter.offset(originalPoints[i].x, originalPoints[i].y);
 
-			coord[i] = originalPoints[i];
+			coord[i] = mapCenter;
 		}
 
 		mPoints = coord;

@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Point;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -49,8 +50,7 @@ public class OfflineMapView extends View {
 		initOfflineMapView();
 
 		// creates a new map instance
-		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
-				this);
+		mMap = Map.createMapFromCoordinate(center, this);
 	}
 
 	public void animateTo(GeoPoint point) {
@@ -65,6 +65,13 @@ public class OfflineMapView extends View {
 		if (mMap != null)
 			mMap.dispose();
 		mMap = null;
+	}
+
+	public Point getCenterPoint() {
+		Point absoluteCenter = mMap.getCenterPoint();
+
+		absoluteCenter.offset(-mScrollRectX, -mScrollRectY);
+		return absoluteCenter;
 	}
 
 	public GeoPoint getMapCenter() {
@@ -111,8 +118,8 @@ public class OfflineMapView extends View {
 		if (mMap == null)
 			return;
 
-		// Our move updates are calculated in ACTION_MOVE in the opposite
-		// direction from how we want to move the scroll rectangle. Think of
+		// move updates are calculated in ACTION_MOVE in the opposite
+		// direction from how we want to move the scroll rectangle. think of
 		// this as dragging to the left being the same as sliding the scroll
 		// rectangle to the right.
 		int newScrollRectX = clamp(mScrollRectX - (int) mScrollByX, 0,
@@ -121,7 +128,7 @@ public class OfflineMapView extends View {
 				mMap.getHeight() - mDisplayHeight);
 
 		// average visible tiles
-		final int INITIAL_ARRAY_SIZE = 4;
+		final int INITIAL_ARRAY_SIZE = 6;
 		// contains the tiles that need to be rendered
 		ArrayList<MapTile> tilesToDraw = new ArrayList<MapTile>(
 				INITIAL_ARRAY_SIZE);
@@ -204,10 +211,6 @@ public class OfflineMapView extends View {
 		}
 		// done with this event so consume it
 		return true;
-	}
-
-	public void setCenter(GeoPoint center) {
-		throw new UnsupportedOperationException();
 	}
 
 	public void setZoomLevel(int value) {
