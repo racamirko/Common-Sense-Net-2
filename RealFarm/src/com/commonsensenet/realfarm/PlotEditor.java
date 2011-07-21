@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -23,6 +24,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Diary;
+import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
@@ -30,7 +32,7 @@ import com.commonsensenet.realfarm.model.User;
 public class PlotEditor extends Activity {
 
 	private RealFarmProvider mDataProvider;
-	private int[] seeds;
+	private List<Seed> seedList = new ArrayList<Seed>();
 	private static int TABLE_NB_COLUMN = 3;
 	private static int TEXT_HEADER_SIZE = 30;
 	private String plotID = null;
@@ -92,7 +94,9 @@ public class PlotEditor extends Activity {
 		ima.setImageBitmap(mBitmap);
 		container0.addView(ima);
 
-		seeds = mDataProvider.getPlotById(Integer.parseInt(plotID)).getSeeds();
+		//seeds = mDataProvider.getPlotById(Integer.parseInt(plotID)).getSeeds();
+		List<Growing> mGrowing = mDataProvider.getGrowingByPlotId(Integer.parseInt(plotID));
+		
 		int ownerId = mDataProvider.getPlotById(Integer.parseInt(plotID)).getOwnerId();
 		User plotOwner = mDataProvider.getUserById(ownerId); 
 		TextView nameView = new TextView(this);
@@ -103,9 +107,10 @@ public class PlotEditor extends Activity {
 
 		container0.addView(nameView);
 
-		for (int i = 0; i < seeds.length; i++) {
+		for (int i = 0; i < mGrowing.size(); i++) {
 			TextView nameView1 = new TextView(this);
-			Seed s = mDataProvider.getSeedById(seeds[i]);
+			Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
+			seedList.add(s);
 			String seedName = s.getName();
 			nameView1.setText(seedName);
 			container0.addView(nameView1);
@@ -227,9 +232,9 @@ public class PlotEditor extends Activity {
 				}
 				else //only existing seeds can be used
 				{
-					for (int i = 0; i < seeds.length; i++) {
+					for (int i = 0; i < seedList.size(); i++) {
 						Button nameView1 = new Button(PlotEditor.this);
-						Seed s = mDataProvider.getSeedById(seeds[i]);
+						Seed s = seedList.get(i);
 						String seedName = s.getName();
 						nameView1.setText(seedName);
 						vg.addView(nameView1);
@@ -276,7 +281,8 @@ public class PlotEditor extends Activity {
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss");
 		Date date = new Date();
-		mDataProvider.setAction(actionID, seeds[0],
+		//TODO: take growing id from user interface
+		mDataProvider.setAction(actionID, 0,
 				dateFormat.format(date));
 		updateDiary();
 		}

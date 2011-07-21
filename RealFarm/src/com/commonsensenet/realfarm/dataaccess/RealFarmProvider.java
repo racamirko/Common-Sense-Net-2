@@ -1,9 +1,6 @@
 package com.commonsensenet.realfarm.dataaccess;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -13,6 +10,7 @@ import android.graphics.Point;
 
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Diary;
+import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Seed;
@@ -89,56 +87,54 @@ public class RealFarmProvider {
 	public Diary getDiary(int plotID) {
 
 		Diary mDiary = new Diary();
-		
-		Plot mPlot = getPlotById(plotID);
-		int[] mGrowing = mPlot.getGrowing();
-		
-		
+
+		//Plot mPlot = getPlotById(plotID);
+		List<Growing> mGrowing = getGrowingByPlotId(plotID);
+
 		mDb.open();
 
-		
-		for (int i=0; i<mGrowing.length;i++){
-	
-			Cursor c02 = mDb
-					.getEntries(RealFarmDatabase.TABLE_NAME_ACTION, new String[] {
-							RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+		for (int i = 0; i < mGrowing.size(); i++) {
+
+			Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
+					new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONID,
 							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE },
-							RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
-									+ mGrowing[i], null, null, null, null);
-	
+					RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
+							+ mGrowing.get(i), null, null, null, null);
+
 			if (c02.getCount() > 0) {
-	
+
 				c02.moveToFirst();
-	//			res = new long[3][c02.getCount()];
-	//			int i = 0;
+				// res = new long[3][c02.getCount()];
+				// int i = 0;
 				do {
-					
-	//				res[0][i] = c02.getInt(0); // ID
-	//				res[1][i] = c02.getInt(1); // actionID
-	//				String dateString = c02.getString(2); // actionDate
-	//
-	//				String format = "yyyy-MM-dd HH:mm:ss";
-	//				SimpleDateFormat sdf = new SimpleDateFormat(format);
-	//
-	//				Date date = null;
-	//				try {
-	//					date = sdf.parse(dateString);
-	//				} catch (ParseException e) {
-	//					e.printStackTrace();
-	//				}
-	//
-	//				res[2][i] = date.getTime();
-					
-					mDiary.addItem(c02.getInt(0), c02.getInt(1), c02.getString(2), mGrowing[i]);
-					
-	//				i = i + 1;
-	
+
+					// res[0][i] = c02.getInt(0); // ID
+					// res[1][i] = c02.getInt(1); // actionID
+					// String dateString = c02.getString(2); // actionDate
+					//
+					// String format = "yyyy-MM-dd HH:mm:ss";
+					// SimpleDateFormat sdf = new SimpleDateFormat(format);
+					//
+					// Date date = null;
+					// try {
+					// date = sdf.parse(dateString);
+					// } catch (ParseException e) {
+					// e.printStackTrace();
+					// }
+					//
+					// res[2][i] = date.getTime();
+
+					mDiary.addItem(c02.getInt(0), c02.getInt(1),
+							c02.getString(2), mGrowing.get(i).getId());
+
+					// i = i + 1;
+
 				} while (c02.moveToNext());
-	
+
 			}
 		}
-		
+
 		mDb.close();
 		return mDiary;
 
@@ -192,8 +188,57 @@ public class RealFarmProvider {
 		return allSeeds;
 	}
 
+	public List<Growing> getGrowingByPlotId(int plotId) {
+		mDb.open();
+
+		List<Growing> mGrowing = new ArrayList<Growing>();
+
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_GROWING,
+				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
+						RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID,
+						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID },
+				RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID + "=" + plotId,
+				null, null, null, null);
+
+		if (c.getCount() > 0) {
+			c.moveToFirst();
+			do {
+				Growing s = new Growing(c.getInt(0), c.getInt(1), c.getInt(2));
+				mGrowing.add(s);
+			} while (c.moveToNext());
+
+		}
+		mDb.close();
+		return mGrowing;
+
+	}
+
+	public List<Growing> getGrowingList() {
+		mDb.open();
+
+		List<Growing> mGrowing = new ArrayList<Growing>();
+
+		Cursor c = mDb.getAllEntries(RealFarmDatabase.TABLE_NAME_GROWING,
+				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
+						RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID,
+						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID });
+
+		if (c.getCount() > 0) {
+			c.moveToFirst();
+			do {
+				Growing s = new Growing(c.getInt(0), c.getInt(1), c.getInt(2));
+				mGrowing.add(s);
+			} while (c.moveToNext());
+
+		}
+		mDb.close();
+		return mGrowing;
+	}
+
 	public List<Plot> getPlotsList() {
 		List<Plot> tmpList = new ArrayList<Plot>();
+
+		List<Growing> mGrowing = getGrowingList();
 
 		mDb.open();
 
@@ -235,9 +280,14 @@ public class RealFarmProvider {
 						j = j + 1;
 					} while (c02.moveToNext());
 
+					List<Growing> plotGrowing = new ArrayList<Growing>();
+					for (int k = 0; k < mGrowing.size(); k++) {
+						if (mGrowing.get(k).belongsTo(id))
+							plotGrowing.add(mGrowing.get(k));
+					}
+
 					// adds the polygon to the list.
-					tmpList.add(new Plot(polyPoints, polyPoints.length, id,
-							ownerId));
+					tmpList.add(new Plot(polyPoints, id, ownerId));
 				}
 				i = i + 1;
 			} while (c0.moveToNext());
@@ -293,8 +343,7 @@ public class RealFarmProvider {
 					} while (c02.moveToNext());
 
 					// adds the polygon to the list.
-					tmpList.add(new Plot(polyPoints, polyPoints.length, id,
-							userId));
+					tmpList.add(new Plot(polyPoints, id, userId));
 				}
 				i = i + 1;
 			} while (c0.moveToNext());
@@ -308,8 +357,8 @@ public class RealFarmProvider {
 
 		mDb.open();
 		Plot mPlot = null;
-		int ownerId  = 0;
-		
+		int ownerId = 0;
+
 		// Read points from database for each user
 		Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
 				new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
@@ -332,16 +381,16 @@ public class RealFarmProvider {
 			} while (c02.moveToNext());
 
 			Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-					new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_USERID},
+					new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_USERID },
 					RealFarmDatabase.COLUMN_NAME_PLOT_ID + "=" + plotId, null,
 					null, null, null);
-			
-			if (c.getCount()>0){
+
+			if (c.getCount() > 0) {
 				c.moveToFirst();
 				ownerId = c.getInt(0);
 			}
-			
-			mPlot = new Plot(polyPoints, polyPoints.length, plotId, ownerId);
+
+			mPlot = new Plot(polyPoints, plotId, ownerId);
 		}
 		mDb.close();
 
@@ -431,7 +480,6 @@ public class RealFarmProvider {
 
 	}
 
-
 	public long setPoint(int plotID, int lat, int lon) {
 
 		ContentValues pointstoadd = new ContentValues();
@@ -450,7 +498,7 @@ public class RealFarmProvider {
 		return result;
 
 	}
-	
+
 	public long updatePoint(int plotID, int lat, int lon, int newLat, int newLon) {
 
 		long result = 0;
@@ -518,7 +566,7 @@ public class RealFarmProvider {
 
 		return result;
 	}
-	
+
 	public void removeAction(int id) {
 		mDb.open();
 
@@ -527,7 +575,7 @@ public class RealFarmProvider {
 
 		mDb.close();
 	}
-	
+
 	public long setPlot(int userID) {
 
 		ContentValues args = new ContentValues();
@@ -543,8 +591,6 @@ public class RealFarmProvider {
 		return result;
 
 	}
-
-	
 
 	public long setUserInfo(String deviceId, String firstname, String lastname) {
 
@@ -577,5 +623,4 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	
 }
