@@ -1,8 +1,6 @@
 package com.commonsensenet.realfarm.overlay;
 
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
@@ -12,7 +10,6 @@ import android.graphics.drawable.shapes.PathShape;
 import android.view.MotionEvent;
 
 import com.commonsensenet.realfarm.PlotEditor;
-import com.commonsensenet.realfarm.Settings;
 import com.commonsensenet.realfarm.map.OfflineMapView;
 import com.commonsensenet.realfarm.map.Overlay;
 import com.commonsensenet.realfarm.model.Plot;

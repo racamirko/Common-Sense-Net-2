@@ -100,7 +100,7 @@ public class RealFarmProvider {
 							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONID,
 							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE },
 					RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
-							+ mGrowing.get(i), null, null, null, null);
+							+ mGrowing.get(i).getId(), null, null, null, null);
 
 			if (c02.getCount() > 0) {
 
@@ -398,14 +398,14 @@ public class RealFarmProvider {
 	}
 
 	public User getUserById(int userId) {
-
+		mDb.open();
 		User tmpUser = null;
 
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE },
-				RealFarmDatabase.COLUMN_NAME_USER_ID + "= '" + userId + "'",
+				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId,
 				null, null, null, null);
 
 		// user exists in database
@@ -415,6 +415,7 @@ public class RealFarmProvider {
 			tmpUser = new User(userId, c.getString(0), c.getString(1),
 					c.getString(2));
 		}
+		mDb.close();
 
 		return tmpUser;
 
