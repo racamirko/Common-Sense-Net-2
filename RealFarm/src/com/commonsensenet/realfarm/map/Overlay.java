@@ -21,4 +21,9 @@ public abstract class Overlay {
 	public boolean onTouchEvent(MotionEvent e, OfflineMapView mapView) {
 		return false;
 	}
+
+	public boolean onTap(GeoPoint p, OfflineMapView mapView) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 }

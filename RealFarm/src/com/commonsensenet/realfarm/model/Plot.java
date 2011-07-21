@@ -64,9 +64,8 @@ public class Plot {
 			if ((mPoints[i].y < y && mPoints[j].y >= y)
 					|| (mPoints[j].x < y && mPoints[i].x >= y)) {
 
-				if (mPoints[i].x + (y - mPoints[i].y)
-						/ (mPoints[j].y - mPoints[i].y)
-						* (mPoints[j].x - mPoints[i].x) < x) {
+				// TODO: division by zero!!	
+				if(mPoints[i].x+(y-mPoints[i].y)/(mPoints[j].y-mPoints[i].y)*(mPoints[j].x-mPoints[i].x)<x) {
 
 					oddTransitions = !oddTransitions;
 				}

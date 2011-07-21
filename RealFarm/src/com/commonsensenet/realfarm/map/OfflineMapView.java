@@ -186,6 +186,16 @@ public class OfflineMapView extends View {
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:
+			
+			// checks the overlays for events.
+			synchronized (mOverlays) {
+				boolean processed = false;
+				for(int x=0; x < mOverlays.size(); x++) {
+					processed = mOverlays.get(x).onTouchEvent(event, this);
+					if(processed)
+						break;
+				}
+			}
 			// Remember our initial down event location.
 			mStartX = event.getRawX();
 			mStartY = event.getRawY();

@@ -29,7 +29,6 @@ public class RealFarmDatabase {
 
 		public RealFarmDatabaseOpenHelper(Context context) {
 			super(context, DB_NAME, null, DB_VERSION);
-
 		}
 
 		/**
@@ -212,9 +211,7 @@ public class RealFarmDatabase {
 	}
 
 	/**
-	 * Close database helper
-	 * 
-	 * @author Julien Freudiger
+	 * Closes the database and its handler.
 	 */
 	public synchronized void close() {
 		mOpenHelper.close();
@@ -241,22 +238,19 @@ public class RealFarmDatabase {
 
 
 	/**
-	 * Method to read values from the database.
+	 * Reads all the entries in a given table that match certain parameters.
 	 * 
 	 * @return A cursor containing the result of the query.
-	 * @author Julien Freudiger
 	 */
 	public Cursor getAllEntries(String tableName, String[] parameters) {
-
 		return mDb.query(tableName, parameters, null, null, null, null, null);
 	}
 
 	/**
-	 * Method to read specfic values from table.
+	 * Method to read specific values from table.
 	 * 
 	 * @return A cursor containing the result of the query.
 	 */
-
 	public Cursor getEntries(String tableName, String[] columns,
 			String selection, String[] selectionArgs, String groupBy,
 			String having, String orderBy) {
@@ -271,6 +265,7 @@ public class RealFarmDatabase {
 	 * plots from farmers directly.
 	 * 
 	 * @param db
+	 *            database where the values will be inserted.
 	 */
 	public void initValues(SQLiteDatabase db) {
 
@@ -401,30 +396,51 @@ public class RealFarmDatabase {
 		Log.d(DEBUG_ID, "plots works");
 
 		// points
+
+		final int[][] PLOT1 = { { 0, 8 }, { 10, 114 }, { 150, 170 }, { 105, -2 } };
+		final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5, -102 } };
+
 		ContentValues pointstoadd = new ContentValues();
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053519);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170492);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
+		for (int x = 0; x < PLOT1.length; x++) {
+			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT1[x][0]);
+			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT1[x][1]);
+			pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
+			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+			pointstoadd.clear();
+		}
+		
+//		for (int x = 0; x < PLOT2.length; x++) {
+//			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0]);
+//			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1]);
+//			pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
+//			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+//			pointstoadd.clear();
+//		}
 
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053333);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170486);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053322);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170775);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053508);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170769);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
+		// ContentValues pointstoadd = new ContentValues();
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053519);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170492);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
+		//
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053333);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170486);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
+		//
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053322);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170775);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
+		//
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053508);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170769);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 1);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
 
 		// User 2
 		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053733);
@@ -450,29 +466,29 @@ public class RealFarmDatabase {
 		pointstoadd.clear();
 
 		// User 1 again
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14054019);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170783);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14054017);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77171331);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053656);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77171344);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053675);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170778);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14054019);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170783);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
+		//
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14054017);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77171331);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
+		//
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053656);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77171344);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
+		//
+		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053675);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170778);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
 
 		Log.d(DEBUG_ID, "points works");
 

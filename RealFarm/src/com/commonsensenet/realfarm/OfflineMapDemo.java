@@ -149,7 +149,7 @@ public class OfflineMapDemo extends Activity {
 		int userId = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
 				.getUserId();
 
-//		// adds an overlay for each plot found.
+		// adds an overlay for each plot found.
 		mMyPlots = mDataProvider.getUserPlots(userId);
 		for (int x = 0; x < mMyPlots.size(); x++) {
 			mapOverlays.add(new PlotOverlay(mMyPlots.get(x)));

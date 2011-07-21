@@ -1,12 +1,18 @@
 package com.commonsensenet.realfarm.overlay;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.Point;
 import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
+import android.view.MotionEvent;
 
+import com.commonsensenet.realfarm.PlotEditor;
+import com.commonsensenet.realfarm.Settings;
 import com.commonsensenet.realfarm.map.OfflineMapView;
 import com.commonsensenet.realfarm.map.Overlay;
 import com.commonsensenet.realfarm.model.Plot;
@@ -70,5 +76,40 @@ public class PlotOverlay extends Overlay {
 
 		mShape.draw(canvas);
 
+	}
+
+	@Override
+	public boolean onTouchEvent(MotionEvent e, OfflineMapView mapView) {
+
+		Point touched = new Point((int) e.getX(), (int) e.getY());
+
+		if (mPlot.contains(touched.x, touched.y, mapView)) {
+
+			Intent myIntent = new Intent();
+			myIntent.setClass(mapView.getContext(), PlotEditor.class);
+			int test = mPlot.getId();
+			myIntent.putExtra("ID", Integer.toString(test));
+
+			// draw in bitmap
+//			Bitmap myBitmap = Bitmap.createBitmap(100, 100, Config.ARGB_8888);
+//			// Canvas myCanvas = new Canvas(myBitmap);
+//
+//			Paint paint = new Paint();
+//			paint.setStrokeWidth(7);
+//			paint.setAntiAlias(true);
+//			paint.setDither(true);
+//			paint.setStrokeWidth(3);
+//			paint.setARGB(100, 55, 175, 35);
+
+			// Path path = mPlot.getDrawable(mapView);
+
+			// myCanvas.drawPath(path, paint);
+
+			//myIntent.putExtra("Bitmap", myBitmap);
+			mapView.getContext().startActivity(myIntent);
+			
+		}
+		return false;
+		//return false;
 	}
 }
