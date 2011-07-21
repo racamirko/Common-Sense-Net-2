@@ -5,9 +5,13 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -18,14 +22,18 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.Diary;
+import com.commonsensenet.realfarm.model.Recommendation;
+import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 
 public class PlotEditor extends Activity {
 
 	private RealFarmProvider mDataProvider;
-	private int[][] seeds;
+	private int[] seeds;
 	private static int TABLE_NB_COLUMN = 3;
 	private static int TEXT_HEADER_SIZE = 30;
+	private String plotID = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -58,6 +66,11 @@ public class PlotEditor extends Activity {
 
 	}
 
+	
+	/**
+	 * Update plot information
+	 */
+	
 	public void updatePlotInformation() {
 		LinearLayout container0 = (LinearLayout) findViewById(R.id.linearLayout0);
 
@@ -68,7 +81,6 @@ public class PlotEditor extends Activity {
 		tv.setTextSize(TEXT_HEADER_SIZE);
 		container0.addView(tv);
 
-		String plotID = null;
 		Bitmap mBitmap = null;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
@@ -80,9 +92,9 @@ public class PlotEditor extends Activity {
 		ima.setImageBitmap(mBitmap);
 		container0.addView(ima);
 
-		seeds = mDataProvider.getPlotSeed(Integer.parseInt(plotID));
-		User plotOwner = mDataProvider.getPlotOwner(Integer.parseInt(plotID));
-
+		seeds = mDataProvider.getPlotById(Integer.parseInt(plotID)).getSeeds();
+		int ownerId = mDataProvider.getPlotById(Integer.parseInt(plotID)).getOwnerId();
+		User plotOwner = mDataProvider.getUserById(ownerId); 
 		TextView nameView = new TextView(this);
 		if (plotOwner != null)
 			nameView.setText(plotOwner.getFirstName() + " " + plotOwner.getLastName());
@@ -93,28 +105,44 @@ public class PlotEditor extends Activity {
 
 		for (int i = 0; i < seeds.length; i++) {
 			TextView nameView1 = new TextView(this);
-			String seedName = mDataProvider.getSeedName(seeds[i][1]);
+			Seed s = mDataProvider.getSeedById(seeds[i]);
+			String seedName = s.getName();
 			nameView1.setText(seedName);
 			container0.addView(nameView1);
 		}
 
 	}
 
+	/**
+	 * UpdateRecommentations
+	 */
+	
 	public void updateRecommendations() {
 		LinearLayout container0 = (LinearLayout) findViewById(R.id.linearLayout01);
 		container0.removeAllViews();
 
-		TextView tv = new TextView(this);
-		tv.setText(R.string.recommendation);
-		tv.setTextSize(TEXT_HEADER_SIZE);
-		container0.addView(tv);
+		List<Recommendation> r = mDataProvider.getRecommendationsList();
 
-		TextView nameView = new TextView(this);
-		nameView.setText("No recommendations so far");
-		container0.addView(nameView);
+		if (r.size() > 0) { // there are recommendations
+
+			TextView tv = new TextView(this);
+			tv.setText(R.string.recommendation);
+			tv.setTextSize(TEXT_HEADER_SIZE);
+			container0.addView(tv);
+
+			TextView nameView = new TextView(this);
+
+			container0.addView(nameView);
+		}
+		// else no recommendation => do nothing
 
 	}
 
+	
+	/**
+	 * UpdateActions()
+	 */
+	
 	public void updateActions() {
 		LinearLayout container = (LinearLayout) findViewById(R.id.linearLayout1);
 		container.removeAllViews();
@@ -125,10 +153,7 @@ public class PlotEditor extends Activity {
 		container.addView(tv);
 
 		// get all possible actions
-		List<Action> tmpActionList = mDataProvider.getActions();
-
-		// Get all executed actions
-//		long[][] res = mDataProvider.getDiary(seeds[0][0]);
+		List<Action> tmpActionList = mDataProvider.getActionsList();
 
 		// Create table layout to add
 		TableLayout tl = new TableLayout(this);
@@ -147,22 +172,16 @@ public class PlotEditor extends Activity {
 				row1 = new TableRow(this);
 			}
 
-//			// Remove actions already executed
-//			if ((res == null) || (!arrayContains(res[1], key))) {
-
 				Button b = new Button(this);
 				b.setText(tmpAction.getName());
 				int actionID = tmpAction.getId();
-
 				b.setOnClickListener(OnClickAction(actionID));
-//				container.addView(b);
-				
-				row1.addView(b, iterNb);				
-				
-//			}
+
+			row1.addView(b, iterNb);
+
 		}
 		tl.addView(row1);
-		
+
 		container.addView(tl);
 
 	}
@@ -171,29 +190,106 @@ public class PlotEditor extends Activity {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-				SimpleDateFormat dateFormat = new SimpleDateFormat(
-						"yyyy-MM-dd HH:mm:ss");
-				Date date = new Date();
-				mDataProvider.setAction(actionID, seeds[0][0],
-						dateFormat.format(date));
-				updateDiary();
+				
+				// get more information about action
+				LayoutInflater inflater = (LayoutInflater) getApplicationContext().getSystemService(LAYOUT_INFLATER_SERVICE);
+				
+				View layout = inflater.inflate(R.layout.plot_dialog,
+				                               (ViewGroup) findViewById(R.id.layout_root));
+
+				AlertDialog.Builder alert = new AlertDialog.Builder(PlotEditor.this);
+				
+				alert.setView(layout);
+				
+				String title = getResources().getString(R.string.editAction);
+				String actionName = mDataProvider.getActionById(actionID).getName();
+				alert.setTitle(title + " " + actionName);
+				
+				
+				// add button to select seed type
+				LinearLayout vg = (LinearLayout) layout.findViewById(R.id.layout_root2);
+				TextView tv = new TextView(PlotEditor.this);
+				tv.setText(R.string.seed);
+				tv.setTextSize(20);
+				vg.addView(tv);
+				
+				
+				if (actionName.compareTo("Sow")  == 0) // action is sowing so all seeds can be used
+				{
+					List<Seed> mseed = mDataProvider.getSeedsList();
+					for (int i = 0; i < mseed.size(); i++) {
+						Button nameView1 = new Button(PlotEditor.this);
+						String seedName = mseed.get(i).getName();
+						nameView1.setText(seedName);
+						vg.addView(nameView1);
+					}
+					
+				}
+				else //only existing seeds can be used
+				{
+					for (int i = 0; i < seeds.length; i++) {
+						Button nameView1 = new Button(PlotEditor.this);
+						Seed s = mDataProvider.getSeedById(seeds[i]);
+						String seedName = s.getName();
+						nameView1.setText(seedName);
+						vg.addView(nameView1);
+					}
+					
+				}	
+				
+				
+				
+				// Parse reply
+				alert.setPositiveButton("ok",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+								/* User clicked ok so do some stuff */
+								
+								editAction(1, actionID);
+								
+							}
+						});
+
+				alert.setNegativeButton("Cancel",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int whichButton) {
+
+								/* User clicked cancel so do some stuff */
+								editAction(2, actionID);
+							}
+						});
+				alert.show();
+				
+				
 			}
 		};
 	}
 
-	private boolean arrayContains(long[] res, int key) {
-
-		if (res == null)
-			return false;
-
-		for (int i = 0; i < res.length; i++) {
-
-			if (res[i] == key)
-				return true;
+	
+	private void editAction(int action, int actionID){
+	
+		if (action == 1) // user clicked ok
+		{
+		// add executed action to diary
+		SimpleDateFormat dateFormat = new SimpleDateFormat(
+				"yyyy-MM-dd HH:mm:ss");
+		Date date = new Date();
+		mDataProvider.setAction(actionID, seeds[0],
+				dateFormat.format(date));
+		updateDiary();
 		}
-		return false;
+		//else user clicked cancel => do nothing
+			
+		
 	}
-
+	
+	
+	/**
+	 * updateDiary()
+	 */
+	
 	public void updateDiary() {
 
 		LinearLayout container2 = (LinearLayout) findViewById(R.id.linearLayout2);
@@ -205,19 +301,21 @@ public class PlotEditor extends Activity {
 		tv.setTextSize(TEXT_HEADER_SIZE);
 		container2.addView(tv);
 
-		long[][] res = mDataProvider.getDiary(seeds[0][0]);
+		Diary res = mDataProvider.getDiary(Integer.parseInt(plotID));
 
 		if (res != null) {
-			for (int i = 0; i < res[0].length; i++) {
+			for (int i = 0; i < res.getSize(); i++) {
 				TextView nameView1 = new TextView(this);
 
 				Date date = new Date();
-				date.setTime(res[2][i]);
+//				date.setTime(res[2][i]);
 
 				nameView1.setText(i + " "
-						+ mDataProvider.getActionById((int) res[1][i]).getName() + " "
-						+ date.toLocaleString());
-				int lastActionID = (int) res[0][i];
+						+ mDataProvider.getActionById(res.getActionId(i)).getName() + " "
+						+ res.getActionDate(i) + " " + res.getGrowingId(i));
+//				date.toLocaleString()
+				
+				int lastActionID = res.getActionId(i);
 
 				nameView1.setOnClickListener(OnClickDiary(lastActionID));
 

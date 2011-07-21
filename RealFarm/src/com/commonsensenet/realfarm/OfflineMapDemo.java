@@ -150,7 +150,7 @@ public class OfflineMapDemo extends Activity {
 				.getUserId();
 
 //		// adds an overlay for each plot found.
-		mMyPlots = mDataProvider.getPlots(userId);
+		mMyPlots = mDataProvider.getUserPlots(userId);
 		for (int x = 0; x < mMyPlots.size(); x++) {
 			mapOverlays.add(new PlotOverlay(mMyPlots.get(x)));
 		}

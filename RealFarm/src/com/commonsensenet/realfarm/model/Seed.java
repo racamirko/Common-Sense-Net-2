@@ -1,13 +1,15 @@
 package com.commonsensenet.realfarm.model;
 
-public class Action {
+public class Seed {
 
 	private int mId;
 	private String mName;
-	
-	public Action(int id, String name) {
+	private String mVariety;
+
+	public Seed(int id, String name, String variety) {
 		mId = id;
 		mName = name;
+		mVariety = variety;
 	}
 
 	public int getId() {
@@ -17,4 +19,11 @@ public class Action {
 	public String getName() {
 		return mName;
 	}
+	
+	public String getVariety(){
+		return mVariety;
+	}
+
+	
 }
+

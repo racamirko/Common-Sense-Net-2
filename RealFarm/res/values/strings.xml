@@ -37,6 +37,10 @@
     <string name="exitMsg">Sure you want to quit?</string>
     <string name="exitTitle">Exit</string>
     <string name="diary">Diary</string>
+    <string name="editPoint">Edit lat/lon</string>
+    <string name="editAction">Edit Action</string>
+    <string name="seed">Seed</string>
+    <string name="valuemicro">Values in microdegrees</string>
     <string name="actions">Actions</string>
     
 </resources>

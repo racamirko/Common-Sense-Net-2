@@ -18,6 +18,9 @@ public class Plot {
 	/** Temporal points computed from the map. */
 	private Point[] mPoints;
 
+	private int[] mSeedsId;
+	private int[] mGrowingId;
+	
 	public Plot(Point[] coordinates, int numberOfSides, int id, int ownerId) {
 
 		mCoordinates = coordinates;
@@ -39,6 +42,16 @@ public class Plot {
 
 	}
 
+	public int[] getGrowing(){
+		//TODO: populate these lists
+		return mGrowingId;
+	}
+	
+	public int[] getSeeds(){
+		//TODO: populate these lists
+		return mSeedsId;
+	}
+	
 	/**
 	 * Checks if the given point is contained inside the polygon.
 	 * 

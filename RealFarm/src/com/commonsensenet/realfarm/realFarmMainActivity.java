@@ -20,10 +20,10 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.overlay.ActionItem;
 import com.commonsensenet.realfarm.overlay.MyOverlay;
-import com.commonsensenet.realfarm.overlay.PlotOverlay;
-import com.commonsensenet.realfarm.overlay.Polygon;
+import com.commonsensenet.realfarm.overlay.Plot2Overlay;
 import com.commonsensenet.realfarm.overlay.QuickAction;
 import com.google.android.maps.GeoPoint;
 import com.google.android.maps.MapActivity;
@@ -50,7 +50,7 @@ public class realFarmMainActivity extends MapActivity{
 	private RealFarmProvider mDataProvider;
 	
 	/** List of Polygons that represent the plots of the user. */
-	private List<Polygon> mMyPlots;
+	private List<Plot> mMyPlots;
 	
 	public static final GeoPoint CKPURA_LOCATION = new GeoPoint(14054563,77167003);
 	
@@ -82,7 +82,7 @@ public class realFarmMainActivity extends MapActivity{
 		
 		// Create data provider
 		getApplicationContext().deleteDatabase("realFarm.db");		// comment out if you want to reuse existing database
-		realFarm mainApp = ((realFarm)getApplicationContext());
+		RealFarmApp mainApp = ((RealFarmApp)getApplicationContext());
 		//RealFarmDatabase db = new RealFarmDatabase(getApplicationContext());
 		RealFarmDatabase db = mainApp.setDatabase();
 		mDataProvider = new RealFarmProvider(db);
@@ -148,12 +148,12 @@ public class realFarmMainActivity extends MapActivity{
 		
 		// define action bar
 		
-		int userId = mDataProvider.getUserId(RealFarmDatabase.DEVICE_ID);
+		int userId = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID).getUserId();
 		
-		mMyPlots = mDataProvider.getPlots(userId);
+		mMyPlots = mDataProvider.getUserPlots(userId);
 		setUpActionBar();
 		
-	    List<Polygon> mPolygons = mDataProvider.getPlots();
+	    List<Plot> mPolygons = mDataProvider.getPlotsList();
 	    for (int x = 0; x < mPolygons.size(); x++) {
 	    	myPlotOverlay.addOverlay(mPolygons.get(x));
 	    }

@@ -30,4 +30,9 @@ public class User {
 	public int getUserId() {
 		return mUserId;
 	}
+	
+	public String[] getName(){
+		return new String[]{mFirstName, mLastName};
+	}
+	
 }
