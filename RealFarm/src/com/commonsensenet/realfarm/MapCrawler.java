@@ -28,13 +28,7 @@ import com.commonsensenet.realfarm.map.utils.Notifiable;
 
 public class MapCrawler extends Activity implements Notifiable {
 
-	/**
-	 * Defines the ratio between distance and pixels in GoogleMaps. This ratios
-	 * is for images with a zoom level of 17. By default, GoogleMaps doubles the
-	 * area in every zoom level, so the ratio for other zoom levels can be
-	 * calculated accordingly.
-	 */
-	public static final double DISTANCE_PIXEL_RATIO = 230.0 / 400.0;
+	// @see http://www.freemaptools.com/radius-around-point.htm
 	/** Indicates the size of the watermark in pixels. */
 	public static final int GOOGLE_MAPS_WATERMARK_SIZE = 26;
 	/** Path where the maps will be downloaded. */
@@ -54,7 +48,8 @@ public class MapCrawler extends Activity implements Notifiable {
 	 * area in every zoom level, so the ratio for other zoom levels can be
 	 * calculated accordingly.
 	 */
-	public static final double PIXEL_DISTANCE_RATIO = 400.0 / 230.0;
+	//TODO : the /4 is added to match the zoom level.
+	public static final double PIXEL_DISTANCE_RATIO = 400.0 / (230.0/4);
 	/** Default size of the tiles in pixels. */
 	public static final int TILE_SIZE = 400;
 
@@ -100,13 +95,13 @@ public class MapCrawler extends Activity implements Notifiable {
 				.getText().toString();
 		String mapType = ((Spinner) findViewById(R.id.spMapType))
 				.getSelectedItem().toString().toLowerCase();
-		// EditText etZoom = (EditText) findViewById(R.id.etZoom);
 
+		// total area to be covered.
 		int radius = Integer.parseInt(((EditText) findViewById(R.id.etRadius))
 				.getText().toString());
-
-		// TODO: change this zoom.
-		int zoomLevel = 17; // initial zoom level.
+		
+		// zoom level to be downloaded.
+		int zoomLevel = Integer.parseInt(((EditText) findViewById(R.id.etZoom)).getText().toString());
 
 		// gets the center coordinates from the interface
 		GeoPoint center = new GeoPoint(centerString);
@@ -149,13 +144,17 @@ public class MapCrawler extends Activity implements Notifiable {
 	private void generateMapTiles(double centerLat, double centerLon,
 			double radius, int zoomLevel, String mapType) {
 
+		// TODO: this value should be used.
+		zoomLevel = 19;
+		
 		// distance between centers, in degrees, with zoom level 17, with 400px
 		// images.
-		final double CONSTANT = 0.0043125;
+		// TODO: the / 4 is added to matched the zoomLevel.
+		final double CONSTANT = 0.0043125 / 4;
 		// size of the watermark in degrees, with zoom level 17.
 		// the watermark will always be 26px high, given that the tile size
 		// is between 100 and 640 pixels.
-		final double WATERMARK = 0.000280;
+		final double WATERMARK = 0.000280 / 4;
 
 		// fixes half the watermark since the size difference is
 		// distributed.

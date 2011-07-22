@@ -21,8 +21,8 @@
 	</string-array>
 	<string name="ckPuraLocation">14.054162,77.16711</string>
 	<string name="txtDefaultCenter">14.054162,77.16711</string>
-	<string name="txtDefaultRadius">230</string>
-	<string name="txtDefaultZoom">17</string>
+	<string name="txtDefaultRadius">50</string>
+	<string name="txtDefaultZoom">19</string>
 	<string name="txtPreviewButton">Preview</string>
 	<string name="txtDownloadButton">Download</string>
     <string name="plot">Plot</string>
