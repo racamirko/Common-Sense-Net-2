@@ -17,7 +17,6 @@ public class Plot {
 	/** Temporal points computed from the map. */
 	private Point[] mPoints;
 
-	
 	public Plot(Point[] coordinates, int id, int ownerId) {
 
 		mCoordinates = coordinates;
@@ -38,7 +37,6 @@ public class Plot {
 
 	}
 
-	
 	/**
 	 * Checks if the given point is contained inside the polygon.
 	 * 
@@ -58,12 +56,14 @@ public class Plot {
 		convert(mCoordinates, mapView);
 
 		for (int i = 0, j = mPoints.length - 1; i < mPoints.length; j = i++) {
-		    	
+
 			if ((mPoints[i].y < y && mPoints[j].y >= y)
 					|| (mPoints[j].y < y && mPoints[i].y >= y)) {
 
-				// TODO: division by zero!!	
-				if(mPoints[i].x+(y-mPoints[i].y)/(mPoints[j].y-mPoints[i].y)*(mPoints[j].x-mPoints[i].x)<x) {
+				// TODO: division by zero!!
+				if (mPoints[i].x + (y - mPoints[i].y)
+						/ (mPoints[j].y - mPoints[i].y)
+						* (mPoints[j].x - mPoints[i].x) < x) {
 
 					oddTransitions = !oddTransitions;
 				}

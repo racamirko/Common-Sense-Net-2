@@ -27,12 +27,12 @@ public class User {
 		return mMobileNumber;
 	}
 
+	public String[] getName() {
+		return new String[] { mFirstName, mLastName };
+	}
+
 	public int getUserId() {
 		return mUserId;
 	}
-	
-	public String[] getName(){
-		return new String[]{mFirstName, mLastName};
-	}
-	
+
 }

@@ -105,15 +105,14 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_USER_MOBILE + " text " + " ); ");
 			Log.d(DEBUG_ID, "Created user table");
 
-			
 			// users
 			db.execSQL("create table " + TABLE_NAME_RECOMMENDATION + " ( "
 					+ COLUMN_NAME_RECOMMENDATION_ID + " integer primary key, "
-					+ COLUMN_NAME_RECOMMENDATION_SEEDID + " integer, " 
+					+ COLUMN_NAME_RECOMMENDATION_SEEDID + " integer, "
 					+ COLUMN_NAME_RECOMMENDATION_ACTIONID + " integer, "
 					+ COLUMN_NAME_RECOMMENDATION_DATE + " date " + " ); ");
 			Log.d(DEBUG_ID, "Created recommendation table");
-			
+
 			Log.d(DEBUG_ID, "Database created successfully");
 
 			initValues(db);
@@ -148,41 +147,41 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_POINT_X = "x";
 
 	public static final String COLUMN_NAME_POINT_Y = "y";
+	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONID = "actionID";
+	public static final String COLUMN_NAME_RECOMMENDATION_DATE = "recommendationDate";
+	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
+
+	public static final String COLUMN_NAME_RECOMMENDATION_SEEDID = "seedID";
 	public static final String COLUMN_NAME_SEED_ID = "id";
+
 	public static final String COLUMN_NAME_SEED_SEEDID = "seedID";
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
-
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
-
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
 	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
-	public static final String COLUMN_NAME_RECOMMENDATION_ID ="id";
-	public static final String COLUMN_NAME_RECOMMENDATION_SEEDID ="seedID";
-	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONID ="actionID";
-	public static final String COLUMN_NAME_RECOMMENDATION_DATE ="recommendationDate";
 
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
 	private static final String DB_NAME = "realFarm.db";
 	private static final int DB_VERSION = 2;
+	public static final String DEBUG_ID = "RealFarm";
+
 	public static String DEFAULT_NUMBER = "000000000";
-
 	public static String DEVICE_ID;
-	public static int MAIN_USER_ID = -1;
 
+	public static int MAIN_USER_ID = -1;
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONNAME = "actionName";
 	public static final String TABLE_NAME_GROWING = "growing";
 	public static final String TABLE_NAME_PLOT = "plot";
 	public static final String TABLE_NAME_POINT = "point";
+	public static final String TABLE_NAME_RECOMMENDATION = "recommendation";
 	public static final String TABLE_NAME_SEED = "seed";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType";
-	public static final String TABLE_NAME_USER = "user";
-	public static final String TABLE_NAME_RECOMMENDATION = "recommendation";
 
-	public static final String DEBUG_ID = "RealFarm";
-	
+	public static final String TABLE_NAME_USER = "user";
+
 	private Context mContext;
 	private SQLiteDatabase mDb;
 	private RealFarmDatabaseOpenHelper mOpenHelper;
@@ -220,22 +219,21 @@ public class RealFarmDatabase {
 			mDb.close();
 		mDb = null;
 	}
-	
-	public long deleteEntriesdb(String TableName, String whereClause, String[] whereArgs){
+
+	public long deleteEntriesdb(String TableName, String whereClause,
+			String[] whereArgs) {
 		long result = -1;
-		
+
 		if (TableName != null) {
 			// result = db.insert(TableName, null, values);
 			try {
 				result = mDb.delete(TableName, whereClause, whereArgs);
-			}
-			catch (SQLException e){
+			} catch (SQLException e) {
 				Log.d(DEBUG_ID, "Exception" + e);
 			}
 		}
 		return result;
 	}
-
 
 	/**
 	 * Reads all the entries in a given table that match certain parameters.
@@ -269,8 +267,7 @@ public class RealFarmDatabase {
 	 */
 	public void initValues(SQLiteDatabase db) {
 
-		Log.d(DEBUG_ID,
-				"Try to fill up tables with content" + db.getVersion());
+		Log.d(DEBUG_ID, "Try to fill up tables with content" + db.getVersion());
 
 		// users
 		ContentValues users = new ContentValues();
@@ -397,8 +394,10 @@ public class RealFarmDatabase {
 
 		// points
 
-		final int[][] PLOT1 = { { 0, 8 }, { 10, 114 }, { 150, 170 }, { 105, -2 } };
-		// final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5, -102 } };
+		final int[][] PLOT1 = { { 0, 8 }, { 10, 114 }, { 150, 170 },
+				{ 105, -2 } };
+		// final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5,
+		// -102 } };
 
 		ContentValues pointstoadd = new ContentValues();
 		for (int x = 0; x < PLOT1.length; x++) {
@@ -408,14 +407,14 @@ public class RealFarmDatabase {
 			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
 			pointstoadd.clear();
 		}
-		
-//		for (int x = 0; x < PLOT2.length; x++) {
-//			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0]);
-//			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1]);
-//			pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
-//			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-//			pointstoadd.clear();
-//		}
+
+		// for (int x = 0; x < PLOT2.length; x++) {
+		// pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0]);
+		// pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1]);
+		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
+		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+		// pointstoadd.clear();
+		// }
 
 		// ContentValues pointstoadd = new ContentValues();
 		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053519);
@@ -530,27 +529,26 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Rice");
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
-		
+
 		Log.d(DEBUG_ID, "seedtype works");
-		
-		
-		
+
 		ContentValues recommendation = new ContentValues();
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_SEEDID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ACTIONID, 1);
-		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE, dateFormat.format(date));
+		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE,
+				dateFormat.format(date));
 		insertEntries(TABLE_NAME_RECOMMENDATION, recommendation, db);
 		recommendation.clear();
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ID, 2);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_SEEDID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ACTIONID, 2);
-		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE, dateFormat.format(date));
+		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE,
+				dateFormat.format(date));
 		insertEntries(TABLE_NAME_RECOMMENDATION, recommendation, db);
 		recommendation.clear();
 		Log.d(DEBUG_ID, "recommendation works");
-		
-		
+
 	}
 
 	/**
@@ -588,7 +586,6 @@ public class RealFarmDatabase {
 		}
 		return result;
 	}
-
 
 	/**
 	 * Open database helper for writing

@@ -32,10 +32,10 @@ public class QuickPlot extends CustomPopupWindow {
 	protected static final int ANIM_REFLECT = 4;
 
 	private ArrayList<ActionItem> actionList;
-	private ArrayList<ActionItem> diaryList;
-	
 	private int animStyle;
+
 	private final Context context;
+	private ArrayList<ActionItem> diaryList;
 	private final LayoutInflater inflater;
 	private final ImageView mArrowDown;
 
@@ -43,6 +43,7 @@ public class QuickPlot extends CustomPopupWindow {
 	private ViewGroup mTrack, mTrackDiary;
 	private final View root;
 	private ScrollView scroller;
+
 	// private ScrollView scrollerDiary;
 
 	/**
@@ -56,7 +57,7 @@ public class QuickPlot extends CustomPopupWindow {
 
 		actionList = new ArrayList<ActionItem>();
 		diaryList = new ArrayList<ActionItem>();
-		
+
 		context = anchor.getContext();
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -70,7 +71,7 @@ public class QuickPlot extends CustomPopupWindow {
 
 		mTrackDiary = (ViewGroup) root.findViewById(R.id.tracksdiary);
 		// scrollerDiary = (ScrollView) root.findViewById(R.id.scrollerdiary);
-		
+
 		mTrack = (ViewGroup) root.findViewById(R.id.tracksaction);
 		scroller = (ScrollView) root.findViewById(R.id.scrolleraction);
 		animStyle = ANIM_AUTO;
@@ -89,7 +90,7 @@ public class QuickPlot extends CustomPopupWindow {
 	public void addDiaryItem(ActionItem action) {
 		diaryList.add(action);
 	}
-	
+
 	/**
 	 * Create action list
 	 */
@@ -116,7 +117,6 @@ public class QuickPlot extends CustomPopupWindow {
 		}
 	}
 
-	
 	private void createDiaryList() {
 		View view;
 		String title;
@@ -139,7 +139,7 @@ public class QuickPlot extends CustomPopupWindow {
 			mTrackDiary.addView(view);
 		}
 	}
-	
+
 	/**
 	 * Get action item {@link View}
 	 * 
@@ -237,82 +237,6 @@ public class QuickPlot extends CustomPopupWindow {
 		this.animStyle = animStyle;
 	}
 
-	/**
-	 * Show popup window. Popup is automatically positioned, on top or bottom of
-	 * anchor view.
-	 * 
-	 */
-
-	public void show(int[] coordinates) {
-		
-		preShow();
-
-		int xPos, yPos; 
-		int[] location = new int[2];
-		
-		location[0] = coordinates[0];
-		location[1] = coordinates[1];
-		
-		Rect anchorRect = new Rect(location[0], location[1], location[0] + coordinates[2], location[1] + coordinates[3]);
-
-		createDiaryList();
-		createActionList();
-		
-	
-		root.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-		root.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-	
-		int rootHeight = root.getMeasuredHeight();
-		int rootWidth = root.getMeasuredWidth();
-	
-		int screenWidth = windowManager.getDefaultDisplay().getWidth();
-		int screenHeight = windowManager.getDefaultDisplay().getHeight();
-	
-		// automatically get X coord of popup (top left)
-		if ((anchorRect.left + rootWidth) > screenWidth) {
-			xPos = anchorRect.left - (rootWidth - anchor.getWidth());
-		} else {
-			if (anchor.getWidth() > rootWidth) {
-				xPos = anchorRect.centerX() - (rootWidth / 2);
-			} else {
-				xPos = anchorRect.left;
-			}
-		}
-		
-		int dyTop = anchorRect.top;
-		int dyBottom = screenHeight - anchorRect.bottom;
-	
-		boolean onTop = (dyTop > dyBottom) ? true : false;
-	
-		if (onTop) {
-			if (rootHeight > dyTop) {
-				yPos = 15;
-				LayoutParams l = scroller.getLayoutParams();
-				l.height = dyTop - anchor.getHeight();
-			} else {
-				yPos = anchorRect.top - rootHeight;
-			}
-		} else {
-			yPos = anchorRect.bottom;
-	
-			if (rootHeight > dyBottom) {
-				LayoutParams l = scroller.getLayoutParams();
-				l.height = dyBottom;
-			}
-		}
-		
-		
-	
-		showArrow(((onTop) ? R.id.arrow_down : R.id.arrow_up),
-				anchorRect.centerX() - xPos);
-	
-		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
-		                                              		
-		window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
-
-		
-	}
-	
 	public void show() {
 		preShow();
 
@@ -347,7 +271,7 @@ public class QuickPlot extends CustomPopupWindow {
 				xPos = anchorRect.left;
 			}
 		}
-		
+
 		int dyTop = anchorRect.top;
 		int dyBottom = screenHeight - anchorRect.bottom;
 
@@ -376,6 +300,80 @@ public class QuickPlot extends CustomPopupWindow {
 		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
 
 		window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
+	}
+
+	/**
+	 * Show popup window. Popup is automatically positioned, on top or bottom of
+	 * anchor view.
+	 * 
+	 */
+
+	public void show(int[] coordinates) {
+
+		preShow();
+
+		int xPos, yPos;
+		int[] location = new int[2];
+
+		location[0] = coordinates[0];
+		location[1] = coordinates[1];
+
+		Rect anchorRect = new Rect(location[0], location[1], location[0]
+				+ coordinates[2], location[1] + coordinates[3]);
+
+		createDiaryList();
+		createActionList();
+
+		root.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+				LayoutParams.WRAP_CONTENT));
+		root.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+
+		int rootHeight = root.getMeasuredHeight();
+		int rootWidth = root.getMeasuredWidth();
+
+		int screenWidth = windowManager.getDefaultDisplay().getWidth();
+		int screenHeight = windowManager.getDefaultDisplay().getHeight();
+
+		// automatically get X coord of popup (top left)
+		if ((anchorRect.left + rootWidth) > screenWidth) {
+			xPos = anchorRect.left - (rootWidth - anchor.getWidth());
+		} else {
+			if (anchor.getWidth() > rootWidth) {
+				xPos = anchorRect.centerX() - (rootWidth / 2);
+			} else {
+				xPos = anchorRect.left;
+			}
+		}
+
+		int dyTop = anchorRect.top;
+		int dyBottom = screenHeight - anchorRect.bottom;
+
+		boolean onTop = (dyTop > dyBottom) ? true : false;
+
+		if (onTop) {
+			if (rootHeight > dyTop) {
+				yPos = 15;
+				LayoutParams l = scroller.getLayoutParams();
+				l.height = dyTop - anchor.getHeight();
+			} else {
+				yPos = anchorRect.top - rootHeight;
+			}
+		} else {
+			yPos = anchorRect.bottom;
+
+			if (rootHeight > dyBottom) {
+				LayoutParams l = scroller.getLayoutParams();
+				l.height = dyBottom;
+			}
+		}
+
+		showArrow(((onTop) ? R.id.arrow_down : R.id.arrow_up),
+				anchorRect.centerX() - xPos);
+
+		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
+
+		window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
+
 	}
 
 	/**

@@ -4,7 +4,7 @@ public class Action {
 
 	private int mId;
 	private String mName;
-	
+
 	public Action(int id, String name) {
 		mId = id;
 		mName = name;

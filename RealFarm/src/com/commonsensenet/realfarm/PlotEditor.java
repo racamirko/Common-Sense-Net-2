@@ -246,8 +246,8 @@ public class PlotEditor extends Activity {
 			for (int i = 0; i < res.getSize(); i++) {
 				TextView nameView1 = new TextView(this);
 
-//				Date date = new Date();
-//				date.setTime(res[2][i]);
+				// Date date = new Date();
+				// date.setTime(res[2][i]);
 
 				nameView1.setText(i
 						+ " "
@@ -280,7 +280,7 @@ public class PlotEditor extends Activity {
 		tv.setTextSize(TEXT_HEADER_SIZE);
 		container0.addView(tv);
 
-		//Bitmap mBitmap = null;
+		// Bitmap mBitmap = null;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			plotID = Integer.parseInt(extras.getString("ID"));

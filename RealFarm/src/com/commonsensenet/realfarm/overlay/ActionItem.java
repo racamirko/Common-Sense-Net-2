@@ -16,11 +16,11 @@ public class ActionItem {
 	private int mId;
 	/** Listener used to handle click events. */
 	private OnClickListener mListener;
+	private String mOwner;
+
 	/** Displayed title of the ActionItem. */
 	private String mTitle;
 
-	private String mOwner;
-	
 	/**
 	 * Creates a new ActionItem instance.
 	 */
@@ -59,6 +59,10 @@ public class ActionItem {
 		return mListener;
 	}
 
+	public String getOwner() {
+		return mOwner;
+	}
+
 	/**
 	 * Get action title
 	 * 
@@ -68,10 +72,6 @@ public class ActionItem {
 		return mTitle;
 	}
 
-	public String getOwner() {
-		return mOwner;
-	}
-	
 	/**
 	 * Set action icon
 	 * 
@@ -96,6 +96,10 @@ public class ActionItem {
 		mListener = listener;
 	}
 
+	public void setOwner(String owner) {
+		mOwner = owner;
+	}
+
 	/**
 	 * Set action title
 	 * 
@@ -105,9 +109,5 @@ public class ActionItem {
 	public void setTitle(String title) {
 		mTitle = title;
 	}
-	
-	public void setOwner(String owner) {
-		mOwner = owner;
-	}
-	
+
 }

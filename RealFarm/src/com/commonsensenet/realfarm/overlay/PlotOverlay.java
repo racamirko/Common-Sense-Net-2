@@ -28,7 +28,7 @@ public class PlotOverlay extends Overlay {
 	public PlotOverlay(Plot plot) {
 		mPlot = plot;
 	}
-	
+
 	@Override
 	public void draw(Canvas canvas, OfflineMapView offlineMapView) {
 		super.draw(canvas, offlineMapView);
@@ -88,25 +88,26 @@ public class PlotOverlay extends Overlay {
 			myIntent.putExtra("ID", Integer.toString(test));
 
 			// draw in bitmap
-//			Bitmap myBitmap = Bitmap.createBitmap(100, 100, Config.ARGB_8888);
-//			Canvas myCanvas = new Canvas(myBitmap);
-//
-//			Paint paint = new Paint();
-//			paint.setStrokeWidth(7);
-//			paint.setAntiAlias(true);
-//			paint.setDither(true);
-//			paint.setStrokeWidth(3);
-//			paint.setARGB(100, 55, 175, 35);
+			// Bitmap myBitmap = Bitmap.createBitmap(100, 100,
+			// Config.ARGB_8888);
+			// Canvas myCanvas = new Canvas(myBitmap);
+			//
+			// Paint paint = new Paint();
+			// paint.setStrokeWidth(7);
+			// paint.setAntiAlias(true);
+			// paint.setDither(true);
+			// paint.setStrokeWidth(3);
+			// paint.setARGB(100, 55, 175, 35);
 
 			// Path path = mPlot.getDrawable(mapView);
 
 			// myCanvas.drawPath(path, paint);
 
-			//myIntent.putExtra("Bitmap", myBitmap);
+			// myIntent.putExtra("Bitmap", myBitmap);
 			mapView.getContext().startActivity(myIntent);
-			
+
 		}
 		return false;
-		//return false;
+		// return false;
 	}
 }

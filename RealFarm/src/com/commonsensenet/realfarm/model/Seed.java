@@ -19,11 +19,9 @@ public class Seed {
 	public String getName() {
 		return mName;
 	}
-	
-	public String getVariety(){
+
+	public String getVariety() {
 		return mVariety;
 	}
 
-	
 }
-

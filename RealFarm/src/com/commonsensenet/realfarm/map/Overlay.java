@@ -14,16 +14,16 @@ public abstract class Overlay {
 	// return false;
 	// }
 
+	public boolean onTap(GeoPoint p, OfflineMapView mapView) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 	public boolean onTap(Point point, OfflineMapView offlineMapView) {
 		return false;
 	}
 
 	public boolean onTouchEvent(MotionEvent e, OfflineMapView mapView) {
-		return false;
-	}
-
-	public boolean onTap(GeoPoint p, OfflineMapView mapView) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }
