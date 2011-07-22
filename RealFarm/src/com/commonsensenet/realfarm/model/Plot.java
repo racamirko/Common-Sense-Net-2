@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.model;
 
 import android.graphics.Point;
+import android.util.Log;
 
 import com.commonsensenet.realfarm.map.OfflineMapView;
 
@@ -9,8 +10,6 @@ public class Plot {
 	private Point mCenterCoordinate;
 	/** Original points obtained from the database that represent the plot. */
 	private Point[] mCoordinates;
-	/** Number of sides that the polygon has. */
-	private int mNumberOfSides;
 	/** Identifier of the owner of the plot. */
 	private int mOwnerId;
 	/** Identifier number of the plot. */
@@ -23,7 +22,6 @@ public class Plot {
 
 		mCoordinates = coordinates;
 		mPoints = null;
-		mNumberOfSides = coordinates.length;
 		mPlotId = id;
 		mOwnerId = ownerId;
 
@@ -59,10 +57,10 @@ public class Plot {
 		// converts the points to positions in the map.
 		convert(mCoordinates, mapView);
 
-		for (int i = 0, j = mNumberOfSides - 1; i < mNumberOfSides; j = i++) {
-
+		for (int i = 0, j = mPoints.length - 1; i < mPoints.length; j = i++) {
+		    	
 			if ((mPoints[i].y < y && mPoints[j].y >= y)
-					|| (mPoints[j].x < y && mPoints[i].x >= y)) {
+					|| (mPoints[j].y < y && mPoints[i].y >= y)) {
 
 				// TODO: division by zero!!	
 				if(mPoints[i].x+(y-mPoints[i].y)/(mPoints[j].y-mPoints[i].y)*(mPoints[j].x-mPoints[i].x)<x) {

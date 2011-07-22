@@ -89,7 +89,7 @@ public class PlotOverlay extends Overlay {
 
 			// draw in bitmap
 //			Bitmap myBitmap = Bitmap.createBitmap(100, 100, Config.ARGB_8888);
-//			// Canvas myCanvas = new Canvas(myBitmap);
+//			Canvas myCanvas = new Canvas(myBitmap);
 //
 //			Paint paint = new Paint();
 //			paint.setStrokeWidth(7);

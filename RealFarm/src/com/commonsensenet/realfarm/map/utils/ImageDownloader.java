@@ -45,7 +45,8 @@ public class ImageDownloader {
 			// complete.
 			if (mNotifiableReference != null) {
 				Notifiable notifiable = mNotifiableReference.get();
-				notifiable.onDownloadComplete(bitmap, mUrl);
+				if(notifiable != null)
+					notifiable.onDownloadComplete(bitmap, mUrl);
 			}
 		}
 	}
