@@ -6,8 +6,6 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.graphics.drawable.Drawable;
-import android.view.View;
-import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.google.android.maps.GeoPoint;

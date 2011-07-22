@@ -398,7 +398,7 @@ public class RealFarmDatabase {
 		// points
 
 		final int[][] PLOT1 = { { 0, 8 }, { 10, 114 }, { 150, 170 }, { 105, -2 } };
-		final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5, -102 } };
+		// final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5, -102 } };
 
 		ContentValues pointstoadd = new ContentValues();
 		for (int x = 0; x < PLOT1.length; x++) {

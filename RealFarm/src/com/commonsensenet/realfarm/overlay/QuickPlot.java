@@ -42,7 +42,8 @@ public class QuickPlot extends CustomPopupWindow {
 	private final ImageView mArrowUp;
 	private ViewGroup mTrack, mTrackDiary;
 	private final View root;
-	private ScrollView scroller, scrollerDiary;
+	private ScrollView scroller;
+	// private ScrollView scrollerDiary;
 
 	/**
 	 * Constructor
@@ -68,7 +69,7 @@ public class QuickPlot extends CustomPopupWindow {
 		setContentView(root);
 
 		mTrackDiary = (ViewGroup) root.findViewById(R.id.tracksdiary);
-		scrollerDiary = (ScrollView) root.findViewById(R.id.scrollerdiary);
+		// scrollerDiary = (ScrollView) root.findViewById(R.id.scrollerdiary);
 		
 		mTrack = (ViewGroup) root.findViewById(R.id.tracksaction);
 		scroller = (ScrollView) root.findViewById(R.id.scrolleraction);

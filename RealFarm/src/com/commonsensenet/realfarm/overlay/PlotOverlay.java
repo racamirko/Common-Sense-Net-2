@@ -28,7 +28,7 @@ public class PlotOverlay extends Overlay {
 	public PlotOverlay(Plot plot) {
 		mPlot = plot;
 	}
-
+	
 	@Override
 	public void draw(Canvas canvas, OfflineMapView offlineMapView) {
 		super.draw(canvas, offlineMapView);
