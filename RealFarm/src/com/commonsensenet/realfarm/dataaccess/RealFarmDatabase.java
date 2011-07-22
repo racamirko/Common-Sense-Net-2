@@ -383,11 +383,11 @@ public class RealFarmDatabase {
 		insertEntries(TABLE_NAME_PLOT, plots, db);
 		plots.clear();
 		plots.put(COLUMN_NAME_PLOT_ID, 2);
-		plots.put(COLUMN_NAME_PLOT_USERID, 1);
+		plots.put(COLUMN_NAME_PLOT_USERID, 2);
 		insertEntries(TABLE_NAME_PLOT, plots, db);
 		plots.clear();
 		plots.put(COLUMN_NAME_PLOT_ID, 3);
-		plots.put(COLUMN_NAME_PLOT_USERID, 2);
+		plots.put(COLUMN_NAME_PLOT_USERID, 1);
 		insertEntries(TABLE_NAME_PLOT, plots, db);
 		plots.clear();
 		Log.d(DEBUG_ID, "plots works");
@@ -396,6 +396,7 @@ public class RealFarmDatabase {
 
 		final int[][] PLOT1 = { { 0, 8 }, { 10, 114 }, { 150, 170 },
 				{ 105, -2 } };
+
 		// final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5,
 		// -102 } };
 
@@ -407,14 +408,6 @@ public class RealFarmDatabase {
 			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
 			pointstoadd.clear();
 		}
-
-		// for (int x = 0; x < PLOT2.length; x++) {
-		// pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0]);
-		// pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1]);
-		// pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
-		// insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		// pointstoadd.clear();
-		// }
 
 		// ContentValues pointstoadd = new ContentValues();
 		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053519);
@@ -463,6 +456,17 @@ public class RealFarmDatabase {
 		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
 		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
 		pointstoadd.clear();
+		
+		
+		final int[][] PLOT2 = { { -1800 + 1, -1800 + 3 }, { -1800 + 2, -1800 + 112 }, { -1800 + 174, -1800 + 188 },
+				{ -1800 + 246,-1800 + 5 } };
+		for (int x = 0; x < PLOT2.length; x++) {
+			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0]);
+			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1]);
+			pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
+			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+			pointstoadd.clear();
+		}
 
 		// User 1 again
 		// pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14054019);
