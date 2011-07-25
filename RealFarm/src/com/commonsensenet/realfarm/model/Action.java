@@ -4,10 +4,12 @@ public class Action {
 
 	private int mId;
 	private String mName;
-
-	public Action(int id, String name) {
+	private int mRes;
+	
+	public Action(int id, String name, int resource) {
 		mId = id;
 		mName = name;
+		mRes = resource;
 	}
 
 	public int getId() {
@@ -16,5 +18,9 @@ public class Action {
 
 	public String getName() {
 		return mName;
+	}
+	
+	public int getRes(){
+		return mRes;
 	}
 }

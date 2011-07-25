@@ -3,6 +3,8 @@ package com.commonsensenet.realfarm.dataaccess;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import com.commonsensenet.realfarm.R;
+
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -46,6 +48,7 @@ public class RealFarmDatabase {
 			// actionsNames
 			db.execSQL("create table " + TABLE_NAME_ACTIONNAME + " ( "
 					+ COLUMN_NAME_ACTIONNAME_ID + " integer primary key, "
+					+ COLUMN_NAME_ACTIONNAME_RESOURCE + " integer, " 
 					+ COLUMN_NAME_ACTIONNAME_NAME + " text not null " + " ); ");
 			Log.d(DEBUG_ID, "Created actionName table");
 
@@ -133,6 +136,7 @@ public class RealFarmDatabase {
 
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
+	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
 
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_GROWING_ID = "id";
@@ -304,26 +308,32 @@ public class RealFarmDatabase {
 		ContentValues actionNames = new ContentValues();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 1);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Sow");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_sowing);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 2);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Fertilize");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_fertilizing1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 3);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Spray");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_spraying1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 4);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Irrigate");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_irrigation1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 5);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Harvest");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_harvesting1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 6);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Report");
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_reporting);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 
 		Log.d(DEBUG_ID, "actionName works");

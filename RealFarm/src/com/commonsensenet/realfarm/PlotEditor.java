@@ -8,11 +8,16 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnFocusChangeListener;
+import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -45,9 +50,10 @@ public class PlotEditor extends Activity {
 			Date date = new Date();
 			// TODO: take growing id from user interface
 			mDataProvider.setAction(actionID, 1, dateFormat.format(date));
-			updateDiary();
-			updateActions();
+			
 		}
+		updateDiary();
+		updateActions();
 		// else user clicked cancel => do nothing
 
 	}
@@ -61,6 +67,7 @@ public class PlotEditor extends Activity {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
+				
 
 				// get more information about action
 				LayoutInflater inflater = (LayoutInflater) getApplicationContext()
@@ -118,6 +125,7 @@ public class PlotEditor extends Activity {
 								/* User clicked ok so do some stuff */
 
 								editAction(1, actionID);
+								
 
 							}
 						});
@@ -132,6 +140,7 @@ public class PlotEditor extends Activity {
 							}
 						});
 				alert.show();
+				
 
 			}
 		};
@@ -210,13 +219,21 @@ public class PlotEditor extends Activity {
 				tl.addView(row1);
 				row1 = new TableRow(this);
 			}
-
-			Button b = new Button(this);
-			b.setText(tmpAction.getName());
+			
+			ImageButton ib = new ImageButton(this);
+			//ib.setBackgroundResource(R.color.buttoncolor);
+			ib.setBackgroundColor(R.color.button);
+			ib.setImageResource(tmpAction.getRes());
+			//ib.setBackgroundColor(Color.BLACK);
+			
+			
+//			Button b = new Button(this);
+//			b.setText(tmpAction.getName());
+			
 			int actionID = tmpAction.getId();
-			b.setOnClickListener(OnClickAction(actionID));
+			ib.setOnClickListener(OnClickAction(actionID));
 
-			row1.addView(b, iterNb);
+			row1.addView(ib, iterNb);
 
 		}
 		tl.addView(row1);

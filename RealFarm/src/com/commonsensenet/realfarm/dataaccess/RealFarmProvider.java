@@ -39,14 +39,15 @@ public class RealFarmProvider {
 		Action tmpAction = null;
 
 		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME },
+				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
+						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE },
 				RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "=" + actionId,
 				null, null, null, null);
 
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
 
-			tmpAction = new Action(actionId, c0.getString(0));
+			tmpAction = new Action(actionId, c0.getString(0), c0.getInt(1));
 		}
 
 		mDb.close();
@@ -62,8 +63,9 @@ public class RealFarmProvider {
 		// query all actions
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME }, null,
-				null, null, null, null);
+						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
+						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE },
+				null, null, null, null, null);
 		c.moveToFirst();
 
 		List<Action> tmpList = new LinkedList<Action>();
@@ -75,7 +77,7 @@ public class RealFarmProvider {
 			do {
 				actionId = c.getInt(0);
 				actionName = c.getString(1);
-				tmpList.add(new Action(actionId, actionName));
+				tmpList.add(new Action(actionId, actionName, c.getInt(2)));
 			} while (c.moveToNext());
 		}
 
