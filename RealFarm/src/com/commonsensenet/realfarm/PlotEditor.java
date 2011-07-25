@@ -11,10 +11,7 @@ import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnFocusChangeListener;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -68,7 +65,7 @@ public class PlotEditor extends Activity {
 
 			public void onClick(View v) {
 				
-
+				
 				// get more information about action
 				LayoutInflater inflater = (LayoutInflater) getApplicationContext()
 						.getSystemService(LAYOUT_INFLATER_SERVICE);
@@ -222,9 +219,10 @@ public class PlotEditor extends Activity {
 			
 			ImageButton ib = new ImageButton(this);
 			//ib.setBackgroundResource(R.color.buttoncolor);
-			ib.setBackgroundColor(R.color.button);
 			ib.setImageResource(tmpAction.getRes());
-			//ib.setBackgroundColor(Color.BLACK);
+			//ib.setBackgroundDrawable((Drawable)getResources().getDrawable(R.drawable.cbutton));
+			
+			ib.setBackgroundColor(Color.BLACK);
 			
 			
 //			Button b = new Button(this);
