@@ -328,13 +328,15 @@ public class RealFarmProvider {
 		mDb.open();
 		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
 				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY },
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE },
 				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
 				null, null, null);
 
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
-			res = new Seed(seedId, c0.getString(0), c0.getString(1));
+			res = new Seed(seedId, c0.getString(0), c0.getString(1),
+					c0.getInt(2));
 		}
 		mDb.close();
 		return res;
@@ -351,13 +353,14 @@ public class RealFarmProvider {
 			Cursor c = mDb.getAllEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
 					new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY });
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE });
 
 			if (c.getCount() > 0) {
 				c.moveToFirst();
 				do {
 					Seed s = new Seed(c.getInt(0), c.getString(1),
-							c.getString(2));
+							c.getString(2), c.getInt(3));
 					allSeeds.add(s);
 				} while (c.moveToNext());
 

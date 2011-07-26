@@ -6,15 +6,13 @@ import java.util.Date;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -47,7 +45,7 @@ public class PlotEditor extends Activity {
 			Date date = new Date();
 			// TODO: take growing id from user interface
 			mDataProvider.setAction(actionID, 1, dateFormat.format(date));
-			
+
 		}
 		updateDiary();
 		updateActions();
@@ -64,19 +62,22 @@ public class PlotEditor extends Activity {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-				
-				
+
 				// get more information about action
-				LayoutInflater inflater = (LayoutInflater) getApplicationContext()
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
+				// LayoutInflater inflater = (LayoutInflater)
+				// getApplicationContext()
+				// .getSystemService(LAYOUT_INFLATER_SERVICE);
 
-				View layout = inflater.inflate(R.layout.plot_dialog,
-						(ViewGroup) findViewById(R.id.layout_root));
+				// View layout = inflater.inflate(R.layout.plot_dialog,
+				// (ViewGroup) findViewById(R.id.layout_root));
 
-				AlertDialog.Builder alert = new AlertDialog.Builder(
-						PlotEditor.this);
+				// AlertDialog.Builder alert = new AlertDialog.Builder(
+				// PlotEditor.this);
 
-				alert.setView(layout);
+				Dialog alert = new Dialog(PlotEditor.this);
+				alert.setContentView(R.layout.plot_dialog);
+
+				// alert.setView(layout);
 
 				String title = getResources().getString(R.string.editAction);
 				String actionName = mDataProvider.getActionById(actionID)
@@ -84,7 +85,7 @@ public class PlotEditor extends Activity {
 				alert.setTitle(title + " " + actionName);
 
 				// add button to select seed type
-				LinearLayout vg = (LinearLayout) layout
+				LinearLayout vg = (LinearLayout) alert
 						.findViewById(R.id.layout_root2);
 				TextView tv = new TextView(PlotEditor.this);
 				tv.setText(R.string.seed);
@@ -114,30 +115,43 @@ public class PlotEditor extends Activity {
 
 				}
 
-				// Parse reply
-				alert.setPositiveButton("ok",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								/* User clicked ok so do some stuff */
-
-								editAction(1, actionID);
-								
-
-							}
-						});
-
-				alert.setNegativeButton("Cancel",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-
-								/* User clicked cancel so do some stuff */
-								editAction(2, actionID);
-							}
-						});
-				alert.show();
+				alert.findViewById(R.id.cancelbutton).setOnClickListener(new OnClickListener() {
+					
+					public void onClick(View v) {
+						editAction(2, actionID);
+					}
+				});
 				
+				alert.findViewById(R.id.okbutton).setOnClickListener(new OnClickListener() {
+					
+					public void onClick(View v) {
+						 editAction(1, actionID);
+					}
+				});
+
+				// Parse reply
+				// alert.setPositiveButton("ok",
+				// new DialogInterface.OnClickListener() {
+				// public void onClick(DialogInterface dialog,
+				// int whichButton) {
+				// /* User clicked ok so do some stuff */
+				//
+				// editAction(1, actionID);
+				//
+				//
+				// }
+				// });
+				//
+				// alert.setNegativeButton("Cancel",
+				// new DialogInterface.OnClickListener() {
+				// public void onClick(DialogInterface dialog,
+				// int whichButton) {
+				//
+				// /* User clicked cancel so do some stuff */
+				// editAction(2, actionID);
+				// }
+				// });
+				alert.show();
 
 			}
 		};
@@ -190,12 +204,13 @@ public class PlotEditor extends Activity {
 	 */
 
 	public void updateActions() {
-		LinearLayout container = (LinearLayout) findViewById(R.id.linearLayout1);
+		LinearLayout container = (LinearLayout) findViewById(R.id.layoutactions);
 		container.removeAllViews();
 
 		TextView tv = new TextView(this);
 		tv.setText(R.string.actions);
 		tv.setTextSize(TEXT_HEADER_SIZE);
+		tv.setTextColor(Color.BLACK);
 		container.addView(tv);
 
 		// get all possible actions
@@ -204,6 +219,19 @@ public class PlotEditor extends Activity {
 		// Create table layout to add
 		TableLayout tl = new TableLayout(this);
 		TableRow row1 = new TableRow(this);
+		TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(
+				TableLayout.LayoutParams.FILL_PARENT,
+				TableLayout.LayoutParams.WRAP_CONTENT);
+
+		int leftMargin = 20;
+		int topMargin = 2;
+		int rightMargin = 20;
+		int bottomMargin = 20;
+
+		tableRowParams.setMargins(leftMargin, topMargin, rightMargin,
+				bottomMargin);
+		
+		row1.setLayoutParams(tableRowParams);
 
 		Action tmpAction;
 		// for each possible action
@@ -215,22 +243,14 @@ public class PlotEditor extends Activity {
 			if (iterNb == 0) {
 				tl.addView(row1);
 				row1 = new TableRow(this);
+				row1.setLayoutParams(tableRowParams);
 			}
-			
-			ImageButton ib = new ImageButton(this);
-			//ib.setBackgroundResource(R.color.buttoncolor);
+
+			ImageView ib = new ImageView(this);
 			ib.setImageResource(tmpAction.getRes());
-			//ib.setBackgroundDrawable((Drawable)getResources().getDrawable(R.drawable.cbutton));
-			
-			ib.setBackgroundColor(Color.BLACK);
-			
-			
-//			Button b = new Button(this);
-//			b.setText(tmpAction.getName());
-			
+			ib.setBackgroundResource(R.drawable.cbutton);
 			int actionID = tmpAction.getId();
 			ib.setOnClickListener(OnClickAction(actionID));
-
 			row1.addView(ib, iterNb);
 
 		}
@@ -246,35 +266,45 @@ public class PlotEditor extends Activity {
 
 	public void updateDiary() {
 
-		LinearLayout container2 = (LinearLayout) findViewById(R.id.linearLayout2);
+		LinearLayout container2 = (LinearLayout) findViewById(R.id.layoutdiary);
 
 		container2.removeAllViews();
 
 		TextView tv = new TextView(this);
 		tv.setText(R.string.diary);
 		tv.setTextSize(TEXT_HEADER_SIZE);
+		tv.setTextColor(Color.BLACK);
 		container2.addView(tv);
 
 		Diary res = mDataProvider.getDiary(plotID);
 
 		if (res != null) {
 			for (int i = 0; i < res.getSize(); i++) {
+				
+				Action a = mDataProvider.getActionById(res.getActionId(i));
+				
+				ImageView iv = new ImageView(this);
+				iv.setBackgroundResource(a.getRes());
+				LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(40, 40);
+				iv.setLayoutParams(ll);
+				container2.addView(iv);
+				
 				TextView nameView1 = new TextView(this);
-
+				
+				
 				// Date date = new Date();
 				// date.setTime(res[2][i]);
 
 				nameView1.setText(i
 						+ " "
-						+ mDataProvider.getActionById(res.getActionId(i))
-								.getName() + " " + res.getActionDate(i) + " "
+						+ a.getName() + " " + res.getActionDate(i) + " "
 						+ res.getGrowingId(i));
 				// date.toLocaleString()
 
 				int lastActionID = res.getActionId(i);
 
 				nameView1.setOnClickListener(OnClickDiary(lastActionID));
-
+				nameView1.setTextColor(Color.BLACK);
 				container2.addView(nameView1);
 
 			}
@@ -286,13 +316,14 @@ public class PlotEditor extends Activity {
 	 */
 
 	public void updatePlotInformation() {
-		LinearLayout container0 = (LinearLayout) findViewById(R.id.linearLayout0);
+		LinearLayout container0 = (LinearLayout) findViewById(R.id.layoutheader);
 
 		container0.removeAllViews();
 
 		TextView tv = new TextView(this);
 		tv.setText(R.string.plot);
 		tv.setTextSize(TEXT_HEADER_SIZE);
+		tv.setTextColor(Color.BLACK);
 		container0.addView(tv);
 
 		// Bitmap mBitmap = null;
@@ -319,7 +350,10 @@ public class PlotEditor extends Activity {
 		else
 			nameView.setText("Unknown");
 
+		nameView.setTextColor(Color.BLACK);
 		container0.addView(nameView);
+		
+		
 
 		for (int i = 0; i < mGrowing.size(); i++) {
 			TextView nameView1 = new TextView(this);
@@ -327,7 +361,14 @@ public class PlotEditor extends Activity {
 			seedList.add(s);
 			String seedName = s.getName();
 			nameView1.setText(seedName);
+			nameView1.setTextColor(Color.BLACK);
 			container0.addView(nameView1);
+			
+			ImageView iv = new ImageView(PlotEditor.this);
+			iv.setBackgroundResource(s.getRes());
+			LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
+			iv.setLayoutParams(ll);
+			container0.addView(iv);
 		}
 
 	}
@@ -337,22 +378,31 @@ public class PlotEditor extends Activity {
 	 */
 
 	public void updateRecommendations() {
-		LinearLayout container0 = (LinearLayout) findViewById(R.id.linearLayout01);
+		LinearLayout container0 = (LinearLayout) findViewById(R.id.layoutrec);
 		container0.removeAllViews();
 
 		List<Recommendation> r = mDataProvider.getRecommendationsList();
 
-		if (r.size() > 0) { // there are recommendations
+		// Are there recommendations for this type of plot?
 
-			TextView tv = new TextView(this);
-			tv.setText(R.string.recommendation);
-			tv.setTextSize(TEXT_HEADER_SIZE);
-			container0.addView(tv);
+		for (int i = 0; i < r.size(); i++) {
 
-			TextView nameView = new TextView(this);
+			if (seedList.contains(r.get(i).getSeed())) {
 
-			container0.addView(nameView);
+				TextView tv = new TextView(this);
+				tv.setText(R.string.recommendation);
+				tv.setTextSize(TEXT_HEADER_SIZE);
+				tv.setTextColor(Color.BLACK);
+				container0.addView(tv);
+
+				TextView nameView = new TextView(this);
+				nameView.setTextColor(Color.BLACK);
+				container0.addView(nameView);
+
+			}
+
 		}
+
 		// else no recommendation => do nothing
 
 	}

@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
@@ -210,13 +211,15 @@ public class OfflineMapDemo extends Activity {
 
 		// gets the action bar.
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-
+		
 		actionBar.removeAllActions();
-
+		actionBar.setBackgroundColor(Color.LTGRAY);
+		
+		
 		// Home action button
 		actionBar.setHomeAction(new Action() {
 			public int getDrawable() {
-				return R.drawable.ic_title_home_default;
+				return R.drawable.ic_48px_home;
 			}
 
 			public void performAction(View view) {
@@ -244,7 +247,7 @@ public class OfflineMapDemo extends Activity {
 		actionBar.addAction(new Action() {
 
 			public int getDrawable() {
-				return R.drawable.ic_menu_mylocation;
+				return R.drawable.ic_48px_myposition;
 			}
 
 			public void performAction(View view) {
@@ -256,10 +259,11 @@ public class OfflineMapDemo extends Activity {
 			}
 		});
 
+		// my field
 		actionBar.addAction(new Action() {
 
 			public int getDrawable() {
-				return R.drawable.ic_menu_sort_by_size;
+				return R.drawable.ic_48px_myfields;
 			}
 
 			public void performAction(View view) {
@@ -297,12 +301,12 @@ public class OfflineMapDemo extends Activity {
 		actionBar.addAction(new Action() {
 
 			public int getDrawable() {
-				return R.drawable.ic_menu_news;
+				return R.drawable.ic_48px_news;
 			}
 
 			public void performAction(View view) {
 				final QuickAction qa1 = new QuickAction(view);
-
+				
 				ActionItem tem = new ActionItem();
 				tem.setTitle("No news yet");
 				tem.setOnClickListener(new OnClickListener() {
