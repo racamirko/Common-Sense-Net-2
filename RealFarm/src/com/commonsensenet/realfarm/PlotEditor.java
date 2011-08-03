@@ -12,6 +12,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
@@ -34,7 +35,8 @@ public class PlotEditor extends Activity {
 	private RealFarmProvider mDataProvider;
 	private int plotID = -1;
 	private List<Seed> seedList = new ArrayList<Seed>();
-
+	private List<Growing> mGrowing;
+	
 	private void editAction(int action, int actionID) {
 
 		if (action == 1) // user clicked ok
@@ -57,34 +59,45 @@ public class PlotEditor extends Activity {
 	public void onBackPressed() {
 		finish();
 	}
+	
+	View.OnClickListener OnClickGrowing(int growingID){
+		return new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				
+				// add action to table action
+				
+			}
+		};
+		
+	}
+	
 
+	View.OnClickListener OnClickQuantity(int id){
+		return new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				
+			}
+		};
+	}
+	
+	
 	View.OnClickListener OnClickAction(final int actionID) {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
 
 				// get more information about action
-				// LayoutInflater inflater = (LayoutInflater)
-				// getApplicationContext()
-				// .getSystemService(LAYOUT_INFLATER_SERVICE);
-
-				// View layout = inflater.inflate(R.layout.plot_dialog,
-				// (ViewGroup) findViewById(R.id.layout_root));
-
-				// AlertDialog.Builder alert = new AlertDialog.Builder(
-				// PlotEditor.this);
-
 				Dialog alert = new Dialog(PlotEditor.this);
 				alert.setContentView(R.layout.plot_dialog);
-
-				// alert.setView(layout);
 
 				String title = getResources().getString(R.string.editAction);
 				String actionName = mDataProvider.getActionById(actionID)
 						.getName();
 				alert.setTitle(title + " " + actionName);
 
-				// add button to select seed type
+				// add button to select seed type, this tell us about growing id
 				LinearLayout vg = (LinearLayout) alert
 						.findViewById(R.id.layout_root2);
 				TextView tv = new TextView(PlotEditor.this);
@@ -95,68 +108,58 @@ public class PlotEditor extends Activity {
 				if (actionName.compareTo("Sow") == 0) // action is sowing so all
 														// seeds can be used
 				{
-					List<Seed> mseed = mDataProvider.getSeedsList();
-					for (int i = 0; i < mseed.size(); i++) {
+					// a new growing id will be created
+					for (int i = 0; i < seedList.size(); i++) {
 						Button nameView1 = new Button(PlotEditor.this);
-						String seedName = mseed.get(i).getName();
+						String seedName = seedList.get(i).getName();
 						nameView1.setText(seedName);
 						vg.addView(nameView1);
 					}
 
 				} else // only existing seeds can be used
 				{
-					for (int i = 0; i < seedList.size(); i++) {
-						Button nameView1 = new Button(PlotEditor.this);
-						Seed s = seedList.get(i);
-						String seedName = s.getName();
-						nameView1.setText(seedName);
+					for (int i = 0; i < mGrowing.size(); i++) {
+						ImageButton nameView1 = new ImageButton(PlotEditor.this);
+						Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
+						nameView1.setBackgroundResource(s.getRes());
+						nameView1.setOnClickListener(OnClickGrowing(mGrowing.get(i).getId()));
 						vg.addView(nameView1);
 					}
 
 				}
 
-				alert.findViewById(R.id.cancelbutton).setOnClickListener(new OnClickListener() {
+				ImageView iiv = (ImageView) alert.findViewById(R.id.cancelbutton);
+				iiv.setOnClickListener(new OnClickListener() {
 					
 					public void onClick(View v) {
 						editAction(2, actionID);
 					}
 				});
 				
-				alert.findViewById(R.id.okbutton).setOnClickListener(new OnClickListener() {
-					
-					public void onClick(View v) {
-						 editAction(1, actionID);
-					}
-				});
+				alert.findViewById(R.id.okbutton);
 
-				// Parse reply
-				// alert.setPositiveButton("ok",
-				// new DialogInterface.OnClickListener() {
-				// public void onClick(DialogInterface dialog,
-				// int whichButton) {
-				// /* User clicked ok so do some stuff */
-				//
-				// editAction(1, actionID);
-				//
-				//
-				// }
-				// });
-				//
-				// alert.setNegativeButton("Cancel",
-				// new DialogInterface.OnClickListener() {
-				// public void onClick(DialogInterface dialog,
-				// int whichButton) {
-				//
-				// /* User clicked cancel so do some stuff */
-				// editAction(2, actionID);
-				// }
-				// });
+				TextView tvv = new TextView(PlotEditor.this);
+				tvv.setText("Quantity");
+				tvv.setTextSize(20);
+				vg.addView(tvv);
+				
 				alert.show();
 
 			}
 		};
 	}
 
+	View.OnClickListener OnClickFinish(final int button, final Dialog dialog, final int actionID){
+	
+		return new View.OnClickListener() {
+			
+			public void onClick(View v) {
+				 editAction(button, actionID);
+			}
+		};
+		
+	}
+	
 	View.OnClickListener OnClickDiary(final int lastActionID) {
 		return new View.OnClickListener() {
 
@@ -339,7 +342,7 @@ public class PlotEditor extends Activity {
 
 		// seeds =
 		// mDataProvider.getPlotById(Integer.parseInt(plotID)).getSeeds();
-		List<Growing> mGrowing = mDataProvider.getGrowingByPlotId(plotID);
+		mGrowing = mDataProvider.getGrowingByPlotId(plotID);
 
 		int ownerId = mDataProvider.getPlotById(plotID).getOwnerId();
 		User plotOwner = mDataProvider.getUserById(ownerId);
