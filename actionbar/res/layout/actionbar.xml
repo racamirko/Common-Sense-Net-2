@@ -44,7 +44,6 @@
             android:orientation="horizontal"
             android:layout_alignParentLeft="true"
             android:layout_centerVertical="true"
-            android:background="@color/actionbar_separator"
             android:visibility="gone"
             >
             <!-- TODO: Make configurable. -->
@@ -73,7 +72,7 @@
             android:layout_centerVertical="true"
             android:layout_margin="0dp"
             android:padding="0dp"
-            android:background="@color/actionbar_separator"
+
             />
         
         <RelativeLayout
