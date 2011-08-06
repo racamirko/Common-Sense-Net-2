@@ -90,7 +90,6 @@ public class RealFarmProvider {
 
 		Diary mDiary = new Diary();
 
-		// Plot mPlot = getPlotById(plotID);
 		List<Growing> mGrowing = getGrowingByPlotId(plotID);
 
 		mDb.open();
@@ -107,33 +106,11 @@ public class RealFarmProvider {
 			if (c02.getCount() > 0) {
 
 				c02.moveToFirst();
-				// res = new long[3][c02.getCount()];
-				// int i = 0;
 				do {
-
-					// res[0][i] = c02.getInt(0); // ID
-					// res[1][i] = c02.getInt(1); // actionID
-					// String dateString = c02.getString(2); // actionDate
-					//
-					// String format = "yyyy-MM-dd HH:mm:ss";
-					// SimpleDateFormat sdf = new SimpleDateFormat(format);
-					//
-					// Date date = null;
-					// try {
-					// date = sdf.parse(dateString);
-					// } catch (ParseException e) {
-					// e.printStackTrace();
-					// }
-					//
-					// res[2][i] = date.getTime();
-
 					mDiary.addItem(c02.getInt(0), c02.getInt(1),
 							c02.getString(2), mGrowing.get(i).getId());
 
-					// i = i + 1;
-
 				} while (c02.moveToNext());
-
 			}
 		}
 
@@ -142,6 +119,20 @@ public class RealFarmProvider {
 
 	}
 
+	public long setGrowing(int plotId, int seedId){
+		mDb.open();
+
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID, plotId);
+		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID, seedId);
+		
+		long result = mDb
+					.insertEntriesdb(RealFarmDatabase.TABLE_NAME_GROWING, args);
+
+		mDb.close();
+		return result;
+	}
+	
 	public List<Growing> getGrowingByPlotId(int plotId) {
 		mDb.open();
 
@@ -486,13 +477,14 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public void removeAction(int id) {
+	public long removeAction(int id) {
 		mDb.open();
 
-		mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+		long result = mDb.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
 				RealFarmDatabase.COLUMN_NAME_ACTION_ID + "=" + id, null);
 
 		mDb.close();
+		return result;
 	}
 
 	public long removePoint(int plotId, int lat, int lon) {

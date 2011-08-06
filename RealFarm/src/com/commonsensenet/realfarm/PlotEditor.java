@@ -10,10 +10,10 @@ import android.app.Dialog;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
@@ -36,23 +36,29 @@ public class PlotEditor extends Activity {
 	private int plotID = -1;
 	private List<Seed> seedList = new ArrayList<Seed>();
 	private List<Growing> mGrowing;
+	private int currentGrowingId = -1;
+	private int currentQuantityId = -1;
 	
-	private void editAction(int action, int actionID) {
+	private void editAction(int action, int actionID, Dialog dialog, int growingId, int quantityId) {
 
+		//TODO: use quantityID, need to add it to the database
+		
 		if (action == 1) // user clicked ok
 		{
 			// add executed action to diary
 			SimpleDateFormat dateFormat = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");
 			Date date = new Date();
-			// TODO: take growing id from user interface
-			mDataProvider.setAction(actionID, 1, dateFormat.format(date));
-
+			mDataProvider.setAction(actionID, growingId, dateFormat.format(date));
 		}
+		// else user clicked cancel => do nothing
+		
+		// Update lists
 		updateDiary();
 		updateActions();
-		// else user clicked cancel => do nothing
 
+		// close popup window
+		dialog.cancel();
 	}
 
 	@Override
@@ -60,24 +66,24 @@ public class PlotEditor extends Activity {
 		finish();
 	}
 	
-	View.OnClickListener OnClickGrowing(int growingID){
+	
+	View.OnClickListener OnClickGrowing(final int growingID){
 		return new View.OnClickListener() {
-			
 			public void onClick(View v) {
-				
-				// add action to table action
-				
+				v.setPressed(true);
+				// store growing id
+				currentGrowingId = growingID;
 			}
 		};
-		
 	}
 	
 
-	View.OnClickListener OnClickQuantity(int id){
+	View.OnClickListener OnClickQuantity(final int quantityId){
 		return new View.OnClickListener() {
-			
 			public void onClick(View v) {
+				v.setBackgroundColor(Color.RED);
 				
+				currentQuantityId = quantityId;
 			}
 		};
 	}
@@ -91,57 +97,82 @@ public class PlotEditor extends Activity {
 				// get more information about action
 				Dialog alert = new Dialog(PlotEditor.this);
 				alert.setContentView(R.layout.plot_dialog);
-
-				String title = getResources().getString(R.string.editAction);
+				
+				// set popup title
 				String actionName = mDataProvider.getActionById(actionID)
 						.getName();
-				alert.setTitle(title + " " + actionName);
+				alert.setTitle(actionName);
 
-				// add button to select seed type, this tell us about growing id
-				LinearLayout vg = (LinearLayout) alert
-						.findViewById(R.id.layout_root2);
+				// add button to select seed type, this tell us about growing id				
+				TableLayout table = (TableLayout) alert.findViewById(R.id.TableLayout01);
+		        TableRow vg = new TableRow(PlotEditor.this);
+		        
 				TextView tv = new TextView(PlotEditor.this);
 				tv.setText(R.string.seed);
 				tv.setTextSize(20);
 				vg.addView(tv);
 
-				if (actionName.compareTo("Sow") == 0) // action is sowing so all
-														// seeds can be used
+				// check tapped action
+				if (actionName.compareTo("Sow") == 0) // all seeds can be used
 				{
-					// a new growing id will be created
-					for (int i = 0; i < seedList.size(); i++) {
-						Button nameView1 = new Button(PlotEditor.this);
-						String seedName = seedList.get(i).getName();
-						nameView1.setText(seedName);
+					List<Seed> allSeedList = new ArrayList<Seed>();
+					allSeedList = mDataProvider.getSeedsList();
+
+					// A new growing id will be created with one seed id
+					for (int i = 0; i < allSeedList.size(); i++) {
+						ImageView nameView1 = new ImageView(PlotEditor.this);
+						Seed s = allSeedList.get(i);
+				        nameView1.setScaleType(ScaleType.CENTER);
+				        nameView1.setImageResource(s.getRes());
+						nameView1.setBackgroundResource(R.drawable.cbuttonsquare);
+						
+						
+						int growingId = (int)mDataProvider.setGrowing(plotID, s.getId());
+						nameView1.setOnClickListener(OnClickGrowing(growingId));
 						vg.addView(nameView1);
 					}
 
 				} else // only existing seeds can be used
 				{
 					for (int i = 0; i < mGrowing.size(); i++) {
-						ImageButton nameView1 = new ImageButton(PlotEditor.this);
+						ImageView nameView1 = new ImageView(PlotEditor.this);
 						Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
 						nameView1.setBackgroundResource(s.getRes());
 						nameView1.setOnClickListener(OnClickGrowing(mGrowing.get(i).getId()));
 						vg.addView(nameView1);
 					}
-
 				}
-
-				ImageView iiv = (ImageView) alert.findViewById(R.id.cancelbutton);
-				iiv.setOnClickListener(new OnClickListener() {
-					
-					public void onClick(View v) {
-						editAction(2, actionID);
-					}
-				});
 				
-				alert.findViewById(R.id.okbutton);
-
-				TextView tvv = new TextView(PlotEditor.this);
+		        table.addView(vg, new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+		        
+				// Offer option about quantity
+		        TableRow vg2 = new TableRow(PlotEditor.this);
+		        TextView tvv = new TextView(PlotEditor.this);
 				tvv.setText("Quantity");
 				tvv.setTextSize(20);
-				vg.addView(tvv);
+				vg2.addView(tvv);
+				
+				Button b1 = new Button(PlotEditor.this);
+				b1.setText("Small");
+				b1.setBackgroundResource(R.drawable.cbuttonsquare);
+				vg2.addView(b1);
+				Button b2 = new Button(PlotEditor.this);
+				b2.setBackgroundResource(R.drawable.cbuttonsquare);
+				b2.setText("Medium");
+				vg2.addView(b2);
+				Button b3 = new Button(PlotEditor.this);
+				b3.setText("Large");
+				b3.setBackgroundResource(R.drawable.cbuttonsquare);
+				vg2.addView(b3);
+				
+		        table.addView(vg2,new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				
+				// ok and cancel buttons
+				ImageView iiv = (ImageView) alert.findViewById(R.id.cancelbutton);
+				iiv.setOnClickListener(OnClickFinish(2, alert, actionID));
+				
+				ImageView iiv2 = (ImageView) alert.findViewById(R.id.okbutton);
+				iiv2.setOnClickListener(OnClickFinish(1 , alert, actionID));
 				
 				alert.show();
 
@@ -149,22 +180,23 @@ public class PlotEditor extends Activity {
 		};
 	}
 
-	View.OnClickListener OnClickFinish(final int button, final Dialog dialog, final int actionID){
+	View.OnClickListener OnClickFinish(final int action, final Dialog dialog, final int actionID){
 	
 		return new View.OnClickListener() {
 			
 			public void onClick(View v) {
-				 editAction(button, actionID);
+				 editAction(action, actionID, dialog, currentGrowingId, currentQuantityId);
+				 
 			}
 		};
 		
 	}
 	
-	View.OnClickListener OnClickDiary(final int lastActionID) {
+	View.OnClickListener OnClickDiary(final int actionID) {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-				mDataProvider.removeAction(lastActionID);
+				long result = mDataProvider.removeAction(actionID);
 				updateDiary();
 				updateActions();
 			}
@@ -268,57 +300,68 @@ public class PlotEditor extends Activity {
 	 */
 
 	public void updateDiary() {
+		
+		// Load main diary layout and clean
+		LinearLayout containerDiary = (LinearLayout) findViewById(R.id.layoutdiary);
+		containerDiary.removeAllViews();
 
-		LinearLayout container2 = (LinearLayout) findViewById(R.id.layoutdiary);
-
-		container2.removeAllViews();
-
+		// Define header
 		TextView tv = new TextView(this);
 		tv.setText(R.string.diary);
 		tv.setTextSize(TEXT_HEADER_SIZE);
 		tv.setTextColor(Color.BLACK);
-		container2.addView(tv);
+		containerDiary.addView(tv);
 
+		// Define list of diary elements
+		TableLayout table =  new TableLayout(this);
 		Diary res = mDataProvider.getDiary(plotID);
-
-		if (res != null) {
+		TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(
+				TableLayout.LayoutParams.FILL_PARENT,
+				TableLayout.LayoutParams.WRAP_CONTENT);
+		
+		if (res != null) { // if not empty 
 			for (int i = 0; i < res.getSize(); i++) {
+
+				TableRow tr = new TableRow(this);
+				tr.setLayoutParams(tableRowParams);
 				
 				Action a = mDataProvider.getActionById(res.getActionId(i));
 				
+				// Get icon of action
 				ImageView iv = new ImageView(this);
 				iv.setBackgroundResource(a.getRes());
-				LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(40, 40);
-				iv.setLayoutParams(ll);
-				container2.addView(iv);
+				iv.setLayoutParams(new TableRow.LayoutParams(40,40));
+				tr.addView(iv);
 				
+				// Get text related to action
 				TextView nameView1 = new TextView(this);
-				
-				
-				// Date date = new Date();
-				// date.setTime(res[2][i]);
-
 				nameView1.setText(i
 						+ " "
 						+ a.getName() + " " + res.getActionDate(i) + " "
 						+ res.getGrowingId(i));
-				// date.toLocaleString()
-
-				int lastActionID = res.getActionId(i);
-
+				
+				int lastActionID = res.getId(i);				
 				nameView1.setOnClickListener(OnClickDiary(lastActionID));
 				nameView1.setTextColor(Color.BLACK);
-				container2.addView(nameView1);
+				tr.addView(nameView1);
 
+				// Add to list of elements
+				table.addView(tr, new TableLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+				
 			}
 		}
+
+		// Add to interface
+		containerDiary.addView(table);
 	}
+	
 
 	/**
 	 * Update plot information
 	 */
 
 	public void updatePlotInformation() {
+
 		LinearLayout container0 = (LinearLayout) findViewById(R.id.layoutheader);
 
 		container0.removeAllViews();
@@ -333,19 +376,18 @@ public class PlotEditor extends Activity {
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
 			plotID = Integer.parseInt(extras.getString("ID"));
-			// mBitmap = (Bitmap) extras.getParcelable("Bitmap");
 		}
-
-		// ImageView ima = new ImageView(this);
-		// ima.setImageBitmap(mBitmap);
-		// container0.addView(ima);
-
-		// seeds =
-		// mDataProvider.getPlotById(Integer.parseInt(plotID)).getSeeds();
+		
+		// Get growing areas of the plot
 		mGrowing = mDataProvider.getGrowingByPlotId(plotID);
-
+		
+		// Get plot owner 
 		int ownerId = mDataProvider.getPlotById(plotID).getOwnerId();
+
+		// Get plot user
 		User plotOwner = mDataProvider.getUserById(ownerId);
+		
+		// Add username
 		TextView nameView = new TextView(this);
 		if (plotOwner != null)
 			nameView.setText(plotOwner.getFirstName() + " "
@@ -356,6 +398,10 @@ public class PlotEditor extends Activity {
 		nameView.setTextColor(Color.BLACK);
 		container0.addView(nameView);
 		
+		// Add list of growing areas
+		LinearLayout llMain = new LinearLayout(this);
+		llMain.setOrientation(LinearLayout.HORIZONTAL);
+		llMain.setLayoutParams(new LayoutParams(LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
 		
 
 		for (int i = 0; i < mGrowing.size(); i++) {
@@ -365,15 +411,16 @@ public class PlotEditor extends Activity {
 			String seedName = s.getName();
 			nameView1.setText(seedName);
 			nameView1.setTextColor(Color.BLACK);
-			container0.addView(nameView1);
+			//llMain.addView(nameView1);
 			
 			ImageView iv = new ImageView(PlotEditor.this);
 			iv.setBackgroundResource(s.getRes());
 			LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.WRAP_CONTENT, LinearLayout.LayoutParams.WRAP_CONTENT);
 			iv.setLayoutParams(ll);
-			container0.addView(iv);
+			llMain.addView(iv);
 		}
-
+		
+		container0.addView(llMain);
 	}
 
 	/**

@@ -64,7 +64,7 @@ public class RealFarmDatabase {
 
 			// growing
 			db.execSQL("create table " + TABLE_NAME_GROWING + " ( "
-					+ COLUMN_NAME_GROWING_ID + " integer primary key, "
+					+ COLUMN_NAME_GROWING_ID + " integer primary key autoincrement, "
 					+ COLUMN_NAME_GROWING_PLOTID + " references plots(id), "
 					+ COLUMN_NAME_GROWING_SEEDID + " references seeds(id) "
 					+ " ); ");
