@@ -5,7 +5,7 @@ public class Action {
 	private int mId;
 	private String mName;
 	private int mRes;
-	
+
 	public Action(int id, String name, int resource) {
 		mId = id;
 		mName = name;
@@ -19,8 +19,8 @@ public class Action {
 	public String getName() {
 		return mName;
 	}
-	
-	public int getRes(){
+
+	public int getRes() {
 		return mRes;
 	}
 }

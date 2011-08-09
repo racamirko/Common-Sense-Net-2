@@ -48,7 +48,7 @@ public class RealFarmDatabase {
 			// actionsNames
 			db.execSQL("create table " + TABLE_NAME_ACTIONNAME + " ( "
 					+ COLUMN_NAME_ACTIONNAME_ID + " integer primary key, "
-					+ COLUMN_NAME_ACTIONNAME_RESOURCE + " integer, " 
+					+ COLUMN_NAME_ACTIONNAME_RESOURCE + " integer, "
 					+ COLUMN_NAME_ACTIONNAME_NAME + " text not null " + " ); ");
 			Log.d(DEBUG_ID, "Created actionName table");
 
@@ -64,7 +64,8 @@ public class RealFarmDatabase {
 
 			// growing
 			db.execSQL("create table " + TABLE_NAME_GROWING + " ( "
-					+ COLUMN_NAME_GROWING_ID + " integer primary key autoincrement, "
+					+ COLUMN_NAME_GROWING_ID
+					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_GROWING_PLOTID + " references plots(id), "
 					+ COLUMN_NAME_GROWING_SEEDID + " references seeds(id) "
 					+ " ); ");
@@ -97,7 +98,7 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_SEEDTYPE + " ( "
 					+ COLUMN_NAME_SEEDTYPE_ID + " integer primary key, "
 					+ COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
-					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, " 
+					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETY + " text " + " ); ");
 			Log.d(DEBUG_ID, "Created seedtype table");
 
@@ -137,9 +138,9 @@ public class RealFarmDatabase {
 
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
-	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
-	
+	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
+
 	public static final String COLUMN_NAME_GROWING_ID = "id";
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
 	public static final String COLUMN_NAME_GROWING_SEEDID = "seedID";
@@ -156,20 +157,20 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_RECOMMENDATION_DATE = "recommendationDate";
 	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
 	public static final String COLUMN_NAME_RECOMMENDATION_SEEDID = "seedID";
-	
+
 	public static final String COLUMN_NAME_SEED_ID = "id";
 	public static final String COLUMN_NAME_SEED_SEEDID = "seedID";
-	
+
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
-	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
 	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE = "res";
-	
+	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
+
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
 	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
-	
+
 	private static final String DB_NAME = "realFarm.db";
 	private static final int DB_VERSION = 2;
 	public static final String DEBUG_ID = "RealFarm";
@@ -311,32 +312,38 @@ public class RealFarmDatabase {
 		ContentValues actionNames = new ContentValues();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 1);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Sow");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_sowing);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
+				R.drawable.ic_72px_sowing);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 2);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Fertilize");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_fertilizing1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
+				R.drawable.ic_72px_fertilizing1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 3);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Spray");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_spraying1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
+				R.drawable.ic_72px_spraying1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 4);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Irrigate");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_irrigation1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
+				R.drawable.ic_72px_irrigation1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 5);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Harvest");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_harvesting1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
+				R.drawable.ic_72px_harvesting1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 6);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Report");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE, R.drawable.ic_72px_reporting);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
+				R.drawable.ic_72px_reporting);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 
 		Log.d(DEBUG_ID, "actionName works");
@@ -469,10 +476,10 @@ public class RealFarmDatabase {
 		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
 		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
 		pointstoadd.clear();
-		
-		
-		final int[][] PLOT2 = { { -1800 + 1, -1800 + 3 }, { -1800 + 2, -1800 + 112 }, { -1800 + 174, -1800 + 188 },
-				{ -1800 + 246,-1800 + 5 } };
+
+		final int[][] PLOT2 = { { -1800 + 1, -1800 + 3 },
+				{ -1800 + 2, -1800 + 112 }, { -1800 + 174, -1800 + 188 },
+				{ -1800 + 246, -1800 + 5 } };
 		for (int x = 0; x < PLOT2.length; x++) {
 			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0]);
 			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1]);
@@ -531,13 +538,15 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 1);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Groundnut");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "TMV2");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_groundnut);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+				R.drawable.pic_72px_groundnut);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 2);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Groundnut");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "Samrat");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_groundnut);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+				R.drawable.pic_72px_groundnut);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 3);
@@ -557,17 +566,20 @@ public class RealFarmDatabase {
 		seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 4);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Greengram");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_greengram);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+				R.drawable.pic_72px_greengram);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 4);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Horsegram");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_horsegram);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+				R.drawable.pic_72px_horsegram);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 4);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Pigeonpea");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_pigeonpea);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+				R.drawable.pic_72px_pigeonpea);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 4);

@@ -4,8 +4,8 @@ public class Seed {
 
 	private int mId;
 	private String mName;
-	private String mVariety;
 	private int mRes;
+	private String mVariety;
 
 	public Seed(int id, String name, String variety, int res) {
 		mId = id;
@@ -22,11 +22,11 @@ public class Seed {
 		return mName;
 	}
 
-	public String getVariety() {
-		return mVariety;
+	public int getRes() {
+		return mRes;
 	}
 
-	public int getRes(){
-		return mRes;
+	public String getVariety() {
+		return mVariety;
 	}
 }

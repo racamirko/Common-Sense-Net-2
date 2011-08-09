@@ -211,11 +211,10 @@ public class OfflineMapDemo extends Activity {
 
 		// gets the action bar.
 		ActionBar actionBar = (ActionBar) findViewById(R.id.actionbar);
-		
+
 		actionBar.removeAllActions();
 		actionBar.setBackgroundColor(Color.LTGRAY);
-		
-		
+
 		// Home action button
 		actionBar.setHomeAction(new Action() {
 			public int getDrawable() {
@@ -306,7 +305,7 @@ public class OfflineMapDemo extends Activity {
 
 			public void performAction(View view) {
 				final QuickAction qa1 = new QuickAction(view);
-				
+
 				ActionItem tem = new ActionItem();
 				tem.setTitle("No news yet");
 				tem.setOnClickListener(new OnClickListener() {

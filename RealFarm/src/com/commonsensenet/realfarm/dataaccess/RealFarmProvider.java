@@ -119,20 +119,6 @@ public class RealFarmProvider {
 
 	}
 
-	public long setGrowing(int plotId, int seedId){
-		mDb.open();
-
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID, seedId);
-		
-		long result = mDb
-					.insertEntriesdb(RealFarmDatabase.TABLE_NAME_GROWING, args);
-
-		mDb.close();
-		return result;
-	}
-	
 	public List<Growing> getGrowingByPlotId(int plotId) {
 		mDb.open();
 
@@ -516,6 +502,20 @@ public class RealFarmProvider {
 
 		mDb.close();
 
+		return result;
+	}
+
+	public long setGrowing(int plotId, int seedId) {
+		mDb.open();
+
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID, plotId);
+		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID, seedId);
+
+		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_GROWING,
+				args);
+
+		mDb.close();
 		return result;
 	}
 

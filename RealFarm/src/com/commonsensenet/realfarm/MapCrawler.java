@@ -48,8 +48,8 @@ public class MapCrawler extends Activity implements Notifiable {
 	 * area in every zoom level, so the ratio for other zoom levels can be
 	 * calculated accordingly.
 	 */
-	//TODO : the /4 is added to match the zoom level.
-	public static final double PIXEL_DISTANCE_RATIO = 400.0 / (230.0/4);
+	// TODO : the /4 is added to match the zoom level.
+	public static final double PIXEL_DISTANCE_RATIO = 400.0 / (230.0 / 4);
 	/** Default size of the tiles in pixels. */
 	public static final int TILE_SIZE = 400;
 
@@ -99,9 +99,10 @@ public class MapCrawler extends Activity implements Notifiable {
 		// total area to be covered.
 		int radius = Integer.parseInt(((EditText) findViewById(R.id.etRadius))
 				.getText().toString());
-		
+
 		// zoom level to be downloaded.
-		int zoomLevel = Integer.parseInt(((EditText) findViewById(R.id.etZoom)).getText().toString());
+		int zoomLevel = Integer.parseInt(((EditText) findViewById(R.id.etZoom))
+				.getText().toString());
 
 		// gets the center coordinates from the interface
 		GeoPoint center = new GeoPoint(centerString);
@@ -146,7 +147,7 @@ public class MapCrawler extends Activity implements Notifiable {
 
 		// TODO: this value should be used.
 		zoomLevel = 19;
-		
+
 		// distance between centers, in degrees, with zoom level 17, with 400px
 		// images.
 		// TODO: the / 4 is added to matched the zoomLevel.
