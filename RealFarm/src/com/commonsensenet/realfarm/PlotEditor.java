@@ -196,7 +196,7 @@ public class PlotEditor extends Activity {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-				long result = mDataProvider.removeAction(actionID);
+				// long result = mDataProvider.removeAction(actionID);
 				updateDiary();
 				updateActions();
 			}
