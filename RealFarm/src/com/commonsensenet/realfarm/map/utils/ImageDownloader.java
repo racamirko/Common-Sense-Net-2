@@ -84,7 +84,7 @@ public class ImageDownloader {
 	/** Tag used in the logger to keep track of errors. */
 	private static String LOG_TAG = "ImageDownloader";
 	/** Mode in which the image will be downloaded. */
-	private DownloadMode mMode = DownloadMode.ASYNC_TASK;
+	private DownloadMode mMode = DownloadMode.NO_ASYNC_TASK;
 
 	/**
 	 * Downloads the specified image from the Internet. After the download is

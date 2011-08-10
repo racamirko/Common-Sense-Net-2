@@ -205,7 +205,6 @@ public class PlotEditor extends Activity {
 		return new View.OnClickListener() {
 			public void onClick(View v) {
 				v.setBackgroundColor(Color.RED);
-
 				currentQuantityId = quantityId;
 			}
 		};

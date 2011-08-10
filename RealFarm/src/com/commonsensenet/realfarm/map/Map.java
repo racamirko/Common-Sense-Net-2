@@ -84,7 +84,7 @@ public class Map {
 					tmpMap.mTiles.add(new MapTile(imagePath, tmp,
 							MapCrawler.TILE_SIZE, MapCrawler.TILE_SIZE, xValue,
 							yValue, new GeoPoint(Integer.parseInt(fileName[3]),
-									Integer.parseInt(fileName[4])), 17,
+									Integer.parseInt(fileName[4])), 19,
 							"satellite"));
 				}
 

@@ -11,7 +11,7 @@
 	<string name="txtMapDownloaderTitle">Map Downloader</string>
 	<string name="txtCenter">Center</string>
 	<string name="txtMapType">Map Type</string>
-	<string name="txtRadius">Radius (in km)</string>
+	<string name="txtRadius">Radius (in m)</string>
 	<string name="txtInitialZoom">Initial Zoom</string>
 	<string-array name="arrayMapTypes">
 		<item>Satellite</item>

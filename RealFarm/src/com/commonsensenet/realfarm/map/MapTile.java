@@ -1,8 +1,11 @@
 package com.commonsensenet.realfarm.map;
 
+import java.io.File;
+
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
+import android.util.Log;
 
 public class MapTile implements Comparable<MapTile> {
 
@@ -13,7 +16,16 @@ public class MapTile implements Comparable<MapTile> {
 		@Override
 		protected Bitmap doInBackground(String... params) {
 			mFilePath = params[0];
-			return BitmapFactory.decodeFile(mFilePath);
+			File test = new File(mFilePath);
+			
+			if(test.exists())
+			{
+				return BitmapFactory.decodeFile(mFilePath);
+			}
+			else
+			{
+				return null;
+			}
 		}
 
 		/**
@@ -27,9 +39,15 @@ public class MapTile implements Comparable<MapTile> {
 				bitmap = null;
 			}
 
-			synchronized (mTileBitmap) {
-				mIsBitmapLoaded = true;
-				mTileBitmap = bitmap;
+			if(bitmap != null)
+			{
+				synchronized (mTileBitmap) {
+					mIsBitmapLoaded = true;
+					mTileBitmap = bitmap;
+				}
+			}else
+			{
+				Log.d("MapTile", "Tile is null");
 			}
 		}
 	}

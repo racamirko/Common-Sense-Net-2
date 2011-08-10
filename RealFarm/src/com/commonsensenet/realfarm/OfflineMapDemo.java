@@ -13,6 +13,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.telephony.SmsManager;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -207,6 +208,14 @@ public class OfflineMapDemo extends Activity {
 		}
 	}
 
+	private void sendSMS(String phoneNumber, String message) {
+		// PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this,
+		//		OfflineMapDemo.class), 0);
+		SmsManager sms = SmsManager.getDefault(); 
+
+		sms.sendTextMessage(phoneNumber, null, message, null, null);
+	}
+
 	private void setUpActionBar() {
 
 		// gets the action bar.
@@ -237,6 +246,8 @@ public class OfflineMapDemo extends Activity {
 				// mapOverlays.add(itemizedoverlay);
 
 				mOfflineMap.invalidate();
+
+				sendSMS("+41762348225", "Esta es una prueba");
 
 			}
 
