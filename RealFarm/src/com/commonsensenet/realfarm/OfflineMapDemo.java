@@ -211,8 +211,7 @@ public class OfflineMapDemo extends Activity {
 	private void sendSMS(String phoneNumber, String message) {
 		// PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this,
 		//		OfflineMapDemo.class), 0);
-		SmsManager sms = SmsManager.getDefault(); 
-
+		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage(phoneNumber, null, message, null, null);
 	}
 
@@ -297,12 +296,10 @@ public class OfflineMapDemo extends Activity {
 							mOfflineMap.animateTo(new GeoPoint(center.x,
 									center.y));
 						}
-
 					});
 					// adds the item
 					qa.addActionItem(tmpItem);
 				}
-
 				qa.show();
 			}
 		});
@@ -321,14 +318,11 @@ public class OfflineMapDemo extends Activity {
 				tem.setTitle("No news yet");
 				tem.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
-
 					}
 				});
 				qa1.addActionItem(tem);
 				qa1.show();
-
 			}
 		});
-
 	}
 }

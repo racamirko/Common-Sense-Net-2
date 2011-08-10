@@ -42,6 +42,12 @@ public class OfflineMapView extends View {
 		// TODO: pass the coordinates as a parameter.
 		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
 				this);
+
+		// centers the map.
+		mScrollRectX = (int) (mMap.getWidth() * 0.5)
+				- (int) (mDisplayWidth * 0.5);
+		mScrollRectY = (int) (mMap.getHeight() * 0.5)
+				- (int) (mDisplayHeight * 0.5);
 	}
 
 	public OfflineMapView(Context context, GeoPoint center) {
@@ -51,6 +57,12 @@ public class OfflineMapView extends View {
 
 		// creates a new map instance
 		mMap = Map.createMapFromCoordinate(center, this);
+
+		// centers the map.
+		mScrollRectX = (int) (mMap.getWidth() * 0.5)
+				- (int) (mDisplayWidth * 0.5);
+		mScrollRectY = (int) (mMap.getHeight() * 0.5)
+				- (int) (mDisplayHeight * 0.5);
 	}
 
 	public void animateTo(GeoPoint point) {
@@ -96,8 +108,8 @@ public class OfflineMapView extends View {
 		mOverlays = new ArrayList<Overlay>();
 
 		// initial values of scrolling variables.
-		mScrollRectX = 0;
-		mScrollRectY = 0;
+		mScrollRectX = (int) (mDisplayWidth * 0.5);
+		mScrollRectY = (int) (mDisplayHeight * 0.5);
 		mScrollByX = 0;
 		mScrollByY = 0;
 		mStartX = 0;
@@ -174,8 +186,19 @@ public class OfflineMapView extends View {
 	@Override
 	protected void onSizeChanged(int w, int h, int oldw, int oldh) {
 		super.onSizeChanged(w, h, oldw, oldh);
+
+		boolean valueWasInvalid = mDisplayWidth == 0;
+
 		mDisplayWidth = w;
 		mDisplayHeight = h;
+
+		// sends the map to the center.
+		if (valueWasInvalid) {
+			mScrollRectX = (int) (mMap.getWidth() * 0.5)
+					- (int) (mDisplayWidth * 0.5);
+			mScrollRectY = (int) (mMap.getHeight() * 0.5)
+					- (int) (mDisplayHeight * 0.5);
+		}
 	}
 
 	@Override

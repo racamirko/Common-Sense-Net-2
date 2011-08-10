@@ -135,7 +135,6 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingID";
 
 	// table
-
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
@@ -414,8 +413,8 @@ public class RealFarmDatabase {
 
 		// points
 
-		final int[][] PLOT1 = { { 0, 8 }, { 10, 114 }, { 150, 170 },
-				{ 105, -2 } };
+		final int[][] PLOT1 = { { -50, -42 }, { -48, 50 }, { 49, 52 },
+				{ 58, -49 } };
 
 		// final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5,
 		// -102 } };
