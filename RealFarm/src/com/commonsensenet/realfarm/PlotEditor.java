@@ -42,10 +42,10 @@ public class PlotEditor extends Activity {
 	private void editAction(int action, int actionID, Dialog dialog,
 			int growingId, int quantityId) {
 
-		// TODO: use quantityID, need to add it to the database
+		// TODO: use quantityID, needs to be added to the database.
 
-		if (action == 1) // user clicked ok
-		{
+		// user clicked ok
+		if (action == 1 && growingId != -1) {
 			// add executed action to diary
 			SimpleDateFormat dateFormat = new SimpleDateFormat(
 					"yyyy-MM-dd HH:mm:ss");
@@ -53,9 +53,8 @@ public class PlotEditor extends Activity {
 			mDataProvider.setAction(actionID, growingId,
 					dateFormat.format(date));
 		}
-		// else user clicked cancel => do nothing
 
-		// Update lists
+		// update lists
 		updateDiary();
 		updateActions();
 
@@ -113,8 +112,7 @@ public class PlotEditor extends Activity {
 						vg.addView(nameView1);
 					}
 
-				} else // only existing seeds can be used
-				{
+				} else { // only existing seeds can be used
 					for (int i = 0; i < mGrowing.size(); i++) {
 						ImageView nameView1 = new ImageView(PlotEditor.this);
 						Seed s = mDataProvider.getSeedById(mGrowing.get(i)
@@ -170,7 +168,9 @@ public class PlotEditor extends Activity {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-				// long result = mDataProvider.removeAction(actionID);
+				// removes the selected action
+				mDataProvider.removeAction(actionID);
+				// updates the UI
 				updateDiary();
 				updateActions();
 			}
@@ -297,7 +297,6 @@ public class PlotEditor extends Activity {
 	/**
 	 * updateDiary()
 	 */
-
 	public void updateDiary() {
 
 		// Load main diary layout and clean
