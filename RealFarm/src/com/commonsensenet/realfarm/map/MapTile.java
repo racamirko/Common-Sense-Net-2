@@ -17,13 +17,10 @@ public class MapTile implements Comparable<MapTile> {
 		protected Bitmap doInBackground(String... params) {
 			mFilePath = params[0];
 			File test = new File(mFilePath);
-			
-			if(test.exists())
-			{
+
+			if (test.exists()) {
 				return BitmapFactory.decodeFile(mFilePath);
-			}
-			else
-			{
+			} else {
 				return null;
 			}
 		}
@@ -39,14 +36,12 @@ public class MapTile implements Comparable<MapTile> {
 				bitmap = null;
 			}
 
-			if(bitmap != null)
-			{
+			if (bitmap != null) {
 				synchronized (mTileBitmap) {
 					mIsBitmapLoaded = true;
 					mTileBitmap = bitmap;
 				}
-			}else
-			{
+			} else {
 				Log.d("MapTile", "Tile is null");
 			}
 		}

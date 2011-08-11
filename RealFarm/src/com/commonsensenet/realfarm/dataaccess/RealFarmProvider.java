@@ -463,6 +463,23 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public long logAction(String name, String value, String date) {
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_LOG_NAME, name);
+		args.put(RealFarmDatabase.COLUMN_NAME_LOG_VALUE, value);
+		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE, date);
+
+		mDb.open();
+
+		long result = mDb
+				.insertEntriesdb(RealFarmDatabase.TABLE_NAME_LOG, args);
+
+		mDb.close();
+
+		return result;
+
+	}
+
 	public long removeAction(int id) {
 		mDb.open();
 
@@ -531,23 +548,6 @@ public class RealFarmProvider {
 				args);
 
 		mDb.close();
-		return result;
-
-	}
-
-	public long logAction(String name, String value, String date) {
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_NAME, name);
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_VALUE, value);
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE, date);
-
-		mDb.open();
-
-		long result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_LOG,
-				args);
-
-		mDb.close();
-
 		return result;
 
 	}

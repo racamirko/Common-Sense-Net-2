@@ -15,8 +15,10 @@ import com.commonsensenet.realfarm.R;
 
 public class Map {
 
+	/** Default map type. */
+	public static String DEFAULT_MAP_TYPE = "satellite";
 	/** Default zoom level of the map. */
-	public static int DEFAULT_ZOOM_LEVEL = 17;
+	public static int DEFAULT_ZOOM_LEVEL = 19;
 
 	public static Map createDefaultMap(View view) {
 
@@ -34,7 +36,8 @@ public class Map {
 					tmpMap.mTiles.add(new MapTile(BitmapFactory.decodeResource(
 							view.getResources(), tiles[x][y]),
 							MapCrawler.TILE_SIZE, MapCrawler.TILE_SIZE, y, x,
-							new GeoPoint(0, 0), 17, "satellite"));
+							new GeoPoint(0, 0), DEFAULT_ZOOM_LEVEL,
+							DEFAULT_MAP_TYPE));
 				}
 			}
 		}
@@ -84,8 +87,8 @@ public class Map {
 					tmpMap.mTiles.add(new MapTile(imagePath, tmp,
 							MapCrawler.TILE_SIZE, MapCrawler.TILE_SIZE, xValue,
 							yValue, new GeoPoint(Integer.parseInt(fileName[3]),
-									Integer.parseInt(fileName[4])), 19,
-							"satellite"));
+									Integer.parseInt(fileName[4])),
+							DEFAULT_ZOOM_LEVEL, DEFAULT_MAP_TYPE));
 				}
 
 				// sets the size of the map.
@@ -114,7 +117,7 @@ public class Map {
 	/** Total width of the map in pixels. */
 	private int mWidth;
 	/** Current zoom of the map. */
-	private int mZoom;
+	private int mZoomLevel;
 
 	/**
 	 * Creates a new Map instance.
@@ -123,7 +126,7 @@ public class Map {
 	 *            geographical center of the map
 	 */
 	public Map(GeoPoint center) {
-		mZoom = DEFAULT_ZOOM_LEVEL;
+		mZoomLevel = DEFAULT_ZOOM_LEVEL;
 		mCenter = center;
 		mTiles = new ArrayList<MapTile>();
 	}
@@ -154,7 +157,7 @@ public class Map {
 		return mWidth;
 	}
 
-	public int getZoom() {
-		return mZoom;
+	public int getZoomLevel() {
+		return mZoomLevel;
 	}
 }

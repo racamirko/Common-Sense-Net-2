@@ -141,7 +141,7 @@ public class MapCrawler extends Activity implements Notifiable {
 	 * @param mapType
 	 *            type of map that will be used, it can be satellite, terrain,
 	 *            roadmap and hybrid.
-	 */	
+	 */
 	private void generateMapTiles(double centerLat, double centerLon,
 			double radius, int zoomLevel, String mapType) {
 

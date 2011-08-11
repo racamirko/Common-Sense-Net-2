@@ -120,10 +120,11 @@ public class RealFarmDatabase {
 
 			// log
 			db.execSQL("create table " + TABLE_NAME_LOG + " ( "
-					+ COLUMN_NAME_LOG_ID + " integer primary key autoincrement, "
+					+ COLUMN_NAME_LOG_ID
+					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_LOG_NAME + " text not null, "
-					+ COLUMN_NAME_LOG_VALUE + " text, "
-					+ COLUMN_NAME_LOG_DATE + " date " + " ); ");
+					+ COLUMN_NAME_LOG_VALUE + " text, " + COLUMN_NAME_LOG_DATE
+					+ " date " + " ); ");
 			Log.d(DEBUG_ID, "Created log table");
 
 			Log.d(DEBUG_ID, "Database created successfully");
@@ -141,7 +142,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_ACTIONDATE = "actionDate";
 	public static final String COLUMN_NAME_ACTION_ACTIONID = "actionID";
 	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingID";
-	
+
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
@@ -155,7 +156,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_LOG_ID = "id";
 	public static final String COLUMN_NAME_LOG_NAME = "name";
 	public static final String COLUMN_NAME_LOG_VALUE = "value";
-	
+
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_USERID = "userID";
 

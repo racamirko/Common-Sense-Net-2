@@ -44,41 +44,46 @@ public class OfflineMapView extends View {
 		// TODO: pass the coordinates as a parameter.
 		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
 				this);
-		if(mMap == null)
+		
+		// loads the default map if the given point is not found.
+		if (mMap == null)
 			mMap = Map.createDefaultMap(this);
 
 		// centers the map.
-		mScrollRectX = (int) (mMap.getWidth() * 0.5)
-				- (int) (mDisplayWidth * 0.5);
-		mScrollRectY = (int) (mMap.getHeight() * 0.5)
-				- (int) (mDisplayHeight * 0.5);
+		centerMap();
 	}
-
-	// public void animateTo(GeoPoint point) {
-	//
-	// }
+	
+	private void centerMap() {
+		mScrollRectX = (int) (mMap.getWidth() * 0.5)
+		- (int) (mDisplayWidth * 0.5);
+		mScrollRectY = (int) (mMap.getHeight() * 0.5)
+		- (int) (mDisplayHeight * 0.5);
+	}
 
 	public OfflineMapView(Context context, GeoPoint center) {
 		super(context);
 
 		initOfflineMapView();
 
-		// creates a new map instance
+		// creates a new map instance with the given center.
 		mMap = Map.createMapFromCoordinate(center, this);
 
+		// loads the default map if the given point is not found.
+		if (mMap == null)
+			mMap = Map.createDefaultMap(this);
+		
 		// centers the map.
-		mScrollRectX = (int) (mMap.getWidth() * 0.5)
-				- (int) (mDisplayWidth * 0.5);
-		mScrollRectY = (int) (mMap.getHeight() * 0.5)
-				- (int) (mDisplayHeight * 0.5);
+		centerMap();
 	}
 
 	public void animateTo(Point point) {
 		mTargetPoint = point;
+		
+		
 		mScrollRectX = (int) (mMap.getWidth() * 0.5)
-				- (int) (mDisplayWidth * 0.5);
+				- (int) (mDisplayWidth * 0.5) + point.x;
 		mScrollRectY = (int) (mMap.getHeight() * 0.5)
-				- (int) (mDisplayHeight * 0.5);
+				- (int) (mDisplayHeight * 0.5) + point.y;
 		this.invalidate();
 	}
 
@@ -99,16 +104,12 @@ public class OfflineMapView extends View {
 		return absoluteCenter;
 	}
 
-	public GeoPoint getMapCenter() {
-		throw new UnsupportedOperationException();
-	}
-
 	public final List<Overlay> getOverlays() {
 		return mOverlays;
 	}
 
 	public int getZoomLevel() {
-		throw new UnsupportedOperationException();
+		return mMap.getZoomLevel();
 	}
 
 	private void initOfflineMapView() {
@@ -121,8 +122,8 @@ public class OfflineMapView extends View {
 		mOverlays = new ArrayList<Overlay>();
 
 		// initial values of scrolling variables.
-		mScrollRectX = (int) (mDisplayWidth * 0.5);
-		mScrollRectY = (int) (mDisplayHeight * 0.5);
+		mScrollRectX = 0;
+		mScrollRectY = 0;
 		mScrollByX = 0;
 		mScrollByY = 0;
 		mStartX = 0;
@@ -207,10 +208,7 @@ public class OfflineMapView extends View {
 
 		// sends the map to the center.
 		if (valueWasInvalid) {
-			mScrollRectX = (int) (mMap.getWidth() * 0.5)
-					- (int) (mDisplayWidth * 0.5);
-			mScrollRectY = (int) (mMap.getHeight() * 0.5)
-					- (int) (mDisplayHeight * 0.5);
+			centerMap();
 		}
 	}
 
