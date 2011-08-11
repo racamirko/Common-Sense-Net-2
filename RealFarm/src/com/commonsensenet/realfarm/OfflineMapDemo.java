@@ -44,10 +44,10 @@ public class OfflineMapDemo extends Activity {
 		public void onLocationChanged(Location location) {
 
 			if (location != null) {
-				int lat = (int) (location.getLatitude() * 1000000);
-				int lng = (int) (location.getLongitude() * 1000000);
-				GeoPoint p = new GeoPoint(lat, lng);
-				mOfflineMap.animateTo(p);
+				// int lat = (int) (location.getLatitude() * 1000000);
+				// int lng = (int) (location.getLongitude() * 1000000);
+				// GeoPoint p = new GeoPoint(lat, lng);
+				// mOfflineMap.animateTo(p);
 
 				// remove existing itemizedoverlays
 				// TODO: support itemized overlays.
@@ -134,8 +134,9 @@ public class OfflineMapDemo extends Activity {
 		// Define location manager
 		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
 
-		if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) == null)
-			mOfflineMap.animateTo(CKPURA_LOCATION);
+		// if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) ==
+		// null)
+		// mOfflineMap.animateTo(CKPURA_LOCATION);
 
 		// Creates the data provider
 		// comment out if you want to reuse the existing database.
@@ -208,9 +209,10 @@ public class OfflineMapDemo extends Activity {
 		}
 	}
 
-	private void sendSMS(String phoneNumber, String message) {
-		// PendingIntent pi = PendingIntent.getActivity(this, 0, new Intent(this,
-		//		OfflineMapDemo.class), 0);
+	public void sendSMS(String phoneNumber, String message) {
+		// PendingIntent pi = PendingIntent.getActivity(this, 0, new
+		// Intent(this,
+		// OfflineMapDemo.class), 0);
 		SmsManager sms = SmsManager.getDefault();
 		sms.sendTextMessage(phoneNumber, null, message, null, null);
 	}
@@ -230,7 +232,7 @@ public class OfflineMapDemo extends Activity {
 			}
 
 			public void performAction(View view) {
-				mOfflineMap.animateTo(CKPURA_LOCATION);
+				mOfflineMap.animateTo(new Point(0, 0));
 
 				// TODO: check this
 				// List<Overlay> mapOverlays = mOfflineMap.getOverlays();
@@ -245,11 +247,7 @@ public class OfflineMapDemo extends Activity {
 				// mapOverlays.add(itemizedoverlay);
 
 				mOfflineMap.invalidate();
-
-				sendSMS("+41762348225", "Esta es una prueba");
-
 			}
-
 		});
 
 		// locate me action button
@@ -293,8 +291,7 @@ public class OfflineMapDemo extends Activity {
 							// animates to the center of the plot
 							Point center = mMyPlots.get(v.getId())
 									.getCenterCoordinate();
-							mOfflineMap.animateTo(new GeoPoint(center.x,
-									center.y));
+							mOfflineMap.animateTo(center);
 						}
 					});
 					// adds the item

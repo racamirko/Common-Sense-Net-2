@@ -32,6 +32,8 @@ public class OfflineMapView extends View {
 	private float mStartX;
 	/** Initial position in the y coordinate used to track the movement. */
 	private float mStartY;
+	/** Target point where the map must animate to. */
+	private Point mTargetPoint;
 
 	public OfflineMapView(Context context, AttributeSet attrs) {
 		super(context, attrs);
@@ -42,6 +44,8 @@ public class OfflineMapView extends View {
 		// TODO: pass the coordinates as a parameter.
 		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
 				this);
+		if(mMap == null)
+			mMap = Map.createDefaultMap(this);
 
 		// centers the map.
 		mScrollRectX = (int) (mMap.getWidth() * 0.5)
@@ -49,6 +53,10 @@ public class OfflineMapView extends View {
 		mScrollRectY = (int) (mMap.getHeight() * 0.5)
 				- (int) (mDisplayHeight * 0.5);
 	}
+
+	// public void animateTo(GeoPoint point) {
+	//
+	// }
 
 	public OfflineMapView(Context context, GeoPoint center) {
 		super(context);
@@ -65,8 +73,13 @@ public class OfflineMapView extends View {
 				- (int) (mDisplayHeight * 0.5);
 	}
 
-	public void animateTo(GeoPoint point) {
-
+	public void animateTo(Point point) {
+		mTargetPoint = point;
+		mScrollRectX = (int) (mMap.getWidth() * 0.5)
+				- (int) (mDisplayWidth * 0.5);
+		mScrollRectY = (int) (mMap.getHeight() * 0.5)
+				- (int) (mDisplayHeight * 0.5);
+		this.invalidate();
 	}
 
 	private int clamp(int value, int min, int max) {
