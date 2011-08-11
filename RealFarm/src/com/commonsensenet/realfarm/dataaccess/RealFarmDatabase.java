@@ -118,6 +118,14 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_RECOMMENDATION_DATE + " date " + " ); ");
 			Log.d(DEBUG_ID, "Created recommendation table");
 
+			// log
+			db.execSQL("create table " + TABLE_NAME_LOG + " ( "
+					+ COLUMN_NAME_LOG_ID + " integer primary key autoincrement, "
+					+ COLUMN_NAME_LOG_NAME + " text not null, "
+					+ COLUMN_NAME_LOG_VALUE + " text, "
+					+ COLUMN_NAME_LOG_DATE + " date " + " ); ");
+			Log.d(DEBUG_ID, "Created log table");
+
 			Log.d(DEBUG_ID, "Database created successfully");
 
 			initValues(db);
@@ -133,8 +141,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_ACTIONDATE = "actionDate";
 	public static final String COLUMN_NAME_ACTION_ACTIONID = "actionID";
 	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingID";
-
-	// table
+	
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
@@ -144,6 +151,11 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
 	public static final String COLUMN_NAME_GROWING_SEEDID = "seedID";
 
+	public static final String COLUMN_NAME_LOG_DATE = "logDate";
+	public static final String COLUMN_NAME_LOG_ID = "id";
+	public static final String COLUMN_NAME_LOG_NAME = "name";
+	public static final String COLUMN_NAME_LOG_VALUE = "value";
+	
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_USERID = "userID";
 
@@ -176,17 +188,17 @@ public class RealFarmDatabase {
 
 	public static String DEFAULT_NUMBER = "000000000";
 	public static String DEVICE_ID;
-
 	public static int MAIN_USER_ID = -1;
+
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONNAME = "actionName";
 	public static final String TABLE_NAME_GROWING = "growing";
+	public static final String TABLE_NAME_LOG = "log";
 	public static final String TABLE_NAME_PLOT = "plot";
 	public static final String TABLE_NAME_POINT = "point";
 	public static final String TABLE_NAME_RECOMMENDATION = "recommendation";
 	public static final String TABLE_NAME_SEED = "seed";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType";
-
 	public static final String TABLE_NAME_USER = "user";
 
 	private Context mContext;
