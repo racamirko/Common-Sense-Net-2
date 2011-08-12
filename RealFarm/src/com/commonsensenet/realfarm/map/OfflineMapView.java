@@ -45,15 +45,15 @@ public class OfflineMapView extends View {
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
 
-			mScrollByX = mScrollRectX - (int) easeOutExpo(mAnimationCounter,
-					mInitialPoint.x, mTargetPoint.x - mInitialPoint.x,
-					mAnimationSteps);
-			mScrollByY = mScrollRectY - (int) easeOutExpo(mAnimationCounter,
-					mInitialPoint.y, mTargetPoint.y - mInitialPoint.y,
-					mAnimationSteps);
-//
-//			mScrollByX = 0;
-//			mScrollByY = 0;
+			mScrollByX = mScrollRectX
+					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.x,
+							mTargetPoint.x - mInitialPoint.x, mAnimationSteps);
+			mScrollByY = mScrollRectY
+					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.y,
+							mTargetPoint.y - mInitialPoint.y, mAnimationSteps);
+			//
+			// mScrollByX = 0;
+			// mScrollByY = 0;
 
 			// decreases the update timer.
 			mAnimationCounter++;
@@ -124,8 +124,9 @@ public class OfflineMapView extends View {
 		// transforms the point to the local coordinate system.
 		mTargetPoint = new Point(clamp((int) (mMap.getWidth() * 0.5)
 				- (int) (mDisplayWidth * 0.5) + point.x, 0, mMap.getWidth()),
-				clamp((int) (mMap.getHeight() * 0.5) - (int) (mDisplayHeight * 0.5)
-						+ point.y, 0, mMap.getHeight()));
+				clamp((int) (mMap.getHeight() * 0.5)
+						- (int) (mDisplayHeight * 0.5) + point.y, 0,
+						mMap.getHeight()));
 		// stores the initial point
 		mInitialPoint = new Point(mScrollRectX, mScrollRectY);
 
@@ -185,7 +186,8 @@ public class OfflineMapView extends View {
 	}
 
 	/**
-	 * Easing equation function for a simple linear tweening, with out expo easing.
+	 * Easing equation function for a simple linear tweening, with out expo
+	 * easing.
 	 * 
 	 * @param t
 	 *            Current time (in frames or seconds)
