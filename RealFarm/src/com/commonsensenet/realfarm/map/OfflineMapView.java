@@ -6,16 +6,23 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.os.Handler;
+import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
 public class OfflineMapView extends View {
 
+	private int mAnimationCounter;
+	/** Number of updates required to perform the full animation. */
+	private int mAnimationSteps;
+	private Handler mAnimationTimer;
 	/** Height of the display area in pixels. */
 	private int mDisplayHeight;
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
+	private Point mInitialPoint;
 	/** Underlying map representation in charge of the tile system. */
 	private Map mMap;
 	/** List of overlays added in the current map. */
@@ -35,6 +42,43 @@ public class OfflineMapView extends View {
 	/** Target point where the map must animate to. */
 	private Point mTargetPoint;
 
+	private Runnable mUpdateTimeTask = new Runnable() {
+		public void run() {
+
+			mScrollByX = mScrollRectX - (int) easeOutExpo(mAnimationCounter,
+					mInitialPoint.x, mTargetPoint.x - mInitialPoint.x,
+					mAnimationSteps);
+			mScrollByY = mScrollRectY - (int) easeOutExpo(mAnimationCounter,
+					mInitialPoint.y, mTargetPoint.y - mInitialPoint.y,
+					mAnimationSteps);
+//
+//			mScrollByX = 0;
+//			mScrollByY = 0;
+
+			// decreases the update timer.
+			mAnimationCounter++;
+
+			invalidate();
+			// ends the animation
+			if (mAnimationCounter >= mAnimationSteps
+					|| (Math.abs(mInitialPoint.x - mTargetPoint.x) < 2 && Math
+							.abs(mInitialPoint.y - mTargetPoint.y) < 2)) {
+				// updates final position.
+				mScrollRectX = mTargetPoint.x;
+				mScrollRectY = mTargetPoint.y;
+				// clears the points
+				mTargetPoint = null;
+				mInitialPoint = null;
+				// stops the handler
+				mAnimationTimer.removeCallbacks(mUpdateTimeTask);
+			} else {
+				// allows it to be called again
+				mAnimationTimer
+						.postAtTime(this, SystemClock.uptimeMillis() + 1);
+			}
+		}
+	};
+
 	public OfflineMapView(Context context, AttributeSet attrs) {
 		super(context, attrs);
 
@@ -44,20 +88,13 @@ public class OfflineMapView extends View {
 		// TODO: pass the coordinates as a parameter.
 		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
 				this);
-		
+
 		// loads the default map if the given point is not found.
 		if (mMap == null)
 			mMap = Map.createDefaultMap(this);
 
 		// centers the map.
 		centerMap();
-	}
-	
-	private void centerMap() {
-		mScrollRectX = (int) (mMap.getWidth() * 0.5)
-		- (int) (mDisplayWidth * 0.5);
-		mScrollRectY = (int) (mMap.getHeight() * 0.5)
-		- (int) (mDisplayHeight * 0.5);
 	}
 
 	public OfflineMapView(Context context, GeoPoint center) {
@@ -71,20 +108,52 @@ public class OfflineMapView extends View {
 		// loads the default map if the given point is not found.
 		if (mMap == null)
 			mMap = Map.createDefaultMap(this);
-		
+
 		// centers the map.
 		centerMap();
 	}
 
 	public void animateTo(Point point) {
-		mTargetPoint = point;
-		
-		
+
+		// resets touch values.
+		mScrollByX = 0;
+		mScrollByY = 0;
+		mStartX = 0;
+		mStartY = 0;
+
+		// transforms the point to the local coordinate system.
+		mTargetPoint = new Point(clamp((int) (mMap.getWidth() * 0.5)
+				- (int) (mDisplayWidth * 0.5) + point.x, 0, mMap.getWidth()),
+				clamp((int) (mMap.getHeight() * 0.5) - (int) (mDisplayHeight * 0.5)
+						+ point.y, 0, mMap.getHeight()));
+		// stores the initial point
+		mInitialPoint = new Point(mScrollRectX, mScrollRectY);
+
+		// resets the animation counter
+		mAnimationCounter = 0;
+		mAnimationSteps = (int) (euclideanDistance(mInitialPoint, mTargetPoint) / 10);
+
+		if (mAnimationSteps != 0) {
+			// starts the timer used to animate the map.
+			mAnimationTimer = new Handler();
+			mAnimationTimer.removeCallbacks(mUpdateTimeTask);
+			mAnimationTimer.postDelayed(mUpdateTimeTask, 100);
+		} else {
+			// updates final position.
+			mScrollRectX = mTargetPoint.x;
+			mScrollRectY = mTargetPoint.y;
+			// clears the points
+			mTargetPoint = null;
+			mInitialPoint = null;
+		}
+
+	}
+
+	private void centerMap() {
 		mScrollRectX = (int) (mMap.getWidth() * 0.5)
-				- (int) (mDisplayWidth * 0.5) + point.x;
+				- (int) (mDisplayWidth * 0.5);
 		mScrollRectY = (int) (mMap.getHeight() * 0.5)
-				- (int) (mDisplayHeight * 0.5) + point.y;
-		this.invalidate();
+				- (int) (mDisplayHeight * 0.5);
 	}
 
 	private int clamp(int value, int min, int max) {
@@ -95,6 +164,47 @@ public class OfflineMapView extends View {
 		if (mMap != null)
 			mMap.dispose();
 		mMap = null;
+	}
+
+	/**
+	 * Easing equation function for a simple linear tweening, with no easing.
+	 * 
+	 * @param t
+	 *            Current time (in frames or seconds)
+	 * @param b
+	 *            Starting value
+	 * @param c
+	 *            Change needed in value
+	 * @param d
+	 *            Expected easing duration (in frame or seconds)
+	 * 
+	 * @return the correct value
+	 */
+	protected double easeNone(int t, double b, double c, int d) {
+		return c * t / d + b;
+	}
+
+	/**
+	 * Easing equation function for a simple linear tweening, with out expo easing.
+	 * 
+	 * @param t
+	 *            Current time (in frames or seconds)
+	 * @param b
+	 *            Starting value
+	 * @param c
+	 *            Change needed in value
+	 * @param d
+	 *            Expected easing duration (in frame or seconds)
+	 * 
+	 * @return the correct value
+	 */
+	protected double easeOutExpo(int t, double b, double c, int d) {
+		return (t == d) ? b + c : c * 1.001 * (-Math.pow(2, -10 * t / d) + 1)
+				+ b;
+	}
+
+	private double euclideanDistance(Point p1, Point p2) {
+		return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 	}
 
 	public Point getCenterPoint() {

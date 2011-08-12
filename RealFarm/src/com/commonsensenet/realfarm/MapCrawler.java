@@ -10,6 +10,7 @@ import java.util.Hashtable;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Environment;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.map.GeoPoint;
@@ -235,6 +237,10 @@ public class MapCrawler extends Activity implements Notifiable {
 		// sets the data
 		Spinner s = (Spinner) findViewById(R.id.spMapType);
 		s.setAdapter(adapter);
+		
+//		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Kedage.dfont");
+//      TextView tv = (TextView) findViewById(R.id.PruebaZoom);
+//      tv.setTypeface(tf);
 
 		// gets the buttons from the layout
 		Button btnDownload = (Button) findViewById(R.id.btnDownload);
