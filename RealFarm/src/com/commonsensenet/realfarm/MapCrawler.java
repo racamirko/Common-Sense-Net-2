@@ -235,10 +235,11 @@ public class MapCrawler extends Activity implements Notifiable {
 		// sets the data
 		Spinner s = (Spinner) findViewById(R.id.spMapType);
 		s.setAdapter(adapter);
-		
-//		Typeface tf = Typeface.createFromAsset(getAssets(), "fonts/Kedage.dfont");
-//      TextView tv = (TextView) findViewById(R.id.PruebaZoom);
-//      tv.setTypeface(tf);
+
+		// Typeface tf = Typeface.createFromAsset(getAssets(),
+		// "fonts/Kedage.dfont");
+		// TextView tv = (TextView) findViewById(R.id.PruebaZoom);
+		// tv.setTypeface(tf);
 
 		// gets the buttons from the layout
 		Button btnDownload = (Button) findViewById(R.id.btnDownload);

@@ -54,7 +54,7 @@ public class RealFarmDatabase {
 
 			// actions
 			db.execSQL("create table " + TABLE_NAME_ACTION + "  ( "
-					+ COLUMN_NAME_ACTION_ID	
+					+ COLUMN_NAME_ACTION_ID
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_ACTION_GROWINGID
 					+ " references growing(id), " + COLUMN_NAME_ACTION_ACTIONID
@@ -358,7 +358,7 @@ public class RealFarmDatabase {
 				R.drawable.ic_72px_reporting);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 
-		Log.d(DEBUG_ID, "actionName works"); 
+		Log.d(DEBUG_ID, "actionName works");
 
 		// actions
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
