@@ -16,6 +16,8 @@ import com.commonsensenet.realfarm.model.Plot;
 
 public class PlotOverlay extends Overlay {
 
+	/** Color used to paint the shape. */
+	private int mColor = 0x64FF0000;
 	/** Polygon that represents the overlay. */
 	private Plot mPlot;
 
@@ -45,9 +47,8 @@ public class PlotOverlay extends Overlay {
 		path.setFillType(Path.FillType.EVEN_ODD);
 
 		// selects the color based on the owner of the plot
-		paint.setARGB(100, 55, 175, 35);
-		if (mPlot.getOwnerId() == 1)
-			paint.setARGB(100, 228, 29, 29);
+		// paint.setARGB(100, 55, 175, 35);
+		paint.setColor(mColor);
 
 		// gets the points
 		Point[] points = mPlot.getPoints(offlineMapView);
@@ -71,6 +72,7 @@ public class PlotOverlay extends Overlay {
 		mShape.getPaint().set(paint);
 		mShape.setBounds(0, 0, 100, 100);
 
+		// draws the shape in the canvas.
 		mShape.draw(canvas);
 
 	}
@@ -105,9 +107,9 @@ public class PlotOverlay extends Overlay {
 
 			// myIntent.putExtra("Bitmap", myBitmap);
 			mapView.getContext().startActivity(myIntent);
+			return true;
 
 		}
 		return false;
-		// return false;
 	}
 }
