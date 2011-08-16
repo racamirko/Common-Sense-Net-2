@@ -12,7 +12,7 @@ import com.commonsensenet.realfarm.map.OfflineMapView;
 
 /**
  * 
- * @see http
+ * @see http 
  *      ://www.samcoles.co.uk/mobile/android-asynchronously-load-image-from-sd
  *      -card/
  * 
@@ -57,20 +57,20 @@ public class TileLoader {
 	}
 
 	public void load(MapTile tile) {
-		
+
 		// checks if a download is currently ongoing.
 		SDLoadImageTask sdLoadTask = mCurrentTasks.get(tile);
 		if (sdLoadTask == null) {
-			
-			Log.d("TileLoader", "TileLoader: Pending tasks: " + mCurrentTasks.size());
+
+			Log.d("TileLoader",
+					"TileLoader: Pending tasks: " + mCurrentTasks.size());
 			// creates a new task.
 			SDLoadImageTask task = new SDLoadImageTask();
 			// adds the task to the hash
 			mCurrentTasks.put(tile, task);
 			// starts loading the task.
 			task.execute(tile);
-		}else
-		{
+		} else {
 			Log.d("TileLoader", "TileLoader: Already in hash!");
 		}
 	}

@@ -25,13 +25,13 @@ public class GeoPoint {
 	 *            the point's longitude
 	 */
 	public GeoPoint(double latitude, double longitude) {
-		_latitude = (double) Math.round(latitude * PRECISION) / PRECISION;
-		_longitude = (double) Math.round(longitude * PRECISION) / PRECISION;
+		_latitude = Math.round(latitude * PRECISION) / PRECISION;
+		_longitude = Math.round(longitude * PRECISION) / PRECISION;
 	}
 
 	public GeoPoint(int latitudeE6, int longitudeE6) {
-		_latitude = (double) (latitudeE6 / PRECISION);
-		_longitude = (double) (longitudeE6 / PRECISION);
+		_latitude = (latitudeE6 / PRECISION);
+		_longitude = (longitudeE6 / PRECISION);
 	}
 
 	/**

@@ -66,7 +66,7 @@ public class PlotOverlay extends Overlay {
 		path.close();
 
 		// Change paint style depending on user
-		PathShape pShape = new PathShape(path, (float) 100, (float) 100);
+		PathShape pShape = new PathShape(path, 100, 100);
 		ShapeDrawable mShape = new ShapeDrawable(pShape);
 		mShape.getPaint().set(paint);
 		mShape.setBounds(0, 0, 100, 100);

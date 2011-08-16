@@ -16,18 +16,18 @@ import com.commonsensenet.realfarm.map.utils.TileLoader;
 
 public class OfflineMapView extends View {
 
-	/** Helper class used to load the tiles from the SD. */
-	private final TileLoader mImageLoader;
 	/** Current progress of the animation. */
 	private int mAnimationCounter;
-	/** Number of updates required to perform the full animation. */
-	private int mAnimationSteps;
 	/** Handler used to control the animation and its progress. */
 	private Handler mAnimationHandler;
+	/** Number of updates required to perform the full animation. */
+	private int mAnimationSteps;
 	/** Height of the display area in pixels. */
 	private int mDisplayHeight;
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
+	/** Helper class used to load the tiles from the SD. */
+	private final TileLoader mImageLoader;
 	/** Initial point where the animation should me done. */
 	private Point mInitialPoint;
 	/** Underlying map representation in charge of the tile system. */
@@ -351,13 +351,12 @@ public class OfflineMapView extends View {
 
 		if (mMap == null)
 			return true;
-		
+
 		// stops the current animation.
-		if(mAnimationHandler != null) {
+		if (mAnimationHandler != null) {
 			mAnimationHandler.removeCallbacks(mUpdateTimeTask);
 			mAnimationHandler = null;
 		}
-		
 
 		switch (event.getAction()) {
 		case MotionEvent.ACTION_DOWN:

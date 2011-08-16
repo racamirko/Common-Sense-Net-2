@@ -28,22 +28,7 @@ public class MapTile implements Comparable<MapTile> {
 	private int mY;
 	/** Zoom level of the tile. */
 	private int mZoom;
-	
-	public boolean getIsBitmapLoaded() {
-		return mIsBitmapLoaded;
-	}
-	
-	public synchronized void setBitmap(Bitmap bitmap) {
-		
-		// releases previous bitmap.
-//		if(mTileBitmap != null) {
-//			mTileBitmap.recycle();
-//		}
-		
-		mTileBitmap = bitmap;
-		mIsBitmapLoaded = true;
-	}
-	
+
 	public MapTile(Bitmap bitmap, int tileWidth, int tileHeight, int gridX,
 			int gridY, GeoPoint center, int zoom, String mapType) {
 
@@ -153,6 +138,10 @@ public class MapTile implements Comparable<MapTile> {
 		return mImagePath;
 	}
 
+	public boolean getIsBitmapLoaded() {
+		return mIsBitmapLoaded;
+	}
+
 	public String getMapType() {
 		return mMapType;
 	}
@@ -175,6 +164,17 @@ public class MapTile implements Comparable<MapTile> {
 
 	public int getZoom() {
 		return mZoom;
+	}
+
+	public synchronized void setBitmap(Bitmap bitmap) {
+
+		// releases previous bitmap.
+		// if(mTileBitmap != null) {
+		// mTileBitmap.recycle();
+		// }
+
+		mTileBitmap = bitmap;
+		mIsBitmapLoaded = true;
 	}
 
 	public void setCenter(GeoPoint value) {

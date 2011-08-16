@@ -56,7 +56,7 @@ public class QuickAction extends CustomPopupWindow {
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		root = (ViewGroup) inflater.inflate(R.layout.popupbar, null);
+		root = inflater.inflate(R.layout.popupbar, null);
 
 		mArrowDown = (ImageView) root.findViewById(R.id.arrow_down);
 		mArrowUp = (ImageView) root.findViewById(R.id.arrow_up);
