@@ -7,21 +7,27 @@ import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
 import android.os.Handler;
-import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 
+import com.commonsensenet.realfarm.map.utils.TileLoader;
+
 public class OfflineMapView extends View {
 
+	/** Helper class used to load the tiles from the SD.*/
+	private final TileLoader mImageLoader;
+	/** Current progress of the animation.*/
 	private int mAnimationCounter;
 	/** Number of updates required to perform the full animation. */
 	private int mAnimationSteps;
-	private Handler mAnimationTimer;
+	/** Handler used to control the animation and its progress.*/
+	private Handler mAnimationHandler;
 	/** Height of the display area in pixels. */
 	private int mDisplayHeight;
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
+	/** Initial point where the animation should me done.*/
 	private Point mInitialPoint;
 	/** Underlying map representation in charge of the tile system. */
 	private Map mMap;
@@ -42,45 +48,46 @@ public class OfflineMapView extends View {
 	/** Target point where the map must animate to. */
 	private Point mTargetPoint;
 
-	private Runnable mUpdateTimeTask = new Runnable() {
-		public void run() {
-
-			mScrollByX = mScrollRectX
-					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.x,
-							mTargetPoint.x - mInitialPoint.x, mAnimationSteps);
-			mScrollByY = mScrollRectY
-					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.y,
-							mTargetPoint.y - mInitialPoint.y, mAnimationSteps);
-			//
-			// mScrollByX = 0;
-			// mScrollByY = 0;
-
-			// decreases the update timer.
-			mAnimationCounter++;
-
-			invalidate();
-			// ends the animation
-			if (mAnimationCounter >= mAnimationSteps
-					|| (Math.abs(mInitialPoint.x - mTargetPoint.x) < 2 && Math
-							.abs(mInitialPoint.y - mTargetPoint.y) < 2)) {
-				// updates final position.
-				mScrollRectX = mTargetPoint.x;
-				mScrollRectY = mTargetPoint.y;
-				// clears the points
-				mTargetPoint = null;
-				mInitialPoint = null;
-				// stops the handler
-				mAnimationTimer.removeCallbacks(mUpdateTimeTask);
-			} else {
-				// allows it to be called again
-				mAnimationTimer
-						.postAtTime(this, SystemClock.uptimeMillis() + 1);
-			}
-		}
-	};
+//	private Runnable mUpdateTimeTask = new Runnable() {
+//		public void run() {
+//
+//			// calculates the displacement
+//			mScrollByX = mScrollRectX
+//					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.x,
+//							mTargetPoint.x - mInitialPoint.x, mAnimationSteps);
+//			mScrollByY = mScrollRectY
+//					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.y,
+//							mTargetPoint.y - mInitialPoint.y, mAnimationSteps);
+//
+//			// decreases the update timer.
+//			mAnimationCounter++;
+//
+//			invalidate();
+//			// ends the animation
+//			if (mAnimationCounter >= mAnimationSteps
+//					|| (Math.abs(mInitialPoint.x - mTargetPoint.x) < 2 && Math
+//							.abs(mInitialPoint.y - mTargetPoint.y) < 2)) {
+//				// updates final position.
+//				mScrollRectX = mTargetPoint.x;
+//				mScrollRectY = mTargetPoint.y;
+//				// clears the points
+//				mTargetPoint = null;
+//				mInitialPoint = null;
+//				// stops the handler
+//				mAnimationHandler.removeCallbacks(mUpdateTimeTask);
+//			} else {
+//				// allows it to be called again
+//				mAnimationHandler
+//						.postAtTime(this, SystemClock.uptimeMillis() + 1);
+//			}
+//		}
+//	};
 
 	public OfflineMapView(Context context, AttributeSet attrs) {
 		super(context, attrs);
+		
+		// initializes the downloader.
+		mImageLoader = new TileLoader(this);
 
 		initOfflineMapView();
 
@@ -100,6 +107,9 @@ public class OfflineMapView extends View {
 	public OfflineMapView(Context context, GeoPoint center) {
 		super(context);
 
+		// initializes the downloader.
+		mImageLoader = new TileLoader(this);
+		
 		initOfflineMapView();
 
 		// creates a new map instance with the given center.
@@ -123,10 +133,10 @@ public class OfflineMapView extends View {
 
 		// transforms the point to the local coordinate system.
 		mTargetPoint = new Point(clamp((int) (mMap.getWidth() * 0.5)
-				- (int) (mDisplayWidth * 0.5) + point.x, 0, mMap.getWidth()),
+				- (int) (mDisplayWidth * 0.5) + point.x, 0, mMap.getWidth() - mDisplayWidth),
 				clamp((int) (mMap.getHeight() * 0.5)
 						- (int) (mDisplayHeight * 0.5) + point.y, 0,
-						mMap.getHeight()));
+						mMap.getHeight() - mDisplayHeight));
 		// stores the initial point
 		mInitialPoint = new Point(mScrollRectX, mScrollRectY);
 
@@ -136,9 +146,9 @@ public class OfflineMapView extends View {
 
 		if (mAnimationSteps != 0) {
 			// starts the timer used to animate the map.
-			mAnimationTimer = new Handler();
-			mAnimationTimer.removeCallbacks(mUpdateTimeTask);
-			mAnimationTimer.postDelayed(mUpdateTimeTask, 100);
+			mAnimationHandler = new Handler();
+			// mAnimationHandler.removeCallbacks(mUpdateTimeTask);
+			// mAnimationHandler.postDelayed(mUpdateTimeTask, 100);
 		} else {
 			// updates final position.
 			mScrollRectX = mTargetPoint.x;
@@ -147,7 +157,6 @@ public class OfflineMapView extends View {
 			mTargetPoint = null;
 			mInitialPoint = null;
 		}
-
 	}
 
 	private void centerMap() {
@@ -205,6 +214,14 @@ public class OfflineMapView extends View {
 				+ b;
 	}
 
+	/**
+	 * Calculates the distance between two given points.
+	 * 
+	 * @param p1 a point.
+	 * @param p2 another point.
+	 * 
+	 * @return the distance between the given points.
+	 */
 	private double euclideanDistance(Point p1, Point p2) {
 		return Math.sqrt(Math.pow(p1.x - p2.x, 2) + Math.pow(p1.y - p2.y, 2));
 	}
@@ -295,6 +312,8 @@ public class OfflineMapView extends View {
 			// draws the tile on the canvas
 			canvas.drawBitmap(currentTile.getBitmap(), currentTile.getX()
 					- newScrollRectX, currentTile.getY() - newScrollRectY, null);
+			if(!currentTile.getIsBitmapLoaded())
+				mImageLoader.load(currentTile);
 		}
 
 		// resets the current scroll coordinates to reflect the latest update
