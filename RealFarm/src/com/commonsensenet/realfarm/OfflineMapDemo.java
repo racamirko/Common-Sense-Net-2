@@ -25,9 +25,11 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.map.GeoPoint;
 import com.commonsensenet.realfarm.map.OfflineMapView;
+import com.commonsensenet.realfarm.map.OnOverlayTappedListener;
 import com.commonsensenet.realfarm.map.Overlay;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.overlay.ActionItem;
+import com.commonsensenet.realfarm.overlay.PlotInformationWindow;
 import com.commonsensenet.realfarm.overlay.PlotOverlay;
 import com.commonsensenet.realfarm.overlay.QuickAction;
 import com.markupartist.android.widget.ActionBar;
@@ -84,10 +86,8 @@ public class OfflineMapDemo extends Activity {
 	public static final GeoPoint CKPURA_LOCATION = new GeoPoint(14054563,
 			77167003);
 
-	// private MyOverlay itemizedoverlay;
 	/** Manager used to obtain location from the system. */
 	private LocationManager lm;
-	// private List<Overlay> mapOverlays;
 	/** Class used to extract the data from the database. */
 	private RealFarmProvider mDataProvider;
 	/** List of Polygons that represent the plots of the user. */
@@ -127,6 +127,36 @@ public class OfflineMapDemo extends Activity {
 
 		// gets the map from the UI.
 		mOfflineMap = (OfflineMapView) findViewById(R.id.offlineMap);
+		mOfflineMap.setOnOverlayTappedListener(new OnOverlayTappedListener() {
+
+			public void onOverlayTapped(Overlay overlay) {
+
+				PlotOverlay po = (PlotOverlay) overlay;
+				Intent myIntent = new Intent();
+				myIntent.setClass(mOfflineMap.getContext(), PlotEditor.class);
+				int test = po.getPlot().getId();
+				myIntent.putExtra("ID", Integer.toString(test));
+
+				// draw in bitmap
+				// Bitmap myBitmap = Bitmap.createBitmap(100, 100,
+				// Config.ARGB_8888);
+				// Canvas myCanvas = new Canvas(myBitmap);
+				//
+				// Paint paint = new Paint();
+				// paint.setStrokeWidth(7);
+				// paint.setAntiAlias(true);
+				// paint.setDither(true);
+				// paint.setStrokeWidth(3);
+				// paint.setARGB(100, 55, 175, 35);
+
+				// Path path = mPlot.getDrawable(mapView);
+
+				// myCanvas.drawPath(path, paint);
+
+				// myIntent.putExtra("Bitmap", myBitmap);
+				mOfflineMap.getContext().startActivity(myIntent);
+			}
+		});
 
 		// sets the items included in the action bar.
 		setUpActionBar();
@@ -263,6 +293,32 @@ public class OfflineMapDemo extends Activity {
 				// locationListenerGps);
 				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
 						0, locationListenerGps);
+
+				final PlotInformationWindow qa = new PlotInformationWindow(
+						mOfflineMap);
+
+				// creates an action item for each available plot.
+				ActionItem tmpItem;
+				for (int x = 0; x < mMyPlots.size(); x++) {
+					// creates a new item based
+					tmpItem = new ActionItem();
+					tmpItem.setTitle("Plot " + mMyPlots.get(x).getId());
+					tmpItem.setId(x);
+					tmpItem.setIcon(getResources().getDrawable(
+							R.drawable.ic_dialog_map));
+					tmpItem.setOnClickListener(new OnClickListener() {
+						public void onClick(View v) {
+
+							// animates to the center of the plot
+							Point center = mMyPlots.get(v.getId())
+									.getCenterCoordinate();
+							mOfflineMap.animateTo(center);
+						}
+					});
+					// adds the item
+					qa.addActionItem(tmpItem);
+				}
+				qa.show();
 			}
 		});
 
