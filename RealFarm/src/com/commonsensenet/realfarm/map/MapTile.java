@@ -1,51 +1,8 @@
 package com.commonsensenet.realfarm.map;
 
-import java.io.File;
-
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.os.AsyncTask;
-import android.util.Log;
 
 public class MapTile implements Comparable<MapTile> {
-
-	private class BitmapLoaderTask extends AsyncTask<String, Void, Bitmap> {
-
-		private String mFilePath;
-
-		@Override
-		protected Bitmap doInBackground(String... params) {
-			mFilePath = params[0];
-			File test = new File(mFilePath);
-
-			if (test.exists()) {
-				return BitmapFactory.decodeFile(mFilePath);
-			} else {
-				return null;
-			}
-		}
-
-		/**
-		 * Once the image is downloaded, the referenced notifiable is notified.
-		 */
-		@Override
-		protected void onPostExecute(Bitmap bitmap) {
-
-			// result is nulled if the task has been canceled.
-			if (isCancelled()) {
-				bitmap = null;
-			}
-
-			if (bitmap != null) {
-				synchronized (mTileBitmap) {
-					mIsBitmapLoaded = true;
-					mTileBitmap = bitmap;
-				}
-			} else {
-				Log.d("MapTile", "Tile is null");
-			}
-		}
-	}
 
 	/** Geographical coordinates of the center of the image. */
 	private GeoPoint mCenter;
@@ -53,11 +10,10 @@ public class MapTile implements Comparable<MapTile> {
 	private int mGridX;
 	/** Position in the map grid of the tile in the y coordinate. */
 	private int mGridY;
+	/** Path where the image is located. */
 	private String mImagePath;
 	/** Indicates whether the bitmap has already been loaded. */
 	private boolean mIsBitmapLoaded;
-	/** Task used to load the bitmap when needed. */
-	private BitmapLoaderTask mLoaderTask;
 	/** Type of map that represents the tile. */
 	private String mMapType;
 	/** Bitmap that represents the tile. */
@@ -68,13 +24,26 @@ public class MapTile implements Comparable<MapTile> {
 	private int mTileWidth;
 	/** Position of the tile in the x coordinate in the map. */
 	private int mX;
-
 	/** Position of the tile in the y coordinate in the map. */
 	private int mY;
-
 	/** Zoom level of the tile. */
 	private int mZoom;
-
+	
+	public boolean getIsBitmapLoaded() {
+		return mIsBitmapLoaded;
+	}
+	
+	public synchronized void setBitmap(Bitmap bitmap) {
+		
+		// releases previous bitmap.
+//		if(mTileBitmap != null) {
+//			mTileBitmap.recycle();
+//		}
+		
+		mTileBitmap = bitmap;
+		mIsBitmapLoaded = true;
+	}
+	
 	public MapTile(Bitmap bitmap, int tileWidth, int tileHeight, int gridX,
 			int gridY, GeoPoint center, int zoom, String mapType) {
 
@@ -161,12 +130,6 @@ public class MapTile implements Comparable<MapTile> {
 	}
 
 	public synchronized Bitmap getBitmap() {
-
-		if (!mIsBitmapLoaded && mLoaderTask == null) {
-			mLoaderTask = new BitmapLoaderTask();
-			mLoaderTask.execute(mImagePath);
-
-		}
 		return mTileBitmap;
 	}
 
@@ -184,6 +147,10 @@ public class MapTile implements Comparable<MapTile> {
 
 	public int getHeight() {
 		return mTileHeight;
+	}
+
+	public String getImagePath() {
+		return mImagePath;
 	}
 
 	public String getMapType() {
