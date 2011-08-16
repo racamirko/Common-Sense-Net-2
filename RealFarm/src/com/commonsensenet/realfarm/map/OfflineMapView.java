@@ -383,6 +383,10 @@ public class OfflineMapView extends View {
 			// force a redraw to update the map.
 			invalidate();
 			break;
+		case MotionEvent.ACTION_UP:
+			// resets the scroll values.
+			mScrollByX = 0;
+			mScrollByY = 0;
 		}
 		// done with this event so consume it
 		return true;
