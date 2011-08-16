@@ -51,7 +51,7 @@ public class OfflineMapView extends View {
 	/** Used to notify that a plot was tapped. */
 	private OnOverlayTappedListener mOnPlotTappedListener;
 
-	public void setOnPlotTappedListener(OnOverlayTappedListener l)
+	public void setOnOverlayTappedListener(OnOverlayTappedListener l)
 	{
 		mOnPlotTappedListener = l;
 	}
