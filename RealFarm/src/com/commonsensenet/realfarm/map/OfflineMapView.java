@@ -48,7 +48,14 @@ public class OfflineMapView extends View {
 	private float mStartY;
 	/** Target point where the map must animate to. */
 	private Point mTargetPoint;
+	/** Used to notify that a plot was tapped. */
+	private OnOverlayTappedListener mOnPlotTappedListener;
 
+	public void setOnPlotTappedListener(OnOverlayTappedListener l)
+	{
+		mOnPlotTappedListener = l;
+	}
+	
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
 
@@ -366,8 +373,11 @@ public class OfflineMapView extends View {
 				boolean processed = false;
 				for (int x = 0; x < mOverlays.size(); x++) {
 					processed = mOverlays.get(x).onTouchEvent(event, this);
-					if (processed)
+					if (processed){
+						if(mOnPlotTappedListener != null)
+							mOnPlotTappedListener.onOverlayTapped(mOverlays.get(x));
 						break;
+					}
 				}
 			}
 			// Remember our initial down event location.
