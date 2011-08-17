@@ -7,5 +7,5 @@
 		android:drawable="@drawable/btn_pressedsquare" />
 
 	<item android:state_focused="true" android:state_pressed="true"
-		        android:drawable="@drawable/btn_pressedsquare"/>
+		android:drawable="@drawable/btn_pressedsquare" />
 </selector>

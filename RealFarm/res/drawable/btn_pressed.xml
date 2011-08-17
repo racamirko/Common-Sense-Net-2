@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
-    android:shape="oval">
-    <gradient
-        android:startColor="@color/background_item_pressed_start"
-        android:endColor="@color/background_item_pressed_end"
-        android:angle="-90"/>
+	android:shape="oval">
+	<gradient android:startColor="@color/background_item_pressed_start"
+		android:endColor="@color/background_item_pressed_end" android:angle="-90" />
 </shape>

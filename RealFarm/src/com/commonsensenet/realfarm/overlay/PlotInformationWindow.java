@@ -41,8 +41,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	/** Class used to extract the data from the database. */
 	private RealFarmProvider mDataProvider;
 	private final LayoutInflater mInflater;
-	private MediaPlayer mMediaPlayer;
-	private final View mRoot;
 	private ScrollView mScroller;
 	private ViewGroup mTrack;
 
@@ -51,9 +49,9 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			public void onClick(View v) {
 				
-				mMediaPlayer = MediaPlayer.create(mRoot.getContext(), mActionList.get(actionIndex).getAudio());
-				mMediaPlayer.start();
-				mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+				MediaPlayer mediaPlayer = MediaPlayer.create(mContext, mActionList.get(actionIndex).getAudio());
+				mediaPlayer.start();
+				mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
 					public void onCompletion(MediaPlayer mp) {
 						mp.release();
@@ -76,12 +74,12 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		mContext = anchor.getContext();
 		mInflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
-		mRoot = mInflater.inflate(R.layout.plotinformation, null);
 		mDataProvider = dataProvider;
 
-		setContentView(mRoot);
+		// sets the root of the window.
+		setContentView(mInflater.inflate(R.layout.plotinformation, null));
 
+		// gets the elements contained in the window.
 		mTrack = (ViewGroup) mRoot.findViewById(R.id.tracks);
 		mScroller = (ScrollView) mRoot.findViewById(R.id.scroller);
 		mActionsPanel = (ViewGroup) mRoot.findViewById(R.id.actionPanel);

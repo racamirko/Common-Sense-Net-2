@@ -18,7 +18,7 @@ import android.widget.PopupWindow;
 public class CustomPopupWindow {
 	protected final View anchor;
 	private Drawable background = null;
-	private View root;
+	protected View mRoot;
 	protected final PopupWindow window;
 	protected final WindowManager windowManager;
 
@@ -71,7 +71,7 @@ public class CustomPopupWindow {
 	}
 
 	protected void preShow() {
-		if (root == null) {
+		if (mRoot == null) {
 			throw new IllegalStateException(
 					"setContentView was not called with a view to display.");
 		}
@@ -95,7 +95,7 @@ public class CustomPopupWindow {
 		window.setFocusable(true);
 		window.setOutsideTouchable(true);
 
-		window.setContentView(root);
+		window.setContentView(mRoot);
 	}
 
 	public void setBackgroundDrawable(Drawable background) {
@@ -121,9 +121,9 @@ public class CustomPopupWindow {
 	 *            the view the popup will display
 	 */
 	public void setContentView(View root) {
-		this.root = root;
+		mRoot = root;
 
-		window.setContentView(root);
+		window.setContentView(mRoot);
 	}
 
 	/**
@@ -184,12 +184,12 @@ public class CustomPopupWindow {
 		Rect anchorRect = new Rect(location[0], location[1], location[0]
 				+ anchor.getWidth(), location[1] + anchor.getHeight());
 
-		root.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
+		mRoot.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
 				LayoutParams.WRAP_CONTENT));
-		root.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		mRoot.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 
-		int rootWidth = root.getMeasuredWidth();
-		int rootHeight = root.getMeasuredHeight();
+		int rootWidth = mRoot.getMeasuredWidth();
+		int rootHeight = mRoot.getMeasuredHeight();
 
 		int screenWidth = windowManager.getDefaultDisplay().getWidth();
 		// int screenHeight = windowManager.getDefaultDisplay().getHeight();
