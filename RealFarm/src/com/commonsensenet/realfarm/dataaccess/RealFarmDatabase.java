@@ -49,6 +49,7 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_ACTIONNAME + " ( "
 					+ COLUMN_NAME_ACTIONNAME_ID + " integer primary key, "
 					+ COLUMN_NAME_ACTIONNAME_RESOURCE + " integer, "
+					+ COLUMN_NAME_ACTIONNAME_AUDIO + " integer, "
 					+ COLUMN_NAME_ACTIONNAME_NAME + " text not null " + " ); ");
 			Log.d(DEBUG_ID, "Created actionName table");
 
@@ -148,7 +149,6 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
-	
 
 	public static final String COLUMN_NAME_GROWING_ID = "id";
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
@@ -324,42 +324,58 @@ public class RealFarmDatabase {
 
 		// actionNames
 		ContentValues actionNames = new ContentValues();
+		
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 1);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Sow");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_72px_sowing);
-
+				R.drawable.ic_90px_sowing);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.audio1);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
+		
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 2);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Fertilize");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_72px_fertilizing1);
-		
+				R.drawable.ic_90px_fertilizing1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.audio2);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
+		
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 3);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Spray");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_72px_spraying1);
+				R.drawable.ic_90px_spraying1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.audio3);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
+		
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 4);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Irrigate");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_72px_irrigation1);
+				R.drawable.ic_90px_irrigation1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.audio4);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
+		
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 5);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Harvest");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_72px_harvesting1);
+				R.drawable.ic_90px_harvesting1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.audio5);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
+		
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 6);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Report");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_72px_reporting);
+				R.drawable.ic_90px_reporting);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.audio6);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 
 		Log.d(DEBUG_ID, "actionName works");

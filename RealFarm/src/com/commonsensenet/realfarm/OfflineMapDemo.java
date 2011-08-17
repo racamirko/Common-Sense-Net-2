@@ -117,6 +117,7 @@ public class OfflineMapDemo extends Activity {
 						}).show();
 	}
 
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -130,31 +131,18 @@ public class OfflineMapDemo extends Activity {
 		mOfflineMap.setOnOverlayTappedListener(new OnOverlayTappedListener() {
 
 			public void onOverlayTapped(Overlay overlay) {
+				
+				// displays the information about the plot
+				new PlotInformationWindow(
+						mOfflineMap, mDataProvider).show();
 
-				PlotOverlay po = (PlotOverlay) overlay;
-				Intent myIntent = new Intent();
-				myIntent.setClass(mOfflineMap.getContext(), PlotEditor.class);
-				int test = po.getPlot().getId();
-				myIntent.putExtra("ID", Integer.toString(test));
 
-				// draw in bitmap
-				// Bitmap myBitmap = Bitmap.createBitmap(100, 100,
-				// Config.ARGB_8888);
-				// Canvas myCanvas = new Canvas(myBitmap);
-				//
-				// Paint paint = new Paint();
-				// paint.setStrokeWidth(7);
-				// paint.setAntiAlias(true);
-				// paint.setDither(true);
-				// paint.setStrokeWidth(3);
-				// paint.setARGB(100, 55, 175, 35);
-
-				// Path path = mPlot.getDrawable(mapView);
-
-				// myCanvas.drawPath(path, paint);
-
-				// myIntent.putExtra("Bitmap", myBitmap);
-				mOfflineMap.getContext().startActivity(myIntent);
+//				PlotOverlay po = (PlotOverlay) overlay;
+//				Intent myIntent = new Intent();
+//				myIntent.setClass(mOfflineMap.getContext(), PlotEditor.class);
+//				int test = po.getPlot().getId();
+//				myIntent.putExtra("ID", Integer.toString(test));
+//				mOfflineMap.getContext().startActivity(myIntent);
 			}
 		});
 
@@ -293,32 +281,6 @@ public class OfflineMapDemo extends Activity {
 				// locationListenerGps);
 				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
 						0, locationListenerGps);
-
-				final PlotInformationWindow qa = new PlotInformationWindow(
-						mOfflineMap);
-
-				// creates an action item for each available plot.
-				ActionItem tmpItem;
-				for (int x = 0; x < mMyPlots.size(); x++) {
-					// creates a new item based
-					tmpItem = new ActionItem();
-					tmpItem.setTitle("Plot " + mMyPlots.get(x).getId());
-					tmpItem.setId(x);
-					tmpItem.setIcon(getResources().getDrawable(
-							R.drawable.ic_dialog_map));
-					tmpItem.setOnClickListener(new OnClickListener() {
-						public void onClick(View v) {
-
-							// animates to the center of the plot
-							Point center = mMyPlots.get(v.getId())
-									.getCenterCoordinate();
-							mOfflineMap.animateTo(center);
-						}
-					});
-					// adds the item
-					qa.addActionItem(tmpItem);
-				}
-				qa.show();
 			}
 		});
 

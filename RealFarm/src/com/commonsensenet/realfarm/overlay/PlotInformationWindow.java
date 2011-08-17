@@ -1,22 +1,24 @@
 package com.commonsensenet.realfarm.overlay;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Context;
-import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Action;
 
 /**
  * Popup window, shows action list as icon and text like the one in Gallery3D
@@ -29,17 +31,37 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	protected static final int ANIM_GROW_FROM_CENTER = 3;
 	protected static final int ANIM_GROW_FROM_LEFT = 1;
 	protected static final int ANIM_GROW_FROM_RIGHT = 2;
-	protected static final int ANIM_REFLECT = 4;
 	protected static final int ANIM_NONE = 6;
+	protected static final int ANIM_REFLECT = 4;
 
-	private ArrayList<ActionItem> mActionList;
+	private List<Action> mActionList;
+	private ViewGroup mActionsPanel;
 	private int mAnimStyle;
 	private final Context mContext;
+	/** Class used to extract the data from the database. */
+	private RealFarmProvider mDataProvider;
 	private final LayoutInflater mInflater;
-	private ViewGroup mTrack;
+	private MediaPlayer mMediaPlayer;
 	private final View mRoot;
 	private ScrollView mScroller;
-	private ViewGroup mActionsPanel;
+	private ViewGroup mTrack;
+
+	View.OnClickListener OnClickAction(final int actionIndex) {
+		return new View.OnClickListener() {
+
+			public void onClick(View v) {
+				
+				mMediaPlayer = MediaPlayer.create(mRoot.getContext(), mActionList.get(actionIndex).getAudio());
+				mMediaPlayer.start();
+				mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+
+					public void onCompletion(MediaPlayer mp) {
+						mp.release();
+					}
+				});
+			}
+		};
+	}
 
 	/**
 	 * Constructor
@@ -47,15 +69,16 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	 * @param anchor
 	 *            {@link View} on where the popup window should be displayed
 	 */
-	public PlotInformationWindow(View anchor) {
+	public PlotInformationWindow(View anchor, RealFarmProvider dataProvider) {
 		super(anchor);
 
-		mActionList = new ArrayList<ActionItem>();
+		mActionList = new ArrayList<Action>();
 		mContext = anchor.getContext();
 		mInflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
 		mRoot = mInflater.inflate(R.layout.plotinformation, null);
+		mDataProvider = dataProvider;
 
 		setContentView(mRoot);
 
@@ -66,32 +89,19 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	}
 
 	/**
-	 * Add action item
-	 * 
-	 * @param action
-	 *            {@link ActionItem} object
-	 */
-	public void addActionItem(ActionItem action) {
-		mActionList.add(action);
-	}
-
-	/**
 	 * Create action list
 	 */
 	private void createActionList() {
 		View view;
-		String title;
-		Drawable icon;
+		int icon;
 		int id;
-		OnClickListener listener;
 
 		for (int i = 0; i < mActionList.size(); i++) {
-			title = mActionList.get(i).getTitle();
-			icon = mActionList.get(i).getIcon();
-			listener = mActionList.get(i).getListener();
+			icon = mActionList.get(i).getRes();
+			// listener = mActionList.get(i).getListener();
 			id = mActionList.get(i).getId();
 
-			view = getActionItem(title, icon, listener);
+			view = getActionItem(icon, OnClickAction(i));
 			view.setId(id);
 
 			view.setFocusable(true);
@@ -106,49 +116,49 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	/**
 	 * Get action item {@link View}
 	 * 
-	 * @param title
-	 *            action item title
 	 * @param icon
 	 *            {@link Drawable} action item icon
 	 * @param listener
 	 *            {@link View.OnClickListener} action item listener
 	 * @return action item {@link View}
 	 */
-	private View getActionItem(String title, Drawable icon,
-			OnClickListener listener) {
+	private View getActionItem(int icon, OnClickListener listener) {
 		LinearLayout container = (LinearLayout) mInflater.inflate(
 				R.layout.plotaction_item, null);
 
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
-		container.setBackgroundResource(R.drawable.cbutton);
+		img.setBackgroundResource(R.drawable.cbutton);
+		img.setOnClickListener(listener);
 
-		if (icon != null) {
-			img.setImageDrawable(icon);
-			//img.setBackgroundResource();
-			img.setVisibility(View.VISIBLE);
-		} else
+		img.setClickable(true);
+		img.setVisibility(View.VISIBLE);
+
+		if (icon != -1)
+			img.setImageResource(icon);
+		else
 			img.setImageResource(R.drawable.ic_menu_mylocation);
 
-		if (listener != null) {
-			container.setOnClickListener(listener);
-		}
+		if (listener != null)
+			img.setOnClickListener(listener);
 
 		return container;
+	}
+
+	@Override
+	protected void onShow() {
+		super.onShow();
+		// loads the actions from the database.
+		mActionList = mDataProvider.getActionsList();
 	}
 
 	/**
 	 * Set animation style
 	 * 
-	 * @param screenWidth
-	 *            screen width
-	 * @param requestedX
-	 *            distance from left edge
 	 * @param onTop
 	 *            flag to indicate where the popup should be displayed. Set TRUE
 	 *            if displayed on top of anchor view and vice versa
 	 */
-	private void setAnimationStyle(int screenWidth, int requestedX,
-			boolean onTop) {
+	private void setAnimationStyle(boolean onTop) {
 
 		switch (mAnimStyle) {
 		case ANIM_GROW_FROM_LEFT:
@@ -193,132 +203,18 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	public void show() {
 		preShow();
 
-		int xPos, yPos;
-
+		// gets the current position in the screen of the parent
 		int[] location = new int[2];
-
 		anchor.getLocationOnScreen(location);
 
-		Rect anchorRect = new Rect(location[0], location[1], location[0]
-				+ anchor.getWidth(), location[1] + anchor.getHeight());
-
+		// loads the actions
 		createActionList();
 
-		mRoot.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT));
-		mRoot.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		// sets the animation of the window
+		setAnimationStyle(true);
 
-		int rootHeight = mRoot.getMeasuredHeight();
-		int rootWidth = mRoot.getMeasuredWidth();
-
-		int screenWidth = windowManager.getDefaultDisplay().getWidth();
-		int screenHeight = windowManager.getDefaultDisplay().getHeight();
-
-		// automatically get X coord of popup (top left)
-		if ((anchorRect.left + rootWidth) > screenWidth) {
-			xPos = anchorRect.left - (rootWidth - anchor.getWidth());
-		} else {
-			if (anchor.getWidth() > rootWidth) {
-				xPos = anchorRect.centerX() - (rootWidth / 2);
-			} else {
-				xPos = anchorRect.left;
-			}
-		}
-
-		int dyTop = anchorRect.top;
-		int dyBottom = screenHeight - anchorRect.bottom;
-
-		boolean onTop = (dyTop > dyBottom) ? true : false;
-
-		if (onTop) {
-			if (rootHeight > dyTop) {
-				yPos = 15;
-				LayoutParams l = mScroller.getLayoutParams();
-				l.height = dyTop - anchor.getHeight();
-			} else {
-				yPos = anchorRect.top - rootHeight;
-			}
-		} else {
-			yPos = anchorRect.bottom;
-
-			if (rootHeight > dyBottom) {
-				LayoutParams l = mScroller.getLayoutParams();
-				l.height = dyBottom;
-			}
-		}
-
-		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
-
-		window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
-	}
-
-	/**
-	 * Show popup window. Popup is automatically positioned, on top or bottom of
-	 * anchor view.
-	 * 
-	 */
-
-	public void show(int[] coordinates) {
-
-		preShow();
-
-		int xPos, yPos;
-		int[] location = new int[2];
-
-		location[0] = coordinates[0];
-		location[1] = coordinates[1];
-
-		Rect anchorRect = new Rect(location[0], location[1], location[0]
-				+ coordinates[2], location[1] + coordinates[3]);
-
-		createActionList();
-
-		mRoot.setLayoutParams(new LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT));
-		mRoot.measure(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-
-		int rootHeight = mRoot.getMeasuredHeight();
-		int rootWidth = mRoot.getMeasuredWidth();
-
-		int screenWidth = windowManager.getDefaultDisplay().getWidth();
-		int screenHeight = windowManager.getDefaultDisplay().getHeight();
-
-		// automatically get X coord of popup (top left)
-		if ((anchorRect.left + rootWidth) > screenWidth) {
-			xPos = anchorRect.left - (rootWidth - anchor.getWidth());
-		} else {
-			if (anchor.getWidth() > rootWidth) {
-				xPos = anchorRect.centerX() - (rootWidth / 2);
-			} else {
-				xPos = anchorRect.left;
-			}
-		}
-
-		int dyTop = anchorRect.top;
-		int dyBottom = screenHeight - anchorRect.bottom;
-		int margin = 20;
-		boolean onTop = (dyTop > dyBottom) ? true : false;
-
-		if (onTop) {
-			if (rootHeight > dyTop) {
-				yPos = 15;
-				LayoutParams l = mScroller.getLayoutParams();
-				l.height = dyTop - anchor.getHeight();
-			} else {
-				yPos = anchorRect.top - (rootHeight / 2) - margin;
-			}
-		} else {
-			yPos = anchorRect.bottom + (rootHeight / 2) + margin;
-
-			if (rootHeight > dyBottom) {
-				LayoutParams l = mScroller.getLayoutParams();
-				l.height = dyBottom;
-			}
-		}
-
-		setAnimationStyle(screenWidth, anchorRect.centerX(), onTop);
-
-		window.showAtLocation(anchor, Gravity.NO_GRAVITY, xPos, yPos);
-
+		// displays the window.
+		window.showAtLocation(anchor, Gravity.NO_GRAVITY, location[0],
+				location[1]);
 	}
 }
