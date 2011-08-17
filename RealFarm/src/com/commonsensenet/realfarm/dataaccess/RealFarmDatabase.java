@@ -147,6 +147,8 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
+	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
+	
 
 	public static final String COLUMN_NAME_GROWING_ID = "id";
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
@@ -316,7 +318,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_ID, 2);
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "Hendrik");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Knoche");
-		users.put(COLUMN_NAME_USER_MOBILE, "781827182");
+		users.put(COLUMN_NAME_USER_MOBILE, "788479621");
 		insertEntries(TABLE_NAME_USER, users, db);
 		Log.d(DEBUG_ID, "users works");
 
@@ -326,12 +328,16 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Sow");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_72px_sowing);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.sound22);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 2);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Fertilize");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_72px_fertilizing1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+				R.raw.sound22);
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 3);
