@@ -328,16 +328,14 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Sow");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_72px_sowing);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
-				R.raw.sound22);
+
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 2);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Fertilize");
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_72px_fertilizing1);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
-				R.raw.sound22);
+		
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 3);
