@@ -514,7 +514,8 @@ public class RealFarmDatabase {
 		
 		Log.d(DEBUG_ID, "actionName works");
 		
-		// actiontranslation 
+		// actionTranslation
+		
 		// 3 for sowing
 		ContentValues actionTranslation = new ContentValues();
 		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_ACTIONID, 3);
@@ -524,7 +525,8 @@ public class RealFarmDatabase {
 		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTTABLE, TABLE_NAME_SEEDTYPE);
 		insertEntries(TABLE_NAME_ACTIONTRANSLATION, actionTranslation, db);
 		actionTranslation.clear();
-
+		
+		// 4 for fertilizing
 		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_ACTIONID, 4);
 		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETIDFIELD, COLUMN_NAME_GROWING_ID);
 		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETTABLE, TABLE_NAME_GROWING);
@@ -533,6 +535,42 @@ public class RealFarmDatabase {
 		insertEntries(TABLE_NAME_ACTIONTRANSLATION, actionTranslation, db);
 		actionTranslation.clear();
 
+		// 5 for spraying
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_ACTIONID, 5);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETIDFIELD, COLUMN_NAME_GROWING_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETTABLE, TABLE_NAME_GROWING);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTIDFIELD, COLUMN_NAME_FERTILIZER_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTTABLE, TABLE_NAME_FERTILIZER);
+		insertEntries(TABLE_NAME_ACTIONTRANSLATION, actionTranslation, db);
+		actionTranslation.clear();
+		// 6 for reporting (of problems)
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_ACTIONID, 6);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETIDFIELD, COLUMN_NAME_GROWING_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETTABLE, TABLE_NAME_GROWING);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTIDFIELD, COLUMN_NAME_FERTILIZER_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTTABLE, TABLE_NAME_FERTILIZER);
+		insertEntries(TABLE_NAME_ACTIONTRANSLATION, actionTranslation, db);
+		actionTranslation.clear();
+		
+		// 7 for irrigation
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_ACTIONID, 7);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETIDFIELD, COLUMN_NAME_GROWING_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETTABLE, TABLE_NAME_GROWING);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTIDFIELD, COLUMN_NAME_FERTILIZER_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTTABLE, TABLE_NAME_FERTILIZER);
+		insertEntries(TABLE_NAME_ACTIONTRANSLATION, actionTranslation, db);
+		actionTranslation.clear();
+		
+		// 8 for harvesting
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_ACTIONID, 8);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETIDFIELD, COLUMN_NAME_GROWING_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_TARGETTABLE, TABLE_NAME_GROWING);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTIDFIELD, COLUMN_NAME_FERTILIZER_ID);
+		actionTranslation.put(COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTTABLE, TABLE_NAME_FERTILIZER);
+		insertEntries(TABLE_NAME_ACTIONTRANSLATION, actionTranslation, db);
+		actionTranslation.clear();
+		
+		
 		Log.d(DEBUG_ID, "action translation works");
 		
 		// 2
@@ -648,42 +686,42 @@ public class RealFarmDatabase {
 		ContentValues stage = new ContentValues();
 		stage.put(COLUMN_NAME_STAGE_ID, 3);
 		stage.put(COLUMN_NAME_STAGE_NAME, "planning" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		stage.put(COLUMN_NAME_STAGE_ID, 4);
 		stage.put(COLUMN_NAME_STAGE_NAME, "soil preparation" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		stage.put(COLUMN_NAME_STAGE_ID, 5);
 		stage.put(COLUMN_NAME_STAGE_NAME, "sowing" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		stage.put(COLUMN_NAME_STAGE_ID, 6);
 		stage.put(COLUMN_NAME_STAGE_NAME, "vegetative growth" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		stage.put(COLUMN_NAME_STAGE_ID, 7);
 		stage.put(COLUMN_NAME_STAGE_NAME, "flowering" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		stage.put(COLUMN_NAME_STAGE_ID, 8);
 		stage.put(COLUMN_NAME_STAGE_NAME, "pod-filling" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		stage.put(COLUMN_NAME_STAGE_ID, 9);
 		stage.put(COLUMN_NAME_STAGE_NAME, "pod maturity" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		stage.put(COLUMN_NAME_STAGE_ID, 10);
 		stage.put(COLUMN_NAME_STAGE_NAME, "harvesting" );
-		insertEntries(TABLE_NAME_GROWING, growing, db);
+		insertEntries(TABLE_NAME_STAGE, stage, db);
 		stage.clear();
 		
 		
