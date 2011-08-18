@@ -43,15 +43,23 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private final LayoutInflater mInflater;
 	private ScrollView mScroller;
 	private ViewGroup mTrack;
+	private MediaPlayer mMediaPlayer;
 
 	View.OnClickListener OnClickAction(final int actionIndex) {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
 				
-				MediaPlayer mediaPlayer = MediaPlayer.create(mContext, mActionList.get(actionIndex).getAudio());
-				mediaPlayer.start();
-				mediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+				// stops any previous sound being played.
+				if(mMediaPlayer != null) {
+					mMediaPlayer.stop();
+					mMediaPlayer.release();
+					mMediaPlayer = null;
+				}
+				
+				mMediaPlayer = MediaPlayer.create(mContext, mActionList.get(actionIndex).getAudio());
+				mMediaPlayer.start();
+				mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
 
 					public void onCompletion(MediaPlayer mp) {
 						mp.release();
