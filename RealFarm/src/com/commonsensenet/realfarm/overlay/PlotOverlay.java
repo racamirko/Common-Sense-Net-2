@@ -39,14 +39,13 @@ public class PlotOverlay extends Overlay {
 		paint.setAntiAlias(true);
 		paint.setDither(true);
 		paint.setStrokeWidth(3);
-
-		// loads the points that need to be drawn.
-		Path path = new Path();
-		path.setFillType(Path.FillType.EVEN_ODD);
-
 		// selects the color based on the owner of the plot
 		// paint.setARGB(100, 55, 175, 35);
 		paint.setColor(mColor);
+		
+		// loads the points that need to be drawn.
+		Path path = new Path();
+		path.setFillType(Path.FillType.EVEN_ODD);
 
 		// gets the points
 		Point[] points = mPlot.getPoints(offlineMapView);
@@ -73,6 +72,32 @@ public class PlotOverlay extends Overlay {
 		// draws the shape in the canvas.
 		mShape.draw(canvas);
 
+	}
+	
+	public static Path getPathFromPlot(Plot plot) {
+		
+		// loads the points that need to be drawn.
+		Path path = new Path();
+		path.setFillType(Path.FillType.EVEN_ODD);
+
+		// gets the points
+		Point[] points = plot.getNormalizedCoordinates();
+
+		if (points.length > 0) {
+			// move for the first point
+			path.moveTo(points[0].x, points[0].y);
+
+			// adds the rest of the lines.
+			for (int i = 1; i < points.length; i++) {
+				path.lineTo(points[i].x, points[i].y);
+			}
+		}
+
+		// closes the path.
+		path.close();
+		
+		
+		return path;
 	}
 
 	public Plot getPlot() {

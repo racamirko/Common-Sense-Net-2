@@ -221,13 +221,10 @@ public class PlotEditor extends Activity {
 
 		// Displays the plot information.
 		updatePlotInformation();
-
 		// Displays the available recommendations.
 		updateRecommendations();
-
 		// Displays the set of possible actions.
 		updateActions();
-
 		// Displays the diary.
 		updateDiary();
 

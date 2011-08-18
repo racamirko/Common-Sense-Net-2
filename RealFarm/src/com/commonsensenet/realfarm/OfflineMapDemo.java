@@ -131,13 +131,14 @@ public class OfflineMapDemo extends Activity {
 		mOfflineMap.setOnOverlayTappedListener(new OnOverlayTappedListener() {
 
 			public void onOverlayTapped(Overlay overlay) {
-				
+
+				PlotOverlay po = (PlotOverlay) overlay;
 				// displays the information about the plot
 				new PlotInformationWindow(
-						mOfflineMap, mDataProvider).show();
+						mOfflineMap, po.getPlot(), mDataProvider).show();
 
 
-//				PlotOverlay po = (PlotOverlay) overlay;
+
 //				Intent myIntent = new Intent();
 //				myIntent.setClass(mOfflineMap.getContext(), PlotEditor.class);
 //				int test = po.getPlot().getId();

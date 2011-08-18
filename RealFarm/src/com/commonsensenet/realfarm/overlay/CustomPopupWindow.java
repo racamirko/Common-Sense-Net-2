@@ -154,7 +154,6 @@ public class CustomPopupWindow {
 		preShow();
 
 		window.setAnimationStyle(R.style.Animations_PopDownMenu);
-
 		window.showAsDropDown(anchor, xOffset, yOffset);
 	}
 

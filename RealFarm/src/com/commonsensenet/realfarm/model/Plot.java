@@ -31,9 +31,9 @@ public class Plot {
 			sumY += coordinates[x].y;
 		}
 
+		// gets the center point if the plot
 		mCenterCoordinate = new Point(sumX / coordinates.length, sumY
 				/ coordinates.length);
-
 	}
 
 	/**
@@ -88,6 +88,33 @@ public class Plot {
 
 	public Point[] getCoordinates() {
 		return mCoordinates;
+	}
+	
+	public Point[] getNormalizedCoordinates() {
+		
+		Point[] points = new Point[mCoordinates.length];
+		
+		// obtains the values from the first point.
+		int minX = mCoordinates[0].x;
+		int minY = mCoordinates[0].y;
+		
+		// gets the minimum point of the polygon.
+		for(int x = 1; x < mCoordinates.length; x++) {
+			if(mCoordinates[x].x < minX)
+				minX = mCoordinates[x].x;
+			if(mCoordinates[x].y < minY)
+				minY = mCoordinates[x].y;
+		}
+		
+		// offsets each coordinate according to the minimum
+		for(int x = 0; x < mCoordinates.length; x++) {
+			
+			points[x] = new Point(mCoordinates[x]);
+			points[x].offset(-minX, -minY);
+		}
+		
+		
+		return points;
 	}
 
 	public int getId() {

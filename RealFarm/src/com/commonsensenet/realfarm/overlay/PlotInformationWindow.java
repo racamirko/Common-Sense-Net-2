@@ -4,6 +4,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.Config;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Path;
+import android.graphics.RectF;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -12,19 +19,23 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.ScrollView;
+import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.Growing;
+import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.Seed;
+import com.commonsensenet.realfarm.model.User;
 
 /**
- * Popup window, shows action list as icon and text like the one in Gallery3D
- * app.
  * 
- * @author Lorensius. W. T
+ * @author Oscar Bolanos (oscar.bolanos@epfl.ch)
+ * 
  */
 public class PlotInformationWindow extends CustomPopupWindow {
 	protected static final int ANIM_AUTO = 5;
@@ -34,48 +45,36 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	protected static final int ANIM_NONE = 6;
 	protected static final int ANIM_REFLECT = 4;
 
+	/** Actions supported by the UI. */
 	private List<Action> mActionList;
+	/** Panel where the actions are contained. */
 	private ViewGroup mActionsPanel;
+	/** Animation style used to display the window. */
 	private int mAnimStyle;
+	/** Context used to load resources. */
 	private final Context mContext;
 	/** Class used to extract the data from the database. */
 	private RealFarmProvider mDataProvider;
+	/** List of growing patches inside the plot. */
+	private List<Growing> mGrowing;
+	/** Inflater used to generate in runtime the layout. */
 	private final LayoutInflater mInflater;
-	private ScrollView mScroller;
-	private ViewGroup mTrack;
+	/** MediaPlayer used to play the audio. */
 	private MediaPlayer mMediaPlayer;
-
-	View.OnClickListener OnClickAction(final int actionIndex) {
-		return new View.OnClickListener() {
-
-			public void onClick(View v) {
-				
-				// stops any previous sound being played.
-				if(mMediaPlayer != null) {
-					mMediaPlayer.stop();
-					mMediaPlayer.release();
-					mMediaPlayer = null;
-				}
-				
-				mMediaPlayer = MediaPlayer.create(mContext, mActionList.get(actionIndex).getAudio());
-				mMediaPlayer.start();
-				mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
-
-					public void onCompletion(MediaPlayer mp) {
-						mp.release();
-					}
-				});
-			}
-		};
-	}
+	/** Plot represented on the window. */
+	private Plot mPlot;
+	// private ScrollView mScroller;
+	private ViewGroup mTrack;
+	private List<Seed> mSeedsList;
 
 	/**
-	 * Constructor
+	 * Creates a new PlotInformationWindow instance.
 	 * 
 	 * @param anchor
 	 *            {@link View} on where the popup window should be displayed
 	 */
-	public PlotInformationWindow(View anchor, RealFarmProvider dataProvider) {
+	public PlotInformationWindow(View anchor, Plot plot,
+			RealFarmProvider dataProvider) {
 		super(anchor);
 
 		mActionList = new ArrayList<Action>();
@@ -88,14 +87,20 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		setContentView(mInflater.inflate(R.layout.plotinformation, null));
 
 		// gets the elements contained in the window.
-		mTrack = (ViewGroup) mRoot.findViewById(R.id.tracks);
-		mScroller = (ScrollView) mRoot.findViewById(R.id.scroller);
+		mTrack = (ViewGroup) mRoot.findViewById(R.id.itemsList);
+		// mScroller = (LinearLayout) mRoot.findViewById(R.id.windowContainer);
 		mActionsPanel = (ViewGroup) mRoot.findViewById(R.id.actionPanel);
 		mAnimStyle = ANIM_GROW_FROM_CENTER;
+
+		// plot represented by the window.
+		mPlot = plot;
+		// loads the actions from the database.
+		mActionList = mDataProvider.getActionsList();
+		mSeedsList = new ArrayList<Seed>();
 	}
 
 	/**
-	 * Create action list
+	 * Displays the actions that the user can perform.
 	 */
 	private void createActionList() {
 		View view;
@@ -117,6 +122,23 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			view.forceLayout();
 			mActionsPanel.addView(view);
 		}
+
+		// for (int i = 0; i < actionList.size(); i++) {
+		// title = actionList.get(i).getTitle();
+		// icon = actionList.get(i).getIcon();
+		// listener = actionList.get(i).getListener();
+		// id = actionList.get(i).getId();
+		//
+		// view = getActionItem(title, icon, listener);
+		// view.setId(id);
+		//
+		// view.setFocusable(true);
+		// view.setClickable(true);
+		//
+		// view.invalidate();
+		// view.forceLayout();
+		// mTrack.addView(view);
+		// }
 	}
 
 	/**
@@ -149,12 +171,63 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		return container;
 	}
+	
+	private View getGrowingItem(int icon, String title) {
+		LinearLayout container = (LinearLayout) mInflater.inflate(
+				R.layout.growing_item, null);
+
+		ImageView img = (ImageView) container.findViewById(R.id.icon);
+		TextView lblTitle = (TextView) container.findViewById(R.id.title);
+		// img.setBackgroundResource(R.drawable.cbutton);
+		// img.setOnClickListener(listener);
+
+		container.setClickable(true);
+		container.setFocusable(true);
+
+		if (icon != -1)
+			img.setImageResource(icon);
+		else
+			img.setImageResource(R.drawable.ic_menu_mylocation);
+		
+		if(title != null)
+			lblTitle.setText(title);
+
+//		if (listener != null)
+//			img.setOnClickListener(listener);
+
+		return container;
+	}
+
+	View.OnClickListener OnClickAction(final int actionIndex) {
+		return new View.OnClickListener() {
+
+			public void onClick(View v) {
+
+				if (mMediaPlayer != null) {
+					mMediaPlayer.stop();
+					mMediaPlayer.release();
+					mMediaPlayer = null;
+				}
+
+				mMediaPlayer = MediaPlayer.create(mContext,
+						mActionList.get(actionIndex).getAudio());
+				mMediaPlayer.start();
+				mMediaPlayer
+						.setOnCompletionListener(new OnCompletionListener() {
+
+							public void onCompletion(MediaPlayer mp) {
+								mp.release();
+								mMediaPlayer = null;
+
+							}
+						});
+			}
+		};
+	}
 
 	@Override
 	protected void onShow() {
 		super.onShow();
-		// loads the actions from the database.
-		mActionList = mDataProvider.getActionsList();
 	}
 
 	/**
@@ -215,6 +288,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		// loads the actions
 		createActionList();
+		// loads the plot information
+		updatePlotInformation();
 
 		// sets the animation of the window
 		setAnimationStyle(true);
@@ -222,5 +297,84 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// displays the window.
 		window.showAtLocation(anchor, Gravity.NO_GRAVITY, location[0],
 				location[1]);
+	}
+
+	public void updatePlotInformation() {
+
+		// LinearLayout container0 = (LinearLayout)
+		// findViewById(R.id.layoutheader);
+		//
+		// container0.removeAllViews();
+		//
+		// TextView tv = new TextView(this);
+		// tv.setText(R.string.plot);
+		// tv.setTextSize(TEXT_HEADER_SIZE);
+		// tv.setTextColor(Color.BLACK);
+		// container0.addView(tv);
+
+		// Bitmap mBitmap = null;
+		// Bundle extras = getIntent().getExtras();
+		// if (extras != null) {
+		// plotID = Integer.parseInt(extras.getString("ID"));
+		// }
+
+		// Get growing areas of the plot
+		mGrowing = mDataProvider.getGrowingByPlotId(mPlot.getId());
+
+		// gets the owner of the plot.
+		User plotOwner = mDataProvider.getUserById(mPlot.getOwnerId());
+
+		// displays the owner information in the header of the window.
+		TextView txtOwnerName = (TextView) mRoot.findViewById(R.id.firstLine);
+		if (plotOwner != null)
+			txtOwnerName.setText(plotOwner.getFirstName() + " "
+					+ plotOwner.getLastName());
+		else
+			txtOwnerName.setText("Unknown");
+
+		Path path = PlotOverlay.getPathFromPlot(mPlot);		
+		// gets the bounds of the plot.
+		RectF plotBounds = new RectF();
+		path.computeBounds(plotBounds, true);
+		
+		// paint used for the path
+		Paint paint = new Paint();
+		paint.setStrokeWidth(7);
+		paint.setAntiAlias(true);
+		paint.setDither(true);
+		paint.setStrokeWidth(3);
+		paint.setColor(0x64FF0000);
+		
+		// draw in bitmap
+		Bitmap myBitmap = Bitmap.createBitmap((int)plotBounds.width(), (int)plotBounds.height(), Config.ARGB_8888);
+		Canvas myCanvas = new Canvas(myBitmap);
+		// draws the given path into the canvas.
+		myCanvas.drawPath(path, paint);
+		
+		// limits the size of the bitmap.
+		myBitmap = Bitmap.createScaledBitmap(myBitmap, 100, 100, false);
+		
+		ImageView imgIcon = (ImageView) mRoot.findViewById(R.id.icon);
+		imgIcon.setImageBitmap(myBitmap);
+	
+		View item;
+
+		// lists the growing areas
+		for (int i = 0; i < mGrowing.size(); i++) {
+			
+			// gets the seed used in the growing part of the plot.
+			Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
+			mSeedsList.add(s);
+			
+			item = getGrowingItem(s.getRes(), s.getName());
+			item.setId(mGrowing.get(i).getId());
+
+			item.setFocusable(true);
+			item.setClickable(true);
+
+			item.invalidate();
+			item.forceLayout();
+			mTrack.addView(item);
+		}
 	}
 }

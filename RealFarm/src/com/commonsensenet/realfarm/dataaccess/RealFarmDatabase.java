@@ -337,7 +337,7 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_STAGE = "stage";
 	public static final String TABLE_NAME_SEEDTYPESTAGE = "seedTypeStage";
 	public static final String TABLE_NAME_USER = "user";
-	private static final String TABLE_NAME_UNIT = "unit";
+	public static final String TABLE_NAME_UNIT = "unit";
 
 
 	private Context mContext;
@@ -684,17 +684,17 @@ public class RealFarmDatabase {
 		ContentValues growing = new ContentValues();
 		growing.put(COLUMN_NAME_GROWING_ID, 1);
 		growing.put(COLUMN_NAME_GROWING_PLOTID, 1);
-		growing.put(COLUMN_NAME_GROWING_SEEDID, 1);
+		growing.put(COLUMN_NAME_GROWING_SEEDID, 3);
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
 		growing.put(COLUMN_NAME_GROWING_ID, 2);
 		growing.put(COLUMN_NAME_GROWING_PLOTID, 2);
-		growing.put(COLUMN_NAME_GROWING_SEEDID, 1);
+		growing.put(COLUMN_NAME_GROWING_SEEDID, 3);
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
 		growing.put(COLUMN_NAME_GROWING_ID, 3);
 		growing.put(COLUMN_NAME_GROWING_PLOTID, 3);
-		growing.put(COLUMN_NAME_GROWING_SEEDID, 1);
+		growing.put(COLUMN_NAME_GROWING_SEEDID, 4);
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
 
