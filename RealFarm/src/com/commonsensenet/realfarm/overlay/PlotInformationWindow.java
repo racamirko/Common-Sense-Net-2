@@ -11,6 +11,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
+import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
@@ -22,6 +23,7 @@ import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
@@ -173,13 +175,18 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	}
 	
 	private View getGrowingItem(int icon, String title) {
-		LinearLayout container = (LinearLayout) mInflater.inflate(
+		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.growing_item, null);
 
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
-		TextView lblTitle = (TextView) container.findViewById(R.id.title);
+		TextView lblTitle = (TextView) container.findViewById(R.id.firstLine);
+		TextView tblKannada = (TextView) container.findViewById(R.id.secondLine);
 		// img.setBackgroundResource(R.drawable.cbutton);
 		// img.setOnClickListener(listener);
+		
+		Typeface tf = Typeface.createFromAsset(mContext.getAssets(),
+        "fonts/Kedage.dfont");
+		tblKannada.setTypeface(tf);
 
 		container.setClickable(true);
 		container.setFocusable(true);
@@ -189,8 +196,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		else
 			img.setImageResource(R.drawable.ic_menu_mylocation);
 		
-		if(title != null)
+		if(title != null) {
 			lblTitle.setText(title);
+			tblKannada.setText("ಖಾಯಿಲೆ");
+		}
 
 //		if (listener != null)
 //			img.setOnClickListener(listener);
@@ -366,7 +375,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
 			mSeedsList.add(s);
 			
-			item = getGrowingItem(s.getRes(), s.getName());
+			item = getGrowingItem(s.getRes(), s.getName() + " - " + s.getVariety());
 			item.setId(mGrowing.get(i).getId());
 
 			item.setFocusable(true);
