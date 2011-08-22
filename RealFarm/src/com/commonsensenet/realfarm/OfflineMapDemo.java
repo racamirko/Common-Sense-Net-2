@@ -136,12 +136,12 @@ public class OfflineMapDemo extends Activity {
 				new PlotInformationWindow(mOfflineMap, po.getPlot(),
 						mDataProvider).show();
 
-				// Intent myIntent = new Intent();
-				// myIntent.setClass(mOfflineMap.getContext(),
-				// PlotEditor.class);
-				// int test = po.getPlot().getId();
-				// myIntent.putExtra("ID", Integer.toString(test));
-				// mOfflineMap.getContext().startActivity(myIntent);
+//				 Intent myIntent = new Intent();
+//				 myIntent.setClass(mOfflineMap.getContext(),
+//				 PlotEditor.class);
+//				 int test = po.getPlot().getId();
+//				 myIntent.putExtra("ID", Integer.toString(test));
+//				 mOfflineMap.getContext().startActivity(myIntent);
 			}
 		});
 

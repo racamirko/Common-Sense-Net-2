@@ -4,6 +4,7 @@ public class Action {
 
 	private int mAudio;
 	private int mId;
+	private int mLayout;
 	private String mName;
 	private int mRes;
 

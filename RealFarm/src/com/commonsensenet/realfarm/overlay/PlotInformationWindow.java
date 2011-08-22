@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm.overlay;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -97,6 +98,25 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// loads the actions from the database.
 		mActionList = mDataProvider.getActionsList();
 		mSeedsList = new ArrayList<Seed>();
+		
+		// cancel button
+		ImageView iiv = (ImageView) mRoot.findViewById(R.id.cancelbutton);
+		iiv.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				PlotInformationWindow.this.window.dismiss();
+			}
+		});
+
+		// ok button
+		ImageView iiv2 = (ImageView) mRoot.findViewById(R.id.okbutton);
+		iiv2.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				// TODO: action should be added
+				PlotInformationWindow.this.window.dismiss();
+			}
+		});
 	}
 
 	/**

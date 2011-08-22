@@ -36,7 +36,6 @@ public class QuickAction extends CustomPopupWindow {
 	private final Context context;
 	private final LayoutInflater inflater;
 	private final ImageView mArrowDown;
-
 	private final ImageView mArrowUp;
 	private ViewGroup mTrack;
 	private final View root;
