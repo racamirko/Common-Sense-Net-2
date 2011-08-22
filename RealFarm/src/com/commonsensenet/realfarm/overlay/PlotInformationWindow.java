@@ -394,8 +394,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
 			mSeedsList.add(s);
 
-			item = getGrowingItem(s.getRes(),
-					s.getName() + " - " + s.getVariety());
+			item = getGrowingItem(s.getRes(), s.getFullName());
 			item.setId(mGrowing.get(i).getId());
 
 			item.setFocusable(true);

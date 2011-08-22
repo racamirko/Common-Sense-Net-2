@@ -16,7 +16,7 @@
 				android:layout_height="wrap_content" android:layout_toRightOf="@id/icon"
 				android:layout_alignParentTop="true"
 				  android:singleLine="true"
-				android:textSize="20sp" android:layout_alignWithParentIfMissing="true"
+				android:textSize="15sp" android:layout_alignWithParentIfMissing="true"
 				android:text="" />
 				
 			<TextView android:id="@+id/secondLine" android:layout_width="fill_parent"

@@ -14,6 +14,13 @@ public class Seed {
 		mRes = res;
 	}
 
+	public String getFullName() {
+		if (mVariety != null)
+			return mName + " - " + mVariety;
+		else
+			return mName;
+	}
+
 	public int getId() {
 		return mId;
 	}

@@ -677,11 +677,16 @@ public class RealFarmDatabase {
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
 		growing.put(COLUMN_NAME_GROWING_ID, 2);
+		growing.put(COLUMN_NAME_GROWING_PLOTID, 1);
+		growing.put(COLUMN_NAME_GROWING_SEEDID, 5);
+		insertEntries(TABLE_NAME_GROWING, growing, db);
+		growing.clear();
+		growing.put(COLUMN_NAME_GROWING_ID, 3);
 		growing.put(COLUMN_NAME_GROWING_PLOTID, 2);
 		growing.put(COLUMN_NAME_GROWING_SEEDID, 3);
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
-		growing.put(COLUMN_NAME_GROWING_ID, 3);
+		growing.put(COLUMN_NAME_GROWING_ID, 4);
 		growing.put(COLUMN_NAME_GROWING_PLOTID, 3);
 		growing.put(COLUMN_NAME_GROWING_SEEDID, 4);
 		insertEntries(TABLE_NAME_GROWING, growing, db);
