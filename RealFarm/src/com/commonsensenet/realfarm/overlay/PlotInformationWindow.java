@@ -1,6 +1,10 @@
 package com.commonsensenet.realfarm.overlay;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
@@ -27,6 +31,7 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.Diary;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Seed;
@@ -97,11 +102,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// loads the actions from the database.
 		mActionList = mDataProvider.getActionsList();
 		mSeedsList = new ArrayList<Seed>();
-		
+
 		// cancel button
 		ImageView iiv = (ImageView) mRoot.findViewById(R.id.cancelbutton);
 		iiv.setOnClickListener(new OnClickListener() {
-			
+
 			public void onClick(View v) {
 				PlotInformationWindow.this.window.dismiss();
 			}
@@ -110,7 +115,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// ok button
 		ImageView iiv2 = (ImageView) mRoot.findViewById(R.id.okbutton);
 		iiv2.setOnClickListener(new OnClickListener() {
-			
+
 			public void onClick(View v) {
 				// TODO: action should be added
 				PlotInformationWindow.this.window.dismiss();
@@ -141,23 +146,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			view.forceLayout();
 			mActionsPanel.addView(view);
 		}
-
-		// for (int i = 0; i < actionList.size(); i++) {
-		// title = actionList.get(i).getTitle();
-		// icon = actionList.get(i).getIcon();
-		// listener = actionList.get(i).getListener();
-		// id = actionList.get(i).getId();
-		//
-		// view = getActionItem(title, icon, listener);
-		// view.setId(id);
-		//
-		// view.setFocusable(true);
-		// view.setClickable(true);
-		//
-		// view.invalidate();
-		// view.forceLayout();
-		// mTrack.addView(view);
-		// }
 	}
 
 	/**
@@ -187,6 +175,36 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		if (listener != null)
 			img.setOnClickListener(listener);
+
+		return container;
+	}
+
+	private View getDiaryItem(int icon, String title, String date, OnClickListener listener) {
+		RelativeLayout container = (RelativeLayout) mInflater.inflate(
+				R.layout.diary_item, null);
+
+		ImageView img = (ImageView) container.findViewById(R.id.icon);
+		TextView lblTitle = (TextView) container.findViewById(R.id.title);
+		TextView lblDate = (TextView) container.findViewById(R.id.date);
+		img.setBackgroundResource(R.drawable.cbutton);
+		img.setClickable(false);
+
+		container.setClickable(true);
+		container.setFocusable(true);
+
+		if (icon != -1)
+			img.setImageResource(icon);
+		else
+			img.setImageResource(R.drawable.ic_menu_mylocation);
+
+		if (title != null)
+			lblTitle.setText(title);
+		
+		if(date != null)
+			lblDate.setText(date);
+
+		if (listener != null)
+			container.setOnClickListener(listener);
 
 		return container;
 	}
@@ -225,10 +243,74 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
+	private void loadDiary() {
+		View view;
+		String text;
+
+		// removes all visual elements
+		mTrack.removeAllViews();
+
+		Diary diary = mDataProvider.getDiary(mPlot.getId());
+
+		for (int i = 0; i < diary.getSize(); i++) {
+
+			// gets the next action
+			Action a = mDataProvider.getActionById(diary.getActionId(i));
+
+			// listener = mActionList.get(i).getListener();
+			text = i + " " + a.getName();
+
+			view = getDiaryItem(a.getRes(), text,formatDate(diary.getActionDate(i)), OnClickAction(a.getId()));
+			view.setId(a.getId());
+
+			view.setFocusable(true);
+			view.setClickable(true);
+
+			view.invalidate();
+			view.forceLayout();
+			mTrack.addView(view);
+		}
+	}
+
+	private String formatDate(String date) {
+
+		try {
+			Date dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
+					.parse(date);
+			Calendar calendar = Calendar.getInstance();
+			calendar.setTime(dateTime);
+
+			Calendar today = Calendar.getInstance();
+			Calendar yesterday = Calendar.getInstance();
+			yesterday.add(Calendar.DATE, -1);
+			SimpleDateFormat timeFormatter = new SimpleDateFormat("MMM dd");
+
+			if (calendar.get(Calendar.YEAR) == today.get(Calendar.YEAR)
+					&& calendar.get(Calendar.DAY_OF_YEAR) == today
+							.get(Calendar.DAY_OF_YEAR)) {
+				return "Today";
+			} else if (calendar.get(Calendar.YEAR) == yesterday
+					.get(Calendar.YEAR)
+					&& calendar.get(Calendar.DAY_OF_YEAR) == yesterday
+							.get(Calendar.DAY_OF_YEAR)) {
+				return "Yesterday";
+			} else {
+				return timeFormatter.format(dateTime);
+			}
+		} catch (ParseException e) {
+			return date;
+		}
+	}
+
 	View.OnClickListener OnClickAction(final int actionIndex) {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
+
+				Action currentAction = mActionList.get(actionIndex);
+				if (currentAction.getName().equals("Diary")) {
+					loadDiary();
+				}
 
 				if (mMediaPlayer != null) {
 					mMediaPlayer.stop();
@@ -250,11 +332,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 						});
 			}
 		};
-	}
-
-	@Override
-	protected void onShow() {
-		super.onShow();
 	}
 
 	/**
@@ -328,23 +405,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 	public void updatePlotInformation() {
 
-		// LinearLayout container0 = (LinearLayout)
-		// findViewById(R.id.layoutheader);
-		//
-		// container0.removeAllViews();
-		//
-		// TextView tv = new TextView(this);
-		// tv.setText(R.string.plot);
-		// tv.setTextSize(TEXT_HEADER_SIZE);
-		// tv.setTextColor(Color.BLACK);
-		// container0.addView(tv);
-
-		// Bitmap mBitmap = null;
-		// Bundle extras = getIntent().getExtras();
-		// if (extras != null) {
-		// plotID = Integer.parseInt(extras.getString("ID"));
-		// }
-
 		// Get growing areas of the plot
 		mGrowing = mDataProvider.getGrowingByPlotId(mPlot.getId());
 
@@ -380,6 +440,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		myCanvas.drawPath(path, paint);
 
 		// limits the size of the bitmap.
+		// TODO: I think the proportions are not kept.
 		myBitmap = Bitmap.createScaledBitmap(myBitmap, 100, 100, false);
 
 		ImageView imgIcon = (ImageView) mRoot.findViewById(R.id.icon);

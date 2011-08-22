@@ -1,7 +1,7 @@
 package com.commonsensenet.realfarm.dataaccess;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -644,26 +644,33 @@ public class RealFarmDatabase {
 		// actions
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				"yyyy-MM-dd HH:mm:ss");
-		Date date = new Date();
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, -4);
+		
+		
 		ContentValues actions = new ContentValues();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
+		
+		calendar.add(Calendar.DATE, 2);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 4);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
+		calendar.add(Calendar.DATE, 1);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 2);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
+		calendar.add(Calendar.DATE, 1);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 3);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		actions.clear();
 
@@ -1005,14 +1012,14 @@ public class RealFarmDatabase {
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_SEEDID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ACTIONID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE,
-				dateFormat.format(date));
+				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_RECOMMENDATION, recommendation, db);
 		recommendation.clear();
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ID, 2);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_SEEDID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ACTIONID, 2);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE,
-				dateFormat.format(date));
+				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_RECOMMENDATION, recommendation, db);
 		recommendation.clear();
 		Log.d(DEBUG_ID, "recommendation works");
