@@ -180,17 +180,17 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	}
 
 	private View getDiaryItem(int icon, String title, String date, OnClickListener listener) {
+		
+		// inflates the layout.
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.diary_item, null);
-
+		container.setClickable(true);
+		container.setFocusable(true);
+		
+		// gets the components to modify
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
 		TextView lblTitle = (TextView) container.findViewById(R.id.title);
 		TextView lblDate = (TextView) container.findViewById(R.id.date);
-		img.setBackgroundResource(R.drawable.cbutton);
-		img.setClickable(false);
-
-		container.setClickable(true);
-		container.setFocusable(true);
 
 		if (icon != -1)
 			img.setImageResource(icon);

@@ -3,27 +3,17 @@
 	android:orientation="horizontal" android:layout_width="fill_parent"
 	android:layout_height="?android:attr/listPreferredItemHeight"
 	android:clickable="true" android:focusable="true" android:background="@drawable/action_item_btn"
-	android:padding="6dip">
-
+	android:padding="2dip">
 	<ImageView android:id="@+id/icon" android:layout_width="wrap_content"
 		android:layout_marginRight="6dip" android:layout_height="wrap_content"
 		android:src="@drawable/icon" />
-	<!-- <ImageView android:id="@+id/icon" android:layout_width="wrap_content" 
-		android:layout_height="wrap_content" android:layout_alignParentTop="true" 
-		android:layout_alignParentBottom="true" /> -->
-
-			<TextView android:layout_width="fill_parent" android:id="@+id/firstLine"
-				android:layout_height="wrap_content" android:layout_toRightOf="@id/icon"
-				android:layout_alignParentTop="true"
-				  android:singleLine="true"
-				android:textSize="15sp" android:layout_alignWithParentIfMissing="true"
-				android:text="" />
-				
-			<TextView android:id="@+id/secondLine" android:layout_width="fill_parent"
-				android:layout_height="26dip" android:layout_toRightOf="@id/icon"
-				
-				 android:singleLine="true" android:layout_below="@id/firstLine"
-				android:ellipsize="marquee" android:text="" />
-
-
+	<TextView android:layout_width="fill_parent" android:id="@+id/firstLine"
+		android:layout_height="wrap_content" android:layout_toRightOf="@id/icon"
+		android:layout_alignParentTop="true" android:singleLine="true"
+		android:textSize="15sp" android:layout_alignWithParentIfMissing="true"
+		android:text="" />
+	<TextView android:id="@+id/secondLine" android:layout_width="fill_parent"
+		android:layout_height="26dip" android:layout_toRightOf="@id/icon"
+		android:singleLine="true" android:layout_below="@id/firstLine"
+		android:ellipsize="marquee" android:text="" />
 </RelativeLayout>         
