@@ -1,7 +1,5 @@
 package com.commonsensenet.realfarm.overlay;
 
-import com.commonsensenet.realfarm.R;
-
 import android.content.Context;
 import android.graphics.Rect;
 import android.graphics.drawable.BitmapDrawable;
@@ -14,6 +12,8 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+
+import com.commonsensenet.realfarm.R;
 
 public class CustomPopupWindow {
 	protected final View anchor;

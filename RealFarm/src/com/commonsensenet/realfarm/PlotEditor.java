@@ -227,7 +227,6 @@ public class PlotEditor extends Activity {
 		updateActions();
 		// Displays the diary.
 		updateDiary();
-
 	}
 
 	/**
@@ -251,8 +250,7 @@ public class PlotEditor extends Activity {
 		TableLayout tl = new TableLayout(this);
 		TableRow row1 = new TableRow(this);
 		TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(
-				LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT);
+				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 
 		int leftMargin = 20;
 		int topMargin = 2;
@@ -311,8 +309,7 @@ public class PlotEditor extends Activity {
 		TableLayout table = new TableLayout(this);
 		Diary res = mDataProvider.getDiary(plotID);
 		TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(
-				LayoutParams.FILL_PARENT,
-				LayoutParams.WRAP_CONTENT);
+				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 
 		if (res != null) { // if not empty
 			for (int i = 0; i < res.getSize(); i++) {
@@ -409,8 +406,7 @@ public class PlotEditor extends Activity {
 			ImageView iv = new ImageView(PlotEditor.this);
 			iv.setBackgroundResource(s.getRes());
 			LinearLayout.LayoutParams ll = new LinearLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT,
-					LayoutParams.WRAP_CONTENT);
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			iv.setLayoutParams(ll);
 			llMain.addView(iv);
 		}

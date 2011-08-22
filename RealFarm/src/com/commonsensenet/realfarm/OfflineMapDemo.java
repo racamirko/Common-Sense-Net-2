@@ -117,7 +117,6 @@ public class OfflineMapDemo extends Activity {
 						}).show();
 	}
 
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -134,16 +133,15 @@ public class OfflineMapDemo extends Activity {
 
 				PlotOverlay po = (PlotOverlay) overlay;
 				// displays the information about the plot
-				new PlotInformationWindow(
-						mOfflineMap, po.getPlot(), mDataProvider).show();
+				new PlotInformationWindow(mOfflineMap, po.getPlot(),
+						mDataProvider).show();
 
-
-
-//				Intent myIntent = new Intent();
-//				myIntent.setClass(mOfflineMap.getContext(), PlotEditor.class);
-//				int test = po.getPlot().getId();
-//				myIntent.putExtra("ID", Integer.toString(test));
-//				mOfflineMap.getContext().startActivity(myIntent);
+				// Intent myIntent = new Intent();
+				// myIntent.setClass(mOfflineMap.getContext(),
+				// PlotEditor.class);
+				// int test = po.getPlot().getId();
+				// myIntent.putExtra("ID", Integer.toString(test));
+				// mOfflineMap.getContext().startActivity(myIntent);
 			}
 		});
 
@@ -322,7 +320,7 @@ public class OfflineMapDemo extends Activity {
 
 		// news button in action bar
 		actionBar.addAction(new Action() {
-
+			
 			public int getDrawable() {
 				return R.drawable.ic_48px_news;
 			}

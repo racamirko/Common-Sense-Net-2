@@ -48,7 +48,8 @@ public class RealFarmProvider {
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
 
-			tmpAction = new Action(actionId, c0.getString(0), c0.getInt(1), c0.getInt(2));
+			tmpAction = new Action(actionId, c0.getString(0), c0.getInt(1),
+					c0.getInt(2));
 		}
 
 		mDb.close();
@@ -66,15 +67,16 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
 						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO},
-				null, null, null, null, null);
+						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO }, null,
+				null, null, null, null);
 		c.moveToFirst();
 
 		List<Action> tmpList = new LinkedList<Action>();
 
 		if (c.getCount() > 0) {
 			do {
-				tmpList.add(new Action(c.getInt(0), c.getString(1), c.getInt(2), c.getInt(3)));
+				tmpList.add(new Action(c.getInt(0), c.getString(1),
+						c.getInt(2), c.getInt(3)));
 			} while (c.moveToNext());
 		}
 

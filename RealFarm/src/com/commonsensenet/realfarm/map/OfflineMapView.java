@@ -32,6 +32,8 @@ public class OfflineMapView extends View {
 	private Point mInitialPoint;
 	/** Underlying map representation in charge of the tile system. */
 	private Map mMap;
+	/** Used to notify that a plot was tapped. */
+	private OnOverlayTappedListener mOnPlotTappedListener;
 	/** List of overlays added in the current map. */
 	private ArrayList<Overlay> mOverlays;
 	/** Amount to scroll in the x coordinate product of the last ACTION_MOVE. */
@@ -48,14 +50,7 @@ public class OfflineMapView extends View {
 	private float mStartY;
 	/** Target point where the map must animate to. */
 	private Point mTargetPoint;
-	/** Used to notify that a plot was tapped. */
-	private OnOverlayTappedListener mOnPlotTappedListener;
 
-	public void setOnOverlayTappedListener(OnOverlayTappedListener l)
-	{
-		mOnPlotTappedListener = l;
-	}
-	
 	private Runnable mUpdateTimeTask = new Runnable() {
 		public void run() {
 
@@ -373,9 +368,10 @@ public class OfflineMapView extends View {
 				boolean processed = false;
 				for (int x = 0; x < mOverlays.size(); x++) {
 					processed = mOverlays.get(x).onTouchEvent(event, this);
-					if (processed){
-						if(mOnPlotTappedListener != null)
-							mOnPlotTappedListener.onOverlayTapped(mOverlays.get(x));
+					if (processed) {
+						if (mOnPlotTappedListener != null)
+							mOnPlotTappedListener.onOverlayTapped(mOverlays
+									.get(x));
 						break;
 					}
 				}
@@ -409,6 +405,10 @@ public class OfflineMapView extends View {
 		}
 		// done with this event so consume it
 		return true;
+	}
+
+	public void setOnOverlayTappedListener(OnOverlayTappedListener l) {
+		mOnPlotTappedListener = l;
 	}
 
 	public void setZoomLevel(int value) {

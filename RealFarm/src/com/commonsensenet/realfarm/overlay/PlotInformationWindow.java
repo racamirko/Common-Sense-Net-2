@@ -7,7 +7,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
-import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Path;
 import android.graphics.RectF;
@@ -20,7 +19,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -65,9 +63,9 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private MediaPlayer mMediaPlayer;
 	/** Plot represented on the window. */
 	private Plot mPlot;
+	private List<Seed> mSeedsList;
 	// private ScrollView mScroller;
 	private ViewGroup mTrack;
-	private List<Seed> mSeedsList;
 
 	/**
 	 * Creates a new PlotInformationWindow instance.
@@ -173,19 +171,20 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		return container;
 	}
-	
+
 	private View getGrowingItem(int icon, String title) {
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.growing_item, null);
 
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
 		TextView lblTitle = (TextView) container.findViewById(R.id.firstLine);
-		TextView tblKannada = (TextView) container.findViewById(R.id.secondLine);
+		TextView tblKannada = (TextView) container
+				.findViewById(R.id.secondLine);
 		// img.setBackgroundResource(R.drawable.cbutton);
 		// img.setOnClickListener(listener);
-		
+
 		Typeface tf = Typeface.createFromAsset(mContext.getAssets(),
-        "fonts/Kedage.dfont");
+				"fonts/Kedage.dfont");
 		tblKannada.setTypeface(tf);
 
 		container.setClickable(true);
@@ -195,14 +194,14 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			img.setImageResource(icon);
 		else
 			img.setImageResource(R.drawable.ic_menu_mylocation);
-		
-		if(title != null) {
+
+		if (title != null) {
 			lblTitle.setText(title);
 			tblKannada.setText("ಖಾಯಿಲೆ");
 		}
 
-//		if (listener != null)
-//			img.setOnClickListener(listener);
+		// if (listener != null)
+		// img.setOnClickListener(listener);
 
 		return container;
 	}
@@ -341,11 +340,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		else
 			txtOwnerName.setText("Unknown");
 
-		Path path = PlotOverlay.getPathFromPlot(mPlot);		
+		Path path = PlotOverlay.getPathFromPlot(mPlot);
 		// gets the bounds of the plot.
 		RectF plotBounds = new RectF();
 		path.computeBounds(plotBounds, true);
-		
+
 		// paint used for the path
 		Paint paint = new Paint();
 		paint.setStrokeWidth(7);
@@ -353,29 +352,31 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		paint.setDither(true);
 		paint.setStrokeWidth(3);
 		paint.setColor(0x64FF0000);
-		
+
 		// draw in bitmap
-		Bitmap myBitmap = Bitmap.createBitmap((int)plotBounds.width(), (int)plotBounds.height(), Config.ARGB_8888);
+		Bitmap myBitmap = Bitmap.createBitmap((int) plotBounds.width(),
+				(int) plotBounds.height(), Config.ARGB_8888);
 		Canvas myCanvas = new Canvas(myBitmap);
 		// draws the given path into the canvas.
 		myCanvas.drawPath(path, paint);
-		
+
 		// limits the size of the bitmap.
 		myBitmap = Bitmap.createScaledBitmap(myBitmap, 100, 100, false);
-		
+
 		ImageView imgIcon = (ImageView) mRoot.findViewById(R.id.icon);
 		imgIcon.setImageBitmap(myBitmap);
-	
+
 		View item;
 
 		// lists the growing areas
 		for (int i = 0; i < mGrowing.size(); i++) {
-			
+
 			// gets the seed used in the growing part of the plot.
 			Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
 			mSeedsList.add(s);
-			
-			item = getGrowingItem(s.getRes(), s.getName() + " - " + s.getVariety());
+
+			item = getGrowingItem(s.getRes(),
+					s.getName() + " - " + s.getVariety());
 			item.setId(mGrowing.get(i).getId());
 
 			item.setFocusable(true);
