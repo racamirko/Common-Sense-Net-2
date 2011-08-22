@@ -243,7 +243,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
-	private void loadDiary() {
+	private void updateDiary() {
 		View view;
 		String text;
 
@@ -260,7 +260,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			// listener = mActionList.get(i).getListener();
 			text = i + " " + a.getName();
 
-			view = getDiaryItem(a.getRes(), text,formatDate(diary.getActionDate(i)), OnClickAction(a.getId()));
+			view = getDiaryItem(a.getRes(), text,formatDate(diary.getActionDate(i)), OnClickDiary(diary.getId(i)));
 			view.setId(a.getId());
 
 			view.setFocusable(true);
@@ -301,6 +301,18 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			return date;
 		}
 	}
+	
+	View.OnClickListener OnClickDiary(final int actionID) {
+		return new View.OnClickListener() {
+
+			public void onClick(View v) {
+				// removes the selected action
+				mDataProvider.removeAction(actionID);
+				// updates the UI
+				updateDiary();
+			}
+		};
+	}
 
 	View.OnClickListener OnClickAction(final int actionIndex) {
 		return new View.OnClickListener() {
@@ -309,7 +321,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 				Action currentAction = mActionList.get(actionIndex);
 				if (currentAction.getName().equals("Diary")) {
-					loadDiary();
+					updateDiary();
 				}
 
 				if (mMediaPlayer != null) {

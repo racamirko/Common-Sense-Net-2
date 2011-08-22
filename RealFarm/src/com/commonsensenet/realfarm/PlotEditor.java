@@ -185,10 +185,8 @@ public class PlotEditor extends Activity {
 			public void onClick(View v) {
 				editAction(action, actionID, dialog, currentGrowingId,
 						currentQuantityId);
-
 			}
 		};
-
 	}
 
 	View.OnClickListener OnClickGrowing(final int growingID) {
@@ -445,6 +443,5 @@ public class PlotEditor extends Activity {
 		}
 
 		// else no recommendation => do nothing
-
 	}
 }
