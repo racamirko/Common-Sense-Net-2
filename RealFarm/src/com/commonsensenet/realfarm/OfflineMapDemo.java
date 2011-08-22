@@ -90,8 +90,8 @@ public class OfflineMapDemo extends Activity {
 	private LocationManager lm;
 	/** Class used to extract the data from the database. */
 	private RealFarmProvider mDataProvider;
-	/** List of Polygons that represent the plots of the user. */
-	private List<Plot> mMyPlots;
+	/** List of Polygons that represent the plots available. */
+	private List<Plot> mPlots;
 	/** View that handles the map of the area. */
 	private OfflineMapView mOfflineMap;
 
@@ -166,13 +166,14 @@ public class OfflineMapDemo extends Activity {
 		// Define overlays
 		List<Overlay> mapOverlays = mOfflineMap.getOverlays();
 
-		int userId = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
+		// gets the id of the user.
+		RealFarmDatabase.MAIN_USER_ID = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
 				.getUserId();
 
 		// adds an overlay for each plot found.
-		mMyPlots = mDataProvider.getUserPlots(userId);
-		for (int x = 0; x < mMyPlots.size(); x++) {
-			mapOverlays.add(new PlotOverlay(mMyPlots.get(x)));
+		mPlots = mDataProvider.getPlotsList(); 
+		for (int x = 0; x < mPlots.size(); x++) {
+			mapOverlays.add(new PlotOverlay(mPlots.get(x)));
 		}
 
 		// Drawable drawable = getResources().getDrawable(R.drawable.marker);
@@ -295,24 +296,29 @@ public class OfflineMapDemo extends Activity {
 
 				// creates an action item for each available plot.
 				ActionItem tmpItem;
-				for (int x = 0; x < mMyPlots.size(); x++) {
-					// creates a new item based
-					tmpItem = new ActionItem();
-					tmpItem.setTitle("Plot " + mMyPlots.get(x).getId());
-					tmpItem.setId(x);
-					tmpItem.setIcon(getResources().getDrawable(
-							R.drawable.ic_dialog_map));
-					tmpItem.setOnClickListener(new OnClickListener() {
-						public void onClick(View v) {
-
-							// animates to the center of the plot
-							Point center = mMyPlots.get(v.getId())
-									.getCenterCoordinate();
-							mOfflineMap.animateTo(center);
-						}
-					});
-					// adds the item
-					qa.addActionItem(tmpItem);
+				for (int x = 0; x < mPlots.size(); x++) {
+					
+					// only adds the plot to the list if it belongs to the user.
+					if(mPlots.get(x).getOwnerId() == RealFarmDatabase.MAIN_USER_ID)
+					{
+						// creates a new item based
+						tmpItem = new ActionItem();
+						tmpItem.setTitle("Plot " + mPlots.get(x).getId());
+						tmpItem.setId(x);
+						tmpItem.setIcon(getResources().getDrawable(
+								R.drawable.ic_dialog_map));
+						tmpItem.setOnClickListener(new OnClickListener() {
+							public void onClick(View v) {
+	
+								// animates to the center of the plot
+								Point center = mPlots.get(v.getId())
+										.getCenterCoordinate();
+								mOfflineMap.animateTo(center);
+							}
+						});
+						// adds the item
+						qa.addActionItem(tmpItem);
+					}
 				}
 				qa.show();
 			}

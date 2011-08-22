@@ -8,6 +8,7 @@ import android.graphics.drawable.ShapeDrawable;
 import android.graphics.drawable.shapes.PathShape;
 import android.view.MotionEvent;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.map.OfflineMapView;
 import com.commonsensenet.realfarm.map.Overlay;
 import com.commonsensenet.realfarm.model.Plot;
@@ -40,7 +41,6 @@ public class PlotOverlay extends Overlay {
 	}
 	/** Color used to paint the shape. */
 	private int mColor = 0x64FF0000;
-
 	/** Polygon that represents the overlay. */
 	private Plot mPlot;
 
@@ -52,6 +52,10 @@ public class PlotOverlay extends Overlay {
 	 */
 	public PlotOverlay(Plot plot) {
 		mPlot = plot;
+		
+		// changes the color if the plot is not owner by the user.
+		if(mPlot.getOwnerId() != RealFarmDatabase.MAIN_USER_ID)
+			mColor = 0x6400FF00;
 	}
 
 	@Override
@@ -64,9 +68,7 @@ public class PlotOverlay extends Overlay {
 		paint.setAntiAlias(true);
 		paint.setDither(true);
 		paint.setStrokeWidth(3);
-		// selects the color based on the owner of the plot
-		// paint.setARGB(100, 55, 175, 35);
-		paint.setColor(mColor);
+		paint.setColor(mColor);		
 
 		// loads the points that need to be drawn.
 		Path path = new Path();
