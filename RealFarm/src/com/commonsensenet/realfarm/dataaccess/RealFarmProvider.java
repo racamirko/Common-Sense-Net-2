@@ -17,10 +17,9 @@ import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 
 public class RealFarmProvider {
-	private List<Seed> allSeeds;
+	private List<Seed> mAllSeeds;
 	/** Real farm database access. */
 	private RealFarmDatabase mDb;
-	private boolean seedListReady = false;
 
 	public RealFarmProvider(RealFarmDatabase database) {
 
@@ -51,7 +50,7 @@ public class RealFarmProvider {
 			tmpAction = new Action(actionId, c0.getString(0), c0.getInt(1),
 					c0.getInt(2));
 		}
-
+		c0.close();
 		mDb.close();
 
 		return tmpAction;
@@ -80,6 +79,7 @@ public class RealFarmProvider {
 			} while (c.moveToNext());
 		}
 
+		c.close();
 		mDb.close();
 
 		return tmpList;
@@ -111,6 +111,7 @@ public class RealFarmProvider {
 
 				} while (c02.moveToNext());
 			}
+			c02.close();
 		}
 
 		mDb.close();
@@ -136,33 +137,11 @@ public class RealFarmProvider {
 				Growing s = new Growing(c.getInt(0), c.getInt(1), c.getInt(2));
 				mGrowing.add(s);
 			} while (c.moveToNext());
-
 		}
+		c.close();
 		mDb.close();
 		return mGrowing;
 
-	}
-
-	public List<Growing> getGrowingList() {
-		mDb.open();
-
-		List<Growing> mGrowing = new ArrayList<Growing>();
-
-		Cursor c = mDb.getAllEntries(RealFarmDatabase.TABLE_NAME_GROWING,
-				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID });
-
-		if (c.getCount() > 0) {
-			c.moveToFirst();
-			do {
-				Growing s = new Growing(c.getInt(0), c.getInt(1), c.getInt(2));
-				mGrowing.add(s);
-			} while (c.moveToNext());
-
-		}
-		mDb.close();
-		return mGrowing;
 	}
 
 	public Plot getPlotById(int plotId) {
@@ -204,15 +183,15 @@ public class RealFarmProvider {
 
 			mPlot = new Plot(polyPoints, plotId, ownerId);
 		}
+		c02.close();
 		mDb.close();
 
 		return mPlot;
 	}
 
+	// TODO: why are is the growing list used?
 	public List<Plot> getPlotsList() {
 		List<Plot> tmpList = new ArrayList<Plot>();
-
-		List<Growing> mGrowing = getGrowingList();
 
 		mDb.open();
 
@@ -254,18 +233,13 @@ public class RealFarmProvider {
 						j = j + 1;
 					} while (c02.moveToNext());
 
-					List<Growing> plotGrowing = new ArrayList<Growing>();
-					for (int k = 0; k < mGrowing.size(); k++) {
-						if (mGrowing.get(k).belongsTo(id))
-							plotGrowing.add(mGrowing.get(k));
-					}
-
 					// adds the polygon to the list.
 					tmpList.add(new Plot(polyPoints, id, ownerId));
 				}
 				i = i + 1;
 			} while (c0.moveToNext());
 		}
+		c0.close();
 		mDb.close();
 
 		return tmpList;
@@ -292,6 +266,7 @@ public class RealFarmProvider {
 			result.add(r);
 		}
 
+		c.close();
 		mDb.close();
 
 		return result;
@@ -314,6 +289,7 @@ public class RealFarmProvider {
 			res = new Seed(seedId, c0.getString(0), c0.getString(1),
 					c0.getInt(2));
 		}
+		c0.close();
 		mDb.close();
 		return res;
 
@@ -321,9 +297,10 @@ public class RealFarmProvider {
 
 	public List<Seed> getSeedsList() {
 
-		if (seedListReady == false) {
+		// seeds are not in cache
+		if (mAllSeeds == null) {
 
-			allSeeds = new ArrayList<Seed>();
+			mAllSeeds = new ArrayList<Seed>();
 			mDb.open();
 
 			Cursor c = mDb.getAllEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
@@ -337,16 +314,15 @@ public class RealFarmProvider {
 				do {
 					Seed s = new Seed(c.getInt(0), c.getString(1),
 							c.getString(2), c.getInt(3));
-					allSeeds.add(s);
+					mAllSeeds.add(s);
 				} while (c.moveToNext());
 
 			}
+			c.close();
 			mDb.close();
-
-			seedListReady = true;
 		}
 
-		return allSeeds;
+		return mAllSeeds;
 	}
 
 	public User getUserById(int userId) {
@@ -367,6 +343,8 @@ public class RealFarmProvider {
 			tmpUser = new User(userId, c.getString(0), c.getString(1),
 					c.getString(2));
 		}
+		
+		c.close();
 		mDb.close();
 
 		return tmpUser;
@@ -401,6 +379,7 @@ public class RealFarmProvider {
 					mobile);
 
 		}
+		c.close();
 		mDb.close();
 
 		return tmpUser;
@@ -457,6 +436,8 @@ public class RealFarmProvider {
 				i = i + 1;
 			} while (c0.moveToNext());
 		}
+		
+		c0.close();
 		mDb.close();
 
 		return tmpList;
@@ -467,6 +448,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_NAME, name);
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_VALUE, value);
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE, date);
+		
 
 		mDb.open();
 
@@ -632,7 +614,7 @@ public class RealFarmProvider {
 							+ " = " + pointID, null);
 
 		}
-
+		c0.close();
 		mDb.close();
 		return result;
 	}
