@@ -12,6 +12,7 @@ import android.view.View.OnTouchListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.PopupWindow;
+import android.widget.PopupWindow.OnDismissListener;
 
 import com.commonsensenet.realfarm.R;
 
@@ -126,13 +127,8 @@ public class CustomPopupWindow {
 		window.setContentView(mRoot);
 	}
 
-	/**
-	 * If you want to do anything when {@link dismiss} is called
-	 * 
-	 * @param listener
-	 */
-	public void setOnDismissListener(PopupWindow.OnDismissListener listener) {
-		window.setOnDismissListener(listener);
+	public void setOnDismissListener(OnDismissListener onDismissListener) {
+		window.setOnDismissListener(onDismissListener);
 	}
 
 	/**
