@@ -834,12 +834,8 @@ public class RealFarmDatabase {
 
 		
 		// points
-
 		final int[][] PLOT1 = { { -50, -42 }, { -48, 50 }, { 49, 52 },
 				{ 58, -49 } };
-
-		// final int[][] PLOT2 = { { -100, -96 }, { -90, 14 }, { 50, 70 }, { 5,
-		// -102 } };
 
 		ContentValues pointstoadd = new ContentValues();
 		for (int x = 0; x < PLOT1.length; x++) {
@@ -876,34 +872,45 @@ public class RealFarmDatabase {
 		// pointstoadd.clear();
 
 		// User 2
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053733);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77169697);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
+//		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053733);
+//		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77169697);
+//		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
+//		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+//		pointstoadd.clear();
+//		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053689);
+//		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170225);
+//		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
+//		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+//		pointstoadd.clear();
+//		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053372);
+//		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170200);
+//		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
+//		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+//		pointstoadd.clear();
+//		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053442);
+//		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77169622);
+//		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
+//		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+//		pointstoadd.clear();
+		
+		
+		final int[][] PLOT2 = { { -150, -96 }, { -110, 14 }, { -10, 70 },
+				{ 5, -102 } };
+		for (int x = 0; x < PLOT2.length; x++) {
+			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0] + 200);
+			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1] + 200);
+			pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
+			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
+			pointstoadd.clear();
+		}
 
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053689);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170225);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053372);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77170200);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-		pointstoadd.put(COLUMN_NAME_POINT_X, (int) 14053442);
-		pointstoadd.put(COLUMN_NAME_POINT_Y, (int) 77169622);
-		pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 2);
-		insertEntries(TABLE_NAME_POINT, pointstoadd, db);
-		pointstoadd.clear();
-
-		final int[][] PLOT2 = { { -1800 + 1, -1800 + 3 },
+		final int[][] PLOT3 = { { -1800 + 1, -1800 + 3 },
 				{ -1800 + 2, -1800 + 112 }, { -1800 + 174, -1800 + 188 },
 				{ -1800 + 246, -1800 + 5 } };
-		for (int x = 0; x < PLOT2.length; x++) {
-			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT2[x][0]);
-			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT2[x][1]);
+
+		for (int x = 0; x < PLOT3.length; x++) {
+			pointstoadd.put(COLUMN_NAME_POINT_X, PLOT3[x][0]);
+			pointstoadd.put(COLUMN_NAME_POINT_Y, PLOT3[x][1]);
 			pointstoadd.put(COLUMN_NAME_POINT_PLOTID, 3);
 			insertEntries(TABLE_NAME_POINT, pointstoadd, db);
 			pointstoadd.clear();

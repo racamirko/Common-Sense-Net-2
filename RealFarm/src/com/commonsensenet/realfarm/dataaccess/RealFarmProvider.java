@@ -17,6 +17,7 @@ import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 
 public class RealFarmProvider {
+	/** Cached seeds to improve performance. */
 	private List<Seed> mAllSeeds;
 	/** Real farm database access. */
 	private RealFarmDatabase mDb;
@@ -180,6 +181,7 @@ public class RealFarmProvider {
 				c.moveToFirst();
 				ownerId = c.getInt(0);
 			}
+			c.close();
 
 			mPlot = new Plot(polyPoints, plotId, ownerId);
 		}
@@ -236,6 +238,7 @@ public class RealFarmProvider {
 					// adds the polygon to the list.
 					tmpList.add(new Plot(polyPoints, id, ownerId));
 				}
+				c02.close();
 				i = i + 1;
 			} while (c0.moveToNext());
 		}
@@ -279,15 +282,20 @@ public class RealFarmProvider {
 		mDb.open();
 		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
 				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE },
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA },
 				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
 				null, null, null);
 
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
 			res = new Seed(seedId, c0.getString(0), c0.getString(1),
-					c0.getInt(2));
+					c0.getInt(2), c0.getInt(3), c0.getInt(4), c0.getString(5),
+					c0.getString(6));
 		}
 		c0.close();
 		mDb.close();
@@ -303,22 +311,30 @@ public class RealFarmProvider {
 			mAllSeeds = new ArrayList<Seed>();
 			mDb.open();
 
-			Cursor c = mDb.getAllEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
-					new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE });
+			Cursor c0 = mDb
+					.getAllEntries(
+							RealFarmDatabase.TABLE_NAME_SEEDTYPE,
+							new String[] {
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA });
 
-			if (c.getCount() > 0) {
-				c.moveToFirst();
+			if (c0.getCount() > 0) {
+				c0.moveToFirst();
 				do {
-					Seed s = new Seed(c.getInt(0), c.getString(1),
-							c.getString(2), c.getInt(3));
+					Seed s = new Seed(c0.getInt(0), c0.getString(1),
+							c0.getString(2), c0.getInt(3), c0.getInt(4),
+							c0.getInt(5), c0.getString(6), c0.getString(7));
 					mAllSeeds.add(s);
-				} while (c.moveToNext());
+				} while (c0.moveToNext());
 
 			}
-			c.close();
+			c0.close();
 			mDb.close();
 		}
 
@@ -433,6 +449,8 @@ public class RealFarmProvider {
 					// adds the polygon to the list.
 					tmpList.add(new Plot(polyPoints, id, userId));
 				}
+				
+				c02.close();
 				i = i + 1;
 			} while (c0.moveToNext());
 		}
