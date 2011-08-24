@@ -39,6 +39,7 @@ public class PlotOverlay extends Overlay {
 
 		return path;
 	}
+
 	/** Color used to paint the shape. */
 	private int mColor = 0x64FF0000;
 	/** Polygon that represents the overlay. */
@@ -52,9 +53,9 @@ public class PlotOverlay extends Overlay {
 	 */
 	public PlotOverlay(Plot plot) {
 		mPlot = plot;
-		
+
 		// changes the color if the plot is not owner by the user.
-		if(mPlot.getOwnerId() != RealFarmDatabase.MAIN_USER_ID)
+		if (mPlot.getOwnerId() != RealFarmDatabase.MAIN_USER_ID)
 			mColor = 0x6400FF00;
 	}
 
@@ -68,7 +69,7 @@ public class PlotOverlay extends Overlay {
 		paint.setAntiAlias(true);
 		paint.setDither(true);
 		paint.setStrokeWidth(3);
-		paint.setColor(mColor);		
+		paint.setColor(mColor);
 
 		// loads the points that need to be drawn.
 		Path path = new Path();
