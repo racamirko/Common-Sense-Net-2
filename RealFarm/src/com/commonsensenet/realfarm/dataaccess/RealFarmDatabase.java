@@ -18,7 +18,7 @@ import com.commonsensenet.realfarm.R;
  * Class to manage database, i.e., input, remove and read data.
  * 
  * @author Julien Freudiger
- * @author Oscar Bolanos (oscar.bolanos@epfl.ch) 
+ * @author Oscar Bolanos (oscar.bolanos@epfl.ch)
  * @author Hendrik Knoche
  */
 public class RealFarmDatabase {
@@ -209,7 +209,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_QUANTITY = "quantity";
 	public static final String COLUMN_NAME_ACTION_QUANTITY2 = "quantity2";
 	public static final String COLUMN_NAME_ACTION_UNITID = "unitID";
-	
+
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
@@ -231,7 +231,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
 	public static final String COLUMN_NAME_GROWING_SEEDID = "seedID";
 	public static final String COLUMN_NAME_GROWING_SOWINGDATE = "date";
-	
+
 	public static final String COLUMN_NAME_LOG_DATE = "logDate";
 	public static final String COLUMN_NAME_LOG_ID = "id";
 	public static final String COLUMN_NAME_LOG_NAME = "name";
@@ -243,7 +243,7 @@ public class RealFarmDatabase {
 
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_USERID = "userID";
-	
+
 	public static final String COLUMN_NAME_POINT_ID = "id";
 	public static final String COLUMN_NAME_POINT_PLOTID = "plotID";
 	public static final String COLUMN_NAME_POINT_X = "x";
@@ -254,16 +254,16 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PROBLEM_MASTERID = "masterID";
 	public static final String COLUMN_NAME_PROBLEM_NAME = "name";
 	public static final String COLUMN_NAME_PROBLEM_RESOURCE = "res";
-	
+
 	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONID = "actionID";
 	public static final String COLUMN_NAME_RECOMMENDATION_DATE = "recommendationDate";
 	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
 	public static final String COLUMN_NAME_RECOMMENDATION_SEEDID = "seedID";
-	
+
 	public static final String COLUMN_NAME_SEED_AUDIO = "seedAudio";
 	public static final String COLUMN_NAME_SEED_ID = "id";
 	public static final String COLUMN_NAME_SEED_SEEDID = "seedID";
-	
+
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST = "daysToHarvest";
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
@@ -276,27 +276,27 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_SEEDTYPEID = "seedTypeID";
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_STAGEID = "stageID";
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_TOCOUNTDAYS = "toCountDays";
-	
+
 	public static final String COLUMN_NAME_STAGE_ID = "id";
 	public static final String COLUMN_NAME_STAGE_NAME = "name";
 
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_NAME = "name";
-	
+
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
 	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
 
+	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	private static final String DB_NAME = "realFarm.db";
 	private static final int DB_VERSION = 1;
-	public static final String DEBUG_ID = "RealFarm";
 
+	public static final String DEBUG_ID = "RealFarm";
 	public static String DEFAULT_NUMBER = "000000000";
 	public static String DEVICE_ID;
 	public static int MAIN_USER_ID = -1;
-	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONNAME = "actionName";
@@ -895,20 +895,22 @@ public class RealFarmDatabase {
 		Log.d(DEBUG_ID, "points works");
 
 		ContentValues seedtype = new ContentValues();
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 1);
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "None");
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "-");
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_groundnut);
-//		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
-//		seedtype.clear();
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 2);
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Unknown");
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "?");
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
-//		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_groundnut);
-//		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
-//		seedtype.clear();
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 1);
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "None");
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "-");
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+		// R.drawable.pic_72px_groundnut);
+		// insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
+		// seedtype.clear();
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 2);
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Unknown");
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "?");
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		// seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+		// R.drawable.pic_72px_groundnut);
+		// insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
+		// seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 3);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Groundnut");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "TMV2");

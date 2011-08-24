@@ -26,13 +26,12 @@ import com.commonsensenet.realfarm.map.utils.ImageDownloader;
 import com.commonsensenet.realfarm.map.utils.MapUrlBuilder;
 import com.commonsensenet.realfarm.map.utils.Notifiable;
 
-
 /**
  * Downloads tiles around the given map position. As for the current version the
  * zoom detail in which maps are downloaded is fixed.
  * 
  * @author Oscar Bolanos (oscar.bolanos@epfl.ch)
- *
+ * 
  */
 public class MapCrawler extends Activity implements Notifiable {
 
@@ -53,7 +52,7 @@ public class MapCrawler extends Activity implements Notifiable {
 	public static final int MAX_ZOOM_LEVELS = 3;
 	/** Minimum size in pixels that the each tile can be. */
 	public static final int MINIMUM_TILE_SIZE = 100;
-	
+
 	// TODO : the /4 is added to match the zoom level.
 	/**
 	 * Defines the ratio between pixels and distance in GoogleMaps. This ratio

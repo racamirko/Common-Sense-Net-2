@@ -343,7 +343,7 @@ public class RealFarmProvider {
 			tmpUser = new User(userId, c.getString(0), c.getString(1),
 					c.getString(2));
 		}
-		
+
 		c.close();
 		mDb.close();
 
@@ -436,7 +436,7 @@ public class RealFarmProvider {
 				i = i + 1;
 			} while (c0.moveToNext());
 		}
-		
+
 		c0.close();
 		mDb.close();
 
@@ -448,7 +448,6 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_NAME, name);
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_VALUE, value);
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE, date);
-		
 
 		mDb.open();
 
