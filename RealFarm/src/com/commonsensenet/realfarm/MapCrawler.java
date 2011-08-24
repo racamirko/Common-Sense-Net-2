@@ -26,10 +26,21 @@ import com.commonsensenet.realfarm.map.utils.ImageDownloader;
 import com.commonsensenet.realfarm.map.utils.MapUrlBuilder;
 import com.commonsensenet.realfarm.map.utils.Notifiable;
 
+
+/**
+ * Downloads tiles around the given map position. As for the current version the
+ * zoom detail in which maps are downloaded is fixed.
+ * 
+ * @author Oscar Bolanos (oscar.bolanos@epfl.ch)
+ *
+ */
 public class MapCrawler extends Activity implements Notifiable {
 
-	// @see http://www.freemaptools.com/radius-around-point.htm
-	/** Indicates the size of the watermark in pixels. */
+	/**
+	 * Indicates the size of the watermark in pixels.
+	 * 
+	 * @see http://www.freemaptools.com/radius-around-point.htm
+	 */
 	public static final int GOOGLE_MAPS_WATERMARK_SIZE = 26;
 	/** Path where the maps will be downloaded. */
 	public static final String MAPS_FOLDER = "/realfarm/maps/";
@@ -42,13 +53,14 @@ public class MapCrawler extends Activity implements Notifiable {
 	public static final int MAX_ZOOM_LEVELS = 3;
 	/** Minimum size in pixels that the each tile can be. */
 	public static final int MINIMUM_TILE_SIZE = 100;
+	
+	// TODO : the /4 is added to match the zoom level.
 	/**
 	 * Defines the ratio between pixels and distance in GoogleMaps. This ratio
 	 * is for images with a zoom level of 17. By default, GoogleMaps doubles the
 	 * area in every zoom level, so the ratio for other zoom levels can be
 	 * calculated accordingly.
 	 */
-	// TODO : the /4 is added to match the zoom level.
 	public static final double PIXEL_DISTANCE_RATIO = 400.0 / (230.0 / 4);
 	/** Default size of the tiles in pixels. */
 	public static final int TILE_SIZE = 400;
@@ -235,11 +247,6 @@ public class MapCrawler extends Activity implements Notifiable {
 		// sets the data
 		Spinner s = (Spinner) findViewById(R.id.spMapType);
 		s.setAdapter(adapter);
-
-		// Typeface tf = Typeface.createFromAsset(getAssets(),
-		// "fonts/Kedage.dfont");
-		// TextView tv = (TextView) findViewById(R.id.PruebaZoom);
-		// tv.setTypeface(tf);
 
 		// gets the buttons from the layout
 		Button btnDownload = (Button) findViewById(R.id.btnDownload);
