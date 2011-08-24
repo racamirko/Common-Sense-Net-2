@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Point;
+import android.util.Log;
 
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Diary;
@@ -53,6 +54,10 @@ public class RealFarmProvider {
 		}
 		c0.close();
 		mDb.close();
+		
+		if(tmpAction == null) {
+			Log.d(RealFarmDatabase.DEBUG_ID, "action doesn't exist");
+		}
 
 		return tmpAction;
 	}

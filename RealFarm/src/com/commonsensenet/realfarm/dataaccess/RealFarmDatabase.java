@@ -1,7 +1,7 @@
 package com.commonsensenet.realfarm.dataaccess;
 
 import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.util.Calendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -662,26 +662,32 @@ public class RealFarmDatabase {
 		// actions
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
 				DATE_FORMAT);
-		Date date = new Date();
+		
+		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DATE, -4);
+		
 		ContentValues actions = new ContentValues();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
+		calendar.add(Calendar.DATE, 2);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 4);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
+		calendar.add(Calendar.DATE, 1);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 2);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
+		calendar.add(Calendar.DATE, 1);
 		actions.clear();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 3);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(date));
+		actions.put(COLUMN_NAME_ACTION_ACTIONDATE, dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		actions.clear();
 
@@ -695,13 +701,18 @@ public class RealFarmDatabase {
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
 		growing.put(COLUMN_NAME_GROWING_ID, 2);
-		growing.put(COLUMN_NAME_GROWING_PLOTID, 1);
+		growing.put(COLUMN_NAME_GROWING_PLOTID, 2);
 		growing.put(COLUMN_NAME_GROWING_SEEDID, 4);
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
 		growing.put(COLUMN_NAME_GROWING_ID, 3);
 		growing.put(COLUMN_NAME_GROWING_PLOTID, 1);
 		growing.put(COLUMN_NAME_GROWING_SEEDID, 5);
+		insertEntries(TABLE_NAME_GROWING, growing, db);
+		growing.clear();
+		growing.put(COLUMN_NAME_GROWING_ID, 4);
+		growing.put(COLUMN_NAME_GROWING_PLOTID, 3);
+		growing.put(COLUMN_NAME_GROWING_SEEDID, 6);
 		insertEntries(TABLE_NAME_GROWING, growing, db);
 		growing.clear();
 
@@ -944,22 +955,22 @@ public class RealFarmDatabase {
 		Log.d(DEBUG_ID, "points works");
 		
 		ContentValues seedtype = new ContentValues();
-		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 2);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "None");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "-");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
-				R.drawable.ic_72px_none);
-		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
-		seedtype.clear();
-		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 1);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Unknown");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "?");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
-				R.drawable.ic_72px_unknown);
-		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
-		seedtype.clear();
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 2);
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "None");
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "-");
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+//				R.drawable.ic_72px_none);
+//		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
+//		seedtype.clear();
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 1);
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Unknown");
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "?");
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+//		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+//				R.drawable.ic_72px_unknown);
+//		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
+//		seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 3);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Groundnut");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಕಡಲೆ ಕಾಯಿ");
@@ -1047,14 +1058,14 @@ public class RealFarmDatabase {
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_SEEDID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ACTIONID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE,
-				dateFormat.format(date));
+				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_RECOMMENDATION, recommendation, db);
 		recommendation.clear();
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ID, 2);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_SEEDID, 1);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_ACTIONID, 2);
 		recommendation.put(COLUMN_NAME_RECOMMENDATION_DATE,
-				dateFormat.format(date));
+				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_RECOMMENDATION, recommendation, db);
 		recommendation.clear();
 		Log.d(DEBUG_ID, "recommendation works");
