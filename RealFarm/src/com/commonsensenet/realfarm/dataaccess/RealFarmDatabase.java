@@ -1,10 +1,7 @@
 package com.commonsensenet.realfarm.dataaccess;
 
 import java.text.SimpleDateFormat;
-//import java.util.ArrayList;
 import java.util.Date;
-
-import com.commonsensenet.realfarm.R;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -14,6 +11,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.telephony.TelephonyManager;
 import android.util.Log;
+
+import com.commonsensenet.realfarm.R;
 
 /**
  * Class to manage database, i.e., input, remove and read data.
@@ -167,14 +166,6 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_RECOMMENDATION_ACTIONID + " integer, "
 					+ COLUMN_NAME_RECOMMENDATION_DATE + " date " + " ); ");
 			Log.d(DEBUG_ID, "Created recommendation table");
-			
-			// seeds
-			db.execSQL("create table " + TABLE_NAME_SEED + " ( "
-					+ COLUMN_NAME_SEED_ID + " integer primary key, "
-					+ COLUMN_NAME_SEED_SEEDID + " references seedType(id), "
-					+ COLUMN_NAME_SEED_AUDIO + " integer "
-					+ " ); ");
-			Log.d(DEBUG_ID, "Created seed table");
 
 			// seedTypes
 			db.execSQL("create table " + TABLE_NAME_SEEDTYPE + " ( "
@@ -351,7 +342,6 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_PROBLEM = "problem";
 	public static final String TABLE_NAME_PROBLEMTYPE = "problemType";
 	public static final String TABLE_NAME_RECOMMENDATION = "recommendation";
-	public static final String TABLE_NAME_SEED = "seed";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType";
 	public static final String TABLE_NAME_STAGE = "stage";
 	public static final String TABLE_NAME_SEEDTYPESTAGE = "seedTypeStage";
@@ -362,6 +352,7 @@ public class RealFarmDatabase {
 	private Context mContext;
 	private SQLiteDatabase mDb;
 	private RealFarmDatabaseOpenHelper mOpenHelper;
+	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 
 	/**
 	 * Class constructor
@@ -388,7 +379,6 @@ public class RealFarmDatabase {
 		mDb.delete(TABLE_NAME_PLOT, null, null);
 		mDb.delete(TABLE_NAME_POINT, null, null);
 		mDb.delete(TABLE_NAME_RECOMMENDATION, null, null);
-		mDb.delete(TABLE_NAME_SEED, null, null);
 		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
 		mDb.delete(TABLE_NAME_SEEDTYPESTAGE, null, null);
 		mDb.delete(TABLE_NAME_STAGE, null, null);
@@ -671,7 +661,7 @@ public class RealFarmDatabase {
 
 		// actions
 		SimpleDateFormat dateFormat = new SimpleDateFormat(
-				"yyyy-MM-dd HH:mm:ss");
+				DATE_FORMAT);
 		Date date = new Date();
 		ContentValues actions = new ContentValues();
 		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
@@ -945,29 +935,6 @@ public class RealFarmDatabase {
 		// pointstoadd.clear();
 
 		Log.d(DEBUG_ID, "points works");
-
-		// currently the below definition of the seed table doesn't serve a purpose according to HEndrik but seed might be referenced in the code
-		
-		ContentValues seed = new ContentValues();
-		seed.put(COLUMN_NAME_SEED_ID, 1);
-		seed.put(COLUMN_NAME_SEED_SEEDID, 1);
-		insertEntries(TABLE_NAME_SEED, seed, db);
-		seed.clear();
-		seed.put(COLUMN_NAME_SEED_ID, 2);
-		seed.put(COLUMN_NAME_SEED_SEEDID, 2);
-		insertEntries(TABLE_NAME_SEED, seed, db);
-		seed.clear();
-		seed.put(COLUMN_NAME_SEED_ID, 3);
-		seed.put(COLUMN_NAME_SEED_SEEDID, 3);
-		insertEntries(TABLE_NAME_SEED, seed, db);
-		seed.clear();
-		seed.put(COLUMN_NAME_SEED_ID, 4);
-		seed.put(COLUMN_NAME_SEED_SEEDID, 4);
-		insertEntries(TABLE_NAME_SEED, seed, db);
-		seed.clear();
-		Log.d(DEBUG_ID, "seed works");
-
-		// (2, "None", "-", R.raw.audio1, R.drawable.ic_72px_none)
 		
 		ContentValues seedtype = new ContentValues();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 2);
