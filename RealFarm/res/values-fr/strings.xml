@@ -14,4 +14,8 @@
     <string name="mylocation">Trouvez-moi</string>
     <string name="village">Village</string>
     <string name="menu">Menu</string>
+    <string name="dateToday">aujourd\'hui</string>
+    <string name="dateYesterday">hier</string>
+    <string name="dateLastWeek">il y a %d jours</string>
+    <string name="dateMoreThanAWeek"> il y a %d semaines</string>
 </resources>

@@ -42,5 +42,10 @@
     <string name="seed">Seed</string>
     <string name="valuemicro">Values in microdegrees</string>
     <string name="actions">Actions</string>
+    <string name="dateToday">today</string>
+    <string name="dateYesterday">yesterday</string>
+    <string name="dateLastWeek">%d days ago</string>
+    <string name="dateMoreThanAWeek">%d weeks ago</string>
+    
     
 </resources>
