@@ -6,11 +6,10 @@
 	<ImageView android:id="@+id/icon" android:layout_width="40px"
 		android:layout_height="40px" android:clickable="false" android:background="@drawable/cbutton"/>
 	<TextView android:id="@+id/title" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:gravity="center_vertical"
-		android:paddingLeft="5dip" android:paddingRight="10dip" android:text=""
+		android:layout_height="40px" android:gravity="center_vertical"
+		android:paddingLeft="5dip" android:text=""
 		android:textSize="14sp" android:layout_toRightOf="@id/icon" />
 	<TextView android:id="@+id/date" android:layout_width="wrap_content"
-		android:layout_height="wrap_content" android:paddingLeft="10dip"
-		android:paddingRight="5dip" android:text="" android:textSize="14sp"
+		android:layout_height="40px" android:text="" android:textSize="14sp"
 		android:gravity="right" android:layout_alignParentRight="true" />
-</RelativeLayout>         
+</RelativeLayout>
