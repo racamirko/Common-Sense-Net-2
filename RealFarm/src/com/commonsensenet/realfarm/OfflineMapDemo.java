@@ -8,8 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
-import android.location.Location;
-import android.location.LocationListener;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.Menu;
@@ -18,7 +16,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.PopupWindow.OnDismissListener;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
@@ -36,51 +33,6 @@ import com.markupartist.android.widget.ActionBar;
 import com.markupartist.android.widget.ActionBar.Action;
 
 public class OfflineMapDemo extends Activity {
-	/**
-	 * Class that listens to location requests
-	 * 
-	 * @author Julien Freudiger
-	 */
-	public class MyLocationListener implements LocationListener {
-
-		public void onLocationChanged(Location location) {
-
-			if (location != null) {
-				// int lat = (int) (location.getLatitude() * 1000000);
-				// int lng = (int) (location.getLongitude() * 1000000);
-				// GeoPoint p = new GeoPoint(lat, lng);
-				// mOfflineMap.animateTo(p);
-
-				// remove existing itemizedoverlays
-				// TODO: support itemized overlays.
-				// mOfflineMap.remove(itemizedoverlay);
-				// itemizedoverlay.removeAll();
-
-				// Display icon at my current location
-				// List<Overlay> mapOverlays = mOfflineMap.getOverlays();
-				// OverlayItem overlayitem = new OverlayItem(p, "Hello!",
-				// "You are here");
-				// itemizedoverlay.addOverlay(overlayitem);
-				// mapOverlays.add(itemizedoverlay);
-
-				mOfflineMap.invalidate();
-			}
-		}
-
-		public void onProviderDisabled(String provider) {
-			Toast.makeText(getApplicationContext(), provider + " Disabled",
-					Toast.LENGTH_SHORT).show();
-		}
-
-		public void onProviderEnabled(String provider) {
-			Toast.makeText(getApplicationContext(), provider + " Enabled",
-					Toast.LENGTH_SHORT).show();
-		}
-
-		public void onStatusChanged(String provider, int status, Bundle extras) {
-
-		}
-	}
 
 	/** Location of the village used for this demo. */
 	public static final GeoPoint CKPURA_LOCATION = new GeoPoint(14054563,
@@ -146,6 +98,7 @@ public class OfflineMapDemo extends Activity {
 					mCurrentWindow
 							.setOnDismissListener(new OnDismissListener() {
 								public void onDismiss() {
+									mDataProvider.logAction(Log.PLOTINFO_DISMISS, null);
 									// clears the current window when it gets
 									// closed.
 									mCurrentWindow = null;
@@ -187,10 +140,7 @@ public class OfflineMapDemo extends Activity {
 			mapOverlays.add(new PlotOverlay(mPlots.get(x)));
 		}
 
-		// Drawable drawable = getResources().getDrawable(R.drawable.marker);
-		// itemizedoverlay = new MyOverlay(drawable, getApplicationContext(),
-		// mapView);
-
+		mDataProvider.logAction(Log.MAIN_OPENED, null);
 	}
 
 	/**
