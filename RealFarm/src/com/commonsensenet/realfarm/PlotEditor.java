@@ -21,7 +21,7 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.Diary;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Recommendation;
@@ -77,7 +77,7 @@ public class PlotEditor extends Activity {
 				alert.setContentView(R.layout.plot_dialog);
 
 				// set popup title
-				String actionName = mDataProvider.getActionById(actionID)
+				String actionName = mDataProvider.getActionNameById(actionID)
 						.getName();
 				alert.setTitle(actionName);
 
@@ -242,7 +242,7 @@ public class PlotEditor extends Activity {
 		container.addView(tv);
 
 		// get all possible actions
-		List<Action> tmpActionList = mDataProvider.getActionsList();
+		List<ActionName> tmpActionList = mDataProvider.getActionNamesList();
 
 		// Create table layout to add
 		TableLayout tl = new TableLayout(this);
@@ -260,7 +260,7 @@ public class PlotEditor extends Activity {
 
 		row1.setLayoutParams(tableRowParams);
 
-		Action tmpAction;
+		ActionName tmpAction;
 		// for each possible action
 		for (int x = 0; x < tmpActionList.size(); x++) {
 			tmpAction = tmpActionList.get(x);
@@ -315,7 +315,7 @@ public class PlotEditor extends Activity {
 				TableRow tr = new TableRow(this);
 				tr.setLayoutParams(tableRowParams);
 
-				Action a = mDataProvider.getActionById(res.getActionId(i));
+				ActionName a = mDataProvider.getActionNameById(res.getActionId(i));
 
 				// Get icon of action
 				ImageView iv = new ImageView(this);
@@ -367,7 +367,7 @@ public class PlotEditor extends Activity {
 		}
 
 		// Get growing areas of the plot
-		mGrowing = mDataProvider.getGrowingByPlotId(plotID);
+		mGrowing = mDataProvider.getGrowingsByPlotId(plotID);
 
 		// Get plot owner
 		int ownerId = mDataProvider.getPlotById(plotID).getOwnerId();

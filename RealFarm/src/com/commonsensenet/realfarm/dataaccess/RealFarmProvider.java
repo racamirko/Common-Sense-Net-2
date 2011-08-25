@@ -11,7 +11,7 @@ import android.database.Cursor;
 import android.graphics.Point;
 import android.util.Log;
 
-import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.Diary;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Plot;
@@ -35,23 +35,23 @@ public class RealFarmProvider {
 		mDb.close();
 	}
 
-	public Action getActionById(int actionId) {
+	public ActionName getActionNameById(int actionNameId) {
 
 		mDb.open();
 
-		Action tmpAction = null;
+		ActionName tmpAction = null;
 
 		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
 						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
 						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
-				RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "=" + actionId,
+				RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "=" + actionNameId,
 				null, null, null, null);
 
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
 
-			tmpAction = new Action(actionId, c0.getString(0), c0.getInt(1),
+			tmpAction = new ActionName(actionNameId, c0.getString(0), c0.getInt(1),
 					c0.getInt(2));
 		}
 		c0.close();
@@ -64,7 +64,7 @@ public class RealFarmProvider {
 		return tmpAction;
 	}
 
-	public List<Action> getActionsList() {
+	public List<ActionName> getActionNamesList() {
 
 		// opens the database.
 		mDb.open();
@@ -78,11 +78,11 @@ public class RealFarmProvider {
 				null, null, null, null);
 		c.moveToFirst();
 
-		List<Action> tmpList = new LinkedList<Action>();
+		List<ActionName> tmpList = new LinkedList<ActionName>();
 
 		if (c.getCount() > 0) {
 			do {
-				tmpList.add(new Action(c.getInt(0), c.getString(1),
+				tmpList.add(new ActionName(c.getInt(0), c.getString(1),
 						c.getInt(2), c.getInt(3)));
 			} while (c.moveToNext());
 		}
@@ -97,7 +97,7 @@ public class RealFarmProvider {
 
 		Diary mDiary = new Diary();
 
-		List<Growing> mGrowing = getGrowingByPlotId(plotID);
+		List<Growing> mGrowing = getGrowingsByPlotId(plotID);
 
 		mDb.open();
 
@@ -127,7 +127,7 @@ public class RealFarmProvider {
 
 	}
 
-	public List<Growing> getGrowingByPlotId(int plotId) {
+	public List<Growing> getGrowingsByPlotId(int plotId) {
 		mDb.open();
 
 		List<Growing> mGrowing = new ArrayList<Growing>();
@@ -198,7 +198,6 @@ public class RealFarmProvider {
 		return mPlot;
 	}
 
-	// TODO: why are is the growing list used?
 	public List<Plot> getPlotsList() {
 		List<Plot> tmpList = new ArrayList<Plot>();
 
@@ -408,7 +407,7 @@ public class RealFarmProvider {
 		return tmpUser;
 	}
 
-	public List<Plot> getUserPlots(int userId) {
+	public List<Plot> getPlotsByUserId(int userId) {
 		List<Plot> tmpList = new ArrayList<Plot>();
 
 		// opens the database

@@ -344,7 +344,7 @@ public class Settings extends Activity {
 				.getUserId();
 
 		// get plot list from db
-		List<Plot> poly = mDataProvider.getUserPlots(userId);
+		List<Plot> poly = mDataProvider.getPlotsByUserId(userId);
 
 		plotNumber = poly.size();
 

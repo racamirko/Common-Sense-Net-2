@@ -1,6 +1,6 @@
 package com.commonsensenet.realfarm.model;
 
-public class Action {
+public class ActionName {
 
 	private int mAudio;
 	private int mId;
@@ -8,7 +8,7 @@ public class Action {
 	private String mName;
 	private int mRes;
 
-	public Action(int id, String name, int resource, int audio) {
+	public ActionName(int id, String name, int resource, int audio) {
 		mId = id;
 		mName = name;
 		mRes = resource;

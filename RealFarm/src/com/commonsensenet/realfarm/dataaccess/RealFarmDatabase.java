@@ -428,7 +428,18 @@ public class RealFarmDatabase {
 			String having, String orderBy) {
 		return mDb.query(tableName, columns, selection, selectionArgs, groupBy,
 				having, orderBy);
-
+	}
+	
+	/**
+	 * Runs the provided SQL and returns a Cursor over the result set.
+	 * 
+	 * @param sql the SQL query. The SQL string must not be ; terminated
+	 * @param selectionArgs You may include ?s in where clause in the query, which will be replaced by the values from selectionArgs. The values will be bound as Strings.
+	 * @return a Cursor object with the query result.
+	 *
+	 */
+	public Cursor executeQuery(String sql, String[] selectionArgs) {
+		return mDb.rawQuery(sql, selectionArgs);
 	}
 
 	/**

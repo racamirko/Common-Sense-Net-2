@@ -37,7 +37,7 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.Diary;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Plot;
@@ -59,7 +59,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	protected static final int ANIM_REFLECT = 4;
 
 	/** Actions supported by the UI. */
-	private List<Action> mActionList;
+	private List<ActionName> mActionList;
 	/** Panel where the actions are contained. */
 	private ViewGroup mActionsPanel;
 	/** Animation style used to display the window. */
@@ -93,7 +93,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			RealFarmProvider dataProvider) {
 		super(anchor);
 
-		mActionList = new ArrayList<Action>();
+		mActionList = new ArrayList<ActionName>();
 		mContext = anchor.getContext();
 		mInflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -111,7 +111,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// plot represented by the window.
 		mPlot = plot;
 		// loads the actions from the database.
-		mActionList = mDataProvider.getActionsList();
+		mActionList = mDataProvider.getActionNamesList();
 		mSeedsList = new ArrayList<Seed>();
 
 		// cancel button
@@ -267,7 +267,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			public void onClick(View v) {
 
-				Action currentAction = mActionList.get(actionIndex);
+				ActionName currentAction = mActionList.get(actionIndex);
 
 				// avoids opening other window.
 				if (mCurrentAlert == null) {
@@ -277,7 +277,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 					mCurrentAlert.setContentView(R.layout.plot_dialog);
 
 					// sets the title using the action name
-					String actionName = mDataProvider.getActionById(
+					String actionName = mDataProvider.getActionNameById(
 							currentAction.getId()).getName();
 					mCurrentAlert.setTitle(actionName);
 
@@ -527,10 +527,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		Diary diary = mDataProvider.getDiary(mPlot.getId());
 
+		// added from the end till the beginning to show new action on top.
 		for (int i = diary.getSize() -1; i > -1; i--) {
 
 			// gets the next action
-			Action a = mDataProvider.getActionById(diary.getActionId(i));
+			ActionName a = mDataProvider.getActionNameById(diary.getActionId(i));
 
 			// listener = mActionList.get(i).getListener();
 			text = a.getName();
@@ -552,7 +553,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private void updatePlotInformation() {
 
 		// Get growing areas of the plot
-		mGrowing = mDataProvider.getGrowingByPlotId(mPlot.getId());
+		mGrowing = mDataProvider.getGrowingsByPlotId(mPlot.getId());
 
 		// gets the owner of the plot.
 		User plotOwner = mDataProvider.getUserById(mPlot.getOwnerId());
