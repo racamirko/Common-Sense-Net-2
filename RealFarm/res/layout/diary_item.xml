@@ -6,7 +6,7 @@
 	
 	<ImageView android:id="@+id/icon" android:layout_width="40px"
 		android:layout_height="40px" android:clickable="false"
-		android:background="@drawable/square_btn" />
+		android:background="@drawable/circular_btn_normal" />
 		
 	<TextView android:id="@+id/title" android:layout_width="wrap_content"
 		android:layout_height="40px" android:gravity="center_vertical"

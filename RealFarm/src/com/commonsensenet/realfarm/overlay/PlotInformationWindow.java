@@ -182,22 +182,17 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	 * @return action item {@link View}
 	 */
 	private View getActionItem(int icon, OnClickListener listener) {
+
+		// inflates the layout
 		LinearLayout container = (LinearLayout) mInflater.inflate(
 				R.layout.plotaction_item, null);
 
+		// sets the properties of the icon
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
-		img.setBackgroundResource(R.drawable.circular_btn);
-		img.setOnClickListener(listener);
+		img.setImageResource(icon);
 
-		img.setClickable(true);
-		img.setVisibility(View.VISIBLE);
-
-		if (icon != -1)
-			img.setImageResource(icon);
-		else
-			img.setImageResource(R.drawable.ic_menu_mylocation);
-
-		if (listener != null)
+		// sets up the listener
+		if(listener != null)
 			img.setOnClickListener(listener);
 
 		return container;
@@ -209,8 +204,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// inflates the layout.
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.diary_item, null);
-		container.setClickable(true);
-		container.setFocusable(true);
 
 		// gets the components to modify
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
@@ -235,6 +228,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	}
 
 	private View getGrowingItem(int icon, String name, String kannadaName) {
+		
+		// inflates the layout
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.growing_item, null);
 
@@ -242,15 +237,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		TextView lblTitle = (TextView) container.findViewById(R.id.firstLine);
 		TextView tblKannada = (TextView) container
 				.findViewById(R.id.secondLine);
-		// img.setBackgroundResource(R.drawable.cbutton);
-		// img.setOnClickListener(listener);
 
 		Typeface tf = Typeface.createFromAsset(mContext.getAssets(),
 				"fonts/Kedage.dfont");
 		tblKannada.setTypeface(tf);
-
-		container.setClickable(true);
-		container.setFocusable(true);
 
 		if (icon != -1)
 			img.setImageResource(icon);
