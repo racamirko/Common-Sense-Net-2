@@ -1,27 +1,15 @@
-<LinearLayout
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="horizontal"
-	android:layout_width="fill_parent"
-	android:layout_height="wrap_content" 
-	android:clickable="true"
-	android:focusable="true"
-	android:background="@drawable/action_item_btn">
-        	
-        	
-	<ImageView
-		android:id="@+id/icon" 
-		android:layout_width="wrap_content" 
-		android:layout_height="wrap_content" android:visibility="invisible"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="horizontal" android:layout_width="fill_parent"
+	android:layout_height="wrap_content" android:clickable="true"
+	android:focusable="true" android:background="@drawable/list_item_btn">
 
-	<TextView 
-		android:id="@+id/title"
-		android:layout_width="fill_parent" 
-		android:layout_height="fill_parent" 
-		android:gravity="center_vertical"
-		android:paddingLeft="5dip"
-		android:paddingRight="10dip"
-		android:text="Chart"
-		android:textSize="20sp"
-		android:textColor="#fff"/>
-									         
+	<ImageView android:id="@+id/icon" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:visibility="invisible" />
+
+	<TextView android:id="@+id/title" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:gravity="center_vertical"
+		android:paddingLeft="5dip" android:paddingRight="10dip" android:text="Chart"
+		android:textSize="20sp" android:textColor="#fff" />
+
 </LinearLayout>         

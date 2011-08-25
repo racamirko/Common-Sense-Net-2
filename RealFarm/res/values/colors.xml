@@ -1,10 +1,9 @@
 <resources>
-    <color name="background_start">#FFFFFF</color>
-    <color name="background_end">#FFFFFF</color>
-    <color name="background_start_pop">#000000</color>
-    <color name="background_end_pop">#000000</color>
-    <color name="background_item_pressed_start">#FF7F00</color>
-    <color name="background_item_pressed_end">#EE7600</color>
-    <color name="ploteditor_background">#FFFFFF</color>
-    <color name="header">#CFCFC9</color>
+	<color name="button_background_normal_start">#CFCFC9</color>
+    <color name="button_background_normal_end">#CFCFC9</color>
+	<color name="ploteditor_background">#FFFFFF</color>
+	<color name="ploteditor_header">#CFCFC9</color>
+    <color name="button_background_pressed_start">#FF7F00</color>
+    <color name="button_background_pressed_end">#EE7600</color>	
+	
 </resources>
