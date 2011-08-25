@@ -7,6 +7,8 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
@@ -192,7 +194,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		img.setImageResource(icon);
 
 		// sets up the listener
-		if(listener != null)
+		if (listener != null)
 			img.setOnClickListener(listener);
 
 		return container;
@@ -228,7 +230,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	}
 
 	private View getGrowingItem(int icon, String name, String kannadaName) {
-		
+
 		// inflates the layout
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.growing_item, null);
@@ -258,6 +260,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
+	private Dialog mCurrentAlert;
+
 	View.OnClickListener OnClickAction(final int actionIndex) {
 		return new View.OnClickListener() {
 
@@ -265,104 +269,120 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 				Action currentAction = mActionList.get(actionIndex);
 
-				// get more information about action
-				Dialog alert = new Dialog(mContext);
-				alert.setContentView(R.layout.plot_dialog);
+				// avoids opening other window.
+				if (mCurrentAlert == null) {
 
-				// sets the title using the action name
-				String actionName = mDataProvider.getActionById(
-						currentAction.getId()).getName();
-				alert.setTitle(actionName);
+					// get more information about action
+					mCurrentAlert = new Dialog(mContext);
+					mCurrentAlert.setContentView(R.layout.plot_dialog);
 
-				// add button to select seed type, this tell us about growing id
-				TableLayout table = (TableLayout) alert
-						.findViewById(R.id.TableLayout01);
-				TableRow vg = new TableRow(mContext);
+					// sets the title using the action name
+					String actionName = mDataProvider.getActionById(
+							currentAction.getId()).getName();
+					mCurrentAlert.setTitle(actionName);
 
-				TextView tv = new TextView(mContext);
-				tv.setText(R.string.seed);
-				tv.setTextSize(20);
-				vg.addView(tv);
+					// add button to select seed type, this tell us about
+					// growing id
+					TableLayout table = (TableLayout) mCurrentAlert
+							.findViewById(R.id.TableLayout01);
+					TableRow vg = new TableRow(mContext);
 
-				// check tapped action
-				// all seeds can be used
-				if (actionName.compareTo("Sow") == 0) {
-					List<Seed> allSeedList = new ArrayList<Seed>();
-					allSeedList = mDataProvider.getSeedsList();
+					TextView tv = new TextView(mContext);
+					tv.setText(R.string.seed);
+					tv.setTextSize(20);
+					vg.addView(tv);
 
-					// A new growing id will be created with one seed id
-					for (int i = 0; i < allSeedList.size(); i++) {
-						ImageView nameView1 = new ImageView(mContext);
-						Seed s = allSeedList.get(i);
-						nameView1.setScaleType(ScaleType.CENTER);
-						nameView1.setImageResource(s.getRes());
-						nameView1
-								.setBackgroundResource(R.drawable.square_btn);
+					// check tapped action
+					// all seeds can be used
+					if (actionName.compareTo("Sow") == 0) {
+						List<Seed> allSeedList = new ArrayList<Seed>();
+						allSeedList = mDataProvider.getSeedsList();
 
-						int growingId = (int) mDataProvider.setGrowing(
-								mPlot.getId(), s.getId());
-						nameView1.setOnClickListener(OnClickGrowing(growingId));
-						vg.addView(nameView1);
+						// A new growing id will be created with one seed id
+						for (int i = 0; i < allSeedList.size(); i++) {
+							ImageView nameView1 = new ImageView(mContext);
+							Seed s = allSeedList.get(i);
+							nameView1.setScaleType(ScaleType.CENTER);
+							nameView1.setImageResource(s.getRes());
+							nameView1
+									.setBackgroundResource(R.drawable.square_btn);
+
+							int growingId = (int) mDataProvider.setGrowing(
+									mPlot.getId(), s.getId());
+							nameView1
+									.setOnClickListener(OnClickGrowing(growingId));
+							vg.addView(nameView1);
+						}
+
+					} else { // only existing seeds can be used
+						for (int i = 0; i < mGrowing.size(); i++) {
+							ImageView nameView1 = new ImageView(mContext);
+							Seed s = mDataProvider.getSeedById(mGrowing.get(i)
+									.getSeedId());
+							nameView1.setBackgroundResource(s.getRes());
+							nameView1
+									.setOnClickListener(OnClickGrowing(mGrowing
+											.get(i).getId()));
+							vg.addView(nameView1);
+						}
 					}
 
-				} else { // only existing seeds can be used
-					for (int i = 0; i < mGrowing.size(); i++) {
-						ImageView nameView1 = new ImageView(mContext);
-						Seed s = mDataProvider.getSeedById(mGrowing.get(i)
-								.getSeedId());
-						nameView1.setBackgroundResource(s.getRes());
-						nameView1.setOnClickListener(OnClickGrowing(mGrowing
-								.get(i).getId()));
-						vg.addView(nameView1);
+					table.addView(vg, new TableLayout.LayoutParams(
+							LayoutParams.WRAP_CONTENT,
+							LayoutParams.WRAP_CONTENT));
+
+					// Offer option about quantity
+					TableRow vg2 = new TableRow(mContext);
+					TextView tvv = new TextView(mContext);
+					tvv.setText("Quantity");
+					tvv.setTextSize(20);
+					vg2.addView(tvv);
+
+					Button b1 = new Button(mContext);
+					b1.setText("Small");
+					b1.setBackgroundResource(R.drawable.square_btn);
+					vg2.addView(b1);
+					Button b2 = new Button(mContext);
+					b2.setBackgroundResource(R.drawable.square_btn);
+					b2.setText("Medium");
+					vg2.addView(b2);
+					Button b3 = new Button(mContext);
+					b3.setText("Large");
+					b3.setBackgroundResource(R.drawable.square_btn);
+					vg2.addView(b3);
+
+					table.addView(vg2, new TableLayout.LayoutParams(
+							LayoutParams.WRAP_CONTENT,
+							LayoutParams.WRAP_CONTENT));
+
+					// ok and cancel buttons
+					ImageView iiv = (ImageView) mCurrentAlert
+							.findViewById(R.id.cancelbutton);
+					iiv.setOnClickListener(OnClickFinish(2, mCurrentAlert,
+							currentAction.getId()));
+
+					ImageView iiv2 = (ImageView) mCurrentAlert
+							.findViewById(R.id.okbutton);
+					iiv2.setOnClickListener(OnClickFinish(1, mCurrentAlert,
+							currentAction.getId()));
+
+					mCurrentAlert.setOnDismissListener(new OnDismissListener() {
+						
+						public void onDismiss(DialogInterface dialog) {
+							// detects that window was closed.
+							mCurrentAlert = null;
+							
+						}
+					});
+					mCurrentAlert.show();
+					//
+					if (currentAction.getName().equals("Diary")) {
+						updateDiary();
 					}
+
+					// plays the sound related to the action
+					// playSound(mActionList.get(actionIndex).getAudio());
 				}
-
-				table.addView(vg, new TableLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-
-				// Offer option about quantity
-				TableRow vg2 = new TableRow(mContext);
-				TextView tvv = new TextView(mContext);
-				tvv.setText("Quantity");
-				tvv.setTextSize(20);
-				vg2.addView(tvv);
-
-				Button b1 = new Button(mContext);
-				b1.setText("Small");
-				b1.setBackgroundResource(R.drawable.square_btn);
-				vg2.addView(b1);
-				Button b2 = new Button(mContext);
-				b2.setBackgroundResource(R.drawable.square_btn);
-				b2.setText("Medium");
-				vg2.addView(b2);
-				Button b3 = new Button(mContext);
-				b3.setText("Large");
-				b3.setBackgroundResource(R.drawable.square_btn);
-				vg2.addView(b3);
-
-				table.addView(vg2, new TableLayout.LayoutParams(
-						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
-
-				// ok and cancel buttons
-				ImageView iiv = (ImageView) alert
-						.findViewById(R.id.cancelbutton);
-				iiv.setOnClickListener(OnClickFinish(2, alert,
-						currentAction.getId()));
-
-				ImageView iiv2 = (ImageView) alert.findViewById(R.id.okbutton);
-				iiv2.setOnClickListener(OnClickFinish(1, alert,
-						currentAction.getId()));
-
-				alert.show();
-
-				//
-				if (currentAction.getName().equals("Diary")) {
-					updateDiary();
-				}
-
-				// plays the sound related to the action
-				// playSound(mActionList.get(actionIndex).getAudio());
-
 			}
 		};
 	}
@@ -507,7 +527,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		Diary diary = mDataProvider.getDiary(mPlot.getId());
 
-		for (int i = 0; i < diary.getSize(); i++) {
+		for (int i = diary.getSize() -1; i > -1; i--) {
 
 			// gets the next action
 			Action a = mDataProvider.getActionById(diary.getActionId(i));
