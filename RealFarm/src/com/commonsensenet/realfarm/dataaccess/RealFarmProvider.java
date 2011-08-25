@@ -1,6 +1,8 @@
 package com.commonsensenet.realfarm.dataaccess;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -466,11 +468,13 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public long logAction(String name, String value, String date) {
+	public long logAction(String name, String value) {
+		SimpleDateFormat formatter = new SimpleDateFormat(RealFarmDatabase.DATE_FORMAT);
+		
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_NAME, name);
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_VALUE, value);
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE, date);
+		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE, formatter.format(new Date()));
 
 		mDb.open();
 

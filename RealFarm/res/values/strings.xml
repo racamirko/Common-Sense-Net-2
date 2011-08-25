@@ -46,6 +46,4 @@
     <string name="dateYesterday">yesterday</string>
     <string name="dateLastWeek">%d days ago</string>
     <string name="dateMoreThanAWeek">%d weeks ago</string>
-    
-    
 </resources>

@@ -225,8 +225,8 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTION_QUANTITY = "quantity";
 	public static final String COLUMN_NAME_ACTION_QUANTITY2 = "quantity2";
-
 	public static final String COLUMN_NAME_ACTION_UNITID = "unitID";
+	
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
@@ -242,53 +242,53 @@ public class RealFarmDatabase {
 	private static final String COLUMN_NAME_FERTILIZER_ID = "id";
 	private static final String COLUMN_NAME_FERTILIZER_NAME = "name";
 	private static final String COLUMN_NAME_FERTILIZER_STAGEID = "stageID";
-
 	private static final String COLUMN_NAME_FERTILIZER_UNITID = "unitID";
+	
 	public static final String COLUMN_NAME_GROWING_ID = "id";
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
 	public static final String COLUMN_NAME_GROWING_SEEDID = "seedID";
-
 	public static final String COLUMN_NAME_GROWING_SOWINGDATE = "date";
+	
 	public static final String COLUMN_NAME_LOG_DATE = "logDate";
 	public static final String COLUMN_NAME_LOG_ID = "id";
-
 	public static final String COLUMN_NAME_LOG_NAME = "name";
 	public static final String COLUMN_NAME_LOG_VALUE = "value";
 
-	private static final String COLUMN_NAME_PESTICIDE_AUDIO = "audio";
-	private static final String COLUMN_NAME_PESTICIDE_ID = "id";
-	private static final String COLUMN_NAME_PESTICIDE_NAME = "name";
+	public static final String COLUMN_NAME_PESTICIDE_AUDIO = "audio";
+	public static final String COLUMN_NAME_PESTICIDE_ID = "id";
+	public static final String COLUMN_NAME_PESTICIDE_NAME = "name";
+	
 	public static final String COLUMN_NAME_PLOT_ID = "id";
-
 	public static final String COLUMN_NAME_PLOT_USERID = "userID";
+
 	public static final String COLUMN_NAME_POINT_ID = "id";
 	public static final String COLUMN_NAME_POINT_PLOTID = "plotID";
 	public static final String COLUMN_NAME_POINT_X = "x";
 	public static final String COLUMN_NAME_POINT_Y = "y";
 
-	private static final String COLUMN_NAME_PROBLEM_AUDIO = "audio";
-	private static final String COLUMN_NAME_PROBLEM_ID = "id";
-	private static final String COLUMN_NAME_PROBLEM_NAME = "name";
-	private static final String COLUMN_NAME_PROBLEM_PROBLEMTYPEID = "masterID";
-
-	private static final String COLUMN_NAME_PROBLEM_RESOURCE = "res";
-	private static final String COLUMN_NAME_PROBLEMTYPE_AUDIO = "audio";
-	private static final String COLUMN_NAME_PROBLEMTYPE_ID = "id";
-	private static final String COLUMN_NAME_PROBLEMTYPE_NAME = "name";
-
-	private static final String COLUMN_NAME_PROBLEMTYPE_RESOURCE = "res";
+	public static final String COLUMN_NAME_PROBLEM_AUDIO = "audio";
+	public static final String COLUMN_NAME_PROBLEM_ID = "id";
+	public static final String COLUMN_NAME_PROBLEM_NAME = "name";
+	public static final String COLUMN_NAME_PROBLEM_PROBLEMTYPEID = "masterID";
+	public static final String COLUMN_NAME_PROBLEM_RESOURCE = "res";
+	
+	public static final String COLUMN_NAME_PROBLEMTYPE_AUDIO = "audio";
+	public static final String COLUMN_NAME_PROBLEMTYPE_ID = "id";
+	public static final String COLUMN_NAME_PROBLEMTYPE_NAME = "name";
+	public static final String COLUMN_NAME_PROBLEMTYPE_RESOURCE = "res";
+	
 	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONID = "actionID";
 	public static final String COLUMN_NAME_RECOMMENDATION_DATE = "recommendationDate";
-
 	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
 	public static final String COLUMN_NAME_RECOMMENDATION_SEEDID = "seedID";
+	
 	public static final String COLUMN_NAME_SEED_AUDIO = "seedAudio";
 	public static final String COLUMN_NAME_SEED_ID = "id";
 	public static final String COLUMN_NAME_SEED_SEEDID = "seedID";
+	
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST = "daysToHarvest";
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
-
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_NAMEKANNADA = "nameKannada";
 	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE = "res";
@@ -299,30 +299,32 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_ID = "id";
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_SEEDTYPEID = "seedTypeID";
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_STAGEID = "stageID";
-
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_TOCOUNTDAYS = "toCountDays";
+	
 	public static final String COLUMN_NAME_STAGE_ID = "id";
 	public static final String COLUMN_NAME_STAGE_NAME = "name";
 
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_NAME = "name";
+	
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
 	public static final String COLUMN_NAME_USER_ID = "id";
-
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
 
 	/** Date format used to store the dates. */
 	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	/** Filename of the database. */
 	public static final String DB_NAME = "realFarm.db";
-	private static final int DB_VERSION = 2;
+	/** Current version of the database. */
+	private static final int DB_VERSION = 1;
 
 	public static final String DEBUG_ID = "RealFarm";
 	public static String DEFAULT_NUMBER = "000000000";
 	public static String DEVICE_ID;
-
 	public static int MAIN_USER_ID = -1;
+	
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONNAME = "actionName";
 	public static final String TABLE_NAME_ACTIONTRANSLATION = "actionTranslation";
@@ -339,8 +341,8 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_SEEDTYPESTAGE = "seedTypeStage";
 	public static final String TABLE_NAME_STAGE = "stage";
 	public static final String TABLE_NAME_UNIT = "unit";
-
 	public static final String TABLE_NAME_USER = "user";
+	
 	/** Application context. */
 	private Context mContext;
 	/** Database where the statements are performed. */

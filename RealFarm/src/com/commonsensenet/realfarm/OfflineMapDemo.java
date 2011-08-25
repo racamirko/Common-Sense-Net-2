@@ -26,6 +26,7 @@ import com.commonsensenet.realfarm.map.GeoPoint;
 import com.commonsensenet.realfarm.map.OfflineMapView;
 import com.commonsensenet.realfarm.map.OnOverlayTappedListener;
 import com.commonsensenet.realfarm.map.Overlay;
+import com.commonsensenet.realfarm.model.Log;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.overlay.ActionItem;
 import com.commonsensenet.realfarm.overlay.PlotInformationWindow;
@@ -131,8 +132,10 @@ public class OfflineMapDemo extends Activity {
 			public void onOverlayTapped(Overlay overlay) {
 
 				PlotOverlay po = (PlotOverlay) overlay;
+				
+				mDataProvider.logAction(Log.MAIN_MAP_PLOT_CLICKED, "plotId: "+po.getPlot().getId());
 
-				// Only one window can be displayed at the time.
+				// only one window can be displayed at the time.
 				if (mCurrentWindow == null) {
 
 					// displays the information about the plot on a different
@@ -220,13 +223,15 @@ public class OfflineMapDemo extends Activity {
 	 */
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// Handle item selection
+		// handle item selection
 		switch (item.getItemId()) {
 		case R.id.settings:
+			mDataProvider.logAction(Log.MAIN_MENU_SETTINGS_CLICKED, null);
 			Intent myIntent = new Intent(OfflineMapDemo.this, Settings.class);
 			startActivity(myIntent);
 			return true;
 		case R.id.help:
+			mDataProvider.logAction(Log.MAIN_MENU_HELP_CLICKED, null);
 			// TODO: add help support
 			return true;
 		default:
@@ -257,6 +262,7 @@ public class OfflineMapDemo extends Activity {
 			}
 
 			public void performAction(View view) {
+				mDataProvider.logAction(Log.MAIN_ACTIONBAR_HOME_CLICKED, null);
 				// navigates to the center of the map.
 				mOfflineMap.animateTo(new Point(0, 0));
 			}
@@ -270,6 +276,8 @@ public class OfflineMapDemo extends Activity {
 			}
 
 			public void performAction(View view) {
+				mDataProvider.logAction(Log.MAIN_ACTIONBAR_PLOTS_OPEN, null);
+				
 				final QuickAction qa = new QuickAction(view);
 
 				// creates an action item for each available plot.
@@ -286,6 +294,8 @@ public class OfflineMapDemo extends Activity {
 								R.drawable.ic_dialog_map));
 						tmpItem.setOnClickListener(new OnClickListener() {
 							public void onClick(View v) {
+								
+								mDataProvider.logAction(Log.MAIN_ACTIONBAR_PLOTS_PLOT_CLICKED, "plotId: "+mPlots.get(v.getId()).getId());
 
 								// animates to the center of the plot
 								Point center = mPlots.get(v.getId())
@@ -309,12 +319,14 @@ public class OfflineMapDemo extends Activity {
 			}
 
 			public void performAction(View view) {
+				mDataProvider.logAction(Log.MAIN_ACTIONBAR_NEWS_OPEN, null);
 				final QuickAction qa1 = new QuickAction(view);
 
 				ActionItem tem = new ActionItem();
 				tem.setTitle("No news yet");
 				tem.setOnClickListener(new OnClickListener() {
 					public void onClick(View v) {
+						mDataProvider.logAction(Log.MAIN_ACTIONBAR_NEWS_NEWS_CLICKED, null);
 					}
 				});
 				qa1.addActionItem(tem);
