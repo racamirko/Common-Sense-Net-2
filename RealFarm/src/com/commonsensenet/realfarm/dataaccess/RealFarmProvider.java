@@ -105,8 +105,8 @@ public class RealFarmProvider {
 
 			Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 					new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE },
+							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_DATE },
 					RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
 							+ mGrowing.get(i).getId(), null, null, null, null);
 
@@ -511,12 +511,12 @@ public class RealFarmProvider {
 
 	}
 
-	public long setAction(int actionID, int growingID, String date) {
+	public long setAction(int actionNameID, int growingID, String date) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID, growingID);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONID, actionID);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONDATE, date);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, actionNameID);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, date);
 
 		mDb.open();
 

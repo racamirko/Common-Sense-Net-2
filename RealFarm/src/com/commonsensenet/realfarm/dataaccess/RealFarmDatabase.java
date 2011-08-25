@@ -59,11 +59,11 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_ID
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_ACTION_GROWINGID
-					+ " references growing(id), " + COLUMN_NAME_ACTION_ACTIONID
-					+ " references action(id), " + COLUMN_NAME_ACTION_QUANTITY
+					+ " references growing(id), " + COLUMN_NAME_ACTION_ACTIONNAMEID
+					+ " references actionName(id), " + COLUMN_NAME_ACTION_QUANTITY
 					+ " integer, " + COLUMN_NAME_ACTION_UNITID
 					+ " references unit(id), " + COLUMN_NAME_ACTION_QUANTITY2
-					+ " integer, " + COLUMN_NAME_ACTION_ACTIONDATE + " date "
+					+ " integer, " + COLUMN_NAME_ACTION_DATE + " date "
 					+ " ); ");
 			Log.d(DEBUG_ID, "Created action table");
 
@@ -219,8 +219,8 @@ public class RealFarmDatabase {
 		}
 	}
 
-	public static final String COLUMN_NAME_ACTION_ACTIONDATE = "actionDate";
-	public static final String COLUMN_NAME_ACTION_ACTIONID = "actionID";
+	public static final String COLUMN_NAME_ACTION_DATE = "actionDate";
+	public static final String COLUMN_NAME_ACTION_ACTIONNAMEID = "actionNameID";
 	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingID";
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTION_QUANTITY = "quantity";
@@ -247,7 +247,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_GROWING_ID = "id";
 	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
 	public static final String COLUMN_NAME_GROWING_SEEDID = "seedID";
-	public static final String COLUMN_NAME_GROWING_SOWINGDATE = "date";
+	public static final String COLUMN_NAME_GROWING_SOWINGDATE = "sowingDate";
 	
 	public static final String COLUMN_NAME_LOG_DATE = "logDate";
 	public static final String COLUMN_NAME_LOG_ID = "id";
@@ -686,30 +686,30 @@ public class RealFarmDatabase {
 		calendar.add(Calendar.DATE, -15);
 
 		ContentValues actions = new ContentValues();
-		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
+		actions.put(COLUMN_NAME_ACTION_ACTIONNAMEID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE,
+		actions.put(COLUMN_NAME_ACTION_DATE,
 				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		calendar.add(Calendar.DATE, 2);
 		actions.clear();
-		actions.put(COLUMN_NAME_ACTION_ACTIONID, 4);
+		actions.put(COLUMN_NAME_ACTION_ACTIONNAMEID, 4);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 1);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE,
+		actions.put(COLUMN_NAME_ACTION_DATE,
 				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		calendar.add(Calendar.DATE, 1);
 		actions.clear();
-		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
+		actions.put(COLUMN_NAME_ACTION_ACTIONNAMEID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 2);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE,
+		actions.put(COLUMN_NAME_ACTION_DATE,
 				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		calendar.add(Calendar.DATE, 1);
 		actions.clear();
-		actions.put(COLUMN_NAME_ACTION_ACTIONID, 3);
+		actions.put(COLUMN_NAME_ACTION_ACTIONNAMEID, 3);
 		actions.put(COLUMN_NAME_ACTION_GROWINGID, 3);
-		actions.put(COLUMN_NAME_ACTION_ACTIONDATE,
+		actions.put(COLUMN_NAME_ACTION_DATE,
 				dateFormat.format(calendar.getTime()));
 		insertEntries(TABLE_NAME_ACTION, actions, db);
 		actions.clear();
