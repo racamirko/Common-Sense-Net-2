@@ -315,7 +315,7 @@ public class RealFarmDatabase {
 
 	/** Date format used to store the dates. */
 	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	private static final String DB_NAME = "realFarm.db";
+	public static final String DB_NAME = "realFarm.db";
 	private static final int DB_VERSION = 2;
 
 	public static final String DEBUG_ID = "RealFarm";

@@ -104,7 +104,7 @@ public class PlotEditor extends Activity {
 						nameView1.setScaleType(ScaleType.CENTER);
 						nameView1.setImageResource(s.getRes());
 						nameView1
-								.setBackgroundResource(R.drawable.cbuttonsquare);
+								.setBackgroundResource(R.drawable.square_btn);
 
 						int growingId = (int) mDataProvider.setGrowing(plotID,
 								s.getId());
@@ -136,15 +136,15 @@ public class PlotEditor extends Activity {
 
 				Button b1 = new Button(PlotEditor.this);
 				b1.setText("Small");
-				b1.setBackgroundResource(R.drawable.cbuttonsquare);
+				b1.setBackgroundResource(R.drawable.square_btn);
 				vg2.addView(b1);
 				Button b2 = new Button(PlotEditor.this);
-				b2.setBackgroundResource(R.drawable.cbuttonsquare);
+				b2.setBackgroundResource(R.drawable.square_btn);
 				b2.setText("Medium");
 				vg2.addView(b2);
 				Button b3 = new Button(PlotEditor.this);
 				b3.setText("Large");
-				b3.setBackgroundResource(R.drawable.cbuttonsquare);
+				b3.setBackgroundResource(R.drawable.square_btn);
 				vg2.addView(b3);
 
 				table.addView(vg2, new TableLayout.LayoutParams(
@@ -275,7 +275,7 @@ public class PlotEditor extends Activity {
 
 			ImageView ib = new ImageView(this);
 			ib.setImageResource(tmpAction.getRes());
-			ib.setBackgroundResource(R.drawable.cbutton);
+			ib.setBackgroundResource(R.drawable.circular_btn);
 			int actionID = tmpAction.getId();
 			ib.setOnClickListener(OnClickAction(actionID));
 			row1.addView(ib, iterNb);

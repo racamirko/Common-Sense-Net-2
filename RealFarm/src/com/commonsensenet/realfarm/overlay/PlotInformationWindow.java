@@ -186,7 +186,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 				R.layout.plotaction_item, null);
 
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
-		img.setBackgroundResource(R.drawable.cbutton);
+		img.setBackgroundResource(R.drawable.circular_btn);
 		img.setOnClickListener(listener);
 
 		img.setClickable(true);
@@ -307,7 +307,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 						nameView1.setScaleType(ScaleType.CENTER);
 						nameView1.setImageResource(s.getRes());
 						nameView1
-								.setBackgroundResource(R.drawable.cbuttonsquare);
+								.setBackgroundResource(R.drawable.square_btn);
 
 						int growingId = (int) mDataProvider.setGrowing(
 								mPlot.getId(), s.getId());
@@ -339,15 +339,15 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 				Button b1 = new Button(mContext);
 				b1.setText("Small");
-				b1.setBackgroundResource(R.drawable.cbuttonsquare);
+				b1.setBackgroundResource(R.drawable.square_btn);
 				vg2.addView(b1);
 				Button b2 = new Button(mContext);
-				b2.setBackgroundResource(R.drawable.cbuttonsquare);
+				b2.setBackgroundResource(R.drawable.square_btn);
 				b2.setText("Medium");
 				vg2.addView(b2);
 				Button b3 = new Button(mContext);
 				b3.setText("Large");
-				b3.setBackgroundResource(R.drawable.cbuttonsquare);
+				b3.setBackgroundResource(R.drawable.square_btn);
 				vg2.addView(b3);
 
 				table.addView(vg2, new TableLayout.LayoutParams(

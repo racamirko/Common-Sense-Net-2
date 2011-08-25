@@ -164,8 +164,8 @@ public class OfflineMapDemo extends Activity {
 		// sets the items included in the action bar.
 		setUpActionBar();
 
-		// creates the data provider
-		getApplicationContext().deleteDatabase("realFarm.db");
+		// deletes the current database.
+		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
 
 		RealFarmApp mainApp = ((RealFarmApp) getApplicationContext());
 		RealFarmDatabase db = mainApp.setDatabase();
@@ -225,7 +225,6 @@ public class OfflineMapDemo extends Activity {
 		case R.id.settings:
 			Intent myIntent = new Intent(OfflineMapDemo.this, Settings.class);
 			startActivity(myIntent);
-
 			return true;
 		case R.id.help:
 			// TODO: add help support
