@@ -39,6 +39,13 @@ public class Seed {
 			return mName;
 	}
 
+	public String getFullNameKannada() {
+		if (mVarietyKannada != null)
+			return mNameKannada + " - " + mVarietyKannada;
+		else
+			return mNameKannada;
+	}
+
 	public int getId() {
 		return mId;
 	}

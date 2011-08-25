@@ -10,51 +10,66 @@ import android.content.Context;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 
+/**
+ * Helper functions to handle the date.
+ * 
+ * @author Oscar Bolanos (oscar.bolanos@epfl.ch)
+ * 
+ */
 public class DateHelper {
-	public static long daysBetween(Calendar startDate, Calendar endDate) {
-		Calendar date = (Calendar) startDate.clone();
-		long daysBetween = 0;
-		while (date.before(endDate)) {
-			date.add(Calendar.DAY_OF_MONTH, 1);
-			daysBetween++;
-		}
-		return daysBetween;
+
+	/**
+	 * Calculates the difference in days between two dates. To do so, it
+	 * substracts the milliseconds between each date and then divides this value
+	 * by the length of a day in milliseconds.
+	 * 
+	 * @param dateEarly
+	 *            initial date to calculate
+	 * @param dateLater
+	 *            later date to calculate
+	 * 
+	 * @return differente in dayts between the given dates
+	 */
+	public static long calculateDays(Date dateEarly, Date dateLater) {
+		return (dateLater.getTime() - dateEarly.getTime())
+				/ (24 * 60 * 60 * 1000);
 	}
 
+	/**
+	 * Formats the date. The format corresponds only to reference dates: today,
+	 * yesterday, X days ago and X weeks ago.
+	 * 
+	 * @param date
+	 *            the date to format.
+	 * @param context
+	 *            application context used for locatization.
+	 * 
+	 * @return a string with the formatted date.
+	 */
 	public static String formatDate(String date, Context context) {
 
 		try {
+			// extracts the date.
 			Date dateTime = new SimpleDateFormat(RealFarmDatabase.DATE_FORMAT)
 					.parse(date);
-
-			// creates calendars.
-			Calendar givenDate = Calendar.getInstance();
+			// gets current date
 			Calendar today = Calendar.getInstance();
-			Calendar yesterday = Calendar.getInstance();
-			Calendar oneWeek = Calendar.getInstance();
 
-			// adjuts calendars
-			givenDate.setTime(dateTime);
-			yesterday.add(Calendar.DATE, -1);
-			oneWeek.add(Calendar.DATE, -7);
+			// calculates the difference
+			long dayDif = calculateDays(dateTime, today.getTime());
 
-			if (givenDate.get(Calendar.YEAR) == today.get(Calendar.YEAR)
-					&& givenDate.get(Calendar.DAY_OF_YEAR) == today
-							.get(Calendar.DAY_OF_YEAR)) {
+			if (dayDif == 0)
 				return context.getString(R.string.dateToday);
-			} else if (givenDate.get(Calendar.YEAR) == yesterday
-					.get(Calendar.YEAR)
-					&& givenDate.get(Calendar.DAY_OF_YEAR) == yesterday
-							.get(Calendar.DAY_OF_YEAR)) {
+			else if (dayDif == 1)
 				return context.getString(R.string.dateYesterday);
-			} else {
-				long dayDif = daysBetween(oneWeek, givenDate);
-				
-				if(dayDif < 8)
-					return context.getString(R.string.dateLastWeek);
-				else
-					return String.format(context.getString(R.string.dateMoreThanAWeek), dayDif);	
-			}	
+			else if (dayDif < 15)
+				return String.format(context.getString(R.string.dateLastWeek),
+						dayDif);
+			else {
+				return String.format(
+						context.getString(R.string.dateMoreThanAWeek),
+						(int) Math.floor(dayDif / 7));
+			}
 		} catch (ParseException e) {
 			return date;
 		}

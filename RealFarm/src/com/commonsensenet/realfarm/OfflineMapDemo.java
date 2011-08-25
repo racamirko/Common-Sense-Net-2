@@ -4,14 +4,12 @@ import java.util.List;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.view.Menu;
@@ -19,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.PopupWindow.OnDismissListener;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -86,14 +85,14 @@ public class OfflineMapDemo extends Activity {
 	public static final GeoPoint CKPURA_LOCATION = new GeoPoint(14054563,
 			77167003);
 
-	/** Manager used to obtain location from the system. */
-	private LocationManager lm;
+	/** Window used to displayed the plot information. */
+	private PlotInformationWindow mCurrentWindow;
 	/** Class used to extract the data from the database. */
 	private RealFarmProvider mDataProvider;
-	/** List of Polygons that represent the plots available. */
-	private List<Plot> mPlots;
 	/** View that handles the map of the area. */
 	private OfflineMapView mOfflineMap;
+	/** List of Polygons that represent the plots available. */
+	private List<Plot> mPlots;
 
 	/**
 	 * Intercepts the back button press by the user in the main screen and
@@ -132,31 +131,40 @@ public class OfflineMapDemo extends Activity {
 			public void onOverlayTapped(Overlay overlay) {
 
 				PlotOverlay po = (PlotOverlay) overlay;
-				// displays the information about the plot
-				new PlotInformationWindow(mOfflineMap, po.getPlot(),
-						mDataProvider).show();
 
-//				 Intent myIntent = new Intent();
-//				 myIntent.setClass(mOfflineMap.getContext(),
-//				 PlotEditor.class);
-//				 int test = po.getPlot().getId();
-//				 myIntent.putExtra("ID", Integer.toString(test));
-//				 mOfflineMap.getContext().startActivity(myIntent);
+				// Only one window can be displayed at the time.
+				if (mCurrentWindow == null) {
+
+					// displays the information about the plot on a different
+					// window.
+					mCurrentWindow = new PlotInformationWindow(mOfflineMap, po
+							.getPlot(), mDataProvider);
+					// detects when it gets closed.
+					mCurrentWindow
+							.setOnDismissListener(new OnDismissListener() {
+								public void onDismiss() {
+									// clears the current window when it gets
+									// closed.
+									mCurrentWindow = null;
+								}
+							});
+					// shows the window.
+					mCurrentWindow.show();
+				}
+
+				// Intent myIntent = new Intent();
+				// myIntent.setClass(mOfflineMap.getContext(),
+				// PlotEditor.class);
+				// int test = po.getPlot().getId();
+				// myIntent.putExtra("ID", Integer.toString(test));
+				// mOfflineMap.getContext().startActivity(myIntent);
 			}
 		});
 
 		// sets the items included in the action bar.
 		setUpActionBar();
 
-		// Define location manager
-		lm = (LocationManager) getSystemService(Context.LOCATION_SERVICE);
-
-		// if (lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER) ==
-		// null)
-		// mOfflineMap.animateTo(CKPURA_LOCATION);
-
-		// Creates the data provider
-		// comment out if you want to reuse the existing database.
+		// creates the data provider
 		getApplicationContext().deleteDatabase("realFarm.db");
 
 		RealFarmApp mainApp = ((RealFarmApp) getApplicationContext());
@@ -167,11 +175,11 @@ public class OfflineMapDemo extends Activity {
 		List<Overlay> mapOverlays = mOfflineMap.getOverlays();
 
 		// gets the id of the user.
-		RealFarmDatabase.MAIN_USER_ID = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
-				.getUserId();
+		RealFarmDatabase.MAIN_USER_ID = mDataProvider.getUserByMobile(
+				RealFarmDatabase.DEVICE_ID).getUserId();
 
 		// adds an overlay for each plot found.
-		mPlots = mDataProvider.getPlotsList(); 
+		mPlots = mDataProvider.getPlotsList();
 		for (int x = 0; x < mPlots.size(); x++) {
 			mapOverlays.add(new PlotOverlay(mPlots.get(x)));
 		}
@@ -250,37 +258,8 @@ public class OfflineMapDemo extends Activity {
 			}
 
 			public void performAction(View view) {
+				// navigates to the center of the map.
 				mOfflineMap.animateTo(new Point(0, 0));
-
-				// TODO: check this
-				// List<Overlay> mapOverlays = mOfflineMap.getOverlays();
-
-				// mapOverlays.remove(itemizedoverlay);
-				// itemizedoverlay.removeAll();
-
-				// OverlayItem overlayitem = new OverlayItem(CKPURA_LOCATION,
-				// "Hello!", "CKPura");
-				// itemizedoverlay.addOverlay(overlayitem);
-
-				// mapOverlays.add(itemizedoverlay);
-
-				mOfflineMap.invalidate();
-			}
-		});
-
-		// locate me action button
-		actionBar.addAction(new Action() {
-
-			public int getDrawable() {
-				return R.drawable.ic_48px_myposition;
-			}
-
-			public void performAction(View view) {
-				LocationListener locationListenerGps = new MyLocationListener();
-				// lm.requestLocationUpdates(LocationManager.GPS_PROVIDER, 0, 0,
-				// locationListenerGps);
-				lm.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 0,
-						0, locationListenerGps);
 			}
 		});
 
@@ -297,10 +276,9 @@ public class OfflineMapDemo extends Activity {
 				// creates an action item for each available plot.
 				ActionItem tmpItem;
 				for (int x = 0; x < mPlots.size(); x++) {
-					
+
 					// only adds the plot to the list if it belongs to the user.
-					if(mPlots.get(x).getOwnerId() == RealFarmDatabase.MAIN_USER_ID)
-					{
+					if (mPlots.get(x).getOwnerId() == RealFarmDatabase.MAIN_USER_ID) {
 						// creates a new item based
 						tmpItem = new ActionItem();
 						tmpItem.setTitle("Plot " + mPlots.get(x).getId());
@@ -309,7 +287,7 @@ public class OfflineMapDemo extends Activity {
 								R.drawable.ic_dialog_map));
 						tmpItem.setOnClickListener(new OnClickListener() {
 							public void onClick(View v) {
-	
+
 								// animates to the center of the plot
 								Point center = mPlots.get(v.getId())
 										.getCenterCoordinate();
@@ -326,7 +304,7 @@ public class OfflineMapDemo extends Activity {
 
 		// news button in action bar
 		actionBar.addAction(new Action() {
-			
+
 			public int getDrawable() {
 				return R.drawable.ic_48px_news;
 			}

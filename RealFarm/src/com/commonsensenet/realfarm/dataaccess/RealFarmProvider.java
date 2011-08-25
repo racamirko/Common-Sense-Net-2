@@ -54,8 +54,8 @@ public class RealFarmProvider {
 		}
 		c0.close();
 		mDb.close();
-		
-		if(tmpAction == null) {
+
+		if (tmpAction == null) {
 			Log.d(RealFarmDatabase.DEBUG_ID, "action doesn't exist");
 		}
 
@@ -454,7 +454,7 @@ public class RealFarmProvider {
 					// adds the polygon to the list.
 					tmpList.add(new Plot(polyPoints, id, userId));
 				}
-				
+
 				c02.close();
 				i = i + 1;
 			} while (c0.moveToNext());

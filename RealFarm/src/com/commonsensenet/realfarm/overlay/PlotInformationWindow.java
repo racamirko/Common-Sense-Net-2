@@ -1,12 +1,11 @@
 package com.commonsensenet.realfarm.overlay;
 
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
+import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.Config;
@@ -23,12 +22,18 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.view.ViewGroup.LayoutParams;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Diary;
@@ -36,6 +41,7 @@ import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.utils.DateHelper;
 
 /**
  * 
@@ -58,6 +64,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private int mAnimStyle;
 	/** Context used to load resources. */
 	private final Context mContext;
+	/** Currently selected growing id. */
+	private int mCurrentGrowingId = -1;
+	/** Currently selected quantity. */
+	private int mCurrentQuantityId = -1;
 	/** Class used to extract the data from the database. */
 	private RealFarmProvider mDataProvider;
 	/** List of growing patches inside the plot. */
@@ -69,7 +79,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	/** Plot represented on the window. */
 	private Plot mPlot;
 	private List<Seed> mSeedsList;
-	// private ScrollView mScroller;
 	private ViewGroup mTrack;
 
 	/**
@@ -128,16 +137,9 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	 */
 	private void createActionList() {
 		View view;
-		int icon;
-		int id;
 
 		for (int i = 0; i < mActionList.size(); i++) {
-			icon = mActionList.get(i).getRes();
-			// listener = mActionList.get(i).getListener();
-			id = mActionList.get(i).getId();
-
-			view = getActionItem(icon, OnClickAction(i));
-			view.setId(id);
+			view = getActionItem(mActionList.get(i).getRes(), OnClickAction(i));
 
 			view.setFocusable(true);
 			view.setClickable(true);
@@ -146,6 +148,28 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			view.forceLayout();
 			mActionsPanel.addView(view);
 		}
+	}
+
+	private void editAction(int action, int actionID, Dialog dialog,
+			int growingId, int quantityId) {
+
+		// TODO: use quantityID, needs to be added to the database.
+		// user clicked ok
+		if (action == 1 && growingId != -1) {
+			// add executed action to diary
+			SimpleDateFormat dateFormat = new SimpleDateFormat(
+					RealFarmDatabase.DATE_FORMAT);
+			Date date = new Date();
+			mDataProvider.setAction(actionID, growingId,
+					dateFormat.format(date));
+		}
+
+		// update lists
+		updateDiary();
+		// updateActions();
+
+		// close popup window
+		dialog.cancel();
 	}
 
 	/**
@@ -179,14 +203,15 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
-	private View getDiaryItem(int icon, String title, String date, OnClickListener listener) {
-		
+	private View getDiaryItem(int icon, String title, String date,
+			OnClickListener listener) {
+
 		// inflates the layout.
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.diary_item, null);
 		container.setClickable(true);
 		container.setFocusable(true);
-		
+
 		// gets the components to modify
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
 		TextView lblTitle = (TextView) container.findViewById(R.id.title);
@@ -199,8 +224,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		if (title != null)
 			lblTitle.setText(title);
-		
-		if(date != null)
+
+		if (date != null)
 			lblDate.setText(date);
 
 		if (listener != null)
@@ -209,7 +234,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
-	private View getGrowingItem(int icon, String title) {
+	private View getGrowingItem(int icon, String name, String kannadaName) {
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
 				R.layout.growing_item, null);
 
@@ -232,10 +257,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		else
 			img.setImageResource(R.drawable.ic_menu_mylocation);
 
-		if (title != null) {
-			lblTitle.setText(title);
-			tblKannada.setText("ಖಾಯಿಲೆ");
-		}
+		if (name != null)
+			lblTitle.setText(name);
+		if (kannadaName != null)
+			tblKannada.setText(kannadaName);
 
 		// if (listener != null)
 		// img.setOnClickListener(listener);
@@ -243,65 +268,115 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
-	private void updateDiary() {
-		View view;
-		String text;
+	View.OnClickListener OnClickAction(final int actionIndex) {
+		return new View.OnClickListener() {
 
-		// removes all visual elements
-		mTrack.removeAllViews();
+			public void onClick(View v) {
 
-		Diary diary = mDataProvider.getDiary(mPlot.getId());
+				Action currentAction = mActionList.get(actionIndex);
 
-		for (int i = 0; i < diary.getSize(); i++) {
+				// get more information about action
+				Dialog alert = new Dialog(mContext);
+				alert.setContentView(R.layout.plot_dialog);
 
-			// gets the next action
-			Action a = mDataProvider.getActionById(diary.getActionId(i));
+				// sets the title using the action name
+				String actionName = mDataProvider.getActionById(
+						currentAction.getId()).getName();
+				alert.setTitle(actionName);
 
-			// listener = mActionList.get(i).getListener();
-			text = i + " " + a.getName();
+				// add button to select seed type, this tell us about growing id
+				TableLayout table = (TableLayout) alert
+						.findViewById(R.id.TableLayout01);
+				TableRow vg = new TableRow(mContext);
 
-			view = getDiaryItem(a.getRes(), text,formatDate(diary.getActionDate(i)), OnClickDiary(diary.getId(i)));
-			view.setId(a.getId());
+				TextView tv = new TextView(mContext);
+				tv.setText(R.string.seed);
+				tv.setTextSize(20);
+				vg.addView(tv);
 
-			view.setFocusable(true);
-			view.setClickable(true);
+				// check tapped action
+				// all seeds can be used
+				if (actionName.compareTo("Sow") == 0) {
+					List<Seed> allSeedList = new ArrayList<Seed>();
+					allSeedList = mDataProvider.getSeedsList();
 
-			view.invalidate();
-			view.forceLayout();
-			mTrack.addView(view);
-		}
-	}
+					// A new growing id will be created with one seed id
+					for (int i = 0; i < allSeedList.size(); i++) {
+						ImageView nameView1 = new ImageView(mContext);
+						Seed s = allSeedList.get(i);
+						nameView1.setScaleType(ScaleType.CENTER);
+						nameView1.setImageResource(s.getRes());
+						nameView1
+								.setBackgroundResource(R.drawable.cbuttonsquare);
 
-	private String formatDate(String date) {
+						int growingId = (int) mDataProvider.setGrowing(
+								mPlot.getId(), s.getId());
+						nameView1.setOnClickListener(OnClickGrowing(growingId));
+						vg.addView(nameView1);
+					}
 
-		try {
-			Date dateTime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss")
-					.parse(date);
-			Calendar calendar = Calendar.getInstance();
-			calendar.setTime(dateTime);
+				} else { // only existing seeds can be used
+					for (int i = 0; i < mGrowing.size(); i++) {
+						ImageView nameView1 = new ImageView(mContext);
+						Seed s = mDataProvider.getSeedById(mGrowing.get(i)
+								.getSeedId());
+						nameView1.setBackgroundResource(s.getRes());
+						nameView1.setOnClickListener(OnClickGrowing(mGrowing
+								.get(i).getId()));
+						vg.addView(nameView1);
+					}
+				}
 
-			Calendar today = Calendar.getInstance();
-			Calendar yesterday = Calendar.getInstance();
-			yesterday.add(Calendar.DATE, -1);
-			SimpleDateFormat timeFormatter = new SimpleDateFormat("MMM dd");
+				table.addView(vg, new TableLayout.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
 
-			if (calendar.get(Calendar.YEAR) == today.get(Calendar.YEAR)
-					&& calendar.get(Calendar.DAY_OF_YEAR) == today
-							.get(Calendar.DAY_OF_YEAR)) {
-				return "Today";
-			} else if (calendar.get(Calendar.YEAR) == yesterday
-					.get(Calendar.YEAR)
-					&& calendar.get(Calendar.DAY_OF_YEAR) == yesterday
-							.get(Calendar.DAY_OF_YEAR)) {
-				return "Yesterday";
-			} else {
-				return timeFormatter.format(dateTime);
+				// Offer option about quantity
+				TableRow vg2 = new TableRow(mContext);
+				TextView tvv = new TextView(mContext);
+				tvv.setText("Quantity");
+				tvv.setTextSize(20);
+				vg2.addView(tvv);
+
+				Button b1 = new Button(mContext);
+				b1.setText("Small");
+				b1.setBackgroundResource(R.drawable.cbuttonsquare);
+				vg2.addView(b1);
+				Button b2 = new Button(mContext);
+				b2.setBackgroundResource(R.drawable.cbuttonsquare);
+				b2.setText("Medium");
+				vg2.addView(b2);
+				Button b3 = new Button(mContext);
+				b3.setText("Large");
+				b3.setBackgroundResource(R.drawable.cbuttonsquare);
+				vg2.addView(b3);
+
+				table.addView(vg2, new TableLayout.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+
+				// ok and cancel buttons
+				ImageView iiv = (ImageView) alert
+						.findViewById(R.id.cancelbutton);
+				iiv.setOnClickListener(OnClickFinish(2, alert,
+						currentAction.getId()));
+
+				ImageView iiv2 = (ImageView) alert.findViewById(R.id.okbutton);
+				iiv2.setOnClickListener(OnClickFinish(1, alert,
+						currentAction.getId()));
+
+				alert.show();
+
+				//
+				if (currentAction.getName().equals("Diary")) {
+					updateDiary();
+				}
+
+				// plays the sound related to the action
+				// playSound(mActionList.get(actionIndex).getAudio());
+
 			}
-		} catch (ParseException e) {
-			return date;
-		}
+		};
 	}
-	
+
 	View.OnClickListener OnClickDiary(final int actionID) {
 		return new View.OnClickListener() {
 
@@ -314,36 +389,54 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		};
 	}
 
-	View.OnClickListener OnClickAction(final int actionIndex) {
+	View.OnClickListener OnClickFinish(final int action, final Dialog dialog,
+			final int actionID) {
+
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-
-				Action currentAction = mActionList.get(actionIndex);
-				if (currentAction.getName().equals("Diary")) {
-					updateDiary();
-				}
-
-				if (mMediaPlayer != null) {
-					mMediaPlayer.stop();
-					mMediaPlayer.release();
-					mMediaPlayer = null;
-				}
-
-				mMediaPlayer = MediaPlayer.create(mContext,
-						mActionList.get(actionIndex).getAudio());
-				mMediaPlayer.start();
-				mMediaPlayer
-						.setOnCompletionListener(new OnCompletionListener() {
-
-							public void onCompletion(MediaPlayer mp) {
-								mp.release();
-								mMediaPlayer = null;
-
-							}
-						});
+				editAction(action, actionID, dialog, mCurrentGrowingId,
+						mCurrentQuantityId);
 			}
 		};
+	}
+
+	View.OnClickListener OnClickGrowing(final int growingID) {
+		return new View.OnClickListener() {
+			public void onClick(View v) {
+				v.setPressed(true);
+				v.setSelected(true);
+				// store growing id
+				mCurrentGrowingId = growingID;
+			}
+		};
+	}
+
+	/**
+	 * Plays the given audio resource. Sounds previously playing are always
+	 * stopped.
+	 * 
+	 * @param audioRes
+	 *            audio resource id to play.
+	 */
+	private void playSound(int audioRes) {
+
+		// stops any other currently playing sound.
+		if (mMediaPlayer != null) {
+			mMediaPlayer.stop();
+			mMediaPlayer.release();
+			mMediaPlayer = null;
+		}
+
+		// plays the new sound.
+		mMediaPlayer = MediaPlayer.create(mContext, audioRes);
+		mMediaPlayer.start();
+		mMediaPlayer.setOnCompletionListener(new OnCompletionListener() {
+			public void onCompletion(MediaPlayer mp) {
+				mp.release();
+				mMediaPlayer = null;
+			}
+		});
 	}
 
 	/**
@@ -415,7 +508,38 @@ public class PlotInformationWindow extends CustomPopupWindow {
 				location[1]);
 	}
 
-	public void updatePlotInformation() {
+	private void updateDiary() {
+		View view;
+		String text;
+
+		// removes all visual elements
+		mTrack.removeAllViews();
+
+		Diary diary = mDataProvider.getDiary(mPlot.getId());
+
+		for (int i = 0; i < diary.getSize(); i++) {
+
+			// gets the next action
+			Action a = mDataProvider.getActionById(diary.getActionId(i));
+
+			// listener = mActionList.get(i).getListener();
+			text = a.getName();
+
+			view = getDiaryItem(a.getRes(), text,
+					DateHelper.formatDate(diary.getActionDate(i), mContext),
+					OnClickDiary(diary.getId(i)));
+			view.setId(a.getId());
+
+			view.setFocusable(true);
+			view.setClickable(true);
+
+			view.invalidate();
+			view.forceLayout();
+			mTrack.addView(view);
+		}
+	}
+
+	private void updatePlotInformation() {
 
 		// Get growing areas of the plot
 		mGrowing = mDataProvider.getGrowingByPlotId(mPlot.getId());
@@ -467,7 +591,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
 			mSeedsList.add(s);
 
-			item = getGrowingItem(s.getRes(), s.getFullName());
+			item = getGrowingItem(s.getRes(), s.getFullName(),
+					s.getFullNameKannada());
 			item.setId(mGrowing.get(i).getId());
 
 			item.setFocusable(true);
