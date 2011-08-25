@@ -2,10 +2,12 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent" android:layout_height="fill_parent"
 	android:paddingTop="10dip" android:orientation="horizontal">
+
 	<RelativeLayout android:id="@+id/windowContainer"
 		android:layout_marginLeft="10dip" android:layout_marginRight="10dip"
-		android:layout_width="230dip" android:background="@drawable/popup"
+		android:layout_width="235dip" android:background="@drawable/popup"
 		android:fadingEdgeLength="5dip" android:layout_height="470dip">
+
 		<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
 			android:layout_width="fill_parent" android:layout_height="?android:attr/listPreferredItemHeight"
 			android:padding="6dip" android:id="@+id/header">
@@ -26,22 +28,30 @@
 				android:gravity="center_vertical" android:textColor="#fff"
 				android:text="" />
 		</RelativeLayout>
-		<LinearLayout android:id="@+id/itemsList"
-			android:layout_below="@id/header" android:orientation="vertical"
-			android:layout_width="fill_parent" android:padding="10dip"
-			android:layout_height="wrap_content" />
+
+		<ScrollView android:layout_width="fill_parent" android:id="@+id/scroller"
+			android:fillViewport="true"
+			android:layout_below="@id/header" android:layout_height="354dip">
+			<LinearLayout android:id="@+id/itemsList"
+				android:orientation="vertical" android:layout_width="fill_parent"
+				android:padding="10dip" android:layout_height="wrap_content" />
+		</ScrollView>
+
 		<LinearLayout android:orientation="horizontal"
-			android:layout_width="fill_parent" android:layout_height="wrap_content"
-			android:layout_alignParentBottom="true" android:layout_marginBottom="10dip">
+			android:layout_width="fill_parent" android:layout_height="wrap_content" android:layout_alignParentBottom="true"
+			android:layout_marginBottom="10dip">
 			<ImageView android:src="@drawable/ic_48px_ok"
 				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:layout_weight="2" android:id="@+id/okbutton"></ImageView>
+				android:layout_weight="2" android:id="@+id/okbutton" />
 			<ImageView android:src="@drawable/ic_48px_cancel"
 				android:layout_weight="2" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/cancelbutton"></ImageView>
+				android:layout_height="wrap_content" android:id="@+id/cancelbutton" />
 		</LinearLayout>
+
 	</RelativeLayout>
+
 	<LinearLayout android:id="@+id/actionPanel"
-		android:orientation="vertical" android:layout_width="wrap_content"
+		android:orientation="vertical" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" />
+
 </LinearLayout>
