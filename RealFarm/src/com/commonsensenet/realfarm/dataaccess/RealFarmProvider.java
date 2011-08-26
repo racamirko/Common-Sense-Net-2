@@ -93,10 +93,9 @@ public class RealFarmProvider {
 
 	public List<Action> getActionsByPlotId(int plotId) {
 
-		// "SELECT * FROM table_a a INNER JOIN table_b b ON a.id=b.other_id WHERE b.property_id=?";
-
-		mDb.open();
 		List<Action> tmpList = new ArrayList<Action>();
+		
+		mDb.open();
 
 		final String SQL = "SELECT a.%s, a.%s, a.%s, a.%s, a.%s, a.%s, a.%s FROM "
 				+ RealFarmDatabase.TABLE_NAME_ACTION
@@ -126,6 +125,7 @@ public class RealFarmProvider {
 			} while (c.moveToNext());
 		}
 
+		c.close();
 		mDb.close();
 		return tmpList;
 
