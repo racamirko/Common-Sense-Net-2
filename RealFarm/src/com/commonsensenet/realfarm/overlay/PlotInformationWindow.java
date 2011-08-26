@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm.overlay;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 
 import android.app.Dialog;
@@ -80,8 +81,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private MediaPlayer mMediaPlayer;
 	/** Plot represented on the window. */
 	private Plot mPlot;
-	private List<Seed> mSeedsList;
-	private ViewGroup mTrack;
+	/** Stores currently used seeds. They are mapped by id. */
+	private HashMap<Integer, Seed> mSeeds;
+	/** View where the items are displayed. */
+	private ViewGroup mItemsList;
 
 	/**
 	 * Creates a new PlotInformationWindow instance.
@@ -103,16 +106,17 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		setContentView(mInflater.inflate(R.layout.plotinformation, null));
 
 		// gets the elements contained in the window.
-		mTrack = (ViewGroup) mRoot.findViewById(R.id.itemsList);
+		mItemsList = (ViewGroup) mRoot.findViewById(R.id.itemsList);
 		// mScroller = (LinearLayout) mRoot.findViewById(R.id.windowContainer);
 		mActionsPanel = (ViewGroup) mRoot.findViewById(R.id.actionPanel);
 		mAnimStyle = ANIM_GROW_FROM_CENTER;
 
 		// plot represented by the window.
 		mPlot = plot;
+
 		// loads the actions from the database.
 		mActionList = mDataProvider.getActionNamesList();
-		mSeedsList = new ArrayList<Seed>();
+		mSeeds = new HashMap<Integer, Seed>();
 
 		// cancel button
 		ImageView iiv = (ImageView) mRoot.findViewById(R.id.cancelbutton);
@@ -200,7 +204,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
-	private View getDiaryItem(int icon, String title, String date,
+	private View getDiaryItem(int icon, int icon2, String title, String date,
 			OnClickListener listener) {
 
 		// inflates the layout.
@@ -209,6 +213,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		// gets the components to modify
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
+		ImageView img2 = (ImageView) container.findViewById(R.id.icon2);
 		TextView lblTitle = (TextView) container.findViewById(R.id.title);
 		TextView lblDate = (TextView) container.findViewById(R.id.date);
 
@@ -216,6 +221,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			img.setImageResource(icon);
 		else
 			img.setImageResource(R.drawable.ic_menu_mylocation);
+
+		if (icon2 != -1)
+			img2.setImageResource(icon2);
+		else
+			img2.setVisibility(View.INVISIBLE);
 
 		if (title != null)
 			lblTitle.setText(title);
@@ -317,8 +327,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 					} else { // only existing seeds can be used
 						for (int i = 0; i < mGrowing.size(); i++) {
 							ImageView nameView1 = new ImageView(mContext);
-							Seed s = mDataProvider.getSeedById(mGrowing.get(i)
-									.getSeedId());
+							Seed s = mSeeds.get(mGrowing.get(i).getSeedId());
 							nameView1.setBackgroundResource(s.getRes());
 							nameView1
 									.setOnClickListener(OnClickGrowing(mGrowing
@@ -367,11 +376,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 							currentAction.getId()));
 
 					mCurrentAlert.setOnDismissListener(new OnDismissListener() {
-						
+
 						public void onDismiss(DialogInterface dialog) {
 							// detects that window was closed.
 							mCurrentAlert = null;
-							
+
 						}
 					});
 					mCurrentAlert.show();
@@ -523,21 +532,26 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		String text;
 
 		// removes all visual elements
-		mTrack.removeAllViews();
+		mItemsList.removeAllViews();
 
-		List<Action> actionList = mDataProvider.getActionsByPlotId(mPlot.getId());
+		List<Action> actionList = mDataProvider.getActionsByPlotId(mPlot
+				.getId());
 
 		// added from the end till the beginning to show new action on top.
-		for (int i = actionList.size() -1; i > -1; i--) {
+		for (int i = actionList.size() - 1; i > -1; i--) {
 
 			// gets the next action
-			ActionName a = mDataProvider.getActionNameById(actionList.get(i).getActionNameId());
+			ActionName a = findActionNameById(actionList.get(i)
+					.getActionNameId());
+			Growing g = findGrowingById(actionList.get(i).getGrowingId());
+			Seed s = mSeeds.get(g.getSeedId());
 
 			// listener = mActionList.get(i).getListener();
 			text = a.getName();
 
-			view = getDiaryItem(a.getRes(), text,
-					DateHelper.formatDate(actionList.get(i).getDate(), mContext),
+			view = getDiaryItem(a.getRes(), s.getRes(), text,
+					DateHelper
+							.formatDate(actionList.get(i).getDate(), mContext),
 					OnClickDiary(actionList.get(i).getId()));
 			view.setId(a.getId());
 
@@ -546,8 +560,24 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			view.invalidate();
 			view.forceLayout();
-			mTrack.addView(view);
+			mItemsList.addView(view);
 		}
+	}
+
+	private ActionName findActionNameById(int actionNameId) {
+		for (int x = 0; x < mActionList.size(); x++) {
+			if (mActionList.get(x).getId() == actionNameId)
+				return mActionList.get(x);
+		}
+		return null;
+	}
+
+	private Growing findGrowingById(int growingId) {
+		for (int x = 0; x < mGrowing.size(); x++) {
+			if (mGrowing.get(x).getId() == growingId)
+				return mGrowing.get(x);
+		}
+		return null;
 	}
 
 	private void updatePlotInformation() {
@@ -600,7 +630,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			// gets the seed used in the growing part of the plot.
 			Seed s = mDataProvider.getSeedById(mGrowing.get(i).getSeedId());
-			mSeedsList.add(s);
+			mSeeds.put(s.getId(), s);
 
 			item = getGrowingItem(s.getRes(), s.getFullName(),
 					s.getFullNameKannada());
@@ -611,7 +641,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			item.invalidate();
 			item.forceLayout();
-			mTrack.addView(item);
+			mItemsList.addView(item);
 		}
 	}
 }

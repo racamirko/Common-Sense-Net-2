@@ -3,16 +3,21 @@
 	android:layout_width="fill_parent" android:layout_height="?android:attr/listPreferredItemHeight"
 	android:clickable="true" android:focusable="true" android:background="@drawable/list_item_btn"
 	android:padding="2dip">
-	
+
 	<ImageView android:id="@+id/icon" android:layout_width="40px"
 		android:layout_height="40px" android:clickable="false"
-		android:background="@drawable/circular_btn_normal" />
-		
+		android:layout_marginRight="2dip" android:background="@drawable/circular_btn_normal" />
+
+	<ImageView android:id="@+id/icon2" android:layout_width="40px"
+		android:layout_height="40px" android:clickable="false"
+		android:layout_marginLeft="2dip" android:background="@drawable/square_btn_normal"
+		android:layout_toRightOf="@id/icon" />
+
 	<TextView android:id="@+id/title" android:layout_width="wrap_content"
 		android:layout_height="40px" android:gravity="center_vertical"
 		android:paddingLeft="5dip" android:text="" android:textSize="14sp"
-		android:layout_toRightOf="@id/icon" />
-		
+		android:layout_toRightOf="@id/icon2" />
+
 	<TextView android:id="@+id/date" android:layout_width="wrap_content"
 		android:layout_height="40px" android:text="" android:textSize="14sp"
 		android:gravity="right" android:layout_alignParentRight="true" />

@@ -21,6 +21,8 @@ import com.commonsensenet.realfarm.model.User;
 public class RealFarmProvider {
 	/** Cached seeds to improve performance. */
 	private List<Seed> mAllSeeds;
+	/** Cached actionnames to improve performance. */
+	private List<ActionName> mAllActionNames;
 	/** Real farm database access. */
 	private RealFarmDatabase mDb;
 
