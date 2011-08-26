@@ -220,33 +220,33 @@ public class RealFarmDatabase {
 	}
 
 	public static final String COLUMN_NAME_ACTION_DATE = "actionDate";
-	public static final String COLUMN_NAME_ACTION_ACTIONNAMEID = "actionNameID";
-	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingID";
+	public static final String COLUMN_NAME_ACTION_ACTIONNAMEID = "actionNameId";
+	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingId";
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTION_QUANTITY = "quantity";
 	public static final String COLUMN_NAME_ACTION_QUANTITY2 = "quantity2";
-	public static final String COLUMN_NAME_ACTION_UNITID = "unitID";
+	public static final String COLUMN_NAME_ACTION_UNITID = "unitId";
 	
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
 
-	public static final String COLUMN_NAME_ACTIONTRANSLATION_ACTIONNAMEID = "actionNameID";
-	public static final String COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTIDFIELD = "indObjectIDField";
+	public static final String COLUMN_NAME_ACTIONTRANSLATION_ACTIONNAMEID = "actionNameId";
+	public static final String COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTIDFIELD = "indObjectIdField";
 	public static final String COLUMN_NAME_ACTIONTRANSLATION_INDOBJECTTABLE = "indObjectTable";
-	public static final String COLUMN_NAME_ACTIONTRANSLATION_TARGETIDFIELD = "targetIDField";
+	public static final String COLUMN_NAME_ACTIONTRANSLATION_TARGETIDFIELD = "targetIdField";
 	public static final String COLUMN_NAME_ACTIONTRANSLATION_TARGETTABLE = "targetTable";
 
 	private static final String COLUMN_NAME_FERTILIZER_AUDIO = "audio";
 	private static final String COLUMN_NAME_FERTILIZER_ID = "id";
 	private static final String COLUMN_NAME_FERTILIZER_NAME = "name";
-	private static final String COLUMN_NAME_FERTILIZER_STAGEID = "stageID";
-	private static final String COLUMN_NAME_FERTILIZER_UNITID = "unitID";
+	private static final String COLUMN_NAME_FERTILIZER_STAGEID = "stageId";
+	private static final String COLUMN_NAME_FERTILIZER_UNITID = "unitId";
 	
 	public static final String COLUMN_NAME_GROWING_ID = "id";
-	public static final String COLUMN_NAME_GROWING_PLOTID = "plotID";
-	public static final String COLUMN_NAME_GROWING_SEEDID = "seedID";
+	public static final String COLUMN_NAME_GROWING_PLOTID = "plotId";
+	public static final String COLUMN_NAME_GROWING_SEEDID = "seedId";
 	public static final String COLUMN_NAME_GROWING_SOWINGDATE = "sowingDate";
 	
 	public static final String COLUMN_NAME_LOG_DATE = "logDate";
@@ -259,17 +259,17 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PESTICIDE_NAME = "name";
 	
 	public static final String COLUMN_NAME_PLOT_ID = "id";
-	public static final String COLUMN_NAME_PLOT_USERID = "userID";
+	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 
 	public static final String COLUMN_NAME_POINT_ID = "id";
-	public static final String COLUMN_NAME_POINT_PLOTID = "plotID";
+	public static final String COLUMN_NAME_POINT_PLOTID = "plotId";
 	public static final String COLUMN_NAME_POINT_X = "x";
 	public static final String COLUMN_NAME_POINT_Y = "y";
 
 	public static final String COLUMN_NAME_PROBLEM_AUDIO = "audio";
 	public static final String COLUMN_NAME_PROBLEM_ID = "id";
 	public static final String COLUMN_NAME_PROBLEM_NAME = "name";
-	public static final String COLUMN_NAME_PROBLEM_PROBLEMTYPEID = "masterID";
+	public static final String COLUMN_NAME_PROBLEM_PROBLEMTYPEID = "masterId";
 	public static final String COLUMN_NAME_PROBLEM_RESOURCE = "res";
 	
 	public static final String COLUMN_NAME_PROBLEMTYPE_AUDIO = "audio";
@@ -277,14 +277,14 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PROBLEMTYPE_NAME = "name";
 	public static final String COLUMN_NAME_PROBLEMTYPE_RESOURCE = "res";
 	
-	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONID = "actionID";
+	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONID = "actionId";
 	public static final String COLUMN_NAME_RECOMMENDATION_DATE = "recommendationDate";
 	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
-	public static final String COLUMN_NAME_RECOMMENDATION_SEEDID = "seedID";
+	public static final String COLUMN_NAME_RECOMMENDATION_SEEDID = "seedId";
 	
 	public static final String COLUMN_NAME_SEED_AUDIO = "seedAudio";
 	public static final String COLUMN_NAME_SEED_ID = "id";
-	public static final String COLUMN_NAME_SEED_SEEDID = "seedID";
+	public static final String COLUMN_NAME_SEED_SEEDID = "seedId";
 	
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST = "daysToHarvest";
@@ -297,8 +297,8 @@ public class RealFarmDatabase {
 
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_FROMCOUNTDAYS = "fromCountDays";
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_ID = "id";
-	public static final String COLUMN_NAME_SEEDTYPESTAGE_SEEDTYPEID = "seedTypeID";
-	public static final String COLUMN_NAME_SEEDTYPESTAGE_STAGEID = "stageID";
+	public static final String COLUMN_NAME_SEEDTYPESTAGE_SEEDTYPEID = "seedTypeId";
+	public static final String COLUMN_NAME_SEEDTYPESTAGE_STAGEID = "stageId";
 	public static final String COLUMN_NAME_SEEDTYPESTAGE_TOCOUNTDAYS = "toCountDays";
 	
 	public static final String COLUMN_NAME_STAGE_ID = "id";

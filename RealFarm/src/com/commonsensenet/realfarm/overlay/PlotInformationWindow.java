@@ -37,8 +37,8 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
-import com.commonsensenet.realfarm.model.Diary;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Seed;
@@ -525,20 +525,20 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// removes all visual elements
 		mTrack.removeAllViews();
 
-		Diary diary = mDataProvider.getDiary(mPlot.getId());
+		List<Action> actionList = mDataProvider.getActionsByPlotId(mPlot.getId());
 
 		// added from the end till the beginning to show new action on top.
-		for (int i = diary.getSize() -1; i > -1; i--) {
+		for (int i = actionList.size() -1; i > -1; i--) {
 
 			// gets the next action
-			ActionName a = mDataProvider.getActionNameById(diary.getActionId(i));
+			ActionName a = mDataProvider.getActionNameById(actionList.get(i).getActionNameId());
 
 			// listener = mActionList.get(i).getListener();
 			text = a.getName();
 
 			view = getDiaryItem(a.getRes(), text,
-					DateHelper.formatDate(diary.getActionDate(i), mContext),
-					OnClickDiary(diary.getId(i)));
+					DateHelper.formatDate(actionList.get(i).getDate(), mContext),
+					OnClickDiary(actionList.get(i).getId()));
 			view.setId(a.getId());
 
 			view.setFocusable(true);

@@ -21,8 +21,8 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
-import com.commonsensenet.realfarm.model.Diary;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Seed;
@@ -36,7 +36,7 @@ public class PlotEditor extends Activity {
 	private int currentQuantityId = -1;
 	private RealFarmProvider mDataProvider;
 	private List<Growing> mGrowing;
-	private int plotID = -1;
+	private int plotId = -1;
 	private List<Seed> seedList = new ArrayList<Seed>();
 
 	private void editAction(int action, int actionID, Dialog dialog,
@@ -106,7 +106,7 @@ public class PlotEditor extends Activity {
 						nameView1
 								.setBackgroundResource(R.drawable.square_btn);
 
-						int growingId = (int) mDataProvider.setGrowing(plotID,
+						int growingId = (int) mDataProvider.setGrowing(plotId,
 								s.getId());
 						nameView1.setOnClickListener(OnClickGrowing(growingId));
 						vg.addView(nameView1);
@@ -305,17 +305,17 @@ public class PlotEditor extends Activity {
 
 		// Define list of diary elements
 		TableLayout table = new TableLayout(this);
-		Diary res = mDataProvider.getDiary(plotID);
+		List<Action> res = mDataProvider.getActionsByPlotId(plotId);
 		TableLayout.LayoutParams tableRowParams = new TableLayout.LayoutParams(
 				LayoutParams.FILL_PARENT, LayoutParams.WRAP_CONTENT);
 
 		if (res != null) { // if not empty
-			for (int i = 0; i < res.getSize(); i++) {
+			for (int i = 0; i < res.size(); i++) {
 
 				TableRow tr = new TableRow(this);
 				tr.setLayoutParams(tableRowParams);
 
-				ActionName a = mDataProvider.getActionNameById(res.getActionId(i));
+				ActionName a = mDataProvider.getActionNameById(res.get(i).getActionNameId());
 
 				// Get icon of action
 				ImageView iv = new ImageView(this);
@@ -326,10 +326,9 @@ public class PlotEditor extends Activity {
 				// Get text related to action
 				TextView nameView1 = new TextView(this);
 				nameView1.setText(i + " " + a.getName() + " "
-						+ res.getActionDate(i) + " " + res.getGrowingId(i));
+						+ res.get(i).getDate() + " " + res.get(i).getGrowingId());
 
-				int lastActionID = res.getId(i);
-				nameView1.setOnClickListener(OnClickDiary(lastActionID));
+				nameView1.setOnClickListener(OnClickDiary(res.get(i).getId()));
 				nameView1.setTextColor(Color.BLACK);
 				tr.addView(nameView1);
 
@@ -363,14 +362,14 @@ public class PlotEditor extends Activity {
 		// Bitmap mBitmap = null;
 		Bundle extras = getIntent().getExtras();
 		if (extras != null) {
-			plotID = Integer.parseInt(extras.getString("ID"));
+			plotId = Integer.parseInt(extras.getString("ID"));
 		}
 
 		// Get growing areas of the plot
-		mGrowing = mDataProvider.getGrowingsByPlotId(plotID);
+		mGrowing = mDataProvider.getGrowingsByPlotId(plotId);
 
 		// Get plot owner
-		int ownerId = mDataProvider.getPlotById(plotID).getOwnerId();
+		int ownerId = mDataProvider.getPlotById(plotId).getOwnerId();
 
 		// Get plot user
 		User plotOwner = mDataProvider.getUserById(ownerId);

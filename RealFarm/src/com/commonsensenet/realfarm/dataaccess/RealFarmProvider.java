@@ -9,10 +9,9 @@ import java.util.List;
 import android.content.ContentValues;
 import android.database.Cursor;
 import android.graphics.Point;
-import android.util.Log;
 
+import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
-import com.commonsensenet.realfarm.model.Diary;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Recommendation;
@@ -41,25 +40,24 @@ public class RealFarmProvider {
 
 		ActionName tmpAction = null;
 
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
-				RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "=" + actionNameId,
-				null, null, null, null);
+		Cursor c0 = mDb
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_ACTIONNAME,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
+								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
+								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
+						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "="
+								+ actionNameId, null, null, null, null);
 
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
 
-			tmpAction = new ActionName(actionNameId, c0.getString(0), c0.getInt(1),
-					c0.getInt(2));
+			tmpAction = new ActionName(actionNameId, c0.getString(0),
+					c0.getInt(1), c0.getInt(2));
 		}
 		c0.close();
 		mDb.close();
-
-		if (tmpAction == null) {
-			Log.d(RealFarmDatabase.DEBUG_ID, "action doesn't exist");
-		}
 
 		return tmpAction;
 	}
@@ -82,8 +80,8 @@ public class RealFarmProvider {
 
 		if (c.getCount() > 0) {
 			do {
-				tmpList.add(new ActionName(c.getInt(0), c.getString(1),
-						c.getInt(2), c.getInt(3)));
+				tmpList.add(new ActionName(c.getInt(0), c.getString(1), c
+						.getInt(2), c.getInt(3)));
 			} while (c.moveToNext());
 		}
 
@@ -93,44 +91,50 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public Diary getDiary(int plotID) {
+	public List<Action> getActionsByPlotId(int plotId) {
 
-		Diary mDiary = new Diary();
-
-		List<Growing> mGrowing = getGrowingsByPlotId(plotID);
+		// "SELECT * FROM table_a a INNER JOIN table_b b ON a.id=b.other_id WHERE b.property_id=?";
 
 		mDb.open();
+		List<Action> tmpList = new ArrayList<Action>();
 
-		for (int i = 0; i < mGrowing.size(); i++) {
+		final String SQL = "SELECT a.%s, a.%s, a.%s, a.%s, a.%s, a.%s, a.%s FROM "
+				+ RealFarmDatabase.TABLE_NAME_ACTION
+				+ " a INNER JOIN "
+				+ RealFarmDatabase.TABLE_NAME_GROWING
+				+ " b ON a.%s = b.%s WHERE b.%s = " + plotId;
 
-			Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
-					new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_DATE },
-					RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID + "="
-							+ mGrowing.get(i).getId(), null, null, null, null);
+		Cursor c = mDb.executeQuery(String.format(SQL,
+				RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY,
+				RealFarmDatabase.COLUMN_NAME_ACTION_UNITID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
+				RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+				RealFarmDatabase.COLUMN_NAME_ACTION_GROWINGID,
+				RealFarmDatabase.COLUMN_NAME_GROWING_ID,
+				RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID), null);
 
-			if (c02.getCount() > 0) {
+		if (c.getCount() > 0) {
 
-				c02.moveToFirst();
-				do {
-					mDiary.addItem(c02.getInt(0), c02.getInt(1),
-							c02.getString(2), mGrowing.get(i).getId());
+			c.moveToFirst();
+			do {
+				tmpList.add(new Action(c.getInt(0), c.getInt(1), c.getInt(2), c
+						.getInt(3), c.getInt(4), c.getInt(5), c.getString(6)));
 
-				} while (c02.moveToNext());
-			}
-			c02.close();
+			} while (c.moveToNext());
 		}
 
 		mDb.close();
-		return mDiary;
+		return tmpList;
 
 	}
 
 	public List<Growing> getGrowingsByPlotId(int plotId) {
 		mDb.open();
 
-		List<Growing> mGrowing = new ArrayList<Growing>();
+		List<Growing> growing = new ArrayList<Growing>();
 
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_GROWING,
 				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
@@ -142,20 +146,19 @@ public class RealFarmProvider {
 		if (c.getCount() > 0) {
 			c.moveToFirst();
 			do {
-				Growing s = new Growing(c.getInt(0), c.getInt(1), c.getInt(2));
-				mGrowing.add(s);
+				growing.add(new Growing(c.getInt(0), c.getInt(1), c.getInt(2)));
 			} while (c.moveToNext());
 		}
 		c.close();
 		mDb.close();
-		return mGrowing;
+		return growing;
 
 	}
 
 	public Plot getPlotById(int plotId) {
 
 		mDb.open();
-		Plot mPlot = null;
+		Plot tmpPlot = null;
 		int ownerId = 0;
 
 		// Read points from database for each user
@@ -190,12 +193,72 @@ public class RealFarmProvider {
 			}
 			c.close();
 
-			mPlot = new Plot(polyPoints, plotId, ownerId);
+			tmpPlot = new Plot(polyPoints, plotId, ownerId);
 		}
 		c02.close();
 		mDb.close();
 
-		return mPlot;
+		return tmpPlot;
+	}
+
+	public List<Plot> getPlotsByUserId(int userId) {
+		List<Plot> tmpList = new ArrayList<Plot>();
+
+		// opens the database
+		mDb.open();
+
+		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID },
+				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId, null,
+				null, null, null);
+
+		// if there are users in the table
+		if ((!c0.isClosed()) && (c0.getCount() > 0)) {
+			int i = 0;
+
+			// goes to the first entry
+			c0.moveToFirst();
+
+			do { // for each plot, draw them
+				int id = c0.getInt(0);
+
+				// Read points from database for each user
+				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
+						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
+								RealFarmDatabase.COLUMN_NAME_POINT_Y },
+						RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + "=" + id,
+						null, null, null, null);
+
+				// if there are points to plotx
+				if (c02.getCount() > 0) {
+					int j = 0;
+					c02.moveToFirst();
+
+					Point[] polyPoints = new Point[c02.getCount()];
+
+					do { // for each point in the plot, draw it
+
+						int x1 = c02.getInt(0);
+						int y1 = c02.getInt(1);
+
+						polyPoints[j] = new Point(x1, y1);
+
+						j = j + 1;
+					} while (c02.moveToNext());
+
+					// adds the polygon to the list.
+					tmpList.add(new Plot(polyPoints, id, userId));
+				}
+
+				c02.close();
+				i = i + 1;
+			} while (c0.moveToNext());
+		}
+
+		c0.close();
+		mDb.close();
+
+		return tmpList;
 	}
 
 	public List<Plot> getPlotsList() {
@@ -270,9 +333,10 @@ public class RealFarmProvider {
 		if (c.getCount() > 0) {
 			c.moveToFirst();
 
-			Recommendation r = new Recommendation(c.getInt(0), c.getInt(1),
-					c.getInt(2), c.getString(3));
-			result.add(r);
+			do {
+				result.add(new Recommendation(c.getInt(0), c.getInt(1), c
+						.getInt(2), c.getString(3)));
+			} while (c.moveToNext());
 		}
 
 		c.close();
@@ -373,17 +437,17 @@ public class RealFarmProvider {
 
 	}
 
-	public User getUserByMobile(String deviceID) {
+	public User getUserByMobile(String deviceId) {
 
 		mDb.open();
 
 		User tmpUser = null;
 		String mobile;
 
-		if (deviceID == null)
+		if (deviceId == null)
 			mobile = RealFarmDatabase.DEFAULT_NUMBER;
 		else
-			mobile = deviceID;
+			mobile = deviceId;
 
 		Cursor c = mDb
 				.getEntries(RealFarmDatabase.TABLE_NAME_USER, new String[] {
@@ -407,73 +471,15 @@ public class RealFarmProvider {
 		return tmpUser;
 	}
 
-	public List<Plot> getPlotsByUserId(int userId) {
-		List<Plot> tmpList = new ArrayList<Plot>();
-
-		// opens the database
-		mDb.open();
-
-		Cursor c0 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID },
-				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId, null,
-				null, null, null);
-
-		// if there are users in the table
-		if ((!c0.isClosed()) && (c0.getCount() > 0)) {
-			int i = 0;
-
-			// goes to the first entry
-			c0.moveToFirst();
-
-			do { // for each plot, draw them
-				int id = c0.getInt(0);
-
-				// Read points from database for each user
-				Cursor c02 = mDb.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
-						new String[] { RealFarmDatabase.COLUMN_NAME_POINT_X,
-								RealFarmDatabase.COLUMN_NAME_POINT_Y },
-						RealFarmDatabase.COLUMN_NAME_POINT_PLOTID + "=" + id,
-						null, null, null, null);
-
-				// if there are points to plotx
-				if (c02.getCount() > 0) {
-					int j = 0;
-					c02.moveToFirst();
-
-					Point[] polyPoints = new Point[c02.getCount()];
-
-					do { // for each point in the plot, draw it
-
-						int x1 = c02.getInt(0);
-						int y1 = c02.getInt(1);
-
-						polyPoints[j] = new Point(x1, y1);
-
-						j = j + 1;
-					} while (c02.moveToNext());
-
-					// adds the polygon to the list.
-					tmpList.add(new Plot(polyPoints, id, userId));
-				}
-
-				c02.close();
-				i = i + 1;
-			} while (c0.moveToNext());
-		}
-
-		c0.close();
-		mDb.close();
-
-		return tmpList;
-	}
-
 	public long logAction(String name, String value) {
-		SimpleDateFormat formatter = new SimpleDateFormat(RealFarmDatabase.DATE_FORMAT);
-		
+		SimpleDateFormat formatter = new SimpleDateFormat(
+				RealFarmDatabase.DATE_FORMAT);
+
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_NAME, name);
 		args.put(RealFarmDatabase.COLUMN_NAME_LOG_VALUE, value);
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE, formatter.format(new Date()));
+		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE,
+				formatter.format(new Date()));
 
 		mDb.open();
 
