@@ -211,7 +211,7 @@ public class PlotEditor extends Activity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		setContentView(R.layout.plot_editor);
+		setContentView(R.layout.ploteditor);
 
 		RealFarmApp mainApp = ((RealFarmApp) getApplicationContext());
 		RealFarmDatabase db = mainApp.getDatabase();

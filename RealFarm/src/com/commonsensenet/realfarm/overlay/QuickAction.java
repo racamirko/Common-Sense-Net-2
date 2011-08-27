@@ -55,7 +55,7 @@ public class QuickAction extends CustomPopupWindow {
 		inflater = (LayoutInflater) context
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 
-		root = inflater.inflate(R.layout.popupbar, null);
+		root = inflater.inflate(R.layout.quickaction_main, null);
 
 		mArrowDown = (ImageView) root.findViewById(R.id.arrow_down);
 		mArrowUp = (ImageView) root.findViewById(R.id.arrow_up);
@@ -119,7 +119,7 @@ public class QuickAction extends CustomPopupWindow {
 	private View getActionItem(String title, Drawable icon,
 			OnClickListener listener) {
 		LinearLayout container = (LinearLayout) inflater.inflate(
-				R.layout.action_item, null);
+				R.layout.quickaction_item, null);
 
 		ImageView img = (ImageView) container.findViewById(R.id.icon);
 		TextView text = (TextView) container.findViewById(R.id.title);

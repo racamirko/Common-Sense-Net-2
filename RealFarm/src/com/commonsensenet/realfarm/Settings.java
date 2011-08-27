@@ -211,7 +211,7 @@ public class Settings extends Activity {
 
 				LayoutInflater inflater = (LayoutInflater) getApplicationContext()
 						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layout = inflater.inflate(R.layout.custom_dialog,
+				View layout = inflater.inflate(R.layout.settings_add_point_dialog,
 						(ViewGroup) findViewById(R.id.layout_root));
 
 				AlertDialog.Builder alert = new AlertDialog.Builder(

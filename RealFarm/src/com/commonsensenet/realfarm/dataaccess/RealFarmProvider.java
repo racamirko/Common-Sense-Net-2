@@ -66,37 +66,40 @@ public class RealFarmProvider {
 
 	public List<ActionName> getActionNamesList() {
 
-		// opens the database.
-		mDb.open();
+		if (mAllActionNames == null) {
+			// opens the database.
+			mDb.open();
 
-		// query all actions
-		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-				new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO }, null,
-				null, null, null, null);
-		c.moveToFirst();
+			// query all actions
+			Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
+					new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID,
+							RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
+							RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
+							RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
+					null, null, null, null, null);
+			c.moveToFirst();
 
-		List<ActionName> tmpList = new LinkedList<ActionName>();
+			mAllActionNames = new LinkedList<ActionName>();
 
-		if (c.getCount() > 0) {
-			do {
-				tmpList.add(new ActionName(c.getInt(0), c.getString(1), c
-						.getInt(2), c.getInt(3)));
-			} while (c.moveToNext());
+			if (c.getCount() > 0) {
+				do {
+					mAllActionNames.add(new ActionName(c.getInt(0), c
+							.getString(1), c.getInt(2), c.getInt(3)));
+				} while (c.moveToNext());
+			}
+
+			c.close();
+			mDb.close();
+
 		}
 
-		c.close();
-		mDb.close();
-
-		return tmpList;
+		return mAllActionNames;
 	}
 
 	public List<Action> getActionsByPlotId(int plotId) {
 
 		List<Action> tmpList = new ArrayList<Action>();
-		
+
 		mDb.open();
 
 		final String SQL = "SELECT a.%s, a.%s, a.%s, a.%s, a.%s, a.%s, a.%s FROM "
