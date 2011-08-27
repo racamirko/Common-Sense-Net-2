@@ -67,8 +67,9 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private int mAnimStyle;
 	/** Context used to load resources. */
 	private final Context mContext;
+	private Dialog mCurrentAlert;
 	/** Currently selected growing id. */
-	private int mCurrentGrowingId = -1;
+	private int mCurrentGrowingIndex = -1;
 	/** Currently selected quantity. */
 	private int mCurrentQuantityId = -1;
 	/** Class used to extract the data from the database. */
@@ -77,14 +78,15 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private List<Growing> mGrowing;
 	/** Inflater used to generate in runtime the layout. */
 	private final LayoutInflater mInflater;
+	/** View where the items are displayed. */
+	private ViewGroup mItemsPanel;
 	/** MediaPlayer used to play the audio. */
 	private MediaPlayer mMediaPlayer;
 	/** Plot represented on the window. */
 	private Plot mPlot;
+
 	/** Stores currently used seeds. They are mapped by id. */
 	private HashMap<Integer, Seed> mSeeds;
-	/** View where the items are displayed. */
-	private ViewGroup mItemsList;
 
 	/**
 	 * Creates a new PlotInformationWindow instance.
@@ -106,8 +108,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		setContentView(mInflater.inflate(R.layout.plotinformation, null));
 
 		// gets the elements contained in the window.
-		mItemsList = (ViewGroup) mRoot.findViewById(R.id.itemsList);
-		// mScroller = (LinearLayout) mRoot.findViewById(R.id.windowContainer);
+		mItemsPanel = (ViewGroup) mRoot.findViewById(R.id.itemsPanel);
 		mActionsPanel = (ViewGroup) mRoot.findViewById(R.id.actionPanel);
 		mAnimStyle = ANIM_GROW_FROM_CENTER;
 
@@ -178,6 +179,22 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		dialog.cancel();
 	}
 
+	private ActionName findActionNameById(int actionNameId) {
+		for (int x = 0; x < mActionList.size(); x++) {
+			if (mActionList.get(x).getId() == actionNameId)
+				return mActionList.get(x);
+		}
+		return null;
+	}
+
+	private Growing findGrowingById(int growingId) {
+		for (int x = 0; x < mGrowing.size(); x++) {
+			if (mGrowing.get(x).getId() == growingId)
+				return mGrowing.get(x);
+		}
+		return null;
+	}
+
 	/**
 	 * Get action item {@link View}
 	 * 
@@ -239,7 +256,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return container;
 	}
 
-	private View getGrowingItem(int icon, String name, String kannadaName) {
+	private View getGrowingItem(int icon, String name, String kannadaName,
+			OnClickListener listener) {
 
 		// inflates the layout
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
@@ -264,13 +282,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		if (kannadaName != null)
 			tblKannada.setText(kannadaName);
 
-		// if (listener != null)
-		// img.setOnClickListener(listener);
+		if (listener != null)
+			container.setOnClickListener(listener);
 
 		return container;
 	}
-
-	private Dialog mCurrentAlert;
 
 	View.OnClickListener OnClickAction(final int actionIndex) {
 		return new View.OnClickListener() {
@@ -329,10 +345,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 							ImageView nameView1 = new ImageView(mContext);
 							Seed s = mSeeds.get(mGrowing.get(i).getSeedId());
 							nameView1.setBackgroundResource(s.getRes());
-							nameView1
-									.setOnClickListener(OnClickGrowing(mGrowing
-											.get(i).getId()));
+							// nameView1
+							// .setOnClickListener(OnClickGrowing(mGrowing
+							// .get(i).getId()));
 							vg.addView(nameView1);
+
 						}
 					}
 
@@ -414,19 +431,27 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-				editAction(action, actionID, dialog, mCurrentGrowingId,
+				editAction(action, actionID, dialog,
+						mGrowing.get(mCurrentGrowingIndex).getId(),
 						mCurrentQuantityId);
 			}
 		};
 	}
 
-	View.OnClickListener OnClickGrowing(final int growingID) {
+	View.OnClickListener OnClickGrowing(final int growingIndex) {
 		return new View.OnClickListener() {
 			public void onClick(View v) {
-				v.setPressed(true);
+
+				// disables previous item
+				if (mCurrentGrowingIndex != -1)
+					mItemsPanel.getChildAt(mCurrentGrowingIndex).setSelected(
+							false);
+
+				// selects the new item
 				v.setSelected(true);
-				// store growing id
-				mCurrentGrowingId = growingID;
+
+				// stores the index of the new item.
+				mCurrentGrowingIndex = growingIndex;
 			}
 		};
 	}
@@ -532,7 +557,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		String text;
 
 		// removes all visual elements
-		mItemsList.removeAllViews();
+		mItemsPanel.removeAllViews();
 
 		List<Action> actionList = mDataProvider.getActionsByPlotId(mPlot
 				.getId());
@@ -560,24 +585,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			view.invalidate();
 			view.forceLayout();
-			mItemsList.addView(view);
+			mItemsPanel.addView(view);
 		}
-	}
-
-	private ActionName findActionNameById(int actionNameId) {
-		for (int x = 0; x < mActionList.size(); x++) {
-			if (mActionList.get(x).getId() == actionNameId)
-				return mActionList.get(x);
-		}
-		return null;
-	}
-
-	private Growing findGrowingById(int growingId) {
-		for (int x = 0; x < mGrowing.size(); x++) {
-			if (mGrowing.get(x).getId() == growingId)
-				return mGrowing.get(x);
-		}
-		return null;
 	}
 
 	private void updatePlotInformation() {
@@ -633,7 +642,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			mSeeds.put(s.getId(), s);
 
 			item = getGrowingItem(s.getRes(), s.getFullName(),
-					s.getFullNameKannada());
+					s.getFullNameKannada(), OnClickGrowing(i));
 			item.setId(mGrowing.get(i).getId());
 
 			item.setFocusable(true);
@@ -641,7 +650,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			item.invalidate();
 			item.forceLayout();
-			mItemsList.addView(item);
+			mItemsPanel.addView(item);
 		}
 	}
 }
