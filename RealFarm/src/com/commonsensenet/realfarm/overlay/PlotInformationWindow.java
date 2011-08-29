@@ -15,6 +15,7 @@ import android.graphics.Bitmap.Config;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Path;
+import android.graphics.PorterDuff.Mode;
 import android.graphics.RectF;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
@@ -147,9 +148,12 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		for (int i = 0; i < mActionList.size(); i++) {
 			view = getActionItem(mActionList.get(i).getRes(), OnClickAction(i));
-
+ 
 			view.setFocusable(true);
 			view.setClickable(true);
+			
+			// sets the id used to find the resource.
+			view.setId(mActionList.get(i).getId());
 
 			view.invalidate();
 			view.forceLayout();
@@ -219,6 +223,28 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			img.setOnClickListener(listener);
 
 		return container;
+	}
+	
+	
+	protected void setEnabledActionButtons(Boolean enabled ) {
+		for(int x = 0; x < mActionList.size(); x++) {
+			
+			ActionName actionName = mActionList.get(x);
+			View button = mActionsPanel.findViewById(actionName.getId());
+			
+			ImageView icon = (ImageView)button.findViewById(R.id.icon);
+			
+			// TODO: plot based actions are hardcoded.
+			if(enabled || actionName.getName().equals("Sow") || actionName.getName().equals("Diary") || actionName.getName().equals("Irrigate"))
+			{
+				icon.setEnabled(true);
+				icon.clearColorFilter();
+			}else
+			{
+				icon.setEnabled(false);
+				icon.setColorFilter(0xA6A6A6A6, Mode.SRC_ATOP);
+			}
+		}
 	}
 
 	private View getDiaryItem(int icon, int icon2, String title, String date,
@@ -431,6 +457,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
+				if(mCurrentGrowingIndex != -1)
 				editAction(action, actionID, dialog,
 						mGrowing.get(mCurrentGrowingIndex).getId(),
 						mCurrentQuantityId);
@@ -452,6 +479,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 				// stores the index of the new item.
 				mCurrentGrowingIndex = growingIndex;
+				
+				setEnabledActionButtons(true);
 			}
 		};
 	}
@@ -463,7 +492,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	 * @param audioRes
 	 *            audio resource id to play.
 	 */
-	private void playSound(int audioRes) {
+	protected void playSound(int audioRes) {
 
 		// stops any other currently playing sound.
 		if (mMediaPlayer != null) {
@@ -541,6 +570,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		// loads the actions
 		createActionList();
+		// initial status of the action buttons.
+		setEnabledActionButtons(false);
 		// loads the plot information
 		updatePlotInformation();
 

@@ -1,6 +1,8 @@
 <resources>
 	<color name="button_background_normal_start">#CFCFC9</color>
     <color name="button_background_normal_end">#CFCFC9</color>
+    <color name="button_background_disabled_start">#CFCFC9</color>
+    <color name="button_background_disabled_end">#CFCFC9</color>
 	<color name="ploteditor_background">#FFFFFF</color>
 	<color name="ploteditor_header">#CFCFC9</color>
     <color name="button_background_pressed_start">#FF7F00</color>
