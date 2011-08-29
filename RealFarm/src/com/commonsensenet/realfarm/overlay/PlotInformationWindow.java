@@ -148,10 +148,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		for (int i = 0; i < mActionList.size(); i++) {
 			view = getActionItem(mActionList.get(i).getRes(), OnClickAction(i));
- 
+
 			view.setFocusable(true);
 			view.setClickable(true);
-			
+
 			// sets the id used to find the resource.
 			view.setId(mActionList.get(i).getId());
 
@@ -223,28 +223,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			img.setOnClickListener(listener);
 
 		return container;
-	}
-	
-	
-	protected void setEnabledActionButtons(Boolean enabled ) {
-		for(int x = 0; x < mActionList.size(); x++) {
-			
-			ActionName actionName = mActionList.get(x);
-			View button = mActionsPanel.findViewById(actionName.getId());
-			
-			ImageView icon = (ImageView)button.findViewById(R.id.icon);
-			
-			// TODO: plot based actions are hardcoded.
-			if(enabled || actionName.getName().equals("Sow") || actionName.getName().equals("Diary") || actionName.getName().equals("Irrigate"))
-			{
-				icon.setEnabled(true);
-				icon.clearColorFilter();
-			}else
-			{
-				icon.setEnabled(false);
-				icon.setColorFilter(0xA6A6A6A6, Mode.SRC_ATOP);
-			}
-		}
 	}
 
 	private View getDiaryItem(int icon, int icon2, String title, String date,
@@ -457,10 +435,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		return new View.OnClickListener() {
 
 			public void onClick(View v) {
-				if(mCurrentGrowingIndex != -1)
-				editAction(action, actionID, dialog,
-						mGrowing.get(mCurrentGrowingIndex).getId(),
-						mCurrentQuantityId);
+				if (mCurrentGrowingIndex != -1)
+					editAction(action, actionID, dialog,
+							mGrowing.get(mCurrentGrowingIndex).getId(),
+							mCurrentQuantityId);
 			}
 		};
 	}
@@ -479,7 +457,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 				// stores the index of the new item.
 				mCurrentGrowingIndex = growingIndex;
-				
+
 				setEnabledActionButtons(true);
 			}
 		};
@@ -559,6 +537,27 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	 */
 	public void setAnimStyle(int animStyle) {
 		this.mAnimStyle = animStyle;
+	}
+
+	protected void setEnabledActionButtons(Boolean enabled) {
+		for (int x = 0; x < mActionList.size(); x++) {
+
+			ActionName actionName = mActionList.get(x);
+			View button = mActionsPanel.findViewById(actionName.getId());
+
+			ImageView icon = (ImageView) button.findViewById(R.id.icon);
+
+			// TODO: plot based actions are hardcoded.
+			if (enabled || actionName.getName().equals("Sow")
+					|| actionName.getName().equals("Diary")
+					|| actionName.getName().equals("Irrigate")) {
+				icon.setEnabled(true);
+				icon.clearColorFilter();
+			} else {
+				icon.setEnabled(false);
+				icon.setColorFilter(0xA6A6A6A6, Mode.SRC_ATOP);
+			}
+		}
 	}
 
 	public void show() {
