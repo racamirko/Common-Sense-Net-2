@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.os.Handler;
 import android.os.SystemClock;
 import android.util.AttributeSet;
@@ -27,7 +28,7 @@ public class OfflineMapView extends View {
 	/** Width of the display area in pixels. */
 	private int mDisplayWidth;
 	/** Helper class used to load the tiles from the SD. */
-	private final TileLoader mImageLoader;
+	private TileLoader mImageLoader;
 	/** Initial point where the animation should me done. */
 	private Point mInitialPoint;
 	/** Underlying map representation in charge of the tile system. */
@@ -36,18 +37,13 @@ public class OfflineMapView extends View {
 	private OnOverlayTappedListener mOnPlotTappedListener;
 	/** List of overlays added in the current map. */
 	private ArrayList<Overlay> mOverlays;
-	/** Amount to scroll in the x coordinate product of the last ACTION_MOVE. */
-	private float mScrollByX;
-	/** Amount to scroll in the y coordinate product of the last ACTION_MOVE. */
-	private float mScrollByY;
-	/** Current position of the left corner of the scroll rectangle. */
-	private int mScrollRectX;
-	/** Current position of the top corner of the scroll rectangle. */
-	private int mScrollRectY;
-	/** Initial position in the x coordinate used to track the movement. */
-	private float mStartX;
-	/** Initial position in the y coordinate used to track the movement. */
-	private float mStartY;
+	
+	/** Amount to scroll in the x,y coordinate product of the last ACTION_MOVE. */
+	private PointF mScrollBy;	
+	/** Current position of the top left corner of the scroll rectangle. */
+	private Point mScrollRect;	
+	/** Initial position in the x,y coordinate used to track the movement. */
+	private PointF mStartPt;
 	/** Target point where the map must animate to. */
 	private Point mTargetPoint;
 
@@ -55,10 +51,10 @@ public class OfflineMapView extends View {
 		public void run() {
 
 			// calculates the displacement
-			mScrollByX = mScrollRectX
+			mScrollBy.x = mScrollRect.x
 					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.x,
 							mTargetPoint.x - mInitialPoint.x, mAnimationSteps);
-			mScrollByY = mScrollRectY
+			mScrollBy.y = mScrollRect.y
 					- (int) easeOutExpo(mAnimationCounter, mInitialPoint.y,
 							mTargetPoint.y - mInitialPoint.y, mAnimationSteps);
 
@@ -71,8 +67,8 @@ public class OfflineMapView extends View {
 					|| (Math.abs(mInitialPoint.x - mTargetPoint.x) < 2 && Math
 							.abs(mInitialPoint.y - mTargetPoint.y) < 2)) {
 				// updates final position.
-				mScrollRectX = mTargetPoint.x;
-				mScrollRectY = mTargetPoint.y;
+				mScrollRect.x = mTargetPoint.x;
+				mScrollRect.y = mTargetPoint.y;
 				// clears the points
 				mTargetPoint = null;
 				mInitialPoint = null;
@@ -89,36 +85,38 @@ public class OfflineMapView extends View {
 
 	public OfflineMapView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-
-		// initializes the downloader.
-		mImageLoader = new TileLoader(this);
-
-		initOfflineMapView();
-
-		// loads the desired map.
-		// TODO: pass the coordinates as a parameter.
-		mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"),
-				this);
-
-		// loads the default map if the given point is not found.
-		if (mMap == null)
-			mMap = Map.createDefaultMap(this);
-
-		// centers the map.
-		centerMap();
+		initOfflineMapView(null);
 	}
 
 	public OfflineMapView(Context context, GeoPoint center) {
 		super(context);
+		initOfflineMapView(center);
+	}
+	
+	private void initOfflineMapView(GeoPoint center) {
+		if(mImageLoader != null)
+			return; // initialize only once
+		
+		// sets the current size of the screen in pixels.
+		mDisplayWidth = getWidth();
+		mDisplayHeight = getHeight();
 
+		// initializes the overlay list
+		mOverlays = new ArrayList<Overlay>();
+
+		// initial values of scrolling variables.
+		mScrollRect = new Point(0,0);
+		mScrollBy = new PointF(0,0);
+		mStartPt = new PointF(0,0);
+		
 		// initializes the downloader.
 		mImageLoader = new TileLoader(this);
 
-		initOfflineMapView();
-
-		// creates a new map instance with the given center.
-		mMap = Map.createMapFromCoordinate(center, this);
-
+		if( center == null)
+			mMap = Map.createMapFromCoordinate(new GeoPoint("14.054162,77.16711"), this);
+		else
+			mMap = Map.createMapFromCoordinate(center, this);
+		
 		// loads the default map if the given point is not found.
 		if (mMap == null)
 			mMap = Map.createDefaultMap(this);
@@ -130,10 +128,10 @@ public class OfflineMapView extends View {
 	public void animateTo(Point point) {
 
 		// resets touch values.
-		mScrollByX = 0;
-		mScrollByY = 0;
-		mStartX = 0;
-		mStartY = 0;
+		mScrollBy.x = 0;
+		mScrollBy.y = 0;
+		mStartPt.x = 0;
+		mStartPt.y = 0;
 
 		// transforms the point to the local coordinate system.
 		mTargetPoint = new Point(clamp((int) (mMap.getWidth() * 0.5)
@@ -142,7 +140,7 @@ public class OfflineMapView extends View {
 				- (int) (mDisplayHeight * 0.5) + point.y, 0, mMap.getHeight()
 				- mDisplayHeight));
 		// stores the initial point
-		mInitialPoint = new Point(mScrollRectX, mScrollRectY);
+		mInitialPoint = new Point(mScrollRect.x, mScrollRect.y);
 
 		// resets the animation counter
 		mAnimationCounter = 0;
@@ -154,8 +152,8 @@ public class OfflineMapView extends View {
 			mAnimationHandler.postDelayed(mUpdateTimeTask, 100);
 		} else {
 			// updates final position.
-			mScrollRectX = mTargetPoint.x;
-			mScrollRectY = mTargetPoint.y;
+			mScrollRect.x = mTargetPoint.x;
+			mScrollRect.y = mTargetPoint.y;
 			// clears the points
 			mTargetPoint = null;
 			mInitialPoint = null;
@@ -163,9 +161,9 @@ public class OfflineMapView extends View {
 	}
 
 	private void centerMap() {
-		mScrollRectX = (int) (mMap.getWidth() * 0.5)
+		mScrollRect.x = (int) (mMap.getWidth() * 0.5)
 				- (int) (mDisplayWidth * 0.5);
-		mScrollRectY = (int) (mMap.getHeight() * 0.5)
+		mScrollRect.y = (int) (mMap.getHeight() * 0.5)
 				- (int) (mDisplayHeight * 0.5);
 	}
 
@@ -234,7 +232,7 @@ public class OfflineMapView extends View {
 	public Point getCenterPoint() {
 		Point absoluteCenter = mMap.getCenterPoint();
 
-		absoluteCenter.offset(-mScrollRectX, -mScrollRectY);
+		absoluteCenter.offset(-mScrollRect.x, -mScrollRect.y);
 		return absoluteCenter;
 	}
 
@@ -244,24 +242,6 @@ public class OfflineMapView extends View {
 
 	public int getZoomLevel() {
 		return mMap.getZoomLevel();
-	}
-
-	private void initOfflineMapView() {
-
-		// sets the current size of the screen in pixels.
-		mDisplayWidth = getWidth();
-		mDisplayHeight = getHeight();
-
-		// initializes the overlay list
-		mOverlays = new ArrayList<Overlay>();
-
-		// initial values of scrolling variables.
-		mScrollRectX = 0;
-		mScrollRectY = 0;
-		mScrollByX = 0;
-		mScrollByY = 0;
-		mStartX = 0;
-		mStartY = 0;
 	}
 
 	private Boolean isInside(int r2x, int r2y, int r2w, int r2h, int r1x,
@@ -282,9 +262,9 @@ public class OfflineMapView extends View {
 		// direction from how we want to move the scroll rectangle. think of
 		// this as dragging to the left being the same as sliding the scroll
 		// rectangle to the right.
-		int newScrollRectX = clamp(mScrollRectX - (int) mScrollByX, 0,
+		int newScrollRectX = clamp(mScrollRect.x - (int) mScrollBy.x, 0,
 				mMap.getWidth() - mDisplayWidth);
-		int newScrollRectY = clamp(mScrollRectY - (int) mScrollByY, 0,
+		int newScrollRectY = clamp(mScrollRect.y - (int) mScrollBy.y, 0,
 				mMap.getHeight() - mDisplayHeight);
 
 		// average visible tiles
@@ -322,8 +302,8 @@ public class OfflineMapView extends View {
 		}
 
 		// resets the current scroll coordinates to reflect the latest update
-		mScrollRectX = newScrollRectX;
-		mScrollRectY = newScrollRectY;
+		mScrollRect.x = newScrollRectX;
+		mScrollRect.y = newScrollRectY;
 
 		// draws the overlays on top of the map.
 		synchronized (mOverlays) {
@@ -377,8 +357,8 @@ public class OfflineMapView extends View {
 				}
 			}
 			// Remember our initial down event location.
-			mStartX = event.getRawX();
-			mStartY = event.getRawY();
+			mStartPt.x = event.getRawX();
+			mStartPt.y = event.getRawY();
 			break;
 
 		case MotionEvent.ACTION_MOVE:
@@ -388,20 +368,20 @@ public class OfflineMapView extends View {
 
 			// calculate move update considering the initial value and
 			// the current one obtained from the event.
-			mScrollByX = x - mStartX;
-			mScrollByY = y - mStartY;
+			mScrollBy.x = x - mStartPt.x;
+			mScrollBy.y = y - mStartPt.y;
 
 			// resets the start x and y position to the latest value.
-			mStartX = x;
-			mStartY = y;
+			mStartPt.x = x;
+			mStartPt.y = y;
 
 			// force a redraw to update the map.
 			invalidate();
 			break;
 		case MotionEvent.ACTION_UP:
 			// resets the scroll values.
-			mScrollByX = 0;
-			mScrollByY = 0;
+			mScrollBy.x = 0;
+			mScrollBy.y = 0;
 		}
 		// done with this event so consume it
 		return true;
