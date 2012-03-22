@@ -11,7 +11,7 @@
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:paddingRight="2dp"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/btn_info_yield"
@@ -35,7 +35,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="vertical" >
+        android:orientation="vertical">
 
         <ImageButton
             android:id="@+id/btn_info_advice"
@@ -61,7 +61,7 @@
         android:layout_gravity="fill_horizontal"
         android:orientation="vertical"
         android:gravity="center_vertical"
-        android:paddingLeft="15dp" >
+        android:paddingLeft="15dp">
 
         <ImageButton
             android:id="@+id/btn_action_plant"
