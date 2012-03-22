@@ -9,6 +9,8 @@
         android:id="@+id/col_news1"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:paddingRight="2dp"
         android:orientation="vertical" >
 
         <ImageButton
@@ -16,7 +18,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_90px_harvesting1" />
+            android:src="@drawable/ic_90px_harvesting1"
+            android:layout_marginBottom="2dp"/>
 
         <ImageButton
             android:id="@+id/btn_info_warn"
@@ -31,6 +34,7 @@
         android:id="@+id/col_news2"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
+        android:gravity="center_vertical"
         android:orientation="vertical" >
 
         <ImageButton
@@ -38,7 +42,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_90px_diary1" />
+            android:src="@drawable/ic_90px_diary1"
+            android:layout_marginBottom="2dp"/>
 
         <ImageButton
             android:id="@+id/btn_info_actions"
@@ -55,7 +60,8 @@
         android:layout_height="match_parent"
         android:layout_gravity="fill_horizontal"
         android:orientation="vertical"
-        android:gravity="center_vertical" >
+        android:gravity="center_vertical"
+        android:paddingLeft="15dp" >
 
         <ImageButton
             android:id="@+id/btn_action_plant"
