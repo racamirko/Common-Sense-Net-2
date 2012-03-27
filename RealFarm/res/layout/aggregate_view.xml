@@ -5,22 +5,24 @@
     android:orientation="vertical" >
 
     <ListView
-        android:id="@+id/items"
+        android:id="@+id/aggr_items"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="460dp" >
     </ListView>
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_weight="0.51"
+        android:gravity="center" >
 
         <ImageButton
-            android:id="@+id/btn_back"
+            android:id="@+id/btn_aggregate_back"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:background="@color/button_background_disabled_end"
             android:src="@drawable/ic_48px_back" />
-
     </LinearLayout>
 
 </LinearLayout>
