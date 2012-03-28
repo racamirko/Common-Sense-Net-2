@@ -13,7 +13,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
-import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 public class DummyHomescreenData extends BaseAdapter {
@@ -78,12 +78,22 @@ public class DummyHomescreenData extends BaseAdapter {
         TextView lblBigInfo = (TextView) element.findViewById(R.id.lbl_big_info);
         TextView lblDesc = (TextView) element.findViewById(R.id.lbl_desc);
         TextView lblDetail = (TextView) element.findViewById(R.id.lbl_detail);
+        ImageView imgDesc = (ImageView) element.findViewById(R.id.img_desc);
 
         Recommendation tmpRec = mInfoPile.get(position);
         lblBigInfo.setText(String.valueOf(tmpRec.getId()));
         lblDesc.setText( mDataProvider.getActionNameById(tmpRec.getAction()).getName());
         lblDetail.setText( mDataProvider.getSeedById(tmpRec.getSeed()).getName());
+        imgDesc.setImageResource(mDataProvider.getActionNameById(tmpRec.getAction()).getRes());
         
         return element;
+	}
+	
+	public RealFarmProvider getDataProvider(){
+		return mDataProvider;
+	}
+	
+	public RealFarmDatabase getDatabase(){
+		return mDb;
 	}
 }

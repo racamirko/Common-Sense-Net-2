@@ -2,8 +2,10 @@ package com.commonsensenet.realfarm.homescreen;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.DummyHomescreenData;
+import com.commonsensenet.realfarm.model.Recommendation;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,7 +13,9 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
@@ -59,7 +63,19 @@ public class AggregateView extends Activity {
     	listview.setAdapter(mDataAdpt);
     	listview.setOnItemClickListener(new OnItemClickListener() {
 		        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		            Toast.makeText(AggregateView.this, "" + position, Toast.LENGTH_SHORT).show();
+		            Dialog dlg = new Dialog(AggregateView.this);
+		        	dlg.setContentView(R.layout.dialog_info_detail);
+		        	// parts
+		        	TextView dlgDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
+		        	ImageView imgIcon = (ImageView) dlg.findViewById(R.id.dlg_img_icon);
+		        	// 
+		        	DummyHomescreenData adapter = (DummyHomescreenData) parent.getAdapter();
+		        	Recommendation rec = (Recommendation) adapter.getItem(position);
+		        	
+		        	dlg.setTitle( adapter.getDataProvider().getActionNameById(rec.getAction()).getName() );
+		        	dlgDetals.setText( adapter.getDataProvider().getSeedById(rec.getSeed()).getName());
+		        	imgIcon.setImageResource( adapter.getDataProvider().getActionNameById(rec.getAction()).getRes() );
+		        	dlg.show();
 		        }});
         
     }

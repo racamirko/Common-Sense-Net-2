@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignTop="@+id/textView1"
-        android:layout_marginRight="26dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:src="@drawable/ic_48px_sowing" />
 
     <TextView
@@ -18,6 +19,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:text="Large Text"
+        android:padding="5dip"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
     <TextView
@@ -25,6 +27,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/lbl_big_info"
+        android:paddingTop="10dip"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -33,7 +36,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/lbl_desc"
-        android:layout_below="@+id/img_desc"
+        android:layout_below="@+id/lbl_desc"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 

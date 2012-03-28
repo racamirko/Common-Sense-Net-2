@@ -54,19 +54,20 @@ public class OfflineMapDemo extends Activity {
 	 */
 	@Override
 	public void onBackPressed() {
-		new AlertDialog.Builder(this)
-				.setIcon(android.R.drawable.ic_dialog_alert)
-				.setTitle(R.string.exitTitle)
-				.setMessage(R.string.exitMsg)
-				.setNegativeButton(android.R.string.cancel, null)
-				.setPositiveButton(android.R.string.ok,
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int which) {
-								// Exit the activity
-								OfflineMapDemo.this.finish();
-							}
-						}).show();
+//		new AlertDialog.Builder(this)
+//				.setIcon(android.R.drawable.ic_dialog_alert)
+//				.setTitle(R.string.exitTitle)
+//				.setMessage(R.string.exitMsg)
+//				.setNegativeButton(android.R.string.cancel, null)
+//				.setPositiveButton(android.R.string.ok,
+//						new DialogInterface.OnClickListener() {
+//							public void onClick(DialogInterface dialog,
+//									int which) {
+//								// Exit the activity
+//								OfflineMapDemo.this.finish();
+//							}
+//						}).show();
+		finish();
 	}
 
 	@Override
@@ -214,7 +215,8 @@ public class OfflineMapDemo extends Activity {
 			public void performAction(View view) {
 				mDataProvider.logAction(Log.MAIN_ACTIONBAR_HOME_CLICKED, null);
 				// navigates to the center of the map.
-				mOfflineMap.animateTo(new Point(0, 0));
+//				mOfflineMap.animateTo(new Point(0, 0));
+				OfflineMapDemo.this.finish();
 			}
 		});
 

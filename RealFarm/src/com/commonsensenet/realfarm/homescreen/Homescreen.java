@@ -3,6 +3,8 @@ package com.commonsensenet.realfarm.homescreen;
 import com.commonsensenet.realfarm.R;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.ImageButton;
@@ -30,5 +32,22 @@ public class Homescreen extends Activity {
         ((ImageButton) findViewById(R.id.btn_action_spray)).setOnClickListener(clckListener);
         ((ImageButton) findViewById(R.id.btn_action_yield)).setOnClickListener(clckListener);
     }
+
+	@Override
+	public void onBackPressed() {
+		new AlertDialog.Builder(this)
+				.setIcon(android.R.drawable.ic_dialog_alert)
+				.setTitle(R.string.exitTitle)
+				.setMessage(R.string.exitMsg)
+				.setNegativeButton(android.R.string.cancel, null)
+				.setPositiveButton(android.R.string.ok,
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog,
+									int which) {
+								// Exit the activity
+								Homescreen.this.finish();
+							}
+						}).show();
+	}
 
 }

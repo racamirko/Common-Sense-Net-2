@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm.homescreen;
 
+import com.commonsensenet.realfarm.OfflineMapDemo;
 import com.commonsensenet.realfarm.R;
 
 import android.app.Activity;
@@ -50,19 +51,14 @@ public class HomeActivityListener implements OnClickListener {
 				mActivity.startActivity(inte);
 				break;
 			case R.id.btn_action_diary:
-				txt = "Dear diary"; break;
 			case R.id.btn_action_fertilize:
-				txt = "Fertilize"; break;
 			case R.id.btn_action_irrigate:
-				txt = "Irrigate"; break;
 			case R.id.btn_action_plant:
-				txt = "Plant"; break;
 			case R.id.btn_action_problem:
-				txt = "Problem!!"; break;
 			case R.id.btn_action_spray:
-				txt = "Spray"; break;
 			case R.id.btn_action_yield:
-				txt = "Yield action"; break;
+				mActivity.startActivity(new Intent(mActivity, OfflineMapDemo.class));
+				break;
 		}
 
 		if( txt != "" )
