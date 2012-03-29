@@ -22,6 +22,7 @@ import android.widget.AdapterView.OnItemClickListener;
 public class AggregateView extends Activity {
 	private String logTag = "AggregateView";
 	protected DummyHomescreenData mDataAdpt;
+	protected String randomText;
 	
 	private OnClickListener mCloseListener = new OnClickListener() {
 	    public void onClick(View v) {
@@ -33,6 +34,7 @@ public class AggregateView extends Activity {
 	@Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+	    randomText = "The default behaviour of the SlidingDrawer component is to maximize to a height of the position of the last component on the screen. But if the last component is at the very bottom, then the SlidingDrawer will not be apparently visible!";
 
         Log.i(logTag, "Activity started");
         setContentView(R.layout.aggregate_view);
@@ -65,6 +67,7 @@ public class AggregateView extends Activity {
 		        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		            Dialog dlg = new Dialog(AggregateView.this);
 		        	dlg.setContentView(R.layout.dialog_info_detail);
+		        	dlg.setCancelable(true);
 		        	// parts
 		        	TextView dlgDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
 		        	ImageView imgIcon = (ImageView) dlg.findViewById(R.id.dlg_img_icon);
@@ -73,7 +76,7 @@ public class AggregateView extends Activity {
 		        	Recommendation rec = (Recommendation) adapter.getItem(position);
 		        	
 		        	dlg.setTitle( adapter.getDataProvider().getActionNameById(rec.getAction()).getName() );
-		        	dlgDetals.setText( adapter.getDataProvider().getSeedById(rec.getSeed()).getName());
+		        	dlgDetals.setText( adapter.getDataProvider().getSeedById(rec.getSeed()).getName() + randomText);
 		        	imgIcon.setImageResource( adapter.getDataProvider().getActionNameById(rec.getAction()).getRes() );
 		        	dlg.show();
 		        }});

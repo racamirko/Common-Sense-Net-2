@@ -8,10 +8,12 @@ import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomeActivityListener implements OnClickListener {
+public class HomeActivityListener implements OnClickListener, OnLongClickListener {
 	protected Activity mActivity;
 	private String logTag = "HomeActivityListener";
 	
@@ -63,6 +65,17 @@ public class HomeActivityListener implements OnClickListener {
 
 		if( txt != "" )
 			Toast.makeText(mActivity.getApplicationContext(), txt, Toast.LENGTH_SHORT).show();
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		ProgressBar prgs = (ProgressBar) mActivity.findViewById(R.id.helpIndicator);
+		prgs.setVisibility(prgs.VISIBLE);
+		int loc[] = new int[2];
+		v.getLocationOnScreen(loc);
+		prgs.setPadding(loc[0], loc[1], 0, 0);
+		Toast.makeText(mActivity, "Longclick", Toast.LENGTH_SHORT).show();
+		return true;
 	}
 
 }
