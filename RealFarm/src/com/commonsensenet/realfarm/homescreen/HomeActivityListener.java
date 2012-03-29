@@ -6,18 +6,20 @@ import com.commonsensenet.realfarm.R;
 import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomeActivityListener implements OnClickListener, OnLongClickListener {
-	protected Activity mActivity;
+public class HomeActivityListener implements OnClickListener, OnLongClickListener, OnTouchListener {
+	protected Homescreen mActivity;
 	private String logTag = "HomeActivityListener";
 	
-	public HomeActivityListener( Activity pActivity ){
+	public HomeActivityListener( Homescreen pActivity ){
 		Log.d(logTag, "Homescreen listener created");
 		mActivity = pActivity;
 	}
@@ -74,8 +76,16 @@ public class HomeActivityListener implements OnClickListener, OnLongClickListene
 		int loc[] = new int[2];
 		v.getLocationOnScreen(loc);
 		prgs.setPadding(loc[0], loc[1], 0, 0);
-		Toast.makeText(mActivity, "Longclick", Toast.LENGTH_SHORT).show();
+//		Toast.makeText(mActivity, "Longclick", Toast.LENGTH_SHORT).show();
+		mActivity.setHelpMode(true);
 		return true;
 	}
 
+	@Override
+	public boolean onTouch(View v, MotionEvent event) {
+		if( event.getAction() == MotionEvent.ACTION_UP && mActivity.getHelpMode() )
+			mActivity.setHelpMode(false);
+		return false;
+	}
+	
 }

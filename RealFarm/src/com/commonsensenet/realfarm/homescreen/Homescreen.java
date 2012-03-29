@@ -8,13 +8,18 @@ import android.content.DialogInterface;
 import android.os.Bundle;
 import android.text.style.ClickableSpan;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 public class Homescreen extends Activity {
+	protected boolean mHelpMode;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        mHelpMode = false;
 
         Log.i("Realfarm - homescreen", "App started");
         setContentView(R.layout.homescreen);
@@ -22,15 +27,19 @@ public class Homescreen extends Activity {
         HomeActivityListener clckListener = new HomeActivityListener(this);
         ((ImageButton) findViewById(R.id.btn_info_actions)).setOnClickListener(clckListener);
         ((ImageButton) findViewById(R.id.btn_info_actions)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_actions)).setOnTouchListener(clckListener);
 
         ((ImageButton) findViewById(R.id.btn_info_advice)).setOnClickListener(clckListener);
         ((ImageButton) findViewById(R.id.btn_info_advice)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_advice)).setOnTouchListener(clckListener);
         
         ((ImageButton) findViewById(R.id.btn_info_warn)).setOnClickListener(clckListener);
         ((ImageButton) findViewById(R.id.btn_info_warn)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_warn)).setOnTouchListener(clckListener);
         
         ((ImageButton) findViewById(R.id.btn_info_yield)).setOnClickListener(clckListener);
         ((ImageButton) findViewById(R.id.btn_info_yield)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_yield)).setOnTouchListener(clckListener);
         
         
         
@@ -71,6 +80,15 @@ public class Homescreen extends Activity {
 								Homescreen.this.finish();
 							}
 						}).show();
+	}
+	
+	public void setHelpMode(boolean active){
+		mHelpMode = active;
+		Toast.makeText(getApplicationContext(), "Help set to "+active, Toast.LENGTH_SHORT).show();
+	}
+	
+	public boolean getHelpMode(){
+		return mHelpMode;
 	}
 
 }
