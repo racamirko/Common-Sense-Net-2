@@ -11,17 +11,21 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class HomeActivityListener implements OnClickListener, OnLongClickListener, OnTouchListener {
+public class HomeActivityListener implements OnClickListener {
 	protected Homescreen mActivity;
 	private String logTag = "HomeActivityListener";
 	
+	
 	public HomeActivityListener( Homescreen pActivity ){
-		Log.d(logTag, "Homescreen listener created");
-		mActivity = pActivity;
+		Log.d(logTag, "created");
+		mActivity = pActivity;		
 	}
 
 	@Override
@@ -68,24 +72,6 @@ public class HomeActivityListener implements OnClickListener, OnLongClickListene
 		if( txt != "" )
 			Toast.makeText(mActivity.getApplicationContext(), txt, Toast.LENGTH_SHORT).show();
 	}
-
-	@Override
-	public boolean onLongClick(View v) {
-		ProgressBar prgs = (ProgressBar) mActivity.findViewById(R.id.helpIndicator);
-		prgs.setVisibility(prgs.VISIBLE);
-		int loc[] = new int[2];
-		v.getLocationOnScreen(loc);
-		prgs.setPadding(loc[0], loc[1], 0, 0);
-//		Toast.makeText(mActivity, "Longclick", Toast.LENGTH_SHORT).show();
-		mActivity.setHelpMode(true);
-		return true;
-	}
-
-	@Override
-	public boolean onTouch(View v, MotionEvent event) {
-		if( event.getAction() == MotionEvent.ACTION_UP && mActivity.getHelpMode() )
-			mActivity.setHelpMode(false);
-		return false;
-	}
 	
+
 }

@@ -12,57 +12,55 @@ import android.view.MotionEvent;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
-public class Homescreen extends Activity {
-	protected boolean mHelpMode;
+public class Homescreen extends HelpEnabledActivity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        
-        mHelpMode = false;
 
         Log.i("Realfarm - homescreen", "App started");
         setContentView(R.layout.homescreen);
         // setup listener to all buttons
         HomeActivityListener clckListener = new HomeActivityListener(this);
         ((ImageButton) findViewById(R.id.btn_info_actions)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_actions)).setOnLongClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_actions)).setOnTouchListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_actions)).setOnLongClickListener(this);
+        ((ImageButton) findViewById(R.id.btn_info_actions)).setOnTouchListener(this);
 
         ((ImageButton) findViewById(R.id.btn_info_advice)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_advice)).setOnLongClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_advice)).setOnTouchListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_advice)).setOnLongClickListener(this);
+        ((ImageButton) findViewById(R.id.btn_info_advice)).setOnTouchListener(this);
         
         ((ImageButton) findViewById(R.id.btn_info_warn)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_warn)).setOnLongClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_warn)).setOnTouchListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_warn)).setOnLongClickListener(this);
+        ((ImageButton) findViewById(R.id.btn_info_warn)).setOnTouchListener(this);
         
         ((ImageButton) findViewById(R.id.btn_info_yield)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_yield)).setOnLongClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_info_yield)).setOnTouchListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_info_yield)).setOnLongClickListener(this);
+        ((ImageButton) findViewById(R.id.btn_info_yield)).setOnTouchListener(this);
         
         
         
         ((ImageButton) findViewById(R.id.btn_action_diary)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_action_diary)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_action_diary)).setOnLongClickListener(this);
         
         ((ImageButton) findViewById(R.id.btn_action_fertilize)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_action_fertilize)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_action_fertilize)).setOnLongClickListener(this);
         
         ((ImageButton) findViewById(R.id.btn_action_irrigate)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_action_irrigate)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_action_irrigate)).setOnLongClickListener(this);
 
         ((ImageButton) findViewById(R.id.btn_action_plant)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_action_plant)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_action_plant)).setOnLongClickListener(this);
 
         ((ImageButton) findViewById(R.id.btn_action_problem)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_action_problem)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_action_problem)).setOnLongClickListener(this);
 
         ((ImageButton) findViewById(R.id.btn_action_spray)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_action_spray)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_action_spray)).setOnLongClickListener(this);
 
         ((ImageButton) findViewById(R.id.btn_action_yield)).setOnClickListener(clckListener);
-        ((ImageButton) findViewById(R.id.btn_action_yield)).setOnLongClickListener(clckListener);
+        ((ImageButton) findViewById(R.id.btn_action_yield)).setOnLongClickListener(this);
+        setHelpIcon(findViewById(R.id.helpIndicator));
     }
 
 	@Override
@@ -82,13 +80,4 @@ public class Homescreen extends Activity {
 						}).show();
 	}
 	
-	public void setHelpMode(boolean active){
-		mHelpMode = active;
-		Toast.makeText(getApplicationContext(), "Help set to "+active, Toast.LENGTH_SHORT).show();
-	}
-	
-	public boolean getHelpMode(){
-		return mHelpMode;
-	}
-
 }
