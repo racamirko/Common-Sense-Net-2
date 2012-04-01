@@ -39,6 +39,7 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 				public void onAnimationEnd(Animation animation) {
 					HelpEnabledActivity.this.showHelp( HelpAnimation.this.getViewAssociated() );
 					HelpEnabledActivity.this.setHelpMode(false);
+					HelpEnabledActivity.this.helpIcon.setVisibility(View.INVISIBLE);
 				} }
 			);
 			

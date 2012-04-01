@@ -35,24 +35,28 @@ public class HomeActivityListener implements OnClickListener {
 		Intent inte;
 		switch( v.getId() ){
 			case R.id.btn_info_actions:
+			case R.id.home_btn_actions:
 				Log.d(logTag, "Starting actions info");
 				inte = new Intent(mActivity, AggregateView.class);
 				inte.putExtra("type", "actions");
 				mActivity.startActivity(inte);
 				break;
 			case R.id.btn_info_advice:
+			case R.id.home_btn_advice:
 				Log.d(logTag, "Starting advice info");
 				inte = new Intent(mActivity, AggregateView.class);
 				inte.putExtra("type", "advice");
 				mActivity.startActivity(inte);
 				break;
 			case R.id.btn_info_warn:
+			case R.id.home_btn_warn:
 				Log.d(logTag, "Starting warn info");
 				inte = new Intent(mActivity, AggregateView.class);
 				inte.putExtra("type", "warn");
 				mActivity.startActivity(inte);
 				break;
 			case R.id.btn_info_yield:
+			case R.id.home_btn_yield:
 				Log.d(logTag, "Starting yield info");
 				inte = new Intent(mActivity, AggregateView.class);
 				inte.putExtra("type", "yield");

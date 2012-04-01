@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	    android:id="@+id/col_actions"
+	    android:layout_width="wrap_content"
+	    android:layout_height="match_parent"
+	    android:layout_gravity="right"
+	    android:gravity="center_vertical"
+	    android:orientation="vertical"
+	    android:paddingLeft="15dp" >
+
+	    <ImageButton
+	        android:id="@+id/btn_action_plant"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn_normal"
+	        android:src="@drawable/ic_48px_sowing" />
+
+	    <ImageButton
+	        android:id="@+id/btn_action_fertilize"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn_normal"
+	        android:src="@drawable/ic_48px_fertilizing2" />
+
+	    <ImageButton
+	        android:id="@+id/btn_action_spray"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn_normal"
+	        android:src="@drawable/ic_48px_spraying2" />
+
+	    <ImageButton
+	        android:id="@+id/btn_action_problem"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn_normal"
+	        android:src="@drawable/ic_48px_reporting" />
+
+	    <ImageButton
+	        android:id="@+id/btn_action_irrigate"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn_normal"
+	        android:src="@drawable/ic_48px_irrigation2" />
+
+	    <ImageButton
+	        android:id="@+id/btn_action_yield"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn_normal"
+	        android:src="@drawable/ic_48px_harvesting1" />
+
+	    <ImageButton
+	        android:id="@+id/btn_action_diary"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn_normal"
+	        android:src="@drawable/ic_48px_planning" />
+	</LinearLayout>
