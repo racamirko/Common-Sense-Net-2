@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.TextView;
 
 public class Homescreen extends HelpEnabledActivity {
 	private String logTag = "Homescreen";
@@ -19,7 +20,13 @@ public class Homescreen extends HelpEnabledActivity {
         setContentView(R.layout.homescreen);
         // setup listener to all buttons
         HomeActivityListener clckListener = new HomeActivityListener(this);
-        ((Button) findViewById(R.id.home_btn_advice)).setOnClickListener(clckListener);
+        initActionListener(clckListener);
+        initKannada();
+        setHelpIcon(findViewById(R.id.helpIndicator));
+    }
+
+	private void initActionListener(HomeActivityListener clckListener) {
+		((Button) findViewById(R.id.home_btn_advice)).setOnClickListener(clckListener);
 	    ((Button) findViewById(R.id.home_btn_advice)).setOnLongClickListener(this);
 	    ((Button) findViewById(R.id.home_btn_advice)).setOnTouchListener(this);
       
@@ -66,8 +73,13 @@ public class Homescreen extends HelpEnabledActivity {
         ((ImageButton) findViewById(R.id.btn_action_yield)).setOnClickListener(clckListener);
         ((ImageButton) findViewById(R.id.btn_action_yield)).setOnLongClickListener(this);
         ((ImageButton) findViewById(R.id.btn_action_yield)).setOnTouchListener(this);
-        
-        setHelpIcon(findViewById(R.id.helpIndicator));
+	}
+    
+    protected void initKannada(){
+    	TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	
+    	tmpText.setText("ಗಟ್ಟಿ");
     }
 
 	@Override

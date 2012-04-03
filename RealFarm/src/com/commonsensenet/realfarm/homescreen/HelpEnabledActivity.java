@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.homescreen;
 
 
 import android.app.Activity;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -16,6 +17,7 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 	private String logTag = "HelpEnabledActivity";
 	protected HelpAnimation mAnimFadeIn;
 	protected boolean mHelpMode;
+	protected Typeface mKannadaTypeface;
 	protected View helpIcon;
 	
 	public class HelpAnimation extends AlphaAnimation {
@@ -27,15 +29,15 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 			
 			setAnimationListener(new Animation.AnimationListener() {
 				
-				@Override
+//				@Override
 				public void onAnimationStart(Animation animation) {
 				}
 				
-				@Override
+//				@Override
 				public void onAnimationRepeat(Animation animation) {
 				}
 				
-				@Override
+//				@Override
 				public void onAnimationEnd(Animation animation) {
 					HelpEnabledActivity.this.showHelp( HelpAnimation.this.getViewAssociated() );
 					HelpEnabledActivity.this.setHelpMode(false);
@@ -71,9 +73,12 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 
         mAnimFadeIn = new HelpAnimation(0.0f, 1.0f);
         Log.i( logTag, "created");
+        
+        // Kannada typeface
+        mKannadaTypeface = Typeface.createFromAsset(getAssets(),"fonts/Kedage.dfont");
     }
 	
-	@Override
+//	@Override
 	public boolean onLongClick(View v) {
 		// position
 		int loc[] = new int[2];
@@ -92,7 +97,7 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 		return true;
 	}
 
-	@Override
+//	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 		if( event.getAction() == MotionEvent.ACTION_UP && getHelpMode() ){
 			Animation a = new AlphaAnimation(1.0f, 0.0f);

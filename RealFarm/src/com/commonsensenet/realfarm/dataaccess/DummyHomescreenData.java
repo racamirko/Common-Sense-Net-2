@@ -49,22 +49,22 @@ public class DummyHomescreenData extends BaseAdapter {
 		}
 	}
 
-	@Override
+//	@Override
 	public int getCount() {
 		return mInfoPile.size();
 	}
 
-	@Override
+//	@Override
 	public Object getItem(int arg0) {
 		return mInfoPile.get(arg0);
 	}
 
-	@Override
+//	@Override
 	public long getItemId(int position) {
 		return mInfoPile.get(position).getId();
 	}
 	
-	@Override
+//	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View element;
         if (convertView == null) {  // if it's not recycled, initialize some attributes

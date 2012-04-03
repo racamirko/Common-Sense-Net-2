@@ -28,7 +28,7 @@ public class HomeActivityListener implements OnClickListener {
 		mActivity = pActivity;		
 	}
 
-	@Override
+//	@Override
 	public void onClick(View v) {
 		Log.i(logTag, "Button clicked!");
 		String txt = "";
