@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="k_please_select_from_the_following_options">ಈ ಕೆಳಗಿನ ವಿಷಯಗಳಲ್ಲಿ ಒಂದನ್ನು ಆರಿಸಿ</string>
+    <string name="k_your_crop">ನಿಮ್ಮ ಬೆಳೆ</string>
+    <string name="k_the_pest">ಹುಳ</string>
+    <string name="k_the_disease">ಖಾಯಿಲೆ</string>
+    <string name="k_that_your_crop_has">ನಿಮ್ಮ ಬೆಳೆಗೆ</string>
+    
+    
+    <!-- 
+    	<string name=""></string>
+    -->
+    
+</resources>
