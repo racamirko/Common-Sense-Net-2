@@ -78,8 +78,19 @@ public class Homescreen extends HelpEnabledActivity {
     protected void initKannada(){
     	TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
     	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_the_pest));
     	
-    	tmpText.setText("ಗಟ್ಟಿ");
+    	tmpText = (TextView) findViewById(R.id.home_lbl_advice);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_the_disease));
+    	
+    	tmpText = (TextView) findViewById(R.id.home_lbl_actions);
+    	tmpText.setTypeface(mKannadaTypeface);
+//    	tmpText.setText(getString(R.string.k_));
+    	
+    	tmpText = (TextView) findViewById(R.id.home_lbl_actions);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_the_pest));
     }
 
 	@Override

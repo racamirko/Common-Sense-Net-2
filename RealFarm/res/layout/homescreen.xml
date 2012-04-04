@@ -16,7 +16,7 @@
             android:layout_marginBottom="30dp">
             
              <TextView
-                android:id="@+id/TextView03"
+                android:id="@+id/home_lbl_advice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
@@ -50,7 +50,7 @@
             android:layout_marginBottom="30dp">
 
             <TextView
-                android:id="@+id/TextView02"
+                android:id="@+id/home_lbl_warnings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
@@ -81,7 +81,7 @@
             android:layout_marginBottom="30dp">
 
             <TextView
-                android:id="@+id/TextView01"
+                android:id="@+id/home_lbl_actions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
@@ -113,7 +113,7 @@
             android:layout_marginBottom="20dp">
 
             <TextView
-                android:id="@+id/textView1"
+                android:id="@+id/home_lbl_yield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
