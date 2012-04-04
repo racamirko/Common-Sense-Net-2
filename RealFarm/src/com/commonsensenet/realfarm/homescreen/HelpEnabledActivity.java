@@ -1,8 +1,12 @@
 package com.commonsensenet.realfarm.homescreen;
 
 
+import com.commonsensenet.realfarm.R;
+
 import android.app.Activity;
+import android.content.Context;
 import android.graphics.Typeface;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -18,7 +22,7 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 	protected HelpAnimation mAnimFadeIn;
 	protected boolean mHelpMode;
 	protected Typeface mKannadaTypeface;
-	protected View helpIcon;
+	protected View mHelpIcon;
 	
 	public class HelpAnimation extends AlphaAnimation {
 		protected View mViewAnimated; // animation icon
@@ -41,7 +45,7 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 				public void onAnimationEnd(Animation animation) {
 					HelpEnabledActivity.this.showHelp( HelpAnimation.this.getViewAssociated() );
 					HelpEnabledActivity.this.setHelpMode(false);
-					HelpEnabledActivity.this.helpIcon.setVisibility(View.INVISIBLE);
+					HelpEnabledActivity.this.mHelpIcon.setVisibility(View.INVISIBLE);
 				} }
 			);
 			
@@ -83,15 +87,15 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 		// position
 		int loc[] = new int[2];
 		v.getLocationOnScreen(loc);
-		int iconWidth = helpIcon.getWidth()-helpIcon.getPaddingLeft();
-		int iconHeight = helpIcon.getHeight() - helpIcon.getPaddingTop();
-		helpIcon.setPadding(loc[0]+v.getWidth()/2-iconWidth/2, loc[1] - iconHeight, 0, 0);
+		int iconWidth = mHelpIcon.getWidth()-mHelpIcon.getPaddingLeft();
+		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
+		mHelpIcon.setPadding(loc[0]+v.getWidth()/2-iconWidth/2, loc[1] - iconHeight, 0, 0);
 		Log.i(logTag, "Showing help at: "+loc[0]+" , "+loc[1]);
 		
 		mAnimFadeIn.setViewAssociated(v);
 		mAnimFadeIn.setDuration(2000);
-		helpIcon.setVisibility(View.VISIBLE);
-		helpIcon.startAnimation(mAnimFadeIn);
+		mHelpIcon.setVisibility(View.VISIBLE);
+		mHelpIcon.startAnimation(mAnimFadeIn);
 		setHelpMode(true);
 
 		return true;
@@ -102,8 +106,8 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 		if( event.getAction() == MotionEvent.ACTION_UP && getHelpMode() ){
 			Animation a = new AlphaAnimation(1.0f, 0.0f);
 			a.setDuration(500);
-			helpIcon.startAnimation(a);
-			helpIcon.setVisibility(View.INVISIBLE);
+			mHelpIcon.startAnimation(a);
+			mHelpIcon.setVisibility(View.INVISIBLE);
 			setHelpMode(false);
 			return true;
 		}
@@ -121,16 +125,18 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 
 	public void showHelp(View v){
 		Toast.makeText(getApplicationContext(), "Showing help for "+v.getId(), Toast.LENGTH_SHORT).show();
+		
+		MediaPlayer mp = MediaPlayer.create(this, R.raw.audio1);
+		mp.start();
 		// TODO: make a table mapping IDs to sound files
-//		v.getId(); // find
 	}
 	
 	public View getHelpIcon() {
-		return helpIcon;
+		return mHelpIcon;
 	}
 
 	public void setHelpIcon(View helpIcon) {
-		this.helpIcon = helpIcon;
+		this.mHelpIcon = helpIcon;
 		mAnimFadeIn.setViewAnimated(helpIcon);
 	}
 
