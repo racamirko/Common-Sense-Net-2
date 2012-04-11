@@ -6,6 +6,8 @@
 	<color name="ploteditor_background">#FFFFFF</color>
 	<color name="ploteditor_header">#CFCFC9</color>
     <color name="button_background_pressed_start">#FF7F00</color>
-    <color name="button_background_pressed_end">#EE7600</color>	
+    <color name="button_background_pressed_end">#EE7600</color>
+    <color name="icon_background_start">#D9EFFA</color>
+    <color name="icon_background_end">#24AAED</color>	
 	
 </resources>

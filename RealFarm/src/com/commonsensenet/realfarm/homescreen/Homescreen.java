@@ -5,8 +5,12 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
+import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 public class Homescreen extends HelpEnabledActivity {
@@ -22,8 +26,20 @@ public class Homescreen extends HelpEnabledActivity {
         HomeActivityListener clckListener = new HomeActivityListener(this);
         initActionListener(clckListener);
         initKannada();
+        initTiles();
         setHelpIcon(findViewById(R.id.helpIndicator));
     }
+
+	protected void initTiles() {
+		LinearLayout layAdvice = (LinearLayout) findViewById(R.id.home_lay_advice);
+		
+		ImageView tmpView = new ImageView(this);
+		tmpView.setImageResource(R.drawable.ic_48px_fertilizing1);
+		tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
+		layAdvice.addView(tmpView);
+		tmpView.getLayoutParams().height = 45;
+		tmpView.getLayoutParams().width = 45;
+	}
 
 	private void initActionListener(HomeActivityListener clckListener) {
 		((Button) findViewById(R.id.home_btn_advice)).setOnClickListener(clckListener);

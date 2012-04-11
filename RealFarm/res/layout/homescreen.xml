@@ -14,15 +14,6 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="30dp">
-            
-             <TextView
-                android:id="@+id/home_lbl_advice"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="80dp"
-                android:text="Advice"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="40dp" />
 
             <ImageView
                 android:id="@+id/ImageView03"
@@ -34,12 +25,32 @@
                 android:src="@drawable/ic_90px_diary1"
                 android:background="@drawable/circular_btn_normal"/>
             
+            <TextView
+                android:id="@+id/home_lbl_advice"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toRightOf="@+id/ImageView03"
+                android:paddingLeft="10dp"
+                android:text="Advice"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textSize="25dp" />
+
+            <LinearLayout
+                android:id="@+id/home_lay_advice"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="0dp"
+                android:layout_alignLeft="@+id/home_lbl_advice"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp" >
+            </LinearLayout>
+
             <Button 
                 android:id="@+id/home_btn_advice"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@android:color/transparent"/>
-
             
         </RelativeLayout>
 
@@ -56,7 +67,7 @@
                 android:layout_marginLeft="80dp"
                 android:text="Warnings"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="40dp" />
+                android:textSize="25dp" />
 
             <ImageView
                 android:id="@+id/ImageView02"
@@ -67,11 +78,23 @@
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_90px_reporting"
                 android:background="@drawable/circular_btn_normal"/>
+            
+            <LinearLayout
+                android:id="@+id/home_lay_warn"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="0dp"
+                android:layout_alignLeft="@+id/home_lbl_warnings"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp" >
+            </LinearLayout>
+
             <Button 
                 android:id="@+id/home_btn_warn"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@android:color/transparent"/>
+            
         </RelativeLayout>
 
         <RelativeLayout
@@ -87,7 +110,7 @@
                 android:layout_marginLeft="80dp"
                 android:text="Actions"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textSize="50dp" />
+                android:textSize="25dp" />
 
             <ImageView
                 android:id="@+id/ImageView01"
@@ -98,12 +121,23 @@
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_90px_sowing"
                 android:background="@drawable/circular_btn_normal"/>
+
+            <LinearLayout
+                android:id="@+id/home_lay_actions"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="0dp"
+                android:layout_alignLeft="@+id/home_lbl_actions"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp" >
+            </LinearLayout>
             
             <Button 
                 android:id="@+id/home_btn_actions"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@android:color/transparent"/>
+            
         </RelativeLayout>
 
         <RelativeLayout
@@ -118,7 +152,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 android:text="Yield"
-                android:textSize="50dp"
+                android:textSize="25dp"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
             <ImageView
@@ -130,6 +164,16 @@
                 android:layout_marginLeft="16dp"
                 android:src="@drawable/ic_90px_harvesting1"
                 android:background="@drawable/circular_btn_normal"/>
+            
+            <LinearLayout
+                android:id="@+id/home_lay_yield"
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_marginTop="0dp"
+                android:layout_alignLeft="@+id/home_lbl_yield"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="10dp" >
+            </LinearLayout>
 
             <Button 
                 android:id="@+id/home_btn_yield"
