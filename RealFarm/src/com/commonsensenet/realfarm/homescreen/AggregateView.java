@@ -19,7 +19,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
-public class AggregateView extends Activity {
+public class AggregateView extends HelpEnabledActivity {
 	private String logTag = "AggregateView";
 	protected DummyHomescreenData mDataAdpt;
 	protected String randomText;
@@ -33,23 +33,27 @@ public class AggregateView extends Activity {
         setContentView(R.layout.aggregate_view);
         
         mDataAdpt = new DummyHomescreenData(getApplicationContext(), this, 20);
+        
+        TextView lblTitle = (TextView) findViewById(R.id.aggr_lbl_title);
+        lblTitle.setTypeface(mKannadaTypeface);
+        ImageView imgIcon = (ImageView) findViewById(R.id.aggr_img_icon);
 
         String type = getIntent().getStringExtra("type");
         if( type.compareTo("actions") == 0 ){
-        	// set actios dataset
-        	( (TextView) findViewById(R.id.aggr_lbl_title)).setText("Actions");
+        	lblTitle.setText(R.string.k_solved);
+        	imgIcon.setImageResource(R.drawable.ic_90px_sowing);
         }
         if( type.compareTo("advice") == 0 ){
-        	// set actios dataset
-        	( (TextView) findViewById(R.id.aggr_lbl_title)).setText("Advice"); 
+        	lblTitle.setText(R.string.k_news);
+        	imgIcon.setImageResource(R.drawable.ic_90px_diary1);
         }
         if( type.compareTo("warn") == 0 ){
-        	// set actios dataset
-        	( (TextView) findViewById(R.id.aggr_lbl_title)).setText("Warnings"); 
+        	lblTitle.setText(R.string.k_farmers);
+        	imgIcon.setImageResource(R.drawable.ic_90px_reporting);
         }
         if( type.compareTo("yield") == 0 ){
-        	// set actios dataset
-        	( (TextView) findViewById(R.id.aggr_lbl_title)).setText("Yeilds"); 
+        	lblTitle.setText(R.string.k_harvest);
+        	imgIcon.setImageResource(R.drawable.ic_90px_harvesting1);
         }
 
         // unique population for now

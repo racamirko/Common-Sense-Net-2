@@ -13,17 +13,18 @@
 	        android:id="@+id/aggr_lbl_title"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
+	        android:layout_alignParentRight="true"
 	        android:layout_alignParentTop="true"
 	        android:layout_marginLeft="50dp"
 	        android:paddingBottom="10dp"
 	        android:paddingLeft="10dp"
 	        android:paddingTop="10dp"
-	        android:text="Large Text"
+	        android:paddingRight="20dp"
+	        android:text="Default title"
 	        android:textSize="30dp" />
 
 	    <ImageView
-	        android:id="@+id/imageView1"
+	        android:id="@+id/aggr_img_icon"
 	        android:layout_width="wrap_content"
 	        android:layout_height="wrap_content"
 	        android:layout_alignParentLeft="true"
