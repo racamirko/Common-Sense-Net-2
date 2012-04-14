@@ -17,7 +17,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Toast;
 
-public class HelpEnabledActivity extends Activity implements OnLongClickListener, OnTouchListener {
+public abstract class HelpEnabledActivity extends Activity implements OnLongClickListener, OnTouchListener {
 	private String logTag = "HelpEnabledActivity";
 	protected HelpAnimation mAnimFadeIn;
 	protected boolean mHelpMode;
@@ -70,16 +70,17 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 
 	}
 	
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState, int resLayoutId) {
         super.onCreate(savedInstanceState);
         mHelpMode = false;
 
         mAnimFadeIn = new HelpAnimation(0.0f, 1.0f);
         Log.i( logTag, "created");
         
+        setContentView(resLayoutId);
         // Kannada typeface
         mKannadaTypeface = Typeface.createFromAsset(getAssets(),"fonts/Kedage.dfont");
+        initKannada();
     }
 	
 //	@Override
@@ -140,6 +141,7 @@ public class HelpEnabledActivity extends Activity implements OnLongClickListener
 		mAnimFadeIn.setViewAnimated(helpIcon);
 	}
 
+	protected abstract void initKannada();
 	
 //	public void testAnim(){
 //		Log.i(logTag, "Should see animation now");

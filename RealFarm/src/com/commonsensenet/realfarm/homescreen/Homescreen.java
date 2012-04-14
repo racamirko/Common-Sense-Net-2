@@ -18,27 +18,38 @@ public class Homescreen extends HelpEnabledActivity {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState, R.layout.homescreen);
 
         Log.i(logTag, "App started");
-        setContentView(R.layout.homescreen);
         // setup listener to all buttons
         HomeActivityListener clckListener = new HomeActivityListener(this);
         initActionListener(clckListener);
-        initKannada();
         initTiles();
         setHelpIcon(findViewById(R.id.helpIndicator));
     }
 
 	protected void initTiles() {
+		Log.i(logTag, "Initializing tiles");
 		LinearLayout layAdvice = (LinearLayout) findViewById(R.id.home_lay_advice);
-		
-		ImageView tmpView = new ImageView(this);
-		tmpView.setImageResource(R.drawable.ic_48px_fertilizing1);
-		tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
-		layAdvice.addView(tmpView);
-		tmpView.getLayoutParams().height = 45;
-		tmpView.getLayoutParams().width = 45;
+		LinearLayout layActions = (LinearLayout) findViewById(R.id.home_lay_actions);
+		LinearLayout layWarn = (LinearLayout) findViewById(R.id.home_lay_warn);
+		LinearLayout layYield = (LinearLayout) findViewById(R.id.home_lay_yield);
+	
+		populateTiles( InfoType.ADVICE, layAdvice );
+		populateTiles( InfoType.ACTIONS, layActions );
+		populateTiles( InfoType.WARN, layWarn );
+		populateTiles( InfoType.YIELD, layYield );		
+	}
+	
+	protected void populateTiles( InfoType infoType, LinearLayout layout ){
+
+//		ImageView tmpView = new ImageView(this);
+//		tmpView.setImageResource(R.drawable.ic_48px_fertilizing1);
+//		tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
+//		layAdvice.addView(tmpView);
+//		tmpView.getLayoutParams().height = 45;
+//		tmpView.getLayoutParams().width = 45;
+
 	}
 
 	private void initActionListener(HomeActivityListener clckListener) {
@@ -91,7 +102,9 @@ public class Homescreen extends HelpEnabledActivity {
         ((ImageButton) findViewById(R.id.btn_action_yield)).setOnTouchListener(this);
 	}
     
+	@Override
     protected void initKannada(){
+    	Log.i(logTag, "Init kannada");
     	TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
     	tmpText.setTypeface(mKannadaTypeface);
     	tmpText.setText(getString(R.string.k_solved));
@@ -128,5 +141,7 @@ public class Homescreen extends HelpEnabledActivity {
 //							}
 //						}).show();
 	}
+
 	
+	public enum InfoType { ADVICE, ACTIONS, WARN, YIELD };
 }

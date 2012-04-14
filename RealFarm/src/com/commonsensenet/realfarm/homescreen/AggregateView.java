@@ -26,16 +26,14 @@ public class AggregateView extends HelpEnabledActivity {
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
+        super.onCreate(savedInstanceState, R.layout.aggregate_view);
 	    randomText = "The default behaviour of the SlidingDrawer component is to maximize to a height of the position of the last component on the screen. But if the last component is at the very bottom, then the SlidingDrawer will not be apparently visible!";
 
         Log.i(logTag, "Activity started");
-        setContentView(R.layout.aggregate_view);
         
         mDataAdpt = new DummyHomescreenData(getApplicationContext(), this, 20);
         
         TextView lblTitle = (TextView) findViewById(R.id.aggr_lbl_title);
-        lblTitle.setTypeface(mKannadaTypeface);
         ImageView imgIcon = (ImageView) findViewById(R.id.aggr_img_icon);
 
         String type = getIntent().getStringExtra("type");
@@ -78,5 +76,11 @@ public class AggregateView extends HelpEnabledActivity {
 		        }});
         
     }
+
+	@Override
+	protected void initKannada() {
+        TextView lblTitle = (TextView) findViewById(R.id.aggr_lbl_title);
+        lblTitle.setTypeface(mKannadaTypeface);
+	}
 
 }
