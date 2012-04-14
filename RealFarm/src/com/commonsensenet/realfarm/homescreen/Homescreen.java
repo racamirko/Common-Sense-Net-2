@@ -1,6 +1,14 @@
 package com.commonsensenet.realfarm.homescreen;
 
+import java.util.Iterator;
+import java.util.Random;
+import java.util.Vector;
+
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.dataaccess.DummyHomescreenData;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Recommendation;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
@@ -42,14 +50,26 @@ public class Homescreen extends HelpEnabledActivity {
 	}
 	
 	protected void populateTiles( InfoType infoType, LinearLayout layout ){
-
-//		ImageView tmpView = new ImageView(this);
-//		tmpView.setImageResource(R.drawable.ic_48px_fertilizing1);
-//		tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
-//		layAdvice.addView(tmpView);
-//		tmpView.getLayoutParams().height = 45;
-//		tmpView.getLayoutParams().width = 45;
-
+		Vector<Recommendation> info = new Vector<Recommendation>();
+		
+		/* dummy implementation */
+		DummyHomescreenData dummyData = new DummyHomescreenData(this, this, 5);
+		Random rn = new Random();
+		dummyData.generateDummyItems(rn.nextInt(5), info);
+		RealFarmProvider dataProv = dummyData.getDataProvider();
+		/* end dummy impl */
+		
+		Iterator<Recommendation> iter = info.iterator();
+		while( iter.hasNext() ){
+			Recommendation tmpRec = iter.next();
+			ImageView tmpView = new ImageView(this);
+			tmpView.setImageResource(dataProv.getActionNameById(tmpRec.getAction()).getRes());
+			tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
+			layout.addView(tmpView);
+			tmpView.getLayoutParams().height = 45;
+			tmpView.getLayoutParams().width = 45;
+		}
+		info.clear();
 	}
 
 	private void initActionListener(HomeActivityListener clckListener) {

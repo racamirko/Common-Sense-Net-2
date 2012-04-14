@@ -48,6 +48,22 @@ public class DummyHomescreenData extends BaseAdapter {
 			mInfoPile.add(tmpObj);
 		}
 	}
+	
+	public void generateDummyItems(int numOfItems, Vector<Recommendation> infoCont){
+		Random rn = new Random();
+		// get maximum numbers for each type
+		int maxAct = mDataProvider.getActionNamesList().size()-3;
+		int maxSeed = mDataProvider.getSeedsList().size()-3;
+		// generation
+		infoCont.clear();
+		Recommendation tmpObj;
+		for( int runner = 0; runner < numOfItems; ++runner){
+			int actionId = 3+rn.nextInt(maxAct);
+			int seedId = 3+rn.nextInt(maxSeed);
+			tmpObj = new Recommendation(runner, seedId, actionId, "date");
+			infoCont.add(tmpObj);
+		}
+	}
 
 //	@Override
 	public int getCount() {
