@@ -2,9 +2,17 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android">
 
+    <ImageView
+        android:id="@+id/homeBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:scaleType="centerInside"
+        android:src="@drawable/farm_bg_sized" />
+    
     <LinearLayout
         android:id="@+id/linearLayout1"
-        android:layout_width="280dp"
+        android:layout_marginLeft="10dp"
+        android:layout_width="240dp"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
         android:orientation="vertical" >
@@ -14,6 +22,13 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginBottom="30dp">
+            
+            <ImageView 
+                android:id="@+id/home_img_bg_advice"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/square_btn_normal"
+                android:alpha="0.7" />
 
             <ImageView
                 android:id="@+id/ImageView03"
@@ -33,6 +48,7 @@
                 android:layout_toRightOf="@+id/ImageView03"
                 android:paddingLeft="10dp"
                 android:text="Advice"
+                android:textColor="@android:color/black"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="25dp" />
 
@@ -60,12 +76,21 @@
             android:layout_height="60dp"
             android:layout_marginBottom="30dp">
 
+            
+            <ImageView 
+                android:id="@+id/home_img_bg_advice"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/square_btn_normal"
+                android:alpha="0.7" />
+            
             <TextView
                 android:id="@+id/home_lbl_warnings"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 android:text="Warnings"
+                android:textColor="@android:color/black"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="25dp" />
 
@@ -103,12 +128,20 @@
             android:layout_height="60dp"
             android:layout_marginBottom="30dp">
 
+            <ImageView 
+                android:id="@+id/home_img_bg_advice"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/square_btn_normal"
+                android:alpha="0.7" />
+
             <TextView
                 android:id="@+id/home_lbl_actions"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 android:text="Actions"
+                android:textColor="@android:color/black"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textSize="25dp" />
 
@@ -146,12 +179,20 @@
             android:layout_height="60dp"
             android:layout_marginBottom="20dp">
 
+            <ImageView 
+                android:id="@+id/home_img_bg_advice"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/square_btn_normal"
+                android:alpha="0.7" />
+
             <TextView
                 android:id="@+id/home_lbl_yield"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="80dp"
                 android:text="Yield"
+                android:textColor="@android:color/black"
                 android:textSize="25dp"
                 android:textAppearance="?android:attr/textAppearanceLarge" />
 
