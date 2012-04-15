@@ -9,13 +9,12 @@
         android:id="@+id/img_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="10dp"
-        android:layout_marginTop="10dp"
+        android:layout_margin="10dip"
         android:src="@drawable/ic_48px_sowing"
         android:background="@drawable/circular_icon_bg"/>
     
     <LinearLayout android:orientation="vertical"
-        android:layout_width="190dp"
+        android:layout_width="180dp"
         android:layout_height="wrap_content"
         android:paddingRight="10dp">
 
@@ -38,8 +37,7 @@
 	    
     </LinearLayout>
 
-    <include
-        android:layout_marginRight="18dp"
-        layout="@layout/aggr_item_like" />
+    <include layout="@layout/aggr_item_like"
+        android:layout_marginTop="40dp" />
 
 </LinearLayout>

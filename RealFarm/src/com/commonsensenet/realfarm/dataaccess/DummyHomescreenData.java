@@ -3,18 +3,20 @@ package com.commonsensenet.realfarm.dataaccess;
 import java.util.Random;
 import java.util.Vector;
 
-import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.model.Recommendation;
-
-
+import android.R.anim;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.model.Recommendation;
 
 public class DummyHomescreenData extends BaseAdapter {
 	protected Context mCtx;
@@ -85,22 +87,27 @@ public class DummyHomescreenData extends BaseAdapter {
 		View element;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
         	element = mInflater.inflate(R.layout.aggregate_item, parent, false );
-//        	element.setPadding(2, 2, 2, 2);
         } else {
         	element = convertView;
         }
 
 		// change the title
-//        TextView lblBigInfo = (TextView) element.findViewById(R.id.lbl_big_info);
         TextView lblDesc = (TextView) element.findViewById(R.id.lbl_desc);
         TextView lblDetail = (TextView) element.findViewById(R.id.lbl_detail);
         ImageView imgDesc = (ImageView) element.findViewById(R.id.img_desc);
+        ImageButton btnLike = (ImageButton) element.findViewById(R.id.aggr_item_btn_like);
 
         Recommendation tmpRec = mInfoPile.get(position);
-//        lblBigInfo.setText(String.valueOf(tmpRec.getId()));
         lblDesc.setText( mDataProvider.getActionNameById(tmpRec.getAction()).getName());
         lblDetail.setText( mDataProvider.getSeedById(tmpRec.getSeed()).getName());
         imgDesc.setImageResource(mDataProvider.getActionNameById(tmpRec.getAction()).getRes());
+        
+        btnLike.setOnClickListener(new OnClickListener() {
+			
+			public void onClick(View v) {
+				v.setBackgroundResource(R.drawable.circular_btn_green);
+			}
+		});
         
         return element;
 	}

@@ -13,48 +13,48 @@
 	        android:id="@+id/btn_action_plant"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
-	        android:background="@drawable/circular_btn_normal"
+	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_sowing" />
 
 	    <ImageButton
 	        android:id="@+id/btn_action_fertilize"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
-	        android:background="@drawable/circular_btn_normal"
+	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_fertilizing1" />
 
 	    <ImageButton
 	        android:id="@+id/btn_action_spray"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
-	        android:background="@drawable/circular_btn_normal"
+	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_spraying3" />
 
 	    <ImageButton
 	        android:id="@+id/btn_action_problem"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
-	        android:background="@drawable/circular_btn_normal"
+	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_reporting" />
 
 	    <ImageButton
 	        android:id="@+id/btn_action_irrigate"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
-	        android:background="@drawable/circular_btn_normal"
+	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_irrigation1" />
 
 	    <ImageButton
 	        android:id="@+id/btn_action_yield"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
-	        android:background="@drawable/circular_btn_normal"
+	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_harvesting1" />
 
 	    <ImageButton
 	        android:id="@+id/btn_action_diary"
 	        android:layout_width="60dp"
 	        android:layout_height="60dp"
-	        android:background="@drawable/circular_btn_normal"
+	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_planning" />
 	</LinearLayout>
