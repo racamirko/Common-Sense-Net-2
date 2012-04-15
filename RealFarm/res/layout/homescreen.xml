@@ -27,7 +27,7 @@
                 android:id="@+id/home_img_bg_advice"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/square_btn_normal"
+                android:background="@drawable/square_btn"
                 android:alpha="0.7" />
 
             <ImageView
@@ -66,7 +66,7 @@
                 android:id="@+id/home_btn_advice"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@android:color/transparent"/>
+                android:background="@drawable/square_btn_transp"/>
             
         </RelativeLayout>
 
@@ -81,7 +81,7 @@
                 android:id="@+id/home_img_bg_advice"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/square_btn_normal"
+                android:background="@drawable/square_btn"
                 android:alpha="0.7" />
             
             <TextView
@@ -118,7 +118,7 @@
                 android:id="@+id/home_btn_warn"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@android:color/transparent"/>
+                android:background="@drawable/square_btn_transp"/>
             
         </RelativeLayout>
 
@@ -132,7 +132,7 @@
                 android:id="@+id/home_img_bg_advice"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/square_btn_normal"
+                android:background="@drawable/square_btn"
                 android:alpha="0.7" />
 
             <TextView
@@ -169,7 +169,7 @@
                 android:id="@+id/home_btn_actions"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@android:color/transparent"/>
+                android:background="@drawable/square_btn_transp"/>
             
         </RelativeLayout>
 
@@ -183,7 +183,7 @@
                 android:id="@+id/home_img_bg_advice"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@drawable/square_btn_normal"
+                android:background="@drawable/square_btn"
                 android:alpha="0.7" />
 
             <TextView
@@ -220,7 +220,7 @@
                 android:id="@+id/home_btn_yield"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:background="@android:color/transparent"/>
+                android:background="@drawable/square_btn_transp"/>
 
         </RelativeLayout>
     </LinearLayout>

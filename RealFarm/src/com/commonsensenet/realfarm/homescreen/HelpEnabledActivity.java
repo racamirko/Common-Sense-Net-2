@@ -90,8 +90,8 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 		v.getLocationOnScreen(loc);
 		int iconWidth = mHelpIcon.getWidth()-mHelpIcon.getPaddingLeft();
 		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
-		mHelpIcon.setPadding(loc[0]+v.getWidth()/2-iconWidth/2, loc[1] - iconHeight, 0, 0);
-		Log.i(logTag, "Showing help at: "+loc[0]+" , "+loc[1]);
+		mHelpIcon.setPadding(loc[0]+v.getWidth()/2-iconWidth/2, loc[1] - iconHeight - 20, 0, 0);
+		Log.d(logTag, "Showing help at: "+loc[0]+" , "+loc[1]);
 		
 		mAnimFadeIn.setViewAssociated(v);
 		mAnimFadeIn.setDuration(2000);

@@ -91,13 +91,13 @@ public class DummyHomescreenData extends BaseAdapter {
         }
 
 		// change the title
-        TextView lblBigInfo = (TextView) element.findViewById(R.id.lbl_big_info);
+//        TextView lblBigInfo = (TextView) element.findViewById(R.id.lbl_big_info);
         TextView lblDesc = (TextView) element.findViewById(R.id.lbl_desc);
         TextView lblDetail = (TextView) element.findViewById(R.id.lbl_detail);
         ImageView imgDesc = (ImageView) element.findViewById(R.id.img_desc);
 
         Recommendation tmpRec = mInfoPile.get(position);
-        lblBigInfo.setText(String.valueOf(tmpRec.getId()));
+//        lblBigInfo.setText(String.valueOf(tmpRec.getId()));
         lblDesc.setText( mDataProvider.getActionNameById(tmpRec.getAction()).getName());
         lblDetail.setText( mDataProvider.getSeedById(tmpRec.getSeed()).getName());
         imgDesc.setImageResource(mDataProvider.getActionNameById(tmpRec.getAction()).getRes());
