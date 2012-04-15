@@ -31,7 +31,9 @@ public class AggregateView extends HelpEnabledActivity {
 
         Log.i(logTag, "Activity started");
         
-        mDataAdpt = new DummyHomescreenData(getApplicationContext(), this, 20);
+        /***** dummy data *****/
+        mDataAdpt = new DummyHomescreenData(getApplicationContext(), this, 10);
+        /***** end dummy data *****/
         
         TextView lblTitle = (TextView) findViewById(R.id.aggr_lbl_title);
         ImageView imgIcon = (ImageView) findViewById(R.id.aggr_img_icon);
