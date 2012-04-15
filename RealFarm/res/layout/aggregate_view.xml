@@ -4,37 +4,30 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:id="@+id/relativeLayout1"
+    <LinearLayout
+        android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical" >
 
-	    <TextView
-	        android:id="@+id/aggr_lbl_title"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentRight="true"
-	        android:layout_alignParentTop="true"
-	        android:layout_marginLeft="50dp"
-	        android:paddingBottom="10dp"
-	        android:paddingLeft="10dp"
-	        android:paddingTop="10dp"
-	        android:paddingRight="20dp"
-	        android:text="Default title"
-	        android:textSize="30dp" />
+        <ImageView
+            android:id="@+id/aggr_img_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/circular_btn_normal"
+            android:src="@drawable/ic_48px_reporting" />
 
-	    <ImageView
-	        android:id="@+id/aggr_img_icon"
-	        android:layout_width="wrap_content"
-	        android:layout_height="wrap_content"
-	        android:layout_alignParentLeft="true"
-	        android:layout_centerVertical="true"
-	        android:layout_marginLeft="15dp"
-	        android:background="@drawable/circular_btn_normal"
-	        android:src="@drawable/ic_48px_reporting" />
+        <TextView
+            android:id="@+id/aggr_lbl_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dp"
+            android:text="Default title"
+            android:textSize="30dp" />
 
-    </RelativeLayout>    
-    
+    </LinearLayout>
+
     <ListView
         android:id="@+id/aggr_items"
         android:layout_width="match_parent"
