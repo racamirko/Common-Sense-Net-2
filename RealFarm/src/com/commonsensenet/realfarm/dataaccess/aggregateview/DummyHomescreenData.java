@@ -20,6 +20,14 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Recommendation;
 
+/**
+ * DummyHomescreenData
+ * 
+ * Deprecated. Should be removed at some point.
+ * 
+ * @author Mirko Raca <mirko.raca@epfl.ch>
+ *
+ */
 public class DummyHomescreenData extends BaseAdapter {
 	protected Context mCtx;
 	protected Activity mActivity;

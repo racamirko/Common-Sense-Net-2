@@ -27,6 +27,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+/**
+ * 
+ * @author Mirko Raca <mirko.raca@epfl.ch>
+ *
+ */
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private String logTag = "Homescreen";
 	
