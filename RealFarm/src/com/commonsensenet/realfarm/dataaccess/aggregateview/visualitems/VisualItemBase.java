@@ -1,8 +1,11 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
 
 /**
@@ -16,8 +19,13 @@ import android.view.View.OnClickListener;
 abstract public class VisualItemBase implements VisualItem, OnClickListener {
 	private String logTag = "VisualItemBase";
 	protected LayoutInflater inflater;
+	protected RealFarmProvider dataProvider;
 	
-	public View populateView(View view){
+	public VisualItemBase(RealFarmProvider dataProvider){
+		this.dataProvider = dataProvider;
+	}
+	
+	public View populateView(View view, ViewGroup parent, LayoutInflater inflater){
 		Log.e(logTag, "populateView - generic visual item");
 		throw new UnsupportedOperationException();
 	}
@@ -29,6 +37,11 @@ abstract public class VisualItemBase implements VisualItem, OnClickListener {
 
 	public void onClick(View v) {
 		Log.e(logTag, "onClick - generic visual item");
+		throw new UnsupportedOperationException();
+	}
+	
+	public int getLayoutTag(){
+		Log.e(logTag, "getLayoutTag - generic visual item");
 		throw new UnsupportedOperationException();
 	}
 	

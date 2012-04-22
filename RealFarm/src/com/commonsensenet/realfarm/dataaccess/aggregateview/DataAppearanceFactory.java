@@ -3,6 +3,8 @@ package com.commonsensenet.realfarm.dataaccess.aggregateview;
 import java.util.Iterator;
 import java.util.Vector;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems.VIRecommendation;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems.VisualItem;
 import com.commonsensenet.realfarm.model.Recommendation;
@@ -25,10 +27,12 @@ public class DataAppearanceFactory {
 	protected Activity activity;
 	protected LayoutInflater inflater;
 	protected String logTag = "DataAppearanceFactory";
+	protected RealFarmProvider dataProvider;
 	
 	public DataAppearanceFactory(Context ctx, Activity activity) {
 		this.ctx = ctx;
 		this.activity = activity;
+		dataProvider = new RealFarmProvider(new RealFarmDatabase(ctx)); // TODO is it ok to instance several data providers
 		
 		inflater = (LayoutInflater) ctx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
@@ -47,7 +51,7 @@ public class DataAppearanceFactory {
 	public VisualItem getVisualItem( Object dataItem ) {
 		if( dataItem instanceof Recommendation ){
 			Log.d(logTag, "Recommendation generated");
-			return new VIRecommendation((Recommendation)dataItem);
+			return new VIRecommendation((Recommendation)dataItem, );
 		}
 		Log.e(logTag, "Unsupported data type " + dataItem.getClass().getName() );
 		throw new UnsupportedClassVersionError();

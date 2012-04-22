@@ -1,6 +1,8 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 
 /**
  * 
@@ -9,8 +11,10 @@ import android.view.View;
  */
 public interface VisualItem {
 
-	public View populateView(View view); 
+	public View populateView(View view, ViewGroup parent, LayoutInflater inflater); 
 
 	public Object getDataItem();
+	
+	public int getLayoutTag();
 	
 }
