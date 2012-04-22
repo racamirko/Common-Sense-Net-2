@@ -1,14 +1,18 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
+import android.util.Log;
 import android.view.View;
 
 import com.commonsensenet.realfarm.model.Recommendation;
 
 public class VIRecommendation extends VisualItemBase {
+	private String logTag = "VIRecommendation";
+
 	protected Recommendation recommendation;
 
 	public VIRecommendation(Recommendation recommendation){
 		this.recommendation = recommendation;
+		Log.d(logTag, "created");
 	}
 
 	@Override
@@ -19,11 +23,6 @@ public class VIRecommendation extends VisualItemBase {
 	@Override
 	public Object getDataItem() {
 		return recommendation;
-	}
-	
-	@Override
-	protected void populateLayoutAggregate(){
-		throw new UnsupportedOperationException();
 	}
 	
 	@Override

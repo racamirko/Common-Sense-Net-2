@@ -25,6 +25,8 @@ import com.commonsensenet.realfarm.model.Recommendation;
  * 
  * Deprecated. Should be removed at some point.
  * 
+ * Currently used for generating homescreen tiles information. 
+ * 
  * @author Mirko Raca <mirko.raca@epfl.ch>
  *
  */

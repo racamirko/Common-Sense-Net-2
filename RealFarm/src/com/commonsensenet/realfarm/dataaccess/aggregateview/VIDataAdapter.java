@@ -4,15 +4,22 @@ import java.util.Vector;
 
 import com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems.VisualItem;
 
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
 public class VIDataAdapter extends BaseAdapter {
-	protected Vector<VisualItem> items;
+	private String logTag = "VIDataAdapter";
 
-	public VIDataAdapter( Vector<VisualItem> items ){
+	protected Vector<VisualItem> items;
+	protected LayoutInflater inflater;
+
+	public VIDataAdapter( Vector<VisualItem> items, LayoutInflater inflater ){
 		this.items = items;
+		this.inflater = inflater;
+		Log.d(logTag, "created");
 	}
 	
 	public int getCount() {
@@ -31,6 +38,7 @@ public class VIDataAdapter extends BaseAdapter {
 
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
 		// TODO Auto-generated method stub
+		Log.d(logTag, "getting view");
 		return null;
 	}
 
