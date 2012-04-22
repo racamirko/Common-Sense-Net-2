@@ -285,9 +285,7 @@ public class Settings extends Activity {
 		getWindow().setSoftInputMode(
 				WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
 
-		RealFarmApp mainApp = ((RealFarmApp) getApplicationContext());
-		RealFarmDatabase db = mainApp.getDatabase();
-		mDataProvider = new RealFarmProvider(db);
+		mDataProvider = RealFarmProvider.getInstance(getApplicationContext());
 
 		if (deviceID != null) { // sim card exists
 
