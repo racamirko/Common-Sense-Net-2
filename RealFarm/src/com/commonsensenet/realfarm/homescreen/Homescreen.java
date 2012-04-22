@@ -5,8 +5,8 @@ import java.util.Random;
 import java.util.Vector;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.DummyHomescreenData;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.model.Recommendation;
 
 import android.app.AlertDialog;

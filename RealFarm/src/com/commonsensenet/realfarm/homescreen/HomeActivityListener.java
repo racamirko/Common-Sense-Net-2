@@ -2,20 +2,12 @@ package com.commonsensenet.realfarm.homescreen;
 
 import com.commonsensenet.realfarm.OfflineMapDemo;
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
-import android.view.animation.AlphaAnimation;
-import android.view.animation.Animation;
-import android.widget.ImageView;
-import android.widget.ProgressBar;
-import android.widget.TextView;
 import android.widget.Toast;
 
 public class HomeActivityListener implements OnClickListener {

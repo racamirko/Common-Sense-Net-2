@@ -1,7 +1,8 @@
-package com.commonsensenet.realfarm.homescreen;
+package com.commonsensenet.realfarm.homescreen.aggregateview;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.DummyHomescreenData;
+import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
+import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.model.Recommendation;
 
 import android.app.Activity;

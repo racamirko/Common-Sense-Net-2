@@ -21,7 +21,7 @@
 	        </intent-filter>
 		</activity>
 		
-		<activity android:name=".homescreen.AggregateView" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+		<activity android:name=".homescreen.aggregateview.AggregateView" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
 			<intent-filter>
 	            <action android:name="android.intent.action.AGGREGATE_VIEW" />
 	            <category android:name="android.intent.category.DEFAULT" />
@@ -48,7 +48,7 @@
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 			android:screenOrientation="portrait" />
 		<receiver
-			android:name="com.commonsensenet.realfarm.RealFarmDataSynchronizationService"
+			android:name=".RealFarmDataSynchronizationService"
 			android:exported="true">
 			<intent-filter android:priority="999">
 				<action android:name="android.provider.Telephony.SMS_RECEIVED" />

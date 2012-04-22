@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm.dataaccess;
+package com.commonsensenet.realfarm.dataaccess.aggregateview;
 
 import java.util.Random;
 import java.util.Vector;
@@ -16,6 +16,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Recommendation;
 
 public class DummyHomescreenData extends BaseAdapter {
@@ -32,23 +34,9 @@ public class DummyHomescreenData extends BaseAdapter {
 		mInflater = (LayoutInflater) mCtx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 		mDb = new RealFarmDatabase(mCtx);
 		mDataProvider = new RealFarmProvider(mDb);
-		generateDummyItems(numOfItems);
-	}
-	
-	private void generateDummyItems(int numOfItems) {
-		Random rn = new Random();
-		// get maximum numbers for each type
-		int maxAct = mDataProvider.getActionNamesList().size()-3;
-		int maxSeed = mDataProvider.getSeedsList().size()-3;
-		// generation
+		
 		mInfoPile = new Vector<Recommendation>(numOfItems);
-		Recommendation tmpObj;
-		for( int runner = 0; runner < numOfItems; ++runner){
-			int actionId = 3+rn.nextInt(maxAct);
-			int seedId = 3+rn.nextInt(maxSeed);
-			tmpObj = new Recommendation(runner, seedId, actionId, "date");
-			mInfoPile.add(tmpObj);
-		}
+		generateDummyItems(numOfItems, mInfoPile);
 	}
 	
 	public void generateDummyItems(int numOfItems, Vector<Recommendation> infoCont){
@@ -100,7 +88,7 @@ public class DummyHomescreenData extends BaseAdapter {
         Recommendation tmpRec = mInfoPile.get(position);
         lblDesc.setText( mDataProvider.getActionNameById(tmpRec.getAction()).getName());
         lblDetail.setText( mDataProvider.getSeedById(tmpRec.getSeed()).getName());
-        imgDesc.setImageResource(mDataProvider.getActionNameById(tmpRec.getAction()).getRes());
+        imgDesc.setImageResource(mDataProvider.getActionNameById(tmpRec.getAction()).getRes()); 
         
         btnLike.setOnClickListener(new OnClickListener() {
 			

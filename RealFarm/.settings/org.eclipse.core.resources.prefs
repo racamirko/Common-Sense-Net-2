@@ -1,6 +1,6 @@
-#Tue Apr 03 22:43:02 CEST 2012
+#Sun Apr 22 11:47:29 CEST 2012
 eclipse.preferences.version=1
 encoding//src/com/commonsensenet/realfarm/dataaccess/RealFarmDatabase.java=UTF-8
-encoding//src/com/commonsensenet/realfarm/homescreen/AggregateView.java=UTF-8
 encoding//src/com/commonsensenet/realfarm/homescreen/Homescreen.java=UTF-8
+encoding//src/com/commonsensenet/realfarm/homescreen/aggregateview/AggregateView.java=UTF-8
 encoding//src/com/commonsensenet/realfarm/overlay/PlotInformationWindow.java=UTF-8
