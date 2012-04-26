@@ -3,10 +3,13 @@ package com.commonsensenet.realfarm.dataaccess;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Map;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.graphics.Point;
 
@@ -25,8 +28,16 @@ public class RealFarmProvider {
 	private List<ActionName> mAllActionNames;
 	/** Real farm database access. */
 	private RealFarmDatabase mDb;
+	
+	private static Map<Context, RealFarmProvider> mapProviders = new HashMap<Context, RealFarmProvider>();
+	
+	static public RealFarmProvider getInstance(Context ctx){
+		if( !mapProviders.containsKey(ctx))
+			mapProviders.put(ctx, new RealFarmProvider(new RealFarmDatabase(ctx)));
+		return mapProviders.get(ctx);
+	}
 
-	public RealFarmProvider(RealFarmDatabase database) {
+	protected RealFarmProvider(RealFarmDatabase database) {
 
 		// database that will be used to handle data.
 		mDb = database;
@@ -34,6 +45,10 @@ public class RealFarmProvider {
 		// used to force creation.
 		mDb.open();
 		mDb.close();
+	}
+	
+	public RealFarmDatabase getDatabase(){
+		return mDb;
 	}
 
 	public ActionName getActionNameById(int actionNameId) {

@@ -124,9 +124,10 @@ public class OfflineMapDemo extends Activity {
 		// deletes the current database.
 		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
 
+//		RealFarmDatabase db = mainApp.setDatabase();
+		mDataProvider = RealFarmProvider.getInstance(getApplicationContext());
 		RealFarmApp mainApp = ((RealFarmApp) getApplicationContext());
-		RealFarmDatabase db = mainApp.setDatabase();
-		mDataProvider = new RealFarmProvider(db);
+		mainApp.setDatabase(mDataProvider.getDatabase());
 
 		// Define overlays
 		List<Overlay> mapOverlays = mOfflineMap.getOverlays();
