@@ -37,9 +37,8 @@ public class VIDataAdapter extends BaseAdapter {
 	}
 
 	public View getView(int arg0, View arg1, ViewGroup arg2) {
-		// TODO Auto-generated method stub
 		Log.d(logTag, "getting view");
-		return null;
+		return items.get(arg0).populateView(arg1, arg2, inflater);
 	}
 
 }

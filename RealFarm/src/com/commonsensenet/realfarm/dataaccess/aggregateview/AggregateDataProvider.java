@@ -59,21 +59,18 @@ public class AggregateDataProvider {
 	
 	protected Context ctx;
 	protected Activity activity;
-	protected RealFarmDatabase db;
 	protected RealFarmProvider dataProvider;
 	
 	public AggregateDataProvider(Context ctx, Activity activity){
 		this.ctx = ctx;
 		this.activity = activity;
-		db = new RealFarmDatabase(ctx);
-		dataProvider = new RealFarmProvider(db);
+		dataProvider = RealFarmProvider.getInstance(ctx);
 	}
 	
 	public Vector<Object> getItems( AggregateDataFilter filter ){
 		Vector<Object> results = new Vector<Object>();
 		
 		// TODO: filter interpretation and DB querying
-		
 		return results;
 	}
 	

@@ -29,11 +29,12 @@ public class VIRecommendation extends VisualItemBase {
 	public View populateView(View view, ViewGroup parent, LayoutInflater inflater){
 		Log.d(logTag, "populateView");
 		View element;
-		if( (Integer) view.getTag() == layoutTag )
+		if( view != null && (Integer) view.getTag() == layoutTag )
 			element = view;
 		else
-			element = inflater.inflate(R.layout.aggregate_item, parent, false ); 
+			element = inflater.inflate(R.layout.aggregate_item, parent, false );
 		
+		element.setTag(new Integer(layoutTag));
 		// populate elements
         TextView lblDesc = (TextView) element.findViewById(R.id.lbl_desc);
         TextView lblDetail = (TextView) element.findViewById(R.id.lbl_detail);
@@ -57,7 +58,7 @@ public class VIRecommendation extends VisualItemBase {
 	@Override
 	public void onClick(View v) {
 		 // for the like button
-		if( !liked) {
+		if(!liked) {
 			v.setBackgroundResource(R.drawable.circular_btn_green);
 		} else {
 			v.setBackgroundResource(R.drawable.circular_btn_normal);

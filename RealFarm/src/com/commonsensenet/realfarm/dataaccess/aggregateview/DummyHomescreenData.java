@@ -34,7 +34,6 @@ public class DummyHomescreenData extends BaseAdapter {
 	protected Context mCtx;
 	protected Activity mActivity;
 	protected LayoutInflater mInflater;
-	protected RealFarmDatabase mDb;
 	protected RealFarmProvider mDataProvider;
 	protected Vector<Recommendation> mInfoPile;
 	
@@ -42,8 +41,7 @@ public class DummyHomescreenData extends BaseAdapter {
 		mCtx = ctx;
 		mActivity = activity;
 		mInflater = (LayoutInflater) mCtx.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-		mDb = new RealFarmDatabase(mCtx);
-		mDataProvider = new RealFarmProvider(mDb);
+		mDataProvider = RealFarmProvider.getInstance(ctx);
 		
 		mInfoPile = new Vector<Recommendation>(numOfItems);
 		generateDummyItems(numOfItems, mInfoPile);
@@ -114,7 +112,4 @@ public class DummyHomescreenData extends BaseAdapter {
 		return mDataProvider;
 	}
 	
-	public RealFarmDatabase getDatabase(){
-		return mDb;
-	}
 }

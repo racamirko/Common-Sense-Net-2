@@ -1,6 +1,10 @@
 package com.commonsensenet.realfarm.homescreen.aggregateview;
 
+import java.util.Vector;
+
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.dataaccess.aggregateview.AggregateDataProviderDummy;
+import com.commonsensenet.realfarm.dataaccess.aggregateview.DataAppearanceFactory;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.model.Recommendation;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -22,7 +27,7 @@ import android.widget.AdapterView.OnItemClickListener;
 
 public class AggregateView extends HelpEnabledActivity {
 	private String logTag = "AggregateView";
-	protected DummyHomescreenData mDataAdpt;
+	protected BaseAdapter mDataAdpt;
 	protected String randomText;
 	
 	@Override
@@ -34,7 +39,12 @@ public class AggregateView extends HelpEnabledActivity {
         Log.i(logTag, "Activity started");
         
         /***** dummy data *****/
-        mDataAdpt = new DummyHomescreenData(getApplicationContext(), this, 10);
+        DataAppearanceFactory appearFactory = new DataAppearanceFactory(getApplicationContext(), this);
+        AggregateDataProviderDummy dataProvider = new AggregateDataProviderDummy(getApplicationContext(), this);
+        Vector<Object> dataItems = new Vector<Object>(); 
+        dataProvider.generateDummyItems(10, dataItems);
+        mDataAdpt = appearFactory.getDataAdapter(dataItems);
+//        mDataAdpt = new DummyHomescreenData(getApplicationContext(), this, 10);
         /***** end dummy data *****/
         
         TextView lblTitle = (TextView) findViewById(R.id.aggr_lbl_title);
