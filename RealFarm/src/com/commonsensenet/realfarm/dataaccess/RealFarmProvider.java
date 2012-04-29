@@ -438,7 +438,8 @@ public class RealFarmProvider {
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_MOBILE },
+						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
+						RealFarmDatabase.COLUMN_NAME_USER_IMG },
 				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId, null,
 				null, null, null);
 
@@ -447,7 +448,7 @@ public class RealFarmProvider {
 			c.moveToFirst();
 
 			tmpUser = new User(userId, c.getString(0), c.getString(1),
-					c.getString(2));
+					c.getString(2), c.getString(3));
 		}
 
 		c.close();
@@ -473,7 +474,8 @@ public class RealFarmProvider {
 				.getEntries(RealFarmDatabase.TABLE_NAME_USER, new String[] {
 						RealFarmDatabase.COLUMN_NAME_USER_ID,
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME },
+						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_IMG },
 
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
 								+ mobile + "'", null, null, null, null);
@@ -482,8 +484,7 @@ public class RealFarmProvider {
 			c.moveToFirst();
 
 			tmpUser = new User(c.getInt(0), c.getString(1), c.getString(2),
-					mobile);
-
+					mobile, c.getString(3));
 		}
 		c.close();
 		mDb.close();

@@ -2,32 +2,32 @@ package com.commonsensenet.realfarm.model;
 
 public class Recommendation {
 
-	private int rActionId;
-	private String rDate;
-	private int rId;
-	private int rSeedId;
+	protected int mId;
+	protected int mActionId;
+	protected int mSeedId;
+	protected String mDate;
 
 	public Recommendation(int id, int seedId, int actionId, String date) {
-		rId = id;
-		rSeedId = seedId;
-		rActionId = actionId;
-		rDate = date;
+		mId = id;
+		mSeedId = seedId;
+		mActionId = actionId;
+		mDate = date;
 	}
 
 	public int getAction() {
-		return rActionId;
+		return mActionId;
 	}
 
 	public String getDate() {
-		return rDate;
+		return mDate;
 	}
 
 	public int getId() {
-		return rId;
+		return mId;
 	}
 
 	public int getSeed() {
-		return rSeedId;
+		return mSeedId;
 	}
 
 }

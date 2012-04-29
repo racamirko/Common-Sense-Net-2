@@ -1,8 +1,11 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Random;
 import java.util.Vector;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Recommendation;
 
 import android.app.Activity;
@@ -16,10 +19,18 @@ import android.content.Context;
  * @author: Mirko Raca <mirko.raca@epfl.ch>
  */
 public class AggregateDataProviderDummy extends AggregateDataProvider {
-	protected int numOfItems;
+	protected int numOfItems, maxAct, maxSeed, maxUsr;
+	protected SimpleDateFormat dateFormat;
+	protected Calendar calendar;
 	
 	public AggregateDataProviderDummy(Context ctx, Activity activity) {
 		super(ctx, activity);
+		dateFormat = new SimpleDateFormat(RealFarmDatabase.DATE_FORMAT);
+		calendar = Calendar.getInstance();
+		
+		maxAct = dataProvider.getActionNamesList().size()-3;
+		maxSeed = dataProvider.getSeedsList().size()-3;
+		
 	}
 
 	@Override
@@ -34,9 +45,6 @@ public class AggregateDataProviderDummy extends AggregateDataProvider {
 	
 	public void generateDummyItems(int numOfItems, Vector<Object> infoCont){
 		Random rn = new Random();
-		// get maximum numbers for each type
-		int maxAct = dataProvider.getActionNamesList().size()-3;
-		int maxSeed = dataProvider.getSeedsList().size()-3;
 		// generation
 		infoCont.clear();
 		Recommendation tmpObj;
@@ -54,5 +62,15 @@ public class AggregateDataProviderDummy extends AggregateDataProvider {
 
 	public void setNumOfItems(int numOfItems) {
 		this.numOfItems = numOfItems;
+	}
+	
+	// =============== Generator functions
+	
+	protected Recommendation generateRecommendation(Random rn, int id){
+		int actionId = 3+rn.nextInt(maxAct);
+		int seedId = 3+rn.nextInt(maxSeed);
+		String date = dateFormat.format(calendar.getTime());
+		
+		return new Recommendation(id, seedId, actionId, date);
 	}
 }
