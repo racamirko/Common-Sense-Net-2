@@ -491,6 +491,52 @@ public class RealFarmProvider {
 
 		return tmpUser;
 	}
+	
+	public List<User> getUserList() {
+		// No caching, the number of users will be potentially large, and the
+		// usage now doesn't require them all in memory.
+		
+		// opens the database.
+		List<User> userList = new LinkedList<User>();
+		
+		mDb.open();
+
+		// query all actions
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
+				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID,
+						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
+						RealFarmDatabase.COLUMN_NAME_USER_IMG },
+				null, null, null, null, null);
+		c.moveToFirst();
+
+		if (c.getCount() > 0) {
+			do {
+				userList.add( new User(c.getInt(0), c.getString(1),
+									   c.getString(2), c.getString(3), c.getString(5)));
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDb.close();
+		return userList;
+	}
+	
+	/**
+	 * 
+	 * @return integer	number of users in the DB
+	 */
+	public int getUserCount() {
+		mDb.open();
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_USER,
+				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID },
+				null, null, null, null, null);
+		int userCount = c.getCount();
+		c.close();
+		mDb.close();
+		return userCount;
+	}
 
 	public long logAction(String name, String value) {
 		SimpleDateFormat formatter = new SimpleDateFormat(
