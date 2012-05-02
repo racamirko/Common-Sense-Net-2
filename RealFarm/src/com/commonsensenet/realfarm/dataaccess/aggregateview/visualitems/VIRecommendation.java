@@ -61,6 +61,7 @@ public class VIRecommendation extends VisualItemBase {
 	
 	@Override
 	public void onClick(View v) {
+		Log.d(logTag, "Click detected");
 		if(v.getId() == R.id.aggr_item_btn_like){
 			 // for the like button
 			if(!liked){
