@@ -82,7 +82,7 @@ public class DummyHomescreenData extends BaseAdapter {
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View element;
         if (convertView == null) {  // if it's not recycled, initialize some attributes
-        	element = mInflater.inflate(R.layout.aggregate_item, parent, false );
+        	element = mInflater.inflate(R.layout.vi_recommendation, parent, false );
         } else {
         	element = convertView;
         }
