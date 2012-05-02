@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.dataaccess.aggregateview;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Iterator;
 import java.util.Random;
 import java.util.Vector;
 
@@ -84,19 +85,21 @@ public class AggregateDataProviderDummy extends AggregateDataProvider {
 		int seedId = 3+rn.nextInt(maxSeed);
 		String date = dateFormat.format(calendar.getTime());
 		// default list of all users
-		
 		Vector<Integer> allUsrs = new Vector<Integer>(maxUsr);
 		for( int runner = 0; runner < maxUsr; ++runner )
 			allUsrs.add(runner);
-
 		// randomly remove a set
-		// TODO: stopped here
-		//		remove rnd number of points
-		// use those users to fill the field
-		// TODO: 2) make the visible layout and Activity for viewing
-		
+		int toRemove = rn.nextInt(maxUsr);
+		for( int runner = 0; runner < toRemove; ++runner){
+			int idxToRemove = rn.nextInt(maxUsr-runner);
+			allUsrs.remove(idxToRemove);
+		}
+		// create the item
 		AggregateRecommendation aggrRec = new AggregateRecommendation(id, seedId, actionId, date);
-		aggrRec.addUserId(userId);
+		Iterator<Integer> iter = allUsrs.iterator();
+		while(iter.hasNext()){
+			aggrRec.addUserId(iter.next());
+		}
 		
 		return aggrRec;
 	}
