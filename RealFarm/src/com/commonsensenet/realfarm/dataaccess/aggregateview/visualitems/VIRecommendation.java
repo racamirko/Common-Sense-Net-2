@@ -1,5 +1,7 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
+import android.app.Dialog;
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,8 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
+import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
 
 public class VIRecommendation extends VisualItemBase {
@@ -72,8 +76,18 @@ public class VIRecommendation extends VisualItemBase {
 			liked = !liked;
 		}
 		if( v.getId() == R.id.btn_main_click ){
-			Toast.makeText(v.getContext(), "Clicked on detail explanation about "+dataProvider.getActionNameById(recommendation.getAction()).getName()+" "+
-					dataProvider.getSeedById(recommendation.getSeed()).getName(), Toast.LENGTH_SHORT).show();
+            Dialog dlg = new Dialog(v.getContext());
+        	dlg.setContentView(R.layout.dialog_info_detail);
+        	dlg.setCancelable(true);
+        	// parts
+        	TextView dlgDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
+        	ImageView imgIcon = (ImageView) dlg.findViewById(R.id.dlg_img_icon);
+        	// 
+        	dlg.setTitle( dataProvider.getActionNameById(recommendation.getAction()).getName() );
+        	dlgDetals.setText( dataProvider.getSeedById(recommendation.getSeed()).getName());
+        	imgIcon.setImageResource( dataProvider.getActionNameById(recommendation.getAction()).getRes() );
+        	dlg.show();
+
 		}
 	}
 	

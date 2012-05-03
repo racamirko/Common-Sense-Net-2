@@ -39,7 +39,7 @@ public class AggregateView extends HelpEnabledActivity {
         Log.i(logTag, "Activity started");
         
         /***** dummy data *****/
-        DataAppearanceFactory appearFactory = new DataAppearanceFactory(getApplicationContext(), this);
+        DataAppearanceFactory appearFactory = new DataAppearanceFactory(AggregateView.this, AggregateView.this);
         AggregateDataProviderDummy dataProvider = new AggregateDataProviderDummy(getApplicationContext(), this);
         Vector<Object> dataItems = new Vector<Object>(); 
         dataProvider.generateDummyItems(10, dataItems);
@@ -77,21 +77,7 @@ public class AggregateView extends HelpEnabledActivity {
     	listview.setAdapter(mDataAdpt);
     	listview.setOnItemClickListener(new OnItemClickListener() {
 		        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		        	Log.i(logTag, "Item at position "+ position+ " clicked");
-		            Dialog dlg = new Dialog(AggregateView.this);
-		        	dlg.setContentView(R.layout.dialog_info_detail);
-		        	dlg.setCancelable(true);
-		        	// parts
-		        	TextView dlgDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
-		        	ImageView imgIcon = (ImageView) dlg.findViewById(R.id.dlg_img_icon);
-		        	// 
-		        	DummyHomescreenData adapter = (DummyHomescreenData) parent.getAdapter();
-		        	Recommendation rec = (Recommendation) adapter.getItem(position);
-		        	
-		        	dlg.setTitle( adapter.getDataProvider().getActionNameById(rec.getAction()).getName() );
-		        	dlgDetals.setText( adapter.getDataProvider().getSeedById(rec.getSeed()).getName() + randomText);
-		        	imgIcon.setImageResource( adapter.getDataProvider().getActionNameById(rec.getAction()).getRes() );
-		        	dlg.show();
+		        	Log.i(logTag, "Item at position "+ position+ " clicked"); // TODO should be removed at some point
 		        }});
         
     }
