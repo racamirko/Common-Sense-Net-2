@@ -20,6 +20,7 @@ import com.commonsensenet.realfarm.R;
  * @author Julien Freudiger
  * @author Hendrik Knoche
  * @author Oscar Bolanos (oscar.bolanos@epfl.ch)
+ * @author Mirko Raca <mirko.raca@epfl.ch>
  * 
  */
 public class RealFarmDatabase {

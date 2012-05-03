@@ -6,6 +6,7 @@ import java.util.Vector;
 
 import com.commonsensenet.realfarm.OfflineMapDemo;
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
@@ -41,9 +42,15 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
         Log.i(logTag, "App started");
         // setup listener to all buttons
+        initDb();
         initActionListener();
         initTiles();
         setHelpIcon(findViewById(R.id.helpIndicator));
+    }
+    
+    protected void initDb(){
+		Log.i(logTag, "Resetting database");
+		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
     }
 
 	protected void initTiles() {

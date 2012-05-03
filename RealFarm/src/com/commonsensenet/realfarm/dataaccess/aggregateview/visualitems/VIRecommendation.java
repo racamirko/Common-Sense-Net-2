@@ -17,6 +17,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
+import com.commonsensenet.realfarm.model.Seed;
 
 public class VIRecommendation extends VisualItemBase {
 	private String logTag = "VIRecommendation";
@@ -48,10 +49,13 @@ public class VIRecommendation extends VisualItemBase {
         ImageButton btnLike = (ImageButton) element.findViewById(R.id.aggr_item_btn_like);
         Button btnMain = (Button) element.findViewById(R.id.btn_main_click);
 
+        Seed seed = dataProvider.getSeedById(recommendation.getSeed());
+
         lblDesc.setText(dataProvider.getActionNameById(recommendation.getAction()).getName());
-        lblDetail.setText(dataProvider.getSeedById(recommendation.getSeed()).getName());
-        imgDesc.setImageResource(dataProvider.getActionNameById(recommendation.getAction()).getRes()); 
+        lblDetail.setText(seed.getFullName());
+        imgDesc.setImageResource(dataProvider.getActionNameById(recommendation.getAction()).getRes());
         
+
         btnLike.setOnClickListener(this);
         btnMain.setOnClickListener(this);
 
@@ -81,11 +85,14 @@ public class VIRecommendation extends VisualItemBase {
         	dlg.setCancelable(true);
         	// parts
         	TextView dlgDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
-        	ImageView imgIcon = (ImageView) dlg.findViewById(R.id.dlg_img_icon);
+        	ImageView imgAction = (ImageView) dlg.findViewById(R.id.dlg_img_action);
+        	ImageView imgSeed = (ImageView) dlg.findViewById(R.id.dlg_img_seed);
         	// 
         	dlg.setTitle( dataProvider.getActionNameById(recommendation.getAction()).getName() );
-        	dlgDetals.setText( dataProvider.getSeedById(recommendation.getSeed()).getName());
-        	imgIcon.setImageResource( dataProvider.getActionNameById(recommendation.getAction()).getRes() );
+        	dlgDetals.setText( dataProvider.getActionNameById(recommendation.getAction()).getName() + " " + dataProvider.getSeedById(recommendation.getSeed()).getName() );
+        	imgAction.setImageResource( dataProvider.getActionNameById(recommendation.getAction()).getRes() );
+        	imgSeed.setImageResource( dataProvider.getSeedById(recommendation.getSeed()).getRes());
+        	Log.d(logTag, "Seed res id: "+String.valueOf(dataProvider.getSeedById(recommendation.getSeed()).getRes()));
         	dlg.show();
 
 		}

@@ -4,20 +4,29 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
+        android:layout_height="wrap_content" >
 
         <ImageView
-            android:id="@+id/dlg_img_icon"
+            android:id="@+id/dlg_img_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:src="@drawable/ic_48px_news" 
+            android:padding="10dip" />
+        
+        <ImageView
+            android:id="@+id/dlg_img_seed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/dlg_img_action"
+            android:src="@drawable/pic_72px_bajra" 
             android:padding="10dip" />
 
         <ScrollView
+            android:layout_below="@+id/dlg_img_seed"
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
@@ -37,6 +46,6 @@
             </LinearLayout>
         </ScrollView>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </LinearLayout>
