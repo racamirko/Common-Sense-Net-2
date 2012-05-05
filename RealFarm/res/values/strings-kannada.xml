@@ -77,8 +77,8 @@
     <string name="k_low_growth">ಕಡಿಮೆ ಬೆಳೆ</string>
     <string name="k_pegs_not_developed">ಊಡು ಕಾಯಿ ಆಗಲಿಲ್ಲ</string>
     <string name="k_can_not_harvest_due_to_hard_soil">ನೆಲ ಗಟ್ಟಿಯಾಗಿ ಇರುವುದರಿಂದ ಗಿಡ ಕೀಳಲಾಗುವುದಿಲ್ಲ</string>
-    <string name="k_leaf_miner">ಬೆಂಕಿ ಸೀಡೆ</string>
-    <string name="k_aphids">ಕರಿ ಸೀಡೆ</string>
+    <!-- <string name="k_leaf_miner">ಬೆಂಕಿ ಸೀಡೆ</string>-->
+    <!--   <string name="k_aphids">ಕರಿ ಸೀಡೆ</string>-->
     <string name="k_red_hairy_caterpillar">ಕೆಂಪು ತಲೆ ಕಂಬಳಿ ಹುಳ</string>
     <string name="k_wild_boar">ಕಾಡು ಹಂದಿ</string>
     <string name="k_pod_borer_for_pigeonpea">ತೊಗರಿ ಕಾಯಿ ಕೊರೆಯುವ ಹುಳ</string>
@@ -104,15 +104,15 @@
     
     
     <string name="k_rot_of_stalks">ಬಳ್ಳಿ ಕೊಳೆಯುವುದು</string>
-    <string name="k_low_growth">ಕಡಿಮೆ ಬೆಳೆ</string>
-    <string name="k_pegs_not_developed">ಕಾಯಿ ಬಲಿಯುವುದಿಲ್ಲ</string>
+    <!-- <string name="k_low_growth">ಕಡಿಮೆ ಬೆಳೆ</string> -->
+    <!-- <string name="k_pegs_not_developed">ಕಾಯಿ ಬಲಿಯುವುದಿಲ್ಲ</string> -->
     <string name="k_cannot_harvest_due_to_hard_soil">ನೆಲ ಗಟ್ಟಿಯಾಗಿರುವುದರಿಂದ ಗಿಡ ಕೀಳಲಾಗುವುದಿಲ್ಲ</string>
-    <string name="k_compost">ತಿಪ್ಪೆ ಗೊಬ್ಬರ</string>
-    <string name="k_soil_amendments">ಮಣ್ಣು ಹೊಡೆಯುವುದು</string>
-    <string name="k_penning_sheep">ಕುರಿ ಮಂದೆ ಬಿಡುವುದು</string>
+    <!-- <string name="k_compost">ತಿಪ್ಪೆ ಗೊಬ್ಬರ</string> -->
+    <!-- <string name="k_soil_amendments">ಮಣ್ಣು ಹೊಡೆಯುವುದು</string> -->
+    <!-- <string name="k_penning_sheep">ಕುರಿ ಮಂದೆ ಬಿಡುವುದು</string> -->
     <string name="k_bud_necrosis">ಎಲೆ ಮುದುರುವ ರೋಗ</string>
-    <string name="k_red_hairy_caterpillar">ಕೆಂಪು ತಲೆ ಕಂಬಳಿ ಹುಳ</string>
-    <string name="k_wild_boar">ಕಾಡು ಹಂದಿ</string>
+    <!-- <string name="k_red_hairy_caterpillar">ಕೆಂಪು ತಲೆ ಕಂಬಳಿ ಹುಳ</string> -->
+    <!-- <string name="k_wild_boar">ಕಾಡು ಹಂದಿ</string> -->
     
     <string name="k_our_seeds">ಸ್ವಂತ ಬೀಜ</string>
     <string name="k_government_subsidy_seeds">ಸರಕಾರದ ಸಬ್ಸಿಡಿ ಬೀಜ</string>
@@ -143,7 +143,7 @@
     <string name="k_how_much">ಎಷ್ಟು?</string>
     <string name="k_pesticide">ಔಷದ</string>
     <string name="k_herbicide">ಕಳೆ ನಾಶಕ</string>
-    <string name="k_spraying">ಔಷದ ಸಿಂಪಡಿಸುವುದು</string>
+    <!--<string name="k_spraying">ಔಷದ ಸಿಂಪಡಿಸುವುದು</string> -->
     <string name="k_sell">ಮಾರು</string>
     <string name="k_q_at_what_price">ಎಷ್ಟು ಬೆಲೆಗೆ?</string>
     <string name="k_per_kg">ಒಂದು ಕೀಲೋಗ್ರಾಮಿಗೆ</string>
@@ -156,8 +156,8 @@
     <string name="k_with">ಜೊತೆ</string>
     <string name="k_solved">ನಿವಾರಣೆ</string>
     <string name="k_by_spraying">ಸಿಂಪಡಿಸುವುದರಿಂದ</string>
-    <string name="k_weeds">ಕಳೆ</string>
-    <string name="k_compost">ತಿಪ್ಪೆ ಗೊಬ್ಬರ</string>
+    <!--<string name="k_weeds">ಕಳೆ</string> -->
+    <!--  <string name="k_compost">ತಿಪ್ಪೆ ಗೊಬ್ಬರ</string>  -->
     <string name="k_none">-----</string>
     <string name="k_red_gram">-----</string>
     <string name="k_pond_silt">ಕೆರೆ ಗೋಡು</string>
@@ -179,7 +179,7 @@
     <string name="k_kg_per_acre">ಕೆಜಿ  ಎಕರೆಗೆ</string>
     
     <string name="k_pigeonpea">ತೊಗರಿ ಕಾಯಿ</string>
-    <string name="k_castor">ಔಡಲ</string>
+    <!-- <string name="k_castor">ಔಡಲ</string>  -->
     <string name="k_cowpea">ಅಲಸಂದಿ</string>
     <string name="k_horsegram">ಹುರಳಿ</string>
     <string name="k_sorghum">ಜೊಳ</string>

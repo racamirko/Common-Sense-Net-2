@@ -46,7 +46,7 @@ public class AggregateDataProviderDummy extends AggregateDataProvider {
 		return results;
 	}
 	
-	public void generateDummyItems(int numOfItems, Vector<Object> infoCont){
+	protected void generateDummyItems(int numOfItems, Vector<Object> infoCont){
 		Random rn = new Random();
 		// generation
 		infoCont.clear();

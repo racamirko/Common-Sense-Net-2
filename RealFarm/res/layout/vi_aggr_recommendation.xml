@@ -6,16 +6,24 @@
     android:layout_gravity="center_vertical">
 
     <ImageView
-        android:id="@+id/img_desc"
+        android:id="@+id/img_plant"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dip"
+        android:src="@drawable/img_bajra_tiled"/>
+    
+    <ImageView
+        android:id="@+id/img_action"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="10dip"
         android:src="@drawable/ic_90px_sowing"
         android:background="@drawable/circular_icon_bg"/>
-    
+
     <TextView
-        android:id="@+id/lbl_desc"
+        android:id="@+id/lbl_count_people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:paddingTop="10dip"
@@ -23,16 +31,6 @@
         android:layout_toRightOf="@+id/img_desc"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
-
-    <TextView
-        android:id="@+id/lbl_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingLeft="10dip"
-        android:layout_toRightOf="@+id/img_desc"
-        android:layout_below="@+id/lbl_desc"
-        android:text="Small Text"
-        android:textAppearance="?android:attr/textAppearanceSmall" />
 
     <ImageButton
         android:id="@+id/aggr_item_btn_like"

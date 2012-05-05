@@ -12,10 +12,11 @@
         <ImageView
             android:id="@+id/dlg_img_action"
             android:layout_width="wrap_content"
+            android:background="@drawable/circular_icon_bg"
             android:layout_height="wrap_content"
             android:layout_alignParentLeft="true"
             android:src="@drawable/ic_48px_news" 
-            android:padding="10dip" />
+            android:layout_margin="10dip" />
         
         <ImageView
             android:id="@+id/dlg_img_seed"
@@ -23,13 +24,24 @@
             android:layout_height="wrap_content"
             android:layout_toRightOf="@+id/dlg_img_action"
             android:src="@drawable/pic_72px_bajra" 
-            android:padding="10dip" />
+            android:layout_margin="10dip" />
+        
+        <ImageButton android:id="@+id/dlg_btn_audio_play" 
+            		android:src="@drawable/ic_76px_sound"
+            		android:layout_alignParentRight="true"
+            		android:layout_alignParentTop="true"
+            		android:layout_margin="10dip"
+            		android:layout_width="80px"
+            		android:layout_height="80px"
+            		android:background="@drawable/circular_btn"
+		/>
 
         <ScrollView
             android:layout_below="@+id/dlg_img_seed"
             android:id="@+id/scrollView1"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dip">
 
             <LinearLayout
                 android:id="@+id/linearLayout2"

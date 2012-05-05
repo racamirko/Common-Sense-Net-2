@@ -3,11 +3,12 @@ package com.commonsensenet.realfarm.dataaccess.aggregateview;
 import java.util.Iterator;
 import java.util.Vector;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems.VIAggrRecommendation;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems.VIRecommendation;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems.VisualItem;
 import com.commonsensenet.realfarm.model.Recommendation;
+import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
 
 import android.app.Activity;
 import android.content.Context;
@@ -52,6 +53,10 @@ public class DataAppearanceFactory {
 		if( dataItem instanceof Recommendation ){
 			Log.d(logTag, "Recommendation generated");
 			return new VIRecommendation((Recommendation)dataItem, dataProvider);
+		}
+		if( dataItem instanceof AggregateRecommendation ){
+			Log.d(logTag, "AggregatedRecommendation generated");
+			return new VIAggrRecommendation((AggregateRecommendation)dataItem, dataProvider);
 		}
 		Log.e(logTag, "Unsupported data type " + dataItem.getClass().getName() );
 		throw new UnsupportedClassVersionError();
