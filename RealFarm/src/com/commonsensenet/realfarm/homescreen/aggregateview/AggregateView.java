@@ -7,36 +7,26 @@ import com.commonsensenet.realfarm.dataaccess.aggregateview.AggregateDataFilter;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.AggregateDataProvider.MessageType;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.AggregateDataProviderDummy;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DataAppearanceFactory;
-import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
-import com.commonsensenet.realfarm.model.Recommendation;
 
-import android.app.Activity;
-import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.GridView;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 
 public class AggregateView extends HelpEnabledActivity {
 	private String logTag = "AggregateView";
 	protected BaseAdapter mDataAdpt;
-	protected String randomText;
 	
 	@Override
     public void onCreate(Bundle savedInstanceState) {
 		Log.i(logTag, "Aggregate view started");
         super.onCreate(savedInstanceState, R.layout.aggregate_view);
-	    randomText = "The default behaviour of the SlidingDrawer component is to maximize to a height of the position of the last component on the screen. But if the last component is at the very bottom, then the SlidingDrawer will not be apparently visible!";
 
         Log.i(logTag, "Activity started");
                 
@@ -86,7 +76,6 @@ public class AggregateView extends HelpEnabledActivity {
 		        public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		        	Log.i(logTag, "Item at position "+ position+ " clicked"); // TODO should be removed at some point
 		        }});
-        
     }
 
 	@Override

@@ -50,13 +50,13 @@ public class DataAppearanceFactory {
 	}
 	
 	public VisualItem getVisualItem( Object dataItem ) {
-		if( dataItem instanceof Recommendation ){
-			Log.d(logTag, "Recommendation generated");
-			return new VIRecommendation((Recommendation)dataItem, dataProvider);
-		}
 		if( dataItem instanceof AggregateRecommendation ){
 			Log.d(logTag, "AggregatedRecommendation generated");
 			return new VIAggrRecommendation((AggregateRecommendation)dataItem, dataProvider);
+		}
+		if( dataItem instanceof Recommendation ){
+			Log.d(logTag, "Recommendation generated");
+			return new VIRecommendation((Recommendation)dataItem, dataProvider);
 		}
 		Log.e(logTag, "Unsupported data type " + dataItem.getClass().getName() );
 		throw new UnsupportedClassVersionError();

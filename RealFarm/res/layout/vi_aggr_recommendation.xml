@@ -26,9 +26,9 @@
         android:id="@+id/lbl_count_people"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dip"
         android:paddingLeft="10dip"
-        android:layout_toRightOf="@+id/img_desc"
+        android:layout_toRightOf="@+id/img_action"
+        android:layout_alignParentBottom="true"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 

@@ -81,7 +81,7 @@ public class VIRecommendation extends VisualItemBase {
 		}
 		if( v.getId() == R.id.btn_main_click ){
             Dialog dlg = new Dialog(v.getContext());
-        	dlg.setContentView(R.layout.dialog_info_detail);
+        	dlg.setContentView(R.layout.vi_recommendation_details);
         	dlg.setCancelable(true);
         	// parts
         	TextView dlgDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);

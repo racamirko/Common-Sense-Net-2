@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+      <ImageView
+          android:id="@+id/dlg_img_action"
+          android:layout_width="wrap_content"
+          android:background="@drawable/circular_icon_bg"
+          android:layout_height="wrap_content"
+          android:layout_alignParentLeft="true"
+          android:src="@drawable/ic_48px_news" 
+          android:layout_margin="10dip" />
+      
+      <ImageView
+          android:id="@+id/dlg_img_seed"
+          android:layout_width="wrap_content"
+          android:layout_height="wrap_content"
+          android:layout_toRightOf="@+id/dlg_img_action"
+          android:src="@drawable/pic_72px_bajra" 
+          android:layout_margin="10dip" />
+      
+      <ImageButton android:id="@+id/dlg_btn_audio_play" 
+          		android:src="@drawable/ic_76px_sound"
+          		android:layout_alignParentRight="true"
+          		android:layout_alignParentTop="true"
+          		android:layout_margin="10dip"
+          		android:layout_width="80px"
+          		android:layout_height="80px"
+          		android:background="@drawable/circular_btn"
+	  />
+
+      <ScrollView
+          android:layout_below="@+id/dlg_img_seed"
+          android:id="@+id/scrollView1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dip">
+
+          <LinearLayout
+              android:id="@+id/linearLayout2"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+
+              <TextView
+                  android:id="@+id/dlg_lbl_details"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:text="Dialog dummy details"
+                  android:textAppearance="?android:attr/textAppearanceMedium" />
+          </LinearLayout>
+      </ScrollView>
+
+</RelativeLayout>
