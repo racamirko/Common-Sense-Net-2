@@ -4,7 +4,6 @@ package com.commonsensenet.realfarm.homescreen;
 import com.commonsensenet.realfarm.R;
 
 import android.app.Activity;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.os.Bundle;

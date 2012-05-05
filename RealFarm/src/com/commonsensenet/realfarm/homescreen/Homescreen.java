@@ -12,16 +12,12 @@ import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
-import android.widget.HorizontalScrollView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -183,45 +179,45 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		Log.i(logTag, "Button clicked!");
 		String txt = "";
 		Intent inte;
-		switch( v.getId() ){
-			case R.id.btn_info_actions:
-			case R.id.home_btn_actions:
-				Log.d(logTag, "Starting actions info");
-				inte = new Intent(this, AggregateView.class);
-				inte.putExtra("type", "actions");
-				this.startActivity(inte);
-				break;
-			case R.id.btn_info_advice:
-			case R.id.home_btn_advice:
-				Log.d(logTag, "Starting advice info");
-				inte = new Intent(this, AggregateView.class);
-				inte.putExtra("type", "advice");
-				this.startActivity(inte);
-				break;
-			case R.id.btn_info_warn:
-			case R.id.home_btn_warn:
-				Log.d(logTag, "Starting warn info");
-				inte = new Intent(this, AggregateView.class);
-				inte.putExtra("type", "warn");
-				this.startActivity(inte);
-				break;
-			case R.id.btn_info_yield:
-			case R.id.home_btn_yield:
-				Log.d(logTag, "Starting yield info");
-				inte = new Intent(this, AggregateView.class);
-				inte.putExtra("type", "yield");
-				this.startActivity(inte);
-				break;
-			case R.id.btn_action_diary:
-			case R.id.btn_action_fertilize:
-			case R.id.btn_action_irrigate:
-			case R.id.btn_action_plant:
-			case R.id.btn_action_problem:
-			case R.id.btn_action_spray:
-			case R.id.btn_action_yield:
-				this.startActivity(new Intent(this, OfflineMapDemo.class));
-				break;
+		if( v.getId() == R.id.btn_info_actions || v.getId() == R.id.home_btn_actions ){
+			Log.d(logTag, "Starting actions info");
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "actions");
+			this.startActivity(inte);
+			return;
 		}
+		if( v.getId() == R.id.btn_info_advice || v.getId() == R.id.home_btn_advice){
+			Log.d(logTag, "Starting advice info");
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "advice");
+			this.startActivity(inte);
+			return;
+		}
+		if( v.getId() == R.id.btn_info_warn || v.getId() == R.id.home_btn_warn ){
+			Log.d(logTag, "Starting warn info");
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "warn");
+			this.startActivity(inte);
+			return;
+		}
+		if( v.getId() == R.id.btn_info_yield || v.getId() == R.id.home_btn_yield ){
+			Log.d(logTag, "Starting yield info");
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		// other buttons
+//		case R.id.btn_action_diary:
+//		case R.id.btn_action_fertilize:
+//		case R.id.btn_action_irrigate:
+//		case R.id.btn_action_plant:
+//		case R.id.btn_action_problem:
+//		case R.id.btn_action_spray:
+//		case R.id.btn_action_yield:
+		
+		this.startActivity(new Intent(this, OfflineMapDemo.class));
 
 		if( txt != "" )
 			Toast.makeText(this.getApplicationContext(), txt, Toast.LENGTH_SHORT).show();

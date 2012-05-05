@@ -176,19 +176,20 @@ public class OfflineMapDemo extends Activity {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		// handle item selection
-		switch (item.getItemId()) {
-		case R.id.settings:
+		if( item.getItemId() == R.id.settings ){
 			mDataProvider.logAction(Log.MAIN_MENU_SETTINGS_CLICKED, null);
 			Intent myIntent = new Intent(OfflineMapDemo.this, Settings.class);
 			startActivity(myIntent);
-			return true;
-		case R.id.help:
+			return true;			
+		}
+			
+		if( item.getItemId() == R.id.help ){
 			mDataProvider.logAction(Log.MAIN_MENU_HELP_CLICKED, null);
 			// TODO: add help support
-			return true;
-		default:
-			return super.onOptionsItemSelected(item);
+			return true;			
 		}
+//		default:
+		return super.onOptionsItemSelected(item);
 	}
 
 	public void sendSMS(String phoneNumber, String message) {
