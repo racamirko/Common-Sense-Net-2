@@ -99,13 +99,16 @@ public class VIAggrRecommendation extends VisualItemBase {
         	
         	while( iterPeople.hasNext() ){
         		Integer usrId = iterPeople.next();
-        		TextView lblName = new TextView(v.getContext());
+        		View lin = dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
+        		TextView lblName = (TextView) lin.findViewById(R.id.lbl_farmername);
+        		ImageView imgFarmer = (ImageView) lin.findViewById(R.id.img_farmer);
         		User usr = dataProvider.getUserById(usrId);
-//        		int resID = v.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable-hdpi", v.getContext().getPackageName());
-//        		Drawable img = v.getContext().getResources().getDrawable(resID);
+        		
+        		int resID = dlg.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable", "com.commonsensenet.realfarm");
+        		imgFarmer.setImageResource(resID);
+        		Log.d(logTag, "Image "+  usr.getUserImgName() + " ResourceId = "+String.valueOf(resID));
         		lblName.setText( usr.getFirstName() + " " + usr.getLastName() );
-//        		lblName.setCompoundDrawables(img, null, null, null);
-        		peopleList.addView(lblName);
+        		peopleList.addView(lin);
         	}
         	
         	Log.d(logTag, "Seed res id: "+String.valueOf(dataProvider.getSeedById(aggrRec.getSeed()).getRes()));

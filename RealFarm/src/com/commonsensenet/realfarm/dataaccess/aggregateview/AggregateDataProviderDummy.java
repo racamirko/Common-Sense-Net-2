@@ -86,7 +86,7 @@ public class AggregateDataProviderDummy extends AggregateDataProvider {
 		String date = dateFormat.format(calendar.getTime());
 		// default list of all users
 		Vector<Integer> allUsrs = new Vector<Integer>(maxUsr);
-		for( int runner = 0; runner < maxUsr; ++runner )
+		for( int runner = 1; runner <= maxUsr; ++runner )
 			allUsrs.add(runner);
 		// randomly remove a set
 		int toRemove = rn.nextInt(maxUsr);

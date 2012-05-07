@@ -479,7 +479,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "John");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Doe");
 		users.put(COLUMN_NAME_USER_MOBILE, mobileNumber);
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_Kiran_Kumar_G");
+		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_kiran_kumar_g");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 
@@ -497,7 +497,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "Chris");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Bishop");
 		users.put(COLUMN_NAME_USER_MOBILE, "788244421");
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_Neil_Palmer");
+		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_neil_palmer");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 
@@ -506,7 +506,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "Chris");
 		users.put(COLUMN_NAME_USER_LASTNAME, "McDougall");
 		users.put(COLUMN_NAME_USER_MOBILE, "781122672");
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_Neil_Palmer2");
+		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_neil_palmer2");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 
