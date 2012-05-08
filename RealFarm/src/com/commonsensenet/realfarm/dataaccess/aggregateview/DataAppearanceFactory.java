@@ -52,11 +52,11 @@ public class DataAppearanceFactory {
 	public VisualItem getVisualItem( Object dataItem ) {
 		if( dataItem instanceof AggregateRecommendation ){
 			Log.d(logTag, "AggregatedRecommendation generated");
-			return new VIAggrRecommendation((AggregateRecommendation)dataItem, dataProvider);
+			return new VIAggrRecommendation((AggregateRecommendation)dataItem, ctx, dataProvider);
 		}
 		if( dataItem instanceof Recommendation ){
 			Log.d(logTag, "Recommendation generated");
-			return new VIRecommendation((Recommendation)dataItem, dataProvider);
+			return new VIRecommendation((Recommendation)dataItem, ctx, dataProvider);
 		}
 		Log.e(logTag, "Unsupported data type " + dataItem.getClass().getName() );
 		throw new UnsupportedClassVersionError();

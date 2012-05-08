@@ -8,7 +8,8 @@
         	   android:layout_width="wrap_content"
         	   android:layout_height="wrap_content"
         	   android:src="@drawable/farmer_90px_adam_jones"
-        	   android:id="@+id/img_farmer"/>
+        	   android:id="@+id/img_farmer"
+        	   android:paddingLeft="5dip"/>
 
     <TextView
         android:id="@+id/lbl_farmername"

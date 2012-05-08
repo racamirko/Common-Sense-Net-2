@@ -17,4 +17,6 @@ public interface VisualItem {
 	
 	public int getLayoutTag();
 	
+	public void playAudio();
+	
 }

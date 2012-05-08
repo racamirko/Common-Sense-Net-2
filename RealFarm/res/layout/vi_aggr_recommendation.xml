@@ -8,10 +8,11 @@
     <ImageView
         android:id="@+id/img_plant"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="fill_parent"
         android:layout_centerVertical="true"
         android:layout_margin="10dip"
-        android:src="@drawable/img_bajra_tiled"/>
+        android:src="@drawable/img_bajra_tiled"
+        android:background="@drawable/square_btn"/>
     
     <ImageView
         android:id="@+id/img_action"

@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -26,8 +27,8 @@ public class VIRecommendation extends VisualItemBase {
 	protected Recommendation recommendation;
 	protected boolean liked; // TODO should be moved to the data level
 
-	public VIRecommendation(Recommendation recommendation, RealFarmProvider dataProvider){
-		super(dataProvider);
+	public VIRecommendation(Recommendation recommendation, Context ctx, RealFarmProvider dataProvider){
+		super(ctx,dataProvider);
 		this.recommendation = recommendation;
 		Log.d(logTag, "created");
 	}
@@ -101,6 +102,15 @@ public class VIRecommendation extends VisualItemBase {
 	@Override
 	public int getLayoutTag(){
 		return layoutTag;
+	}
+
+	public void playAudio() {
+		Toast.makeText(ctx, "Showing help for recommendation "+ dataProvider.getActionNameById(recommendation.getAction()).getName() + " " + dataProvider.getSeedById(recommendation.getSeed()).getName() 
+					   , Toast.LENGTH_SHORT).show();
+
+		// TODO: should play several audio files
+		MediaPlayer mp = MediaPlayer.create(ctx, R.raw.audio1);
+		mp.start();
 	}
 
 }

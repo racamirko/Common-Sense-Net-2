@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
+import android.content.Context;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,9 +21,11 @@ abstract public class VisualItemBase implements VisualItem, OnClickListener {
 	private String logTag = "VisualItemBase";
 	protected LayoutInflater inflater;
 	protected RealFarmProvider dataProvider;
+	protected Context ctx;
 	
-	public VisualItemBase(RealFarmProvider dataProvider){
+	public VisualItemBase(Context ctx,RealFarmProvider dataProvider){
 		this.dataProvider = dataProvider;
+		this.ctx = ctx;
 	}
 	
 	public View populateView(View view, ViewGroup parent, LayoutInflater inflater){

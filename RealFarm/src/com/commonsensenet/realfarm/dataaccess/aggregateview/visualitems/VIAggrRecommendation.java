@@ -3,7 +3,9 @@ package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 import java.util.Iterator;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.graphics.drawable.Drawable;
+import android.media.MediaPlayer;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +15,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
@@ -27,8 +30,8 @@ public class VIAggrRecommendation extends VisualItemBase {
 	protected AggregateRecommendation aggrRec;
 	protected boolean liked; // TODO should be moved to the data level
 
-	public VIAggrRecommendation(AggregateRecommendation aggrRec, RealFarmProvider dataProvider){
-		super(dataProvider);
+	public VIAggrRecommendation(AggregateRecommendation aggrRec, Context ctx, RealFarmProvider dataProvider){
+		super(ctx,dataProvider);
 		this.aggrRec = aggrRec;
 		Log.d(logTag, "created");
 	}
@@ -54,6 +57,7 @@ public class VIAggrRecommendation extends VisualItemBase {
 
         lblCountPeople.setText(String.valueOf(aggrRec.getUserIds().size())+" people did this");
         imgAction.setImageResource(dataProvider.getActionNameById(aggrRec.getAction()).getRes());
+        imgPlant.setImageResource(seed.getRes());
         // switch plant type to tile file
         //imgPlant.setImageResource(R.id)
 
@@ -119,6 +123,15 @@ public class VIAggrRecommendation extends VisualItemBase {
 	@Override
 	public int getLayoutTag(){
 		return layoutTag;
+	}
+
+	public void playAudio() {
+		Toast.makeText(ctx, "Showing help for aggregated recommencation: "+ dataProvider.getActionNameById(aggrRec.getAction()).getName() + " " + dataProvider.getSeedById(aggrRec.getSeed()).getName() 
+					   , Toast.LENGTH_SHORT).show();
+
+		// TODO: should play several audio files
+		MediaPlayer mp = MediaPlayer.create(ctx, R.raw.audio1);
+		mp.start();
 	}
 
 }
