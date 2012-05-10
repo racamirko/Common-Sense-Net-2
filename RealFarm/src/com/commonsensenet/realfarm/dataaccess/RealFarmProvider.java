@@ -377,7 +377,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA },
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG },
 				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
 				null, null, null);
 
@@ -385,7 +386,7 @@ public class RealFarmProvider {
 			c0.moveToFirst();
 			res = new Seed(seedId, c0.getString(0), c0.getString(1),
 					c0.getInt(2), c0.getInt(3), c0.getInt(4), c0.getString(5),
-					c0.getString(6));
+					c0.getString(6), c0.getInt(7));
 		}
 		c0.close();
 		mDb.close();
@@ -412,14 +413,15 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA });
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG });
 
 			if (c0.getCount() > 0) {
 				c0.moveToFirst();
 				do {
 					Seed s = new Seed(c0.getInt(0), c0.getString(1),
 							c0.getString(2), c0.getInt(3), c0.getInt(4),
-							c0.getInt(5), c0.getString(6), c0.getString(7));
+							c0.getInt(5), c0.getString(6), c0.getString(7), c0.getInt(8));
 					mAllSeeds.add(s);
 				} while (c0.moveToNext());
 

@@ -170,6 +170,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
 					+ COLUMN_NAME_SEEDTYPE_NAMEKANNADA + " text, "
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
+					+ COLUMN_NAME_SEEDTYPE_RESOURCE_BG + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_AUDIO + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETY + " text, "
@@ -294,6 +295,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_NAMEKANNADA = "nameKannada";
 	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE = "res";
+	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE_BG = "resBg";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETYKANNADA = "varietyKannada";
 
@@ -1017,81 +1019,110 @@ public class RealFarmDatabase {
 		// seedtype.clear();
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 3);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Groundnut");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಕಡಲೆ ಕಾಯಿ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_groundnut));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "TMV2");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETYKANNADA, "ನೆಟೆ ಕಾಯಿ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETYKANNADA, mContext.getString(R.string.k_tmv2));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_groundnut);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_groundnut_tiled);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 4);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Groundnut");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಕಡಲೆ ಕಾಯಿ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_groundnut));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, "Samrat");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETYKANNADA, "ಸಮ್ರಟ್");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETYKANNADA, mContext.getString(R.string.k_samrat));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_groundnut);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_groundnut_tiled);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 5);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Bajra");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಸಜ್ಜೆ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_bajra));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_bajra);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_bajra_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 6);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Castor");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಔಡಲ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_castor));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_castor);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_castor_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 7);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Cowpea");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಅಲಸಂದಿ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_cowpea));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_cowpea);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_cowpea_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 8);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Greengram");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಹೆಸರು ಕಾಳು");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_green_gram));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_greengram);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_greengram_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 9);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Horsegram");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಹುರಳಿ ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_horsegram));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_horsegram);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_horsegram_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 10);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Pigeonpea");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ತೊಗರಿ ಬೀಜ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_pigeonpea));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_pigeonpea);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_pidgeonpea_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 11);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Redgram");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಕಾಳು");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_red_gram));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_redgram);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_redgram_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
+		
 		seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 12);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Sorghum");
-		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, "ಸಜ್ಜೆ");
+		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_sorghum));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_sorghum);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.audio1);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+				R.drawable.pic_90px_sorghum_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 

@@ -57,9 +57,7 @@ public class VIAggrRecommendation extends VisualItemBase {
 
         lblCountPeople.setText(String.valueOf(aggrRec.getUserIds().size())+" people did this");
         imgAction.setImageResource(dataProvider.getActionNameById(aggrRec.getAction()).getRes());
-        imgPlant.setImageResource(seed.getRes());
-        // switch plant type to tile file
-        //imgPlant.setImageResource(R.id)
+        imgPlant.setImageResource(seed.getResBg());
 
         btnLike.setOnClickListener(this);
         btnMain.setOnClickListener(this);
@@ -110,7 +108,6 @@ public class VIAggrRecommendation extends VisualItemBase {
         		
         		int resID = dlg.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable", "com.commonsensenet.realfarm");
         		imgFarmer.setImageResource(resID);
-        		Log.d(logTag, "Image "+  usr.getUserImgName() + " ResourceId = "+String.valueOf(resID));
         		lblName.setText( usr.getFirstName() + " " + usr.getLastName() );
         		peopleList.addView(lin);
         	}

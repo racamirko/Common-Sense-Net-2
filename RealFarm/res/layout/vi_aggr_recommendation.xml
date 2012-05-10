@@ -10,9 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_centerVertical="true"
-        android:layout_margin="10dip"
-        android:src="@drawable/img_bajra_tiled"
-        android:background="@drawable/square_btn"/>
+        android:src="@drawable/pic_90px_bajra_tiled"
+        android:scaleType="fitXY" />
     
     <ImageView
         android:id="@+id/img_action"
