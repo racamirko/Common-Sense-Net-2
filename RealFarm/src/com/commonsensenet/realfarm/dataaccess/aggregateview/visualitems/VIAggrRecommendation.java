@@ -95,7 +95,7 @@ public class VIAggrRecommendation extends VisualItemBase {
         	dlg.setTitle( dataProvider.getActionNameById(aggrRec.getAction()).getName() );
         	dlgDetals.setText( dataProvider.getActionNameById(aggrRec.getAction()).getName() + " " + dataProvider.getSeedById(aggrRec.getSeed()).getName() );
         	imgAction.setImageResource( dataProvider.getActionNameById(aggrRec.getAction()).getRes() );
-        	imgSeed.setImageResource( dataProvider.getSeedById(aggrRec.getSeed()).getRes());
+        	imgSeed.setImageResource( dataProvider.getSeedById(aggrRec.getSeed()).getResBg());
         	// fill user list
         	Iterator<Integer> iterPeople = aggrRec.getUserIds().iterator();
         	
