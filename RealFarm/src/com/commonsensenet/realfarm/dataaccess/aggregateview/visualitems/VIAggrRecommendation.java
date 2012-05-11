@@ -55,7 +55,7 @@ public class VIAggrRecommendation extends VisualItemBase {
 
         Seed seed = dataProvider.getSeedById(aggrRec.getSeed());
 
-        lblCountPeople.setText(String.valueOf(aggrRec.getUserIds().size())+" people did this");
+        lblCountPeople.setText(String.valueOf(aggrRec.getUserIds().size())+"  ");
         imgAction.setImageResource(dataProvider.getActionNameById(aggrRec.getAction()).getRes());
         imgPlant.setImageResource(seed.getResBg());
 

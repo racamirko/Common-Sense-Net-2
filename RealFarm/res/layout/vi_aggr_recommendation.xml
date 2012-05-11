@@ -24,13 +24,17 @@
 
     <TextView
         android:id="@+id/lbl_count_people"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="60px"
+        android:layout_height="60px"
         android:paddingLeft="10dip"
         android:layout_toRightOf="@+id/img_action"
-        android:layout_alignParentBottom="true"
-        android:text="Medium Text"
-        android:textAppearance="?android:attr/textAppearanceMedium" />
+        android:layout_centerVertical="true"
+        android:text="10"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:textSize="16dp"
+        android:gravity="bottom|center_horizontal"
+        android:background="@drawable/ic_90px_user" />
 
     <ImageButton
         android:id="@+id/aggr_item_btn_like"
