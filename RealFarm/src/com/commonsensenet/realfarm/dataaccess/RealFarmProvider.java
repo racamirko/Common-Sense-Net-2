@@ -62,6 +62,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.TABLE_NAME_ACTIONNAME,
 						new String[] {
 								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
+								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME_KANNADA,
 								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
 								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
 						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "="
@@ -70,8 +71,8 @@ public class RealFarmProvider {
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
 
-			tmpAction = new ActionName(actionNameId, c0.getString(0),
-					c0.getInt(1), c0.getInt(2));
+			tmpAction = new ActionName(actionNameId, c0.getString(0), c0.getString(1),
+					c0.getInt(2), c0.getInt(3));
 		}
 		c0.close();
 		mDb.close();
@@ -89,6 +90,7 @@ public class RealFarmProvider {
 			Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
 					new String[] { RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID,
 							RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
+							RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME_KANNADA,
 							RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
 							RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
 					null, null, null, null, null);
@@ -98,8 +100,8 @@ public class RealFarmProvider {
 
 			if (c.getCount() > 0) {
 				do {
-					mAllActionNames.add(new ActionName(c.getInt(0), c
-							.getString(1), c.getInt(2), c.getInt(3)));
+					mAllActionNames.add(new ActionName(c.getInt(0),
+							c.getString(1), c.getString(2), c.getInt(3), c.getInt(4)));
 				} while (c.moveToNext());
 			}
 

@@ -8,11 +8,6 @@
     <string name="k_the_problem_you_have">ನಿಮ್ಮ ತೊಂದರೆ</string>
     <string name="k_on_this_plot">ಈ ಹೊಲದಲ್ಲಿ</string>
     <string name="k_with_this_crop">ಬೆಲೆಯ ಜೊತೆ</string>
-    <string name="k_farmers_have_sowed">ರೈತರು ಬಿತ್ತನೆ ಮಾಡಿದಾರೆ</string>
-    <string name="k_farmers_have_sprayed">ರೈತರು ಔಷದ ಸಿಂಪಡಿಸಿದ್ದಾರೆ</string>
-    <string name="k_farmers_have_harvested">ರೈತರು ಕಟಾವು ಮಾಡಿದ್ದಾರೆ</string>
-    <string name="k_farmers_have_reported">ರೈತರು ಹೇಳಿದಂತೆ</string>
-    <string name="k_farmers_have_fertilized">ರೈತರು ಅಂಗಡಿ ಗೊಬ್ಬರ ಹಾಕಿದಾರೆ</string>
     <string name="k_as_main_crop">ಮುಖ್ಯ ಬೆಳೆಯಾಗಿ</string>
     <string name="k_as_intercrop">ಅಕ್ಕಡು ಬೆಳೆಯಾಗಿ</string>
     <string name="k_given_the_long_term_weather_forecast_and_the_amount_of_rain_in_the_recent_past_it_is_a_good_idea_to">ಇದ್ದುವರೆಗೂ ಬಂದಿರುವ ಮಳೆ ಮತ್ತು ಮುಂದಿನ ವಾರಗಳಲ್ಲಿ ಬರುವ ಮಳೆಯ ಮುಂಸೂಚನೆಯ ಆದಾರದ ಮೇಲೆ ಮಾಡಬಹುದಾದ</string>
@@ -30,7 +25,6 @@
     <string name="k_another_pest_that_is_not_listed">ಪಟ್ಟಿಯಲ್ಲಿ ಇಲ್ಲದಿರುವ ಬೇರೆ ಕೀಟ</string>
     <string name="k_an_unknown_disease">ನಮ್ಮಗೆ ಗೊತ್ತಿಲ್ಲದ ಖಾಯಿಲೆ</string>
     <string name="k_an_unknown_pest">ನಮ್ಮಗೆ ಗೊತ್ತಿಲ್ಲದ ಕೀಟ</string>
-    <string name="k_harvesting">ಗಿಡ ಕೀಳುವುದು</string>
     <string name="k_too_little_rain">ಕಡಿಮೆ ಮಳೆ</string>
     <string name="k_too_much_rain">ಹೆಚ್ಚು ಮಳೆ</string>
     <string name="k_diseases">ಖಾಯಿಲೆಗಳು</string>
@@ -41,35 +35,20 @@
     <string name="k_organic_matter">ಸಿಪ್ಪೆ ಗೊಬ್ಬರ</string>
     <string name="k_basal">ಬಿತ್ತನೆ ಸಮಯದಲ್ಲಿ ಹಾಕುವ ಗೊಬ್ಬರ</string>
     <string name="k_irrigate">ನೀರು ಕಟ್ಟುವುದು</string>
-    <string name="k_apply_pesticide">ಔಷದ ಹೊಡೆಯುವುದು</string>
-    <string name="k_apply_fertilizer">ಅಂಗಡಿ ಗೊಬ್ಬರ ಹೊಡೆಯುವುದು</string>
-    <string name="k_apply_herbicide">ಕಳೆನಾಶಕ ಹೊಡೆಯುವುದು</string>
-    <string name="k_sow">ಬಿತ್ತು</string>
-    <string name="k_harvest">ಗಿಡ ಕೀಳು</string>
     <string name="k_move_map_to_village">ಭೂಪಟವನ್ನು ಹಳ್ಳಿಯತ್ತಿರ ಜರುಗಿಸು</string>
     <string name="k_move_map_to_my_current_location">ಭೂಪಟವನ್ನು ಈಗಿರುವ ಸ್ಥಳಕ್ಕೆ ಜರುಗಿಸು</string>
     <string name="k_select_your_plot">ನಿಮ್ಮ ಹೊಲ ಆಯ್ಕೆ ಮಾಡಿ</string>
     <string name="k_news">ವಾರ್ತೆಗಳು</string>
-    <string name="k_fertilizer">ಅಂಗಡಿ ಗೊಬ್ಬರ</string>
     <string name="k_crop_variety">ಬೆಳೆ ತಳಿ</string>
     <string name="k_soil_type">ಮಣ್ಣಿನ ವಿಧ</string>
     <string name="k_strong">ಗಟ್ಟಿ</string>
     <string name="k_very_strong">ತುಂಬಾ ಗಟ್ಟಿ</string>
     <string name="k_high_chance_of">ಹೆಚ್ಚು ಬದಲಾವಣೆ</string>
-    <string name="k_groundnut">ಕಡಲೆಕಾಯಿ</string>
-    <string name="k_pigeon_pea">ತೊಗರಿ ಕಾಯಿ</string>
-    <string name="k_castor">ಔಡಲ</string>
-    <string name="k_jl24">ಜೆ ಲ್ ೨೪</string>
-    <string name="k_tmv2">ನೆಟೆ ಕಾಯಿ</string>
-    <string name="k_samrat">ಸಮ್ರಟ್</string>
     <string name="k_growing_plan">ಈ ವರ್ಷ ಬೆಳೆಯಬೇಕೆಂದಿರುವ ಬೆಳೆಗಳು</string>
     <string name="k_how_much_manure_used_per_acre_question">ಒಂದು ಏಕರೆಗೆ ಏಷ್ಟು ಗೊಬ್ಬರ ಹಾಕಿದ್ದಿರಾ ಅಥವಾ ಮಣ್ಣು ಹೊಡೆದಿದ್ದಿರಾ?</string>
     <string name="k_sowing">ಬಿತ್ತನೆ</string>
     <string name="k_fertilizer_used_per_acre_at_sowing">ಬಿತ್ತನೆ ಸಮಯದಲ್ಲಿ ಒಂದು ಏಕರೆಗೆ ಉಪಯೋಗಿಸಿದ ಅಂಗಡಿ ಗೊಬ್ಬರ</string>
     <string name="k_fertilizer_used_per_acre_at_flowering">ಹೂ ಬಿಡುವ ಸಮಯದಲ್ಲಿ ಒಂದು ಏಕರೆಗೆ ಉಪಯೋಗಿಸಿದ ಅಂಗಡಿ ಗೊಬ್ಬರ</string>
-    <string name="k_spraying">ಸಿಂಪಡಿಸುವುದು</string>
-    <string name="k_reporting_of_problems">ತೊಂದರೆಗಳನ್ನು ದಾಖಲಿಸುವುದು</string>
-    <string name="k_irrigation">ನೀರು ಕಟುವುದು</string>
     <string name="k_harvesting_of_main_crop">ಮುಖ್ಯ ಬೆಳೆಯ kaಟಾವು</string>
     <string name="k_spray_to_intercrop_pigeon_pea">ಅಕ್ಕಡು ಬೆಳೆ ತೊಗರಿಗೆ ಸಿಂಪಡಿಸಿ</string>
     <string name="k_harvest_of_intercrops">ಅಕ್ಕಡು ಬೆಳೆಯ ಖಾಟಾವು</string>
@@ -101,7 +80,26 @@
     <string name="k_years2">ವರ್ಷ</string>
     <string name="k_days">ದಿನ</string>
     
+    <string name="k_sow">ಬಿತ್ತು</string>
+    <string name="k_harvest">ಗಿಡ ಕೀಳು</string>
+    <string name="k_harvesting">ಗಿಡ ಕೀಳುವುದು</string>
+    <string name="k_spraying">ಸಿಂಪಡಿಸುವುದು</string>
+    <string name="k_reporting_of_problems">ತೊಂದರೆಗಳನ್ನು ದಾಖಲಿಸುವುದು</string>
+    <string name="k_apply_pesticide">ಔಷದ ಹೊಡೆಯುವುದು</string>
+    <string name="k_apply_fertilizer">ಅಂಗಡಿ ಗೊಬ್ಬರ ಹೊಡೆಯುವುದು</string>
+    <string name="k_apply_herbicide">ಕಳೆನಾಶಕ ಹೊಡೆಯುವುದು</string>
+    <string name="k_fertilizer">ಅಂಗಡಿ ಗೊಬ್ಬರ</string>
+    <string name="k_irrigation">ನೀರು ಕಟುವುದು</string>
+    <string name="k_spray_fungicide">ಔಷಧ ಹೊಡೆಯುವುದು</string>
+    <string name="k_spray_insecticide">ಔಷಧ ಹೊಡೆಯುವುದು</string>
+    <string name="k_spray">ಸಿಂಪಡಿಸುವುದು</string> <!-- TODO: check value  -->
+    <string name="k_diary">ವಾರ್ತೆಗಳು</string>
     
+    <string name="k_farmers_have_sowed">ರೈತರು ಬಿತ್ತನೆ ಮಾಡಿದಾರೆ</string>
+    <string name="k_farmers_have_sprayed">ರೈತರು ಔಷದ ಸಿಂಪಡಿಸಿದ್ದಾರೆ</string>
+    <string name="k_farmers_have_harvested">ರೈತರು ಕಟಾವು ಮಾಡಿದ್ದಾರೆ</string>
+    <string name="k_farmers_have_reported">ರೈತರು ಹೇಳಿದಂತೆ</string>
+    <string name="k_farmers_have_fertilized">ರೈತರು ಅಂಗಡಿ ಗೊಬ್ಬರ ಹಾಕಿದಾರೆ</string>
     
     <string name="k_rot_of_stalks">ಬಳ್ಳಿ ಕೊಳೆಯುವುದು</string>
     <!-- <string name="k_low_growth">ಕಡಿಮೆ ಬೆಳೆ</string> -->
@@ -188,12 +186,16 @@
     <string name="k_dap">ಡಿ ಎ ಪಿ</string>
     <string name="k_complex">ಕಾಂಪ್ಲೆಕ್ಸ್</string>
     <string name="k_potash">ಪೊಟಶ್</string>
+    <string name="k_groundnut">ಕಡಲೆಕಾಯಿ</string>
+    <string name="k_pigeon_pea">ತೊಗರಿ ಕಾಯಿ</string>
+    <string name="k_castor">ಔಡಲ</string>
+    <string name="k_jl24">ಜೆ ಲ್ ೨೪</string>
+    <string name="k_tmv2">ನೆಟೆ ಕಾಯಿ</string>
+    <string name="k_samrat">ಸಮ್ರಟ್</string>
     
     <string name="k_gypsum">ಜಿಪ್ಸಮ್</string>
     <string name="k_bio_control">ಜ್ಯಿವಿಕ ನಿಯಂತ್ರಣ</string>
     <string name="k_seed_treatment">ಬೀಜೋಪಚಾರ</string>
-    <string name="k_spray_fungicide">ಔಷಧ ಹೊಡೆಯುವುದು</string>
-    <string name="k_spray_insecticide">ಔಷಧ ಹೊಡೆಯುವುದು</string>
     <string name="k_watch_and_ward">ಕಾವಲು ಕಾಯುವುದು</string>
     
 <!-- 

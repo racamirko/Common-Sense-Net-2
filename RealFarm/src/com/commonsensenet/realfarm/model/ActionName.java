@@ -4,15 +4,16 @@ public class ActionName {
 
 	private int mAudio;
 	private int mId;
-	// private int mLayout;
 	private String mName;
 	private int mRes;
+	private String mNameKannada;
 
-	public ActionName(int id, String name, int resource, int audio) {
+	public ActionName(int id, String name, String nameKannada, int resource, int audio) {
 		mId = id;
 		mName = name;
 		mRes = resource;
 		mAudio = audio;
+		mNameKannada = nameKannada;
 	}
 
 	public int getAudio() {
@@ -30,4 +31,9 @@ public class ActionName {
 	public int getRes() {
 		return mRes;
 	}
+	
+	public String getNameKannada() {
+		return mNameKannada;
+	}
+
 }

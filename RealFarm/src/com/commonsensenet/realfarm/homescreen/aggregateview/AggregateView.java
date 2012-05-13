@@ -64,7 +64,7 @@ public class AggregateView extends HelpEnabledActivity {
         AggregateDataProviderDummy dataProvider = new AggregateDataProviderDummy(getApplicationContext(), this);
         dataProvider.setNumOfItems(10);
         DataAppearanceFactory appearFactory = new DataAppearanceFactory(AggregateView.this, AggregateView.this);
-        Vector<Object> dataItems = dataProvider.getItems(dataFilter); 
+        Vector<Object> dataItems = dataProvider.getItems(dataFilter);
         mDataAdpt = appearFactory.getDataAdapter(dataItems);
 //        mDataAdpt = new DummyHomescreenData(getApplicationContext(), this, 10);
         /***** end dummy data *****/

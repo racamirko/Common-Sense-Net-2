@@ -139,6 +139,10 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 		this.mHelpIcon = helpIcon;
 		mAnimFadeIn.setViewAnimated(helpIcon);
 	}
+	
+	public Typeface getKannadaTypeface() {
+		return mKannadaTypeface;
+	}
 
 	protected abstract void initKannada();
 	
