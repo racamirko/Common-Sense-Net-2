@@ -1,12 +1,17 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
+import java.io.IOException;
 import java.util.Iterator;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
+import android.media.AudioManager;
 import android.media.MediaPlayer;
+import android.media.SoundPool;
+import android.media.SoundPool.OnLoadCompleteListener;
+import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -24,6 +29,7 @@ import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class VIAggrRecommendation extends VisualItemBase {
 	private String logTag = "VIAggrRecommendation";
@@ -94,6 +100,7 @@ public class VIAggrRecommendation extends VisualItemBase {
         	ImageView imgAction = (ImageView) dlg.findViewById(R.id.dlg_img_action);
         	ImageView imgSeed = (ImageView) dlg.findViewById(R.id.dlg_img_seed);
         	LinearLayout peopleList = (LinearLayout) dlg.findViewById(R.id.dlg_linlay_userDataDetails);
+        	ImageButton btnSound = (ImageButton) dlg.findViewById(R.id.dlg_btn_audio_play);
         	// 
         	lblDetals.setTypeface(kannadaTypeface);
         	dlg.setTitle("");
@@ -116,8 +123,14 @@ public class VIAggrRecommendation extends VisualItemBase {
         		peopleList.addView(lin);
         	}
         	
+        	btnSound.setOnClickListener(this);
+        	
         	Log.d(logTag, "Seed res id: "+String.valueOf(dataProvider.getSeedById(aggrRec.getSeed()).getRes()));
         	dlg.show();
+		}
+		
+		if( v.getId() == R.id.dlg_btn_audio_play ){
+			playAudio();
 		}
 	}
 	
@@ -131,8 +144,23 @@ public class VIAggrRecommendation extends VisualItemBase {
 					   , Toast.LENGTH_SHORT).show();
 
 		// TODO: should play several audio files
-		MediaPlayer mp = MediaPlayer.create(ctx, R.raw.audio1);
-		mp.start();
+		// MediaPlayer mp = MediaPlayer.create(ctx, Uri.parse("file://sdcard/realfarm_data/audio/msg_action.wav"));
+//		SoundPool sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
+//		sp.setOnLoadCompleteListener( new OnLoadCompleteListener() {
+//			
+//			public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+//				soundPool.play(sampleId, 0.9f, 0.9f, 1, 0, 1.0f);
+//			}
+//		} );
+//		int sndId = sp.load( ctx, R.raw.msg_action, 1);
+//		
+//		sp.play(sndId, 1.0f, 1.0f, 1, 0, 1.0f);
+		SoundQueue sq = SoundQueue.getInstance();
+		sq.addToQueue(R.raw.audio1);
+		sq.addToQueue(R.raw.msg_plant);
+		sq.addToQueue(R.raw.msg_user);
+		sq.addToQueue(R.raw.msg_action);
+		sq.play();
 	}
 
 }

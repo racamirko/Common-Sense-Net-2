@@ -11,6 +11,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -41,7 +42,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
         initDb();
         initActionListener();
         initTiles();
+        initSoundSys();
         setHelpIcon(findViewById(R.id.helpIndicator));
+    }
+    
+    protected void initSoundSys(){
+    	Log.i(logTag, "Init sound sys");
+    	SoundQueue.getInstance(this); // dummy call
     }
     
     protected void initDb(){
