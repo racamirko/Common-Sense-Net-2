@@ -47,8 +47,9 @@
     <Button 
         android:id="@+id/btn_main_click"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_height="80dp"
         android:layout_marginRight="50dp"
         android:background="@drawable/square_btn_transp"/>
+    <!-- the height=80dp is temporary. If the layout remains permanent, correct the layout bug -->
     
 </RelativeLayout>

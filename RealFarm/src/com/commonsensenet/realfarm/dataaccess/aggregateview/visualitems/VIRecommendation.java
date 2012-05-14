@@ -19,6 +19,7 @@ import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Seed;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class VIRecommendation extends VisualItemBase {
 	private String logTag = "VIRecommendation";
@@ -88,14 +89,19 @@ public class VIRecommendation extends VisualItemBase {
         	TextView dlgDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
         	ImageView imgAction = (ImageView) dlg.findViewById(R.id.dlg_img_action);
         	ImageView imgSeed = (ImageView) dlg.findViewById(R.id.dlg_img_seed);
+        	ImageButton btnPlay = (ImageButton) dlg.findViewById(R.id.dlg_btn_audio_play);
         	// 
         	dlg.setTitle( dataProvider.getActionNameById(recommendation.getAction()).getName() );
         	dlgDetals.setText( dataProvider.getActionNameById(recommendation.getAction()).getName() + " " + dataProvider.getSeedById(recommendation.getSeed()).getName() );
         	imgAction.setImageResource( dataProvider.getActionNameById(recommendation.getAction()).getRes() );
         	imgSeed.setImageResource( dataProvider.getSeedById(recommendation.getSeed()).getRes());
+        	btnPlay.setOnClickListener(this);
         	Log.d(logTag, "Seed res id: "+String.valueOf(dataProvider.getSeedById(recommendation.getSeed()).getRes()));
         	dlg.show();
 
+		}
+		if( v.getId() == R.id.dlg_btn_audio_play ){
+			playAudio();
 		}
 	}
 	
@@ -105,12 +111,13 @@ public class VIRecommendation extends VisualItemBase {
 	}
 
 	public void playAudio() {
+		Log.d(logTag, "Playing content for recommendation");
 		Toast.makeText(ctx, "Showing help for recommendation "+ dataProvider.getActionNameById(recommendation.getAction()).getName() + " " + dataProvider.getSeedById(recommendation.getSeed()).getName() 
 					   , Toast.LENGTH_SHORT).show();
-
-		// TODO: should play several audio files
-		MediaPlayer mp = MediaPlayer.create(ctx, R.raw.audio1);
-		mp.start();
+		SoundQueue sq = SoundQueue.getInstance();
+		sq.addToQueue(R.raw.audio1);
+		sq.addToQueue(R.raw.msg_plant);
+		sq.play();
 	}
 
 }
