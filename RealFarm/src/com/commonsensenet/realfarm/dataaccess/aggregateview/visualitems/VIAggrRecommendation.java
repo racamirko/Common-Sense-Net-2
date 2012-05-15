@@ -11,7 +11,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.GridLayoutAnimationController;
 import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -94,7 +96,7 @@ public class VIAggrRecommendation extends VisualItemBase {
         	TextView lblDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
         	ImageView imgAction = (ImageView) dlg.findViewById(R.id.dlg_img_action);
         	ImageView imgSeed = (ImageView) dlg.findViewById(R.id.dlg_img_seed);
-        	LinearLayout peopleList = (LinearLayout) dlg.findViewById(R.id.dlg_linlay_userDataDetails);
+        	GridView peopleList = (GridView) dlg.findViewById(R.id.dlg_linlay_userDataDetails);
         	ImageButton btnSound = (ImageButton) dlg.findViewById(R.id.dlg_btn_audio_play);
         	// 
         	lblDetals.setTypeface(kannadaTypeface);
