@@ -201,7 +201,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, "
 					+ COLUMN_NAME_USER_LASTNAME + " text, "
 					+ COLUMN_NAME_USER_MOBILE + " text, "
-					+ COLUMN_NAME_USER_IMG + " text" + " ); ");
+					+ COLUMN_NAME_USER_IMG + " text, "
+					+ COLUMN_NAME_USER_SND + " text "+ " ); ");
 			Log.d(DEBUG_ID, "Created user table");
 
 			// units
@@ -319,6 +320,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
 	public static final String COLUMN_NAME_USER_IMG = "img";
+	public static final String COLUMN_NAME_USER_SND = "userSnd";
 
 	/** Date format used to store the dates. */
 	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
@@ -484,6 +486,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_LASTNAME, "Doe");
 		users.put(COLUMN_NAME_USER_MOBILE, mobileNumber);
 		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_kiran_kumar_g");
+		users.put(COLUMN_NAME_USER_SND, "file://sdcard/RealFarm/audio/msg_john_doe.wav");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 
@@ -493,6 +496,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_LASTNAME, "Knoche");
 		users.put(COLUMN_NAME_USER_MOBILE, "788844672");
 		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_adam_jones");
+		users.put(COLUMN_NAME_USER_SND, "file://sdcard/RealFarm/audio/msg_john_doe.wav");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 
@@ -502,6 +506,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_LASTNAME, "Bishop");
 		users.put(COLUMN_NAME_USER_MOBILE, "788244421");
 		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_neil_palmer");
+		users.put(COLUMN_NAME_USER_SND, "file://sdcard/RealFarm/audio/msg_john_doe.wav");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 
@@ -511,6 +516,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_LASTNAME, "McDougall");
 		users.put(COLUMN_NAME_USER_MOBILE, "781122672");
 		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_neil_palmer2");
+		users.put(COLUMN_NAME_USER_SND, "file://sdcard/RealFarm/audio/msg_john_doe.wav");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 
@@ -520,6 +526,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_LASTNAME, "Herbert");
 		users.put(COLUMN_NAME_USER_MOBILE, "788111172");
 		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_walmart_stores");
+		users.put(COLUMN_NAME_USER_SND, "file://sdcard/RealFarm/audio/msg_john_doe.wav");
 		insertEntries(TABLE_NAME_USER, users, db);
 		users.clear();
 

@@ -4,20 +4,11 @@
     android:layout_height="match_parent"
     android:orientation="horizontal" android:layout_marginBottom="5dip" >
     
-    <ImageView android:layout_gravity="center_vertical"
+    <ImageButton android:layout_gravity="center_vertical"
         	   android:layout_width="wrap_content"
+        	   android:background="@drawable/square_btn"
         	   android:layout_height="wrap_content"
         	   android:src="@drawable/farmer_90px_adam_jones"
-        	   android:id="@+id/img_farmer"
-        	   android:paddingLeft="5dip"/>
-
-    <TextView
-        android:id="@+id/lbl_farmername"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="10dip"
-        android:text="Large Text"
-        android:textAppearance="?android:attr/textAppearanceLarge" />
-
+        	   android:id="@+id/btn_farmer"
+        	   android:layout_marginLeft="5dip"/>
 </LinearLayout>

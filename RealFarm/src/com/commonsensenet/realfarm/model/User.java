@@ -7,14 +7,16 @@ public class User {
 	protected String mMobileNumber;
 	protected int mUserId;
 	protected String mImgName;
+	protected String mUsrAudioFile;
 
 	public User(int userId, String firstName, String lastName,
-			String mobileNumber, String imgName) {
+			String mobileNumber, String imgName, String audioFile) {
 		mUserId = userId;
 		mFirstName = firstName;
 		mLastName = lastName;
 		mMobileNumber = mobileNumber;
 		mImgName = imgName;
+		mUsrAudioFile = audioFile;
 	}
 
 	public String getFirstName() {
@@ -39,6 +41,10 @@ public class User {
 	
 	public String getUserImgName(){
 		return mImgName;
+	}
+
+	public String getUsrAudioFile() {
+		return mUsrAudioFile;
 	}
 
 }

@@ -67,12 +67,12 @@ public class SoundQueue implements OnLoadCompleteListener {
 //		while(!mResToPlay.isEmpty()){
 //			try {
 //				synchronized (this) {
-//					wait(1000);					
+//					wait(1000);
 //				}
 //			} catch (InterruptedException e) { }
 //		}
 		while( !mResReady.isEmpty() ){
-			mSoundPool.play(mResReady.poll(), 0.9f, 0.9f, 1, 0, 1.0f);
+			mSoundPool.play(mResReady.poll(), 0.05f, 0.05f, 1, 0, 1.0f);
 			try {
 				synchronized (this) {
 					wait(2000);

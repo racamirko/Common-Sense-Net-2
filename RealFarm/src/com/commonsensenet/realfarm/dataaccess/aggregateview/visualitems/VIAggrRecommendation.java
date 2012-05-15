@@ -1,16 +1,11 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
-import java.io.IOException;
 import java.util.Iterator;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
 import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.media.SoundPool.OnLoadCompleteListener;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -103,7 +98,6 @@ public class VIAggrRecommendation extends VisualItemBase {
         	ImageButton btnSound = (ImageButton) dlg.findViewById(R.id.dlg_btn_audio_play);
         	// 
         	lblDetals.setTypeface(kannadaTypeface);
-        	dlg.setTitle("");
         	lblDetals.setText( dataProvider.getActionNameById(aggrRec.getAction()).getNameKannada() + " " + dataProvider.getSeedById(aggrRec.getSeed()).getNameKannada() );
         	imgAction.setImageResource( dataProvider.getActionNameById(aggrRec.getAction()).getRes() );
         	imgSeed.setImageResource( dataProvider.getSeedById(aggrRec.getSeed()).getResBg());
@@ -112,14 +106,14 @@ public class VIAggrRecommendation extends VisualItemBase {
         	
         	while( iterPeople.hasNext() ){
         		Integer usrId = iterPeople.next();
-        		View lin = dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
-        		TextView lblName = (TextView) lin.findViewById(R.id.lbl_farmername);
-        		ImageView imgFarmer = (ImageView) lin.findViewById(R.id.img_farmer);
+        		LinearLayout lin = (LinearLayout) dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
+        		ImageButton btnFarmer = (ImageButton) lin.findViewById(R.id.btn_farmer);
         		User usr = dataProvider.getUserById(usrId);
         		
         		int resID = dlg.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable", "com.commonsensenet.realfarm");
-        		imgFarmer.setImageResource(resID);
-        		lblName.setText( usr.getFirstName() + " " + usr.getLastName() );
+        		btnFarmer.setImageResource(resID);
+        		btnFarmer.setOnClickListener(this);
+        		btnFarmer.setTag(usrId);
         		peopleList.addView(lin);
         	}
         	
@@ -131,6 +125,16 @@ public class VIAggrRecommendation extends VisualItemBase {
 		
 		if( v.getId() == R.id.dlg_btn_audio_play ){
 			playAudio();
+		}
+		
+		if( v.getId() == R.id.btn_farmer ){
+			Integer usrId = (Integer) v.getTag();
+			String audioFileName = dataProvider.getUserById(usrId).getUsrAudioFile();
+			Toast.makeText(ctx, "Playing sound:"+ audioFileName, Toast.LENGTH_SHORT).show();
+			Uri.Builder tmpBuilder = new Uri.Builder();
+			Uri tmpUri = tmpBuilder.path(audioFileName).build();
+			MediaPlayer mp = MediaPlayer.create(ctx, tmpUri);
+			mp.start();
 		}
 	}
 	

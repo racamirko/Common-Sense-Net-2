@@ -443,7 +443,8 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMG },
+						RealFarmDatabase.COLUMN_NAME_USER_IMG,
+						RealFarmDatabase.COLUMN_NAME_USER_SND},
 				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId, null,
 				null, null, null);
 
@@ -452,7 +453,7 @@ public class RealFarmProvider {
 			c.moveToFirst();
 
 			tmpUser = new User(userId, c.getString(0), c.getString(1),
-					c.getString(2), c.getString(3));
+					c.getString(2), c.getString(3), c.getString(4));
 		}
 
 		c.close();
@@ -479,7 +480,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_ID,
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_IMG },
+						RealFarmDatabase.COLUMN_NAME_USER_IMG,
+						RealFarmDatabase.COLUMN_NAME_USER_SND },
 
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
 								+ mobile + "'", null, null, null, null);
@@ -488,7 +490,7 @@ public class RealFarmProvider {
 			c.moveToFirst();
 
 			tmpUser = new User(c.getInt(0), c.getString(1), c.getString(2),
-					mobile, c.getString(3));
+					mobile, c.getString(3), c.getString(4));
 		}
 		c.close();
 		mDb.close();
@@ -511,14 +513,15 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMG },
+						RealFarmDatabase.COLUMN_NAME_USER_IMG,
+						RealFarmDatabase.COLUMN_NAME_USER_SND },
 				null, null, null, null, null);
 		c.moveToFirst();
 
 		if (c.getCount() > 0) {
 			do {
 				userList.add( new User(c.getInt(0), c.getString(1),
-									   c.getString(2), c.getString(3), c.getString(5)));
+									   c.getString(2), c.getString(3), c.getString(5), c.getString(6)));
 			} while (c.moveToNext());
 		}
 
