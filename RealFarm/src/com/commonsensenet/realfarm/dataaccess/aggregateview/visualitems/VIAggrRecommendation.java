@@ -26,6 +26,7 @@ import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
+import com.commonsensenet.realfarm.utils.FlowLayout;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class VIAggrRecommendation extends VisualItemBase {
@@ -96,7 +97,7 @@ public class VIAggrRecommendation extends VisualItemBase {
         	TextView lblDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
         	ImageView imgAction = (ImageView) dlg.findViewById(R.id.dlg_img_action);
         	ImageView imgSeed = (ImageView) dlg.findViewById(R.id.dlg_img_seed);
-        	GridView peopleList = (GridView) dlg.findViewById(R.id.dlg_linlay_userDataDetails);
+        	FlowLayout peopleList = (FlowLayout) dlg.findViewById(R.id.dlg_linlay_userDataDetails);
         	ImageButton btnSound = (ImageButton) dlg.findViewById(R.id.dlg_btn_audio_play);
         	// 
         	lblDetals.setTypeface(kannadaTypeface);
@@ -108,15 +109,14 @@ public class VIAggrRecommendation extends VisualItemBase {
         	
         	while( iterPeople.hasNext() ){
         		Integer usrId = iterPeople.next();
-        		LinearLayout lin = (LinearLayout) dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
-        		ImageButton btnFarmer = (ImageButton) lin.findViewById(R.id.btn_farmer);
+        		ImageButton btnFarmer = (ImageButton) dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
         		User usr = dataProvider.getUserById(usrId);
         		
         		int resID = dlg.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable", "com.commonsensenet.realfarm");
         		btnFarmer.setImageResource(resID);
         		btnFarmer.setOnClickListener(this);
         		btnFarmer.setTag(usrId);
-        		peopleList.addView(lin);
+        		peopleList.addView(btnFarmer);
         	}
         	
         	btnSound.setOnClickListener(this);

@@ -35,12 +35,31 @@
           		android:layout_height="80px"
           		android:background="@drawable/circular_btn" />
 
-      <GridView android:id="@+id/dlg_linlay_userDataDetails"
+      <com.commonsensenet.realfarm.utils.FlowLayout
+                android:id="@+id/dlg_linlay_userDataDetails" 
+			    android:layout_width="wrap_content"
+			    android:layout_height="wrap_content"
+			    android:layout_gravity="center"
+			    android:padding="10dp"
+			    android:horizontalSpacing="10dp"
+			    android:verticalSpacing="20dp">
+			    
+			    <FrameLayout android:layout_width="60px" android:layout_height="40px" android:background="#F00"/>
+			    <FrameLayout android:layout_width="120px" android:layout_height="40px" android:background="#F00"/>
+			    <FrameLayout android:layout_width="140px" android:layout_height="20px" android:background="#F00"/>
+				<FrameLayout android:layout_width="40px" android:layout_height="60px" android:background="#F00"/>
+			    <FrameLayout android:layout_width="20px" android:layout_height="40px" android:background="#F00"/>
+			    <FrameLayout android:layout_width="80px" android:layout_height="40px" android:background="#F00"/>
+			    <FrameLayout android:layout_width="80px" android:layout_height="40px" android:background="#F00"/>
+			    <FrameLayout android:layout_width="100px" android:layout_height="40px" android:background="#F00"/>
+ 	   </com.commonsensenet.realfarm.utils.FlowLayout>
+      
+<!--       <GridView android:id="@+id/dlg_linlay_userDataDetails"
           		android:numColumns="4"
           		android:horizontalSpacing="5dip" android:verticalSpacing="5dip"
           		android:layout_width="fill_parent"
           		android:layout_height="wrap_content"
-          		/>
+          		/>  -->
             
       <ImageView
           android:id="@+id/dlg_img_action"
