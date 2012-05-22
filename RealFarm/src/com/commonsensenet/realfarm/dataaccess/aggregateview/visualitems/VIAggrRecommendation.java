@@ -4,9 +4,11 @@ import java.util.Iterator;
 
 import android.app.Dialog;
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.net.Uri;
+import android.os.Environment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -112,8 +114,9 @@ public class VIAggrRecommendation extends VisualItemBase {
         		ImageButton btnFarmer = (ImageButton) dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
         		User usr = dataProvider.getUserById(usrId);
         		
-        		int resID = dlg.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable", "com.commonsensenet.realfarm");
-        		btnFarmer.setImageResource(resID);
+//        		int resID = dlg.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable", "com.commonsensenet.realfarm");
+        		String folder = ctx.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
+        		btnFarmer.setImageBitmap(BitmapFactory.decodeFile(folder+"/"+usr.getUserImgName()));
         		btnFarmer.setOnClickListener(this);
         		btnFarmer.setTag(usrId);
         		peopleList.addView(btnFarmer);
@@ -133,10 +136,9 @@ public class VIAggrRecommendation extends VisualItemBase {
 			Integer usrId = (Integer) v.getTag();
 			String audioFileName = dataProvider.getUserById(usrId).getUsrAudioFile();
 			Toast.makeText(ctx, "Playing sound:"+ audioFileName, Toast.LENGTH_SHORT).show();
-			Uri.Builder tmpBuilder = new Uri.Builder();
-			Uri tmpUri = tmpBuilder.path(audioFileName).build();
-			MediaPlayer mp = MediaPlayer.create(ctx, tmpUri);
-			mp.start();
+
+//			MediaPlayer mp = MediaPlayer.create(ctx, tmpUri);
+//			mp.start();
 		}
 	}
 	

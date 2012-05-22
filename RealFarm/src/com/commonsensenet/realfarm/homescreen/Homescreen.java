@@ -13,8 +13,11 @@ import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +46,27 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
         initActionListener();
         initTiles();
         initSoundSys();
+        checkSdCard();
         setHelpIcon(findViewById(R.id.helpIndicator));
+    }
+    
+    protected void checkSdCard(){
+    	
+    	String state = Environment.getExternalStorageState();
+        if (!Environment.MEDIA_MOUNTED.equals(state)) {
+        	Log.e(logTag, "SD card not present");
+        	
+        	AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        	builder.setMessage("SD card not present. Application will terminate.")
+        	       .setCancelable(false)
+        	       .setPositiveButton("OK", new DialogInterface.OnClickListener() {
+        	           public void onClick(DialogInterface dialog, int id) {
+        	                Homescreen.this.finish();
+        	           }
+        	       });
+        	AlertDialog alert = builder.create();
+        	alert.show();
+        }
     }
     
     protected void initSoundSys(){
