@@ -14,14 +14,14 @@
 	<application android:label="@string/app_name" android:name=".RealFarmApp"
 		android:debuggable="true" android:icon="@drawable/app_social">
 		<uses-library android:name="com.google.android.maps" />
-		<activity android:name=".homescreen.Homescreen" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+		<activity android:name=".homescreen.Homescreen" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait">
 			<intent-filter>
 	            <action android:name="android.intent.action.MAIN" />
 	            <category android:name="android.intent.category.LAUNCHER" />
 	        </intent-filter>
 		</activity>
 		
-		<activity android:name=".homescreen.aggregateview.AggregateView" android:theme="@android:style/Theme.NoTitleBar.Fullscreen">
+		<activity android:name=".homescreen.aggregateview.AggregateView" android:theme="@android:style/Theme.NoTitleBar.Fullscreen" android:screenOrientation="portrait">
 			<intent-filter>
 	            <action android:name="android.intent.action.AGGREGATE_VIEW" />
 	            <category android:name="android.intent.category.DEFAULT" />
