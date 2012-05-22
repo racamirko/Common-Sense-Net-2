@@ -114,9 +114,7 @@ public class VIAggrRecommendation extends VisualItemBase {
         		ImageButton btnFarmer = (ImageButton) dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
         		User usr = dataProvider.getUserById(usrId);
         		
-//        		int resID = dlg.getContext().getResources().getIdentifier(usr.getUserImgName(), "drawable", "com.commonsensenet.realfarm");
-        		String folder = ctx.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath();
-        		btnFarmer.setImageBitmap(BitmapFactory.decodeFile(folder+"/"+usr.getUserImgName()));
+        		btnFarmer.setImageBitmap(BitmapFactory.decodeFile(ctx.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()+"/"+usr.getUserImgName()));
         		btnFarmer.setOnClickListener(this);
         		btnFarmer.setTag(usrId);
         		peopleList.addView(btnFarmer);
@@ -137,8 +135,11 @@ public class VIAggrRecommendation extends VisualItemBase {
 			String audioFileName = dataProvider.getUserById(usrId).getUsrAudioFile();
 			Toast.makeText(ctx, "Playing sound:"+ audioFileName, Toast.LENGTH_SHORT).show();
 
-//			MediaPlayer mp = MediaPlayer.create(ctx, tmpUri);
-//			mp.start();
+			// TODO: ideally, this should fit a global sound-playing system
+			Uri.Builder builder = new Uri.Builder();
+			Uri audioUri = builder.encodedPath(ctx.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath()+"/"+audioFileName).build();
+			MediaPlayer mp = MediaPlayer.create(ctx, audioUri);
+			mp.start();
 		}
 	}
 	
