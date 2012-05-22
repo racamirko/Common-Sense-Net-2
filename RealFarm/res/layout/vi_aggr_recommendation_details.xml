@@ -12,7 +12,7 @@
          android:layout_gravity="center_horizontal"
          android:text="Dialog dummy details"
          android:gravity="center_horizontal"
-         android:paddingTop="5dip"
+         android:paddingTop="2dip"
          android:paddingBottom="5dip"
          android:textAppearance="?android:attr/textAppearanceMedium" />
       

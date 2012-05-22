@@ -13,6 +13,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
+import android.view.WindowManager;
 import android.view.animation.GridLayoutAnimationController;
 import android.widget.Button;
 import android.widget.GridView;
@@ -92,8 +94,20 @@ public class VIAggrRecommendation extends VisualItemBase {
 		}
 		if( v.getId() == R.id.btn_main_click ){
             Dialog dlg = new Dialog(v.getContext());
+            dlg.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+        	dlg.setCanceledOnTouchOutside(true);
+            
+            // TODO: dim functionality not working correctly
+//        	dlg.getWindow().addFlags(WindowManager.LayoutParams.FLAG_DIM_BEHIND);
+//        	WindowManager.LayoutParams lp = dlg.getWindow().getAttributes();  
+//        	lp.dimAmount=1.0f; // Dim level. 0.0 - no dim, 1.0 - completely opaque
+//        	dlg.getWindow().setAttributes(lp);
+            
+            
+        	
         	dlg.setContentView(R.layout.vi_aggr_recommendation_details);
         	dlg.setCancelable(true);
+        	
         	Typeface kannadaTypeface = ((HelpEnabledActivity) ctx).getKannadaTypeface();
         	// parts
         	TextView lblDetals = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
