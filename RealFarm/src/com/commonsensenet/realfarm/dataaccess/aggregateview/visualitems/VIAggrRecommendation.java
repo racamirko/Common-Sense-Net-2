@@ -31,6 +31,7 @@ import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
 import com.commonsensenet.realfarm.utils.FlowLayout;
+import com.commonsensenet.realfarm.utils.PathBuilder;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class VIAggrRecommendation extends VisualItemBase {
@@ -102,8 +103,6 @@ public class VIAggrRecommendation extends VisualItemBase {
 //        	WindowManager.LayoutParams lp = dlg.getWindow().getAttributes();  
 //        	lp.dimAmount=1.0f; // Dim level. 0.0 - no dim, 1.0 - completely opaque
 //        	dlg.getWindow().setAttributes(lp);
-            
-            
         	
         	dlg.setContentView(R.layout.vi_aggr_recommendation_details);
         	dlg.setCancelable(true);
@@ -128,7 +127,7 @@ public class VIAggrRecommendation extends VisualItemBase {
         		ImageButton btnFarmer = (ImageButton) dlg.getLayoutInflater().inflate(R.layout.element_farmer, peopleList, false);
         		User usr = dataProvider.getUserById(usrId);
         		
-        		btnFarmer.setImageBitmap(BitmapFactory.decodeFile(ctx.getExternalFilesDir(Environment.DIRECTORY_PICTURES).getAbsolutePath()+"/"+usr.getUserImgName()));
+        		btnFarmer.setImageBitmap(BitmapFactory.decodeFile(PathBuilder.getPicture(usr.getUserImgName()).getPath()));
         		btnFarmer.setOnClickListener(this);
         		btnFarmer.setTag(usrId);
         		peopleList.addView(btnFarmer);
@@ -150,9 +149,7 @@ public class VIAggrRecommendation extends VisualItemBase {
 			Toast.makeText(ctx, "Playing sound:"+ audioFileName, Toast.LENGTH_SHORT).show();
 
 			// TODO: ideally, this should fit a global sound-playing system
-			Uri.Builder builder = new Uri.Builder();
-			Uri audioUri = builder.encodedPath(ctx.getExternalFilesDir(Environment.DIRECTORY_MUSIC).getAbsolutePath()+"/"+audioFileName).build();
-			MediaPlayer mp = MediaPlayer.create(ctx, audioUri);
+			MediaPlayer mp = MediaPlayer.create(ctx, PathBuilder.getSound(audioFileName));
 			mp.start();
 		}
 	}
@@ -163,26 +160,17 @@ public class VIAggrRecommendation extends VisualItemBase {
 	}
 
 	public void playAudio() {
-		Toast.makeText(ctx, "Showing help for aggregated recommencation: "+ dataProvider.getActionNameById(aggrRec.getAction()).getName() + " " + dataProvider.getSeedById(aggrRec.getSeed()).getName() 
+		Toast.makeText(ctx, "Showing help for aggregated recommendation: "+ dataProvider.getActionNameById(aggrRec.getAction()).getName() + " " + dataProvider.getSeedById(aggrRec.getSeed()).getName() 
 					   , Toast.LENGTH_SHORT).show();
 
-		// TODO: should play several audio files
-		// MediaPlayer mp = MediaPlayer.create(ctx, Uri.parse("file://sdcard/realfarm_data/audio/msg_action.wav"));
-//		SoundPool sp = new SoundPool(1, AudioManager.STREAM_MUSIC, 0);
-//		sp.setOnLoadCompleteListener( new OnLoadCompleteListener() {
-//			
-//			public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-//				soundPool.play(sampleId, 0.9f, 0.9f, 1, 0, 1.0f);
-//			}
-//		} );
-//		int sndId = sp.load( ctx, R.raw.msg_action, 1);
-//		
-//		sp.play(sndId, 1.0f, 1.0f, 1, 0, 1.0f);
 		SoundQueue sq = SoundQueue.getInstance();
-		sq.addToQueue(R.raw.audio1);
-		sq.addToQueue(R.raw.msg_plant);
-		sq.addToQueue(R.raw.msg_user);
-		sq.addToQueue(R.raw.msg_action);
+//		sq.addToQueue(R.raw.audio1);
+//		sq.addToQueue(R.raw.msg_plant);
+//		sq.addToQueue(R.raw.msg_user);
+//		sq.addToQueue(R.raw.msg_action);
+		sq.addToQueue(PathBuilder.getSound("msg_user.wav"));
+		sq.addToQueue(PathBuilder.getSound("msg_action.wav"));
+		sq.addToQueue(PathBuilder.getSound("msg_plant.wav"));
 		sq.play();
 	}
 

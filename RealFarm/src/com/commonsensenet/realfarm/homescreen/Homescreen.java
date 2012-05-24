@@ -11,6 +11,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
+import com.commonsensenet.realfarm.utils.PathBuilder;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 import android.app.AlertDialog;
@@ -42,6 +43,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
         Log.i(logTag, "App started");
         // setup listener to all buttons
+        PathBuilder.init(this);
         initDb();
         initActionListener();
         initTiles();

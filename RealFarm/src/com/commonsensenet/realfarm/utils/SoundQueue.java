@@ -8,6 +8,8 @@ import android.content.Context;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.util.Log;
 
 public class SoundQueue implements OnLoadCompleteListener {
@@ -20,6 +22,52 @@ public class SoundQueue implements OnLoadCompleteListener {
 	protected Context mCtx;
 	
 	private static SoundQueue mInstance = null;
+	
+	public class SoundLoadTask extends AsyncTask<Uri, Integer, Integer> {
+		protected SoundPool mSoundPool1;
+
+		public SoundLoadTask(SoundPool pSoundPool){
+			mSoundPool1 = pSoundPool;
+		}
+		
+		@Override
+		protected Integer doInBackground(Uri... params) {
+			mSoundPool1.load(params[0].getPath(), 1);
+			return 0;
+		}
+		
+	}
+
+	public class SoundPlayTask extends AsyncTask<Integer, Integer, Integer> {
+
+		public SoundPlayTask(){ }
+		
+		@Override
+		protected Integer doInBackground(Integer... params) {
+			while(!mResToPlay.isEmpty()){
+				try {
+					Thread.sleep(1000);
+				} catch (InterruptedException e) {
+					// nothing
+				}
+			}
+			
+			while( !mResReady.isEmpty() ){
+				mSoundPool.play(mResReady.poll(), 0.9f, 0.9f, 1, 0, 1.0f);
+				try {
+					synchronized (this) {
+						Thread.sleep(500);
+					}
+				} catch (InterruptedException e) {
+					// nothing, just wait
+				}
+			}
+
+			return 0;
+		}
+		
+	}
+
 	
 	private SoundQueue(Context pCtx){
 		// hidden constructor
@@ -50,7 +98,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 	public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
 		// TODO: handle status
 		int resId = mResToPlay.poll();
-		mSoundMap.put(resId, sampleId);
+//		mSoundMap.put(resId, sampleId);
 		mResReady.add(sampleId);
 	}
 
@@ -63,23 +111,13 @@ public class SoundQueue implements OnLoadCompleteListener {
 			mResReady.add(mSoundMap.get(pResId));
 	}
 	
+	public void addToQueue(Uri pUri){
+		mResToPlay.add(1);
+		mSoundPool.load(pUri.getPath(), 1);
+	}
+	
 	public void play(){
-//		while(!mResToPlay.isEmpty()){
-//			try {
-//				synchronized (this) {
-//					wait(1000);
-//				}
-//			} catch (InterruptedException e) { }
-//		}
-		while( !mResReady.isEmpty() ){
-			mSoundPool.play(mResReady.poll(), 0.05f, 0.05f, 1, 0, 1.0f);
-			try {
-				synchronized (this) {
-					wait(2000);
-				}
-			} catch (InterruptedException e) {
-				// nothing, just wait
-			}
-		}
+		SoundPlayTask player = new SoundPlayTask();
+		player.execute(0);
 	}
 }
