@@ -6,6 +6,7 @@ import java.util.Queue;
 
 import android.content.Context;
 import android.media.AudioManager;
+import android.media.MediaPlayer;
 import android.media.SoundPool;
 import android.media.SoundPool.OnLoadCompleteListener;
 import android.net.Uri;
@@ -18,26 +19,12 @@ public class SoundQueue implements OnLoadCompleteListener {
 	protected SoundPool mSoundPool;
 	protected Queue<Integer> mResToPlay;
 	protected Queue<Integer> mResReady;
+	protected Queue<Integer> mDurations;
 	protected HashMap<Integer, Integer> mSoundMap;
 	protected Context mCtx;
 	
 	private static SoundQueue mInstance = null;
 	
-	public class SoundLoadTask extends AsyncTask<Uri, Integer, Integer> {
-		protected SoundPool mSoundPool1;
-
-		public SoundLoadTask(SoundPool pSoundPool){
-			mSoundPool1 = pSoundPool;
-		}
-		
-		@Override
-		protected Integer doInBackground(Uri... params) {
-			mSoundPool1.load(params[0].getPath(), 1);
-			return 0;
-		}
-		
-	}
-
 	public class SoundPlayTask extends AsyncTask<Integer, Integer, Integer> {
 
 		public SoundPlayTask(){ }
@@ -46,17 +33,18 @@ public class SoundQueue implements OnLoadCompleteListener {
 		protected Integer doInBackground(Integer... params) {
 			while(!mResToPlay.isEmpty()){
 				try {
-					Thread.sleep(1000);
+					Thread.sleep(500);
 				} catch (InterruptedException e) {
 					// nothing
 				}
 			}
 			
 			while( !mResReady.isEmpty() ){
+				int lDuration = mDurations.poll();
 				mSoundPool.play(mResReady.poll(), 0.9f, 0.9f, 1, 0, 1.0f);
 				try {
 					synchronized (this) {
-						Thread.sleep(500);
+						Thread.sleep(lDuration);
 					}
 				} catch (InterruptedException e) {
 					// nothing, just wait
@@ -75,6 +63,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 		mSoundPool.setOnLoadCompleteListener(this);
 		mResToPlay = new LinkedList<Integer>();
 		mResReady = new LinkedList<Integer>();
+		mDurations = new LinkedList<Integer>();
 		mSoundMap = new HashMap<Integer, Integer>();
 		mCtx = pCtx;
 	}
@@ -97,8 +86,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 	
 	public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
 		// TODO: handle status
-		int resId = mResToPlay.poll();
-//		mSoundMap.put(resId, sampleId);
+		mResToPlay.poll();
 		mResReady.add(sampleId);
 	}
 
@@ -114,6 +102,10 @@ public class SoundQueue implements OnLoadCompleteListener {
 	public void addToQueue(Uri pUri){
 		mResToPlay.add(1);
 		mSoundPool.load(pUri.getPath(), 1);
+		// get duration in a silly way
+		MediaPlayer mp = MediaPlayer.create(mCtx, pUri);
+		mDurations.add(mp.getDuration());
+		mp.release();
 	}
 	
 	public void play(){
