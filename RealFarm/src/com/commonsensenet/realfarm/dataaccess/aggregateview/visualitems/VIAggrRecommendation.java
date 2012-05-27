@@ -154,12 +154,14 @@ public class VIAggrRecommendation extends VisualItemBase implements OnDismissLis
 		TextView lblAction = new TextView(ctx);
 		lblAction.setTypeface(kannadaTypeface);
 		lblAction.setText(dataProvider.getActionNameById(aggrRec.getAction()).getNameKannada());
+		lblAction.setTextSize(18.0f);
 		mTextDetails.addView(lblAction, dataProvider.getActionNameById(aggrRec.getAction()).getAudio());
 		mKaraokeIds.add( lblAction.getId() );
 
 		TextView lblSeed = new TextView(ctx);
-		lblAction.setTypeface(kannadaTypeface);
-		lblAction.setText(dataProvider.getSeedById(aggrRec.getSeed()).getNameKannada());
+		lblSeed.setTypeface(kannadaTypeface);
+		lblSeed.setTextSize(18.0f);
+		lblSeed.setText(dataProvider.getSeedById(aggrRec.getSeed()).getNameKannada());
 		mTextDetails.addView(lblSeed, dataProvider.getSeedById(aggrRec.getSeed()).getAudiores());
 		mKaraokeIds.add( lblSeed.getId() );
 

@@ -6,11 +6,14 @@ import java.util.Vector;
 import com.commonsensenet.realfarm.R;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
 public class KaraokeLayout extends FlowLayout implements PlaybackListener {
+	private static final String logTag = "KaraokeLayout"; 
 	protected Vector<String> mSoundsToPlay;
 	protected int mChildPlaying;
 
@@ -56,18 +59,18 @@ public class KaraokeLayout extends FlowLayout implements PlaybackListener {
 		if( ! (lastView instanceof TextView) )
 			return;
 		TextView textview = (TextView) lastView;
-		textview.setTextColor(R.color.color_normal);
+		textview.setTextColor(Color.WHITE);
 	}
 
 	private void updatePlayingSignal() {
 		if( mChildPlaying > 0 ){
 			View lastCtr = getChildAt(mChildPlaying-1);
 			if( lastCtr instanceof TextView )
-				((TextView)lastCtr).setTextColor(R.color.color_normal);
+				((TextView)lastCtr).setTextColor(Color.WHITE);
 		}
 		View curCtr = getChildAt(mChildPlaying);
 		if( curCtr instanceof TextView )
-			((TextView)curCtr).setTextColor(R.color.color_playback_highlight);
+			((TextView)curCtr).setTextColor(Color.YELLOW);
 	}
 
 }

@@ -42,8 +42,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 				}
 			}
 			
-			notifyPlaybackBegin();
-			
+			publishProgress(0);
 			while( !mResReady.isEmpty() ){
 				int lDuration = mDurations.poll();
 				mSoundPool.play(mResReady.poll(), 0.9f, 0.9f, 1, 0, 1.0f);
@@ -51,20 +50,34 @@ public class SoundQueue implements OnLoadCompleteListener {
 					synchronized (this) {
 						Thread.sleep(lDuration);
 					}
-				notifyPlaybackNext();
+				publishProgress(1);
 				} catch (InterruptedException e) {
 					// nothing, just wait
 				}
 			}
 
-			notifyPlaybackEnd();
+			publishProgress(2);
 			return 0;
+		}
+		
+		protected void onProgressUpdate (Integer... values){
+			switch(values[0]){
+				case 0:
+					notifyPlaybackBegin();
+					break;
+				case 1:
+					notifyPlaybackNext();
+					break;
+				case 2:
+					notifyPlaybackEnd();
+			}
 		}
 
 		private void notifyPlaybackEnd() {
 			for( PlaybackListener listener : mToNotify ){
 				listener.OnEndPlayback();
 			}
+			mToNotify.clear();
 		}
 
 		private void notifyPlaybackNext() {
@@ -77,7 +90,6 @@ public class SoundQueue implements OnLoadCompleteListener {
 			for( PlaybackListener listener : mToNotify ){
 				listener.OnBeginPlayback();
 			}
-			mToNotify.clear();
 		}
 		
 	}

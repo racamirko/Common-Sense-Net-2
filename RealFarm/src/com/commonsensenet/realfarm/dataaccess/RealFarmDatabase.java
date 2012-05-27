@@ -1042,7 +1042,7 @@ public class RealFarmDatabase {
 				R.drawable.pic_72px_groundnut);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_groundnut_tiled);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 		
@@ -1055,7 +1055,7 @@ public class RealFarmDatabase {
 				R.drawable.pic_72px_groundnut);
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_groundnut_tiled);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		seedtype.clear();
 		
@@ -1063,7 +1063,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Bajra");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_bajra));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_bajra);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_bajra_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -1073,7 +1073,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Castor");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_castor));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_castor);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_castor_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -1083,7 +1083,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Cowpea");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_cowpea));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_cowpea);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_cowpea_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -1094,7 +1094,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_green_gram));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_greengram);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_greengram_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -1105,7 +1105,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_horsegram));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_horsegram);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_horsegram_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -1116,7 +1116,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_pigeonpea));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 				R.drawable.pic_72px_pigeonpea);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_pidgeonpea_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -1126,7 +1126,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Redgram");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_red_gram));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_redgram);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_redgram_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -1136,7 +1136,7 @@ public class RealFarmDatabase {
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, "Sorghum");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, mContext.getString(R.string.k_sorghum));
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, R.drawable.pic_72px_sorghum);
-		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, R.raw.msg_plant);
+		seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, "msg_plant.wav");
 		seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
 				R.drawable.pic_90px_sorghum_tiled);
 		insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
