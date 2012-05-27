@@ -1,8 +1,10 @@
 package com.commonsensenet.realfarm.utils;
 
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.Queue;
+import java.util.Vector;
 
 import android.content.Context;
 import android.media.AudioManager;
@@ -22,6 +24,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 	protected Queue<Integer> mDurations;
 	protected HashMap<Integer, Integer> mSoundMap;
 	protected Context mCtx;
+	protected Vector<PlaybackListener> mToNotify;
 	
 	private static SoundQueue mInstance = null;
 	
@@ -39,6 +42,8 @@ public class SoundQueue implements OnLoadCompleteListener {
 				}
 			}
 			
+			notifyPlaybackBegin();
+			
 			while( !mResReady.isEmpty() ){
 				int lDuration = mDurations.poll();
 				mSoundPool.play(mResReady.poll(), 0.9f, 0.9f, 1, 0, 1.0f);
@@ -46,12 +51,33 @@ public class SoundQueue implements OnLoadCompleteListener {
 					synchronized (this) {
 						Thread.sleep(lDuration);
 					}
+				notifyPlaybackNext();
 				} catch (InterruptedException e) {
 					// nothing, just wait
 				}
 			}
 
+			notifyPlaybackEnd();
 			return 0;
+		}
+
+		private void notifyPlaybackEnd() {
+			for( PlaybackListener listener : mToNotify ){
+				listener.OnEndPlayback();
+			}
+		}
+
+		private void notifyPlaybackNext() {
+			for( PlaybackListener listener : mToNotify ){
+				listener.OnNextTrack();
+			}
+		}
+
+		private void notifyPlaybackBegin() {
+			for( PlaybackListener listener : mToNotify ){
+				listener.OnBeginPlayback();
+			}
+			mToNotify.clear();
 		}
 		
 	}
@@ -65,6 +91,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 		mResReady = new LinkedList<Integer>();
 		mDurations = new LinkedList<Integer>();
 		mSoundMap = new HashMap<Integer, Integer>();
+		mToNotify = new Vector<PlaybackListener>();
 		mCtx = pCtx;
 	}
 	
@@ -112,4 +139,15 @@ public class SoundQueue implements OnLoadCompleteListener {
 		SoundPlayTask player = new SoundPlayTask();
 		player.execute(0);
 	}
+	
+	/**
+	 * 
+	 * Note: after the end of playback, the listener is automatically removed
+	 * 
+	 * @param listener
+	 */
+	public void addListener(PlaybackListener listener){
+		mToNotify.add(listener);
+	}
+	
 }

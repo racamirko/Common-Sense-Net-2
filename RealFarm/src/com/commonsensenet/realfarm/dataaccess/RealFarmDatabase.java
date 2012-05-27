@@ -72,7 +72,7 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_ACTIONNAME + " ( "
 					+ COLUMN_NAME_ACTIONNAME_ID + " integer primary key, "
 					+ COLUMN_NAME_ACTIONNAME_RESOURCE + " integer, "
-					+ COLUMN_NAME_ACTIONNAME_AUDIO + " integer, "
+					+ COLUMN_NAME_ACTIONNAME_AUDIO + " text not null, "
 					+ COLUMN_NAME_ACTIONNAME_NAME + " text not null, "
 					+ COLUMN_NAME_ACTIONNAME_NAME_KANNADA + " text not null ); ");
 			Log.d(DEBUG_ID, "Created actionName table");
@@ -172,7 +172,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SEEDTYPE_NAMEKANNADA + " text, "
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE_BG + " integer, "
-					+ COLUMN_NAME_SEEDTYPE_AUDIO + " integer, "
+					+ COLUMN_NAME_SEEDTYPE_AUDIO + " text not null, "
 					+ COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETY + " text, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text " + " ); ");
@@ -539,7 +539,7 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME_KANNADA, mContext.getString(R.string.k_sow));
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_90px_sowing);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio1);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, "audio1.mp3");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 4);
@@ -547,7 +547,7 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME_KANNADA, mContext.getString(R.string.k_apply_fertilizer));
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_90px_fertilizing2);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio2);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, "audio2.mp3");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 5);
@@ -555,7 +555,7 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME_KANNADA, mContext.getString(R.string.k_spraying));
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_90px_spraying3);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio3);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, "audio3.mp3");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 7);
@@ -563,7 +563,7 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME_KANNADA, mContext.getString(R.string.k_irrigate));
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_90px_irrigation2);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio4);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, "audio4.mp3");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 8);
@@ -571,7 +571,7 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME_KANNADA, mContext.getString(R.string.k_harvest));
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_90px_harvesting1);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio5);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, "audio5.mp3");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 6);
@@ -579,7 +579,7 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME_KANNADA, mContext.getString(R.string.k_reporting_of_problems));
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_90px_reporting);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio6);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, "audio6.mp3");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 
 		actionNames.clear();
@@ -588,7 +588,7 @@ public class RealFarmDatabase {
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME_KANNADA, mContext.getString(R.string.k_diary));
 		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 				R.drawable.ic_90px_diary1);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio7);
+		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, "audio7.mp3");
 		insertEntries(TABLE_NAME_ACTIONNAME, actionNames, db);
 
 		Log.d(DEBUG_ID, "actionName works");

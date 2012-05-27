@@ -2,13 +2,13 @@ package com.commonsensenet.realfarm.model;
 
 public class ActionName {
 
-	private int mAudio;
+	private String mAudio;
 	private int mId;
 	private String mName;
 	private int mRes;
 	private String mNameKannada;
 
-	public ActionName(int id, String name, String nameKannada, int resource, int audio) {
+	public ActionName(int id, String name, String nameKannada, int resource, String audio) {
 		mId = id;
 		mName = name;
 		mRes = resource;
@@ -16,7 +16,7 @@ public class ActionName {
 		mNameKannada = nameKannada;
 	}
 
-	public int getAudio() {
+	public String getAudio() {
 		return mAudio;
 	}
 

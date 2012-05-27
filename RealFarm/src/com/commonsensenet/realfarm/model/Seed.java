@@ -2,7 +2,7 @@ package com.commonsensenet.realfarm.model;
 
 public class Seed {
 
-	private int mAudioRes;
+	private String mAudioRes;
 	private int mDaysToHarvest;
 	private int mId;
 	private String mName;
@@ -12,7 +12,7 @@ public class Seed {
 	private String mVariety;
 	private String mVarietyKannada;
 
-	public Seed(int id, String name, String nameKannada, int res, int audioRes,
+	public Seed(int id, String name, String nameKannada, int res, String audioRes,
 			int daysToHarvest, String variety, String varietyKannada, int resBg) {
 		mId = id;
 		mName = name;
@@ -25,7 +25,7 @@ public class Seed {
 		mResBg = resBg;
 	}
 
-	public int getAudiores() {
+	public String getAudiores() {
 		return mAudioRes;
 	}
 
@@ -78,15 +78,5 @@ public class Seed {
 	public void setResBg(int mResBg) {
 		this.mResBg = mResBg;
 	}
-
-
-	// + COLUMN_NAME_SEEDTYPE_ID + " integer primary key, "
-	// + COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
-	// + COLUMN_NAME_SEEDTYPE_NAMEKANNADA + " text, "
-	// + COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
-	// + COLUMN_NAME_SEEDTYPE_AUDIO + " integer, "
-	// + COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST + " integer, "
-	// + COLUMN_NAME_SEEDTYPE_VARIETY + " text, "
-	// + COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text "
 
 }
