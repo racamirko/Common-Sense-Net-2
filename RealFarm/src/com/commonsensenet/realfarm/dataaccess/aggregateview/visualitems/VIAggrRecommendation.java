@@ -34,6 +34,7 @@ import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
 import com.commonsensenet.realfarm.utils.FlowLayout;
+import com.commonsensenet.realfarm.utils.KaraokeHighlighter;
 import com.commonsensenet.realfarm.utils.KaraokeLayout;
 import com.commonsensenet.realfarm.utils.PathBuilder;
 import com.commonsensenet.realfarm.utils.SoundQueue;
@@ -45,6 +46,7 @@ public class VIAggrRecommendation extends VisualItemBase implements OnDismissLis
 	protected AggregateRecommendation aggrRec;
 	protected boolean liked; // TODO should be moved to the data level
 	protected KaraokeLayout mTextDetails;
+	protected KaraokeHighlighter mHighlighter;
 	protected Vector<Integer> mKaraokeIds;
 
 	public VIAggrRecommendation(AggregateRecommendation aggrRec, Context ctx, RealFarmProvider dataProvider){
@@ -53,6 +55,7 @@ public class VIAggrRecommendation extends VisualItemBase implements OnDismissLis
 		Log.d(logTag, "created");
 		mTextDetails = null;
 		mKaraokeIds = new Vector<Integer>();
+		mHighlighter = new KaraokeHighlighter();
 	}
 
 	@Override
@@ -157,6 +160,7 @@ public class VIAggrRecommendation extends VisualItemBase implements OnDismissLis
 		lblAction.setTextSize(18.0f);
 		mTextDetails.addView(lblAction, dataProvider.getActionNameById(aggrRec.getAction()).getAudio());
 		mKaraokeIds.add( lblAction.getId() );
+		mHighlighter.addItem(dataProvider.getActionNameById(aggrRec.getAction()).getAudio(), lblAction);
 
 		TextView lblSeed = new TextView(ctx);
 		lblSeed.setTypeface(kannadaTypeface);
@@ -164,6 +168,11 @@ public class VIAggrRecommendation extends VisualItemBase implements OnDismissLis
 		lblSeed.setText(dataProvider.getSeedById(aggrRec.getSeed()).getNameKannada());
 		mTextDetails.addView(lblSeed, dataProvider.getSeedById(aggrRec.getSeed()).getAudiores());
 		mKaraokeIds.add( lblSeed.getId() );
+		mHighlighter.addItem(dataProvider.getSeedById(aggrRec.getSeed()).getAudiores(), lblSeed);
+		
+		mHighlighter.addItem("msg_did.wav", null);
+		mHighlighter.addItem(KaraokeHighlighter.intToSound(aggrRec.getUserIds().size()), null);
+		mHighlighter.addItem("msg_farmers.wav", null);
 
 		mTextDetails.setOnClickListener(this);
 		mKaraokeIds.add( mTextDetails.getId() );
@@ -183,6 +192,7 @@ public class VIAggrRecommendation extends VisualItemBase implements OnDismissLis
 			btnFarmer.setOnClickListener(this);
 			btnFarmer.setTag(usrId);
 			peopleList.addView(btnFarmer);
+			mHighlighter.addItem(usr.getUsrAudioFile(), btnFarmer);
 		}
 		
 		btnSound.setOnClickListener(this);
@@ -196,18 +206,7 @@ public class VIAggrRecommendation extends VisualItemBase implements OnDismissLis
 	}
 
 	public void playAudio() {
-		Toast.makeText(ctx, "Showing help for aggregated recommendation: "+ dataProvider.getActionNameById(aggrRec.getAction()).getName() + " " + dataProvider.getSeedById(aggrRec.getSeed()).getName() 
-					   , Toast.LENGTH_SHORT).show();
-
-		SoundQueue sq = SoundQueue.getInstance();
-//		sq.addToQueue(R.raw.audio1);
-//		sq.addToQueue(R.raw.msg_plant);
-//		sq.addToQueue(R.raw.msg_user);
-//		sq.addToQueue(R.raw.msg_action);
-		sq.addToQueue(PathBuilder.getSound("msg_user.wav"));
-		sq.addToQueue(PathBuilder.getSound("msg_action.wav"));
-		sq.addToQueue(PathBuilder.getSound("msg_plant.wav"));
-		sq.play();
+		mHighlighter.play();
 	}
 
 	public void onDismiss(DialogInterface dialog) {

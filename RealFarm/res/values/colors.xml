@@ -11,7 +11,7 @@
     <color name="icon_background_end">#24AAED</color>
     <color name="button_background_green_start">#00FF00</color>
     <color name="button_background_green_end">#2B9E2F</color>
-    <color name="color_playback_highlight">#e9f109</color>
+    <color name="color_playback_highlight">#00e9f109</color>
     <color name="color_normal">#FFFFFF</color>	
 	
 </resources>

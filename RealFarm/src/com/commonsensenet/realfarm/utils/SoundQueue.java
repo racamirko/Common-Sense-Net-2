@@ -50,7 +50,8 @@ public class SoundQueue implements OnLoadCompleteListener {
 					synchronized (this) {
 						Thread.sleep(lDuration);
 					}
-				publishProgress(1);
+				if(!mResReady.isEmpty())
+					publishProgress(1);
 				} catch (InterruptedException e) {
 					// nothing, just wait
 				}
