@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="right">
+        <ImageButton
+            	android:id="@+id/btn_help"
+            	android:src="@drawable/smiley_question"
+            	android:layout_width="40dp"
+            	android:layout_height="40dp"
+            	android:scaleType="fitXY"
+            	android:background="@drawable/circular_btn"
+            	 />
+    </LinearLayout>
+
+    <!-- Row 1 -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="horizontal" >
+			<RelativeLayout android:id="@+id/layout_cell1"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+			
+			<RelativeLayout android:id="@+id/layout_cell2"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+	</LinearLayout>
+
+    <!-- Row 2 -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="horizontal" >
+			<RelativeLayout android:id="@+id/layout_cell1"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+			
+			<RelativeLayout android:id="@+id/layout_cell2"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+	</LinearLayout>
+
+    <!-- Row 3 -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="horizontal" >
+			<RelativeLayout android:id="@+id/layout_cell1"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+			
+			<RelativeLayout android:id="@+id/layout_cell2"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+	</LinearLayout>
+
+    <!-- Row 4 -->
+    <LinearLayout
+        android:id="@+id/linearLayout2"
+        android:layout_width="match_parent"
+        android:layout_height="110dp"
+        android:orientation="horizontal" >
+			<RelativeLayout android:id="@+id/layout_cell1"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+			
+			<RelativeLayout android:id="@+id/layout_cell2"
+			    android:layout_width="160dp"
+			    android:layout_height="50dp">
+			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
+			        		 android:layout_width="wrap_content"
+			        		 android:layout_height="wrap_content"/>
+			</RelativeLayout>
+	</LinearLayout>
+</LinearLayout>
