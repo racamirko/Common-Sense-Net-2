@@ -13,8 +13,8 @@
         <ImageButton
             	android:id="@+id/btn_help"
             	android:src="@drawable/smiley_question"
-            	android:layout_width="40dp"
-            	android:layout_height="40dp"
+            	android:layout_width="60dp"
+            	android:layout_height="60dp"
             	android:scaleType="fitXY"
             	android:background="@drawable/circular_btn"
             	 />
@@ -25,22 +25,225 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+        	<!-- Warnings -->
 			<RelativeLayout android:id="@+id/layout_cell1"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+			    android:layout_width="150dp"
+			    android:layout_height="fill_parent"
+			    android:layout_marginRight="5dp">
+			    <ImageView android:id="@+id/homescreen_icon_warn"
+			        	   android:layout_width="60dp"
+			        	   android:layout_height="60dp"
+			        	   android:src="@drawable/ic_90px_reporting"
+			        	   android:scaleType="fitXY"
+			        	   android:layout_margin="5dp"
+			        	   android:background="@drawable/circular_btn"/>
+
+			    <TextView
+			        android:id="@+id/homescreen_lbl_warn"
+			        android:layout_width="100dp"
+			        android:layout_height="wrap_content"
+			        android:text="@string/k_reporting_of_problems"
+			        android:textColor="@android:color/white"
+			        android:layout_toRightOf="@id/homescreen_icon_warn"/>
+			    
+			    <LinearLayout android:id="@+id/homescreen_layout_warnings"
+			        		  android:orientation="horizontal"
+			        		  android:layout_below="@id/homescreen_icon_warn"
+			        		  android:layout_width="fill_parent"
+			        		  android:layout_height="wrap_content">
+			        
+			        <!-- dummy test item #1 -->
+			        <RelativeLayout android:id="@+id/homescreen_layout_warn_item1"
+			            	 android:layout_width="60px"
+			        		 android:layout_height="60px">
+					    <ImageView android:id="@+id/homescreen_icon_sample1"
+					        	   android:layout_width="fill_parent"
+					        	   android:layout_height="fill_parent"
+					        	   android:scaleType="fitXY"
+					        	   android:src="@drawable/ic_48px_reporting"
+					        	   android:layout_margin="5dp"
+					        	   android:background="@drawable/circular_icon_bg"/>
+					    <TextView android:id="@+id/homescreen_lbl_people_cnt1"
+					        	   android:layout_width="20dp"
+					        	   android:layout_height="20dp"
+					        	   android:scaleType="fitXY"
+					        	   android:background="@drawable/circular_btn"
+					        	   android:layout_alignParentBottom="true"
+					        	   android:layout_alignParentRight="true"
+					        	   android:text="5"
+					        	   android:textColor="@android:color/black"
+							       android:textStyle="bold"
+							       android:textSize="14dp"
+							       android:gravity="center"
+					        	   />
+			        </RelativeLayout>
+
+					<!-- dummy test item #2 -->
+			        <RelativeLayout android:id="@+id/homescreen_layout_warn_item2"
+			            	 android:layout_width="60px"
+			        		 android:layout_height="60px">
+					    <ImageView android:id="@+id/homescreen_icon_sample2"
+					        	   android:layout_width="fill_parent"
+					        	   android:layout_height="fill_parent"
+					        	   android:scaleType="fitXY"
+					        	   android:src="@drawable/ic_48px_fertilizing1"
+					        	   android:layout_margin="5dp"
+					        	   android:background="@drawable/circular_icon_bg"/>
+					    <TextView android:id="@+id/homescreen_lbl_people_cnt2"
+					        	   android:layout_width="20dp"
+					        	   android:layout_height="20dp"
+					        	   android:scaleType="fitXY"
+					        	   android:background="@drawable/circular_btn"
+					        	   android:layout_alignParentBottom="true"
+					        	   android:layout_alignParentRight="true"
+					        	   android:text="2"
+					        	   android:textColor="@android:color/black"
+							       android:textStyle="bold"
+							       android:textSize="14dp"
+							       android:gravity="center"
+					        	   />
+			        </RelativeLayout>
+
+					<!-- dummy test item #3 -->
+			        <RelativeLayout android:id="@+id/homescreen_layout_warn_item3"
+			            	 android:layout_width="60px"
+			        		 android:layout_height="60px">
+					    <ImageView android:id="@+id/homescreen_icon_sample3"
+					        	   android:layout_width="fill_parent"
+					        	   android:layout_height="fill_parent"
+					        	   android:scaleType="fitXY"
+					        	   android:src="@drawable/ic_48px_harvesting2"
+					        	   android:layout_margin="5dp"
+					        	   android:background="@drawable/circular_icon_bg"/>
+					    <TextView android:id="@+id/homescreen_lbl_people_cnt3"
+					        	   android:layout_width="20dp"
+					        	   android:layout_height="20dp"
+					        	   android:scaleType="fitXY"
+					        	   android:background="@drawable/circular_btn"
+					        	   android:layout_alignParentBottom="true"
+					        	   android:layout_alignParentRight="true"
+					        	   android:text="10"
+					        	   android:textColor="@android:color/black"
+							       android:textStyle="bold"
+							       android:textSize="14dp"
+							       android:gravity="center"
+					        	   />
+			        </RelativeLayout>
+
+        		</LinearLayout>
+
 			</RelativeLayout>
 			
+			<!-- Actions -->
 			<RelativeLayout android:id="@+id/layout_cell2"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+			    android:layout_width="155dp"
+			    android:layout_height="fill_parent">
+			    <ImageView android:id="@+id/homescreen_icon_action"
+			        	   android:layout_width="60dp"
+			        	   android:layout_height="60dp"
+			        	   android:src="@drawable/ic_90px_sowing"
+			        	   android:scaleType="fitXY"
+			        	   android:layout_margin="5dp"
+			        	   android:background="@drawable/circular_btn"/>
+
+			    <TextView
+			        android:id="@+id/homescreen_lbl_action"
+			        android:layout_width="100dp"
+			        android:layout_height="wrap_content"
+			        android:text="@string/k_news"
+			        android:textColor="@android:color/white"
+			        android:layout_toRightOf="@id/homescreen_icon_action"/>
+			    
+			    <LinearLayout android:id="@+id/homescreen_layout_action"
+			        		  android:orientation="horizontal"
+			        		  android:layout_below="@id/homescreen_icon_action"
+			        		  android:layout_width="fill_parent"
+			        		  android:layout_height="wrap_content">
+			        
+			        <!-- dummy test item #1 -->
+			        <RelativeLayout android:id="@+id/homescreen_layout_action_item1"
+			            	 android:layout_width="60px"
+			        		 android:layout_height="60px">
+					    <ImageView android:id="@+id/homescreen_icon_ac_sample1"
+					        	   android:layout_width="fill_parent"
+					        	   android:layout_height="fill_parent"
+					        	   android:scaleType="fitXY"
+					        	   android:src="@drawable/ic_48px_reporting"
+					        	   android:layout_margin="5dp"
+					        	   android:background="@drawable/circular_icon_bg"/>
+					    <TextView android:id="@+id/homescreen_lbl_ac_people_cnt1"
+					        	   android:layout_width="20dp"
+					        	   android:layout_height="20dp"
+					        	   android:scaleType="fitXY"
+					        	   android:background="@drawable/circular_btn"
+					        	   android:layout_alignParentBottom="true"
+					        	   android:layout_alignParentRight="true"
+					        	   android:text="5"
+					        	   android:textColor="@android:color/black"
+							       android:textStyle="bold"
+							       android:textSize="14dp"
+							       android:gravity="center"
+					        	   />
+			        </RelativeLayout>
+
+					<!-- dummy test item #2 -->
+			        <RelativeLayout android:id="@+id/homescreen_layout_ac_item2"
+			            	 android:layout_width="60px"
+			        		 android:layout_height="60px">
+					    <ImageView android:id="@+id/homescreen_icon_ac_sample2"
+					        	   android:layout_width="fill_parent"
+					        	   android:layout_height="fill_parent"
+					        	   android:scaleType="fitXY"
+					        	   android:src="@drawable/ic_48px_fertilizing1"
+					        	   android:layout_margin="5dp"
+					        	   android:background="@drawable/circular_icon_bg"/>
+					    <TextView android:id="@+id/homescreen_lbl_ac_people_cnt2"
+					        	   android:layout_width="20dp"
+					        	   android:layout_height="20dp"
+					        	   android:scaleType="fitXY"
+					        	   android:background="@drawable/circular_btn"
+					        	   android:layout_alignParentBottom="true"
+					        	   android:layout_alignParentRight="true"
+					        	   android:text="2"
+					        	   android:textColor="@android:color/black"
+							       android:textStyle="bold"
+							       android:textSize="14dp"
+							       android:gravity="center"
+					        	   />
+			        </RelativeLayout>
+
+					<!-- dummy test item #3 -->
+			        <RelativeLayout android:id="@+id/homescreen_layout_ac_item3"
+			            	 android:layout_width="60px"
+			        		 android:layout_height="60px">
+					    <ImageView android:id="@+id/homescreen_icon_ac_sample3"
+					        	   android:layout_width="fill_parent"
+					        	   android:layout_height="fill_parent"
+					        	   android:scaleType="fitXY"
+					        	   android:src="@drawable/ic_48px_harvesting2"
+					        	   android:layout_margin="5dp"
+					        	   android:background="@drawable/circular_icon_bg"/>
+					    <TextView android:id="@+id/homescreen_lbl_ac_people_cnt3"
+					        	   android:layout_width="20dp"
+					        	   android:layout_height="20dp"
+					        	   android:scaleType="fitXY"
+					        	   android:background="@drawable/circular_btn"
+					        	   android:layout_alignParentBottom="true"
+					        	   android:layout_alignParentRight="true"
+					        	   android:text="10"
+					        	   android:textColor="@android:color/black"
+							       android:textStyle="bold"
+							       android:textSize="14dp"
+							       android:gravity="center"
+					        	   />
+			        </RelativeLayout>
+
+        		</LinearLayout>
+
 			</RelativeLayout>
+			
 	</LinearLayout>
 
     <!-- Row 2 -->
@@ -48,18 +251,69 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:orientation="horizontal" >
-			<RelativeLayout android:id="@+id/layout_cell1"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
+			<!-- Yields -->
+			<RelativeLayout android:id="@+id/layout_cell3"
+			    android:layout_width="150dp"
+			    android:layout_height="fill_parent"
+			    android:layout_marginRight="5dp">
+			    <ImageView android:id="@+id/homescreen_icon_yield"
+			        	   android:layout_width="60dp"
+			        	   android:layout_height="60dp"
+			        	   android:src="@drawable/ic_90px_harvesting1"
+			        	   android:scaleType="fitXY"
+			        	   android:layout_margin="5dp"
+			        	   android:background="@drawable/circular_btn"/>
+
+			    <TextView
+			        android:id="@+id/homescreen_lbl_action"
+			        android:layout_width="100dp"
+			        android:layout_height="wrap_content"
+			        android:text="@string/k_harvest"
+			        android:textColor="@android:color/white"
+			        android:layout_toRightOf="@id/homescreen_icon_yield"/>
+			    
+			    <LinearLayout android:id="@+id/homescreen_layout_yield"
+			        		  android:orientation="horizontal"
+			        		  android:layout_below="@id/homescreen_icon_yield"
+			        		  android:layout_width="fill_parent"
+			        		  android:layout_height="wrap_content">
+			        
+			        <!-- Dummy item #1 -->
+					<TextView android:id="@+id/hmscr_icon_plant_dummy1"
+					    android:background="@drawable/pic_72px_bajra"
+					    android:scaleType="fitXY"
+					    android:layout_width="50dp"
+					    android:layout_height="40dp"
+					    android:text="30   rp/kg"
+		        	    android:textColor="@android:color/white"
+				        android:textStyle="bold"
+				        android:textSize="15dp"
+				        android:gravity="center"
+				        android:layout_marginRight="5dp"
+					    />
+					
+			        <!-- Dummy item #2 -->
+					<TextView android:id="@+id/hmscr_icon_plant_dummy2"
+					    android:background="@drawable/pic_72px_castor"
+					    android:scaleType="fitXY"
+					    android:layout_width="50dp"
+					    android:layout_height="40dp"
+					    android:text="20   rp/kg"
+		        	    android:textColor="@android:color/white"
+				        android:textStyle="bold"
+				        android:textSize="15dp"
+				        android:gravity="center"
+					    />
+			        
+								        
+			    </LinearLayout>			
 			</RelativeLayout>
 			
-			<RelativeLayout android:id="@+id/layout_cell2"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
+			<RelativeLayout android:id="@+id/layout_cell4"
+			    android:layout_width="155dp"
+			    android:layout_height="fill_parent">
 			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
 			        		 android:layout_width="wrap_content"
 			        		 android:layout_height="wrap_content"/>
@@ -71,18 +325,20 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
 			<RelativeLayout android:id="@+id/layout_cell1"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
+			    android:layout_width="150dp"
+			    android:layout_height="fill_parent"
+			    android:layout_marginRight="5dp">
 			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
 			        		 android:layout_width="wrap_content"
 			        		 android:layout_height="wrap_content"/>
 			</RelativeLayout>
 			
 			<RelativeLayout android:id="@+id/layout_cell2"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
+			    android:layout_width="155dp"
+			    android:layout_height="fill_parent">
 			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
 			        		 android:layout_width="wrap_content"
 			        		 android:layout_height="wrap_content"/>
@@ -94,18 +350,20 @@
         android:id="@+id/linearLayout2"
         android:layout_width="match_parent"
         android:layout_height="110dp"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:layout_margin="5dp">
 			<RelativeLayout android:id="@+id/layout_cell1"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
+			    android:layout_width="150dp"
+			    android:layout_height="fill_parent"
+			    android:layout_marginRight="5dp">
 			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
 			        		 android:layout_width="wrap_content"
 			        		 android:layout_height="wrap_content"/>
 			</RelativeLayout>
 			
 			<RelativeLayout android:id="@+id/layout_cell2"
-			    android:layout_width="160dp"
-			    android:layout_height="50dp">
+			    android:layout_width="155dp"
+			    android:layout_height="fill_parent">
 			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
 			        		 android:layout_width="wrap_content"
 			        		 android:layout_height="wrap_content"/>
