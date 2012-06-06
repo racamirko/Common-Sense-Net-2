@@ -286,7 +286,7 @@
 					    android:scaleType="fitXY"
 					    android:layout_width="50dp"
 					    android:layout_height="40dp"
-					    android:text="30   rp/kg"
+					    android:text="30   kg/ac"
 		        	    android:textColor="@android:color/white"
 				        android:textStyle="bold"
 				        android:textSize="15dp"
@@ -300,7 +300,7 @@
 					    android:scaleType="fitXY"
 					    android:layout_width="50dp"
 					    android:layout_height="40dp"
-					    android:text="20   rp/kg"
+					    android:text="20   kg/ac"
 		        	    android:textColor="@android:color/white"
 				        android:textStyle="bold"
 				        android:textSize="15dp"
@@ -311,12 +311,53 @@
 			    </LinearLayout>			
 			</RelativeLayout>
 			
+			<!-- Weather forcast -->
 			<RelativeLayout android:id="@+id/layout_cell4"
 			    android:layout_width="155dp"
 			    android:layout_height="fill_parent">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+			    <TextView android:id="@+id/hmscr_lbl_weather"
+			        android:text="@string/k_wild_boar"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="center_vertical"
+			        android:textColor="@android:color/white"
+			        android:layout_marginLeft="2dp"
+			        />
+			    
+			    <TextView android:id="@+id/hmscr_lbl_weather_today"
+			        android:text="@string/k_today"
+			        android:layout_width="100dp"
+			        android:layout_marginTop="10dp"
+			        android:layout_height="wrap_content"
+			        android:textColor="@android:color/white"
+			        android:layout_below="@id/hmscr_lbl_weather"
+			        />
+    		    <ImageView android:id="@+id/hmscr_icon_weather_today"
+			        android:layout_height="60dp"
+			        android:layout_width="60dp"
+			        android:scaleType="fitXY"
+			        android:src="@drawable/ic_64px_cloudy"
+			        android:layout_below="@id/hmscr_lbl_weather_today"
+			        android:layout_alignLeft="@id/hmscr_lbl_weather_today"
+			        />
+			    			    			    
+			    <TextView android:id="@+id/hmscr_lbl_weather_tomorrow"
+			        android:text="@string/k_today"
+			        android:layout_width="100dp"
+			        android:layout_marginTop="10dp"
+			        android:layout_height="wrap_content"
+			        android:textColor="@android:color/white"
+			        android:layout_below="@id/hmscr_lbl_weather"
+			        android:layout_toRightOf="@id/hmscr_lbl_weather_today"
+			        />
+       		    <ImageView android:id="@+id/hmscr_icon_weather_tomorrow"
+			        android:layout_height="60dp"
+			        android:layout_width="60dp"
+			        android:src="@drawable/ic_64px_sunny"
+			        android:layout_below="@id/hmscr_lbl_weather_tomorrow"
+			        android:layout_alignLeft="@id/hmscr_lbl_weather_tomorrow"
+			        />
+
 			</RelativeLayout>
 	</LinearLayout>
 
@@ -347,26 +388,131 @@
 
     <!-- Row 4 -->
     <LinearLayout
-        android:id="@+id/linearLayout2"
+        android:id="@+id/linearLayout4"
         android:layout_width="match_parent"
         android:layout_height="110dp"
         android:orientation="horizontal"
         android:layout_margin="5dp">
-			<RelativeLayout android:id="@+id/layout_cell1"
+        	<!-- Warnings -->
+			<RelativeLayout android:id="@+id/layout_cell7"
 			    android:layout_width="150dp"
 			    android:layout_height="fill_parent"
 			    android:layout_marginRight="5dp">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+			    <ImageView android:id="@+id/homescreen_icon_diary"
+			        	   android:layout_width="60dp"
+			        	   android:layout_height="60dp"
+			        	   android:src="@drawable/ic_90px_diary1"
+			        	   android:scaleType="fitXY"
+			        	   android:layout_margin="5dp"
+			        	   android:background="@drawable/circular_btn"/>
+
+			    <TextView
+			        android:id="@+id/homescreen_lbl_diary"
+			        android:layout_width="100dp"
+			        android:layout_height="wrap_content"
+			        android:text="@string/k_diary"
+			        android:textColor="@android:color/white"
+			        android:layout_toRightOf="@id/homescreen_icon_diary"/>
+			    
+			    <LinearLayout android:id="@+id/homescreen_layout_warnings"
+			        		  android:orientation="horizontal"
+			        		  android:layout_below="@id/homescreen_icon_diary"
+			        		  android:layout_width="fill_parent"
+			        		  android:layout_height="wrap_content">
+					
+			        <ImageView android:id="@+id/hmscrn_icon_like_diary"
+			            	  android:layout_width="wrap_content"
+			            	  android:layout_height="wrap_content"
+			            	  android:src="@drawable/ic_48px_thumbs_up"
+			            	  android:padding="3dp"
+			            	  android:background="@drawable/circular_icon_bg"/>
+			        
+			    	<TextView android:id="@+id/hmscrn_lbl_like"
+			        	  android:textColor="@android:color/white"
+			        	  android:layout_width="wrap_content"
+			        	  android:layout_height="55px"
+			        	  android:gravity="center"
+			        	  android:textSize="20dp"
+			        	  android:textStyle="bold"
+			        	  android:layout_marginLeft="2dp"
+			        	  android:text="5" />
+
+			        <ImageView android:id="@+id/hmscrn_icon_add_one_diary"
+		            	  android:layout_width="wrap_content"
+		            	  android:layout_height="wrap_content"
+		            	  android:src="@drawable/ic_64px_google_plus_one"
+		            	  android:paddingLeft="30dp"
+		            	  />
+
+   			    	<TextView android:id="@+id/hmscrn_lbl_add_one"
+			        	  android:textColor="@android:color/white"
+			        	  android:layout_width="wrap_content"
+			        	  android:layout_height="55px"
+			        	  android:gravity="center"
+			        	  android:textSize="20dp"
+			        	  android:textStyle="bold"
+			        	  android:layout_marginLeft="2dp"
+			        	  android:text="2" />
+
+
+        		</LinearLayout>
+
 			</RelativeLayout>
 			
-			<RelativeLayout android:id="@+id/layout_cell2"
+			<RelativeLayout android:id="@+id/layout_cell8"
 			    android:layout_width="155dp"
 			    android:layout_height="fill_parent">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+			    <ImageView android:id="@+id/homescreen_icon_market"
+			        	   android:layout_width="60dp"
+			        	   android:layout_height="60dp"
+			        	   android:src="@drawable/ic_128px_market_temporary"
+			        	   android:scaleType="fitXY"
+			        	   android:layout_margin="5dp"
+			        	   android:background="@drawable/circular_btn"/>
+
+			    <TextView
+			        android:id="@+id/homescreen_lbl_market"
+			        android:layout_width="100dp"
+			        android:layout_height="wrap_content"
+			        android:text="@string/k_harvest"
+			        android:textColor="@android:color/white"
+			        android:layout_toRightOf="@id/homescreen_icon_market"/>
+			    
+			    <LinearLayout android:id="@+id/homescreen_layout_market"
+			        		  android:orientation="horizontal"
+			        		  android:layout_below="@id/homescreen_icon_market"
+			        		  android:layout_width="fill_parent"
+			        		  android:layout_height="wrap_content">
+			        
+			        <!-- Dummy item #1 -->
+					<TextView android:id="@+id/hmscr_icon_plant_dummy3"
+					    android:background="@drawable/pic_72px_horsegram"
+					    android:scaleType="fitXY"
+					    android:layout_width="50dp"
+					    android:layout_height="40dp"
+					    android:text="30   rp/kg"
+		        	    android:textColor="@android:color/white"
+				        android:textStyle="bold"
+				        android:textSize="15dp"
+				        android:gravity="center"
+				        android:layout_marginRight="5dp"
+					    />
+					
+			        <!-- Dummy item #2 -->
+					<TextView android:id="@+id/hmscr_icon_plant_dummy4"
+					    android:background="@drawable/pic_72px_sorghum"
+					    android:scaleType="fitXY"
+					    android:layout_width="50dp"
+					    android:layout_height="40dp"
+					    android:text="20   rp/kg"
+		        	    android:textColor="@android:color/white"
+				        android:textStyle="bold"
+				        android:textSize="15dp"
+				        android:gravity="center"
+					    />
+			        
+								        
+			    </LinearLayout>
 			</RelativeLayout>
 	</LinearLayout>
 </LinearLayout>
