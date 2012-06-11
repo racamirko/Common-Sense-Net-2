@@ -15,12 +15,15 @@ import com.commonsensenet.realfarm.utils.PathBuilder;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.DialogInterface;
+import android.content.DialogInterface.OnDismissListener;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.Window;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -34,7 +37,7 @@ import android.widget.Toast;
  * @author Mirko Raca <mirko.raca@epfl.ch>
  *
  */
-public class Homescreen extends HelpEnabledActivity implements OnClickListener {
+public class Homescreen extends HelpEnabledActivity implements OnClickListener, OnDismissListener {
 	private String logTag = "Homescreen";
 	
     @Override
@@ -260,11 +263,47 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 		
 		if( v.getId() == R.id.home_btn_homeactions ){
-			Log.d(logTag, "Starting weather info");
-			// TODO: change!
-			inte = new Intent(this, AggregateView.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
+			Log.d(logTag, "Starting home actions dlg");
+			Dialog dlg = new Dialog(this);
+			dlg.setOnDismissListener(this);
+			dlg.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			dlg.setCanceledOnTouchOutside(true);
+			dlg.setContentView(R.layout.home_action_buttons);
+			
+	        // Action buttons
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_diary)).setOnClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_diary)).setOnLongClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_diary)).setOnTouchListener(this);
+
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_fertilize)).setOnClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_fertilize)).setOnLongClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_fertilize)).setOnTouchListener(this);
+
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_irrigate)).setOnClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_irrigate)).setOnLongClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_irrigate)).setOnTouchListener(this);
+
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_yield)).setOnClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_yield)).setOnLongClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_yield)).setOnTouchListener(this);
+
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_plant)).setOnClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_plant)).setOnLongClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_plant)).setOnTouchListener(this);
+
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_problem)).setOnClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_problem)).setOnLongClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_problem)).setOnTouchListener(this);
+
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_spray)).setOnClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_spray)).setOnLongClickListener(this);
+	        ((ImageButton) dlg.findViewById(R.id.btn_action_spray)).setOnTouchListener(this);
+	        
+	        setHelpIcon(dlg.findViewById(R.id.dlg_help_indicator));
+	        
+			dlg.setCancelable(true);
+			dlg.setOwnerActivity(this);
+			dlg.show();
 			return;
 		}
 		
@@ -302,5 +341,15 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Toast.makeText(this.getApplicationContext(), txt, Toast.LENGTH_SHORT).show();
 	}
 	
-	public enum InfoType { ADVICE, ACTIONS, WARN, YIELD };
+	public enum InfoType { ADVICE, ACTIONS, WARN, YIELD }
+
+	public void onDismissDialog() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void onDismiss(DialogInterface dialog) {
+		Log.i(logTag, "Dismissed dialog");
+		setHelpIcon(findViewById(R.id.helpIndicator));
+	};
 }

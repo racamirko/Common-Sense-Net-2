@@ -86,7 +86,7 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 	public boolean onLongClick(View v) {
 		// position
 		int loc[] = new int[2];
-		v.getLocationOnScreen(loc);
+		v.getLocationInWindow(loc);
 		int iconWidth = mHelpIcon.getWidth()-mHelpIcon.getPaddingLeft();
 		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
 		mHelpIcon.setPadding(loc[0]+v.getWidth()/2-iconWidth/2, loc[1] - iconHeight - 20, 0, 0);
