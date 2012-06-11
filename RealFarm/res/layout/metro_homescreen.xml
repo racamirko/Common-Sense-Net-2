@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    
+  <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -279,7 +282,7 @@
 			        	   android:background="@drawable/circular_btn"/>
 
 			    <TextView
-			        android:id="@+id/homescreen_lbl_action"
+			        android:id="@+id/homescreen_lbl_yields"
 			        android:layout_width="100dp"
 			        android:layout_height="wrap_content"
 			        android:text="@string/k_harvest"
@@ -484,7 +487,7 @@
 			        	   android:background="@drawable/circular_btn"/>
 
 			    <TextView
-			        android:id="@+id/homescreen_lbl_diary"
+			        android:id="@+id/hmscrn_lbl_diary"
 			        android:layout_width="100dp"
 			        android:layout_height="wrap_content"
 			        android:text="@string/k_diary"
@@ -555,7 +558,7 @@
 			        	   android:background="@drawable/circular_btn"/>
 
 			    <TextView
-			        android:id="@+id/homescreen_lbl_market"
+			        android:id="@+id/hmscrn_lbl_market"
 			        android:layout_width="100dp"
 			        android:layout_height="wrap_content"
 			        android:layout_toRightOf="@id/homescreen_icon_market"
@@ -607,4 +610,13 @@
 
 			</RelativeLayout>
 	</LinearLayout>
-</LinearLayout>
+  </LinearLayout>
+  
+    <ImageView
+        android:id="@+id/helpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_76px_sound"
+        android:visibility="invisible" />
+    
+</merge>

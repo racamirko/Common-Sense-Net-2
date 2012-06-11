@@ -157,23 +157,43 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
     
 	@Override
     protected void initKannada(){
-//    	Log.i(logTag, "Init kannada");
-//    	TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
-//    	tmpText.setTypeface(mKannadaTypeface);
-//    	tmpText.setText(getString(R.string.k_solved));
-//    	
-//    	tmpText = (TextView) findViewById(R.id.home_lbl_advice);
-//    	tmpText.setTypeface(mKannadaTypeface);
-//    	tmpText.setText(getString(R.string.k_news));
-//    	
-//    	tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
-//    	tmpText.setTypeface(mKannadaTypeface);
-//    	tmpText.setText(getString(R.string.k_farmers));
-//    	
-//    	tmpText = (TextView) findViewById(R.id.home_lbl_yield);
-//    	tmpText.setTypeface(mKannadaTypeface);
-//    	tmpText.setText(getString(R.string.k_harvest));
-    }
+    	Log.i(logTag, "Init kannada");
+    	TextView tmpText = (TextView) findViewById(R.id.homescreen_lbl_warn);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_reporting_of_problems));
+
+    	tmpText = (TextView) findViewById(R.id.homescreen_lbl_action);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_news));
+
+    	tmpText = (TextView) findViewById(R.id.homescreen_lbl_yields);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_harvest));
+
+    	tmpText = (TextView) findViewById(R.id.hmscr_lbl_weather);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_wild_boar));
+
+    	tmpText = (TextView) findViewById(R.id.hmscr_lbl_weather_today);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_today));
+    	
+    	tmpText = (TextView) findViewById(R.id.hmscr_lbl_weather_tomorrow);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_days));
+    	
+    	tmpText = (TextView) findViewById(R.id.hmscrn_lbl_tuts);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_news));
+
+    	tmpText = (TextView) findViewById(R.id.hmscrn_lbl_diary);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_diary));
+
+    	tmpText = (TextView) findViewById(R.id.hmscrn_lbl_market);
+    	tmpText.setTypeface(mKannadaTypeface);
+    	tmpText.setText(getString(R.string.k_harvest));
+	}
 
 	@Override
 	public void onBackPressed() {
