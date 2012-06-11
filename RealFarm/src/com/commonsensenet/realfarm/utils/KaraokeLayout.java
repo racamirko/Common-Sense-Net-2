@@ -3,8 +3,6 @@ package com.commonsensenet.realfarm.utils;
 import java.util.Iterator;
 import java.util.Vector;
 
-import com.commonsensenet.realfarm.R;
-
 import android.content.Context;
 import android.graphics.Color;
 import android.util.AttributeSet;

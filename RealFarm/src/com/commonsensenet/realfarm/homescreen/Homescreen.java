@@ -39,7 +39,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, R.layout.homescreen);
+        super.onCreate(savedInstanceState, R.layout.metro_homescreen);
 
         Log.i(logTag, "App started");
         // setup listener to all buttons
@@ -83,15 +83,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	protected void initTiles() {
 		Log.i(logTag, "Initializing tiles");
-		LinearLayout layAdvice = (LinearLayout) findViewById(R.id.home_lay_advice);
+		// TODO: Query warnings
+		LinearLayout layWarning = (LinearLayout) findViewById(R.id.home_lay_advice);
 		LinearLayout layActions = (LinearLayout) findViewById(R.id.home_lay_actions);
-		LinearLayout layWarn = (LinearLayout) findViewById(R.id.home_lay_warn);
-		LinearLayout layYield = (LinearLayout) findViewById(R.id.home_lay_yield);
 	
-		populateTiles( InfoType.ADVICE, layAdvice );
-		populateTiles( InfoType.ACTIONS, layActions );
-		populateTiles( InfoType.WARN, layWarn );
-		populateTiles( InfoType.YIELD, layYield );		
+//		populateTiles( InfoType.ADVICE, layAdvice );
+//		populateTiles( InfoType.ACTIONS, layActions );
+//		populateTiles( InfoType.WARN, layWarn );
+//		populateTiles( InfoType.YIELD, layYield );		
 	}
 	
 	protected void populateTiles( InfoType infoType, LinearLayout layout ){
@@ -118,73 +117,62 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	private void initActionListener() {
-		((Button) findViewById(R.id.home_btn_advice)).setOnClickListener(this);
-	    ((Button) findViewById(R.id.home_btn_advice)).setOnLongClickListener(this);
-	    ((Button) findViewById(R.id.home_btn_advice)).setOnTouchListener(this);
+		((Button) findViewById(R.id.home_btn_warnings)).setOnClickListener(this);
+	    ((Button) findViewById(R.id.home_btn_warnings)).setOnLongClickListener(this);
+	    ((Button) findViewById(R.id.home_btn_warnings)).setOnTouchListener(this);
       
 
         ((Button) findViewById(R.id.home_btn_actions)).setOnClickListener(this);
         ((Button) findViewById(R.id.home_btn_actions)).setOnLongClickListener(this);
         ((Button) findViewById(R.id.home_btn_actions)).setOnTouchListener(this);
 
-        ((Button) findViewById(R.id.home_btn_warn)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_warn)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_warn)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.home_btn_yields)).setOnClickListener(this);
+        ((Button) findViewById(R.id.home_btn_yields)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.home_btn_yields)).setOnTouchListener(this);
         
-        ((Button) findViewById(R.id.home_btn_yield)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_yield)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_yield)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.home_btn_weather)).setOnClickListener(this);
+        ((Button) findViewById(R.id.home_btn_weather)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.home_btn_weather)).setOnTouchListener(this);
         
-        
-        
-        
-        ((ImageButton) findViewById(R.id.btn_action_diary)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_diary)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_diary)).setOnTouchListener(this);
-        
-        ((ImageButton) findViewById(R.id.btn_action_fertilize)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_fertilize)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_diary)).setOnTouchListener(this);
-        
-        ((ImageButton) findViewById(R.id.btn_action_irrigate)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_irrigate)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_irrigate)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.home_btn_tutorials)).setOnClickListener(this);
+        ((Button) findViewById(R.id.home_btn_tutorials)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.home_btn_tutorials)).setOnTouchListener(this);
 
-        ((ImageButton) findViewById(R.id.btn_action_plant)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_plant)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_plant)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.home_btn_homeactions)).setOnClickListener(this);
+        ((Button) findViewById(R.id.home_btn_homeactions)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.home_btn_homeactions)).setOnTouchListener(this);
 
-        ((ImageButton) findViewById(R.id.btn_action_problem)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_problem)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_problem)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.home_btn_diary)).setOnClickListener(this);
+        ((Button) findViewById(R.id.home_btn_diary)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.home_btn_diary)).setOnTouchListener(this);
 
-        ((ImageButton) findViewById(R.id.btn_action_spray)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_spray)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_spray)).setOnTouchListener(this);
-
-        ((ImageButton) findViewById(R.id.btn_action_yield)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_yield)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.btn_action_yield)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.home_btn_market)).setOnClickListener(this);
+        ((Button) findViewById(R.id.home_btn_market)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.home_btn_market)).setOnTouchListener(this);
+        
+        ((ImageButton) findViewById(R.id.home_btn_help)).setOnClickListener(this);
+        ((ImageButton) findViewById(R.id.home_btn_help)).setOnLongClickListener(this);
+        ((ImageButton) findViewById(R.id.home_btn_help)).setOnTouchListener(this);
 	}
     
 	@Override
     protected void initKannada(){
-    	Log.i(logTag, "Init kannada");
-    	TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_solved));
-    	
-    	tmpText = (TextView) findViewById(R.id.home_lbl_advice);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_news));
-    	
-    	tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_farmers));
-    	
-    	tmpText = (TextView) findViewById(R.id.home_lbl_yield);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_harvest));
+//    	Log.i(logTag, "Init kannada");
+//    	TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
+//    	tmpText.setTypeface(mKannadaTypeface);
+//    	tmpText.setText(getString(R.string.k_solved));
+//    	
+//    	tmpText = (TextView) findViewById(R.id.home_lbl_advice);
+//    	tmpText.setTypeface(mKannadaTypeface);
+//    	tmpText.setText(getString(R.string.k_news));
+//    	
+//    	tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
+//    	tmpText.setTypeface(mKannadaTypeface);
+//    	tmpText.setText(getString(R.string.k_farmers));
+//    	
+//    	tmpText = (TextView) findViewById(R.id.home_lbl_yield);
+//    	tmpText.setTypeface(mKannadaTypeface);
+//    	tmpText.setText(getString(R.string.k_harvest));
     }
 
 	@Override
@@ -211,34 +199,73 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		Log.i(logTag, "Button clicked!");
 		String txt = "";
 		Intent inte;
-		if( v.getId() == R.id.btn_info_actions || v.getId() == R.id.home_btn_actions ){
+		if( v.getId() == R.id.home_btn_actions ){
 			Log.d(logTag, "Starting actions info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "actions");
 			this.startActivity(inte);
 			return;
 		}
-		if( v.getId() == R.id.btn_info_advice || v.getId() == R.id.home_btn_advice){
-			Log.d(logTag, "Starting advice info");
-			inte = new Intent(this, AggregateView.class);
-			inte.putExtra("type", "advice");
-			this.startActivity(inte);
-			return;
-		}
-		if( v.getId() == R.id.btn_info_warn || v.getId() == R.id.home_btn_warn ){
-			Log.d(logTag, "Starting warn info");
-			inte = new Intent(this, AggregateView.class);
-			inte.putExtra("type", "warn");
-			this.startActivity(inte);
-			return;
-		}
-		if( v.getId() == R.id.btn_info_yield || v.getId() == R.id.home_btn_yield ){
+		if( v.getId() == R.id.home_btn_yields){
 			Log.d(logTag, "Starting yield info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			return;
 		}
+		if( v.getId() == R.id.home_btn_warnings ){
+			Log.d(logTag, "Starting warn info");
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "warn");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if( v.getId() == R.id.home_btn_weather ){
+			Log.d(logTag, "Starting weather info");
+			// TODO: change!
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if( v.getId() == R.id.home_btn_tutorials ){
+			Log.d(logTag, "Starting tutorials info");
+			// TODO: change!
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if( v.getId() == R.id.home_btn_homeactions ){
+			Log.d(logTag, "Starting weather info");
+			// TODO: change!
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if( v.getId() == R.id.home_btn_diary ){
+			Log.d(logTag, "Starting diary info");
+			// TODO: change!
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if( v.getId() == R.id.home_btn_market ){
+			Log.d(logTag, "Starting market info");
+			// TODO: change!
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+
 		
 		// other buttons
 //		case R.id.btn_action_diary:

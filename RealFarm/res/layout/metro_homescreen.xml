@@ -11,12 +11,12 @@
         android:orientation="horizontal"
         android:gravity="right">
         <ImageButton
-            	android:id="@+id/btn_help"
-            	android:src="@drawable/smiley_question"
-            	android:layout_width="60dp"
-            	android:layout_height="60dp"
+            	android:id="@+id/home_btn_help"
+            	android:src="@drawable/ic_72px_question"
+            	android:layout_width="50dp"
+            	android:layout_height="50dp"
             	android:scaleType="fitXY"
-            	android:background="@drawable/circular_btn"
+            	android:background="@android:color/transparent"
             	 />
     </LinearLayout>
 
@@ -134,6 +134,12 @@
 
         		</LinearLayout>
 
+	            <Button 
+	                android:id="@+id/home_btn_warnings"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+			    
 			</RelativeLayout>
 			
 			<!-- Actions -->
@@ -242,6 +248,12 @@
 
         		</LinearLayout>
 
+	            <Button 
+	                android:id="@+id/home_btn_actions"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 			</RelativeLayout>
 			
 	</LinearLayout>
@@ -309,6 +321,13 @@
 			        
 								        
 			    </LinearLayout>			
+
+   	            <Button 
+	                android:id="@+id/home_btn_yields"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 			</RelativeLayout>
 			
 			<!-- Weather forcast -->
@@ -357,7 +376,13 @@
 			        android:layout_below="@id/hmscr_lbl_weather_tomorrow"
 			        android:layout_alignLeft="@id/hmscr_lbl_weather_tomorrow"
 			        />
-
+       		    
+	            <Button 
+	                android:id="@+id/home_btn_weather"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+       		    
 			</RelativeLayout>
 	</LinearLayout>
 
@@ -368,21 +393,73 @@
         android:layout_height="110dp"
         android:orientation="horizontal"
         android:layout_margin="5dp">
-			<RelativeLayout android:id="@+id/layout_cell1"
+			
+			<!-- Tutorials -->
+			<RelativeLayout android:id="@+id/layout_cell6"
 			    android:layout_width="150dp"
 			    android:layout_height="fill_parent"
 			    android:layout_marginRight="5dp">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+       		    
+			    <TextView
+			        android:id="@+id/hmscrn_lbl_tuts"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:gravity="center"
+			        android:text="@string/k_news"
+			        android:textColor="@android:color/white"
+				/>
+			    
+		        <RelativeLayout android:id="@+id/hmscrn_layout_tuticon"
+		            	 android:layout_width="80dp"
+		        		 android:layout_height="80dp"
+		        		 android:layout_marginLeft="20dp"
+		        		 android:layout_below="@id/hmscrn_lbl_tuts">
+				    <ImageView android:id="@+id/hmscrn_icon_video"
+				        	   android:layout_width="fill_parent"
+				        	   android:layout_height="fill_parent"
+				        	   android:scaleType="fitXY"
+				        	   android:src="@drawable/ic_300px_tv_temporary"
+				        	   android:layout_margin="5dp" />
+				    <TextView android:id="@+id/homescreen_lbl_people_cnt1"
+				        	   android:layout_width="25dp"
+				        	   android:layout_height="25dp"
+				        	   android:scaleType="fitXY"
+				        	   android:background="@drawable/circular_btn"
+				        	   android:layout_alignParentBottom="true"
+				        	   android:layout_alignParentRight="true"
+				        	   android:text="5"
+				        	   android:textColor="@android:color/black"
+						       android:textStyle="bold"
+						       android:textSize="20dp"
+						       android:gravity="center"
+				        	   />
+		        </RelativeLayout>
+
+                <Button 
+	                android:id="@+id/home_btn_tutorials"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 			</RelativeLayout>
 			
-			<RelativeLayout android:id="@+id/layout_cell2"
+			<!-- Home actions -->
+			<RelativeLayout android:id="@+id/layout_cell6"
 			    android:layout_width="155dp"
 			    android:layout_height="fill_parent">
-			    <ImageButton android:src="@drawable/farmer_90px_adam_jones"
-			        		 android:layout_width="wrap_content"
-			        		 android:layout_height="wrap_content"/>
+			    <ImageButton android:src="@drawable/ic_256px_homeaction"
+			        		 android:layout_width="120dp"
+			        		 android:layout_height="120dp"
+			        		 android:scaleType="fitXY"
+			        		 android:id="@+id/hmscrn_btn_homeactions"
+			        		 android:background="@android:color/transparent"/>
+
+			    <Button 
+	                android:id="@+id/home_btn_homeactions"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 			</RelativeLayout>
 	</LinearLayout>
 
@@ -393,7 +470,7 @@
         android:layout_height="110dp"
         android:orientation="horizontal"
         android:layout_margin="5dp">
-        	<!-- Warnings -->
+        	<!-- Diary -->
 			<RelativeLayout android:id="@+id/layout_cell7"
 			    android:layout_width="150dp"
 			    android:layout_height="fill_parent"
@@ -457,8 +534,15 @@
 
         		</LinearLayout>
 
+	            <Button 
+	                android:id="@+id/home_btn_diary"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 			</RelativeLayout>
 			
+			<!-- Market -->
 			<RelativeLayout android:id="@+id/layout_cell8"
 			    android:layout_width="155dp"
 			    android:layout_height="fill_parent">
@@ -474,45 +558,53 @@
 			        android:id="@+id/homescreen_lbl_market"
 			        android:layout_width="100dp"
 			        android:layout_height="wrap_content"
+			        android:layout_toRightOf="@id/homescreen_icon_market"
 			        android:text="@string/k_harvest"
-			        android:textColor="@android:color/white"
-			        android:layout_toRightOf="@id/homescreen_icon_market"/>
-			    
-			    <LinearLayout android:id="@+id/homescreen_layout_market"
-			        		  android:orientation="horizontal"
-			        		  android:layout_below="@id/homescreen_icon_market"
-			        		  android:layout_width="fill_parent"
-			        		  android:layout_height="wrap_content">
-			        
+			        android:textColor="@android:color/white" />
+
+			    <LinearLayout
+			        android:id="@+id/homescreen_layout_market"
+			        android:layout_width="fill_parent"
+			        android:layout_height="wrap_content"
+			        android:layout_below="@id/homescreen_icon_market"
+			        android:orientation="horizontal" >
+
 			        <!-- Dummy item #1 -->
-					<TextView android:id="@+id/hmscr_icon_plant_dummy3"
-					    android:background="@drawable/pic_72px_horsegram"
-					    android:scaleType="fitXY"
-					    android:layout_width="50dp"
-					    android:layout_height="40dp"
-					    android:text="30   rp/kg"
-		        	    android:textColor="@android:color/white"
-				        android:textStyle="bold"
-				        android:textSize="15dp"
-				        android:gravity="center"
-				        android:layout_marginRight="5dp"
-					    />
-					
+
+			        <TextView
+			            android:id="@+id/hmscr_icon_plant_dummy3"
+			            android:layout_width="50dp"
+			            android:layout_height="40dp"
+			            android:layout_marginRight="5dp"
+			            android:background="@drawable/pic_72px_horsegram"
+			            android:gravity="center"
+			            android:scaleType="fitXY"
+			            android:text="30   rp/kg"
+			            android:textColor="@android:color/white"
+			            android:textSize="15dp"
+			            android:textStyle="bold" />
+
 			        <!-- Dummy item #2 -->
-					<TextView android:id="@+id/hmscr_icon_plant_dummy4"
-					    android:background="@drawable/pic_72px_sorghum"
-					    android:scaleType="fitXY"
-					    android:layout_width="50dp"
-					    android:layout_height="40dp"
-					    android:text="20   rp/kg"
-		        	    android:textColor="@android:color/white"
-				        android:textStyle="bold"
-				        android:textSize="15dp"
-				        android:gravity="center"
-					    />
-			        
-								        
+
+			        <TextView
+			            android:id="@+id/hmscr_icon_plant_dummy4"
+			            android:layout_width="50dp"
+			            android:layout_height="40dp"
+			            android:background="@drawable/pic_72px_sorghum"
+			            android:gravity="center"
+			            android:scaleType="fitXY"
+			            android:text="20   rp/kg"
+			            android:textColor="@android:color/white"
+			            android:textSize="15dp"
+			            android:textStyle="bold" />
 			    </LinearLayout>
+
+	            <Button 
+	                android:id="@+id/home_btn_market"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 			</RelativeLayout>
 	</LinearLayout>
 </LinearLayout>
