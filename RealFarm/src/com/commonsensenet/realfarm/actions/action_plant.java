@@ -1,18 +1,13 @@
 package com.commonsensenet.realfarm.actions;
 
-import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.Settings;
-import com.commonsensenet.realfarm.WF_details;
-import com.commonsensenet.realfarm.admincall;
-import com.commonsensenet.realfarm.control.NumberPicker;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class action_plant extends Activity {
 	

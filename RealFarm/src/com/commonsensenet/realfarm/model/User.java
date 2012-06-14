@@ -11,14 +11,14 @@ public class User {
 	protected int mAdmin;
 
 	public User(int userId, String firstName, String lastName,
-			String mobileNumber, String imgName, int delete, int admin) {             //added
+			String mobileNumber, String imgName, int delete, int admin) { // added
 		mUserId = userId;
 		mFirstName = firstName;
 		mLastName = lastName;
 		mMobileNumber = mobileNumber;
 		mImgName = imgName;
-		mDelete=delete;
-		mAdmin=admin;
+		mDelete = delete;
+		mAdmin = admin;
 	}
 
 	public String getFirstName() {
@@ -40,15 +40,16 @@ public class User {
 	public int getUserId() {
 		return mUserId;
 	}
-	
-	public String getUserImgName(){
+
+	public String getUserImgName() {
 		return mImgName;
 	}
-	
-	public int getDelete(){
+
+	public int getDelete() {
 		return mDelete;
 	}
-	public int getAdmin(){
+
+	public int getAdmin() {
 		return mAdmin;
 	}
 

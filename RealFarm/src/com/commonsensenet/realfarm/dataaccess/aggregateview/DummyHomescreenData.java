@@ -3,7 +3,6 @@ package com.commonsensenet.realfarm.dataaccess.aggregateview;
 import java.util.Random;
 import java.util.Vector;
 
-import android.R.anim;
 import android.app.Activity;
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -16,7 +15,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Recommendation;
 

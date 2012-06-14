@@ -7,12 +7,8 @@
 
 package com.commonsensenet.realfarm;
 
-import com.commonsensenet.realfarm.actions.action_sowing;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
-
 import android.app.Activity;
 import android.content.Intent;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;

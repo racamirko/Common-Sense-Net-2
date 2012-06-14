@@ -29,7 +29,6 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.Plot;
 
 public class Settings extends Activity {

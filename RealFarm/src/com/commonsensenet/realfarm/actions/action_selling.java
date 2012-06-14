@@ -1,15 +1,5 @@
 package com.commonsensenet.realfarm.actions;
 
-import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.Settings;
-import com.commonsensenet.realfarm.WF_details;
-import com.commonsensenet.realfarm.admincall;
-import com.commonsensenet.realfarm.control.NumberPicker;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -17,13 +7,17 @@ import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
+
+import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
+import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class action_selling extends HelpEnabledActivity {                //Integration
 	// MediaPlayer mp = null;  

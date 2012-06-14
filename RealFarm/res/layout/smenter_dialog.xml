@@ -1,17 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-     >
-     
+    android:orientation="vertical" >
+
     <LinearLayout
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:alpha="0.2"
         android:background="@drawable/header" >
 
         <ImageView
@@ -91,8 +87,8 @@
                 android:id="@+id/sm_enter_val"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                 android:layout_marginTop="10dp"
                 android:layout_marginLeft="130dp"
+                android:layout_marginTop="10dp"
                 android:orientation="vertical" >
             </com.commonsensenet.realfarm.control.NumberPicker>
         </TableRow>
@@ -157,46 +153,42 @@
             </RelativeLayout>
         </TableRow>
     </LinearLayout>
-    
-  <LinearLayout
-          android:id="@+id/linearLayout19"
-          android:layout_width="match_parent"
-          android:layout_height="60dp"
-          android:layout_gravity="center_vertical"
-          android:alpha="0.2"
-          android:background="@drawable/square_btn" >
-   <ImageView
+
+    <LinearLayout
+        android:id="@+id/linearLayout19"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:background="@drawable/square_btn" >
+
+        <ImageView
             android:id="@+id/aggr_img_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/circular_btn_normal"
             android:src="@drawable/ic_72px_reporting" />
-      
+
         <ImageView
             android:id="@+id/aggr_img_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:src="@drawable/plot" />
-        
-            <ImageView
+
+        <ImageView
             android:id="@+id/aggr_img_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:src="@drawable/home" />
-           
-              
- <ImageView
+
+        <ImageView
             android:id="@+id/aggr_img_icon"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:src="@drawable/help" />
-            
-
-       
     </LinearLayout>
 
 </LinearLayout>

@@ -1,16 +1,5 @@
 package com.commonsensenet.realfarm.actions;
 
-import com.commonsensenet.realfarm.Global;
-import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.Settings;
-import com.commonsensenet.realfarm.WF_details;
-import com.commonsensenet.realfarm.admincall;
-import com.commonsensenet.realfarm.control.NumberPicker;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
-
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -27,6 +16,13 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
+import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class action_sowing extends HelpEnabledActivity {
 	//MediaPlayer mp = null;                  //Integration

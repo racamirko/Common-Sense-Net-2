@@ -1,86 +1,44 @@
 package com.commonsensenet.realfarm;
 
 import java.util.List;
-import java.util.ArrayList;
-import java.util.Arrays;
 
-import android.R.color;
-import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.location.Location;
-import android.location.LocationListener;
-import android.location.LocationManager;
+import android.content.Intent;
 import android.media.MediaPlayer;
 import android.os.Bundle;
-import android.os.Handler;
-import android.telephony.TelephonyManager;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.view.ViewGroup;
-import android.view.ViewGroup.LayoutParams;
-import android.view.WindowManager;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
-import android.content.Intent;
-import android.database.Cursor;
-import android.widget.ArrayAdapter;
-import android.widget.ListView;
-import android.widget.AdapterView;
-import android.widget.ListAdapter;
-import android.widget.PopupWindow.OnDismissListener;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 
-import com.commonsensenet.realfarm.actions.action_fertilizing;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListener;
+import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WFList;
 
-import com.commonsensenet.realfarm.overlay.PlotOverlay;
-import com.commonsensenet.realfarm.OfflineMapDemo;
-import com.commonsensenet.realfarm.R;
-
-public class Marketprice_details extends HelpEnabledActivity implements OnDataChangeListener {
-	View view;
-	/** View where the items are displayed. */
+public class Marketprice_details extends HelpEnabledActivity implements
+		OnDataChangeListener {
 
 	protected RealFarmProvider mDataProvider;
-	//MediaPlayer mp = null;                                      //integration
-	private ListView mainListView;
-	private ArrayAdapter<String> listAdapter;
-	Cursor cc;
-	String log;
 	public User ReadUser = null;
 	public int Position; // Has copy of mainlistview position
-	int mpvalue,wfvalue;
-	String unit = "Rs";
+	private int mpvalue, wfvalue;
+	private String unit = "Rs";
 	protected List<WFList> Wftodaydata;
 	protected int wfsize;
 	final Context context = this;
-	String name;
 
 	public void onBackPressed() {
 
-		Intent adminintent = new Intent(Marketprice_details.this, Homescreen.class);
+		Intent adminintent = new Intent(Marketprice_details.this,
+				Homescreen.class);
 
 		startActivity(adminintent);
 		Marketprice_details.this.finish();
-		
+
 		// eliminates the listener.
 		mDataProvider.setWFDataChangeListener(null);
 	}
@@ -104,81 +62,78 @@ public class Marketprice_details extends HelpEnabledActivity implements OnDataCh
 
 		mDataProvider = RealFarmProvider.getInstance(context);
 		mDataProvider.setWFDataChangeListener(this);
-		
-		super.onCreate(savedInstanceState);
-		
-		setContentView(R.layout.mp_details);
-		
-		//home_btn_gn_good_mp
-		
-		  final Button GN_good;
-	    final Button GN_medium;
-	    final Button GN_poor;
-	    
-	    final Button Today_gnut;
-	//    final Button Today_castor;
-	    
-	    ImageButton home;
-	    ImageButton help;
-	    
-	    GN_good = (Button) findViewById(R.id.home_btn_gn_good_mp);
-	    GN_medium = (Button) findViewById(R.id.home_btn_gn_medium_mp);
-	    GN_poor = (Button) findViewById(R.id.home_btn_gn_poor_mp);
-	    Today_gnut = (Button) findViewById(R.id.home_btn_mp_1);//btn
-	 //   Today_castor = (Button) findViewById(R.id.home_btn_mp_2);
-	    
-	    home = (ImageButton) findViewById(R.id.aggr_img_home1);
-	    help = (ImageButton) findViewById(R.id.aggr_img_help);
-	    
-	    
-	    GN_good.setOnLongClickListener(this);                                 //Integration
-	    GN_medium.setOnLongClickListener(this);  
-	    GN_poor.setOnLongClickListener(this);  
-	    Today_gnut.setOnLongClickListener(this);
-	//    Today_castor.setOnLongClickListener(this);
-	    
-	    help.setOnLongClickListener(this); 
 
-	    GN_good.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					
-				}
-     	});
-	    	
-		
-	    GN_medium.setOnClickListener(new View.OnClickListener() {
+		super.onCreate(savedInstanceState);
+
+		setContentView(R.layout.mp_details);
+
+		// home_btn_gn_good_mp
+
+		final Button GN_good;
+		final Button GN_medium;
+		final Button GN_poor;
+
+		final Button Today_gnut;
+		// final Button Today_castor;
+
+		ImageButton home;
+		ImageButton help;
+
+		GN_good = (Button) findViewById(R.id.home_btn_gn_good_mp);
+		GN_medium = (Button) findViewById(R.id.home_btn_gn_medium_mp);
+		GN_poor = (Button) findViewById(R.id.home_btn_gn_poor_mp);
+		Today_gnut = (Button) findViewById(R.id.home_btn_mp_1);// btn
+		// Today_castor = (Button) findViewById(R.id.home_btn_mp_2);
+
+		home = (ImageButton) findViewById(R.id.aggr_img_home1);
+		help = (ImageButton) findViewById(R.id.aggr_img_help);
+
+		GN_good.setOnLongClickListener(this); // Integration
+		GN_medium.setOnLongClickListener(this);
+		GN_poor.setOnLongClickListener(this);
+		Today_gnut.setOnLongClickListener(this);
+		// Today_castor.setOnLongClickListener(this);
+
+		help.setOnLongClickListener(this);
+
+		GN_good.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
+
 			}
- 	});
-	    
-	    GN_poor.setOnClickListener(new View.OnClickListener() {
+		});
+
+		GN_medium.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
+
 			}
- 	});
-	    
+		});
+
+		GN_poor.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+			}
+		});
+
 		TextView text_1;
-	//	TextView text_2;
-		
+		// TextView text_2;
+
 		text_1 = (TextView) findViewById(R.id.mp_text1);
-	//	text_2 = (TextView) findViewById(R.id.mp_text2);
-	    
-		mpvalue=4800;
+		// text_2 = (TextView) findViewById(R.id.mp_text2);
+
+		mpvalue = 4800;
 		text_1.setText(mpvalue + unit);
-		//text_4.setText(wfvalue1 + unit);
-	    
-	    
+		// text_4.setText(wfvalue1 + unit);
+
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent adminintent = new Intent(Marketprice_details.this,Homescreen.class);
-	        
-	      startActivity(adminintent);                        
-	      Marketprice_details.this.finish();
-				
-				                    
-				}
-	});
+				Intent adminintent = new Intent(Marketprice_details.this,
+						Homescreen.class);
+
+				startActivity(adminintent);
+				Marketprice_details.this.finish();
+
+			}
+		});
 
 	}
 
@@ -223,103 +178,83 @@ public class Marketprice_details extends HelpEnabledActivity implements OnDataCh
 
 		System.out.println("WF details finished updating");
 
-		
-		
-	
-
 	}
 
 	@Override
 	protected void initKannada() {
 		// TODO Auto-generated method stub
-		
+
 	}
-	
+
 	@Override
-	public boolean onLongClick(View v) {                      //latest
-	
-		if( v.getId() == R.id.home_btn_mp_1){
-			
-			if(mp != null)
-			{
+	public boolean onLongClick(View v) { // latest
+
+		if (v.getId() == R.id.home_btn_mp_1) {
+
+			if (mp != null) {
 				mp.stop();
 				mp.release();
 				mp = null;
 			}
 			mp = MediaPlayer.create(this, R.raw.seekepura1);
 			mp.start();
-			
+
 		}
-		
-/*       if( v.getId() == R.id.home_btn_mp_2){
-			
-			if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.seekepura1);
-			mp.start();
-			
-		}
-       */
-       if( v.getId() == R.id.home_btn_gn_good_mp){
-			
-			if(mp != null)
-			{
+
+		/*
+		 * if( v.getId() == R.id.home_btn_mp_2){
+		 * 
+		 * if(mp != null) { mp.stop(); mp.release(); mp = null; } mp =
+		 * MediaPlayer.create(this, R.raw.seekepura1); mp.start();
+		 * 
+		 * }
+		 */
+		if (v.getId() == R.id.home_btn_gn_good_mp) {
+
+			if (mp != null) {
 				mp.stop();
 				mp.release();
 				mp = null;
 			}
 			mp = MediaPlayer.create(this, R.raw.goodqualityprice1);
 			mp.start();
-			
+
 		}
-       
-       if( v.getId() == R.id.home_btn_gn_medium_mp){
-			
-  			if(mp != null)
-  			{
-  				mp.stop();
-  				mp.release();
-  				mp = null;
-  			}
-  			mp = MediaPlayer.create(this, R.raw.mediumqualityprice1);
-  			mp.start();
-  			
-  		}
-       if( v.getId() == R.id.home_btn_gn_poor_mp){
-			
- 			if(mp != null)
- 			{
- 				mp.stop();
- 				mp.release();
- 				mp = null;
- 			}
- 			mp = MediaPlayer.create(this, R.raw.poorqualityprice1);
- 			mp.start();
- 			
- 		}
-       
-       if( v.getId() ==R.id.aggr_img_help ){
-			
-			if(mp != null)
-			{
+
+		if (v.getId() == R.id.home_btn_gn_medium_mp) {
+
+			if (mp != null) {
+				mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.mediumqualityprice1);
+			mp.start();
+
+		}
+		if (v.getId() == R.id.home_btn_gn_poor_mp) {
+
+			if (mp != null) {
+				mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.poorqualityprice1);
+			mp.start();
+
+		}
+
+		if (v.getId() == R.id.aggr_img_help) {
+
+			if (mp != null) {
 				mp.stop();
 				mp.release();
 				mp = null;
 			}
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
-			
+
 		}
-       
-       
-      
-		
-		
-	
 
 		return true;
 	}

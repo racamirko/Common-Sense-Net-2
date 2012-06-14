@@ -9,7 +9,6 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
 
@@ -240,7 +239,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
             	 
             	 if(separated[2].toString().equalsIgnoreCase("SE"))
                	{
-               		String semsg= "Updation to seed type table-  seed name to be added is : " + separated[3] + "  , days to harvest is " + separated[4] +  " and variety type is  " + separated[5];
+               		// String semsg= "Updation to seed type table-  seed name to be added is : " + separated[3] + "  , days to harvest is " + separated[4] +  " and variety type is  " + separated[5];
                		
                		System.out.println("User details is put to database");
            //  		mDataProvider.setUserInfo(separated[5] ,separated[3],separated[4]);
