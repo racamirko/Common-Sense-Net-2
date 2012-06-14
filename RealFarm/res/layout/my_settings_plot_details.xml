@@ -1,18 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-     >
- 
-    
-  <LinearLayout
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:alpha="0.2"
         android:background="@drawable/header" >
 
         <ImageView
@@ -53,8 +48,7 @@
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
-    
-   
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/MainLayout"
@@ -64,212 +58,208 @@
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 
- <TableRow
-     android:id="@+id/plot_tr"
-     android:layout_width="match_parent"
-     android:layout_height="80dp"
-     android:layout_marginLeft="0dp"
-     android:layout_marginTop="5dp"
-     android:background="@drawable/def_img" >
-        
-          <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+        <TableRow
+            android:id="@+id/plot_tr"
+            android:layout_width="match_parent"
+            android:layout_height="80dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/def_img" >
 
-                   <ImageView
-                      android:id="@+id/dlg_img_plot"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="5dip"
-                      android:src="@drawable/pic_90px_button_tiled" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_plot_img"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_centerVertical="true"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Select the Plot"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <ImageView
+                    android:id="@+id/dlg_img_plot"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dip"
+                    android:src="@drawable/pic_90px_button_tiled" />
 
-                     <Button
-                         android:id="@+id/home_btn_list_plot"
-                         android:layout_width="80dp"
-                         android:layout_height="50dp"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_centerVertical="true"
-                         android:background="@drawable/square_btn_transp" />
+                <TextView
+                    android:id="@+id/dlg_lbl_plot_img"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Select the Plot"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-              </RelativeLayout>
-         
-      </TableRow>      
-      
-  <TableRow
-      android:id="@+id/soiltype_tr"
-      android:layout_width="match_parent"
-      android:layout_height="86dp"
-      android:layout_marginLeft="0dp"
-      android:layout_marginTop="5dp"
-      android:background="@drawable/def_img" >
+                <Button
+                    android:id="@+id/home_btn_list_plot"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
 
-    <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+        <TableRow
+            android:id="@+id/soiltype_tr"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/def_img" >
 
-                   <ImageView
-                      android:id="@+id/dlg_img_soil_plot"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="5dip"
-                      android:src="@drawable/pic_90px_button_tiled" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_soil_plot"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_centerVertical="true"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Select the Soil Type"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <ImageView
+                    android:id="@+id/dlg_img_soil_plot"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dip"
+                    android:src="@drawable/pic_90px_button_tiled" />
 
-                     <Button
-                         android:id="@+id/home_btn_soil_plot"
-                         android:layout_width="80dp"
-                         android:layout_height="50dp"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_centerVertical="true"
-                         android:background="@drawable/square_btn_transp" />
+                <TextView
+                    android:id="@+id/dlg_lbl_soil_plot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Select the Soil Type"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-              </RelativeLayout>
-   </TableRow> 
-   
-   <TableRow
-          android:id="@+id/maincrop_tr"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="5dp"
-           android:layout_marginLeft="0dp"  >
-       
-    <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+                <Button
+                    android:id="@+id/home_btn_soil_plot"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
 
-                   <ImageView
-                      android:id="@+id/dlg_img_crop_plot"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="5dip"
-                      android:src="@drawable/pic_90px_button_tiled" />
+        <TableRow
+            android:id="@+id/maincrop_tr"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp" >
 
-                       <TextView
-                         android:id="@+id/dlg_lbl_crop_plot"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_centerVertical="true"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Select the Main Crop"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                     <Button
-                         android:id="@+id/home_btn_crop_plot"
-                         android:layout_width="80dp"
-                         android:layout_height="50dp"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_centerVertical="true"
-                         android:background="@drawable/square_btn_transp" />
+                <ImageView
+                    android:id="@+id/dlg_img_crop_plot"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dip"
+                    android:src="@drawable/pic_90px_button_tiled" />
 
-              </RelativeLayout>
-   </TableRow>
-      <TableRow
-          android:id="@+id/tableRow1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="15dp"
-           android:layout_marginLeft="45dp"  >
-         
-     
-        
-           <RelativeLayout
-        android:id="@+id/RelativeLayoutwf_2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-          android:layout_marginLeft="15dp"
-        android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp"
-      >
+                <TextView
+                    android:id="@+id/dlg_lbl_crop_plot"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Select the Main Crop"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-   <ImageView android:src="@drawable/ic_72px_ok"
-				android:layout_width="wrap_content" android:layout_height="wrap_content"
-				android:layout_weight="2" android:id="@+id/okbutton" />
+                <Button
+                    android:id="@+id/home_btn_crop_plot"
+                    android:layout_width="80dp"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
 
-        <Button
-            android:id="@+id/home_btn_plot_ok"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignBottom="@+id/okbutton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/okbutton"
-            android:background="@drawable/square_btn_transp" />
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="15dp" >
 
-    </RelativeLayout>
-       <RelativeLayout
-        android:id="@+id/RelativeLayoutwf_2"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-          android:layout_marginLeft="50dp"
-        android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp"
-      >
-		<ImageView android:src="@drawable/ic_72px_cancel"
-				android:layout_weight="2" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:id="@+id/cancelbutton" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp" >
 
-        <Button
-            android:id="@+id/addplot_cancel"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_alignBottom="@+id/cancelbutton"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:layout_alignRight="@+id/cancelbutton"
-            android:background="@drawable/square_btn_transp" />
+                <ImageView
+                    android:id="@+id/okbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_72px_ok" />
 
-    </RelativeLayout>
-        
-	
-			   </TableRow>
-			   
+                <Button
+                    android:id="@+id/home_btn_plot_ok"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignBottom="@+id/okbutton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/okbutton"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp" >
+
+                <ImageView
+                    android:id="@+id/cancelbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_72px_cancel" />
+
+                <Button
+                    android:id="@+id/addplot_cancel"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignBottom="@+id/cancelbutton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/cancelbutton"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
     </LinearLayout>
 
 </LinearLayout>

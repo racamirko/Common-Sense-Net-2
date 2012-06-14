@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-     >
- 
-    
-     
-<LinearLayout
+    android:orientation="vertical" >
+
+    <LinearLayout
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:alpha="0.2"
         android:background="@drawable/header" >
 
         <ImageView
@@ -54,8 +48,7 @@
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
-    
-   
+
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:id="@+id/MainLayout"
@@ -65,111 +58,105 @@
         android:gravity="center_vertical|center_horizontal"
         android:orientation="vertical" >
 
-         <TableRow
-             android:id="@+id/quality_sell_price_tr"
-             android:layout_width="match_parent"
-             android:layout_height="86dp"
-             android:layout_marginLeft="0dp"
-             android:layout_marginTop="5dp"
-             android:background="@drawable/def_img" >
+        <TableRow
+            android:id="@+id/quality_sell_price_tr"
+            android:layout_width="match_parent"
+            android:layout_height="86dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/def_img" >
 
-    <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="5dip"
-                      android:src="@drawable/pic_90px_button_tiled" />
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dip"
+                    android:src="@drawable/pic_90px_button_tiled" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_sell_price"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_centerVertical="true"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Enter Selling price details"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/dlg_lbl_sell_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Enter Selling price details"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                     <Button
-                         android:id="@+id/home_btn_sell_price"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBottom="@+id/dlg_img_seed"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_alignTop="@+id/dlg_img_seed"
-                         android:background="@drawable/square_btn_transp" />
+                <Button
+                    android:id="@+id/home_btn_sell_price"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/dlg_img_seed"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/dlg_img_seed"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
 
-              </RelativeLayout>
-              
-   
-                 
-                  
-  </TableRow>
-  
-          <TableRow
-              android:id="@+id/quality_sell_tr"
-              android:layout_width="match_parent"
-              android:layout_height="92dp"
-              android:layout_marginLeft="0dp"
-              android:layout_marginTop="5dp"
-              android:background="@drawable/def_img" >
+        <TableRow
+            android:id="@+id/quality_sell_tr"
+            android:layout_width="match_parent"
+            android:layout_height="92dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/def_img" >
 
-    <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="5dip"
-                      android:src="@drawable/pic_90px_button_tiled" />
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="5dip"
+                    android:src="@drawable/pic_90px_button_tiled" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_sell"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_centerVertical="true"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Quality of seeds"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/dlg_lbl_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Quality of seeds"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                     <Button
-                         android:id="@+id/home_btn_sell"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBottom="@+id/dlg_img_seed"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_alignTop="@+id/dlg_img_seed"
-                         android:background="@drawable/square_btn_transp" />
-
-              </RelativeLayout>
-              
-      </TableRow>
- <!-- <TableRow
+                <Button
+                    android:id="@+id/home_btn_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/dlg_img_seed"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/dlg_img_seed"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
+        <!--
+  <TableRow
           android:id="@+id/units_sell_tr"
           android:layout_width="match_parent"
           android:layout_height="wrap_content"
@@ -214,17 +201,18 @@
         
                   
   </TableRow>
--->
+        -->
 
-<TableRow
-     android:id="@+id/units_sell_tr"
-     android:layout_width="match_parent"
-     android:layout_height="77dp"
-     android:layout_marginLeft="0dp"
-     android:layout_marginTop="10dp"
-     android:background="@drawable/def_img" >
+        <TableRow
+            android:id="@+id/units_sell_tr"
+            android:layout_width="match_parent"
+            android:layout_height="77dp"
+            android:layout_marginLeft="0dp"
+            android:layout_marginTop="10dp"
+            android:background="@drawable/def_img" >
 
-     <!--     <com.commonsensenet.realfarm.control.NumberPicker
+            <!--
+        <com.commonsensenet.realfarm.control.NumberPicker
             android:id="@+id/fert_no"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -233,220 +221,212 @@
             android:layout_marginLeft="20dp" 
             android:orientation="vertical" >
         </com.commonsensenet.realfarm.control.NumberPicker>
--->
-     <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                   android:paddingLeft="10dp"
-                  android:layout_weight="0.09" >
+            -->
 
-                   <ImageView
-                      android:id="@+id/dlg_unit_sow"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:background="@drawable/pic_90px_button_tiled" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09"
+                android:paddingLeft="10dp" >
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_unit_no_sell"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_centerVertical="true"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:paddingLeft="15dp"
-                         android:text="Select the No"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <ImageView
+                    android:id="@+id/dlg_unit_sow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/pic_90px_button_tiled" />
 
-                     <Button
-                         android:id="@+id/home_btn_units_no_sell"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentBottom="true"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_alignParentTop="true"
-                         android:background="@drawable/square_btn_transp" />
+                <TextView
+                    android:id="@+id/dlg_lbl_unit_no_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dip"
+                    android:text="Select the No"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-              </RelativeLayout>
+                <Button
+                    android:id="@+id/home_btn_units_no_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
 
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="55dp"
+                android:layout_height="45dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/square_btn_transp"
+                android:text=" X " />
 
-        <Button
-            android:id="@+id/button1"
-            android:layout_width="55dp"
-            android:layout_height="45dp"
-            android:layout_marginLeft="5dp" 
-             android:layout_marginRight="5dp" 
-             android:layout_marginTop="20dp"
-            android:text=" X " 
-            android:background="@drawable/square_btn_transp" />
-        
-        <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                   android:paddingRight="10dp"
-                  android:layout_weight="0.09" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09"
+                android:paddingRight="10dp" >
 
-                   <ImageView
-                      android:id="@+id/dlg_unit_sow"
-                      android:layout_width="wrap_content"
-                      android:layout_height="wrap_content"
-                      android:background="@drawable/pic_90px_button_tiled"/>
+                <ImageView
+                    android:id="@+id/dlg_unit_sow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/pic_90px_button_tiled" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_units_sell"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_centerVertical="true"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:paddingLeft="15dp"
-                         android:text="Select the units"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/dlg_lbl_units_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dip"
+                    android:text="Select the units"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
 
-                     <Button
-                         android:id="@+id/home_btn_units_sell"
-                         android:layout_width="80dp"
-                         android:layout_height="wrap_content"
-                         android:layout_alignParentBottom="true"
-                         android:layout_alignParentLeft="true"
-                         android:layout_alignParentRight="true"
-                         android:layout_alignParentTop="true"
-                         android:background="@drawable/square_btn_transp"
-                         android:paddingLeft="15dp" />
+                <Button
+                    android:id="@+id/home_btn_units_sell"
+                    android:layout_width="80dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:paddingLeft="15dp" />
+            </RelativeLayout>
+        </TableRow>
 
-              </RelativeLayout>
-                  
-  </TableRow>
- <TableRow
-     android:id="@+id/pick_check_tr"
-     android:layout_width="match_parent"
-     android:layout_height="48dp"
-     android:layout_marginTop="8dp"
-     android:background="@drawable/def_img" >
-          
-         <RelativeLayout
-        android:id="@+id/RelativeLayoutwf_2"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-         android:layout_marginLeft="50dp"
-        android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp"
-      >
+        <TableRow
+            android:id="@+id/pick_check_tr"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_marginTop="8dp"
+            android:background="@drawable/def_img" >
 
-  <ImageView
-      android:id="@+id/imageView1"
-      android:layout_width="75dp"
-      android:layout_height="35dp"
-      android:layout_alignParentTop="true"
-      android:src="@drawable/empty_80_40btn"
-      />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp" >
 
-        <Button
-            android:id="@+id/home_btn_pickup"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-            android:text="Pick Up" 
-            android:background="@drawable/square_btn_transp"  />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="75dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/empty_80_40btn" />
 
-    </RelativeLayout>
-      <RelativeLayout
-        android:id="@+id/RelativeLayoutwf_2"
-        android:layout_width="80dp"
-        android:layout_height="40dp"
-          android:layout_marginLeft="50dp"
-        android:layout_marginBottom="5dp"
-           android:layout_marginTop="5dp"
-      >
+                <Button
+                    android:id="@+id/home_btn_pickup"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:text="Pick Up" />
+            </RelativeLayout>
 
-  <ImageView
-      android:id="@+id/imageView1"
-      android:layout_width="75dp"
-      android:layout_height="35dp"
-      android:layout_alignParentTop="true"
-      android:src="@drawable/empty_80_40btn" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="80dp"
+                android:layout_height="40dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp" >
 
-        <Button
-            android:id="@+id/home_btn_checkin"
-            android:layout_width="80dp"
-            android:layout_height="40dp"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentTop="true"
-              android:text="Check In" 
-            android:background="@drawable/square_btn_transp" />
+                <ImageView
+                    android:id="@+id/imageView1"
+                    android:layout_width="75dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/empty_80_40btn" />
 
-    </RelativeLayout>
-        
-      </TableRow>
+                <Button
+                    android:id="@+id/home_btn_checkin"
+                    android:layout_width="80dp"
+                    android:layout_height="40dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:text="Check In" />
+            </RelativeLayout>
+        </TableRow>
 
- <TableRow
-     android:id="@+id/tableRow1"
-     android:layout_width="match_parent"
-     android:layout_height="72dp"
-     android:layout_marginLeft="45dp"
-     android:layout_marginTop="5dp"
-     android:background="@drawable/def_img" >
+        <TableRow
+            android:id="@+id/tableRow1"
+            android:layout_width="match_parent"
+            android:layout_height="72dp"
+            android:layout_marginLeft="45dp"
+            android:layout_marginTop="5dp"
+            android:background="@drawable/def_img" >
 
-     <RelativeLayout
-         android:id="@+id/RelativeLayoutwf_2"
-         android:layout_width="70dp"
-         android:layout_height="70dp"
-         android:layout_marginBottom="5dp"
-         android:layout_marginLeft="15dp"
-         android:layout_marginTop="5dp" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp" >
 
-         <ImageView
-             android:id="@+id/okbutton"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="2"
-             android:src="@drawable/ic_72px_ok" />
+                <ImageView
+                    android:id="@+id/okbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_72px_ok" />
 
-         <Button
-             android:id="@+id/selling_ok"
-             android:layout_width="70dp"
-             android:layout_height="70dp"
-             android:layout_alignBottom="@+id/okbutton"
-             android:layout_alignParentLeft="true"
-             android:layout_alignParentTop="true"
-             android:layout_alignRight="@+id/okbutton"
-             android:background="@drawable/square_btn_transp" />
-     </RelativeLayout>
+                <Button
+                    android:id="@+id/selling_ok"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignBottom="@+id/okbutton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/okbutton"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
 
-     <RelativeLayout
-         android:id="@+id/RelativeLayoutwf_2"
-         android:layout_width="70dp"
-         android:layout_height="70dp"
-         android:layout_marginBottom="5dp"
-         android:layout_marginLeft="50dp"
-         android:layout_marginTop="5dp" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="50dp"
+                android:layout_marginTop="5dp" >
 
-         <ImageView
-             android:id="@+id/cancelbutton"
-             android:layout_width="wrap_content"
-             android:layout_height="wrap_content"
-             android:layout_weight="2"
-             android:src="@drawable/ic_72px_cancel" />
+                <ImageView
+                    android:id="@+id/cancelbutton"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:src="@drawable/ic_72px_cancel" />
 
-         <Button
-             android:id="@+id/home_btn_wf_2"
-             android:layout_width="70dp"
-             android:layout_height="70dp"
-             android:layout_alignBottom="@+id/cancelbutton"
-             android:layout_alignParentLeft="true"
-             android:layout_alignParentTop="true"
-             android:layout_alignRight="@+id/cancelbutton"
-             android:background="@drawable/square_btn_transp" />
-     </RelativeLayout>
- </TableRow>
-			   
+                <Button
+                    android:id="@+id/home_btn_wf_2"
+                    android:layout_width="70dp"
+                    android:layout_height="70dp"
+                    android:layout_alignBottom="@+id/cancelbutton"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/cancelbutton"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
     </LinearLayout>
 
 </LinearLayout>

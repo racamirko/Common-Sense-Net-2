@@ -2,14 +2,16 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal" android:layout_marginBottom="5dip" >
-    
-    <ImageView android:layout_gravity="center_vertical"
-        	   android:layout_width="wrap_content"
-        	   android:layout_height="wrap_content"
-        	   android:src="@drawable/farmer_90px_adam_jones"
-        	   android:id="@+id/img_farmer"
-        	   android:paddingLeft="5dip"/>
+    android:layout_marginBottom="5dip"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/img_farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:paddingLeft="5dip"
+        android:src="@drawable/farmer_90px_adam_jones" />
 
     <TextView
         android:id="@+id/lbl_farmername"
