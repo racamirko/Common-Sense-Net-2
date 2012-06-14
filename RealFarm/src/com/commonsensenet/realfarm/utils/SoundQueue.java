@@ -74,16 +74,17 @@ public class SoundQueue implements OnCompletionListener {
 	 */
 	public void clean() {
 
-		// deletes all the active MediaPlayers in the queue
-		for (MediaPlayer p : mResToPlay) {
-			p.release();
-		}
-
 		// disposes the active sound.
 		if (mCurrentMediaPlayer != null) {
+			mCurrentMediaPlayer.setOnCompletionListener(null);
 			mCurrentMediaPlayer.stop();
 			mCurrentMediaPlayer.release();
 			mCurrentMediaPlayer = null;
+		}
+
+		// deletes all the active MediaPlayers in the queue
+		for (MediaPlayer p : mResToPlay) {
+			p.release();
 		}
 
 		// clears the data structures
@@ -102,11 +103,14 @@ public class SoundQueue implements OnCompletionListener {
 	}
 
 	public void onCompletion(MediaPlayer arg0) {
-		// plays the next sound.
-		arg0.release();
-		mCurrentMediaPlayer = null;
-		play();
 
+		// releases the active media player.
+		arg0.setOnCompletionListener(null);
+		arg0.release();
+		// clears the reference.
+		mCurrentMediaPlayer = null;
+		// plays the next sound
+		play();
 	}
 
 	/**
@@ -120,6 +124,7 @@ public class SoundQueue implements OnCompletionListener {
 		if (!mResToPlay.isEmpty() && mCurrentMediaPlayer == null) {
 			// gets the next element.
 			mCurrentMediaPlayer = mResToPlay.poll();
+			mCurrentMediaPlayer.setOnCompletionListener(this);
 			// plays the current sound.
 			mCurrentMediaPlayer.start();
 		}
@@ -130,13 +135,6 @@ public class SoundQueue implements OnCompletionListener {
 	 * list.
 	 */
 	public void stop() {
-
-		// disposes the active sound
-		if (mCurrentMediaPlayer != null) {
-			mCurrentMediaPlayer.stop();
-			mCurrentMediaPlayer.release();
-			mCurrentMediaPlayer = null;
-		}
 
 		// removes any other existing sound in the queue.
 		clean();
