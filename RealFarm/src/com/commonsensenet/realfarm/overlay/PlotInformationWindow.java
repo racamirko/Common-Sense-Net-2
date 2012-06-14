@@ -151,22 +151,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		dialog.cancel();
 	}
 
-	private ActionName findActionNameById(int actionNameId) {
-		for (int x = 0; x < mActionList.size(); x++) {
-			if (mActionList.get(x).getId() == actionNameId)
-				return mActionList.get(x);
-		}
-		return null;
-	}
-
-	private Growing findGrowingById(int growingId) {
-		for (int x = 0; x < mGrowing.size(); x++) {
-			if (mGrowing.get(x).getId() == growingId)
-				return mGrowing.get(x);
-		}
-		return null;
-	}
-
 	private View getDiaryItem(int icon, int icon2, String title, String date,
 			OnClickListener listener) {
 

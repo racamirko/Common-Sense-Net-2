@@ -45,6 +45,7 @@ public class WF_details extends HelpEnabledActivity implements
 	protected int wfsize;
 	protected List<WFList> Wftodaydata;
 	int wfvalue;
+
 	@Override
 	protected void initKannada() {
 		// TODO Auto-generated method stub

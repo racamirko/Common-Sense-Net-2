@@ -28,8 +28,8 @@ public class RealFarmApp extends Application {
 		db = new RealFarmDatabase(getApplicationContext());
 		return db;
 	}
-	
-	public void setDatabase( RealFarmDatabase db ){
+
+	public void setDatabase(RealFarmDatabase db) {
 		this.db = db;
 	}
 
