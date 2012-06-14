@@ -1,19 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical" 
-     >
- 
-    
-   
+    android:orientation="vertical" >
+
     <LinearLayout
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="60dp"
-        android:alpha="0.2"
         android:background="@drawable/header" >
 
         <ImageView
@@ -139,6 +133,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Fertilizer"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
                 <Button
@@ -352,7 +347,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/ic_48px_pest" />
+                    android:src="@drawable/date" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -376,6 +371,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Date"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
                 <Button
