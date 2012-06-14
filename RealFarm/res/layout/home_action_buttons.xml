@@ -43,6 +43,13 @@
 	        android:layout_height="60dp"
 	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_irrigation1" />
+	    
+	      <ImageButton
+	        android:id="@+id/btn_action_selling"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn"
+	        android:src="@drawable/selling" />
 
 	    <ImageButton
 	        android:id="@+id/btn_action_yield"
@@ -57,4 +64,12 @@
 	        android:layout_height="60dp"
 	        android:background="@drawable/circular_btn"
 	        android:src="@drawable/ic_72px_planning" />
+	    
+	     <ImageButton
+	        android:id="@+id/btn_action_videos"
+	        android:layout_width="60dp"
+	        android:layout_height="60dp"
+	        android:background="@drawable/circular_btn"
+	        android:src="@drawable/ic_72px_planning" />
+	    
 	</LinearLayout>

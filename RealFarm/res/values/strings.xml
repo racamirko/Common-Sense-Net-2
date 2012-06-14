@@ -46,4 +46,7 @@
     <string name="dateYesterday">yesterday</string>
     <string name="dateLastWeek">%d days ago</string>
     <string name="dateMoreThanAWeek">%d weeks ago</string>
+     <string name="lblPassword">Enter Administrator Password </string>
+    <string name="btn_submit">Submit</string>
+    <string name="mobilenumber">Mobile Number</string>
 </resources>

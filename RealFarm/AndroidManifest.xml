@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.commonsensenet.realfarm" android:versionCode="1"
 	android:versionName="1.0">
-	<uses-sdk android:minSdkVersion="7" />
+	<uses-sdk android:minSdkVersion="8" />
 	<uses-permission android:name="android.permission.INTERNET" />
 	<uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
 	<uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -10,6 +10,10 @@
 	<uses-permission android:name="android.permission.READ_PHONE_STATE" />
 	<uses-permission android:name="android.permission.SEND_SMS" />
 	<uses-permission android:name="android.permission.RECEIVE_SMS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.WAKE_LOCK"/>
+    <uses-permission android:name="android.permission.VIBRATE"/>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
 
 	<application android:label="@string/app_name" android:name=".RealFarmApp"
 		android:debuggable="true" android:icon="@drawable/app_social">
@@ -31,6 +35,9 @@
 		<activity android:name=".OfflineMapDemo" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 			android:screenOrientation="portrait">
+			
+		   
+		    
 <!-- 			<intent-filter>
 				<action android:name="android.intent.action.MAIN" />
 				<category android:name="android.intent.category.LAUNCHER" />
@@ -44,16 +51,140 @@
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 			android:screenOrientation="portrait" />
 
+		<activity android:name="com.buzzbox.mob.android.scheduler.NotificationClickActivity"/>
+             <receiver android:name="com.buzzbox.mob.android.scheduler.BootReceiverSchedulerManager">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.buzzbox.mob.android.scheduler.TimeChangeReceiver">
+            <intent-filter>
+                <action android:name="android.intent.action.TIME_SET"/>
+                <action android:name="android.intent.action.DATE_CHANGED"/>
+                <action android:name="android.intent.action.TIMEZONE_CHANGED"/>
+            </intent-filter>
+        </receiver>
+        <receiver android:name="com.buzzbox.mob.android.scheduler.AlarmReceiver"/>
+        <service android:name="com.buzzbox.mob.android.scheduler.ScheduledService"/>
+		
+		
 		<activity android:name=".PlotEditor" android:label="@string/app_name"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
 			android:screenOrientation="portrait" />
+		
+		 <activity android:name="admincall" 
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:screenOrientation="portrait" />
+		 
+		 <activity android:name="admin" 
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:screenOrientation="portrait" />
+		 
+		 <activity android:name="adminenter" 
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:screenOrientation="portrait" />
+		 
+		  <activity android:name="WF_details" 
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:screenOrientation="portrait" />
+		  
+		    <activity android:name="Marketprice_details" 
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:screenOrientation="portrait" />
+		
+		  <activity
+            android:name=".actions.action_plant"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		  
+		    <activity
+            android:name=".actions.action_harvest"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		  
+		     <activity
+            android:name=".actions.action_fertilizing"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		     
+		  <activity
+            android:name=".actions.action_selling"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		   <activity
+            android:name=".actions.action_sowing"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		    <activity
+            android:name=".actions.action_spraying"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+				
+		    
+		     <activity
+            android:name=".actions.action_irrigate"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		     
+		      <activity
+            android:name=".actions.action_problem"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		     <activity
+            android:name=".My_setting_plot_info"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		    
+		     <activity
+            android:name=".My_settings_plot_details"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		    
+		     <activity
+            android:name=".Plot_Image"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		     
+		     <activity
+            android:name=".Plot_Blank"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		     
+		     <activity
+            android:name=".Addplot_sm"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		     
+		      <activity
+            android:name=".SM_enter"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		     
+		          <activity
+            android:name=".MySimpleArrayAdapter"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		          <activity
+            android:name=".Plot_test"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		      
+		             <activity
+            android:name=".videos"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+		          
+		          
+		            <activity
+            android:name=".PlayVideoResFolder"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 		<receiver
-			android:name=".RealFarmDataSynchronizationService"
+			android:name="com.commonsensenet.realfarm.RealFarmDataSynchronizationService"
 			android:exported="true">
-			<intent-filter android:priority="999">
+			<intent-filter android:priority="100">
 				<action android:name="android.provider.Telephony.SMS_RECEIVED" />
 			</intent-filter>
-		</receiver>
-		
+		</receiver>		
 	</application>
 </manifest>

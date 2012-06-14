@@ -10,15 +10,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.PorterDuff.Mode;
-import android.graphics.RectF;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.view.Gravity;
@@ -30,19 +22,18 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TableLayout;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.Growing;
-import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.utils.DateHelper;
@@ -62,8 +53,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 	/** Actions supported by the UI. */
 	private List<ActionName> mActionList;
-	/** Panel where the actions are contained. */
-	private ViewGroup mActionsPanel;
 	/** Animation style used to display the window. */
 	private int mAnimStyle;
 	/** Context used to load resources. */
@@ -83,9 +72,10 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private ViewGroup mItemsPanel;
 	/** MediaPlayer used to play the audio. */
 	private MediaPlayer mMediaPlayer;
+	
+	private int mUserId;
 	/** Plot represented on the window. */
-	private Plot mPlot;
-
+	// private Plot mPlot;
 	/** Stores currently used seeds. They are mapped by id. */
 	private HashMap<Integer, Seed> mSeeds;
 
@@ -95,7 +85,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	 * @param anchor
 	 *            {@link View} on where the popup window should be displayed
 	 */
-	public PlotInformationWindow(View anchor, Plot plot,
+	public PlotInformationWindow(View anchor, int userId,
 			RealFarmProvider dataProvider) {
 		super(anchor);
 
@@ -110,11 +100,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		// gets the elements contained in the window.
 		mItemsPanel = (ViewGroup) mRoot.findViewById(R.id.itemsPanel);
-		mActionsPanel = (ViewGroup) mRoot.findViewById(R.id.actionPanel);
 		mAnimStyle = ANIM_GROW_FROM_CENTER;
 
 		// plot represented by the window.
-		mPlot = plot;
+		// mPlot = plot;
+		mUserId = userId;
 
 		// loads the actions from the database.
 		mActionList = mDataProvider.getActionNamesList();
@@ -134,31 +124,9 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		iiv2.setOnClickListener(new OnClickListener() {
 
 			public void onClick(View v) {
-				// TODO: action should be added
 				PlotInformationWindow.this.window.dismiss();
 			}
 		});
-	}
-
-	/**
-	 * Displays the actions that the user can perform.
-	 */
-	private void createActionList() {
-		View view;
-
-		for (int i = 0; i < mActionList.size(); i++) {
-			view = getActionItem(mActionList.get(i).getRes(), OnClickAction(i));
-
-			view.setFocusable(true);
-			view.setClickable(true);
-
-			// sets the id used to find the resource.
-			view.setId(mActionList.get(i).getId());
-
-			view.invalidate();
-			view.forceLayout();
-			mActionsPanel.addView(view);
-		}
 	}
 
 	private void editAction(int action, int actionID, Dialog dialog,
@@ -197,32 +165,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 				return mGrowing.get(x);
 		}
 		return null;
-	}
-
-	/**
-	 * Get action item {@link View}
-	 * 
-	 * @param icon
-	 *            {@link Drawable} action item icon
-	 * @param listener
-	 *            {@link View.OnClickListener} action item listener
-	 * @return action item {@link View}
-	 */
-	private View getActionItem(int icon, OnClickListener listener) {
-
-		// inflates the layout
-		LinearLayout container = (LinearLayout) mInflater.inflate(
-				R.layout.plotaction_item, null);
-
-		// sets the properties of the icon
-		ImageView img = (ImageView) container.findViewById(R.id.icon);
-		img.setImageResource(icon);
-
-		// sets up the listener
-		if (listener != null)
-			img.setOnClickListener(listener);
-
-		return container;
 	}
 
 	private View getDiaryItem(int icon, int icon2, String title, String date,
@@ -337,11 +279,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 							nameView1
 									.setBackgroundResource(R.drawable.square_btn);
 
-							int growingId = (int) mDataProvider.setGrowing(
-									mPlot.getId(), s.getId());
-							nameView1
-									.setOnClickListener(OnClickGrowing(growingId));
-							vg.addView(nameView1);
+//							int growingId = (int) mDataProvider.setGrowing(
+//									mPlot.getId(), s.getId());
+//							nameView1
+//									.setOnClickListener(OnClickGrowing(growingId));
+//							vg.addView(nameView1);
 						}
 
 					} else { // only existing seeds can be used
@@ -457,8 +399,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 				// stores the index of the new item.
 				mCurrentGrowingIndex = growingIndex;
-
-				setEnabledActionButtons(true);
 			}
 		};
 	}
@@ -539,27 +479,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		this.mAnimStyle = animStyle;
 	}
 
-	protected void setEnabledActionButtons(Boolean enabled) {
-		for (int x = 0; x < mActionList.size(); x++) {
-
-			ActionName actionName = mActionList.get(x);
-			View button = mActionsPanel.findViewById(actionName.getId());
-
-			ImageView icon = (ImageView) button.findViewById(R.id.icon);
-
-			// TODO: plot based actions are hardcoded.
-			if (enabled || actionName.getName().equals("Sow")
-					|| actionName.getName().equals("Diary")
-					|| actionName.getName().equals("Irrigate")) {
-				icon.setEnabled(true);
-				icon.clearColorFilter();
-			} else {
-				icon.setEnabled(false);
-				icon.setColorFilter(0xA6A6A6A6, Mode.SRC_ATOP);
-			}
-		}
-	}
-
 	public void show() {
 		preShow();
 
@@ -567,10 +486,6 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		int[] location = new int[2];
 		anchor.getLocationOnScreen(location);
 
-		// loads the actions
-		createActionList();
-		// initial status of the action buttons.
-		setEnabledActionButtons(false);
 		// loads the plot information
 		updatePlotInformation();
 
@@ -580,52 +495,80 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// displays the window.
 		window.showAtLocation(anchor, Gravity.NO_GRAVITY, location[0],
 				location[1]);
+		
+		System.out.println("update diary in show");
+		updateDiary();
 	}
 
 	private void updateDiary() {
 		View view;
 		String text;
-
+		int action_icon = 0;
 		// removes all visual elements
 		mItemsPanel.removeAllViews();
 
-		List<Action> actionList = mDataProvider.getActionsByPlotId(mPlot
-				.getId());
+		List<Action> actionList = mDataProvider.getActions(Global.userId, Global.plotId);
+		// mDataProvider.getActionsByUserId(mUserId);
 
 		// added from the end till the beginning to show new action on top.
 		for (int i = actionList.size() - 1; i > -1; i--) {
 
-			// gets the next action
-			ActionName a = findActionNameById(actionList.get(i)
-					.getActionNameId());
-			Growing g = findGrowingById(actionList.get(i).getGrowingId());
-			Seed s = mSeeds.get(g.getSeedId());
+			// Growing g = findGrowingById(actionList.get(i).getGrowingId());
+			// Seed s = mSeeds.get(g.getSeedId());
+			
+			// String seedVariety = actionList.get(i).getSeedVariery();
 
 			// listener = mActionList.get(i).getListener();
-			text = a.getName();
+			text = actionList.get(i).getActionType();
+			
+			if(text.toString().equalsIgnoreCase("Sowing"))
+			{
+				 action_icon = R.drawable.ic_72px_sowing;
+			}
+			if(text.toString().equalsIgnoreCase("Selling"))
+			{
+				 action_icon = R.drawable.ic_72px_irrigation1;
+			}
+			if(text.toString().equalsIgnoreCase("Spraying"))
+			{
+				 action_icon = R.drawable.ic_72px_spraying3;
+			}
+			if(text.toString().equalsIgnoreCase("Fertilizing"))
+			{
+				 action_icon = R.drawable.ic_72px_fertilizing1;
+			}
+			if(text.toString().equalsIgnoreCase("Harvesting"))
+			{
+				 action_icon = R.drawable.ic_72px_harvesting1;
+			}
 
-			view = getDiaryItem(a.getRes(), s.getRes(), text,
-					DateHelper
-							.formatDate(actionList.get(i).getDate(), mContext),
+			view = getDiaryItem(
+					action_icon, //R.drawable.pic_72px_bajra, //action item
+					R.drawable.pic_72px_castor, // crop/seed
+					// s.getRes(), // should be the resource for the action type.
+					// s.getRes(), // should be the resource for the seed type.
+					text,
+					DateHelper.formatDate(actionList.get(i).getDay(), mContext),
 					OnClickDiary(actionList.get(i).getId()));
-			view.setId(a.getId());
+			// view.setId(a.getId());
 
 			view.setFocusable(true);
-			view.setClickable(true);
+			view.setClickable(false);
 
 			view.invalidate();
 			view.forceLayout();
 			mItemsPanel.addView(view);
 		}
 	}
-
 	private void updatePlotInformation() {
 
 		// Get growing areas of the plot
-		mGrowing = mDataProvider.getGrowingsByPlotId(mPlot.getId());
+		// mGrowing = mDataProvider.getGrowingsByPlotId(mPlot.getId());
+		
+		mGrowing = mDataProvider.getGrowingsByUserId(mUserId);
 
 		// gets the owner of the plot.
-		User plotOwner = mDataProvider.getUserById(mPlot.getOwnerId());
+		User plotOwner = mDataProvider.getUserById(mUserId);
 
 		// displays the owner information in the header of the window.
 		TextView txtOwnerName = (TextView) mRoot.findViewById(R.id.firstLine);
@@ -635,32 +578,32 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		else
 			txtOwnerName.setText("Unknown");
 
-		Path path = PlotOverlay.getPathFromPlot(mPlot);
-		// gets the bounds of the plot.
-		RectF plotBounds = new RectF();
-		path.computeBounds(plotBounds, true);
-
-		// paint used for the path
-		Paint paint = new Paint();
-		paint.setStrokeWidth(7);
-		paint.setAntiAlias(true);
-		paint.setDither(true);
-		paint.setStrokeWidth(3);
-		paint.setColor(0x64FF0000);
+//		Path path = PlotOverlay.getPathFromPlot(mPlot);
+//		// gets the bounds of the plot.
+//		RectF plotBounds = new RectF();
+//		path.computeBounds(plotBounds, true);
+//
+//		// paint used for the path
+//		Paint paint = new Paint();
+//		paint.setStrokeWidth(7);
+//		paint.setAntiAlias(true);
+//		paint.setDither(true);
+//		paint.setStrokeWidth(3);
+//		paint.setColor(0x64FF0000);
 
 		// draw in bitmap
-		Bitmap myBitmap = Bitmap.createBitmap((int) plotBounds.width(),
-				(int) plotBounds.height(), Config.ARGB_8888);
-		Canvas myCanvas = new Canvas(myBitmap);
-		// draws the given path into the canvas.
-		myCanvas.drawPath(path, paint);
+//		Bitmap myBitmap = Bitmap.createBitmap((int) plotBounds.width(),
+//				(int) plotBounds.height(), Config.ARGB_8888);
+//		Canvas myCanvas = new Canvas(myBitmap);
+//		// draws the given path into the canvas.
+//		myCanvas.drawPath(path, paint);
 
 		// limits the size of the bitmap.
 		// TODO: I think the proportions are not kept.
-		myBitmap = Bitmap.createScaledBitmap(myBitmap, 100, 100, false);
-
-		ImageView imgIcon = (ImageView) mRoot.findViewById(R.id.icon);
-		imgIcon.setImageBitmap(myBitmap);
+//		myBitmap = Bitmap.createScaledBitmap(myBitmap, 100, 100, false);
+//
+//		ImageView imgIcon = (ImageView) mRoot.findViewById(R.id.icon);
+//		imgIcon.setImageBitmap(myBitmap);
 
 		View item;
 

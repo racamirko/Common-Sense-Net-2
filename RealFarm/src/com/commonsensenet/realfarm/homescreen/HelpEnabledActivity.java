@@ -1,6 +1,9 @@
 package com.commonsensenet.realfarm.homescreen;
 
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import com.commonsensenet.realfarm.R;
 
 import android.app.Activity;
@@ -22,7 +25,7 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 	protected boolean mHelpMode;
 	protected Typeface mKannadaTypeface;
 	protected View mHelpIcon;
-	
+	protected MediaPlayer mp = null;
 	public class HelpAnimation extends AlphaAnimation {
 		protected View mViewAnimated; // animation icon
 		protected View mViewAssociated; // associated view on which we're dispalying the help
@@ -78,7 +81,7 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
         
         setContentView(resLayoutId);
         // Kannada typeface
-        mKannadaTypeface = Typeface.createFromAsset(getAssets(),"fonts/Kedage.dfont");
+        mKannadaTypeface = Typeface.createFromAsset(getAssets(),"fonts/Sampige.ttf");
         initKannada();
     }
 	
@@ -93,10 +96,13 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 		Log.d(logTag, "Showing help at: "+loc[0]+" , "+loc[1]);
 		
 		mAnimFadeIn.setViewAssociated(v);
-		mAnimFadeIn.setDuration(2000);
+		mAnimFadeIn.setDuration(500);
 		mHelpIcon.setVisibility(View.VISIBLE);
 		mHelpIcon.startAnimation(mAnimFadeIn);
 		setHelpMode(true);
+		
+		
+	
 
 		return true;
 	}
@@ -123,11 +129,193 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 		return mHelpMode;
 	}
 
+
 	public void showHelp(View v){
 		Toast.makeText(getApplicationContext(), "Showing help for "+v.getId(), Toast.LENGTH_SHORT).show();
 		
-		MediaPlayer mp = MediaPlayer.create(this, R.raw.audio1);
+	/*	if(mp != null)                                                //Integration
+		{
+			mp.stop();
+			mp.release();
+			mp = null;
+		}
+		mp = MediaPlayer.create(this, R.raw.audio1);
+		mp.start();*/
+		
+		
+	if( v.getId() == R.id.btn_info_actions || v.getId() == R.id.home_btn_actions ){           //Integration
+		
+		if(mp != null)
+		{
+			mp.stop();
+			mp.release();
+			mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.audio1);
+			mp.start();
+		}
+		if( v.getId() == R.id.btn_info_advice || v.getId() == R.id.home_btn_advice){
+			
+			if(mp != null)
+		{
+				mp.stop();
+				mp.release();
+			mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.audio2);
+			mp.start();
+		}
+		if( v.getId() == R.id.btn_info_warn || v.getId() == R.id.home_btn_warn ){
+			
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.audio3);
+			mp.start();
+		}
+		if( v.getId() == R.id.btn_info_yield || v.getId() == R.id.home_btn_yield ){
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.audio4);
+			mp.start();
+		}
+		
+		if( v.getId() == R.id.btn_info_yield|| v.getId() == R.id.home_btn_wf ){
+			
+		if(mp != null)
+		{
+			mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.weatherforecast);
 		mp.start();
+		}    
+		
+		if( v.getId() == R.id.btn_info_yield|| v.getId() == R.id.home_btn_wf ){
+			
+			if(mp != null)
+			{
+				mp.stop();
+					mp.release();
+					mp = null;
+				}
+				mp = MediaPlayer.create(this, R.raw.weatherforecast);
+			mp.start();
+			}               //End of big icons
+		
+		if( v.getId() == R.id.btn_action_plant){
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.sowing);
+			mp.start();
+	
+		}
+		
+		if( v.getId() == R.id.btn_action_yield){
+			if(mp != null)
+			{
+				mp.stop();
+			mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.harvesting);
+			mp.start();
+	}
+		
+		if( v.getId() == R.id.btn_action_diary ){
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+				mp = null;
+		}
+			mp = MediaPlayer.create(this, R.raw.selling);
+		mp.start();
+		}
+	
+		
+		if( v.getId() == R.id.btn_action_fertilize){
+			if(mp != null)
+			{
+				mp.stop();
+			mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.fertilizing);
+			mp.start();
+		}
+		
+		if( v.getId() == R.id.btn_action_spray ){
+			if(mp != null)
+		{
+				mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.spraying);
+			mp.start();
+		}
+		
+		if (v.getId() == R.id.home_btn_PlotInfo) {
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+			mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.mysettings);
+			mp.start();
+	}
+		
+		
+		if (v.getId() == R.id.btn_action_irrigate) {
+		if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+				mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.dairy);
+			mp.start();
+			
+
+		}
+		if (v.getId() == R.id.home_btn_marketprice) {
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+			mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.marketprice);
+			mp.start();
+	}
+		
+		if (v.getId() == R.id.btn_action_videos) {
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+			mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.video);
+			mp.start();
+	}
+		
+		
+		
 		// TODO: make a table mapping IDs to sound files
 	}
 	
@@ -144,6 +332,17 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 		return mKannadaTypeface;
 	}
 
+	public String getcurrenttime()
+	{
+		Calendar ctaq = Calendar.getInstance();
+		SimpleDateFormat dfaq = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String crntdt = dfaq.format(ctaq.getTime());
+		Log.i("strtdat",crntdt);
+		return crntdt;
+		
+	}
+	
+	
 	protected abstract void initKannada();
 	
 //	public void testAnim(){

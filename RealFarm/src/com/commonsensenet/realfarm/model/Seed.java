@@ -11,9 +11,10 @@ public class Seed {
 	private int mResBg;
 	private String mVariety;
 	private String mVarietyKannada;
+	private int mAdmin;
 
 	public Seed(int id, String name, String nameKannada, int res, int audioRes,
-			int daysToHarvest, String variety, String varietyKannada, int resBg) {
+			int daysToHarvest, String variety, String varietyKannada, int resBg, int admin) {            //admin added
 		mId = id;
 		mName = name;
 		mNameKannada = nameKannada;
@@ -23,6 +24,7 @@ public class Seed {
 		mVariety = variety;
 		mVarietyKannada = varietyKannada;
 		mResBg = resBg;
+		mAdmin=admin;
 	}
 
 	public int getAudiores() {
@@ -77,6 +79,10 @@ public class Seed {
 
 	public void setResBg(int mResBg) {
 		this.mResBg = mResBg;
+	}
+	
+	public int setAdmin(int admin) {
+		return mAdmin;
 	}
 
 

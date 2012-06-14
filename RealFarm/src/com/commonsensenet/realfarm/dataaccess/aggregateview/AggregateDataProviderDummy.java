@@ -21,7 +21,7 @@ import android.content.Context;
  * @author: Mirko Raca <mirko.raca@epfl.ch>
  */
 public class AggregateDataProviderDummy extends AggregateDataProvider {
-	protected int numOfItems, maxAct, maxSeed, maxUsr;
+	protected int numOfItems, maxAct, maxSeed, maxUsr, maxWFlist;
 	protected SimpleDateFormat dateFormat;
 	protected Calendar calendar;
 	public static final int NUM_OF_TYPES = 2;
@@ -34,6 +34,7 @@ public class AggregateDataProviderDummy extends AggregateDataProvider {
 		maxAct = dataProvider.getActionNamesList().size()-3;
 		maxSeed = dataProvider.getSeedsList().size()-3;
 		maxUsr = dataProvider.getUserCount();
+		maxWFlist = dataProvider.getWFData().size();
 	}
 
 	@Override

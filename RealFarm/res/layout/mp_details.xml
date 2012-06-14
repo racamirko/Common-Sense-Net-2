@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+  
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" 
+     >
+
+    <LinearLayout
+        android:id="@+id/linearLayout19"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_gravity="center_vertical"
+        android:alpha="0.2"
+        android:background="@drawable/header" >
+  
+        <ImageView
+            android:id="@+id/aggr_img_icon"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_margin="5dp"
+            android:src="@drawable/cloudy" />
+
+        <TextView
+            android:id="@+id/aggr_lbl_title"
+            android:layout_width="105dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="25dp"
+            android:text="Market"
+            android:textColor="@android:color/black"
+            android:textSize="30dp" />
+
+      <ImageButton
+            android:id="@+id/aggr_img_home1"
+            android:layout_width="60dip"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/home"
+            android:src="@drawable/square_btn_transp" />
+
+        <ImageButton
+            android:id="@+id/aggr_img_help"
+            android:layout_width="60dip"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@drawable/help"
+            android:src="@drawable/square_btn_transp" />
+        
+    </LinearLayout>
+
+    
+       <ScrollView
+          android:layout_below="@+id/dlg_img_seed"
+          android:id="@+id/scrollView1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="10dip">
+
+          <LinearLayout
+              android:id="@+id/dlg_linlay_userDataDetails"
+              android:layout_width="match_parent"
+              android:layout_height="match_parent"
+              android:orientation="vertical" >
+              
+    <RelativeLayout
+        android:id="@+id/RelativeLayoutwf_1"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/mp_groundnut" >
+
+        <TextView
+            android:id="@+id/mp_text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/ImageView03"
+            android:paddingRight="5dp"
+            android:text="4700 Rs"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/wf_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wfmsg_1"
+            android:layout_alignParentTop="true"
+            android:text="Today"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <Button
+            android:id="@+id/home_btn_mp_1"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/square_btn_transp" />
+
+        <TextView
+            android:id="@+id/wf_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
+            android:text="Pavagada Market"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_below="@+id/mp_text1"
+            android:text="Groundnut TMV1"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    </RelativeLayout>
+		
+  <!--     <RelativeLayout
+        android:id="@+id/RelativeLayoutwf_1"
+        android:layout_width="wrap_content"
+        android:layout_height="100dp"
+        android:layout_marginBottom="5dp"
+        android:background="@drawable/pic_90px_castor_tiled" >
+
+        <TextView
+            android:id="@+id/mp_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_toRightOf="@+id/ImageView03"
+            android:paddingRight="5dp"
+            android:text="3500 Rs"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textColor="@android:color/white"
+            android:textSize="30dp" />
+
+        <TextView
+            android:id="@+id/wf_text3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@+id/wfmsg_1"
+            android:layout_alignParentTop="true"
+            android:text="Today"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+        
+        <Button
+            android:id="@+id/home_btn_mp_2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/square_btn_transp" />
+
+        <TextView
+            android:id="@+id/wf_text2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:text="Castor Seed"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+     
+    </RelativeLayout> -->
+
+ 
+         <TableRow
+          android:id="@+id/tableRow1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+           android:layout_marginLeft="5dp"  >     
+         
+    <RelativeLayout
+                  android:id="@+id/RelativeLayoutwf_2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="5dp"
+                  android:layout_marginTop="5dp"
+                  android:layout_weight="0.09" >
+
+                   <ImageView
+                      android:id="@+id/dlg_img_seed"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentLeft="true"
+                      android:layout_centerVertical="true"
+                      android:layout_margin="5dip"
+                      android:src="@drawable/pic_90px_groundnut_good" />
+
+                     <TextView
+                         android:id="@+id/dlg_lbl_var_fert"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerVertical="true"
+                         android:paddingBottom="5dip"
+                         android:paddingTop="5dip"
+                          android:paddingLeft="26dip"
+                         android:text="Avg price of GN Good quality"
+                         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                     <Button
+                         android:id="@+id/home_btn_gn_good_mp"
+                         android:layout_width="80dp"
+                         android:layout_height="match_parent"
+                         android:layout_alignBottom="@+id/dlg_img_seed"
+                         android:layout_alignParentLeft="true"
+                         android:layout_alignParentRight="true"
+                         android:background="@drawable/square_btn_transp" />
+
+              </RelativeLayout>
+                                
+  </TableRow>
+
+    
+   <TableRow
+          android:id="@+id/tableRow1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+           android:layout_marginLeft="5dp"  >     
+         
+    <RelativeLayout
+                  android:id="@+id/RelativeLayoutwf_2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="5dp"
+                  android:layout_marginTop="5dp"
+                  android:layout_weight="0.09" >
+
+                   <ImageView
+                      android:id="@+id/dlg_img_seed"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentLeft="true"
+                      android:layout_centerVertical="true"
+                      android:layout_margin="5dip"
+                      android:src="@drawable/pic_90px_groundnut_medium" />
+
+                     <TextView
+                         android:id="@+id/dlg_lbl_var_fert"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerVertical="true"
+                         android:paddingBottom="5dip"
+                         android:paddingTop="5dip"
+                          android:paddingLeft="26dip"
+                         android:text="Avg price of GN Medium quality"
+                         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Button
+                         android:id="@+id/home_btn_gn_medium_mp"
+                         android:layout_width="80dp"
+                         android:layout_height="match_parent"
+                         android:layout_alignBottom="@+id/dlg_img_seed"
+                         android:layout_alignParentLeft="true"
+                         android:layout_alignParentRight="true"
+                         android:background="@drawable/square_btn_transp" />
+
+              </RelativeLayout>
+                                
+  </TableRow>
+     
+   
+    <TableRow
+          android:id="@+id/tableRow1"
+          android:layout_width="match_parent"
+          android:layout_height="wrap_content"
+          android:layout_marginTop="5dp"
+           android:layout_marginLeft="5dp"  >     
+         
+    <RelativeLayout
+                  android:id="@+id/RelativeLayoutwf_2"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_marginBottom="5dp"
+                  android:layout_marginTop="5dp"
+                  android:layout_weight="0.09" >
+
+                   <ImageView
+                      android:id="@+id/dlg_img_seed"
+                      android:layout_width="fill_parent"
+                      android:layout_height="wrap_content"
+                      android:layout_alignParentLeft="true"
+                      android:layout_centerVertical="true"
+                      android:layout_margin="5dip"
+                      android:src="@drawable/pic_90px_groundnut_poor" />
+
+                     <TextView
+                         android:id="@+id/dlg_lbl_var_fert"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerVertical="true"
+                         android:paddingBottom="5dip"
+                         android:paddingTop="5dip"
+                          android:paddingLeft="26dip"
+                         android:text="Avg price of GN Poor quality"
+                         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                    <Button
+                         android:id="@+id/home_btn_gn_poor_mp"
+                         android:layout_width="80dp"
+                         android:layout_height="match_parent"
+                         android:layout_alignBottom="@+id/dlg_img_seed"
+                         android:layout_alignParentLeft="true"
+                         android:layout_alignParentRight="true"
+                         android:background="@drawable/square_btn_transp" />
+
+              </RelativeLayout>
+                                
+  </TableRow>
+   
+               </LinearLayout>
+          
+      </ScrollView>
+</LinearLayout>

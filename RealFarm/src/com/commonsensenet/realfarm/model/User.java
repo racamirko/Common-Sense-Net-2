@@ -7,14 +7,18 @@ public class User {
 	protected String mMobileNumber;
 	protected int mUserId;
 	protected String mImgName;
+	protected int mDelete;
+	protected int mAdmin;
 
 	public User(int userId, String firstName, String lastName,
-			String mobileNumber, String imgName) {
+			String mobileNumber, String imgName, int delete, int admin) {             //added
 		mUserId = userId;
 		mFirstName = firstName;
 		mLastName = lastName;
 		mMobileNumber = mobileNumber;
 		mImgName = imgName;
+		mDelete=delete;
+		mAdmin=admin;
 	}
 
 	public String getFirstName() {
@@ -39,6 +43,13 @@ public class User {
 	
 	public String getUserImgName(){
 		return mImgName;
+	}
+	
+	public int getDelete(){
+		return mDelete;
+	}
+	public int getAdmin(){
+		return mAdmin;
 	}
 
 }

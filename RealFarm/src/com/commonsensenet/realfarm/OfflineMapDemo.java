@@ -93,20 +93,20 @@ public class OfflineMapDemo extends Activity {
 
 					// displays the information about the plot on a different
 					// window.
-					mCurrentWindow = new PlotInformationWindow(mOfflineMap, po
-							.getPlot(), mDataProvider);
-					// detects when it gets closed.
-					mCurrentWindow
-							.setOnDismissListener(new OnDismissListener() {
-								public void onDismiss() {
-									mDataProvider.logAction(Log.PLOTINFO_DISMISS, null);
-									// clears the current window when it gets
-									// closed.
-									mCurrentWindow = null;
-								}
-							});
-					// shows the window.
-					mCurrentWindow.show();
+//					mCurrentWindow = new PlotInformationWindow(mOfflineMap, po
+//							.getPlot(), mDataProvider);
+//					// detects when it gets closed.
+//					mCurrentWindow
+//							.setOnDismissListener(new OnDismissListener() {
+//								public void onDismiss() {
+//									mDataProvider.logAction(Log.PLOTINFO_DISMISS, null);
+//									// clears the current window when it gets
+//									// closed.
+//									mCurrentWindow = null;
+//								}
+//							});
+//					// shows the window.
+//					mCurrentWindow.show();
 				}
 
 				// Intent myIntent = new Intent();
@@ -183,11 +183,11 @@ public class OfflineMapDemo extends Activity {
 			return true;			
 		}
 			
-		if( item.getItemId() == R.id.help ){
-			mDataProvider.logAction(Log.MAIN_MENU_HELP_CLICKED, null);
-			// TODO: add help support
-			return true;			
-		}
+	//	if( item.getItemId() == R.id.help ){
+	//		mDataProvider.logAction(Log.MAIN_MENU_HELP_CLICKED, null);
+	//		// TODO: add help support
+	//		return true;			
+	//	}
 //		default:
 		return super.onOptionsItemSelected(item);
 	}

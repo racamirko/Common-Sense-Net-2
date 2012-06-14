@@ -6,6 +6,7 @@ import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.location.Location;
@@ -28,6 +29,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.Plot;
 
 public class Settings extends Activity {
@@ -41,6 +43,8 @@ public class Settings extends Activity {
 	private int plotNumber = 0;
 	// private TelephonyManager telephonyManager;
 	private int userId;
+	
+	EditText MobileNumber, firstname12,lastname12;                            //Prakruthi
 
 	private void addButton(LinearLayout plotLayout, int plotID) {
 		Button b = new Button(this);
@@ -186,7 +190,12 @@ public class Settings extends Activity {
 					Toast.LENGTH_SHORT).show();
 		}
 
-		finish();
+	//	finish();
+		Intent adminintent = new Intent(Settings.this,admincall.class);
+        
+	       startActivity(adminintent);
+	       Settings.this.finish();
+
 	}
 
 	View.OnClickListener OnClickAllowEdit(final int plotID, final int lat,
@@ -273,6 +282,12 @@ public class Settings extends Activity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
+		
+		 firstname12 = (EditText)findViewById(R.id.editText1);                        //First name             
+	       lastname12 = (EditText)findViewById(R.id.editText2);
+		MobileNumber = (EditText) this.findViewById(R.id.MobileNo);
+		Button OK = (Button) findViewById(R.id.OK);                         //Prakruthi
+		
 		// String deviceID = RealFarmDatabase.DEVICE_ID;
 		TelephonyManager telephonyManager = (TelephonyManager) this
 				.getSystemService(Context.TELEPHONY_SERVICE);
@@ -323,6 +338,19 @@ public class Settings extends Activity {
 
 		// plot list of things
 		plotList();
+		
+		OK.setOnClickListener(new View.OnClickListener() {                     //Prakruthi
+			public void onClick(View v) {
+				
+		//		UserDetailsDatabase();
+				 System.out.println("In OK button of settings");
+				 UserDetailsDatabase();
+				 Intent adminintent = new Intent(Settings.this, admincall.class);
+	 				startActivity(adminintent);	
+	 		       Settings.this.finish();
+				
+             }
+		});  
 
 	}
 
@@ -387,5 +415,28 @@ public class Settings extends Activity {
 		container2.addView(ib);
 
 	}
+	
+	public void UserDetailsDatabase()
+	 {
+		
+		String firstname12String = firstname12.getText().toString();
+		
+		String lastname12String = lastname12.getText().toString();
+		String MobileNumberString = MobileNumber.getText().toString();
+		
+		deviceID = RealFarmDatabase.DEFAULT_NUMBER;
+		
+	 		System.out.println("User details is put to database");
+	 		
+	 	
+	 		mDataProvider.setUserInfo(MobileNumberString,firstname12String,lastname12String);
+	 		mDataProvider.getUserList();
+	 		Toast.makeText(getBaseContext(), "User Details is put to Database",
+	 		 		Toast.LENGTH_SHORT).show();
+		
+	
+	 		
+	 	 
+	 }
 
 }
