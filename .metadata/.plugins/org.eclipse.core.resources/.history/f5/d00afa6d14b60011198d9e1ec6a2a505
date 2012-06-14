@@ -901,16 +901,6 @@ public class action_sowing extends HelpEnabledActivity {
 		        
 			      startActivity(adminintent);                        
 			      action_sowing.this.finish();
-			   	 if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user has clicked home btn in Sowing*********** \r\n");
-					
-				
-					}
 				                    
 				}
  	});
@@ -992,16 +982,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.varietyofseedssowd);
 			mp.start();
-		  	 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
 			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to variety of seed audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
 		
        if( v.getId() == R.id.home_btn_units_sow || v.getId() ==  R.id.home_btn_units_no_sow){
@@ -1014,16 +995,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttheunits);
 			mp.start();
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
 			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to units audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
        
        if( v.getId() == R.id.home_btn_day_sow){
@@ -1036,16 +1008,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.selectthedate);
 			mp.start();
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
 			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to day audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
        
        if( v.getId() == R.id.home_btn_treat_sow){
@@ -1058,16 +1021,7 @@ public class action_sowing extends HelpEnabledActivity {
   			}
   			mp = MediaPlayer.create(this, R.raw.treatmenttoseeds1);
   			mp.start();
-  			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to traetment audio in Sowing*********** \r\n");
-				
-			
-				}
+  			
   		}
 		
        if( v.getId() == R.id.sow_ok){
@@ -1108,16 +1062,6 @@ public class action_sowing extends HelpEnabledActivity {
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
 			
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to help audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
        
 

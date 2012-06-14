@@ -1108,16 +1108,6 @@ public class action_sowing extends HelpEnabledActivity {
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
 			
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to help audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
        
 

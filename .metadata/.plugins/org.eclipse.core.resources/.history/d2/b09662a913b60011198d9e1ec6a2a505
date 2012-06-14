@@ -642,17 +642,6 @@ public class action_sowing extends HelpEnabledActivity {
 	    	Log.d("in variety sowing dialog", "in dialog");
 	    	dlg.show();
 	    	
-	    	  if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** in selection of bags for Sowing*********** \r\n");
-				
-			
-				}
-	    	
 	    	  Button no_ok=(Button) dlg.findViewById(R.id.number_ok);
 	   	   Button no_cancel=(Button) dlg.findViewById(R.id.number_cancel);
 	   	no_ok.setOnClickListener(new View.OnClickListener() {
@@ -668,16 +657,7 @@ public class action_sowing extends HelpEnabledActivity {
 		    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 		  	    	      	
 		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-		  	    	      if(Global.WriteToSD==true)
-							{
-								
-							String	logtime=getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-						
-							mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ sow_no_sel + " of bags for Sowing*********** \r\n");
-							
-						
-							}
+		    		    	
 		    		    }
 		    		    
 		    		    dlg.cancel(); 
@@ -686,16 +666,6 @@ public class action_sowing extends HelpEnabledActivity {
 	   	no_cancel.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View v) {
 	    		dlg.cancel(); 	
-	    		 if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user selected cancel on selction of bags for Sowing*********** \r\n");
-					
-				
-					}
 	    	}
 	    	});
 	   	
@@ -713,16 +683,6 @@ public class action_sowing extends HelpEnabledActivity {
 		if (((CheckBox) v).isChecked()) {
 			Toast.makeText(action_sowing.this,
 		 	   "Intercrop is selected :)", Toast.LENGTH_LONG).show();
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user selected intercrop for Sowing*********** \r\n");
-				
-			
-				}
 		}
  
 	  }
@@ -738,17 +698,6 @@ public class action_sowing extends HelpEnabledActivity {
 	   cancel.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View v) {
                cancelaudio();
-               
-               if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user clicked cancel in Sowing*********** \r\n");
-				
-			
-				}
 	    	}
 	   
 	    	});
@@ -756,16 +705,7 @@ public class action_sowing extends HelpEnabledActivity {
 	    btnNext.setOnClickListener(new View.OnClickListener() {
 	    	public void onClick(View v) {
 	    		
-	    		 if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user clicked OK in Sowing*********** \r\n");
-					
-				
-					}
+	    		
 	    		
 	    	//	 Toast.makeText(action_sowing.this, "User enetred " + sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
 	    		 int flag1, flag2,flag3;
@@ -776,16 +716,7 @@ public class action_sowing extends HelpEnabledActivity {
 	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 	    	      	
 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-	    	      	 if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user has NOT filled seed variety for Sowing*********** \r\n");
-						
-					
-						}
+	    			 
 	    			 
 	    		    }
 	    		 else
@@ -805,18 +736,6 @@ public class action_sowing extends HelpEnabledActivity {
 	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 	    	      	
 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-	    	      	
-	    	     	 if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user has NOT filled units for Sowing*********** \r\n");
-						
-					
-						}
-	    	      	
 	    		    }
 	    		 else
 	    		 {
@@ -836,18 +755,6 @@ public class action_sowing extends HelpEnabledActivity {
 	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
 	    	      	
 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-	    	      	
-	    	     	 if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user has NOT filled treatment for Sowing*********** \r\n");
-						
-					
-						}
-	    	      	
 	    		    }
 	    		 else
 	    		 {
@@ -871,17 +778,6 @@ public class action_sowing extends HelpEnabledActivity {
 	    				System.out.println("sowing reading");
 	    				mDataProvider.getsowing();
 	    			
-	    			  	 if(Global.WriteToSD==true)
-							{
-								
-							String	logtime=getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-						
-							mDataProvider.File_Log_Create("UIlog.txt","***** user has filled all details for Sowing*********** \r\n");
-							
-						
-							}
-	    				
 	    		    	 Intent adminintent = new Intent(action_sowing.this,Homescreen.class);
 	    			      startActivity(adminintent);                        
 	    			      action_sowing.this.finish();
@@ -901,16 +797,6 @@ public class action_sowing extends HelpEnabledActivity {
 		        
 			      startActivity(adminintent);                        
 			      action_sowing.this.finish();
-			   	 if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user has clicked home btn in Sowing*********** \r\n");
-					
-				
-					}
 				                    
 				}
  	});
@@ -992,16 +878,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.varietyofseedssowd);
 			mp.start();
-		  	 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
 			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to variety of seed audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
 		
        if( v.getId() == R.id.home_btn_units_sow || v.getId() ==  R.id.home_btn_units_no_sow){
@@ -1014,16 +891,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttheunits);
 			mp.start();
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
 			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to units audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
        
        if( v.getId() == R.id.home_btn_day_sow){
@@ -1036,16 +904,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.selectthedate);
 			mp.start();
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
 			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to day audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
        
        if( v.getId() == R.id.home_btn_treat_sow){
@@ -1058,16 +917,7 @@ public class action_sowing extends HelpEnabledActivity {
   			}
   			mp = MediaPlayer.create(this, R.raw.treatmenttoseeds1);
   			mp.start();
-  			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to traetment audio in Sowing*********** \r\n");
-				
-			
-				}
+  			
   		}
 		
        if( v.getId() == R.id.sow_ok){
@@ -1108,16 +958,6 @@ public class action_sowing extends HelpEnabledActivity {
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
 			
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to help audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
        
 
