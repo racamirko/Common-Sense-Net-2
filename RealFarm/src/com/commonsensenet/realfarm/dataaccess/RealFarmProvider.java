@@ -38,7 +38,7 @@ import com.commonsensenet.realfarm.model.WFList;
 public class RealFarmProvider {
 	/** Cached seeds to improve performance. */
 	private List<Seed> mAllSeeds;
-	/** Cached actionnames to improve performance. */
+	/** Cached ActionNames to improve performance. */
 	private List<ActionName> mAllActionNames;
 	/** Real farm database access. */
 	private RealFarmDatabase mDb;
@@ -1860,7 +1860,7 @@ public class RealFarmProvider {
 				// fWriter.newLine();
 				fWriter.close();
 				// Toast.makeText(this,
-				// "Your text was written to SD Card succesfully...",
+				// "Your text was written to SD Card successfully...",
 				// Toast.LENGTH_LONG).show();
 			} catch (Exception e) {
 				Log.e("WRITE TO SD", e.getMessage());
@@ -1881,7 +1881,7 @@ public class RealFarmProvider {
 				// fWriter.newLine();
 				fWriter1.close();
 				// Toast.makeText(this,
-				// "Your text was written to SD Card succesfully...",
+				// "Your text was written to SD Card successfully...",
 				// Toast.LENGTH_LONG).show();
 			} catch (Exception e) {
 				Log.e("WRITE TO SD", e.getMessage());

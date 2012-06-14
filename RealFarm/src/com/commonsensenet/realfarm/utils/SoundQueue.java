@@ -10,10 +10,12 @@ import android.media.SoundPool.OnLoadCompleteListener;
 import android.util.Log;
 
 /**
+ * Class that handles the Sounds. A list of sounds can be added to the Queue and
+ * they will be played sequentially.
  * 
  * @author Mirko Raca <mirko.raca@epfl.ch>
- * @author Oscar Bolanos <@oscarbolanos>
- *
+ * @author Oscar Bola–os <@oscarbolanos>
+ * 
  */
 public class SoundQueue implements OnLoadCompleteListener {
 	/** Identifier of the class used for logging. */
