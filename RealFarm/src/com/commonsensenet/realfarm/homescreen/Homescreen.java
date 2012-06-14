@@ -95,7 +95,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		});
 
 		WriteDataBaseToSDcard();
-
 	}
 
 	protected void selectlang() {

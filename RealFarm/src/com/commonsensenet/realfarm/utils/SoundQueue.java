@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm.utils;
 
+import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -44,6 +45,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 	protected Queue<Integer> mResToPlay;
 	/** SoundPool used to play the sounds in different channels. */
 	protected SoundPool mSoundPool;
+	protected HashMap<Integer, Integer> mSoundsMap;
 
 	/**
 	 * Creates a new SoundQueue instance. All the variables are initialized.
@@ -53,6 +55,8 @@ public class SoundQueue implements OnLoadCompleteListener {
 		mSoundPool.setOnLoadCompleteListener(this);
 		mResToPlay = new LinkedList<Integer>();
 		mPlayingSound = -1;
+		mSoundsMap = new HashMap<Integer, Integer>();
+
 	}
 
 	/**
@@ -67,15 +71,28 @@ public class SoundQueue implements OnLoadCompleteListener {
 		if (mContext == null) {
 			Log.i(LOG_TAG, "Context not set, use init() to set it");
 		}
+
+		// if it doesn't exist the sound is loaded.
+		if (!mSoundsMap.containsKey(pResId)) {
+			mSoundsMap.put(pResId, mSoundPool.load(mContext, pResId, 1));
+		}
+
+		// adds the id to the queue to play.
 		mResToPlay.add(pResId);
-		mSoundPool.load(mContext, pResId, 1);
 	}
 
 	/**
 	 * Removes all pending sounds
 	 */
 	public void clean() {
+
+		// unloads the sounds from the pool.
+		for (Integer i : mSoundsMap.keySet())
+			mSoundPool.unload(mSoundsMap.get(i));
+
+		// clears the data structures
 		mResToPlay.clear();
+		mSoundsMap.clear();
 		mPlayingSound = -1;
 	}
 
@@ -91,11 +108,8 @@ public class SoundQueue implements OnLoadCompleteListener {
 
 	public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
 
-		// removes the item from the list
-		if (mPlayingSound != -1) {
-			// unloads the previously played sound
-			mSoundPool.unload(sampleId);
-		}
+		// resets the id of the playing sound.
+		mPlayingSound = -1;
 		// continues playing the following element
 		play();
 	}
@@ -110,7 +124,8 @@ public class SoundQueue implements OnLoadCompleteListener {
 		// if no sound is currently being played.
 		if (!mResToPlay.isEmpty() && mPlayingSound == -1) {
 			mPlayingSound = mResToPlay.poll();
-			mSoundPool.play(mPlayingSound, 0.9f, 0.9f, 1, 0, 1.0f);
+			mSoundPool.play(mSoundsMap.get(mPlayingSound), 0.9f, 0.9f, 1, 0,
+					1.0f);
 		}
 	}
 
@@ -125,6 +140,7 @@ public class SoundQueue implements OnLoadCompleteListener {
 			mSoundPool.stop(mPlayingSound);
 		}
 
+		// removes any other existing sound in the queue.
 		clean();
 	}
 }
