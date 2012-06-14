@@ -22,7 +22,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_72px_fertilizing1" />
+            android:src="@drawable/ic_72px_reporting" />
 
         <ImageView
             android:id="@+id/aggr_img_icon"
@@ -49,7 +49,7 @@
         <ImageButton
             android:id="@+id/aggr_img_help"
             android:layout_width="60dip"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
@@ -87,20 +87,18 @@
          android:layout_alignTop="@+id/dlg_var_sow"
          android:background="@drawable/square_btn_transp" />
 
-     <TextView
-         android:id="@+id/variety_sow_txt"
+       <TextView
+         android:id="@+id/date_sow_txt"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_alignParentBottom="true"
          android:layout_alignParentLeft="true"
-         android:layout_alignParentTop="true"
-         android:layout_alignRight="@+id/variety_sow_txt_btn"
-         android:layout_marginLeft="10dp"
+         android:layout_centerVertical="true"
          android:layout_weight="1"
-         android:gravity="left"
-         android:text="Fertilizer Name"
+         android:gravity="right"
+         android:text="Problems"
+          android:layout_marginLeft="10dp"
          android:textColor="#000000"
-         android:textSize="22sp" />
+         android:textSize="25sp" />
 
   </RelativeLayout>
    <RelativeLayout
@@ -116,7 +114,7 @@
          android:layout_height="60dp"
          android:layout_marginTop="10dp"
   		 android:gravity="center"
-         android:src="@drawable/ic_48px_pest" 
+         android:src="@drawable/ic_48px_reporting" 
           android:background="@drawable/square_btn_transp"/>
 
   </RelativeLayout>
@@ -140,7 +138,8 @@
          android:layout_weight="1"
          android:textSize="22sp"
          android:gravity="right"
-         android:text="Fertilizer" />
+         android:text="Problem" 
+          android:textAppearance="?android:attr/textAppearanceMedium"/>
 
      <Button
          android:id="@+id/home_btn_var_prob"
@@ -214,7 +213,7 @@
          android:layout_height="60dp"
          android:layout_marginTop="10dp"
   		 android:gravity="center"
-         android:src="@drawable/ic_48px_pest" 
+         android:src="@drawable/date" 
           android:background="@drawable/square_btn_transp"/>
 
   </RelativeLayout>
@@ -239,7 +238,8 @@
          android:layout_weight="1"
          android:gravity="right"
          android:text="Date"
-         android:textSize="22sp" />
+         android:textSize="22sp" 
+          android:textAppearance="?android:attr/textAppearanceMedium"/>
 
      <Button
          android:id="@+id/home_btn_day_prob"

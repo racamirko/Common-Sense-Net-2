@@ -81,7 +81,7 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
         
         setContentView(resLayoutId);
         // Kannada typeface
-        mKannadaTypeface = Typeface.createFromAsset(getAssets(),"fonts/Sampige.ttf");
+        mKannadaTypeface = Typeface.createFromAsset(getAssets(),"fonts/tunga.ttf");
         initKannada();
     }
 	

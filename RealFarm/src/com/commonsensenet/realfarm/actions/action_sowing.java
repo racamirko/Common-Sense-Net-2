@@ -19,6 +19,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
@@ -137,6 +138,7 @@ public class action_sowing extends HelpEnabledActivity {
 	//	    	final Button variety7;
 		    	final ImageView img_1;
 		    	img_1 = (ImageView) findViewById(R.id.dlg_var_sow);
+		    			    
 		    	
 		    	final TextView var_text = (TextView) findViewById(R.id.dlg_var_text_sow);
 		    	variety1 = (Button) dlg.findViewById(R.id.home_btn_var_sow_1);
@@ -146,6 +148,7 @@ public class action_sowing extends HelpEnabledActivity {
 		    	variety5 = (Button) dlg.findViewById(R.id.home_btn_var_sow_5);
 		    	variety6 = (Button) dlg.findViewById(R.id.home_btn_var_sow_6);
 		    	
+		     		    	
 		    	variety1.setOnClickListener(new View.OnClickListener() {
 		    			public void onClick(View v) {
 		    				Log.d("var 1 picked ", "in dialog");

@@ -48,7 +48,7 @@
         <ImageButton
             android:id="@+id/aggr_img_help"
             android:layout_width="60dip"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
@@ -116,7 +116,7 @@
          android:layout_height="60dp"
          android:layout_marginTop="10dp"
   		 android:gravity="center"
-         android:src="@drawable/ic_48px_pest" 
+         android:src="@drawable/ic_48px_reporting" 
           android:background="@drawable/square_btn_transp"/>
 
   </RelativeLayout>
@@ -140,7 +140,8 @@
          android:layout_weight="1"
          android:textSize="22sp"
          android:gravity="right"
-         android:text="Problems" />
+         android:text="Problems" 
+         android:textAppearance="?android:attr/textAppearanceMedium"/>
 
      <Button
          android:id="@+id/home_btn_prob_spray"
@@ -232,15 +233,16 @@
                 android:layout_width="120dp"
                       android:layout_height="60dp"
                       android:src="@drawable/empty"/>
+
      <TextView
          android:id="@+id/dlg_lbl_pest_spray"
          android:layout_width="wrap_content"
          android:layout_height="wrap_content"
-         android:layout_centerVertical="true"
+         android:layout_alignParentTop="true"
          android:layout_weight="1"
-         android:textSize="22sp"
-         
-         android:text="Pesticide name" />
+         android:text="Pesticide name"
+         android:textAppearance="?android:attr/textAppearanceMedium"
+         android:textSize="22sp" />
 
      <Button
          android:id="@+id/home_btn_pest_spray"
@@ -460,7 +462,7 @@
          android:layout_height="60dp"
          android:layout_marginTop="10dp"
   		 android:gravity="center"
-         android:src="@drawable/ic_48px_pest" 
+         android:src="@drawable/date" 
           android:background="@drawable/square_btn_transp"/>
 
   </RelativeLayout>
@@ -485,7 +487,8 @@
          android:layout_weight="1"
          android:gravity="right"
          android:text="Date"
-         android:textSize="22sp" />
+         android:textSize="22sp"
+         android:textAppearance="?android:attr/textAppearanceMedium" />
 
      <Button
          android:id="@+id/home_btn_day_spray"

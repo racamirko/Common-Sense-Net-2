@@ -49,7 +49,7 @@
         <ImageButton
             android:id="@+id/aggr_img_help"
             android:layout_width="60dip"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
@@ -116,7 +116,7 @@
          android:layout_height="60dp"
          android:layout_marginTop="10dp"
   		 android:gravity="center"
-         android:src="@drawable/ic_48px_pest" 
+         android:src="@drawable/ic_48px_fertilizing2" 
           android:background="@drawable/square_btn_transp"/>
 
   </RelativeLayout>
@@ -140,7 +140,8 @@
          android:layout_weight="1"
          android:textSize="22sp"
          android:gravity="right"
-         android:text="Fertilizer" />
+         android:text="Fertilizer" 
+          android:textAppearance="?android:attr/textAppearanceMedium" />
 
      <Button
          android:id="@+id/home_btn_var_fert"
@@ -362,7 +363,7 @@
          android:layout_height="60dp"
          android:layout_marginTop="10dp"
   		 android:gravity="center"
-         android:src="@drawable/ic_48px_pest" 
+         android:src="@drawable/date" 
           android:background="@drawable/square_btn_transp"/>
 
   </RelativeLayout>
@@ -387,7 +388,8 @@
          android:layout_weight="1"
          android:gravity="right"
          android:text="Date"
-         android:textSize="22sp" />
+         android:textSize="22sp"
+          android:textAppearance="?android:attr/textAppearanceMedium"  />
 
      <Button
          android:id="@+id/home_btn_day_fert"
