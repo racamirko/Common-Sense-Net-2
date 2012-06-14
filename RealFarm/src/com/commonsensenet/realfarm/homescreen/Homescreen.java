@@ -343,11 +343,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 	
 	public enum InfoType { ADVICE, ACTIONS, WARN, YIELD }
 
-	public void onDismissDialog() {
-		// TODO Auto-generated method stub
-		
-	}
-
 	public void onDismiss(DialogInterface dialog) {
 		Log.i(logTag, "Dismissed dialog");
 		setHelpIcon(findViewById(R.id.helpIndicator));
