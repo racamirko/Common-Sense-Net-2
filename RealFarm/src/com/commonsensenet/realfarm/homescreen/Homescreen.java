@@ -56,9 +56,10 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
  */
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private String logTag = "Homescreen", lang_selected;
-	protected RealFarmProvider mDataProvider;
-	final Context context = this;
+	private RealFarmProvider mDataProvider;
+	private final Context context = this;
 	private PlotInformationWindow mCurrentWindow;
+	private SoundQueue mSoundQueue;
 
 	// MediaPlayer mp = null;
 	@Override
@@ -244,7 +245,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	protected void initSoundSys() {
 		Log.i(logTag, "Init sound sys");
-		SoundQueue.getInstance(this); // dummy call
+		// gets and initializes the SoundQueue.
+		mSoundQueue = SoundQueue.getInstance();
+		mSoundQueue.init(this);
+
 	}
 
 	protected void initDb() {
