@@ -1,17 +1,11 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview;
 
-import java.util.Date;
 import java.util.Vector;
 
 import android.app.Activity;
 import android.content.Context;
-import android.view.LayoutInflater;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.Plot;
-import com.commonsensenet.realfarm.model.Seed;
-import com.commonsensenet.realfarm.model.User;
 
 public class AggregateDataProvider {
 

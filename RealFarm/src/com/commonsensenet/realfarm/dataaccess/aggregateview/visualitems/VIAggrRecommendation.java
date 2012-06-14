@@ -1,17 +1,10 @@
 package com.commonsensenet.realfarm.dataaccess.aggregateview.visualitems;
 
-import java.io.IOException;
 import java.util.Iterator;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.media.AudioManager;
-import android.media.MediaPlayer;
-import android.media.SoundPool;
-import android.media.SoundPool.OnLoadCompleteListener;
-import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;

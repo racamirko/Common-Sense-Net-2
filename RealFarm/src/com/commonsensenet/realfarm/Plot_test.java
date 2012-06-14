@@ -2,10 +2,6 @@ package com.commonsensenet.realfarm;
 
 import android.app.ListActivity;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ListView;
 
 public class Plot_test extends ListActivity {
 int clickCounter=0;

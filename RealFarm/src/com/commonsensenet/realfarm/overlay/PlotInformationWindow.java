@@ -72,7 +72,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 	private ViewGroup mItemsPanel;
 	/** MediaPlayer used to play the audio. */
 	private MediaPlayer mMediaPlayer;
-	
+
 	private int mUserId;
 	/** Plot represented on the window. */
 	// private Plot mPlot;
@@ -279,11 +279,11 @@ public class PlotInformationWindow extends CustomPopupWindow {
 							nameView1
 									.setBackgroundResource(R.drawable.square_btn);
 
-//							int growingId = (int) mDataProvider.setGrowing(
-//									mPlot.getId(), s.getId());
-//							nameView1
-//									.setOnClickListener(OnClickGrowing(growingId));
-//							vg.addView(nameView1);
+							// int growingId = (int) mDataProvider.setGrowing(
+							// mPlot.getId(), s.getId());
+							// nameView1
+							// .setOnClickListener(OnClickGrowing(growingId));
+							// vg.addView(nameView1);
 						}
 
 					} else { // only existing seeds can be used
@@ -495,7 +495,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// displays the window.
 		window.showAtLocation(anchor, Gravity.NO_GRAVITY, location[0],
 				location[1]);
-		
+
 		System.out.println("update diary in show");
 		updateDiary();
 	}
@@ -507,7 +507,8 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// removes all visual elements
 		mItemsPanel.removeAllViews();
 
-		List<Action> actionList = mDataProvider.getActions(Global.userId, Global.plotId);
+		List<Action> actionList = mDataProvider.getActions(Global.userId,
+				Global.plotId);
 		// mDataProvider.getActionsByUserId(mUserId);
 
 		// added from the end till the beginning to show new action on top.
@@ -515,37 +516,33 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 			// Growing g = findGrowingById(actionList.get(i).getGrowingId());
 			// Seed s = mSeeds.get(g.getSeedId());
-			
+
 			// String seedVariety = actionList.get(i).getSeedVariery();
 
 			// listener = mActionList.get(i).getListener();
 			text = actionList.get(i).getActionType();
-			
-			if(text.toString().equalsIgnoreCase("Sowing"))
-			{
-				 action_icon = R.drawable.ic_72px_sowing;
+
+			if (text.toString().equalsIgnoreCase("Sowing")) {
+				action_icon = R.drawable.ic_72px_sowing;
 			}
-			if(text.toString().equalsIgnoreCase("Selling"))
-			{
-				 action_icon = R.drawable.ic_72px_irrigation1;
+			if (text.toString().equalsIgnoreCase("Selling")) {
+				action_icon = R.drawable.ic_72px_irrigation1;
 			}
-			if(text.toString().equalsIgnoreCase("Spraying"))
-			{
-				 action_icon = R.drawable.ic_72px_spraying3;
+			if (text.toString().equalsIgnoreCase("Spraying")) {
+				action_icon = R.drawable.ic_72px_spraying3;
 			}
-			if(text.toString().equalsIgnoreCase("Fertilizing"))
-			{
-				 action_icon = R.drawable.ic_72px_fertilizing1;
+			if (text.toString().equalsIgnoreCase("Fertilizing")) {
+				action_icon = R.drawable.ic_72px_fertilizing1;
 			}
-			if(text.toString().equalsIgnoreCase("Harvesting"))
-			{
-				 action_icon = R.drawable.ic_72px_harvesting1;
+			if (text.toString().equalsIgnoreCase("Harvesting")) {
+				action_icon = R.drawable.ic_72px_harvesting1;
 			}
 
 			view = getDiaryItem(
-					action_icon, //R.drawable.pic_72px_bajra, //action item
+					action_icon, // R.drawable.pic_72px_bajra, //action item
 					R.drawable.pic_72px_castor, // crop/seed
-					// s.getRes(), // should be the resource for the action type.
+					// s.getRes(), // should be the resource for the action
+					// type.
 					// s.getRes(), // should be the resource for the seed type.
 					text,
 					DateHelper.formatDate(actionList.get(i).getDay(), mContext),
@@ -560,11 +557,12 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			mItemsPanel.addView(view);
 		}
 	}
+
 	private void updatePlotInformation() {
 
 		// Get growing areas of the plot
 		// mGrowing = mDataProvider.getGrowingsByPlotId(mPlot.getId());
-		
+
 		mGrowing = mDataProvider.getGrowingsByUserId(mUserId);
 
 		// gets the owner of the plot.
@@ -578,32 +576,32 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		else
 			txtOwnerName.setText("Unknown");
 
-//		Path path = PlotOverlay.getPathFromPlot(mPlot);
-//		// gets the bounds of the plot.
-//		RectF plotBounds = new RectF();
-//		path.computeBounds(plotBounds, true);
-//
-//		// paint used for the path
-//		Paint paint = new Paint();
-//		paint.setStrokeWidth(7);
-//		paint.setAntiAlias(true);
-//		paint.setDither(true);
-//		paint.setStrokeWidth(3);
-//		paint.setColor(0x64FF0000);
+		// Path path = PlotOverlay.getPathFromPlot(mPlot);
+		// // gets the bounds of the plot.
+		// RectF plotBounds = new RectF();
+		// path.computeBounds(plotBounds, true);
+		//
+		// // paint used for the path
+		// Paint paint = new Paint();
+		// paint.setStrokeWidth(7);
+		// paint.setAntiAlias(true);
+		// paint.setDither(true);
+		// paint.setStrokeWidth(3);
+		// paint.setColor(0x64FF0000);
 
 		// draw in bitmap
-//		Bitmap myBitmap = Bitmap.createBitmap((int) plotBounds.width(),
-//				(int) plotBounds.height(), Config.ARGB_8888);
-//		Canvas myCanvas = new Canvas(myBitmap);
-//		// draws the given path into the canvas.
-//		myCanvas.drawPath(path, paint);
+		// Bitmap myBitmap = Bitmap.createBitmap((int) plotBounds.width(),
+		// (int) plotBounds.height(), Config.ARGB_8888);
+		// Canvas myCanvas = new Canvas(myBitmap);
+		// // draws the given path into the canvas.
+		// myCanvas.drawPath(path, paint);
 
 		// limits the size of the bitmap.
 		// TODO: I think the proportions are not kept.
-//		myBitmap = Bitmap.createScaledBitmap(myBitmap, 100, 100, false);
-//
-//		ImageView imgIcon = (ImageView) mRoot.findViewById(R.id.icon);
-//		imgIcon.setImageBitmap(myBitmap);
+		// myBitmap = Bitmap.createScaledBitmap(myBitmap, 100, 100, false);
+		//
+		// ImageView imgIcon = (ImageView) mRoot.findViewById(R.id.icon);
+		// imgIcon.setImageBitmap(myBitmap);
 
 		View item;
 

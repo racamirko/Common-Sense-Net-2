@@ -15,8 +15,6 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
-import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Seed;
 
