@@ -1,13 +1,11 @@
 package com.commonsensenet.realfarm.utils;
 
-import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.Queue;
 
 import android.content.Context;
-import android.media.AudioManager;
-import android.media.SoundPool;
-import android.media.SoundPool.OnLoadCompleteListener;
+import android.media.MediaPlayer;
+import android.media.MediaPlayer.OnCompletionListener;
 import android.util.Log;
 
 /**
@@ -18,7 +16,7 @@ import android.util.Log;
  * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
-public class SoundQueue implements OnLoadCompleteListener {
+public class SoundQueue implements OnCompletionListener {
 	/** Identifier of the class used for logging. */
 	private static String LOG_TAG = "SoundQueue";
 	/** Singleton instance of the SoundQueue. ` */
@@ -39,24 +37,18 @@ public class SoundQueue implements OnLoadCompleteListener {
 
 	/** Context used to load the sounds using the resourceId. */
 	protected Context mContext;
-	/** ResourceId of the sound that is currently playing. */
-	protected int mPlayingSound;
+	/** Current MediaPlayer used to play the sound. */
+	protected MediaPlayer mCurrentMediaPlayer;
 	/** Queue that contains the sounds in the order that need to be played. */
-	protected Queue<Integer> mResToPlay;
-	/** SoundPool used to play the sounds in different channels. */
-	protected SoundPool mSoundPool;
-	protected HashMap<Integer, Integer> mSoundsMap;
+	protected Queue<MediaPlayer> mResToPlay;
 
 	/**
 	 * Creates a new SoundQueue instance. All the variables are initialized.
 	 */
 	private SoundQueue() {
-		mSoundPool = new SoundPool(10, AudioManager.STREAM_MUSIC, 0);
-		mSoundPool.setOnLoadCompleteListener(this);
-		mResToPlay = new LinkedList<Integer>();
-		mPlayingSound = -1;
-		mSoundsMap = new HashMap<Integer, Integer>();
 
+		mResToPlay = new LinkedList<MediaPlayer>();
+		mCurrentMediaPlayer = null;
 	}
 
 	/**
@@ -67,18 +59,14 @@ public class SoundQueue implements OnLoadCompleteListener {
 	 * @param pResId
 	 *            the resourceId to play
 	 */
-	public void addToQueue(int pResId) {
+	public void addToQueue(int resId) {
+
 		if (mContext == null) {
 			Log.i(LOG_TAG, "Context not set, use init() to set it");
 		}
 
-		// if it doesn't exist the sound is loaded.
-		if (!mSoundsMap.containsKey(pResId)) {
-			mSoundsMap.put(pResId, mSoundPool.load(mContext, pResId, 1));
-		}
-
 		// adds the id to the queue to play.
-		mResToPlay.add(pResId);
+		mResToPlay.add(MediaPlayer.create(mContext, resId));
 	}
 
 	/**
@@ -86,14 +74,20 @@ public class SoundQueue implements OnLoadCompleteListener {
 	 */
 	public void clean() {
 
-		// unloads the sounds from the pool.
-		for (Integer i : mSoundsMap.keySet())
-			mSoundPool.unload(mSoundsMap.get(i));
+		// deletes all the active MediaPlayers in the queue
+		for (MediaPlayer p : mResToPlay) {
+			p.release();
+		}
+
+		// disposes the active sound.
+		if (mCurrentMediaPlayer != null) {
+			mCurrentMediaPlayer.stop();
+			mCurrentMediaPlayer.release();
+			mCurrentMediaPlayer = null;
+		}
 
 		// clears the data structures
 		mResToPlay.clear();
-		mSoundsMap.clear();
-		mPlayingSound = -1;
 	}
 
 	/**
@@ -103,15 +97,16 @@ public class SoundQueue implements OnLoadCompleteListener {
 	 *            the Context to use.
 	 */
 	public void init(Context context) {
+
 		mContext = context;
 	}
 
-	public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-
-		// resets the id of the playing sound.
-		mPlayingSound = -1;
-		// continues playing the following element
+	public void onCompletion(MediaPlayer arg0) {
+		// plays the next sound.
+		arg0.release();
+		mCurrentMediaPlayer = null;
 		play();
+
 	}
 
 	/**
@@ -122,10 +117,11 @@ public class SoundQueue implements OnLoadCompleteListener {
 
 		// plays the next file in the queue
 		// if no sound is currently being played.
-		if (!mResToPlay.isEmpty() && mPlayingSound == -1) {
-			mPlayingSound = mResToPlay.poll();
-			mSoundPool.play(mSoundsMap.get(mPlayingSound), 0.9f, 0.9f, 1, 0,
-					1.0f);
+		if (!mResToPlay.isEmpty() && mCurrentMediaPlayer == null) {
+			// gets the next element.
+			mCurrentMediaPlayer = mResToPlay.poll();
+			// plays the current sound.
+			mCurrentMediaPlayer.start();
 		}
 	}
 
@@ -135,9 +131,11 @@ public class SoundQueue implements OnLoadCompleteListener {
 	 */
 	public void stop() {
 
-		// checks if an element is available, if so stops the sound.
-		if (mPlayingSound != -1) {
-			mSoundPool.stop(mPlayingSound);
+		// disposes the active sound
+		if (mCurrentMediaPlayer != null) {
+			mCurrentMediaPlayer.stop();
+			mCurrentMediaPlayer.release();
+			mCurrentMediaPlayer = null;
 		}
 
 		// removes any other existing sound in the queue.
