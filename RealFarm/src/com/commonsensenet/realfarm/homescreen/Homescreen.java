@@ -503,13 +503,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			mp.release();
 			mp = null;
 		}
-<<<<<<< HEAD
-	//	Homescreen.this.finish();
-	
-=======
-		// Homescreen.this.finish();
-		Global.lang_flag = 0;
->>>>>>> 9927b37e31dd80954b38affc7cd4bcf339c99ccd
+
 		// Production code, commented out for quicker development
 		new AlertDialog.Builder(this)
 				.setIcon(android.R.drawable.ic_dialog_alert)
@@ -520,12 +514,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-<<<<<<< HEAD
-								Global.lang_flag=0;	
-							// Exit the activity
-=======
+								Global.lang_flag = 0;
 								// Exit the activity
->>>>>>> 9927b37e31dd80954b38affc7cd4bcf339c99ccd
 								Homescreen.this.finish();
 							}
 						}).show();
