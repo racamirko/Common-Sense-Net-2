@@ -1888,11 +1888,11 @@ public void Log_Database_backupdate()
 public void File_Log_Create(String FileNameWrite,String Data)
 {
 	
-	// File folder = new File(Environment.getExternalStorageDirectory() + "/csn_app_logs");
-//	boolean success = false;
-//	if (!folder.exists()) {
-//	    success = folder.mkdir();
-//	}
+	 File folder = new File(Environment.getExternalStorageDirectory() + "/csn_app_logs");
+	boolean success = false;
+	if (!folder.exists()) {
+	    success = folder.mkdir();
+	}
 	
 //	File file = new File(mExternalDirectoryLog, "Test5.txt");       //LoggedData is the file to which values will be written
 	if(FileNameWrite=="value.txt")
