@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="360px"
     android:layout_height="480px"
@@ -8,19 +10,22 @@
     <RelativeLayout 
         android:id="@+id/hmscrn_row1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:background="@android:color/white">
+        android:layout_height="50px"
+        android:background="@drawable/ic_360px_home_header">
         
-        <TextView android:id="@+id/hmscrn_username"
-            android:textSize="40dp"
+        <TextView android:id="@+id/hmscrn_lbl_username"
+            android:textSize="30px"
             android:layout_height="wrap_content"
             android:layout_width="wrap_content"
             android:text="Nagendra"
             android:layout_alignParentLeft="true"
             android:textColor="@android:color/black"
-            android:layout_marginLeft="10dp"
+            android:layout_margin="5px"
+            android:layout_alignParentBottom="true"
             />
-        <ImageButton android:src="@drawable/ic_90px_homscreen_question"
+        
+        <ImageButton android:src="@drawable/ic_54px_help"
+            		 android:background="@drawable/square_btn_transp"
             	 	 android:layout_width="wrap_content" 
             	 	 android:layout_height="wrap_content" 
             	 	 android:id="@+id/hmscrn_help_button"
@@ -39,17 +44,17 @@
             		 android:scaleType="fitXY"
             		 android:layout_height="150px"
             		 android:layout_width="120px"
-            		 android:layout_margin="2px"
-            		 android:padding="0dp" 
+            		 android:padding="0dp"
+            		 android:layout_margin="4px" 
             		 android:src="@drawable/farmer_90px_adam_jones"/>
         
         <RelativeLayout android:id="@+id/hmscrn_lay_btn_plots"
-            android:layout_width="120px"
-            android:layout_height="30px"
+            android:layout_width="150px"
+            android:layout_height="40px"
             android:layout_toRightOf="@id/hmscrn_usr_icon"
             android:gravity="center_vertical">
             
-            <TextView android:id="@+id/hmscrn_txt_plots" 
+            <TextView android:id="@+id/hmscrn_lbl_plots" 
                 	  android:layout_width="wrap_content"
                 	  android:layout_height="wrap_content"
                 	  android:textColor="@android:color/black"
@@ -62,7 +67,7 @@
                 	   android:src="@drawable/ic_32px_ground"
                 	   android:layout_height="wrap_content"
                 	   android:layout_width="wrap_content"
-                	   android:layout_toRightOf="@id/hmscrn_txt_plots"
+                	   android:layout_toRightOf="@id/hmscrn_lbl_plots"
                 	   android:layout_margin="5px"/>
             
             <Button android:background="@drawable/square_btn_transp"
@@ -73,26 +78,26 @@
 
         <RelativeLayout android:id="@+id/hmscrn_lay_btn_diary"
             android:layout_width="150px"
-            android:layout_height="50px"
+            android:layout_height="40px"
             android:layout_toRightOf="@id/hmscrn_usr_icon"
             android:layout_below="@id/hmscrn_lay_btn_plots"
             android:layout_marginTop="5px">
             
-            <TextView android:id="@+id/hmscrn_txt_diary"
+            <TextView android:id="@+id/hmscrn_lbl_diary"
                 	  android:layout_width="wrap_content"
                 	  android:layout_height="wrap_content"
                 	  android:textColor="@android:color/black"
                 	  android:text="my diary"
                 	  android:textSize="18px"
-                	  android:layout_marginTop="20px"
+                	  android:layout_marginTop="10px"
                 	  android:layout_marginLeft="5px"/>
             
             <ImageView android:id="@+id/hmscrn_img_diary"
                 	   android:scaleType="fitXY"
                 	   android:src="@drawable/ic_64px_diary"
-                	   android:layout_height="48px"
+                	   android:layout_height="32px"
                 	   android:layout_width="64px"
-                	   android:layout_toRightOf="@id/hmscrn_txt_diary"
+                	   android:layout_toRightOf="@id/hmscrn_lbl_diary"
                 	   android:layout_marginLeft="5px"/>
             
             <TextView android:id="@+id/hmscrn_lbl_diary_number"
@@ -108,12 +113,19 @@
                 	  android:layout_alignRight="@id/hmscrn_img_diary"
                 	  android:layout_marginRight="20px"/>
             
+            <Button 
+                android:id="@+id/hmscrn_btn_diary"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/square_btn_transp"/>
+
         </RelativeLayout>
         
         <ImageButton android:id="@+id/hmscrn_btn_sound"
             		 android:src="@drawable/ic_71px_sound_on"
-            		 android:layout_height="wrap_content"
-            		 android:layout_width="wrap_content"
+            		 android:layout_height="35px"
+            		 android:layout_width="50px"
+            		 android:scaleType="fitXY"
             		 android:background="@drawable/square_btn_transp"
             		 android:layout_alignParentRight="true"
             		 android:layout_alignParentTop="true"
@@ -126,6 +138,7 @@
             android:layout_height="49px"
             android:layout_marginLeft="5px"
             android:layout_marginTop="5px"
+            android:layout_marginRight="2px"
             android:layout_toRightOf="@id/hmscrn_usr_icon"
             android:layout_below="@id/hmscrn_lay_btn_diary">
             
@@ -160,7 +173,6 @@
                 	android:layout_width="27px"
                 	android:layout_height="36px"
                 	android:layout_marginTop="5px"
-                	android:layout_marginLeft="5px"
                 	android:layout_toRightOf="@id/hmscrn_btn_action_irrigate"
                 	/>
             
@@ -187,7 +199,7 @@
                 	android:layout_width="27px"
                 	android:layout_height="36px"
                 	android:layout_marginTop="5px"
-                	android:layout_marginLeft="5px"
+                	android:layout_marginLeft="2px"
                 	android:layout_toRightOf="@id/hmscrn_btn_action_yield"
                 	/>
         </RelativeLayout>
@@ -200,7 +212,7 @@
         		   android:background="#cccccc"
         		   android:layout_width="fill_parent">
     	<!-- first column -->    
-        <LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_notifs"
+        <RelativeLayout android:id="@+id/hmscrn_layout_notifs"
             android:layout_height="fill_parent"
             android:layout_width="120px"
             android:background="#f5eb5f"
@@ -214,17 +226,26 @@
             			 android:layout_width="75px"
             			 android:scaleType="fitXY"
             			 android:layout_height="60px"
+            			 android:layout_marginLeft="22px"
             			 />
             
       		<com.commonsensenet.realfarm.utils.FlowLayout
                 android:id="@+id/hmscrn_linlay_notifs"
+                android:layout_below="@id/hmscrn_imgbtn_notifs"
 			    android:layout_width="fill_parent"
 			    android:layout_height="fill_parent"
 			    android:layout_gravity="center"
 			    android:horizontalSpacing="10px"
 			    android:verticalSpacing="10px" />
+      		
+			<Button 
+                android:id="@+id/hmscrn_btn_notifs"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:background="@drawable/square_btn_transp"/>
+      		
 
-        </LinearLayout>
+        </RelativeLayout>
 
         <!-- 2nd column -->
 		<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col2"
@@ -233,7 +254,7 @@
             android:background="#cccccc"
             android:gravity="center_horizontal">
       		
-				<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_warnings"
+				<RelativeLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_warnings"
 		            android:layout_height="140px"
 		            android:layout_width="120px"
 		            android:background="#bdd777"
@@ -246,19 +267,29 @@
 				        	   android:src="@drawable/ic_64px_report"
 				        	   android:layout_width="70px"
 				        	   android:layout_height="60px"
+				        	   android:layout_marginLeft="20px"
+				        	   android:layout_marginTop="5px"
 				        	   android:layout_marginBottom="5px"
 				        />
 				    
 				    <LinearLayout android:id="@+id/hmscrn_lay_report_notes"
 				        android:layout_width="fill_parent"
+				        android:layout_below="@id/hmscrn_img_warn_sign"
 				        android:layout_height="70px"
 				        >
 				        <!-- THIS GETS FILLED FROM CODE -->
 				    </LinearLayout>
+				    
+		            <Button 
+		                android:id="@+id/hmscrn_btn_warnings"
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:background="@drawable/square_btn_transp"/>
+
 		        
-		        </LinearLayout>
+		        </RelativeLayout>
 		        
-				<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_warnings"
+				<RelativeLayout android:id="@+id/hmscrn_layout_warnings"
 		            android:layout_height="fill_parent"
 		            android:layout_width="120px"
 		            android:layout_margin="1px"
@@ -269,19 +300,31 @@
 				    <ImageView android:src="@drawable/ic_64px_cloudy"
 				        android:id="@+id/hmscrn_img_weather"
 				        android:scaleType="fitXY"
-				        android:padding="10px"
+				        android:paddingLeft="10px"
+				        android:paddingRight="10px"
+				        android:paddingTop="10px"
+				        android:paddingBottom="0px"
+				        android:layout_marginLeft="20px"
 				        android:layout_height="80px"
 				        android:layout_width="80px"/>
 				    
 				    <TextView android:id="@+id/hmscrn_lbl_weather"
 				        android:textSize="40px"
+				        android:layout_below="@id/hmscrn_img_weather"
 				        android:layout_width="wrap_content"
 				        android:layout_height="wrap_content"
 				        android:textColor="@android:color/black"
+				        android:layout_marginLeft="20px"
 				        android:textStyle="bold"
 				        android:text="20 C"/>
+				    
+		            <Button 
+		                android:id="@+id/hmscrn_btn_weather"
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:background="@drawable/square_btn_transp"/>
 
-				</LinearLayout>
+				</RelativeLayout>
         
         </LinearLayout>
         
@@ -318,6 +361,13 @@
 		                	  android:layout_alignParentTop="true"
 		                	  android:layout_marginRight="5px"
 		                	  android:layout_marginTop="5px"/>
+		            
+		            <Button 
+		                android:id="@+id/hmscrn_btn_advice"
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:background="@drawable/square_btn_transp"/>
+
 		        
 		    </RelativeLayout>
 		    
@@ -348,6 +398,12 @@
 		                	  android:layout_marginRight="5px"
 		                	  android:layout_marginTop="5px"/>
 		        
+		            <Button 
+		                android:id="@+id/hmscrn_btn_video"
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:background="@drawable/square_btn_transp"/>
+
 		    </RelativeLayout>
 		    		    
 		    <RelativeLayout
@@ -373,7 +429,7 @@
 		                android:layout_marginTop="10px"
 		                android:text="30"
 		                android:textColor="@android:color/black"
-		                android:textSize="25px"
+		                android:textSize="20px"
 		                android:layout_toRightOf="@id/hmscrn_img_yield"
 		                />
 
@@ -390,6 +446,12 @@
 		                android:layout_toRightOf="@id/hmscrn_img_yield"
 		                />
 
+	            <Button 
+	                android:id="@+id/hmscrn_btn_yield"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 		    </RelativeLayout>
 
 	  		<RelativeLayout
@@ -404,6 +466,7 @@
 				        	   android:layout_height="50px"
 				        	   android:layout_width="20px"
 				        	   android:layout_marginLeft="10px"
+				        	   android:layout_marginRight="10px"
 				        	   android:layout_marginTop="10px"
 				        	   />
 
@@ -432,6 +495,13 @@
 		                android:layout_below="@id/hmscrn_lbl_market_number"
 		                android:layout_toRightOf="@id/hmscrn_img_market"
 		                />
+					
+	            <Button 
+	                android:id="@+id/hmscrn_btn_market"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
 
 		    </RelativeLayout>
 	    </LinearLayout>
@@ -439,3 +509,12 @@
 	</LinearLayout>
     
 </LinearLayout>
+
+	<ImageView
+        android:id="@+id/helpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_76px_sound"
+        android:visibility="invisible" />
+	
+</merge>

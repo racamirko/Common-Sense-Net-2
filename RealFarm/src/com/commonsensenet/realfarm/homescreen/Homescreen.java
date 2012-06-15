@@ -42,14 +42,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState, R.layout.metro_homescreen);
+        super.onCreate(savedInstanceState, R.layout.india_homescreen);
 
         Log.i(logTag, "App started");
         // setup listener to all buttons
         PathBuilder.init(this);
         initDb();
         initActionListener();
-        initTiles();
+//        initTiles();
         initSoundSys();
         checkSdCard();
         setHelpIcon(findViewById(R.id.helpIndicator));
@@ -120,82 +120,102 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 	}
 
 	private void initActionListener() {
-		((Button) findViewById(R.id.home_btn_warnings)).setOnClickListener(this);
-	    ((Button) findViewById(R.id.home_btn_warnings)).setOnLongClickListener(this);
-	    ((Button) findViewById(R.id.home_btn_warnings)).setOnTouchListener(this);
+		((ImageButton) findViewById(R.id.hmscrn_usr_icon)).setOnClickListener(this);
+	    ((ImageButton) findViewById(R.id.hmscrn_usr_icon)).setOnLongClickListener(this);
+	    ((ImageButton) findViewById(R.id.hmscrn_usr_icon)).setOnTouchListener(this);
       
+        ((Button) findViewById(R.id.hmscrn_btn_plots)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_plots)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_plots)).setOnTouchListener(this);
 
-        ((Button) findViewById(R.id.home_btn_actions)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_actions)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_actions)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_plots)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_plots)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_plots)).setOnTouchListener(this);
 
-        ((Button) findViewById(R.id.home_btn_yields)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_yields)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_yields)).setOnTouchListener(this);
+        ((ImageButton) findViewById(R.id.hmscrn_help_button)).setOnClickListener(this);
+        ((ImageButton) findViewById(R.id.hmscrn_help_button)).setOnLongClickListener(this);
+        ((ImageButton) findViewById(R.id.hmscrn_help_button)).setOnTouchListener(this);
+
+        ((ImageButton) findViewById(R.id.hmscrn_btn_sound)).setOnClickListener(this);
+        ((ImageButton) findViewById(R.id.hmscrn_btn_sound)).setOnLongClickListener(this);
+        ((ImageButton) findViewById(R.id.hmscrn_btn_sound)).setOnTouchListener(this);
         
-        ((Button) findViewById(R.id.home_btn_weather)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_weather)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_weather)).setOnTouchListener(this);
+        // Actions
+        ((Button) findViewById(R.id.hmscrn_btn_action_plant)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_plant)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_plant)).setOnTouchListener(this);
         
-        ((Button) findViewById(R.id.home_btn_tutorials)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_tutorials)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_tutorials)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_fertilize)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_fertilize)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_fertilize)).setOnTouchListener(this);
 
-        ((Button) findViewById(R.id.home_btn_homeactions)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_homeactions)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_homeactions)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_irrigate)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_irrigate)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_irrigate)).setOnTouchListener(this);
 
-        ((Button) findViewById(R.id.home_btn_diary)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_diary)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_diary)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_report)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_report)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_report)).setOnTouchListener(this);
 
-        ((Button) findViewById(R.id.home_btn_market)).setOnClickListener(this);
-        ((Button) findViewById(R.id.home_btn_market)).setOnLongClickListener(this);
-        ((Button) findViewById(R.id.home_btn_market)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_spray)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_spray)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_spray)).setOnTouchListener(this);
         
-        ((ImageButton) findViewById(R.id.home_btn_help)).setOnClickListener(this);
-        ((ImageButton) findViewById(R.id.home_btn_help)).setOnLongClickListener(this);
-        ((ImageButton) findViewById(R.id.home_btn_help)).setOnTouchListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_yield)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_yield)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_yield)).setOnTouchListener(this);
+
+        ((Button) findViewById(R.id.hmscrn_btn_action_sell)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_sell)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_action_sell)).setOnTouchListener(this);
+        
+        // bottom columns
+        ((Button) findViewById(R.id.hmscrn_btn_notifs)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_notifs)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_notifs)).setOnTouchListener(this);
+
+        ((Button) findViewById(R.id.hmscrn_btn_warnings)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_warnings)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_warnings)).setOnTouchListener(this);
+
+        ((Button) findViewById(R.id.hmscrn_btn_weather)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_weather)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_weather)).setOnTouchListener(this);
+
+        ((Button) findViewById(R.id.hmscrn_btn_advice)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_advice)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_advice)).setOnTouchListener(this);
+
+        ((Button) findViewById(R.id.hmscrn_btn_video)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_video)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_video)).setOnTouchListener(this);
+
+        ((Button) findViewById(R.id.hmscrn_btn_yield)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_yield)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_yield)).setOnTouchListener(this);
+
+        ((Button) findViewById(R.id.hmscrn_btn_market)).setOnClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_market)).setOnLongClickListener(this);
+        ((Button) findViewById(R.id.hmscrn_btn_market)).setOnTouchListener(this);
+
 	}
     
 	@Override
     protected void initKannada(){
     	Log.i(logTag, "Init kannada");
-    	TextView tmpText = (TextView) findViewById(R.id.homescreen_lbl_warn);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_reporting_of_problems));
-
-    	tmpText = (TextView) findViewById(R.id.homescreen_lbl_action);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_news));
-
-    	tmpText = (TextView) findViewById(R.id.homescreen_lbl_yields);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_harvest));
-
-    	tmpText = (TextView) findViewById(R.id.hmscr_lbl_weather);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_wild_boar));
-
-    	tmpText = (TextView) findViewById(R.id.hmscr_lbl_weather_today);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_today));
     	
-    	tmpText = (TextView) findViewById(R.id.hmscr_lbl_weather_tomorrow);
+    	TextView tmpText = (TextView) findViewById(R.id.hmscrn_lbl_username);
     	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_days));
-    	
-    	tmpText = (TextView) findViewById(R.id.hmscrn_lbl_tuts);
+    	tmpText.setText(getString(R.string.k_used));
+
+    	tmpText = (TextView) findViewById(R.id.hmscrn_lbl_plots);
     	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_news));
+    	tmpText.setText(getString(R.string.k_my_field));
 
     	tmpText = (TextView) findViewById(R.id.hmscrn_lbl_diary);
     	tmpText.setTypeface(mKannadaTypeface);
     	tmpText.setText(getString(R.string.k_diary));
 
-    	tmpText = (TextView) findViewById(R.id.hmscrn_lbl_market);
-    	tmpText.setTypeface(mKannadaTypeface);
-    	tmpText.setText(getString(R.string.k_harvest));
 	}
 
 	@Override

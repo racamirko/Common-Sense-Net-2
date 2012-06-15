@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/linearLayout1"
+      android:layout_width="50px"
+      android:layout_height="50px" >
+      
+	<ImageView android:id="@+id/hmscrn_elem_img_icon"
+	    android:src="@drawable/ic_72px_fertilizing1"
+	    android:layout_height="40px"
+	    android:layout_width="40px"
+	    android:scaleType="fitXY"
+	    android:layout_margin="5px"
+	    android:background="@drawable/circular_btn"/>
+	
+    <TextView android:id="@+id/hmscrn_lbl_diary_number"
+        	  android:layout_width="20px"
+        	  android:layout_height="20px"
+        	  android:paddingLeft="1px"
+        	  android:paddingTop="1px"
+        	  android:text="15"
+        	  android:textSize="15px"
+        	  android:textColor="@android:color/black"
+        	  android:background="@drawable/ic_24px_number_border"
+        	  android:layout_alignParentBottom="true"
+        	  android:layout_alignParentRight="true"
+        	  android:layout_marginRight="2px"/>
+    
+</RelativeLayout>
