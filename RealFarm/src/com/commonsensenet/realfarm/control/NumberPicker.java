@@ -17,13 +17,13 @@ public class NumberPicker extends LinearLayout {
 
 	private final long REPEAT_DELAY = 50;
 	
-	private final int ELEMENT_HEIGHT =70;
-	private final int ELEMENT_WIDTH = 50; // you're all squares, yo
+	private final int ELEMENT_HEIGHT =80;
+	private final int ELEMENT_WIDTH = 60; // you're all squares, yo
 	
 	private final int MINIMUM = 0;
 	private final int MAXIMUM = 999;
 	
-	private final int TEXT_SIZE = 25;
+	private final int TEXT_SIZE = 20;
 	
 	public Integer value;
 	
