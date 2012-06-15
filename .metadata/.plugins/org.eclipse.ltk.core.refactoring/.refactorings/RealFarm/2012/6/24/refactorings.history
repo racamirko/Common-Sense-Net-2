@@ -1,4 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<session version="1.0">
-<refactoring comment="Copy element &apos;NumberPicker.java&apos; to &apos;com.commonsensenet.realfarm.control.NumberPicker.java&apos;&#x0A;- Original project: &apos;RealFarm&apos;&#x0A;- Destination element: &apos;com.commonsensenet.realfarm.control.NumberPicker.java&apos;&#x0A;- Original element: &apos;com.commonsensenet.realfarm.control.NumberPicker.java&apos;" description="Copy compilation unit" destination="/src&lt;com.commonsensenet.realfarm.control{NumberPicker.java" element1="/src&lt;com.commonsensenet.realfarm.control{NumberPicker.java" files="0" flags="589830" folders="0" id="org.eclipse.jdt.ui.copy" policy="org.eclipse.jdt.ui.copyResources" stamp="1339679554882" units="1" version="1.0"/>
-</session>
