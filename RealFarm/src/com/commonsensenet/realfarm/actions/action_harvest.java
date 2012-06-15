@@ -13,6 +13,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
@@ -23,7 +24,8 @@ import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class action_harvest extends HelpEnabledActivity {      // Integration
 	   int feedback_sel; int harvest_no;
-	   String harvest_no_sel, units_harvest="0",  strDateTime="0", feedback_txt;
+	String year_harvest;
+	   String harvest_no_sel, units_harvest="0",  strDateTime="0", feedback_txt, months_harvest ="0";
 	   protected RealFarmProvider mDataProvider;
 	   private Context context=this;
 	//   MediaPlayer mp = null;                                      //integration
@@ -75,18 +77,24 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 			
 				}
 				
+				final TextView harvest_year_set = (TextView) findViewById(R.id.dlg_lbl_harvest_year); 
+				harvest_year_set.setText("2012");
+				year_harvest = "2012";
     final Button smiley1;
     final Button smiley2;
     final Button smiley3;
     final Button item1;
     final  Button item2;
     final  Button item3;
+    final  Button item4;
     ImageButton home;
     ImageButton help;
     
     item1 = (Button) findViewById(R.id.home_btn_units_no_harvest);  
     item2 = (Button) findViewById(R.id.home_btn_units_harvest);
     item3 = (Button) findViewById(R.id.home_btn_harvest_date);
+    item4 = (Button) findViewById(R.id.home_btn_harvest_year);
+    
     
     smiley1 = (Button) findViewById(R.id.home_btn_har_1);
     smiley2 = (Button) findViewById(R.id.home_btn_har_2);
@@ -97,6 +105,7 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
     item1.setOnLongClickListener(this);                                     
     item2.setOnLongClickListener(this);
     item3.setOnLongClickListener(this);
+    item4.setOnLongClickListener(this);
   
  
  
@@ -354,61 +363,245 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 				 stopaudio();	
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
-		    	dlg.setContentView(R.layout.dateenter_dialog);
+		    	dlg.setContentView(R.layout.months_dialog);
 		    	dlg.setCancelable(true);
-		        dlg.setTitle("Choose the date when harvested");
+		        dlg.setTitle("Choose the month when harvested");
 		    	Log.d("in variety sowing dialog", "in dialog");
 		    	dlg.show();
 		    	
+		    
+		    	final Button month1 = (Button) dlg.findViewById(R.id.home_month_1);
+		    	final Button month2 = (Button) dlg.findViewById(R.id.home_month_2);
+		    	final Button month3 = (Button) dlg.findViewById(R.id.home_month_3);
+		    	final Button month4 = (Button) dlg.findViewById(R.id.home_month_4);
+		    	final Button month5 = (Button) dlg.findViewById(R.id.home_month_5);
+		    	final Button month6 = (Button) dlg.findViewById(R.id.home_month_6);
+		    	final Button month7 = (Button) dlg.findViewById(R.id.home_month_7);
+		    	final Button month8 = (Button) dlg.findViewById(R.id.home_month_8);
+		    	final Button month9 = (Button) dlg.findViewById(R.id.home_month_9);
+		    	final Button month10 = (Button) dlg.findViewById(R.id.home_month_10);
+		    	final Button month11 = (Button) dlg.findViewById(R.id.home_month_11);
+		    	final Button month12 = (Button) dlg.findViewById(R.id.home_month_12);
+		    
+		    	final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_harvest_date); 
 		    	
-		  	  Button no_ok=(Button) dlg.findViewById(R.id.date_ok);
-		   	   Button no_cancel=(Button) dlg.findViewById(R.id.date_cancel);
-		   	no_ok.setOnClickListener(new View.OnClickListener() {
-			    	public void onClick(View v) {
-			    		   final   DatePicker dp = (DatePicker) dlg.findViewById(R.id.harvest_datePicker);
-			    		strDateTime = dp.getYear() + "-" + (dp.getMonth() + 1) + "-" + dp.getDayOfMonth();
-			    		    no_text_2.setText(strDateTime);
-
-			    		    
-			    		    	 
-			    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-			  	    	      	
-			  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-			    		  
-			  	    	   	if(Global.WriteToSD==true)
-							{
-								
-							String	logtime=getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-							mDataProvider.File_Log_Create("UIlog.txt","***** user selected "+strDateTime+ " date in harvest*********** \r\n");
-						
-							}
-			    		    dlg.cancel(); 
-			    	}
-		   	 });
-		   	no_cancel.setOnClickListener(new View.OnClickListener() {
-		    	public void onClick(View v) {
-		    		dlg.cancel(); 	
-
-	  	    	   	if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					mDataProvider.File_Log_Create("UIlog.txt","***** user selected cancel in date in harvest*********** \r\n");
-				
-					}
-		    	}
-		    	});
+		     	month1.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("January");
+	    				months_harvest = "January";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		     	
+		      	month2.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("February");
+	    				months_harvest = "February";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month3.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("March");
+	    				months_harvest = "March";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month4.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("April");
+	    				months_harvest = "April";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month5.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("May");
+	    				months_harvest = "May";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month6.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("June");
+	    				months_harvest = "June";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month7.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("July");
+	    				months_harvest = "July";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month8.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("August");
+	    				months_harvest = "August";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month9.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("September");
+	    				months_harvest = "September";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month10.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("October");
+	    				months_harvest = "October";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month11.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("November");
+	    				months_harvest = "November";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		      	
+		      	month12.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				var_text.setText("December");
+	    				months_harvest = "December";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		    	
+		  
+		    	
 		    	
 			}
 			
 		});
     
+		
+		item4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				 stopaudio();	
+				Log.d("in variety sowing dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+		    	dlg.setContentView(R.layout.years_dialog);
+		    	dlg.setCancelable(true);
+		        dlg.setTitle("Choose the Year when harvested");
+		    	Log.d("in variety sowing dialog", "in dialog");
+		    	dlg.show();
+		    	
+		    	
+		      	final Button year1 = (Button) dlg.findViewById(R.id.home_year_1);
+		    	final Button year2 = (Button) dlg.findViewById(R.id.home_year_2);
+		    
+		    	
+		    	
+		     	year1.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				harvest_year_set.setText("2011");
+	    				year_harvest = "2011";
+TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		    	year2.setOnClickListener(new View.OnClickListener() {
+	    			public void onClick(View v) {
+	    				
+	    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+	    				harvest_year_set.setText("2012");
+	    				year_harvest = "2012";
+	    				TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+		    	      	
+		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	     	
+	    				dlg.cancel();                      
+	    				}
+	     	});
+		    
+		    	
+		    	
+			}
+			
+		});
+		
     
     
     
-    // To obtain the date entered by the user
+ 
     
    Button btnNext=(Button) findViewById(R.id.harvest_ok);              
    Button cancel=(Button) findViewById(R.id.home_btn_wf_2);             //integration
@@ -507,14 +700,14 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
  	tr_units.setBackgroundResource(R.drawable.def_img);
     }
    
-    if(strDateTime.toString().equalsIgnoreCase("0") )
+    if(months_harvest.toString().equalsIgnoreCase("0") )
     {
     	 flag3 =1;
-    	//  Toast.makeText(action_harvest.this, " Please enter the kgs", Toast.LENGTH_LONG).show();
+    	 Toast.makeText(action_harvest.this, " Please enter the kgs", Toast.LENGTH_LONG).show();
     	  
-    	  TableRow tr_units = (TableRow) findViewById(R.id.harvest_date_tr);
+    	  TableRow tr_months = (TableRow) findViewById(R.id.harvest_date_tr);
          	
-         	tr_units.setBackgroundResource(R.drawable.def_img_not);
+         	tr_months.setBackgroundResource(R.drawable.def_img_not);
          	if(Global.WriteToSD==true)
     		{
     			
@@ -536,7 +729,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
     if(flag1 ==0 && flag2 ==0  && flag3 ==0) 
     {
     	System.out.println("harvesting writing");
-		mDataProvider.setHarvest(harvest_no, 0, units_harvest, strDateTime, feedback_txt,
+		mDataProvider.setHarvest(harvest_no, 0, units_harvest, year_harvest+months_harvest, feedback_txt,
 				1, 0);
 
 		System.out.println("harvesting reading");
