@@ -39,6 +39,7 @@
             		 android:scaleType="fitXY"
             		 android:layout_height="150px"
             		 android:layout_width="120px"
+            		 android:layout_margin="2px"
             		 android:padding="0dp" 
             		 android:src="@drawable/farmer_90px_adam_jones"/>
         
@@ -116,7 +117,8 @@
             		 android:background="@drawable/square_btn_transp"
             		 android:layout_alignParentRight="true"
             		 android:layout_alignParentTop="true"
-            		 android:layout_marginTop="10px"/>
+            		 android:layout_marginTop="10px"
+            		 android:layout_marginRight="10px"/>
         
         <RelativeLayout android:id="@+id/hmscrn_lay_menu_btns"
             android:background="@drawable/bar_238px_menu"
@@ -195,6 +197,7 @@
     
     <LinearLayout android:orientation="horizontal" android:id="@+id/hmscrn_lowerpart"
         		   android:layout_height="fill_parent"
+        		   android:background="#cccccc"
         		   android:layout_width="fill_parent">
     	<!-- first column -->    
         <LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_notifs"
@@ -202,6 +205,7 @@
             android:layout_width="120px"
             android:background="#f5eb5f"
             android:padding="2px"
+            android:layout_margin="1px"
             android:gravity="center_horizontal">
             
             <ImageButton android:id="@+id/hmscrn_imgbtn_notifs"
@@ -233,6 +237,7 @@
 		            android:layout_height="140px"
 		            android:layout_width="120px"
 		            android:background="#bdd777"
+		            android:layout_margin="1px"
 		            android:padding="2px"
 		            android:gravity="center_horizontal">
 		            
@@ -246,7 +251,7 @@
 				    
 				    <LinearLayout android:id="@+id/hmscrn_lay_report_notes"
 				        android:layout_width="fill_parent"
-				        android:layout_height="50px"
+				        android:layout_height="70px"
 				        >
 				        <!-- THIS GETS FILLED FROM CODE -->
 				    </LinearLayout>
@@ -256,6 +261,7 @@
 				<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_warnings"
 		            android:layout_height="fill_parent"
 		            android:layout_width="120px"
+		            android:layout_margin="1px"
 		            android:background="#bb9ac4"
 		            android:padding="2px"
 		            android:gravity="center_horizontal">
@@ -278,7 +284,158 @@
 				</LinearLayout>
         
         </LinearLayout>
+        
+	    <!-- 3rd column -->
+		<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col3"
+	          android:layout_height="fill_parent"
+	          android:layout_width="120px"
+	          android:background="#cccccc"
+	          android:gravity="center_horizontal">
+				
+		    <RelativeLayout
+		        android:id="@+id/cell1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="70px"
+		        android:background="#96d2a9"
+		        android:layout_margin="1px">
+				    <ImageView android:src="@drawable/ic_75px_advice"
+				        	   android:id="@+id/hmscrn_img_advice"
+				        	   android:layout_height="70px"
+				        	   android:layout_width="70px"
+				        	   android:layout_marginLeft="20px"
+				        	   />
+				    
+		            <TextView android:id="@+id/hmscrn_lbl_advice_number"
+		                	  android:layout_width="20px"
+		                	  android:layout_height="20px"
+		                	  android:paddingLeft="1px"
+		                	  android:paddingTop="1px"
+		                	  android:text="15"
+		                	  android:textSize="15px"
+		                	  android:textColor="@android:color/black"
+		                	  android:background="@drawable/ic_24px_number_border"
+		                	  android:layout_alignParentRight="true"
+		                	  android:layout_alignParentTop="true"
+		                	  android:layout_marginRight="5px"
+		                	  android:layout_marginTop="5px"/>
+		        
+		    </RelativeLayout>
+		    
+		    <RelativeLayout
+		        android:id="@+id/cell2"
+		        android:layout_width="fill_parent"
+		        android:layout_height="68px"
+		        android:background="#96d2a9"
+		        android:layout_margin="1px">
+				    <ImageView android:src="@drawable/ic_71px_video"
+				        	   android:id="@+id/hmscrn_img_advice"
+				        	   android:layout_height="70px"
+				        	   android:layout_width="70px"
+				        	   android:layout_marginLeft="20px"
+				        	   />
+				    
+		            <TextView android:id="@+id/hmscrn_lbl_advice_number"
+		                	  android:layout_width="20px"
+		                	  android:layout_height="20px"
+		                	  android:paddingLeft="1px"
+		                	  android:paddingTop="1px"
+		                	  android:text="15"
+		                	  android:textSize="15px"
+		                	  android:textColor="@android:color/black"
+		                	  android:background="@drawable/ic_24px_number_border"
+		                	  android:layout_alignParentRight="true"
+		                	  android:layout_alignParentTop="true"
+		                	  android:layout_marginRight="5px"
+		                	  android:layout_marginTop="5px"/>
+		        
+		    </RelativeLayout>
+		    		    
+		    <RelativeLayout
+		        android:id="@+id/cell3"
+		        android:layout_width="fill_parent"
+		        android:layout_height="68px"
+		        android:background="#99cdea"
+		        android:layout_margin="1px">
+				    <ImageView android:src="@drawable/ic_44px_yield_bags"
+				        	   android:id="@+id/hmscrn_img_yield"
+				        	   android:layout_height="50px"
+				        	   android:layout_width="50px"
+				        	   android:layout_marginLeft="10px"
+				        	   android:layout_marginTop="10px"
+				        	   />
+
+		            <TextView
+		                android:id="@+id/hmscrn_lbl_yield_number"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="1px"
+		                android:paddingTop="1px"
+		                android:layout_marginTop="10px"
+		                android:text="30"
+		                android:textColor="@android:color/black"
+		                android:textSize="25px"
+		                android:layout_toRightOf="@id/hmscrn_img_yield"
+		                />
+
+					<TextView
+		                android:id="@+id/hmscrn_lbl_yield_unit"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="1px"
+		                android:paddingTop="1px"
+		                android:text="qt/acre"
+		                android:textColor="@android:color/black"
+		                android:textSize="15px"
+		                android:layout_below="@id/hmscrn_lbl_yield_number"
+		                android:layout_toRightOf="@id/hmscrn_img_yield"
+		                />
+
+		    </RelativeLayout>
+
+	  		<RelativeLayout
+		        android:id="@+id/cell4"
+		        android:layout_width="fill_parent"
+		        android:layout_height="fill_parent"
+		        android:background="#99cdea"
+		        android:layout_margin="1px">
+				    
+				    <ImageView android:src="@drawable/ic_35px_sell"
+				        	   android:id="@+id/hmscrn_img_market"
+				        	   android:layout_height="50px"
+				        	   android:layout_width="20px"
+				        	   android:layout_marginLeft="10px"
+				        	   android:layout_marginTop="10px"
+				        	   />
+
+		            <TextView
+		                android:id="@+id/hmscrn_lbl_market_number"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="1px"
+		                android:paddingTop="1px"
+		                android:layout_marginTop="10px"
+		                android:text="30000"
+		                android:textColor="@android:color/black"
+		                android:textSize="25px"
+		                android:layout_toRightOf="@id/hmscrn_img_market"
+		                />
+
+					<TextView
+		                android:id="@+id/hmscrn_lbl_market_unit"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="1px"
+		                android:paddingTop="1px"
+		                android:text="Rs"
+		                android:textColor="@android:color/black"
+		                android:textSize="15px"
+		                android:layout_below="@id/hmscrn_lbl_market_number"
+		                android:layout_toRightOf="@id/hmscrn_img_market"
+		                />
+
+		    </RelativeLayout>
+	    </LinearLayout>
+		
 	</LinearLayout>
     
-
 </LinearLayout>
