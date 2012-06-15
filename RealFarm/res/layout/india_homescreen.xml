@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="360px"
+    android:layout_height="480px"
+    android:orientation="vertical" >
+    
+    <!-- first row: id and help button -->
+    <RelativeLayout 
+        android:id="@+id/hmscrn_row1"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:background="@android:color/white">
+        
+        <TextView android:id="@+id/hmscrn_username"
+            android:textSize="40dp"
+            android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:text="Nagendra"
+            android:layout_alignParentLeft="true"
+            android:textColor="@android:color/black"
+            android:layout_marginLeft="10dp"
+            />
+        <ImageButton android:src="@drawable/ic_90px_homscreen_question"
+            	 	 android:layout_width="wrap_content" 
+            	 	 android:layout_height="wrap_content" 
+            	 	 android:id="@+id/hmscrn_help_button"
+            	 	 android:layout_alignParentTop="true"
+            	 	 android:layout_alignParentRight="true"
+            	 	 android:padding="0dp"
+            	 	 android:scaleType="fitXY"/>
+        
+    </RelativeLayout>
+    <!-- 2nd row: photo, user menu -->
+    <RelativeLayout android:id="@+id/hmscrn_row2"
+        android:layout_height="wrap_content"
+        android:layout_width="fill_parent"
+        android:background="@android:color/white" >
+        <ImageButton android:id="@+id/hmscrn_usr_icon"
+            		 android:scaleType="fitXY"
+            		 android:layout_height="150px"
+            		 android:layout_width="120px"
+            		 android:padding="0dp" 
+            		 android:src="@drawable/farmer_90px_adam_jones"/>
+        
+        <RelativeLayout android:id="@+id/hmscrn_lay_btn_plots"
+            android:layout_width="120px"
+            android:layout_height="30px"
+            android:layout_toRightOf="@id/hmscrn_usr_icon"
+            android:gravity="center_vertical">
+            
+            <TextView android:id="@+id/hmscrn_txt_plots" 
+                	  android:layout_width="wrap_content"
+                	  android:layout_height="wrap_content"
+                	  android:textColor="@android:color/black"
+                	  android:text="my plots"
+                	  android:textSize="18px"
+                	  android:layout_margin="5px"/>
+            
+            <ImageView android:id="@+id/hmscrn_img_plots"
+                	   android:scaleType="fitXY"
+                	   android:src="@drawable/ic_32px_ground"
+                	   android:layout_height="wrap_content"
+                	   android:layout_width="wrap_content"
+                	   android:layout_toRightOf="@id/hmscrn_txt_plots"
+                	   android:layout_margin="5px"/>
+            
+            <Button android:background="@drawable/square_btn_transp"
+                	android:id="@+id/hmscrn_btn_plots"
+                	android:layout_height="fill_parent"
+                	android:layout_width="fill_parent" />
+        </RelativeLayout>
+
+        <RelativeLayout android:id="@+id/hmscrn_lay_btn_diary"
+            android:layout_width="150px"
+            android:layout_height="50px"
+            android:layout_toRightOf="@id/hmscrn_usr_icon"
+            android:layout_below="@id/hmscrn_lay_btn_plots"
+            android:layout_marginTop="5px">
+            
+            <TextView android:id="@+id/hmscrn_txt_diary"
+                	  android:layout_width="wrap_content"
+                	  android:layout_height="wrap_content"
+                	  android:textColor="@android:color/black"
+                	  android:text="my diary"
+                	  android:textSize="18px"
+                	  android:layout_marginTop="20px"
+                	  android:layout_marginLeft="5px"/>
+            
+            <ImageView android:id="@+id/hmscrn_img_diary"
+                	   android:scaleType="fitXY"
+                	   android:src="@drawable/ic_64px_diary"
+                	   android:layout_height="48px"
+                	   android:layout_width="64px"
+                	   android:layout_toRightOf="@id/hmscrn_txt_diary"
+                	   android:layout_marginLeft="5px"/>
+            
+            <TextView android:id="@+id/hmscrn_lbl_diary_number"
+                	  android:layout_width="wrap_content"
+                	  android:layout_height="wrap_content"
+                	  android:text="15"
+                	  android:textSize="15px"
+                	  android:textColor="@android:color/black"
+                	  android:background="@drawable/ic_24px_number_border"
+                	  android:layout_alignBottom="@id/hmscrn_img_diary"
+                	  android:layout_alignRight="@id/hmscrn_img_diary"
+                	  android:layout_marginRight="20px"/>
+            
+        </RelativeLayout>
+        
+        <ImageButton android:id="@+id/hmscrn_btn_sound"
+            		 android:src="@drawable/ic_71px_sound_on"
+            		 android:layout_height="wrap_content"
+            		 android:layout_width="wrap_content"
+            		 android:background="@drawable/square_btn_transp"
+            		 android:layout_alignParentRight="true"
+            		 android:layout_alignParentTop="true"
+            		 android:layout_marginTop="10px"/>
+        
+        <RelativeLayout android:id="@+id/hmscrn_lay_menu_btns"
+            android:background="@drawable/bar_238px_menu"
+            android:layout_width="248px"
+            android:layout_height="49px"
+            android:layout_marginLeft="5px"
+            android:layout_marginTop="5px"
+            android:layout_toRightOf="@id/hmscrn_usr_icon"
+            android:layout_below="@id/hmscrn_lay_btn_diary">
+            
+        </RelativeLayout>
+
+    </RelativeLayout>
+    
+
+</LinearLayout>
