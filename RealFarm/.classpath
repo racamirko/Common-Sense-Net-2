@@ -12,7 +12,5 @@
 			<accessrule kind="nonaccessible" pattern="com/android/internal/**"/>
 		</accessrules>
 	</classpathentry>
-	<classpathentry kind="src" path="/illiterate_calendar"/>
-	<classpathentry kind="src" path="/actionbar"/>
 	<classpathentry kind="output" path="bin/classes"/>
 </classpath>

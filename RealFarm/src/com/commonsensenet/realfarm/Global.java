@@ -1,5 +1,10 @@
 package com.commonsensenet.realfarm;
 
+import java.net.URI;
+
+import android.graphics.Bitmap;
+import android.net.Uri;
+
 public class Global {
 
 	public static int actionid;
@@ -13,4 +18,6 @@ public class Global {
 	// '2'call from homescreen
 	public static int videosel;
 	public static boolean WriteToSD = false;
+	public static boolean flag_camera;;
+	public static Bitmap _rotated;
 }

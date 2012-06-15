@@ -1,11 +1,21 @@
 package com.commonsensenet.realfarm;
 
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.net.URI;
+
 import android.app.Dialog;
 import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.media.MediaPlayer;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -20,6 +30,7 @@ import android.widget.Toast;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 
 public class My_settings_plot_details extends HelpEnabledActivity {
 	// MediaPlayer mp = null;
@@ -52,7 +63,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 		My_settings_plot_details.this.finish();
 
 	}
-
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.my_settings_plot_details);
@@ -73,7 +84,27 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 
 			}
 		});
-
+		
+		
+		
+		//img_1.setImageResource(R.drawable.def_img_not);
+	//	img_1.setImageResource(R.drawable.ic_72px_ok);
+		if(Global.flag_camera == true)
+		{
+			Global.flag_camera=false;
+			final ImageView img_1;
+			img_1 = (ImageView) findViewById(R.id.dlg_plot_img_test);
+			PlotImage="Image";
+	
+			img_1.setImageBitmap(Global._rotated);
+			
+		}
+		else
+		{
+			
+		}
+		
+		
 		Button plotimage = (Button) findViewById(R.id.home_btn_list_plot);
 		Button plotcrop = (Button) findViewById(R.id.home_btn_crop_plot);
 		Button plotsoil = (Button) findViewById(R.id.home_btn_soil_plot);
@@ -85,66 +116,15 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 
 		plotimage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Log.d("in plot image dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.plot_img_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Select the defualt image of the plot");
-				dlg.show();
+				
+				startActivity(new Intent(My_settings_plot_details.this,
+						OwnCameraActivity.class));
+				
+				PlotImage="Image";
 
-				final Button unit1;
-				final Button unit2;
-				final Button unit3;
-
-				final ImageView img_1;
-				img_1 = (ImageView) findViewById(R.id.dlg_img_plot);
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_plot_img);
-				unit1 = (Button) dlg.findViewById(R.id.plot_img_1);
-				unit2 = (Button) dlg.findViewById(R.id.plot_img_2);
-				unit3 = (Button) dlg.findViewById(R.id.plot_img_3);
-
-				unit1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
-						var_text.setText("Plot A");
-						PlotImage = "Plot A";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.plot_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						dlg.cancel();
-					}
-				});
-
-				unit2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
-						var_text.setText("Plot B");
-						PlotImage = "Plot B";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.plot_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});
-
-				unit3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
-						var_text.setText("Plot C");
-						PlotImage = "Plot C";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.plot_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});
-
+				My_settings_plot_details.this.finish();
+			
+				
 			}
 		});
 

@@ -22,3 +22,5 @@ actionbar/bin
 .metadata/.plugins/org.eclipse.ui.ide/dialog_settings.xml
 
 .metadata/.plugins/org.eclipse.ui.workbench/workbench.xml
+
+.metadata/.plugins/org.eclipse.core.resources/.projects/RealFarm/.indexes/a0/3c/history.index
