@@ -37,7 +37,7 @@ import android.widget.Toast;
  * @author Mirko Raca <mirko.raca@epfl.ch>
  *
  */
-public class Homescreen extends HelpEnabledActivity implements OnClickListener, OnDismissListener {
+public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private String logTag = "Homescreen";
 	
     @Override
@@ -49,7 +49,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
         PathBuilder.init(this);
         initDb();
         initActionListener();
-//        initTiles();
+        initTiles();
         initSoundSys();
         checkSdCard();
         setHelpIcon(findViewById(R.id.helpIndicator));
@@ -86,39 +86,76 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 
 	protected void initTiles() {
 		Log.i(logTag, "Initializing tiles");
-		// TODO: Query warnings
-		LinearLayout layWarning = (LinearLayout) findViewById(R.id.home_lay_advice);
-		LinearLayout layActions = (LinearLayout) findViewById(R.id.home_lay_actions);
-	
-//		populateTiles( InfoType.ADVICE, layAdvice );
-//		populateTiles( InfoType.ACTIONS, layActions );
-//		populateTiles( InfoType.WARN, layWarn );
-//		populateTiles( InfoType.YIELD, layYield );		
+		infoFill_setDiaryNumber();
+		infoFill_setVideoNumber();
+		infoFill_setAdviceNumber();
+		infoFill_setYieldNumber();
+		infoFill_setMarket();
+		infoFill_setWeather();
 	}
 	
-	protected void populateTiles( InfoType infoType, LinearLayout layout ){
-		Vector<Recommendation> info = new Vector<Recommendation>();
-		
-		/* dummy implementation */
-		DummyHomescreenData dummyData = new DummyHomescreenData(this, this, 5);
+	protected void infoFill_setDiaryNumber(){
+		TextView lbl = (TextView) findViewById(R.id.hmscrn_lbl_diary_number);
 		Random rn = new Random();
-		dummyData.generateDummyItems(rn.nextInt(5), info);
-		RealFarmProvider dataProv = dummyData.getDataProvider();
-		/* end dummy impl */
-		
-		Iterator<Recommendation> iter = info.iterator();
-		while( iter.hasNext() ){
-			Recommendation tmpRec = iter.next();
-			ImageView tmpView = new ImageView(this);
-			tmpView.setImageResource(dataProv.getActionNameById(tmpRec.getAction()).getRes());
-			tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
-			layout.addView(tmpView);
-			tmpView.getLayoutParams().height = 45;
-			tmpView.getLayoutParams().width = 45;
-		}
-		info.clear();
+		lbl.setText( Integer.toString(rn.nextInt(15)) );
+	}
+	
+	protected void infoFill_setVideoNumber(){
+		TextView lbl = (TextView) findViewById(R.id.hmscrn_lbl_video_number);
+		Random rn = new Random();
+		lbl.setText( Integer.toString(rn.nextInt(15)) );
+	}
+	
+	protected void infoFill_setAdviceNumber(){
+		TextView lbl = (TextView) findViewById(R.id.hmscrn_lbl_advice_number);
+		Random rn = new Random();
+		lbl.setText( Integer.toString(rn.nextInt(15)) );
 	}
 
+	protected void infoFill_setYieldNumber(){
+		TextView lbl = (TextView) findViewById(R.id.hmscrn_lbl_yield_number);
+		Random rn = new Random();
+		lbl.setText( Integer.toString(rn.nextInt(15)*1000) );
+	}
+	
+	protected void infoFill_setMarket(){
+		TextView lblNum = (TextView) findViewById(R.id.hmscrn_lbl_market_number);
+//		TextView lblUnit = (TextView) findViewById(R.id.hmscrn_lbl_market_unit); // to be used if needed
+		Random rn = new Random();
+		lblNum.setText( Integer.toString(rn.nextInt(15)*1000) );
+	}
+	
+	protected void infoFill_setWeather(){
+		TextView lbl = (TextView) findViewById(R.id.hmscrn_lbl_weather);
+		ImageView imgWeather = (ImageView) findViewById(R.id.hmscrn_img_weather);
+		Random rn = new Random();
+		lbl.setText( Integer.toString(10+rn.nextInt(30)) + "°C" );
+		
+		switch(rn.nextInt(7)){
+			case 0:
+				imgWeather.setImageResource(R.drawable.ic_64px_chance_of_rain);
+				break;
+			case 1:
+				imgWeather.setImageResource(R.drawable.ic_64px_cloudy);
+				break;
+			case 2:
+				imgWeather.setImageResource(R.drawable.ic_64px_fog);
+				break;
+			case 3:
+				imgWeather.setImageResource(R.drawable.ic_64px_mostly_cloudy);
+				break;
+			case 4:
+				imgWeather.setImageResource(R.drawable.ic_64px_mostly_sunny);
+				break;
+			case 5:
+				imgWeather.setImageResource(R.drawable.ic_64px_rain);
+				break;
+			case 6:
+				imgWeather.setImageResource(R.drawable.ic_64px_sunny);
+				break;
+		}
+	}
+	
 	private void initActionListener() {
 		((ImageButton) findViewById(R.id.hmscrn_usr_icon)).setOnClickListener(this);
 	    ((ImageButton) findViewById(R.id.hmscrn_usr_icon)).setOnLongClickListener(this);
@@ -242,21 +279,21 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 		Log.i(logTag, "Button clicked!");
 		String txt = "";
 		Intent inte;
-		if( v.getId() == R.id.home_btn_actions ){
+		if( v.getId() == R.id.hmscrn_btn_advice ){
 			Log.d(logTag, "Starting actions info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "actions");
 			this.startActivity(inte);
 			return;
 		}
-		if( v.getId() == R.id.home_btn_yields){
+		if( v.getId() == R.id.hmscrn_btn_yield){
 			Log.d(logTag, "Starting yield info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			return;
 		}
-		if( v.getId() == R.id.home_btn_warnings ){
+		if( v.getId() == R.id.hmscrn_btn_warnings ){
 			Log.d(logTag, "Starting warn info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "warn");
@@ -264,7 +301,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 			return;
 		}
 		
-		if( v.getId() == R.id.home_btn_weather ){
+		if( v.getId() == R.id.hmscrn_btn_weather ){
 			Log.d(logTag, "Starting weather info");
 			// TODO: change!
 			inte = new Intent(this, AggregateView.class);
@@ -273,7 +310,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 			return;
 		}
 		
-		if( v.getId() == R.id.home_btn_tutorials ){
+		if( v.getId() == R.id.hmscrn_btn_video ){
 			Log.d(logTag, "Starting tutorials info");
 			// TODO: change!
 			inte = new Intent(this, AggregateView.class);
@@ -282,52 +319,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 			return;
 		}
 		
-		if( v.getId() == R.id.home_btn_homeactions ){
-			Log.d(logTag, "Starting home actions dlg");
-			Dialog dlg = new Dialog(this);
-			dlg.setOnDismissListener(this);
-			dlg.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
-			dlg.setCanceledOnTouchOutside(true);
-			dlg.setContentView(R.layout.home_action_buttons);
-			
-	        // Action buttons
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_diary)).setOnClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_diary)).setOnLongClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_diary)).setOnTouchListener(this);
-
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_fertilize)).setOnClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_fertilize)).setOnLongClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_fertilize)).setOnTouchListener(this);
-
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_irrigate)).setOnClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_irrigate)).setOnLongClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_irrigate)).setOnTouchListener(this);
-
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_yield)).setOnClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_yield)).setOnLongClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_yield)).setOnTouchListener(this);
-
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_plant)).setOnClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_plant)).setOnLongClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_plant)).setOnTouchListener(this);
-
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_problem)).setOnClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_problem)).setOnLongClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_problem)).setOnTouchListener(this);
-
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_spray)).setOnClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_spray)).setOnLongClickListener(this);
-	        ((ImageButton) dlg.findViewById(R.id.btn_action_spray)).setOnTouchListener(this);
-	        
-	        setHelpIcon(dlg.findViewById(R.id.dlg_help_indicator));
-	        
-			dlg.setCancelable(true);
-			dlg.setOwnerActivity(this);
-			dlg.show();
-			return;
-		}
-		
-		if( v.getId() == R.id.home_btn_diary ){
+		if( v.getId() == R.id.hmscrn_btn_diary ){
 			Log.d(logTag, "Starting diary info");
 			// TODO: change!
 			inte = new Intent(this, AggregateView.class);
@@ -336,7 +328,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 			return;
 		}
 		
-		if( v.getId() == R.id.home_btn_market ){
+		if( v.getId() == R.id.hmscrn_btn_market ){
 			Log.d(logTag, "Starting market info");
 			// TODO: change!
 			inte = new Intent(this, AggregateView.class);
@@ -363,8 +355,4 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener, 
 	
 	public enum InfoType { ADVICE, ACTIONS, WARN, YIELD }
 
-	public void onDismiss(DialogInterface dialog) {
-		Log.i(logTag, "Dismissed dialog");
-		setHelpIcon(findViewById(R.id.helpIndicator));
-	};
 }

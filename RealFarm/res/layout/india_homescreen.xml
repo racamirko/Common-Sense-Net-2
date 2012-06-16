@@ -44,8 +44,8 @@
             		 android:scaleType="fitXY"
             		 android:layout_height="150px"
             		 android:layout_width="120px"
-            		 android:padding="0dp"
-            		 android:layout_margin="4px" 
+            		 android:padding="4px"
+            		 android:background="@android:color/transparent"
             		 android:src="@drawable/farmer_90px_adam_jones"/>
         
         <RelativeLayout android:id="@+id/hmscrn_lay_btn_plots"
@@ -104,8 +104,9 @@
                 	  android:layout_width="20px"
                 	  android:layout_height="20px"
                 	  android:paddingLeft="1px"
-                	  android:paddingTop="1px"
-                	  android:text="15"
+                	  android:gravity="center"
+                	  android:paddingTop="0px"
+                	  android:text="1"
                 	  android:textSize="15px"
                 	  android:textColor="@android:color/black"
                 	  android:background="@drawable/ic_24px_number_border"
@@ -343,24 +344,26 @@
 		        android:layout_margin="1px">
 				    <ImageView android:src="@drawable/ic_75px_advice"
 				        	   android:id="@+id/hmscrn_img_advice"
+				        	   android:scaleType="fitXY"
 				        	   android:layout_height="70px"
-				        	   android:layout_width="70px"
-				        	   android:layout_marginLeft="20px"
+				        	   android:layout_width="80px"
+				        	   android:layout_marginLeft="15px"
 				        	   />
 				    
 		            <TextView android:id="@+id/hmscrn_lbl_advice_number"
 		                	  android:layout_width="20px"
 		                	  android:layout_height="20px"
 		                	  android:paddingLeft="1px"
-		                	  android:paddingTop="1px"
+		                	  android:paddingTop="0px"
 		                	  android:text="15"
+                	  		  android:gravity="center"
 		                	  android:textSize="15px"
 		                	  android:textColor="@android:color/black"
 		                	  android:background="@drawable/ic_24px_number_border"
 		                	  android:layout_alignParentRight="true"
 		                	  android:layout_alignParentTop="true"
 		                	  android:layout_marginRight="5px"
-		                	  android:layout_marginTop="5px"/>
+		                	  android:layout_marginTop="5px" />
 		            
 		            <Button 
 		                android:id="@+id/hmscrn_btn_advice"
@@ -378,18 +381,19 @@
 		        android:background="#96d2a9"
 		        android:layout_margin="1px">
 				    <ImageView android:src="@drawable/ic_71px_video"
-				        	   android:id="@+id/hmscrn_img_advice"
+				        	   android:id="@+id/hmscrn_img_video"
 				        	   android:layout_height="70px"
 				        	   android:layout_width="70px"
 				        	   android:layout_marginLeft="20px"
 				        	   />
 				    
-		            <TextView android:id="@+id/hmscrn_lbl_advice_number"
+		            <TextView android:id="@+id/hmscrn_lbl_video_number"
 		                	  android:layout_width="20px"
 		                	  android:layout_height="20px"
 		                	  android:paddingLeft="1px"
-		                	  android:paddingTop="1px"
+		                	  android:paddingTop="0px"
 		                	  android:text="15"
+                	  	      android:gravity="center"
 		                	  android:textSize="15px"
 		                	  android:textColor="@android:color/black"
 		                	  android:background="@drawable/ic_24px_number_border"
@@ -467,7 +471,7 @@
 				        	   android:layout_width="20px"
 				        	   android:layout_marginLeft="10px"
 				        	   android:layout_marginRight="10px"
-				        	   android:layout_marginTop="10px"
+				        	   android:layout_marginTop="2px"
 				        	   />
 
 		            <TextView
@@ -476,7 +480,9 @@
 		                android:layout_height="wrap_content"
 		                android:paddingLeft="1px"
 		                android:paddingTop="1px"
-		                android:layout_marginTop="10px"
+		                android:paddingBottom="0px"
+		                android:layout_marginTop="2px"
+		                android:layout_marginBottom="0px"
 		                android:text="30000"
 		                android:textColor="@android:color/black"
 		                android:textSize="25px"
@@ -488,10 +494,9 @@
 		                android:layout_width="wrap_content"
 		                android:layout_height="wrap_content"
 		                android:paddingLeft="1px"
-		                android:paddingTop="1px"
 		                android:text="Rs"
 		                android:textColor="@android:color/black"
-		                android:textSize="15px"
+		                android:textSize="18px"
 		                android:layout_below="@id/hmscrn_lbl_market_number"
 		                android:layout_toRightOf="@id/hmscrn_img_market"
 		                />
