@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/linearLayout1"
+      android:id="@+id/hmscrn_info_element_notif_base"
       android:layout_width="50px"
       android:layout_height="50px" >
       
@@ -16,7 +16,8 @@
         	  android:layout_width="20px"
         	  android:layout_height="20px"
         	  android:paddingLeft="1px"
-        	  android:paddingTop="1px"
+        	  android:paddingTop="-2px"
+        	  android:gravity="center"
         	  android:text="15"
         	  android:textSize="15px"
         	  android:textColor="@android:color/black"

@@ -273,7 +273,7 @@
 				        	   android:layout_marginBottom="5px"
 				        />
 				    
-				    <LinearLayout android:id="@+id/hmscrn_lay_report_notes"
+				    <LinearLayout android:id="@+id/hmscrn_lay_warnings"
 				        android:layout_width="fill_parent"
 				        android:layout_below="@id/hmscrn_img_warn_sign"
 				        android:layout_height="70px"

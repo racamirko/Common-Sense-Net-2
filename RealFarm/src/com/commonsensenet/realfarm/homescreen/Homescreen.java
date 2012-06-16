@@ -2,15 +2,12 @@ package com.commonsensenet.realfarm.homescreen;
 
 import java.util.Iterator;
 import java.util.Random;
-import java.util.Vector;
 
 import com.commonsensenet.realfarm.OfflineMapDemo;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
-import com.commonsensenet.realfarm.model.Recommendation;
+import com.commonsensenet.realfarm.utils.FlowLayout;
 import com.commonsensenet.realfarm.utils.PathBuilder;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
@@ -22,6 +19,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Window;
 import android.view.View.OnClickListener;
@@ -29,6 +27,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -92,6 +91,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		infoFill_setYieldNumber();
 		infoFill_setMarket();
 		infoFill_setWeather();
+		infoFill_notifications();
+		infoFill_warnings();
 	}
 	
 	protected void infoFill_setDiaryNumber(){
@@ -155,6 +156,70 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				break;
 		}
 	}
+	
+	protected void infoFill_notifications(){
+		FlowLayout flow = (FlowLayout) findViewById(R.id.hmscrn_linlay_notifs);
+		Random rn = new Random();
+		LayoutInflater infl = getLayoutInflater();
+		for( int i = 0; i < rn.nextInt(6); ++i){
+			 RelativeLayout baseElem = (RelativeLayout) infl.inflate(R.layout.hmscrn_info_element_notif, flow, false);
+			 TextView lbl = (TextView) baseElem.findViewById(R.id.hmscrn_lbl_diary_number);
+			 ImageView img = (ImageView) baseElem.findViewById(R.id.hmscrn_elem_img_icon);
+			 lbl.setText( Integer.toString(rn.nextInt(15)) );
+			 switch( rn.nextInt(6) ){
+			 	case 0:
+			 		img.setImageResource(R.drawable.ic_48px_fertilizing1);
+			 		break;
+			 	case 1:
+			 		img.setImageResource(R.drawable.ic_48px_harvesting1);
+			 		break;
+			 	case 2:
+			 		img.setImageResource(R.drawable.ic_48px_irrigation1);
+			 		break;
+			 	case 3:
+			 		img.setImageResource(R.drawable.ic_48px_spraying1);
+			 		break;
+			 	case 4:
+			 		img.setImageResource(R.drawable.ic_48px_sowing);
+			 		break;
+			 	case 5:
+			 		img.setImageResource(R.drawable.ic_48px_pest);
+			 		break;
+			 }
+			 flow.addView(baseElem);
+		}
+	}
+	
+	protected void infoFill_warnings(){
+		LinearLayout flow = (LinearLayout) findViewById(R.id.hmscrn_lay_warnings);
+		Random rn = new Random();
+		LayoutInflater infl = getLayoutInflater();
+		for( int i = 0; i < rn.nextInt(3); ++i){
+			 RelativeLayout baseElem = (RelativeLayout) infl.inflate(R.layout.hmscrn_info_element_notif, flow, false);
+			 TextView lbl = (TextView) baseElem.findViewById(R.id.hmscrn_lbl_diary_number);
+			 ImageView img = (ImageView) baseElem.findViewById(R.id.hmscrn_elem_img_icon);
+			 lbl.setText( Integer.toString(rn.nextInt(15)) );
+			 switch( rn.nextInt(5) ){
+			 	case 0:
+			 		img.setImageResource(R.drawable.ic_48px_pest);
+			 		break;
+			 	case 1:
+			 		img.setImageResource(R.drawable.ic_48px_reporting);
+			 		break;
+			 	case 2:
+			 		img.setImageResource(R.drawable.ic_48px_disease);
+			 		break;
+			 	case 3:
+			 		img.setImageResource(R.drawable.ic_48px_spraying2);
+			 		break;
+			 	case 4:
+			 		img.setImageResource(R.drawable.ic_48px_spraying3);
+			 		break;
+			 }
+			 flow.addView(baseElem);
+		}
+	}
+
 	
 	private void initActionListener() {
 		((ImageButton) findViewById(R.id.hmscrn_usr_icon)).setOnClickListener(this);
