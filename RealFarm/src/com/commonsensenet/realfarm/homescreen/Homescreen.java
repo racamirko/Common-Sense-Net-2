@@ -194,7 +194,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		LinearLayout flow = (LinearLayout) findViewById(R.id.hmscrn_lay_warnings);
 		Random rn = new Random();
 		LayoutInflater infl = getLayoutInflater();
-		for( int i = 0; i < rn.nextInt(3); ++i){
+		for( int i = 0; i < rn.nextInt(2); ++i){
 			 RelativeLayout baseElem = (RelativeLayout) infl.inflate(R.layout.hmscrn_info_element_notif, flow, false);
 			 TextView lbl = (TextView) baseElem.findViewById(R.id.hmscrn_lbl_diary_number);
 			 ImageView img = (ImageView) baseElem.findViewById(R.id.hmscrn_elem_img_icon);
