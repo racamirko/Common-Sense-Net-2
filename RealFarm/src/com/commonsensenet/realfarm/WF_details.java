@@ -18,40 +18,29 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListe
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.User;
-import com.commonsensenet.realfarm.model.WFList;
+import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class WF_details extends HelpEnabledActivity implements
 		OnDataChangeListener {
-	int[] arr = new int[2];
-	final Context context = this;
-	int i = 0;
-	ImageView img_1;
-	ImageView img_2;
+	private int[] arr = new int[2];
+	private final Context context = this;
+	private ImageView img_1;
+	private ImageView img_2;
 	/** View where the items are displayed. */
 
 	protected RealFarmProvider mDataProvider;
-	String name;
 	public int Position; // Has copy of mainlistview position
 	public User ReadUser = null;
 
-	// MediaPlayer mp = null;
-
-	TextView text_1;
-
-	TextView text_2;
-	TextView text_4;
-	TextView text_5;
-	String unit = "¡C";
+	private TextView text_1;
+	private TextView text_2;
+	private TextView text_4;
+	private TextView text_5;
+	private String unit = "¡C";
 	protected int wfsize;
-	protected List<WFList> Wftodaydata;
-	int wfvalue;
-
-	@Override
-	protected void initKannada() {
-		// TODO Auto-generated method stub
-
-	}
+	protected List<WeatherForecast> Wftodaydata;
+	private int wfvalue;
 
 	public void onBackPressed() {
 
@@ -62,9 +51,9 @@ public class WF_details extends HelpEnabledActivity implements
 
 		// eliminates the listener.
 		mDataProvider.setWFDataChangeListener(null);
-		
-		SoundQueue sq = SoundQueue.getInstance();    //audio integration
-		sq.stop();        //audio integration
+
+		SoundQueue sq = SoundQueue.getInstance(); // audio integration
+		sq.stop(); // audio integration
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -115,18 +104,18 @@ public class WF_details extends HelpEnabledActivity implements
 		final Button wf3;
 		final Button wf4;
 		final Button wf5;
-	
-		 wf1 = (Button) findViewById(R.id.home_btn_wf_1);                    //Audio Integration
-		    wf2 = (Button) findViewById(R.id.home_btn_wf_2);
-		    wf3 = (Button) findViewById(R.id.home_btn_wf_3);
-		    wf4 = (Button) findViewById(R.id.home_btn_wf_4);
-		    wf5 = (Button) findViewById(R.id.home_btn_wf_5);
 
-		    wf1.setOnLongClickListener(this);                             //Audio Integration
-		    wf2.setOnLongClickListener(this); 
-		    wf3.setOnLongClickListener(this); 
-		    wf4.setOnLongClickListener(this); 
-		    wf5.setOnLongClickListener(this); 
+		wf1 = (Button) findViewById(R.id.home_btn_wf_1); // Audio Integration
+		wf2 = (Button) findViewById(R.id.home_btn_wf_2);
+		wf3 = (Button) findViewById(R.id.home_btn_wf_3);
+		wf4 = (Button) findViewById(R.id.home_btn_wf_4);
+		wf5 = (Button) findViewById(R.id.home_btn_wf_5);
+
+		wf1.setOnLongClickListener(this); // Audio Integration
+		wf2.setOnLongClickListener(this);
+		wf3.setOnLongClickListener(this);
+		wf4.setOnLongClickListener(this);
+		wf5.setOnLongClickListener(this);
 		// fetch data from DB
 
 		Wftodaydata = mDataProvider.getWFData();
@@ -307,411 +296,333 @@ public class WF_details extends HelpEnabledActivity implements
 	@Override
 	public boolean onLongClick(View v) {
 
-	/*	if (v.getId() == R.id.home_btn_wf_1) {               //Commented Audio integration
+		if (v.getId() == R.id.aggr_img_help) { // Audio integration
+			super.playAudio(R.raw.help);
 
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.weatherforecast);
-			mp.start();
+		}
 
+		if (v.getId() == R.id.home_btn_wf_1) {
+
+			System.out.println(wfvalue);
+			// playAudio(wfvalue);
+			playAudio(28);
 		}
 
 		if (v.getId() == R.id.home_btn_wf_2) {
 
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.weatherforecast);
-			mp.start();
-
-		}*/
-
-
-		 if( v.getId() ==R.id.aggr_img_help ){                 //Audio integration
-			 if(Global.EnableAudio==true)                        //checking for audio enable
-			 {
-			 	
-			 
-			if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.help);
-			mp.start();
-			 }
-			
-		}
-		
-if( v.getId() == R.id.home_btn_wf_1){                       
-			
 			System.out.println(wfvalue);
-		//	playAudio(wfvalue);
-			playAudio(28);
+			// playAudio(wfvalue);
+			playAudio(22);
+
 		}
-		
-       if( v.getId() == R.id.home_btn_wf_2){
-			
-    	   System.out.println(wfvalue);
-    	//   playAudio(wfvalue);
-    	   playAudio(22);
-			
+		if (v.getId() == R.id.home_btn_wf_3) {
+
+			System.out.println(wfvalue);
+			// playAudio(wfvalue);
+			playAudio(18);
+
 		}
-       if( v.getId() == R.id.home_btn_wf_3){
-			
-    	   System.out.println(wfvalue);
-    	//   playAudio(wfvalue);
-    	   playAudio(18);
-			
+		if (v.getId() == R.id.home_btn_wf_4) {
+
+			System.out.println(wfvalue);
+			// playAudio(wfvalue);
+			playAudio(22);
+
 		}
-       if( v.getId() == R.id.home_btn_wf_4){
-			
-    	   System.out.println(wfvalue);
-    	//   playAudio(wfvalue);
-    	   playAudio(22);
-			
+		if (v.getId() == R.id.home_btn_wf_5) {
+
+			System.out.println(wfvalue);
+			// playAudio(wfvalue);
+			playAudio(20);
+
 		}
-       if( v.getId() == R.id.home_btn_wf_5){
-			
-    	   System.out.println(wfvalue);
-    	//   playAudio(wfvalue);
-    	   playAudio(20);
-			
-		}
-       
 
 		return true;
 	}
-	
-	public void playAudio(int Currentvalue)                        //Audio Integartion
+
+	public void playAudio(int currentValue) // Audio Integartion
 	{
-	//	System.out.println("play audio called");
-	//	System.out.println(Currentvalue);
-		
-		 if(mp != null)
-			{
-				mp.stop();
-			mp.release();
-				mp = null;
-			}
-		
+
 		SoundQueue sq = SoundQueue.getInstance();
 		// stops any sound that could be playing.
 		sq.stop();
-	
-if(Global.EnableAudio==true)                        //checking for audio enable
-{
-		if(Currentvalue==1)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a1);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==2)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a2);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-			
-		}
-		if(Currentvalue==3)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a3);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==4)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a4);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==5)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a5);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==6)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a6);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==7)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a7);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==8)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a8);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==9)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a9);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		if(Currentvalue==10)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a10);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-		
-		if(Currentvalue==11)
-		{
-			sq.addToQueue(R.raw.todayweatherforecast);
-			sq.addToQueue(R.raw.a11);
-			sq.addToQueue(R.raw.degree);
-			sq.addToQueue(R.raw.and);
-			sq.addToQueue(R.raw.weather);
-			sq.addToQueue(R.raw.sunny);
-			sq.play();
-		}
-	if(Currentvalue==12)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a12);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-		}
-	if(Currentvalue==13)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a13);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==14)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a14);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==15)
-	{
-		
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a15);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==16)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a16);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==17)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a17);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==18)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a18);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.stormy);
-		sq.play();
-	}
-	if(Currentvalue==19)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a19);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==20)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a20);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.overcast);
-		sq.play();
-	}
-	if(Currentvalue==21)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a21);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==22)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a22);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.lightshowers);
-		sq.play();
-	}
-	if(Currentvalue==23)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a23);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==24)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a24);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==25)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a25);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==26)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a26);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==27)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a27);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==28)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a28);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==29)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a29);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-	if(Currentvalue==30)
-	{
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a30);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(R.raw.sunny);
-		sq.play();
-	}
-}
-	}
 
+		if (Global.EnableAudio == true) // checking for audio enable
+		{
+			if (currentValue == 1) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a1);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 2) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a2);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+
+			}
+			if (currentValue == 3) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a3);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 4) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a4);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 5) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a5);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 6) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a6);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 7) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a7);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 8) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a8);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 9) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a9);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 10) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a10);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+
+			if (currentValue == 11) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a11);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 12) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a12);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 13) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a13);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 14) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a14);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 15) {
+
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a15);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 16) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a16);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 17) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a17);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 18) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a18);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.stormy);
+				sq.play();
+			}
+			if (currentValue == 19) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a19);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 20) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a20);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.overcast);
+				sq.play();
+			}
+			if (currentValue == 21) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a21);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 22) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a22);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.lightshowers);
+				sq.play();
+			}
+			if (currentValue == 23) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a23);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 24) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a24);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 25) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a25);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 26) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a26);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 27) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a27);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 28) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a28);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 29) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a29);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+			if (currentValue == 30) {
+				sq.addToQueue(R.raw.todayweatherforecast);
+				sq.addToQueue(R.raw.a30);
+				sq.addToQueue(R.raw.degree);
+				sq.addToQueue(R.raw.and);
+				sq.addToQueue(R.raw.weather);
+				sq.addToQueue(R.raw.sunny);
+				sq.play();
+			}
+		}
+	}
 
 }

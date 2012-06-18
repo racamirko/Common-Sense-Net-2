@@ -60,7 +60,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private final Context context = this;
 	private PlotInformationWindow mCurrentWindow;
 	private SoundQueue mSoundQueue;
-	public int i=0;
+	public int i = 0;
 
 	// MediaPlayer mp = null;
 	@Override
@@ -94,7 +94,19 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			}
 		});
 
-		//WriteDataBaseToSDcard();
+		TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
+		tmpText.setText(getString(R.string.k_solved));
+
+		tmpText = (TextView) findViewById(R.id.home_lbl_advice);
+		tmpText.setText(getString(R.string.k_news));
+
+		tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
+		tmpText.setText(getString(R.string.k_farmers));
+
+		tmpText = (TextView) findViewById(R.id.home_lbl_yield);
+		tmpText.setText(getString(R.string.k_harvest));
+
+		// WriteDataBaseToSDcard();
 	}
 
 	protected void selectlang() {
@@ -370,52 +382,42 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		 * mSoundQueue.addToQueue(R.raw.audio3); mSoundQueue.play();
 		 */
 
-		//System.out.println("Reading getuser delete");
+		// System.out.println("Reading getuser delete");
 		System.out.println("Irrigation writing");
-		mDataProvider.setIrrigation(2, "hours",                          //qua1 mapped to no of hours
-				"today",0,0,"Fertilizer1") ;
-		
-		mDataProvider.setIrrigation(4, "hours",                          //qua1 mapped to no of hours
-				"tomorrow",0,0,"Fertilizer2") ;
-		
+		mDataProvider.setIrrigation(2, "hours", // qua1 mapped to no of hours
+				"today", 0, 0, "Fertilizer1");
+
+		mDataProvider.setIrrigation(4, "hours", // qua1 mapped to no of hours
+				"tomorrow", 0, 0, "Fertilizer2");
+
 		System.out.println("Irrigation reading");
 		mDataProvider.getirrigate();
-		
+
 		System.out.println("Problem writing");
-		mDataProvider.setProblem("today","Problem1",0, 0);
-		mDataProvider.setProblem("tomorrow","Problem2",0, 0);
-		//mDataProvider.setProblem(String day,String probType, int sent, int admin);
-		
-		
-		
+		mDataProvider.setProblem("today", "Problem1", 0, 0);
+		mDataProvider.setProblem("tomorrow", "Problem2", 0, 0);
+		// mDataProvider.setProblem(String day,String probType, int sent, int
+		// admin);
+
 		System.out.println("Problem reading");
 		mDataProvider.getProblem();
-		
+
 		System.out.println("New plot writing");
-		mDataProvider.setPlotNew(1,123,456,
-				"plot image1", "Loamy",0, 0);
-		
-		mDataProvider.setPlotNew(2,468,356,
-				"plot image2", "Sandy",0, 0);
-		
-		mDataProvider.setPlotNew(2,468,356,
-				"plot image2", "Sandy",0, 0);
-		
-		
+		mDataProvider.setPlotNew(1, 123, 456, "plot image1", "Loamy", 0, 0);
+
+		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
+
+		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
+
 		System.out.println("newplot  reading");
-			mDataProvider.getAllPlotList();
-			mDataProvider.getPlotDelete(0);
-			
-			System.out.println("newplot  reading based on userid");	
+		mDataProvider.getAllPlotList();
+		mDataProvider.getPlotDelete(0);
+
+		System.out.println("newplot  reading based on userid");
 		mDataProvider.getAllPlotListByUserId(1);
-		
-		System.out.println("newplot reading based on userid and plotid");	
-		mDataProvider.getAllPlotListByUserIdPlotId(1,1);
-		
-		
-		
-		
-		
+
+		System.out.println("newplot reading based on userid and plotid");
+		mDataProvider.getAllPlotListByUserIdPlotId(1, 1);
 
 	}
 
@@ -524,33 +526,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	@Override
-	protected void initKannada() {
-		Log.i(logTag, "Init kannada");
-
-		TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
-		tmpText.setTypeface(mKannadaTypeface);
-		tmpText.setText(getString(R.string.k_solved));
-
-		tmpText = (TextView) findViewById(R.id.home_lbl_advice);
-		tmpText.setTypeface(mKannadaTypeface);
-		tmpText.setText(getString(R.string.k_news));
-
-		tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
-		tmpText.setTypeface(mKannadaTypeface);
-		tmpText.setText(getString(R.string.k_farmers));
-
-		tmpText = (TextView) findViewById(R.id.home_lbl_yield);
-		tmpText.setTypeface(mKannadaTypeface);
-		tmpText.setText(getString(R.string.k_harvest));
-	}
-
-	@Override
 	public void onBackPressed() {
-		if (mp != null) {
-			mp.stop();
-			mp.release();
-			mp = null;
-		}
+		// stops all playing sounds.
+		SoundQueue.getInstance().stop();
 
 		// Production code, commented out for quicker development
 		new AlertDialog.Builder(this)
@@ -574,10 +552,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		String txt = "";
 		Intent inte;
 
-		//int no_of_plots = mDataProvider.getAllPlotList().size();                           
-		
-		
-		int no_of_plots = mDataProvider.getAllPlotListByUserDeleteFlag(Global.userId,0).size();     //added with audio integration
+		// int no_of_plots = mDataProvider.getAllPlotList().size();
+
+		int no_of_plots = mDataProvider.getAllPlotListByUserDeleteFlag(
+				Global.userId, 0).size(); // added with audio integration
 		// String no_of_plots_str = String.valueOf(no_of_plots);
 
 		if (v.getId() == R.id.btn_info_actions

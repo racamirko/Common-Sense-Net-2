@@ -33,7 +33,7 @@ import com.commonsensenet.realfarm.model.Selling;
 import com.commonsensenet.realfarm.model.Sowing;
 import com.commonsensenet.realfarm.model.Spraying;
 import com.commonsensenet.realfarm.model.User;
-import com.commonsensenet.realfarm.model.WFList;
+import com.commonsensenet.realfarm.model.WeatherForecast;
 
 public class RealFarmProvider {
 	/** Cached seeds to improve performance. */
@@ -795,8 +795,8 @@ public class RealFarmProvider {
 
 	// Get WF data
 
-	public List<WFList> getWFData() {
-		List<WFList> tmpList;
+	public List<WeatherForecast> getWFData() {
+		List<WeatherForecast> tmpList;
 
 		// opens the database.
 		mDb.open();
@@ -814,11 +814,11 @@ public class RealFarmProvider {
 				null, null, null, null, null);
 		c.moveToFirst();
 
-		tmpList = new LinkedList<WFList>();
+		tmpList = new LinkedList<WeatherForecast>();
 
 		if (c.getCount() > 0) {
 			do {
-				tmpList.add(new WFList(c.getString(1), c.getInt(2), c
+				tmpList.add(new WeatherForecast(c.getString(1), c.getInt(2), c
 						.getString(3), c.getString(4), c.getInt(5), c
 						.getString(6), c.getInt(7)));
 

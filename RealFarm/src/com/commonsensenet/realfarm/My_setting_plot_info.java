@@ -36,12 +36,10 @@ public class My_setting_plot_info extends Activity {
 
 	public void listViewSettings() {
 
-		// default value
-		mPlotIdDelete = -1;
-
-		mPlotsListView = (ListView) findViewById(R.id.mainListView);
-
+		// gets the list from the UI.
+		mPlotsListView = (ListView) findViewById(R.id.list_plots);
 		mPlotsListView.setItemsCanFocus(true);
+
 		String[] planets = new String[] {}; // Sets parameters for list view
 		ArrayList<String> planetList = new ArrayList<String>();
 		planetList.addAll(Arrays.asList(planets));
@@ -74,9 +72,12 @@ public class My_setting_plot_info extends Activity {
 		setContentView(R.layout.my_setting_plot_info);
 		System.out.println("In My_setting_plot_info call");
 
-		mDataProvider = RealFarmProvider.getInstance(mContext); // Working
+		// default value
+		mPlotIdDelete = -1;
 
-		Button AddPlot = (Button) findViewById(R.id.AddPlot);
+		mDataProvider = RealFarmProvider.getInstance(mContext);
+
+		Button AddPlot = (Button) findViewById(R.id.button_add_plot);
 		// Button DeleteUser;
 		// Button DeleteUser = (Button) findViewById(R.id.DeleteUser);
 		listViewSettings();

@@ -9,7 +9,6 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,21 +20,16 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.User;
 
 public class admincall extends Activity {
-	View view;
-	/** View where the items are displayed. */
 
 	protected RealFarmProvider mDataProvider;
 
 	private ListView mainListView;
 	private ArrayAdapter<String> listAdapter;
-	Cursor cc;
-	String log;
 	public User ReadUser = null;
 	public int Position; // Has copy of mainlistview position
 	public int userId;
 
-	final Context context = this;
-	String name;
+	private final Context context = this;
 
 	public void onBackPressed() {
 
@@ -207,9 +201,6 @@ public class admincall extends Activity {
 	} // End of oncreate()
 
 	public void updateUser() {
-
-		View view = null;
-		String text;
 
 		mainListView = (ListView) findViewById(R.id.mainListView);
 

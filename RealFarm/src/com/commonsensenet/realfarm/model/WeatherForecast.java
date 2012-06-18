@@ -1,6 +1,6 @@
 package com.commonsensenet.realfarm.model;
 
-public class WFList {
+public class WeatherForecast {
 
 	// private int mId;
 	private String mdate;
@@ -11,7 +11,7 @@ public class WFList {
 	private String mtype1;
 	private int madminflag;
 
-	public WFList(String date, int value, String type, String date1,
+	public WeatherForecast(String date, int value, String type, String date1,
 			int value1, String type1, int adminflag) {
 		// mId = id;
 		mdate = date;

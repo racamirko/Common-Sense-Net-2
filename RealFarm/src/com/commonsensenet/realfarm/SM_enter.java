@@ -15,6 +15,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class SM_enter extends HelpEnabledActivity {
 
@@ -27,28 +28,19 @@ public class SM_enter extends HelpEnabledActivity {
 
 	public User ReadUser = null;
 
-	@Override
-	protected void initKannada() {
-		// TODO Auto-generated method stub
-
-	}
-
 	// @Override
 	protected void initmissingval() {
-		// TODO Auto-generated method stub
-		if (mp != null) {
-			mp.stop();
-			mp.release();
-			mp = null;
-		}
-		mp = MediaPlayer.create(this, R.raw.missinginfo);
-		mp.start();
+
+		playAudio(R.raw.missinginfo);
 	}
 
 	public void onBackPressed() {
 
 		stopAudio();
-		Intent adminintent123 = new Intent(SM_enter.this, Plot_Image.class);   //added with audio integration
+		Intent adminintent123 = new Intent(SM_enter.this, Plot_Image.class); // added
+																				// with
+																				// audio
+																				// integration
 		startActivity(adminintent123);
 		SM_enter.this.finish();
 	}
@@ -124,26 +116,13 @@ public class SM_enter extends HelpEnabledActivity {
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.aggr_img_help1) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.help);
-			mp.start();
-
+			playAudio(R.raw.help);
 		}
 
 		return true;
 	}
 
 	protected void stopAudio() {
-		// TODO Auto-generated method stub
-		if (mp != null) {
-			mp.stop();
-			mp.release();
-			mp = null;
-		}
+		SoundQueue.getInstance().stop();
 	}
 }

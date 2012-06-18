@@ -52,7 +52,7 @@
         android:orientation="vertical" >
 
         <Button
-            android:id="@+id/AddPlot"
+            android:id="@+id/button_add_plot"
             android:layout_width="160dip"
             android:layout_height="80dip"
             android:layout_marginTop="5dp"
@@ -61,10 +61,10 @@
             android:textStyle="bold" />
 
         <Button
-            android:id="@+id/SMvalue"
+            android:id="@+id/button_soil_moisture"
             android:layout_width="160dip"
             android:layout_height="80dip"
-            android:layout_alignLeft="@+id/AddPlot"
+            android:layout_alignLeft="@+id/button_add_plot"
             android:layout_alignParentBottom="true"
             android:layout_marginTop="50dp"
             android:text="Enter SM value"

@@ -5,7 +5,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -47,11 +46,9 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 	int Setting_info = 1, Home = 2;
 
 	public void onBackPressed() {
-		if (mp != null) {
-			mp.stop();
-			mp.release();
-			mp = null;
-		}
+
+		SoundQueue.getInstance().stop();
+
 		Intent adminintent123 = new Intent(My_settings_plot_details.this,
 				Homescreen.class);
 		startActivity(adminintent123);
@@ -101,8 +98,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 		Button plotcrop = (Button) findViewById(R.id.home_btn_crop_plot);
 		Button plotsoil = (Button) findViewById(R.id.home_btn_soil_plot);
 		Button plotok = (Button) findViewById(R.id.button_ok);
-		Button plotcancel = (Button) findViewById(R.id.button_cancel); // Audio
-																		// integration
+		Button plotcancel = (Button) findViewById(R.id.button_cancel);
 
 		((Button) findViewById(R.id.home_btn_list_plot))
 				.setOnLongClickListener(parentReference); // Audio integration
@@ -477,84 +473,44 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 
 	// @Override
 	protected void initmissingval() {
-		// TODO Auto-generated method stub
-
-		if (Global.EnableAudio == true) // checking for audio enable audio
-										// integration
-		{
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.missinginfo);
-			mp.start();
-		}
+		playAudio(R.raw.missinginfo);
 	}
 
 	protected void stopaudio() {
-		// TODO Auto-generated method stub
-		if (mp != null) {
-			mp.stop();
-			mp.release();
-			mp = null;
-		}
-
-	}
-
-	@Override
-	protected void initKannada() {
-		// TODO Auto-generated method stub
-
+		SoundQueue.getInstance().stop();
 	}
 
 	@Override
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.aggr_img_help1) {
-			if (Global.EnableAudio == true) // checking for audio enable--audio
-											// integration
-			{
 
-				if (mp != null) {
-					mp.stop();
-					mp.release();
-					mp = null;
-				}
-				mp = MediaPlayer.create(this, R.raw.help);
-				mp.start();
-			}
-
+			playAudio(R.raw.help);
 		}
 
 		if (v.getId() == R.id.home_btn_list_plot) { // added
 
 			playAudio(R.raw.plotimage);
-
 		}
 
 		if (v.getId() == R.id.plot_img_1) { // added
 
 			playAudio(R.raw.audio1);
-
 		}
 
 		if (v.getId() == R.id.plot_img_2) { // added
 
 			playAudio(R.raw.audio2);
-
 		}
 
 		if (v.getId() == R.id.plot_img_3) { // added
 
 			playAudio(R.raw.audio3);
-
 		}
 
 		if (v.getId() == R.id.home_btn_soil_plot) { // added
 
 			playAudio(R.raw.soiltype);
-
 		}
 
 		if (v.getId() == R.id.plot_soil_1) { // added
@@ -566,84 +522,58 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 		if (v.getId() == R.id.plot_soil_2) { // added
 
 			playAudio(R.raw.sandy);
-
 		}
 
 		if (v.getId() == R.id.plot_soil_3) { // added
 
 			playAudio(R.raw.clay);
-
 		}
 
 		if (v.getId() == R.id.home_btn_crop_plot) { // added
 
 			playAudio(R.raw.yieldinfo);
-
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_1) { // added
 
 			playAudio(R.raw.bajra);
-
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_2) { // added
 
 			playAudio(R.raw.castor);
-
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_3) { // added
 
 			playAudio(R.raw.cowpea);
-
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_4) { // added
 
 			playAudio(R.raw.greengram);
-
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_5) { // added
 
 			playAudio(R.raw.groundnuts);
-
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_6) { // added
 
 			playAudio(R.raw.horsegram);
-
 		}
 
 		if (v.getId() == R.id.button_ok) { // added
 
 			playAudio(R.raw.ok);
-
 		}
 
 		if (v.getId() == R.id.button_cancel) { // added
 
 			playAudio(R.raw.cancel);
-
 		}
 
 		return true;
-	}
-
-	public void playAudio(int resid) // audio integration
-	{
-		if (Global.EnableAudio == true) // checking for audio enable
-		{
-			// System.out.println("play audio called");
-			SoundQueue sq = SoundQueue.getInstance();
-			// stops any sound that could be playing.
-			sq.stop();
-
-			sq.addToQueue(resid);
-			// sq.addToQueue(R.raw.treatmenttoseeds3);
-			sq.play();
-		}
 	}
 }

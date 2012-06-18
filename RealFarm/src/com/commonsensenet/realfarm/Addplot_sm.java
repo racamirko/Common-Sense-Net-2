@@ -2,7 +2,6 @@ package com.commonsensenet.realfarm;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,28 +10,16 @@ import android.widget.ImageButton;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Addplot_sm extends HelpEnabledActivity {
 
-	final Context context = this;
+	private final Context context = this;
 	protected RealFarmProvider mDataProvider;
-	public int Position; // Has copy of mainlistview position
 
-	public User ReadUser = null;
-
-	@Override
-	protected void initKannada() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void onBackPressed() {
-		if (mp != null) {
-			mp.stop();
-			mp.release();
-			mp = null;
-		}
+		SoundQueue.getInstance().stop();
 
 		Intent adminintent123 = new Intent(Addplot_sm.this, Homescreen.class);
 		startActivity(adminintent123);
@@ -46,8 +33,8 @@ public class Addplot_sm extends HelpEnabledActivity {
 
 		mDataProvider = RealFarmProvider.getInstance(context); // Working
 
-		Button AddPlot = (Button) findViewById(R.id.AddPlot);
-		Button SMvalue = (Button) findViewById(R.id.SMvalue);
+		Button AddPlot = (Button) findViewById(R.id.button_add_plot);
+		Button SMvalue = (Button) findViewById(R.id.button_soil_moisture);
 
 		AddPlot.setOnLongClickListener(this); // Integration
 		SMvalue.setOnLongClickListener(this);
@@ -102,42 +89,14 @@ public class Addplot_sm extends HelpEnabledActivity {
 	@Override
 	public boolean onLongClick(View v) { // latest
 
-		if (v.getId() == R.id.AddPlot) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.buttonpressplotinfo);
-			mp.start();
-
-		}
-
-		if (v.getId() == R.id.SMvalue) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.buttonpresssoilmoisturevalue);
-			mp.start();
-
-		}
-		if (v.getId() == R.id.aggr_img_help1) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.help);
-			mp.start();
-
+		if (v.getId() == R.id.button_add_plot) {
+			playAudio(R.raw.buttonpressplotinfo);
+		} else if (v.getId() == R.id.button_soil_moisture) {
+			playAudio(R.raw.buttonpresssoilmoisturevalue);
+		} else if (v.getId() == R.id.aggr_img_help1) {
+			playAudio(R.raw.help);
 		}
 
 		return true;
 	}
-
 }

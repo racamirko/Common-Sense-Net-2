@@ -2,7 +2,6 @@ package com.commonsensenet.realfarm;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,34 +10,22 @@ import android.widget.ImageButton;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class videos extends HelpEnabledActivity {
 
-	final Context context = this;
+	private final Context context = this;
 
 	private Intent i_resfolder;
-	protected RealFarmProvider mDataProvider;
-
-	String name;
-	public int Position; // Has copy of mainlistview position
-	public User ReadUser = null;
-
-	@Override
-	protected void initKannada() {
-		// TODO Auto-generated method stub
-
-	}
 
 	public void onBackPressed() {
 
 		Intent adminintent123 = new Intent(videos.this, Homescreen.class);
 		startActivity(adminintent123);
 		videos.this.finish();
-		
-		SoundQueue sq = SoundQueue.getInstance();    //audio integration
-		sq.stop(); 
+
+		SoundQueue sq = SoundQueue.getInstance(); // audio integration
+		sq.stop();
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -46,20 +33,20 @@ public class videos extends HelpEnabledActivity {
 		setContentView(R.layout.videos);
 		System.out.println("In My_setting_plot_info call");
 
-		mDataProvider = RealFarmProvider.getInstance(context); // Working
 		ImageButton home, help;
 		// ImageButton help;
 
 		Button video1 = (Button) findViewById(R.id.video1);
 		Button video2 = (Button) findViewById(R.id.video2);
 
-		 video1.setOnLongClickListener(this);                     //audio integration
-    	 video2.setOnLongClickListener(this);
+		video1.setOnLongClickListener(this); // audio integration
+		video2.setOnLongClickListener(this);
 
-		home = (ImageButton) findViewById(R.id.aggr_img_home);           //audio integration
-		 help = (ImageButton) findViewById(R.id.aggr_img_help);
-		 
-		 help.setOnLongClickListener(this);  
+		home = (ImageButton) findViewById(R.id.aggr_img_home); // audio
+																// integration
+		help = (ImageButton) findViewById(R.id.aggr_img_help);
+
+		help.setOnLongClickListener(this);
 
 		i_resfolder = new Intent(this, PlayVideoResFolder.class);
 
@@ -101,50 +88,35 @@ public class videos extends HelpEnabledActivity {
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.aggr_img_help) {
-
-			 if(Global.EnableAudio==true)                        //checking for audio enable
-			 {
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.help);
-			mp.start();
-			 }
-
+			playAudio(R.raw.help);
 		}
-		
-		 if( v.getId() == R.id.video1){
-	    		
-	    		playAudio(R.raw.video);                     //added
-	    		
-	    	}
-	       
-	       if( v.getId() == R.id.video2){
-	   		
-	   		playAudio(R.raw.video);                          //added
-	   		
-	   	}
+
+		if (v.getId() == R.id.video1) {
+
+			playAudio(R.raw.video);
+		}
+
+		if (v.getId() == R.id.video2) {
+
+			playAudio(R.raw.video);
+		}
 
 		return true;
 	}
-	
-	 public void playAudio(int resid)
-	    {
-		 if(Global.EnableAudio==true)                        //checking for audio enable
-		 {
-		 System.out.println("play audio called");
-	    SoundQueue sq = SoundQueue.getInstance();
-		// stops any sound that could be playing.
-		sq.stop();
-		
-		sq.addToQueue(resid);
-		//sq.addToQueue(R.raw.treatmenttoseeds3);
-		sq.play();
-		 }
 
-	    	
-	    }
+	public void playAudio(int resid) {
+		if (Global.EnableAudio == true) // checking for audio enable
+		{
+			System.out.println("play audio called");
+			SoundQueue sq = SoundQueue.getInstance();
+			// stops any sound that could be playing.
+			sq.stop();
+
+			sq.addToQueue(resid);
+			// sq.addToQueue(R.raw.treatmenttoseeds3);
+			sq.play();
+		}
+
+	}
 
 }
