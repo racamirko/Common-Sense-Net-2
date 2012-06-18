@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import com.commonsensenet.realfarm.R;
 import android.content.Context;
 import android.content.Intent;
 import android.media.MediaPlayer;
@@ -67,7 +66,7 @@ public class Addplot_sm extends HelpEnabledActivity {
 
 				Global.CallToPlotInfo = 1;
 				Intent adminintent123 = new Intent(Addplot_sm.this,
-						My_settings_plot_details.class); //My_settings_plot_info
+						My_settings_plot_details.class); // My_settings_plot_info
 				startActivity(adminintent123);
 				Addplot_sm.this.finish();
 

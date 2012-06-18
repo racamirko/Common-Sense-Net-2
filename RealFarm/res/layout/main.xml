@@ -1,34 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:orientation="vertical" android:layout_width="fill_parent"
-	android:layout_height="fill_parent">
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-	<com.markupartist.android.widget.ActionBar
-		android:id="@+id/actionbar" style="@style/ActionBar" />
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:clickable="true"
+        android:orientation="vertical" >
 
-	<RelativeLayout android:orientation="vertical"
-		android:layout_width="wrap_content" android:layout_height="wrap_content"
-		android:id="@+id/container" android:clickable="true">
+        <!-- Offline map -->
 
-		<!-- Offline map -->
-		<com.commonsensenet.realfarm.map.OfflineMapView android:id="@+id/offlineMap" 
-			android:layout_width="fill_parent" android:layout_height="fill_parent" />
- 
-		<!-- Work mac Mini -->
-		<!-- 
- 		<com.google.android.maps.MapView
-			xmlns:android="http://schemas.android.com/apk/res/android"
-			android:id="@+id/mapview" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:enabled="true"
-			android:clickable="true" android:apiKey="0Zn33DzPcEB9dV6ztClpuA8RWKrp4hQnKPLXHaA" /> 
- 		 -->
-		<!-- Home iMac -->
-		<!-- 
-		<com.google.android.maps.MapView
-			android:id="@+id/mapview" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:enabled="true"
-			android:clickable="true" android:apiKey="0Zn33DzPcEB_pqmlysmDkQm4Ai_LJrS446TyeYw" />
-		-->
-	</RelativeLayout>
+        <com.commonsensenet.realfarm.map.OfflineMapView
+            android:id="@+id/offlineMap"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" />
+    </RelativeLayout>
+
 </LinearLayout>
