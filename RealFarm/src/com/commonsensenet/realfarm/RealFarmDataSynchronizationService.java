@@ -12,10 +12,12 @@ import android.widget.Toast;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
 public class RealFarmDataSynchronizationService extends BroadcastReceiver {
-	BroadcastReceiver smsSentReceiver, smsDeliveredReceiver;
-	String SENT = "SMS_SENT";
-	String DELIVERED = "SMS_DELIVERED";
+	private static final String DELIVERED = "SMS_DELIVERED";
+	private static final String SENT = "SMS_SENT";
+
 	private RealFarmProvider mDataProvider;
+	private BroadcastReceiver mSmsDeliveredReceiver;
+	private BroadcastReceiver mSmsSentReceiver;
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -400,7 +402,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 		System.out.println(10);
 		Log.d("Sent  : ", "sent Msg ..");
 		// ---create the BroadcastReceiver when the SMS is sent---
-		smsSentReceiver = new BroadcastReceiver() {
+		mSmsSentReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
 
@@ -408,7 +410,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 		};
 
 		// ---create the BroadcastReceiver when the SMS is delivered---
-		smsDeliveredReceiver = new BroadcastReceiver() {
+		mSmsDeliveredReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
 
@@ -416,8 +418,8 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 		};
 
 		// ---register the two BroadcastReceivers---
-		registerReceiver(smsDeliveredReceiver, new IntentFilter(DELIVERED));
-		registerReceiver(smsSentReceiver, new IntentFilter(SENT));
+		registerReceiver(mSmsDeliveredReceiver, new IntentFilter(DELIVERED));
+		registerReceiver(mSmsSentReceiver, new IntentFilter(SENT));
 	}
 
 	private void registerReceiver(BroadcastReceiver smsDeliveredReceiver2,
