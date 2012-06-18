@@ -89,7 +89,15 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 				mDataProvider.File_Log_Create("UIlog.txt","***** In Action Spraying*********** \r\n");
 			
 				}
-    	      	
+				 final ImageView bg_prob_spray = (ImageView) findViewById(R.id.img_bg_prob_spray);
+				 final ImageView bg_pest_spray = (ImageView) findViewById(R.id.img_bg_pest_spray);
+				 final ImageView bg_units_no_spray = (ImageView) findViewById(R.id.img_bg_units_no_spray);
+				 final ImageView bg_units_spray = (ImageView) findViewById(R.id.img_bg_units_spray);
+				 final ImageView bg_day_spray = (ImageView) findViewById(R.id.img_bg_day_spray);
+				 
+	    	     	bg_day_spray.setImageResource(R.drawable.empty_not);
+				
+				
     final Button item1;
     final Button item2;
     final Button item3;
@@ -160,6 +168,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 		    				 TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
 		 	    	      	
 		 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		 	    	      	bg_prob_spray.setImageResource(R.drawable.empty_not);
 		 	    	   	if(Global.WriteToSD==true)
 						{
 							
@@ -184,6 +193,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	    				 TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
 	 	    	      	
 	 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	 	    	      	bg_prob_spray.setImageResource(R.drawable.empty_not);
+
 	 	    	    	if(Global.WriteToSD==true)
 						{
 							
@@ -207,6 +218,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	    				 TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
 	 	    	      	
 	 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	 	    	      	bg_prob_spray.setImageResource(R.drawable.empty_not);
+
 	 	    	    	if(Global.WriteToSD==true)
 						{
 							
@@ -277,6 +290,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 	  	    	      	
 	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	  	  	      	bg_pest_spray.setImageResource(R.drawable.empty_not);
 	  	    	   	if(Global.WriteToSD==true)
 					{
 						
@@ -301,6 +315,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
     				  TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
   	    	      	
   	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+  	    	     	bg_pest_spray.setImageResource(R.drawable.empty_not);
   	    		   	if(Global.WriteToSD==true)
   	    						{
   	    							
@@ -324,6 +339,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
     				  TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
   	    	      	
   	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+  	    	     	bg_pest_spray.setImageResource(R.drawable.empty_not);
   	    		   	if(Global.WriteToSD==true)
   	    						{
   	    							
@@ -390,6 +406,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 	  	    	      	
 	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	  	    	     	bg_units_spray.setImageResource(R.drawable.empty_not);
 	  	    		   	if(Global.WriteToSD==true)
 						{
 							
@@ -414,6 +431,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
     				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
   	    	      	
   	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+  	    	    	bg_units_spray.setImageResource(R.drawable.empty_not);
   	    	    	if(Global.WriteToSD==true)
 					{
 						
@@ -437,6 +455,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
     				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
   	    	      	
   	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+  	    	    	bg_units_spray.setImageResource(R.drawable.empty_not);
   	    	    	if(Global.WriteToSD==true)
 					{
 						
@@ -642,6 +661,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 		    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 		  	    	      	
 		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		  	    	    	bg_units_no_spray.setImageResource(R.drawable.empty_not);
 		  	    	   	if(Global.WriteToSD==true)
 						{
 							

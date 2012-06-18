@@ -93,6 +93,13 @@ public class action_sowing extends HelpEnabledActivity {
 				mDataProvider.File_Log_Create("UIlog.txt","***** In Action Sowing*********** \r\n");
 			
 				}
+				
+				// final ImageView bg_var_sow = (ImageView) findViewById(R.id.img_bg_var_sow);
+				 final ImageView bg_units_no_sow = (ImageView) findViewById(R.id.img_bg_units_no_sow);
+				 final ImageView bg_units_sow = (ImageView) findViewById(R.id.img_bg_units_sow);
+				 final ImageView bg_treatment_sow = (ImageView) findViewById(R.id.img_bg_treatment_sow);
+				 final ImageView bg_day_sow = (ImageView) findViewById(R.id.img_bg_day_sow);
+				    bg_day_sow.setImageResource(R.drawable.empty_not);
     			
     final Button item1;
     final Button item2;
@@ -352,6 +359,7 @@ public class action_sowing extends HelpEnabledActivity {
 	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 	  	    	      	
 	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	  	    	      bg_units_sow.setImageResource(R.drawable.empty_not);
 	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 	  	    	      if(Global.WriteToSD==true)
 						{
@@ -376,6 +384,7 @@ public class action_sowing extends HelpEnabledActivity {
     				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
   	    	      	
   	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+  	    	      bg_units_sow.setImageResource(R.drawable.empty_not);
   	    	      if(Global.WriteToSD==true)
 					{
 						
@@ -399,6 +408,7 @@ public class action_sowing extends HelpEnabledActivity {
     				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
   	    	      	
   	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+  	    	      bg_units_sow.setImageResource(R.drawable.empty_not);
   	    	      if(Global.WriteToSD==true)
 					{
 						
@@ -614,6 +624,7 @@ public class action_sowing extends HelpEnabledActivity {
 	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
 	  	    	      	
 	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	  	    	      bg_treatment_sow.setImageResource(R.drawable.empty_not);
 	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 	  	    	      if(Global.WriteToSD==true)
 						{
@@ -638,6 +649,7 @@ public class action_sowing extends HelpEnabledActivity {
     				  TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
   	    	      	
   	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+  	    	      bg_treatment_sow.setImageResource(R.drawable.empty_not);
   	    	      if(Global.WriteToSD==true)
 					{
 						
@@ -697,6 +709,7 @@ public class action_sowing extends HelpEnabledActivity {
 		    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 		  	    	      	
 		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		  	    	      bg_units_no_sow.setImageResource(R.drawable.empty_not);
 		  	    	      if(Global.WriteToSD==true)
 							{
 								

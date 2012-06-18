@@ -120,9 +120,9 @@
                 android:gravity="right" >
 
                 <ImageView
-                    android:id="@+id/dlg_var_sow"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:id="@+id/img_bg_prob_spray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -133,8 +133,10 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Problems"
+                    android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="22sp" />
+                   
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/home_btn_prob_spray"
@@ -221,9 +223,9 @@
                 android:gravity="right" >
 
                 <ImageView
-                    android:id="@+id/dlg_var_sow"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:id="@+id/img_bg_pest_spray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -232,9 +234,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
                     android:layout_weight="1"
+                    android:layout_marginLeft="10dp"
                     android:text="Pesticide name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/home_btn_pest_spray"
@@ -320,10 +323,10 @@
                 android:layout_weight="0.09" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
-                    android:layout_width="40dp"
+                    android:id="@+id/img_bg_units_no_spray"
+                    android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_spray"
@@ -360,10 +363,10 @@
                 android:paddingRight="12dp" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
+                    android:id="@+id/img_bg_units_spray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_units_spray"
@@ -383,7 +386,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/dlg_unit_sow"
+                    android:layout_alignRight="@+id/img_bg_units_spray"
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
         </TableRow>
@@ -458,9 +461,9 @@
                 android:gravity="right" >
 
                 <ImageView
-                    android:id="@+id/dlg_var_sow"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:id="@+id/img_bg_day_spray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -470,6 +473,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:gravity="right"
+                    android:layout_marginLeft="10dp"
                     android:text="Date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />

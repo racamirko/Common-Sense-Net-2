@@ -221,7 +221,7 @@
                 android:layout_weight="0.09" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
+                    android:id="@+id/img_bg_units_no_sow"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
                     android:src="@drawable/empty" />
@@ -261,7 +261,7 @@
                 android:paddingRight="12dp" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
+                    android:id="@+id/img_bg_units_sow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
@@ -284,7 +284,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/dlg_unit_sow"
+                    android:layout_alignRight="@+id/img_bg_units_sow"
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
         </TableRow>
@@ -359,7 +359,7 @@
                 android:gravity="right" >
 
                 <ImageView
-                    android:id="@+id/dlg_var_sow"
+                    android:id="@+id/img_bg_day_sow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
@@ -372,7 +372,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Date"
-                          android:layout_marginTop="10dp"
+                          android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
@@ -457,7 +457,7 @@
                 android:gravity="right" >
 
                 <ImageView
-                    android:id="@+id/dlg_var_sow"
+                    android:id="@+id/img_bg_treatment_sow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
@@ -470,7 +470,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Treatment"
-                          android:layout_marginLeft="5dp"
+                          android:layout_marginLeft="3dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
