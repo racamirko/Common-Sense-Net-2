@@ -18,6 +18,7 @@ import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WFList;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Marketprice_details extends HelpEnabledActivity implements
 		OnDataChangeListener {
@@ -41,6 +42,9 @@ public class Marketprice_details extends HelpEnabledActivity implements
 
 		// eliminates the listener.
 		mDataProvider.setWFDataChangeListener(null);
+		
+		SoundQueue sq = SoundQueue.getInstance();    //audio integration
+		sq.stop();        
 	}
 
 	TextView text_1;
@@ -189,74 +193,199 @@ public class Marketprice_details extends HelpEnabledActivity implements
 	@Override
 	public boolean onLongClick(View v) { // latest
 
-		if (v.getId() == R.id.home_btn_mp_1) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
+		 if( v.getId() ==R.id.aggr_img_help ){                       //Audio integration
+				
+			 playAudio(R.raw.help);  
+				
+				
+				
 			}
-			mp = MediaPlayer.create(this, R.raw.seekepura1);
-			mp.start();
-
-		}
-
-		/*
-		 * if( v.getId() == R.id.home_btn_mp_2){
-		 * 
-		 * if(mp != null) { mp.stop(); mp.release(); mp = null; } mp =
-		 * MediaPlayer.create(this, R.raw.seekepura1); mp.start();
-		 * 
-		 * }
-		 */
-		if (v.getId() == R.id.home_btn_gn_good_mp) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
+	       
+	       if( v.getId() == R.id.home_btn_mp_1){                       
+				
+				System.out.println(wfvalue);
+			
+				playAudio(111);                            //"111" corresponds to ckpura
+				 
 			}
-			mp = MediaPlayer.create(this, R.raw.goodqualityprice1);
-			mp.start();
-
-		}
-
-		if (v.getId() == R.id.home_btn_gn_medium_mp) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
+			
+	      if( v.getId() == R.id.home_btn_gn_good_mp){
+				
+	   	  
+	            	playAudio(11);                            //"11" corresponds to good
+		       
+				
 			}
-			mp = MediaPlayer.create(this, R.raw.mediumqualityprice1);
-			mp.start();
-
-		}
-		if (v.getId() == R.id.home_btn_gn_poor_mp) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
+	      if( v.getId() == R.id.home_btn_gn_medium_mp){
+				
+	   	 
+	          	playAudio(12);                            //"12" corresponds to medium
+		     
+				
 			}
-			mp = MediaPlayer.create(this, R.raw.poorqualityprice1);
-			mp.start();
-
-		}
-
-		if (v.getId() == R.id.aggr_img_help) {
-
-			if (mp != null) {
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.help);
-			mp.start();
-
-		}
+	      if( v.getId() == R.id.home_btn_gn_poor_mp){
+				
+	      	  
+	      	     playAudio(13);                            //"13" corresponds to poor
+			
+	   			
+	   		}
 
 		return true;
+	}
+	
+	public void playAudio(int Currentvalue)                                   //Audio integration
+	{
+		System.out.println("play audio called");
+		System.out.println(Currentvalue);
+		
+		 if(mp != null)
+			{
+				mp.stop();
+			mp.release();
+				mp = null;
+			}
+		
+		SoundQueue sq = SoundQueue.getInstance();
+		sq.stop();
+	if(Global.EnableAudio==true)                        //checking for audio enable
+{		
+		if(Currentvalue==111)              
+		{
+	//	sq.addToQueue(R.raw.seekepura1);
+		
+		//sq.addToQueue(R.raw.a4000);
+			
+			sq.addToQueue(R.raw.todayinpavagdamarket);
+			sq.addToQueue(R.raw.a1);
+			sq.addToQueue(R.raw.quintals);
+			sq.addToQueue(R.raw.groundnut1);
+			sq.addToQueue(R.raw.value);
+			sq.addToQueue(R.raw.a4800);
+			sq.addToQueue(R.raw.rupees2);
+			
+			sq.play();
+		}
+		
+		if(Currentvalue==11)                                          //11
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		sq.addToQueue(R.raw.goodqualityprice1);
+		
+		sq.addToQueue(R.raw.a8000);
+		sq.addToQueue(R.raw.rupees2);
+	
+			sq.play();
+		}
+		if(Currentvalue==12)                                            //12
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		sq.addToQueue(R.raw.mediumqualityprice1);
+		
+		sq.addToQueue(R.raw.a7000);
+		sq.addToQueue(R.raw.rupees2);
+	
+			sq.play();
+		}
+		
+		if(Currentvalue==13)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		sq.addToQueue(R.raw.poorqualityprice1);                                     //13
+		
+		sq.addToQueue(R.raw.a6000);
+		sq.addToQueue(R.raw.rupees2);
+	
+			sq.play();
+		}
+		
+		
+		
+		if(Currentvalue==1000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a1000);
+		
+			sq.play();
+		}
+		if(Currentvalue==2000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a2000);
+			sq.play();
+		}
+		if(Currentvalue==3000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a3000);
+			sq.play();
+		}
+		if(Currentvalue==4000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a4000);
+			sq.play();
+		}
+		if(Currentvalue==5000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a5000);
+			sq.play();
+		}
+		if(Currentvalue==6000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a6000);
+			sq.play();
+		}
+		if(Currentvalue==7000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a7000);
+			sq.play();
+		}
+		if(Currentvalue==8000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a8000);
+			sq.play();
+		}
+	/*	if(Currentvalue==9000)
+		{
+	//	SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a9000);
+			sq.play();
+		}*/
+		if(Currentvalue==10000)
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.a10000);
+			sq.play();
+		}
+		
+		if(Currentvalue==R.raw.help)                              //added
+		{
+		//SoundQueue sq = SoundQueue.getInstance();
+		
+		sq.addToQueue(R.raw.help);
+			sq.play();
+		}
+		
+		
+	//	sq.addToQueue(Currentvalue);
+	//	sq.play();
+		
+}
 	}
 
 }

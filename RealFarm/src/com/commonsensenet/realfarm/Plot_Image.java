@@ -52,7 +52,8 @@ public class Plot_Image extends Activity {
 		int no_of_plots;
 		mDataProvider = RealFarmProvider.getInstance(context); // Working
 
-		no_of_plots = mDataProvider.getAllPlotList().size();
+	//	no_of_plots = mDataProvider.getAllPlotList().size();
+		no_of_plots = mDataProvider.getAllPlotListByUserDeleteFlag(Global.userId,0).size();                                     //added with audio integration
 		String no_of_plots_str = String.valueOf(no_of_plots);
 
 		ListViewSettings();
@@ -141,12 +142,14 @@ public class Plot_Image extends Activity {
 		mainListView.setAdapter(listAdapter);
 
 		// gets the users from the database.
-		List<PlotNew> userList = mDataProvider.getAllPlotList();
+		//List<PlotNew> userList = mDataProvider.getAllPlotList();
+		List<PlotNew>  plotList=mDataProvider.
+		getAllPlotListByUserDeleteFlag(Global.userId,0);                                     //added with audio integration
 
 		// adds the plot into the list adapter.
-		for (int x = 0; x < userList.size(); x++) {
-			listAdapter.add("Plot id:  " + userList.get(x).getPlotId() + " "
-					+ "Soil type:  " + userList.get(x).getSoilType());
+		for (int x = 0; x < plotList.size(); x++) {
+			listAdapter.add("Plot id:  " + plotList.get(x).getPlotId() + " "
+					+ "Soil type:  " + plotList.get(x).getSoilType());
 
 		}
 	}

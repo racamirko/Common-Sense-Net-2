@@ -20,16 +20,16 @@
 
         <TextView
             android:id="@+id/aggr_lbl_title"
-            android:layout_width="105dip"
+            android:layout_width="120dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:text="Market"
             android:textColor="@android:color/black"
             android:textSize="30dp" />
 
-        <ImageButton
+            <ImageButton
             android:id="@+id/aggr_img_home1"
-            android:layout_width="60dip"
+            android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/home"
@@ -37,8 +37,8 @@
 
         <ImageButton
             android:id="@+id/aggr_img_help"
-            android:layout_width="60dip"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
@@ -49,8 +49,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dlg_img_seed"
-        android:layout_marginTop="10dip" >
-
+        android:layout_marginTop="10dip" 
+        android:background="@drawable/def_img">
         <LinearLayout
             android:id="@+id/dlg_linlay_userDataDetails"
             android:layout_width="match_parent"

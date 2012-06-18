@@ -4,6 +4,7 @@ package com.commonsensenet.realfarm.homescreen;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 
 import android.app.Activity;
@@ -145,6 +146,8 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 		
 	if( v.getId() == R.id.btn_info_actions || v.getId() == R.id.home_btn_actions ){           //Integration
 		
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 		{
 			mp.stop();
@@ -153,9 +156,12 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.audio1);
 			mp.start();
+		 }
 		}
 		if( v.getId() == R.id.btn_info_advice || v.getId() == R.id.home_btn_advice){
 			
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 		{
 				mp.stop();
@@ -164,9 +170,12 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.audio2);
 			mp.start();
+			 }
 		}
 		if( v.getId() == R.id.btn_info_warn || v.getId() == R.id.home_btn_warn ){
 			
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -175,8 +184,11 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.audio3);
 			mp.start();
+			 }
 		}
 		if( v.getId() == R.id.btn_info_yield || v.getId() == R.id.home_btn_yield ){
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -185,10 +197,13 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.audio4);
 			mp.start();
+			 }
 		}
 		
 		if( v.getId() == R.id.btn_info_yield|| v.getId() == R.id.home_btn_wf ){
-			
+		
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 		if(mp != null)
 		{
 			mp.stop();
@@ -197,10 +212,13 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.weatherforecast);
 		mp.start();
+			 }
 		}    
 		
 		if( v.getId() == R.id.btn_info_yield|| v.getId() == R.id.home_btn_wf ){
 			
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -209,9 +227,12 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 				}
 				mp = MediaPlayer.create(this, R.raw.weatherforecast);
 			mp.start();
+			 }
 			}               //End of big icons
 		
 		if( v.getId() == R.id.btn_action_plant){
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -220,10 +241,13 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.sowing);
 			mp.start();
+			 }
 	
 		}
 		
 		if( v.getId() == R.id.btn_action_yield){
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -232,9 +256,12 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.harvesting);
 			mp.start();
+			 }
 	}
 		
-		if( v.getId() == R.id.btn_action_diary ){
+		if( v.getId() == R.id.btn_action_selling ){
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -243,10 +270,13 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 		}
 			mp = MediaPlayer.create(this, R.raw.selling);
 		mp.start();
+			 }
 		}
 	
 		
 		if( v.getId() == R.id.btn_action_fertilize){
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -255,9 +285,12 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.fertilizing);
 			mp.start();
+			 }
 		}
 		
 		if( v.getId() == R.id.btn_action_spray ){
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 		{
 				mp.stop();
@@ -266,9 +299,12 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.spraying);
 			mp.start();
+			 }
 		}
 		
 		if (v.getId() == R.id.home_btn_PlotInfo) {
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -277,22 +313,28 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.mysettings);
 			mp.start();
+			 }
 	}
 		
 		
 		if (v.getId() == R.id.btn_action_irrigate) {
-		if(mp != null)
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
+			if(mp != null)
 			{
 				mp.stop();
 				mp.release();
 				mp = null;
 			}
-			mp = MediaPlayer.create(this, R.raw.dairy);
+			mp = MediaPlayer.create(this, R.raw.irrigate);
 			mp.start();
+			 }
 			
 
 		}
 		if (v.getId() == R.id.home_btn_marketprice) {
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -301,9 +343,12 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.marketprice);
 			mp.start();
+			 }
 	}
 		
 		if (v.getId() == R.id.btn_action_videos) {
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -312,9 +357,39 @@ public abstract class HelpEnabledActivity extends Activity implements OnLongClic
 			}
 			mp = MediaPlayer.create(this, R.raw.video);
 			mp.start();
+			 }
 	}
 		
+		if (v.getId() == R.id.btn_action_problem) {
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
+			if(mp != null)
+			{
+				mp.stop();
+				mp.release();
+			mp = null;
+			}
+			mp = MediaPlayer.create(this, R.raw.problems);
+			mp.start();
+			 }
+			
+	}
 		
+		if (v.getId() == R.id.btn_action_diary) {                   //changes
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
+			if(mp != null)
+				{
+					mp.stop();
+					mp.release();
+					mp = null;
+				}
+				mp = MediaPlayer.create(this, R.raw.dairy);
+				mp.start();
+			 }
+				
+
+			}
 		
 		// TODO: make a table mapping IDs to sound files
 	}

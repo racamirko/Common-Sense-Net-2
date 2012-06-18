@@ -521,6 +521,12 @@ public class PlotInformationWindow extends CustomPopupWindow {
 			if (text.toString().equalsIgnoreCase("Harvesting")) {
 				action_icon = R.drawable.ic_72px_harvesting1;
 			}
+			if (text.toString().equalsIgnoreCase("Problem")) {
+				action_icon = R.drawable.ic_72px_reporting;
+			}
+			if (text.toString().equalsIgnoreCase("Irrigate")) {
+				action_icon = R.drawable.ic_72px_irrigation2;
+			}
 
 			view = getDiaryItem(
 					action_icon, // R.drawable.pic_72px_bajra, //action item

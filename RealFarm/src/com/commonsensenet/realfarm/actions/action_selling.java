@@ -13,15 +13,19 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_selling extends HelpEnabledActivity {                //Integration
 	// MediaPlayer mp = null;  
 	 protected RealFarmProvider mDataProvider;
+	 
+	 final action_selling parentReference = this;                       //audio integration
 	   private Context context=this;
 	String quality_sell="0", selling_pickcheck="0";
 	int sellprice_no, sell_no;
@@ -38,6 +42,9 @@ public class action_selling extends HelpEnabledActivity {                //Integ
 			        
 			      startActivity(adminintent);                        
 			      action_selling.this.finish();
+			      
+			      SoundQueue sq = SoundQueue.getInstance();    //audio integration
+					sq.stop(); 
 }
 	
     /** Called when the activity is first created. */
@@ -48,6 +55,9 @@ public class action_selling extends HelpEnabledActivity {                //Integ
     	        super.onCreate(savedInstanceState);
     	        setContentView(R.layout.selling_dialog);
     	    	System.out.println("plant done");
+    	    	
+    	    	if(Global.EnableAudio==true)                        //checking for audio enable
+   			 {
     	    	if(mp != null)
 				{
 					mp.stop();
@@ -56,6 +66,7 @@ public class action_selling extends HelpEnabledActivity {                //Integ
 				}
 				mp = MediaPlayer.create(this, R.raw.clickingselling);
 				mp.start();
+   			 }
     	    	
     final Button item1;
    final  Button item2;
@@ -107,6 +118,10 @@ public class action_selling extends HelpEnabledActivity {                //Integ
 		     	quality1 = (Button) dlg.findViewById(R.id.sell_quality_1);
 		     	quality2 = (Button) dlg.findViewById(R.id.sell_quality_2);
 		     	quality3 = (Button) dlg.findViewById(R.id.sell_quality_3);
+		     	
+		    	((Button) dlg.findViewById(R.id.sell_quality_1)).setOnLongClickListener(parentReference);  //audio integration
+                ((Button) dlg.findViewById(R.id.sell_quality_2)).setOnLongClickListener(parentReference);
+                ((Button) dlg.findViewById(R.id.sell_quality_3)).setOnLongClickListener(parentReference);
 		     	
 		     	quality1.setOnClickListener(new View.OnClickListener() {
 		    			public void onClick(View v) {
@@ -261,6 +276,10 @@ public class action_selling extends HelpEnabledActivity {                //Integ
 	    	unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 	    	unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 	    	unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
+	    	
+	    	((Button) dlg.findViewById(R.id.home_btn_units_1)).setOnLongClickListener(parentReference);  //audio integration
+            ((Button) dlg.findViewById(R.id.home_btn_units_2)).setOnLongClickListener(parentReference);
+            ((Button) dlg.findViewById(R.id.home_btn_units_3)).setOnLongClickListener(parentReference);
 	    	
 	    	
 	    	unit1.setOnClickListener(new View.OnClickListener() {
@@ -513,6 +532,9 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 	}
 	protected void cancelaudio() {
 		// TODO Auto-generated method stub
+		
+		if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 		{
 			mp.stop();
@@ -521,6 +543,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 		}
 		mp = MediaPlayer.create(this, R.raw.cancel);
 		mp.start();
+		 }
 		Intent adminintent = new Intent(action_selling.this,Homescreen.class);
         
 	      startActivity(adminintent);                        
@@ -528,6 +551,9 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 	}
 	protected void okaudio() {
 		// TODO Auto-generated method stub
+		
+		if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 			{
 				mp.stop();
@@ -536,6 +562,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+		 }
 		
 	    	 
 		
@@ -553,6 +580,9 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 	
 	protected void initmissingval() {
 		// TODO Auto-generated method stub
+		
+		if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 		{
 			mp.stop();
@@ -561,6 +591,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 		}
 		mp = MediaPlayer.create(this, R.raw.missinginfo);
 		mp.start();
+		 }
 	}
     
 	@Override
@@ -568,6 +599,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 	
 		if( v.getId() == R.id.home_btn_sell_price){
 			
+			if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -576,11 +609,14 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.enterpricedetails);
 			mp.start();
+			 }
 			
 		}
 		
        if( v.getId() == R.id.home_btn_sell){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -589,12 +625,15 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.qualityofseeds);
 			mp.start();
+			 }
 			
 		}
        
        
        if( v.getId() == R.id.home_btn_units_no_sell || v.getId() == R.id.home_btn_units_sell ){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
     			if(mp != null)
     			{
     				mp.stop();
@@ -603,12 +642,15 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
     			}
     			mp = MediaPlayer.create(this, R.raw.selecttheunits);
     			mp.start();
+			 }
     			
     		}
        
    
        if( v.getId() == R.id.home_btn_pickup){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
  			if(mp != null)
  			{
  				mp.stop();
@@ -617,10 +659,13 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
  			}
  			mp = MediaPlayer.create(this, R.raw.pickup);
  			mp.start();
+			 }
  			
  		}
        if( v.getId() == R.id.home_btn_checkin){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -629,10 +674,13 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.checkin);
 			mp.start();
+			 }
 			
 		}
        if( v.getId() == R.id.selling_ok){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -641,12 +689,15 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+			 }
 			
 		}
     
        
        if( v.getId() ==R.id.aggr_img_help ){
-			
+		
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -655,8 +706,53 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
+			 }
 			
 		}
+       
+       if( v.getId() == R.id.sell_quality_1){                                     //audio integration
+      		
+      		playAudio(R.raw.feedbackgoodforqualityofseeds);
+      		
+      	}
+         
+         if( v.getId() == R.id.sell_quality_2){                              //added
+     		
+     		playAudio(R.raw.feedbacksatisfactoryforqualityofseeds);
+     		
+     	}
+         
+         if( v.getId() == R.id.sell_quality_3){                              //added
+     		
+     		playAudio(R.raw.feedbackpoorforqualityofseeds);
+     		
+     	}
+   		
+         
+         if( v.getId() == R.id.home_btn_units_1){                              //added
+        		
+        		playAudio(R.raw.bagof10kg);
+        		
+        	}
+         
+         if( v.getId() == R.id.home_btn_units_2){                              //added
+        		
+        		playAudio(R.raw.bagof20kg);
+        		
+        	}
+         
+         if( v.getId() == R.id.home_btn_units_3){                              //added
+        		
+        		playAudio(R.raw.bagof50kg);
+        		
+        	}
+         
+         if( v.getId() == R.id.home_btn_wf_2){                              //added
+       		
+       		playAudio(R.raw.cancel);
+       		
+       	}
+        
 		
       
 	
@@ -667,7 +763,23 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
     
     
     
-    
+	public void playAudio(int resid)
+    {
+	 if(Global.EnableAudio==true)                        //checking for audio enable
+	 {
+	 System.out.println("play audio called");
+    SoundQueue sq = SoundQueue.getInstance();
+	// stops any sound that could be playing.
+	sq.stop();
+	
+	sq.addToQueue(resid);
+	//sq.addToQueue(R.raw.treatmenttoseeds3);
+	sq.play();
+	 }
+
+    	
+    }
+
     
     
     

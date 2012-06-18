@@ -25,16 +25,16 @@
             android:layout_margin="5dp"
             android:src="@drawable/plot" />
 
-        <Button
+          <Button
             android:id="@+id/button123"
-            android:layout_width="60dip"
+            android:layout_width="75dip"
             android:layout_height="wrap_content"
             android:text="Button"
             android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/aggr_img_home"
-            android:layout_width="60dip"
+            android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/home"
@@ -42,10 +42,9 @@
 
         <ImageButton
             android:id="@+id/aggr_img_help"
-            android:layout_width="60dip"
+            android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:layout_weight="0.42"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
@@ -82,7 +81,7 @@
                     android:gravity="right"
                     android:text="Variety"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/variety_sow_txt_btn"
@@ -133,6 +132,7 @@
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
                     android:gravity="right"
+                    android:layout_marginLeft="10dp"
                     android:text="Variety"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
@@ -181,7 +181,7 @@
                     android:gravity="right"
                     android:text="Amount"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/amount_sow_txt_btn"
@@ -224,7 +224,7 @@
                     android:id="@+id/dlg_unit_sow"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_sow"
@@ -264,7 +264,7 @@
                     android:id="@+id/dlg_unit_sow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_sow"
@@ -322,7 +322,7 @@
                     android:gravity="right"
                     android:text="Date"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/date_sow_txt_btn"
@@ -360,8 +360,8 @@
 
                 <ImageView
                     android:id="@+id/dlg_var_sow"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -372,6 +372,7 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Date"
+                          android:layout_marginTop="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
@@ -379,10 +380,10 @@
                     android:id="@+id/home_btn_day_sow"
                     android:layout_width="120dp"
                     android:layout_height="60dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp" />
+
             </RelativeLayout>
         </TableRow>
     </LinearLayout>
@@ -416,10 +417,10 @@
                     android:layout_alignRight="@+id/treat_sow_txt_btn"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="Treatment"
+                    
+                    android:text="  Treatment"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/treat_sow_txt_btn"
@@ -457,8 +458,8 @@
 
                 <ImageView
                     android:id="@+id/dlg_var_sow"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -469,6 +470,8 @@
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Treatment"
+                          android:layout_marginLeft="5dp"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
                 <Button
@@ -515,7 +518,7 @@
                     android:gravity="right"
                     android:text="Intercrop"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/intercrop_sow_txt_btn"
@@ -542,7 +545,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/ic_48px_pest" />
+                    android:src="@drawable/intercrop" />
             </RelativeLayout>
 
             <CheckBox

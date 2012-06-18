@@ -21,6 +21,7 @@ import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_harvest extends HelpEnabledActivity {      // Integration
 	   int feedback_sel; int harvest_no;
@@ -28,6 +29,7 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 	   String harvest_no_sel, units_harvest="0",  strDateTime="0", feedback_txt, months_harvest ="0";
 	   protected RealFarmProvider mDataProvider;
 	   private Context context=this;
+	   final action_harvest parentReference = this;                 //audio integration
 	//   MediaPlayer mp = null;                                      //integration
 	 public void onBackPressed() {
 			
@@ -49,6 +51,9 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 			        
 			      startActivity(adminintent);                        
 			      action_harvest.this.finish();
+			      
+			      SoundQueue sq = SoundQueue.getInstance();    //audio integration
+					sq.stop(); 
 }
 	
     /** Called when the activity is first created. */
@@ -59,6 +64,30 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
     	        super.onCreate(savedInstanceState);
     	        setContentView(R.layout.harvest_dialog);
     	    	System.out.println("plant done");
+    	        final Button smiley1;
+    	        final Button smiley2;
+    	        final Button smiley3;
+    	        
+final ImageView bg_month_harvest = (ImageView) findViewById(R.id.img_bg_month_harvest);
+final ImageView bg_year_harvest = (ImageView) findViewById(R.id.img_bg_year_harvest);
+final ImageView bg_units_no_harvest = (ImageView) findViewById(R.id.img_bg_units_no_harvest);
+final ImageView bg_units_harvest = (ImageView) findViewById(R.id.img_bg_units_harvest);
+    	    	
+
+    	        
+    	        
+    	        
+    	        
+    	        
+    	        smiley1 = (Button) findViewById(R.id.home_btn_har_1);
+    	        smiley2 = (Button) findViewById(R.id.home_btn_har_2);
+    	        smiley3 = (Button) findViewById(R.id.home_btn_har_3);
+    	        smiley1.setBackgroundResource(R.drawable.smiley_good_not);
+				smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
+				smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
+    	        
+    	    	 if(Global.WriteToSD==true)
+    				{
     	    	if(mp != null)
 				{
 					mp.stop();
@@ -67,6 +96,7 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 				}
 				mp = MediaPlayer.create(this, R.raw.clickingharvest);
 				mp.start();
+    				}
 				
 				if(Global.WriteToSD==true)
 				{
@@ -80,9 +110,7 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 				final TextView harvest_year_set = (TextView) findViewById(R.id.dlg_lbl_harvest_year); 
 				harvest_year_set.setText("2012");
 				year_harvest = "2012";
-    final Button smiley1;
-    final Button smiley2;
-    final Button smiley3;
+				bg_year_harvest.setImageResource(R.drawable.empty_not);
     final Button item1;
     final  Button item2;
     final  Button item3;
@@ -95,10 +123,7 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
     item3 = (Button) findViewById(R.id.home_btn_harvest_date);
     item4 = (Button) findViewById(R.id.home_btn_harvest_year);
     
-    
-    smiley1 = (Button) findViewById(R.id.home_btn_har_1);
-    smiley2 = (Button) findViewById(R.id.home_btn_har_2);
-    smiley3 = (Button) findViewById(R.id.home_btn_har_3);
+  
     
     home = (ImageButton) findViewById(R.id.aggr_img_home);
     help = (ImageButton) findViewById(R.id.aggr_img_help);
@@ -222,6 +247,7 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 		    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 		  	    	      	
 		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		  	    	      bg_units_no_harvest.setImageResource(R.drawable.empty_not);
 		  	    	      if(Global.WriteToSD==true)
 							{
 								
@@ -277,6 +303,10 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 	    	unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 	    	unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 	    	unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
+	    	
+	    	 ((Button) dlg.findViewById(R.id.home_btn_units_1)).setOnLongClickListener(parentReference);  //audio integration
+             ((Button) dlg.findViewById(R.id.home_btn_units_2)).setOnLongClickListener(parentReference);
+             ((Button) dlg.findViewById(R.id.home_btn_units_3)).setOnLongClickListener(parentReference);
 	    	if(Global.WriteToSD==true)
 			{
 				
@@ -296,6 +326,8 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 	    				TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	
+		    	      	bg_units_harvest.setImageResource(R.drawable.empty_not);
 		    	      	if(Global.WriteToSD==true)
 						{
 							
@@ -318,6 +350,8 @@ public class action_harvest extends HelpEnabledActivity {      // Integration
 TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 	    	      	
 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    	      	bg_units_harvest.setImageResource(R.drawable.empty_not);
+
 	    	     	if(Global.WriteToSD==true)
 					{
 						
@@ -339,6 +373,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 	    	      	
 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    	      	bg_units_harvest.setImageResource(R.drawable.empty_not);
+
 	    	     	if(Global.WriteToSD==true)
 					{
 						
@@ -383,6 +419,19 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 		    	final Button month11 = (Button) dlg.findViewById(R.id.home_month_11);
 		    	final Button month12 = (Button) dlg.findViewById(R.id.home_month_12);
 		    
+		    	((Button) dlg.findViewById(R.id.home_month_1)).setOnLongClickListener(parentReference);  //audio integration
+		        ((Button) dlg.findViewById(R.id.home_month_2)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_3)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_4)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_5)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_6)).setOnLongClickListener(parentReference);		    	
+		        ((Button) dlg.findViewById(R.id.home_month_7)).setOnLongClickListener(parentReference);  //audio integration
+		        ((Button) dlg.findViewById(R.id.home_month_8)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_9)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_10)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_11)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_month_12)).setOnLongClickListener(parentReference);		    	
+		    	
 		    	final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_harvest_date); 
 		    	
 		     	month1.setOnClickListener(new View.OnClickListener() {
@@ -394,6 +443,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -407,6 +458,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -420,6 +473,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -433,6 +488,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -446,6 +503,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -459,6 +518,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -472,6 +533,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -485,6 +548,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -498,6 +563,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -511,6 +578,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -524,6 +593,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -537,6 +608,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_month_harvest.setImageResource(R.drawable.empty_not);
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -575,6 +647,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_year_harvest.setImageResource(R.drawable.empty_not);
+
 	    				dlg.cancel();                      
 	    				}
 	     	});
@@ -587,6 +661,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 	    				TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	      	bg_year_harvest.setImageResource(R.drawable.empty_not);
+
 		    	     	
 	    				dlg.cancel();                      
 	    				}
@@ -784,6 +860,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 	
 	protected void initmissingval() {
 		// TODO Auto-generated method stub
+		 if(Global.WriteToSD==true)
+			{
 		if(mp != null)
 		{
 			mp.stop();
@@ -792,9 +870,12 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		}
 		mp = MediaPlayer.create(this, R.raw.missinginfo);
 		mp.start();
+			}
 	}
 	protected void cancelaudio() {
 		// TODO Auto-generated method stub
+		 if(Global.WriteToSD==true)
+			{
 		if(mp != null)
 		{
 			mp.stop();
@@ -803,6 +884,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		}
 		mp = MediaPlayer.create(this, R.raw.cancel);
 		mp.start();
+			}
 		Intent adminintent = new Intent(action_harvest.this,Homescreen.class);
         
 	      startActivity(adminintent);                        
@@ -810,6 +892,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 	}
 	protected void okaudio() {
 		// TODO Auto-generated method stub
+		 if(Global.WriteToSD==true)
+			{
 		if(mp != null)
 			{
 				mp.stop();
@@ -818,6 +902,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+			}
 		
 	    	 
 		
@@ -841,6 +926,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
     
        if( v.getId() == R.id.home_btn_har_1){
 			
+    	   if(Global.WriteToSD==true)
+			{
 			if(mp != null)
 			{
 				mp.stop();
@@ -849,6 +936,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.feedbackgood);
 			mp.start();
+			}
 		 	if(Global.WriteToSD==true)
 			{
 				
@@ -861,6 +949,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
        
        if( v.getId() == R.id.home_btn_har_2){
 			
+    	   if(Global.WriteToSD==true)
+			{
   			if(mp != null)
   			{
   				mp.stop();
@@ -869,6 +959,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
   			}
   			mp = MediaPlayer.create(this, R.raw.feedbackmoderate);
   			mp.start();
+			}
   			if(Global.WriteToSD==true)
 			{
 				
@@ -880,6 +971,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
   		}
        if( v.getId() == R.id.home_btn_har_3){
 			
+    	   if(Global.WriteToSD==true)
+			{
  			if(mp != null)
  			{
  				mp.stop();
@@ -888,6 +981,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
  			}
  			mp = MediaPlayer.create(this, R.raw.feedbackbad);
  			mp.start();
+			}
  			if(Global.WriteToSD==true)
 			{
 				
@@ -900,6 +994,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
  		}
        if( v.getId() == R.id.harvest_ok){
 			
+    	   if(Global.WriteToSD==true)
+			{
 			if(mp != null)
 			{
 				mp.stop();
@@ -908,10 +1004,13 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+			}
 			
 		}
        if( v.getId() == R.id.home_btn_wf_2){
 			
+    	   if(Global.WriteToSD==true)
+			{
 			if(mp != null)
 			{
 				mp.stop();
@@ -920,10 +1019,13 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.cancel);
 			mp.start();
+			}
 			
 		}
        if( v.getId() ==R.id.aggr_img_help ){
 			
+    	   if(Global.WriteToSD==true)
+			{
 			if(mp != null)
 			{
 				mp.stop();
@@ -932,6 +1034,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
+			}
 			if(Global.WriteToSD==true)
 			{
 				
@@ -944,6 +1047,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
       
        if( v.getId() == R.id.home_btn_units_no_harvest || v.getId() == R.id.home_btn_units_harvest ){
 			
+    	   if(Global.WriteToSD==true)
+			{
 			if(mp != null)
 			{
 				mp.stop();
@@ -952,6 +1057,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttheunits);
 			mp.start();
+			}
 			if(Global.WriteToSD==true)
 			{
 				
@@ -961,9 +1067,130 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 		
 			}
 		}
+       
+       if( v.getId() == R.id.home_btn_units_1){                                     //audio integration
+			
+			playAudio(R.raw.bagof10kg);
+			
+		}
+     
+     if( v.getId() == R.id.home_btn_units_2){                                //added
+			
+  			playAudio(R.raw.bagof20kg);
+  			
+  		}
+     
+     if( v.getId() == R.id.home_btn_units_3){                             //added
+			
+  			playAudio(R.raw.bagof50kg);
+  			
+  		}
+	
+     
+     if( v.getId() == R.id.home_btn_harvest_date){                             //added
+			
+			playAudio(R.raw.choosethemonthwhenharvested);
+			
+		}
+     
+     
+     if( v.getId() == R.id.home_btn_harvest_year){                             //added
+			
+			playAudio(R.raw.selectthedate);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_1){                             //added
+			
+			playAudio(R.raw.jan);
+			
+		}
+     if( v.getId() == R.id.home_month_2){                             //added
+			
+			playAudio(R.raw.feb);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_3){                             //added
+			
+			playAudio(R.raw.mar);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_4){                             //added
+			
+			playAudio(R.raw.apr);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_5){                             //added
+			
+			playAudio(R.raw.may);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_6){                             //added
+			
+			playAudio(R.raw.jun);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_7){                             //added
+			
+			playAudio(R.raw.jul);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_8){                             //added
+			
+			playAudio(R.raw.aug);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_9){                             //added
+			
+			playAudio(R.raw.sep);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_10){                             //added
+			
+			playAudio(R.raw.oct);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_11){                             //added
+			
+			playAudio(R.raw.nov);
+			
+		}
+     
+     if( v.getId() == R.id.home_month_12){                             //added
+			
+			playAudio(R.raw.dec);
+			
+		}
+		
 		
 	
 
 		return true;
 	}
+	
+	  public void playAudio(int resid)
+	    {
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
+		 System.out.println("play audio called");
+	    SoundQueue sq = SoundQueue.getInstance();
+		// stops any sound that could be playing.
+		sq.stop();
+		
+		sq.addToQueue(resid);
+		//sq.addToQueue(R.raw.treatmenttoseeds3);
+		sq.play();
+		 }
+
+	    	
+	    }
 }

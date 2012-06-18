@@ -24,9 +24,11 @@ import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.Fertilizing;
 import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Harvesting;
+import com.commonsensenet.realfarm.model.Irrigation;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.PlotNew;
+import com.commonsensenet.realfarm.model.Problem;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.Selling;
@@ -48,6 +50,7 @@ public class RealFarmProvider {
 	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	private static Map<Context, RealFarmProvider> mapProviders = new HashMap<Context, RealFarmProvider>();
 	public int Add_user_id = 0;
+	public int plotPlotId=0;                                        //added with audio integration
 
 	SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
 
@@ -772,37 +775,49 @@ public class RealFarmProvider {
 
 	}
 
-	public List<PlotNew> getAllPlotList() {
-
+public List<PlotNew> getAllPlotList() {                            //modified
+		
+		
 		// opens the database.
 		List<PlotNew> plotList = new LinkedList<PlotNew>();
-
+		
 		mDb.open();
 
 		// query all actions
 		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
 				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
+					//	RealFarmDatabase.COLUMN_NAME_PLOT_PLOTID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_MAINCROP,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG }, null,
-				null, null, null, null);
+						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG
+						},
+				null, null, null, null, null);
 		c.moveToFirst();
 
 		if (c.getCount() > 0) {
 			do {
-				plotList.add(new PlotNew(c.getInt(0), c.getInt(1), c
-						.getString(2), c.getString(3), c.getString(4), c
-						.getInt(5)));
-
-				String log = "PlotId: "
-						+ c.getInt(0)
-						+ " ,PlotUserId: " // Prakruthi
-						+ c.getInt(1) + " ,PlotImage: " + c.getString(2)
-						+ "SoilType: " + c.getString(3) + " ,MainCrop: "
-						+ c.getString(4) + " ,AdminFlag: " + c.getInt(5);
-				Log.d("values: ", log);
+				plotList.add( new PlotNew(c.getInt(0), c.getInt(1), c.getInt(2),
+						 c.getInt(3), c.getInt(4), c.getString(5), c.getString(6),
+						c.getInt(7),c.getInt(8)));
+				
+				String log = "PlotId: " + c.getInt(0) + " ,PlotUserId: "                                       
+						+ c.getInt(1) + " ,PlotSeedTypeId: "                                       
+		+ c.getInt(2)+ " ,point X: " 	+ c.getInt(3)	+ " ,point Y: " + c.getInt(4)
+						+ "PlotImage: " + c.getString(5)+ " ,SoilType: " + c.getString(6) 
+						
+				+ " ,deleteFlag: " + c.getInt(7)		+ " ,AdminFlag: " + c.getInt(8)+ "\r\n";
+				Log.d("plot values: ", log);
+				
+				if(Global.WriteToSD==true)
+				{
+				File_Log_Create("value.txt","New plot  table \r\n");
+				File_Log_Create("value.txt",log);
+				}
 			} while (c.moveToNext());
 		}
 
@@ -810,41 +825,44 @@ public class RealFarmProvider {
 		mDb.close();
 		return plotList;
 	}
+	
+	public long setPlotNew(int plotSeedTypeId,int pointX,int  pointY,
+			String PlotImage, String SoilType,int delete, int admin) {         //main crop info corresponds to seedtype id
 
-	public long setPlotNew(String PlotImage, String SoilType, String MainCrop) {
-
+		//plotPlotId++;
+		 Global.plotId++;
 		System.out.println("SETPLOTNEW");
 		ContentValues args = new ContentValues();
-		Global.plotId++;
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, Global.plotId);
+		
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID,Global.plotId );
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, Global.userId);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMG, PlotImage);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID, plotSeedTypeId);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX, pointX);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY, pointY);
+	//	args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMG,PlotImage);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, SoilType);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_MAINCROP, MainCrop);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG, 0);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG, delete);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG, admin);
 
 		long result;
 
-		// User user = getUserByMobile(deviceId);
+	
 
 		mDb.open();
 
-		// if (user != null) { // user exists in database => update
-		// result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args,
-		// RealFarmDatabase.COLUMN_NAME_USER_MOBILE + " = '"
-		// + deviceId + "'", null);
-		// } else { // user must be created
-		// result = mDb
-		// .update(RealFarmDatabase.TABLE_NAME_PLOT, args,null,null);
+		
+			
+			 result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT,
+					args);
+	
 
-		result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT, args);
-		// }
+
 
 		mDb.close();
 
 		return result;
 	}
-
+	
 	public long setUserInfo(String deviceId, String firstname, String lastname) {
 
 		getUserCount();
@@ -2320,5 +2338,424 @@ public class RealFarmProvider {
 
 		return tmpList;
 	}
+	
+	
+	public  List<Irrigation> getirrigate() {
+
+		mDb.open();
+		int irrigate=7;                      //  id 7 from actionname table
+
+		List<Irrigation> tmpList;
+
+		Cursor c = mDb
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_ACTION,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPE,
+								RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
+								RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+								RealFarmDatabase.COLUMN_NAME_ACTION_DAY,
+								RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
+								RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
+								RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
+								RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE,
+								RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD
+								 },
+								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "="
+									+ irrigate , null, null, null, null);
+
+		
+	//	
+		c.moveToFirst();
+		tmpList = new LinkedList<Irrigation>();
+		System.out.println(c.getCount());
+
+		 if (c.getCount() > 0) {
+			do {
+				tmpList.add(new Irrigation(c.getInt(0),c.getString(1),c.getInt(2),
+						c.getString(3), c.getString(4),c.getInt(5),
+						c.getInt(6),c.getInt(7),c.getInt(8),
+						c.getString(9),c.getString(10)));
+
+				String log = "action id: " + c.getInt(0)+ " ,Action type: " + c.getString(1) + " ,Action name id: " + irrigate
+						+ " ,QUANTITY1: " + c.getInt(2) 
+						
+						+ " ,units" + c.getString(3) + "day "
+						+ c.getString(4) + " user id " + c.getInt(5)
+						+ " plot id " + c.getInt(6)+ "sent  " + c.getInt(7)
+					+ " Is admin " + c.getInt(8)+ " action performed date " + c.getString(9)
+					+ " method " + c.getString(10) + "\r\n";
+				Log.d("Irrigation values: ", log);
+				
+				if(Global.WriteToSD==true)
+				{
+				File_Log_Create("value.txt","Irrigation action \r\n");
+				File_Log_Create("value.txt",log);
+				}
+
+			} while (c.moveToNext());
+			
+		}
+		c.close();
+		mDb.close();
+
+		return tmpList;
+	}
+	
+	public long setIrrigation(int qua1, String Units,                          //qua1 mapped to no of hours
+			String day,int sent, int admin, String method) {
+
+		Global.actionid++;
+		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
+		Calendar calendar = Calendar.getInstance();
+
+		System.out.println("SET IRRIGATION");
+		ContentValues args = new ContentValues();
+
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ID, Global.actionid);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 7);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPE, "Irrigate");
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DAY, day);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_USERID, Global.userId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, Global.plotId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE,
+				dateFormat.format(calendar.getTime()));
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD, method);
+
+		long result;
+
+		mDb.open();
+
+		result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+
+		mDb.close();
+
+		return result;
+	}
+	
+	
+	public  List<Problem> getProblem() {
+
+		mDb.open();
+		int problem=6;                      //  id 7 from actionname table for reporting of problems
+
+		List<Problem> tmpList;
+
+		Cursor c = mDb
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_ACTION,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPE,
+								RealFarmDatabase.COLUMN_NAME_ACTION_DAY,
+								RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
+								RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
+								RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
+								RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
+								RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE
+																 },
+								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "="
+									+ problem , null, null, null, null);
+
+		
+	
+		c.moveToFirst();
+		tmpList = new LinkedList<Problem>();
+		System.out.println(c.getCount());
+
+		 if (c.getCount() > 0) {
+			do {
+				tmpList.add(new Problem(c.getInt(0),c.getString(1)
+						,c.getString(2),c.getInt(3),
+						c.getInt(4),c.getString(5),c.getInt(6),c.getInt(7),
+						c.getString(8)));
+
+				String log = "action id: " + c.getInt(0)+ " ,Action type: " + c.getString(1) + " ,Actionnameid: " + problem
+					+ "day "
+						+ c.getString(2) + " user id " + c.getInt(3)
+						+ " plot id " + c.getInt(4)+ " Problem type " + c.getString(5)
+						+ "sent  " + c.getInt(6)
+					+ " Is admin " + c.getInt(7)+ " action performed date " + c.getString(8)
+					 + "\r\n";
+				Log.d("Problem values: ", log);
+				
+				if(Global.WriteToSD==true)
+				{
+				File_Log_Create("value.txt","Problem action \r\n");
+				File_Log_Create("value.txt",log);
+				}
+
+			} while (c.moveToNext());
+			
+		}
+		c.close();
+		mDb.close();
+
+		return tmpList;
+	}
+	
+	public long setProblem(String day,String probType, int sent, int admin) {
+
+		Global.actionid++;
+		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
+
+		Calendar calendar = Calendar.getInstance();
+
+		System.out.println("SET PROBLEM");
+		ContentValues args = new ContentValues();
+
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ID, Global.actionid);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 6);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPE, "Problem");
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DAY, day);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_USERID, Global.userId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, Global.plotId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE, probType);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE,
+				dateFormat.format(calendar.getTime()));
+	
+
+		long result;
+
+		mDb.open();
+
+		result = mDb.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+
+		mDb.close();
+
+		return result;
+	}
+	
+	public List<PlotNew> getAllPlotListByUserId(int userId) {                            //modified
+		
+		
+		// opens the database.
+		List<PlotNew> plotList = new LinkedList<PlotNew>();
+		
+		mDb.open();
+
+		// query all actions
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
+						//RealFarmDatabase.COLUMN_NAME_PLOT_PLOTID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG
+						},RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "="
+						+ userId, 
+				 null, null, null, null);
+		
+		
+		c.moveToFirst();
+
+		if (c.getCount() > 0) {
+			do {
+				plotList.add( new PlotNew(c.getInt(0),userId, c.getInt(1),
+						 c.getInt(2), c.getInt(3), c.getString(4), c.getString(5),
+						c.getInt(6),c.getInt(7)));
+				
+				String log = "PlotId: " + c.getInt(0) + " ,PlotUserId: "                                       
+						+ userId + " ,PlotSeedTypeId: "                                       
+		+ c.getInt(1)+ " ,point X: " 	+ c.getInt(2)	+ " ,point Y: " + c.getInt(3)
+						+ "PlotImage: " + c.getString(4)+ " ,SoilType: " + c.getString(5) 
+						
+				+ " ,deleteFlag: " + c.getInt(6)		+ " ,AdminFlag: " + c.getInt(7)+ "\r\n";
+				Log.d("plot values: ", log);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDb.close();
+		return plotList;
+	}
+	
+	public List<PlotNew> getAllPlotListByUserIdPlotId(int userId, int plotId) {                            //modified(You can take seedtypyId corresponding to thar iuserId and plotId)
+		
+		
+		// opens the database.
+		List<PlotNew> plotList = new LinkedList<PlotNew>();
+		
+		mDb.open();
+
+		// query all actions
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG
+						},RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "="
+						+ userId + " AND "+ RealFarmDatabase.COLUMN_NAME_PLOT_ID + "="+
+						plotId + "",null, null, null, null);
+		
+	//},RealFarmDatabase.COLUMN_NAME_ACTION_USERID + "= " +
+//			userId + " AND " + RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID + "= " +
+//			plotId + "", null, null, null, null);
+		
+		c.moveToFirst();
+
+		if (c.getCount() > 0) {
+			do {
+				plotList.add( new PlotNew(plotId, userId, c.getInt(0),
+						 c.getInt(1), c.getInt(2), c.getString(3), c.getString(4),
+						c.getInt(5),c.getInt(6)));
+				
+				String log = "PlotId: " +plotId + " ,PlotUserId: "                                       
+						+ userId + " ,PlotSeedTypeId: "                                       
+		+ c.getInt(0)+ " ,point X: " 	+ c.getInt(1)	+ " ,point Y: " + c.getInt(2)
+						+ "PlotImage: " + c.getString(3)+ " ,SoilType: " + c.getString(4) 
+						
+				+ " ,deleteFlag: " + c.getInt(5)		+ " ,AdminFlag: " + c.getInt(6)+ "\r\n";
+				Log.d("plot values: ", log);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDb.close();
+		return plotList;
+	}
+	
+
+	public long setDeleteFlagForPlot(int plotId) {                    //added with audio integration
+
+		System.out.println("in setDeleteFlagForPlot ");
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG, 1);
+
+		long result;
+
+		mDb.open();
+
+		result = mDb.update(RealFarmDatabase.TABLE_NAME_PLOT, args,
+				RealFarmDatabase.COLUMN_NAME_PLOT_ID + " = '" + plotId + "'",
+				null);
+		// result = mDb.update(RealFarmDatabase.TABLE_NAME_USER, args,
+		// RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME + " = '"
+		// + firstname + " AND " + RealFarmDatabase.COLUMN_NAME_USER_LASTNAME +
+		// " = '"
+		// + lastname , null);
+
+		mDb.close();
+		System.out.println(result);
+		return result;
+	}
+	
+	public List<PlotNew> getPlotDelete(int delete) {
+
+		mDb.open();
+		// int delete=0;
+
+		System.out.println("In getPlotDelete");
+
+		List<PlotNew> tmpList;
+		
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
+				//		RealFarmDatabase.COLUMN_NAME_PLOT_PLOTID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG},
+						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "=" + delete,
+						null, null, null, null);
+
+	
+		//
+		c.moveToFirst();
+		tmpList = new LinkedList<PlotNew>();
+		System.out.println(c.getCount());
+
+		if (c.getCount() > 0) {
+			do {
+				tmpList.add( new PlotNew(c.getInt(0), c.getInt(1), c.getInt(2),
+						 c.getInt(3), c.getInt(4), c.getString(5), c.getString(6),
+						delete,c.getInt(7)));
+				
+				String log = "PlotId: " + c.getInt(0) + " ,PlotUserId: "                                       
+						+ c.getInt(1) + " ,PlotSeedTypeId: "                                       
+		+ c.getInt(2)+ " ,point X: " 	+ c.getInt(3)	+ " ,point Y: " + c.getInt(4)
+						+ "PlotImage: " + c.getString(5)+ " ,SoilType: " + c.getString(6) 
+						
+				+ " ,deleteFlag: " +delete		+ " ,AdminFlag: " + c.getInt(7)+ "\r\n";
+				Log.d("plot values: ", log);
+
+				
+
+			} while (c.moveToNext());
+
+		}
+		c.close();
+		mDb.close();
+
+		return tmpList;
+	}
+	
+	public List<PlotNew> getAllPlotListByUserDeleteFlag(int userId, int delete) {                            //modified(You can take seedtypyId corresponding to thar iuserId and plotId)
+		
+		
+		// opens the database.
+		List<PlotNew> plotList = new LinkedList<PlotNew>();
+		
+		mDb.open();
+
+		// query all actions
+		Cursor c = mDb.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG
+						},RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "="
+						+ userId + " AND "+ RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "="+
+						delete + "",null, null, null, null);
+		
+	//},RealFarmDatabase.COLUMN_NAME_ACTION_USERID + "= " +
+//			userId + " AND " + RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID + "= " +
+//			plotId + "", null, null, null, null);
+		
+		c.moveToFirst();
+
+		if (c.getCount() > 0) {
+			do {
+				plotList.add( new PlotNew(c.getInt(0), userId, c.getInt(1),
+						 c.getInt(2), c.getInt(3), c.getString(4), c.getString(5),
+						 delete,c.getInt(6)));
+				
+				String log = "PlotId: " + c.getInt(0) + " ,PlotUserId: "                                       
+						+ userId + " ,PlotSeedTypeId: "                                       
+		+ c.getInt(1)+ " ,point X: " 	+ c.getInt(2)	+ " ,point Y: " + c.getInt(3)
+						+ "PlotImage: " + c.getString(4)+ " ,SoilType: " + c.getString(5) 
+						
+				+ " ,deleteFlag: " + delete		+ " ,AdminFlag: " + c.getInt(6)+ "\r\n";
+				Log.d("plot values: ", log);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDb.close();
+		return plotList;
+	}
+		
 
 }

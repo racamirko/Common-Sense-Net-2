@@ -48,7 +48,7 @@ public class SM_enter extends HelpEnabledActivity {
 	public void onBackPressed() {
 
 		stopAudio();
-		Intent adminintent123 = new Intent(SM_enter.this, Plot_Image.class);
+		Intent adminintent123 = new Intent(SM_enter.this, Plot_Image.class);   //added with audio integration
 		startActivity(adminintent123);
 		SM_enter.this.finish();
 	}

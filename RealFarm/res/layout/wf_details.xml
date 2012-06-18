@@ -20,26 +20,27 @@
 
         <TextView
             android:id="@+id/aggr_lbl_title"
-            android:layout_width="wrap_content"
+            android:layout_width="135dp"
             android:layout_height="wrap_content"
             android:layout_marginLeft="10dp"
             android:text="Weather "
             android:textColor="@android:color/black"
             android:textSize="30dp" />
 
+
         <ImageButton
             android:id="@+id/aggr_img_home"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
             android:background="@drawable/home"
             android:src="@drawable/square_btn_transp" />
 
         <ImageButton
             android:id="@+id/aggr_img_help"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
@@ -62,7 +63,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/blue_1_wf" >
+                android:background="@drawable/def_img" >
 
                 <ImageView
                     android:id="@+id/wfimg_1"
@@ -80,7 +81,7 @@
                     android:paddingRight="10dp"
                     android:text="23°C"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="35dp" />
 
                 <LinearLayout
@@ -109,6 +110,7 @@
                     android:layout_alignBottom="@+id/home_btn_wf_1"
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/wfmsg_1"
+                       android:textColor="@android:color/black"
                     android:text="Sunny"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
@@ -118,6 +120,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/wfmsg_1"
                     android:layout_alignParentTop="true"
+                       android:textColor="@android:color/black"
                     android:text="Monday"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </RelativeLayout>
@@ -127,7 +130,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/blue_1_wf" >
+                android:background="@drawable/def_img" >
 
                 <ImageView
                     android:id="@+id/wfimg_2"
@@ -145,7 +148,7 @@
                     android:paddingRight="10dp"
                     android:text="23°C"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
+                    android:textColor="@android:color/black"
                     android:textSize="35dp" />
 
                 <LinearLayout
@@ -175,6 +178,7 @@
                     android:layout_alignParentRight="true"
                     android:layout_below="@+id/wfmsg_2"
                     android:text="Chance of rain  "
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
 
                 <TextView
@@ -184,6 +188,7 @@
                     android:layout_alignLeft="@+id/wfimg_2"
                     android:layout_alignParentTop="true"
                     android:text="Tuesday"
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
             </RelativeLayout>
 
@@ -192,7 +197,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/blue_1_wf" >
+                android:background="@drawable/def_img" >
 
                 <ImageView
                     android:id="@+id/wfimg_2"
@@ -209,8 +214,8 @@
                     android:layout_toRightOf="@+id/ImageView03"
                     android:paddingRight="10dp"
                     android:text="18°C"
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
                     android:textSize="35dp" />
 
                 <LinearLayout
@@ -224,7 +229,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/home_btn_wf_2"
+                    android:id="@+id/home_btn_wf_3"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
@@ -233,23 +238,25 @@
                     android:background="@drawable/square_btn_transp" />
 
                 <TextView
-                    android:id="@+id/wf_text5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/home_btn_wf_2"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/wfmsg_2"
-                    android:text="Storm  "
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
                     android:id="@+id/wf_text6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/wfimg_2"
                     android:layout_alignParentTop="true"
                     android:text="Wednesday"
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/wf_text5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/wf_text4"
+                    android:text="Storm  "
+                       android:textColor="@android:color/black"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -257,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/blue_1_wf" >
+                android:background="@drawable/def_img" >
 
                 <ImageView
                     android:id="@+id/wfimg_2"
@@ -274,8 +281,8 @@
                     android:layout_toRightOf="@+id/ImageView03"
                     android:paddingRight="10dp"
                     android:text="22°C"
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
                     android:textSize="35dp" />
 
                 <LinearLayout
@@ -289,7 +296,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/home_btn_wf_2"
+                    android:id="@+id/home_btn_wf_4"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
@@ -298,23 +305,25 @@
                     android:background="@drawable/square_btn_transp" />
 
                 <TextView
-                    android:id="@+id/wf_text5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/home_btn_wf_2"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/wfmsg_2"
-                    android:text="Cloudy "
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
                     android:id="@+id/wf_text6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/wfimg_2"
                     android:layout_alignParentTop="true"
                     android:text="Thrusday"
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/wf_text5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/home_lay_wf_2"
+                    android:text="Cloudy "
+                       android:textColor="@android:color/black"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -322,7 +331,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="80dp"
                 android:layout_marginBottom="5dp"
-                android:background="@drawable/blue_1_wf" >
+                android:background="@drawable/def_img" >
 
                 <ImageView
                     android:id="@+id/wfimg_2"
@@ -339,8 +348,8 @@
                     android:layout_toRightOf="@+id/ImageView03"
                     android:paddingRight="10dp"
                     android:text="20°C"
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge"
-                    android:textColor="@android:color/white"
                     android:textSize="35dp" />
 
                 <LinearLayout
@@ -354,7 +363,7 @@
                 </LinearLayout>
 
                 <Button
-                    android:id="@+id/home_btn_wf_2"
+                    android:id="@+id/home_btn_wf_5"
                     android:layout_width="fill_parent"
                     android:layout_height="fill_parent"
                     android:layout_alignParentBottom="true"
@@ -363,23 +372,25 @@
                     android:background="@drawable/square_btn_transp" />
 
                 <TextView
-                    android:id="@+id/wf_text5"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/home_btn_wf_2"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/wfmsg_2"
-                    android:text="Overcast "
-                    android:textAppearance="?android:attr/textAppearanceLarge" />
-
-                <TextView
                     android:id="@+id/wf_text6"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/wfimg_2"
                     android:layout_alignParentTop="true"
                     android:text="Friday"
+                       android:textColor="@android:color/black"
                     android:textAppearance="?android:attr/textAppearanceLarge" />
+
+                <TextView
+                    android:id="@+id/wf_text5"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_below="@+id/wf_text4"
+                    android:text="Overcast "
+                       android:textColor="@android:color/black"
+                    android:textAppearance="?android:attr/textAppearanceLarge" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

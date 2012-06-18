@@ -23,11 +23,13 @@ import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_sowing extends HelpEnabledActivity {
 	//MediaPlayer mp = null;                  //Integration
 	 protected RealFarmProvider mDataProvider;
 	   private Context context=this;
+	   final action_sowing parentReference = this;                       //audio integration
 	String treatment_sow="0", days_sel_sow="0", units_sow="0",seed_sow="0";
 	int sow_no;
 	String sow_no_sel;
@@ -52,6 +54,9 @@ public class action_sowing extends HelpEnabledActivity {
 			        
 			      startActivity(adminintent);                        
 			      action_sowing.this.finish();
+			      
+			      SoundQueue sq = SoundQueue.getInstance();    //audio integration
+					sq.stop();        
 }
 	
     /** Called when the activity is first created. */
@@ -65,6 +70,9 @@ public class action_sowing extends HelpEnabledActivity {
     	    	final TextView day_sow = (TextView) findViewById(R.id.dlg_lbl_day_sow);	    	
     	    	day_sow.setText("Today");
     	    	days_sel_sow="Today";
+    	    	
+    	    	if(Global.EnableAudio==true)                        //checking for audio enable
+    	    	{
     	    	if(mp != null)
     			{
     				mp.stop();
@@ -73,6 +81,8 @@ public class action_sowing extends HelpEnabledActivity {
     			}
     			mp = MediaPlayer.create(this, R.raw.thankyouclickingactionsowing);
     			mp.start();
+    			
+    	    	}
     			
     			
 				if(Global.WriteToSD==true)
@@ -143,6 +153,13 @@ public class action_sowing extends HelpEnabledActivity {
 		    	variety4 = (Button) dlg.findViewById(R.id.home_btn_var_sow_4);
 		    	variety5 = (Button) dlg.findViewById(R.id.home_btn_var_sow_5);
 		    	variety6 = (Button) dlg.findViewById(R.id.home_btn_var_sow_6);
+		    	
+		    	((Button) dlg.findViewById(R.id.home_btn_var_sow_1)).setOnLongClickListener(parentReference);  //audio integration
+		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_2)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_3)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_4)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_5)).setOnLongClickListener(parentReference);
+		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_6)).setOnLongClickListener(parentReference);
 		    	
 		     		    	
 		    	variety1.setOnClickListener(new View.OnClickListener() {
@@ -310,6 +327,10 @@ public class action_sowing extends HelpEnabledActivity {
 	    	unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 	    	unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 	    	unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
+	    	
+	    	((Button) dlg.findViewById(R.id.home_btn_units_1)).setOnLongClickListener(parentReference);   //Audio integration
+            ((Button) dlg.findViewById(R.id.home_btn_units_2)).setOnLongClickListener(parentReference);
+            ((Button) dlg.findViewById(R.id.home_btn_units_3)).setOnLongClickListener(parentReference);
 	    	if(Global.WriteToSD==true)
 			{
 				
@@ -433,6 +454,12 @@ public class action_sowing extends HelpEnabledActivity {
 	    	day3 = (Button) dlg.findViewById(R.id.home_day_3);
 	    	day4 = (Button) dlg.findViewById(R.id.home_day_4);
 	    	day5 = (Button) dlg.findViewById(R.id.home_day_5);
+	    	
+	    	 ((Button) dlg.findViewById(R.id.home_day_1)).setOnLongClickListener(parentReference);    //audio integration
+             ((Button) dlg.findViewById(R.id.home_day_2)).setOnLongClickListener(parentReference);
+             ((Button) dlg.findViewById(R.id.home_day_3)).setOnLongClickListener(parentReference);
+             ((Button) dlg.findViewById(R.id.home_day_4)).setOnLongClickListener(parentReference);
+             ((Button) dlg.findViewById(R.id.home_day_5)).setOnLongClickListener(parentReference);
 	    	
 	    	day1.setOnClickListener(new View.OnClickListener() {
 	    			public void onClick(View v) {
@@ -572,6 +599,9 @@ public class action_sowing extends HelpEnabledActivity {
 	    	treat1 = (Button) dlg.findViewById(R.id.home_treat_sow_1);
 	    	treat2 = (Button) dlg.findViewById(R.id.home_treat_sow_2);
 	    	
+	    	((Button) dlg.findViewById(R.id.home_treat_sow_1)).setOnLongClickListener(parentReference);  //Audio integration     
+            ((Button) dlg.findViewById(R.id.home_treat_sow_2)).setOnLongClickListener(parentReference);
+	    	
 	    	
 	    	
 	    	treat1.setOnClickListener(new View.OnClickListener() {
@@ -704,14 +734,15 @@ public class action_sowing extends HelpEnabledActivity {
 	});
 	
 	final CheckBox intercrop = (CheckBox) findViewById(R.id.chkintercrop);
+	
+	intercrop.setOnLongClickListener(this);                                   //audio integration
 	 
 	intercrop.setOnClickListener(new OnClickListener() {
  	
 	  public void onClick(View v) {
                 //is chkIos checked?
 		if (((CheckBox) v).isChecked()) {
-			Toast.makeText(action_sowing.this,
-		 	   "Intercrop is selected :)", Toast.LENGTH_LONG).show();
+		
 			 if(Global.WriteToSD==true)
 				{
 					
@@ -927,6 +958,9 @@ public class action_sowing extends HelpEnabledActivity {
 	
 	protected void cancelaudio() {
 		// TODO Auto-generated method stub
+		
+		if(Global.EnableAudio==true)                        //checking for audio enable
+    	{
 		if(mp != null)
 		{
 			mp.stop();
@@ -935,6 +969,7 @@ public class action_sowing extends HelpEnabledActivity {
 		}
 		mp = MediaPlayer.create(this, R.raw.cancel);
 		mp.start();
+    	}
 		Intent adminintent = new Intent(action_sowing.this,Homescreen.class);
         
 	      startActivity(adminintent);                        
@@ -942,6 +977,9 @@ public class action_sowing extends HelpEnabledActivity {
 	}
 	protected void okaudio() {
 		// TODO Auto-generated method stub
+		
+		if(Global.EnableAudio==true)                        //checking for audio enable
+    	{
 		if(mp != null)
 			{
 				mp.stop();
@@ -950,6 +988,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+    	}
 		
 	    	 
 		
@@ -967,6 +1006,9 @@ public class action_sowing extends HelpEnabledActivity {
 	
 	protected void initmissingval() {
 		// TODO Auto-generated method stub
+		
+		if(Global.EnableAudio==true)                        //checking for audio enable
+    	{
 		if(mp != null)
 		{
 			mp.stop();
@@ -975,6 +1017,7 @@ public class action_sowing extends HelpEnabledActivity {
 		}
 		mp = MediaPlayer.create(this, R.raw.missinginfo);
 		mp.start();
+    	}
 	}
 	
     
@@ -982,6 +1025,8 @@ public class action_sowing extends HelpEnabledActivity {
 	public boolean onLongClick(View v) {                      //latest
 	
 		if( v.getId() == R.id.home_btn_var_sow){
+			if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			
 			if(mp != null)
 			{
@@ -991,6 +1036,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.varietyofseedssowd);
 			mp.start();
+	    	}
 		  	 if(Global.WriteToSD==true)
 				{
 					
@@ -1005,6 +1051,8 @@ public class action_sowing extends HelpEnabledActivity {
 		
        if( v.getId() == R.id.home_btn_units_sow || v.getId() ==  R.id.home_btn_units_no_sow){
 			
+    		if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -1013,6 +1061,7 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttheunits);
 			mp.start();
+	    	}
 			 if(Global.WriteToSD==true)
 				{
 					
@@ -1027,6 +1076,9 @@ public class action_sowing extends HelpEnabledActivity {
        
        if( v.getId() == R.id.home_btn_day_sow){
 			
+    	   
+    		if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -1035,6 +1087,8 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.selectthedate);
 			mp.start();
+			
+	    	}
 			 if(Global.WriteToSD==true)
 				{
 					
@@ -1049,6 +1103,9 @@ public class action_sowing extends HelpEnabledActivity {
        
        if( v.getId() == R.id.home_btn_treat_sow){
 			
+    	   
+    		if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
   			if(mp != null)
   			{
   				mp.stop();
@@ -1057,6 +1114,8 @@ public class action_sowing extends HelpEnabledActivity {
   			}
   			mp = MediaPlayer.create(this, R.raw.treatmenttoseeds1);
   			mp.start();
+  			
+	    	}
   			 if(Global.WriteToSD==true)
 				{
 					
@@ -1071,6 +1130,9 @@ public class action_sowing extends HelpEnabledActivity {
 		
        if( v.getId() == R.id.sow_ok){
 			
+    	   
+    		if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
  			if(mp != null)
  			{
  				mp.stop();
@@ -1079,10 +1141,14 @@ public class action_sowing extends HelpEnabledActivity {
  			}
  			mp = MediaPlayer.create(this, R.raw.ok);
  			mp.start();
+	    	}
  			
  		}
 		
        if( v.getId() == R.id.sow_cancel){
+    	   
+    		if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			
  			if(mp != null)
  			{
@@ -1092,11 +1158,15 @@ public class action_sowing extends HelpEnabledActivity {
  			}
  			mp = MediaPlayer.create(this, R.raw.cancel);
  			mp.start();
+	    	}
  			
  		}
        
        
        if( v.getId() ==R.id.aggr_img_help ){
+    	   
+    		if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			
 			if(mp != null)
 			{
@@ -1106,6 +1176,8 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
+			
+	    	}
 			
 			 if(Global.WriteToSD==true)
 				{
@@ -1119,9 +1191,143 @@ public class action_sowing extends HelpEnabledActivity {
 				}
 		}
        
+       if( v.getId() == R.id.home_btn_var_sow_1){                      //audio integration
+			
+			 
+			 System.out.println("variety sow1 called");
+				playAudio(R.raw.bajra);
+				
+			}
+			
+	if( v.getId() == R.id.home_btn_var_sow_2){
+				
+				playAudio(R.raw.castor);
+				
+			}
+
+	if( v.getId() == R.id.home_btn_var_sow_3){
+		
+		playAudio(R.raw.cowpea);
+		
+	}
+
+	if( v.getId() == R.id.home_btn_var_sow_4){
+		
+		playAudio(R.raw.greengram);
+		
+	}
+
+	if( v.getId() == R.id.home_btn_var_sow_5){
+		
+		playAudio(R.raw.groundnut1);
+		
+	}
+
+	if( v.getId() == R.id.home_btn_var_sow_6){
+		
+		playAudio(R.raw.horsegram);
+		
+	}
+	
+	if( v.getId() == R.id.home_btn_units_1){
+		
+		playAudio(R.raw.bagof10kg);
+		
+	}
+
+	if( v.getId() == R.id.home_btn_units_2){
+		
+		playAudio(R.raw.bagof20kg);
+		
+	}
+
+	if( v.getId() == R.id.home_btn_units_3){
+		
+		playAudio(R.raw.bagof50kg);
+		
+	}
+	
+	if( v.getId() == R.id.home_day_1){
+		
+		playAudio(R.raw.twoweeksbefore);
+		
+	}
+
+	if( v.getId() == R.id.home_day_2){
+		
+		playAudio(R.raw.oneweekbefore);
+		
+	}
+
+	if( v.getId() == R.id.home_day_3){
+		
+		playAudio(R.raw.yesterday);
+		
+	}
+
+	if( v.getId() == R.id.home_day_4){
+		
+		playAudio(R.raw.todayonly);
+		
+	}
+
+	if( v.getId() == R.id.home_day_5){
+		
+		playAudio(R.raw.tomorrows);
+		
+	}
+	
+	if( v.getId() == R.id.home_treat_sow_1){
+		
+		playAudio(R.raw.treatmenttoseeds2);
+		
+	}
+
+	if( v.getId() == R.id.home_treat_sow_2){
+		
+		playAudio(R.raw.treatmenttoseeds3);
+		
+	}
+	
+if( v.getId() == R.id.chkintercrop){
+		
+	if(Global.EnableAudio==true)                        //checking for audio enable
+	{
+	
+	if(mp != null)
+	{
+		mp.stop();
+		mp.release();
+		mp = null;
+	}
+	mp = MediaPlayer.create(this, R.raw.yieldinfo);
+	mp.start();
+	
+	}                          
+		
+	}
+
+       
 
 		return true;
 	}
+	
+	 public void playAudio(int resid)                      //audio integration
+	    {
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
+		// System.out.println("play audio called");
+	    SoundQueue sq = SoundQueue.getInstance();
+		// stops any sound that could be playing.
+		sq.stop();
+		
+		sq.addToQueue(resid);
+		//sq.addToQueue(R.raw.treatmenttoseeds3);
+		sq.play();
+		 }
+
+	    	
+	    }
     
     
     

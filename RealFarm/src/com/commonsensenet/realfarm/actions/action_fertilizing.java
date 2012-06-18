@@ -12,6 +12,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
@@ -19,10 +20,13 @@ import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_fertilizing extends HelpEnabledActivity  {                  //integration
 	//MediaPlayer mp = null;
 	protected RealFarmProvider mDataProvider;
+	
+	final action_fertilizing parentReference = this;                       //audio integration
 	int quantity_fert;
 	String units_fert = "0", fert_var_sel ="0", fert_day_sel;
 	 int fert_no;
@@ -48,6 +52,9 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 			        
 			      startActivity(adminintent);                        
 			      action_fertilizing.this.finish();
+			      
+			      SoundQueue sq = SoundQueue.getInstance();    //audio integration
+					sq.stop(); 
 }
 	
     /** Called when the activity is first created. */
@@ -61,6 +68,20 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
     	    	final TextView day_fert = (TextView) findViewById(R.id.dlg_lbl_day_fert);
     	    	day_fert.setText("Today");
     	    	fert_day_sel="Today";
+    	    	
+    	    	final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
+    	    	
+    	     	final ImageView bg_units_no_fert = (ImageView) findViewById(R.id.img_bg_units_no_fert);
+    	    	
+    	    	final ImageView bg_units_fert = (ImageView) findViewById(R.id.img_bg_units_fert);
+    	    	
+    	    	final ImageView bg_var_fert = (ImageView) findViewById(R.id.img_bg_var_fert);
+    	    	
+    	    	bg_day_fert.setImageResource(R.drawable.empty_not);
+    	    	
+    	    	
+    	    	if(Global.EnableAudio==true)                        //checking for audio enable
+    	    	{
     	    	if(mp != null)
 				{
 					mp.stop();
@@ -69,6 +90,7 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 				}
 				mp = MediaPlayer.create(this, R.raw.clickingfertilising);
 				mp.start();
+    	    	}
     	
 				if(Global.WriteToSD==true)
 				{
@@ -132,6 +154,10 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 		    	fert2 = (Button) dlg.findViewById(R.id.home_var_fert_2);
 		    	fert3 = (Button) dlg.findViewById(R.id.home_var_fert_3);
 		    	
+		    	 ((Button) dlg.findViewById(R.id.home_var_fert_1)).setOnLongClickListener(parentReference);  //audio integration
+	              ((Button) dlg.findViewById(R.id.home_var_fert_2)).setOnLongClickListener(parentReference);
+	              ((Button) dlg.findViewById(R.id.home_var_fert_3)).setOnLongClickListener(parentReference);
+		    	
 		    	
 		    	fert1.setOnClickListener(new View.OnClickListener() {
 		    			public void onClick(View v) {
@@ -143,6 +169,8 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 		    				 TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
 		 	    	      	
 		 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		 	    	
+		 	    	      	bg_var_fert.setImageResource(R.drawable.empty_not);
 		    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 		 	    	   	if(Global.WriteToSD==true)
 						{
@@ -166,6 +194,8 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 	    				 TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
 	 	    	      	
 	 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	 	    	   
+	 	    	   bg_var_fert.setImageResource(R.drawable.empty_not);
 	 	    	   	if(Global.WriteToSD==true)
 					{
 						
@@ -187,6 +217,8 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 	    				 TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
 	 	    	      	
 	 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	 	    	   
+	 	    	   bg_var_fert.setImageResource(R.drawable.empty_not);
 	 	    	   	if(Global.WriteToSD==true)
 					{
 						
@@ -237,6 +269,10 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 	    	unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 	    	unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
 	    	
+	    	 ((Button) dlg.findViewById(R.id.home_btn_units_1)).setOnLongClickListener(parentReference);  //audio integration
+	         ((Button) dlg.findViewById(R.id.home_btn_units_2)).setOnLongClickListener(parentReference);
+	         ((Button) dlg.findViewById(R.id.home_btn_units_3)).setOnLongClickListener(parentReference);
+	    	
 	    	
 	    	unit1.setOnClickListener(new View.OnClickListener() {
 	    			public void onClick(View v) {
@@ -248,6 +284,9 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 	    				TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 		    	      	
 		    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		    	
+		    	    	bg_units_fert.setImageResource(R.drawable.empty_not);
+		    	    	
 		    	    	if(Global.WriteToSD==true)
 						{
 							
@@ -270,6 +309,8 @@ public class action_fertilizing extends HelpEnabledActivity  {                  
 TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	    	      	
 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    	    	
+	    	    	bg_units_fert.setImageResource(R.drawable.empty_not);
 	    	    	if(Global.WriteToSD==true)
 					{
 						
@@ -291,6 +332,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	    	      	
 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	    	    	
+	    	    	bg_units_fert.setImageResource(R.drawable.empty_not);
 	    	    	if(Global.WriteToSD==true)
 					{
 						
@@ -323,6 +366,12 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	    	final Button day3;
 	    	final Button day4;
 	    	final Button day5;
+	    	
+	   	 ((Button) dlg.findViewById(R.id.home_day_1)).setOnLongClickListener(parentReference);  //audio integration
+         ((Button) dlg.findViewById(R.id.home_day_2)).setOnLongClickListener(parentReference);
+         ((Button) dlg.findViewById(R.id.home_day_3)).setOnLongClickListener(parentReference);
+         ((Button) dlg.findViewById(R.id.home_day_4)).setOnLongClickListener(parentReference);
+         ((Button) dlg.findViewById(R.id.home_day_5)).setOnLongClickListener(parentReference);
 	    		    	
 	    	final ImageView img_1;
 	    	img_1 = (ImageView) findViewById(R.id.dlg_unit_sow);
@@ -341,6 +390,15 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	    	day4 = (Button) dlg.findViewById(R.id.home_day_4);
 	    	day5 = (Button) dlg.findViewById(R.id.home_day_5);
 	    	
+	    	 ((Button) dlg.findViewById(R.id.home_day_1)).setOnLongClickListener(parentReference);  //added
+	            ((Button) dlg.findViewById(R.id.home_day_2)).setOnLongClickListener(parentReference);
+	            ((Button) dlg.findViewById(R.id.home_day_3)).setOnLongClickListener(parentReference);
+	            ((Button) dlg.findViewById(R.id.home_day_4)).setOnLongClickListener(parentReference);
+	            ((Button) dlg.findViewById(R.id.home_day_5)).setOnLongClickListener(parentReference);
+		    	
+	    	
+	    	
+	    	
 	    	day1.setOnClickListener(new View.OnClickListener() {
 	    			public void onClick(View v) {
 	    				Log.d("var 1 picked ", "in dialog");
@@ -349,6 +407,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	    				day_fert.setText("Two week before");
 	    				fert_day_sel="Two week before";
 	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+	    				final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
+	 	    	    	bg_day_fert.setImageResource(R.drawable.empty_not);
 	    				if(Global.WriteToSD==true)
 	    				{
 	    					
@@ -367,6 +427,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
     			//	img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
     				day_fert.setText("One week before");
     				fert_day_sel="One week before";
+    				final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
+ 	    	    	bg_day_fert.setImageResource(R.drawable.empty_not);
     				if(Global.WriteToSD==true)
     				{
     					
@@ -385,6 +447,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
     				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
     				day_fert.setText("Yesterday");
     				fert_day_sel="Yesterday";
+    				final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
+ 	    	    	bg_day_fert.setImageResource(R.drawable.empty_not);
     				if(Global.WriteToSD==true)
     				{
     					
@@ -402,6 +466,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
     				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
     				day_fert.setText("Today");
     				fert_day_sel="Today";
+    				final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
+ 	    	    	bg_day_fert.setImageResource(R.drawable.empty_not);
     				if(Global.WriteToSD==true)
     				{
     					
@@ -419,6 +485,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
     				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
     				day_fert.setText("Tomorrow");
     				fert_day_sel="Tomorrow";
+    				final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
+ 	    	    	bg_day_fert.setImageResource(R.drawable.empty_not);
     				if(Global.WriteToSD==true)
     				{
     					
@@ -471,6 +539,9 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 		    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 		  	    	      	
 		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		  	    	 
+		  	    	  bg_units_no_fert.setImageResource(R.drawable.empty_not);
+		  	    
 		  	    	  	if(Global.WriteToSD==true)
 	    				{
 	    					
@@ -654,6 +725,9 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	//@Override
 	protected void initmissingval() {
 		// TODO Auto-generated method stub
+		
+		if(Global.EnableAudio==true)                        //checking for audio enable
+    	{
 		if(mp != null)
 		{
 			mp.stop();
@@ -662,6 +736,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 		}
 		mp = MediaPlayer.create(this, R.raw.missinginfo);
 		mp.start();
+    	}
 	}
     
 	protected void stopaudio() {
@@ -680,6 +755,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	
 		if( v.getId() == R.id.home_btn_var_fert){
 			
+			if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -688,6 +765,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttypeoffertilizer);
 			mp.start();
+	    	}
 			if(Global.WriteToSD==true)
 			{
 				
@@ -701,6 +779,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 		
        if( v.getId() == R.id.home_btn_units_fert){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -709,6 +789,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttheunits);
 			mp.start();
+	    	}
 			if(Global.WriteToSD==true)
 			{
 				
@@ -721,6 +802,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
        
        if( v.getId() == R.id.home_btn_units_no_fert){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
     			if(mp != null)
     			{
     				mp.stop();
@@ -729,6 +812,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
     			}
     			mp = MediaPlayer.create(this, R.raw.selecttheunits);
     			mp.start();
+	    	}
     			if(Global.WriteToSD==true)
     			{
     				
@@ -741,6 +825,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
        
        if( v.getId() == R.id.home_btn_day_fert){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -749,6 +835,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.selectthedate);
 			mp.start();
+	    	}
 			if(Global.WriteToSD==true)
 			{
 				
@@ -761,6 +848,8 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
        
        if( v.getId() == R.id.fert_ok){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -769,11 +858,14 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+	    	}
 			
 		}
        
        if( v.getId() == R.id.fert_cancel){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -782,11 +874,14 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.cancel);
 			mp.start();
+	    	}
 			
 		}
        
        if( v.getId() ==R.id.aggr_img_help ){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+	    	{
 			if(mp != null)
 			{
 				mp.stop();
@@ -795,6 +890,7 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 			}
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
+	    	}
 			if(Global.WriteToSD==true)
 			{
 				
@@ -803,7 +899,78 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 			mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to help audio in fert*********** \r\n");
 		
 			}
-		}
+       }
+			
+			 if( v.getId() == R.id.home_var_fert_1){                      //audio integration
+					
+					playAudio(R.raw.fertilizer1);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_var_fert_2){
+					
+					playAudio(R.raw.fertilizer2);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_var_fert_3){
+					
+					playAudio(R.raw.fertilizer3);
+					
+				}
+		      
+		      
+		      if( v.getId() == R.id.home_btn_units_1){
+					
+					playAudio(R.raw.bagof10kg);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_btn_units_2){
+					
+					playAudio(R.raw.bagof20kg);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_btn_units_3){
+					
+					playAudio(R.raw.bagof50kg);
+					
+				}
+		      
+		      
+		      if( v.getId() == R.id.home_day_1){
+					
+					playAudio(R.raw.twoweeksbefore);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_day_2){
+					
+					playAudio(R.raw.oneweekbefore);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_day_3){
+					
+					playAudio(R.raw.yesterday);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_day_4){
+					
+					playAudio(R.raw.todayonly);
+					
+				}
+		      
+		      if( v.getId() == R.id.home_day_5){
+					
+					playAudio(R.raw.tomorrows);
+					
+				}
+		       
+				
+		
        
 		
 	
@@ -846,6 +1013,24 @@ TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
 	    	 
 		
 	}
+	
+	 public void playAudio(int resid)
+	    {
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
+		 System.out.println("play audio called");
+	    SoundQueue sq = SoundQueue.getInstance();
+		// stops any sound that could be playing.
+		sq.stop();
+		
+		sq.addToQueue(resid);
+		//sq.addToQueue(R.raw.treatmenttoseeds3);
+		sq.play();
+		 }
+
+	    	
+	    }
+	
 	
    
     

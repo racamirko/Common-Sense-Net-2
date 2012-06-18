@@ -70,7 +70,7 @@
         <ImageView
             android:id="@+id/viewPhotoTakenView"
             android:layout_width="fill_parent"
-            android:layout_height="340dip"
+            android:layout_height="240dip"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/button_retake" />
     </RelativeLayout>

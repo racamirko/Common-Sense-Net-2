@@ -25,16 +25,16 @@
             android:layout_margin="5dp"
             android:src="@drawable/plot" />
 
-        <Button
+         <Button
             android:id="@+id/button123"
-            android:layout_width="60dip"
+            android:layout_width="75dip"
             android:layout_height="wrap_content"
             android:text="Button"
             android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/aggr_img_home"
-            android:layout_width="60dip"
+            android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/home"
@@ -42,8 +42,8 @@
 
         <ImageButton
             android:id="@+id/aggr_img_help"
-            android:layout_width="60dip"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
@@ -92,7 +92,7 @@
                     android:gravity="left"
                     android:text="Harvest Month"
                     android:textColor="#000000"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -109,7 +109,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/date" />
+                    android:src="@drawable/month" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -120,9 +120,9 @@
                 android:gravity="right" >
 
                 <ImageView
-                    android:id="@+id/dlg_var_sow"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:id="@+id/img_bg_month_harvest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -191,7 +191,7 @@
                     android:gravity="left"
                     android:text="Harvest Year"
                     android:textColor="#000000"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -219,9 +219,9 @@
                  >
 
                 <ImageView
-                    android:id="@+id/dlg_var_sow"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
+                    android:id="@+id/img_bg_year_harvest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -280,7 +280,7 @@
                     android:gravity="right"
                     android:text="Amount"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="20sp" />
 
                 <Button
                     android:id="@+id/amount_sow_txt_btn"
@@ -320,10 +320,10 @@
                 android:layout_weight="0.09" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
+                    android:id="@+id/img_bg_units_no_harvest"
                     android:layout_width="40dp"
                     android:layout_height="match_parent"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_harvest"
@@ -360,10 +360,10 @@
                 android:paddingRight="12dp" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
+                    android:id="@+id/img_bg_units_harvest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_units_harvest"
@@ -383,7 +383,7 @@
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/dlg_unit_sow"
+                    android:layout_alignRight="@+id/img_bg_units_harvest"
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
         </TableRow>
@@ -392,7 +392,7 @@
     <TableRow
         android:id="@+id/tableRow_feedback"
         android:layout_width="match_parent"
-        android:layout_height="93dp"
+        android:layout_height="85dp"
         android:background="@drawable/def_img" >
 
         <RelativeLayout
@@ -405,10 +405,10 @@
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/smiley_good_not" />
+                 />
 
             <Button
                 android:id="@+id/home_btn_har_1"
@@ -429,10 +429,10 @@
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/smiley_medium_not" />
+               />
 
             <Button
                 android:id="@+id/home_btn_har_2"
@@ -453,10 +453,10 @@
 
             <ImageView
                 android:id="@+id/imageView1"
-                android:layout_width="75dp"
-                android:layout_height="75dp"
+                android:layout_width="70dp"
+                android:layout_height="70dp"
                 android:layout_alignParentTop="true"
-                android:src="@drawable/smiley_bad_not" />
+                />
 
             <Button
                 android:id="@+id/home_btn_har_3"
@@ -471,7 +471,7 @@
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
         android:background="@drawable/def_img" >
 
         <RelativeLayout

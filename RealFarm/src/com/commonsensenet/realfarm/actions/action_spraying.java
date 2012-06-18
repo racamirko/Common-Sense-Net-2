@@ -19,11 +19,15 @@ import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_spraying extends HelpEnabledActivity {//Integration
 //	MediaPlayer mp = null;     
 	 protected RealFarmProvider mDataProvider;
 	   private Context context=this;
+	   
+	   final action_spraying parentReference = this;                   //audio integration
+	   
 	String prob_sel_spray="0", pest_sel_spray="0",day_sel_spray="0", unit_sel_spray="0"; 
 	int spray_no;
 	String spray_no_sel;
@@ -47,6 +51,9 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 					mDataProvider.File_Log_Create("UIlog.txt","***** user has clicked soft key BACK in Spraying page*********** \r\n");
 				
 					}
+			      
+			      SoundQueue sq = SoundQueue.getInstance();    //audio integration
+					sq.stop(); 
 }
 	
     /** Called when the activity is first created. */
@@ -60,6 +67,9 @@ public class action_spraying extends HelpEnabledActivity {//Integration
     	      	final TextView day_spray = (TextView) findViewById(R.id.dlg_lbl_day_spray);
     	      	day_spray.setText("Today");
     	      	day_sel_spray="Today";
+    	      	
+    	      	 if(Global.EnableAudio==true)                        //checking for audio enable
+    			 {
     	      	if(mp != null)
 				{
 					mp.stop();
@@ -68,6 +78,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 				}
 				mp = MediaPlayer.create(this, R.raw.clickingspraying);
 				mp.start();
+    			 }
 				
 				
 				if(Global.WriteToSD==true)
@@ -133,6 +144,10 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 		    	prob1 = (Button) dlg.findViewById(R.id.home_prob_spray_1);
 		    	prob2 = (Button) dlg.findViewById(R.id.home_prob_spray_2);
 		    	prob3 = (Button) dlg.findViewById(R.id.home_prob_spray_3);
+		    	
+	   	 ((Button) dlg.findViewById(R.id.home_prob_spray_1)).setOnLongClickListener(parentReference);  //audio integration
+          ((Button) dlg.findViewById(R.id.home_prob_spray_2)).setOnLongClickListener(parentReference);
+         ((Button) dlg.findViewById(R.id.home_prob_spray_3)).setOnLongClickListener(parentReference);
 		    	
 		    	
 		    	prob1.setOnClickListener(new View.OnClickListener() {
@@ -245,6 +260,12 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	    	pest2 = (Button) dlg.findViewById(R.id.home_pest_spray_2);
 	    	pest3 = (Button) dlg.findViewById(R.id.home_pest_spray_3);
 	    	
+	  	 ((Button) dlg.findViewById(R.id.home_pest_spray_1)).setOnLongClickListener(parentReference);  //audio integration
+         ((Button) dlg.findViewById(R.id.home_pest_spray_2)).setOnLongClickListener(parentReference);
+        ((Button) dlg.findViewById(R.id.home_pest_spray_3)).setOnLongClickListener(parentReference);
+	    	
+	    	
+	    	
 	    	
 	    	pest1.setOnClickListener(new View.OnClickListener() {
 	    			public void onClick(View v) {
@@ -353,6 +374,10 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	    	unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 	    	unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 	    	unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
+	    	
+   	 ((Button) dlg.findViewById(R.id.home_btn_units_1)).setOnLongClickListener(parentReference);  //audio integrtion
+     ((Button) dlg.findViewById(R.id.home_btn_units_2)).setOnLongClickListener(parentReference);
+     ((Button) dlg.findViewById(R.id.home_btn_units_3)).setOnLongClickListener(parentReference);
 	    	
 	    	
 	    	unit1.setOnClickListener(new View.OnClickListener() {
@@ -467,6 +492,12 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	    	day3 = (Button) dlg.findViewById(R.id.home_day_3);
 	    	day4 = (Button) dlg.findViewById(R.id.home_day_4);
 	    	day5 = (Button) dlg.findViewById(R.id.home_day_5);
+	    	
+	    	 ((Button) dlg.findViewById(R.id.home_day_1)).setOnLongClickListener(parentReference);  //audio integration
+             ((Button) dlg.findViewById(R.id.home_day_2)).setOnLongClickListener(parentReference);
+              ((Button) dlg.findViewById(R.id.home_day_3)).setOnLongClickListener(parentReference);
+              ((Button) dlg.findViewById(R.id.home_day_4)).setOnLongClickListener(parentReference);
+              ((Button) dlg.findViewById(R.id.home_day_5)).setOnLongClickListener(parentReference);
 	    	
 	    	day1.setOnClickListener(new View.OnClickListener() {
 	    			public void onClick(View v) {
@@ -851,6 +882,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	}
 	protected void okaudio() {
 		// TODO Auto-generated method stub
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 			{
 				mp.stop();
@@ -859,6 +892,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+		 }
 		
 	    	 
 		
@@ -866,6 +900,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	
 	protected void initmissingval() {
 		// TODO Auto-generated method stub
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 		{
 			mp.stop();
@@ -874,6 +910,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 		}
 		mp = MediaPlayer.create(this, R.raw.missinginfo);
 		mp.start();
+		 }
 	}
 	
 	protected void stopaudio() {
@@ -892,6 +929,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 	public boolean onLongClick(View v) {                      //latest
 	
 		if( v.getId() == R.id.home_btn_prob_spray){
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			
 			if(mp != null)
 			{
@@ -901,6 +940,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttheproblem);
 			mp.start();
+			 }
 			
 			if(Global.WriteToSD==true)
 			{
@@ -914,6 +954,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 		
        if( v.getId() == R.id.home_btn_pest_spray){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -922,6 +964,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 			}
 			mp = MediaPlayer.create(this, R.raw.selectthepesticide);
 			mp.start();
+			 }
 			if(Global.WriteToSD==true)
 			{
 				
@@ -934,6 +977,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
        
        if( v.getId() == R.id.home_btn_units_spray || v.getId() == R.id.home_btn_units_no_spray){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -942,6 +987,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 			}
 			mp = MediaPlayer.create(this, R.raw.selecttheunits);
 			mp.start();
+			 }
 			if(Global.WriteToSD==true)
 			{
 				
@@ -954,6 +1000,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
        
        if( v.getId() == R.id.home_btn_day_spray){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
   			if(mp != null)
   			{
   				mp.stop();
@@ -962,6 +1010,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
   			}
   			mp = MediaPlayer.create(this, R.raw.selectthedate);
   			mp.start();
+			 }
   			if(Global.WriteToSD==true)
 			{
 				
@@ -973,6 +1022,8 @@ public class action_spraying extends HelpEnabledActivity {//Integration
   		}
        if( v.getId() == R.id.spray_ok){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
     			if(mp != null)
     			{
     				mp.stop();
@@ -981,11 +1032,14 @@ public class action_spraying extends HelpEnabledActivity {//Integration
     			}
     			mp = MediaPlayer.create(this, R.raw.ok);
     			mp.start();
+			 }
     			
     		}
   		
        if( v.getId() == R.id.spray_cancel){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
     			if(mp != null)
     			{
     				mp.stop();
@@ -994,10 +1048,13 @@ public class action_spraying extends HelpEnabledActivity {//Integration
     			}
     			mp = MediaPlayer.create(this, R.raw.cancel);
     			mp.start();
+			 }
     			
     		}
        if( v.getId() ==R.id.aggr_img_help ){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -1006,6 +1063,7 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 			}
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
+			 }
 			if(Global.WriteToSD==true)
 			{
 				
@@ -1015,6 +1073,97 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 		
 			}
 		}
+       
+       if( v.getId() == R.id.home_prob_spray_1){                 //added audio integration
+      		
+      		playAudio(R.raw.problem1);
+      		
+      	}
+         
+         if( v.getId() == R.id.home_prob_spray_2){                 //added
+     		
+     		playAudio(R.raw.problem2);
+     		
+     	}
+         
+         if( v.getId() == R.id.home_prob_spray_3){                 //added
+     		
+     		playAudio(R.raw.problem3);
+     		
+     	}
+         
+         if( v.getId() == R.id.home_pest_spray_1){                 //added
+        		
+        		playAudio(R.raw.pesticide1);
+        		
+        	}
+       		
+         
+         if( v.getId() == R.id.home_pest_spray_2){                 //added
+        		
+        		playAudio(R.raw.pesticide2);
+        		
+        	}
+       		
+         
+         if( v.getId() == R.id.home_pest_spray_3){                 //added
+        		
+        		playAudio(R.raw.pesticide3);
+        		
+        	}
+       		
+         
+         if( v.getId() == R.id.home_btn_units_1){                 //added
+       		
+       		playAudio(R.raw.bagof10kg);
+       		
+       	}
+         
+         if( v.getId() == R.id.home_btn_units_2){                 //added
+       		
+       		playAudio(R.raw.bagof20kg);
+       		
+       	}
+         
+         if( v.getId() == R.id.home_btn_units_3){                 //added
+       		
+       		playAudio(R.raw.bagof50kg);
+       		
+       	}
+         
+         if( v.getId() == R.id.home_day_1){                 //added
+      		
+      		playAudio(R.raw.twoweeksbefore);
+      		
+      	}
+         
+         if( v.getId() == R.id.home_day_2){                 //added
+      		
+      		playAudio(R.raw.oneweekbefore);
+      		
+      	}
+         
+         
+         if( v.getId() == R.id.home_day_3){                 //added
+      		
+      		playAudio(R.raw.yesterday);
+      		
+      	}
+         
+         
+         if( v.getId() == R.id.home_day_4){                 //added
+      		
+      		playAudio(R.raw.todayonly);
+      		
+      	}
+         
+         if( v.getId() == R.id.home_day_5){                 //added
+      		
+      		playAudio(R.raw.tomorrows);
+      		
+      	}
+     		
+         
   		
       
 		
@@ -1024,6 +1173,23 @@ public class action_spraying extends HelpEnabledActivity {//Integration
 
 		return true;
 	}
+	
+	 public void playAudio(int resid)                        //audio integration
+	    {
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
+		 System.out.println("play audio called");
+	    SoundQueue sq = SoundQueue.getInstance();
+		// stops any sound that could be playing.
+		sq.stop();
+		
+		sq.addToQueue(resid);
+		//sq.addToQueue(R.raw.treatmenttoseeds3);
+		sq.play();
+		 }
+
+	    	
+	    }
     
 
     

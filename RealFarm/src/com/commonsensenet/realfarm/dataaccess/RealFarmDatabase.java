@@ -97,7 +97,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_ISADMIN + " integer, "
 					+ COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE + " text, "
 					+ COLUMN_NAME_ACTION_TREATMENT + " text, "
-					+ COLUMN_NAME_ACTION_PESTICIDETYPE + " text "
+					+ COLUMN_NAME_ACTION_PESTICIDETYPE + " text, "
+					+ COLUMN_NAME_ACTION_IRRIGATE_METHOD + " text "
 					+ " ); ");
 			Log.d(DEBUG_ID, "Created action table");
 			
@@ -165,15 +166,20 @@ public class RealFarmDatabase {
 			Log.d(DEBUG_ID, "Created pesticide table");
 
 			// plots
-						db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
-								+ COLUMN_NAME_PLOT_ID + " integer primary key, "
-								+ COLUMN_NAME_PLOT_USERID + " references user(id), "
-								+ COLUMN_NAME_PLOT_IMG + " text, "
-								+ COLUMN_NAME_PLOT_SOILTYPE + " text, "
-								+ COLUMN_NAME_PLOT_MAINCROP + " text, "
-								+ COLUMN_NAME_PLOT_ADMINFLAG + " int "				
-								+ " ); ");
-						Log.d(DEBUG_ID, "Created plot table");
+			// plots
+			db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
+					+ COLUMN_NAME_PLOT_ID + " integer primary key, "
+					+ COLUMN_NAME_PLOT_USERID + " integer, "
+					//+ COLUMN_NAME_PLOT_PLOTID + " integer, "
+					+ COLUMN_NAME_PLOT_PLOT_SEEDTYPEID + " integer, "
+					+ COLUMN_NAME_PLOT_PLOT_POINTX + " integer, "
+					+ COLUMN_NAME_PLOT_PLOT_POINTY + " integer, "
+					+ COLUMN_NAME_PLOT_IMG + " text, "
+					+ COLUMN_NAME_PLOT_SOILTYPE + " text, "
+					+ COLUMN_NAME_PLOT_DELETEFLAG + " int, "
+					+ COLUMN_NAME_PLOT_ADMINFLAG + " int "				
+					+ " ); ");
+			Log.d(DEBUG_ID, "Created plot table");
 
 			// points
 			db.execSQL("create table " + TABLE_NAME_POINT + " ( "
@@ -333,6 +339,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE = "ActionPerformedDate";
 	public static final String COLUMN_NAME_ACTION_TREATMENT = "treatment";
 	public static final String COLUMN_NAME_ACTION_PESTICIDETYPE = "pesticidetype";
+	public static final String COLUMN_NAME_ACTION_IRRIGATE_METHOD = "irrigateMethod";
 	
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
@@ -376,9 +383,14 @@ public class RealFarmDatabase {
 	
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
-	public static final String COLUMN_NAME_PLOT_IMG = "img";
+	public static final String COLUMN_NAME_PLOT_PLOTID = "plotPlotId";
+	public static final String COLUMN_NAME_PLOT_PLOT_SEEDTYPEID = "plotSeedtypeId";
+	public static final String COLUMN_NAME_PLOT_PLOT_POINTX = "plotPointX";
+	public static final String COLUMN_NAME_PLOT_PLOT_POINTY = "plotPointY";
+		public static final String COLUMN_NAME_PLOT_IMG = "img";
 	public static final String COLUMN_NAME_PLOT_SOILTYPE = "soilType";
 	public static final String COLUMN_NAME_PLOT_MAINCROP = "mainCrop";	
+	public static final String COLUMN_NAME_PLOT_DELETEFLAG = "deleteFlag";
 	public static final String COLUMN_NAME_PLOT_ADMINFLAG = "adminFlag";
 
 	public static final String COLUMN_NAME_POINT_ID = "id";

@@ -13,11 +13,13 @@ import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_irrigate extends HelpEnabledActivity  {                  //integration
 	//MediaPlayer mp = null;
@@ -27,6 +29,8 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	 int fert_no;
 	 String fert_no_sel;
 	private Context context=this;
+	
+	 final action_irrigate parentReference = this;                         //audio integration
 	 public void onBackPressed() {
 			
 		 if(mp != null)
@@ -39,6 +43,9 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 			        
 			      startActivity(adminintent);                        
 			      action_irrigate.this.finish();
+			      
+			      SoundQueue sq = SoundQueue.getInstance();    //audio integration
+					sq.stop(); 
 }
 	
     /** Called when the activity is first created. */
@@ -52,6 +59,9 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
     	    	final TextView day_irr = (TextView) findViewById(R.id.dlg_lbl_day_irr);
     	    	day_irr.setText("Today");
     	    	irr_day_sel="Today";
+    	    	
+    	    	 if(Global.EnableAudio==true)                        //checking for audio enable
+    			 {
     	    	if(mp != null)
 				{
 					mp.stop();
@@ -60,7 +70,14 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 				}
 				mp = MediaPlayer.create(this, R.raw.clickingfertilising);
 				mp.start();
-    	    	
+				
+    			 }
+    	    	 
+    	    	 final ImageView bg_method_irr = (ImageView) findViewById(R.id.img_bg_method_irr);
+    	    	 final ImageView bg_hrs_irr = (ImageView) findViewById(R.id.img_bg_hrs_irr);
+    	    	 final ImageView bg_day_irr = (ImageView) findViewById(R.id.img_bg_day_irr);
+    	    	 
+    	    	 bg_day_irr.setImageResource(R.drawable.empty_not);
     final Button item1;
     final Button item2;
     final Button item3;
@@ -106,6 +123,10 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 		    	meth2 = (Button) dlg.findViewById(R.id.home_var_fert_2);
 		    	meth3 = (Button) dlg.findViewById(R.id.home_var_fert_3);
 		    	
+		    	((Button) dlg.findViewById(R.id.home_var_fert_1)).setOnLongClickListener(parentReference);  //audio integration
+                ((Button) dlg.findViewById(R.id.home_var_fert_2)).setOnLongClickListener(parentReference);
+                ((Button) dlg.findViewById(R.id.home_var_fert_3)).setOnLongClickListener(parentReference);
+		    	
 		    	
 		    	meth1.setOnClickListener(new View.OnClickListener() {
 		    			public void onClick(View v) {
@@ -117,6 +138,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 		    				 TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
 		 	    	      	
 		 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		 	    	      	bg_method_irr.setImageResource(R.drawable.empty_not);
 		    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 		    				dlg.cancel();                      
 		    				}
@@ -131,6 +153,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	    				 TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
 	 	    	      	
 	 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	 	    	      	bg_method_irr.setImageResource(R.drawable.empty_not);
 	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 	    				dlg.cancel();                       
 	    				}
@@ -145,6 +168,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	    				 TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
 	 	    	      	
 	 	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+	 	    	      	bg_method_irr.setImageResource(R.drawable.empty_not);
 	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 	    				dlg.cancel();                       
 	    				}
@@ -185,6 +209,12 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	    	day4 = (Button) dlg.findViewById(R.id.home_day_4);
 	    	day5 = (Button) dlg.findViewById(R.id.home_day_5);
 	    	
+	  	  ((Button) dlg.findViewById(R.id.home_day_1)).setOnLongClickListener(parentReference);  //audio integration
+          ((Button) dlg.findViewById(R.id.home_day_2)).setOnLongClickListener(parentReference);
+          ((Button) dlg.findViewById(R.id.home_day_3)).setOnLongClickListener(parentReference);
+          ((Button) dlg.findViewById(R.id.home_day_4)).setOnLongClickListener(parentReference);
+          ((Button) dlg.findViewById(R.id.home_day_5)).setOnLongClickListener(parentReference);
+	    	
 	    	day1.setOnClickListener(new View.OnClickListener() {
 	    			public void onClick(View v) {
 	    				Log.d("var 1 picked ", "in dialog");
@@ -192,6 +222,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	    			//	img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 	    				day_irr.setText("Two week before");
 	    				irr_day_sel="Two week before";
+	    			   	bg_day_irr.setImageResource(R.drawable.empty_not);
 	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 	    				dlg.cancel();                      
 	    				}
@@ -203,6 +234,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
     			//	img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
     				day_irr.setText("One week before");
     				irr_day_sel="One week before";
+    				bg_day_irr.setImageResource(R.drawable.empty_not);
     				dlg.cancel();                      
     				}
      	});
@@ -213,6 +245,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
     				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
     				day_irr.setText("Yesterday");
     				irr_day_sel="Yesterday";
+    				bg_day_irr.setImageResource(R.drawable.empty_not);
     				dlg.cancel();                      
     				}
      	});
@@ -222,6 +255,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
     				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
     				day_irr.setText("Today");
     				irr_day_sel="Today";
+    				bg_day_irr.setImageResource(R.drawable.empty_not);
     				dlg.cancel();                      
     				}
      	});
@@ -231,6 +265,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
     				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
     				day_irr.setText("Tomorrow");
     				irr_day_sel="Tomorrow";
+    				bg_day_irr.setImageResource(R.drawable.empty_not);
     				dlg.cancel();                      
     				}
      	});
@@ -268,6 +303,8 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 		    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_irr_tr);
 		  	    	      	
 		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
+		  	    	      	
+		  	    	  	bg_hrs_irr.setImageResource(R.drawable.empty_not);
 		    		    	
 		    		    }
 		    		    
@@ -349,7 +386,12 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	    		 
 	    		 if(flag1 ==0 && flag2 ==0) 
 	    		    {
-	    		    	
+	    				System.out.println("Irrigting Writing");
+	    			 mDataProvider.setIrrigation(hrs_irrigate , "hours",irr_day_sel,0,0,irr_method_sel) ;
+	    			 
+	    				System.out.println("Irrigting reading");
+	    				mDataProvider.getharvesting();
+	    				
 	    		    	 Intent adminintent = new Intent(action_irrigate.this,Homescreen.class);
 	    			        
 	    			      startActivity(adminintent);                        
@@ -383,6 +425,9 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	//@Override
 	protected void initmissingval() {
 		// TODO Auto-generated method stub
+		
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 		{
 			mp.stop();
@@ -391,16 +436,21 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 		}
 		mp = MediaPlayer.create(this, R.raw.missinginfo);
 		mp.start();
+		 }
 	}
     
 	protected void stopaudio() {
 		// TODO Auto-generated method stub
+		
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 		{
 			mp.stop();
 			mp.release();
 			mp = null;
 		}
+		 }
 		
 	}
     
@@ -409,33 +459,42 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	
 		if( v.getId() == R.id.home_btn_method_irr){
 			
+			
+			 if(Global.EnableAudio==true)                        //checking for audio enable
+			 {
 			if(mp != null)
 			{
 				mp.stop();
 				mp.release();
 				mp = null;
 			}
-			mp = MediaPlayer.create(this, R.raw.selecttypeoffertilizer);
+			mp = MediaPlayer.create(this, R.raw.method);
 			mp.start();
+			 }
 			
 		}
 	
        
        if( v.getId() == R.id.home_btn_units_no_irr){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+  		 {
     			if(mp != null)
     			{
     				mp.stop();
     				mp.release();
     				mp = null;
     			}
-    			mp = MediaPlayer.create(this, R.raw.selecttheunits);
+    			mp = MediaPlayer.create(this, R.raw.noofhours);
     			mp.start();
+  		 }
     			
     		}
        
        if( v.getId() == R.id.home_btn_day_irr){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+  		 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -444,11 +503,14 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 			}
 			mp = MediaPlayer.create(this, R.raw.selectthedate);
 			mp.start();
+  		 }
 			
 		}
        
        if( v.getId() == R.id.irr_ok){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+  		 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -457,11 +519,13 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+  		 }
 			
 		}
        
        if( v.getId() == R.id.irr_cancel){
-			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+  		 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -470,11 +534,14 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 			}
 			mp = MediaPlayer.create(this, R.raw.cancel);
 			mp.start();
+  		 }
 			
 		}
        
        if( v.getId() ==R.id.aggr_img_help ){
 			
+    	   if(Global.EnableAudio==true)                        //checking for audio enable
+  		 {
 			if(mp != null)
 			{
 				mp.stop();
@@ -483,8 +550,72 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 			}
 			mp = MediaPlayer.create(this, R.raw.help);
 			mp.start();
+  		 }
 			
 		}
+       
+       if( v.getId() == R.id.home_var_fert_1){                 //audio integration
+      		
+      		playAudio(R.raw.fertilizer1);
+      		
+      	}
+         
+         
+         if( v.getId() == R.id.home_var_fert_2){                 //added
+      		
+      		playAudio(R.raw.fertilizer2);
+      		
+      	}
+         
+         
+         if( v.getId() == R.id.home_var_fert_3){                 //added
+      		
+      		playAudio(R.raw.fertilizer3);
+      		
+      	}
+         
+         
+         if( v.getId() == R.id.home_day_1){                 //added
+      		
+      		playAudio(R.raw.twoweeksbefore);
+      		
+      	}
+         
+         
+         
+         
+         if( v.getId() == R.id.home_day_2){                 //added
+      		
+      		playAudio(R.raw.oneweekbefore);
+      		
+      	}
+         
+         
+         
+         
+         if( v.getId() == R.id.home_day_3){                 //added
+      		
+      		playAudio(R.raw.yesterday);
+      		
+      	}
+         
+         
+         
+         
+         if( v.getId() == R.id.home_day_4){                 //added
+      		
+      		playAudio(R.raw.todayonly);
+      		
+      	}
+         
+         
+         
+         if( v.getId() == R.id.home_day_5){                 //added
+      		
+      		playAudio(R.raw.tomorrows);
+      		
+      	}
+         
        
 		
 	
@@ -500,6 +631,9 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
     
 	protected void cancelaudio() {
 		// TODO Auto-generated method stub
+		
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 		{
 			mp.stop();
@@ -508,6 +642,7 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 		}
 		mp = MediaPlayer.create(this, R.raw.cancel);
 		mp.start();
+		 }
 		Intent adminintent = new Intent(action_irrigate.this,Homescreen.class);
         
 	      startActivity(adminintent);                        
@@ -515,6 +650,9 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 	}
 	protected void okaudio() {
 		// TODO Auto-generated method stub
+		
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
 		if(mp != null)
 			{
 				mp.stop();
@@ -523,10 +661,29 @@ public class action_irrigate extends HelpEnabledActivity  {                  //i
 			}
 			mp = MediaPlayer.create(this, R.raw.ok);
 			mp.start();
+			
+		 }
 		
 	    	 
 		
 	}
+	
+	 public void playAudio(int resid)                            //audio integration
+	    {
+		 if(Global.EnableAudio==true)                        //checking for audio enable
+		 {
+		 System.out.println("play audio called");
+	    SoundQueue sq = SoundQueue.getInstance();
+		// stops any sound that could be playing.
+		sq.stop();
+		
+		sq.addToQueue(resid);
+		//sq.addToQueue(R.raw.treatmenttoseeds3);
+		sq.play();
+		 }
+
+	    	
+	    }
 	
    
     

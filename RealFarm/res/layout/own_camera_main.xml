@@ -65,7 +65,7 @@
     <FrameLayout
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
-        android:layout_height="330dip"
+        android:layout_height="250dip"
         android:focusable="true" 
         android:layout_marginTop="7dip">
     </FrameLayout>

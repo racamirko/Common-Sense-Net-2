@@ -27,14 +27,14 @@
 
         <Button
             android:id="@+id/button123"
-            android:layout_width="60dip"
+            android:layout_width="75dip"
             android:layout_height="wrap_content"
             android:text="Button"
             android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/aggr_img_home"
-            android:layout_width="60dip"
+            android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/home"
@@ -42,7 +42,7 @@
 
         <ImageButton
             android:id="@+id/aggr_img_help"
-            android:layout_width="60dip"
+            android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/help"
@@ -109,7 +109,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/ic_48px_pest" />
+                    android:src="@drawable/ic_48px_reporting" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -191,7 +191,7 @@
                     android:gravity="left"
                     android:text="Pesticide Name"
                     android:textColor="#000000"
-                    android:textSize="22sp" />
+                    android:textSize="20sp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -203,12 +203,14 @@
 
                 <ImageButton
                     android:id="@+id/variety_sow_img_btn"
-                    android:layout_width="40dip"
-                    android:layout_height="60dp"
+                    android:layout_width="80dip"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
                     android:layout_marginTop="10dp"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/ic_48px_pest" />
+                    android:src="@drawable/pest_type" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -278,7 +280,7 @@
                     android:gravity="right"
                     android:text="Amount"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="22sp" />
 
                 <Button
                     android:id="@+id/amount_sow_txt_btn"
@@ -419,7 +421,7 @@
                     android:gravity="right"
                     android:text="Date"
                     android:textColor="#000000"
-                    android:textSize="25sp" />
+                    android:textSize="22sp" />
 
                 <Button
                     android:id="@+id/date_sow_txt_btn"
@@ -487,7 +489,7 @@
     <TableRow
         android:id="@+id/tableRow1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="62dp"
         android:background="@drawable/def_img" >
 
         <RelativeLayout

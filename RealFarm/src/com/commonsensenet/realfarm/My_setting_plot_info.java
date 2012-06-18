@@ -5,7 +5,9 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
@@ -32,6 +34,7 @@ public class My_setting_plot_info extends Activity {
 	String log;
 	public User ReadUser = null;
 	public int Position; // Has copy of mainlistview position
+	public int PlotIdDelete=0;  //Contains plot id to which delete flag is set
 
 	final Context context = this;
 	String name;
@@ -95,6 +98,76 @@ public class My_setting_plot_info extends Activity {
 
 					}
 				});
+		
+		
+		mainListView
+		.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+			public boolean onItemLongClick(AdapterView parent, View v,
+					int position, long id) {
+				// Start your Activity according to the item just
+				// clicked.
+
+				System.out.println("in main list LONG CLICK of my settings plot info");
+				Position = position + 1;
+				// ReadUser= mDataProvider.getUserById(position+1);
+				
+				System.out.println(position);
+				List<PlotNew> PlotList = mDataProvider.
+				getAllPlotListByUserDeleteFlag(Global.userId,0);    //Get plot list for that user id whose deleteFlag=0
+
+			PlotIdDelete = PlotList.get(position)
+					.getPlotId(); 
+
+			
+
+				AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+						context);
+
+				// set title
+				alertDialogBuilder.setTitle("Delete");
+
+				// set dialog message
+				alertDialogBuilder
+						.setMessage("Click Yes to delete the plot !")
+						.setCancelable(false)
+						.setPositiveButton("Yes",
+								new DialogInterface.OnClickListener() {
+									public void onClick(
+											DialogInterface dialog,
+											int id) {
+										
+										System.out.println("Yes");
+
+										mDataProvider
+												.setDeleteFlagForPlot(PlotIdDelete);
+										mDataProvider.getAllPlotList(); 
+
+										finish();
+										startActivity(getIntent());
+
+									}
+								})
+						.setNegativeButton("No",
+								new DialogInterface.OnClickListener() {
+									public void onClick(
+											DialogInterface dialog,
+											int id) {
+										
+										System.out.println("No");
+										dialog.cancel();
+									}
+								});
+
+				// create alert dialog
+				AlertDialog alertDialog = alertDialogBuilder.create();
+
+				// show it
+				alertDialog.show();
+
+				return true;
+
+			}
+		});
 
 	} // End of onCreate()
 
@@ -111,12 +184,12 @@ public class My_setting_plot_info extends Activity {
 		mainListView.setAdapter(listAdapter);
 
 		// gets the users from the database.
-		List<PlotNew> userList = mDataProvider.getAllPlotList();
+		List<PlotNew> plotList = mDataProvider.getAllPlotListByUserDeleteFlag(Global.userId,0);
 
 		// adds the plot into the list adapter.
-		for (int x = 0; x < userList.size(); x++) {
-			listAdapter.add("Plot id:  " + userList.get(x).getPlotId() + " "
-					+ "Soil type:  " + userList.get(x).getSoilType());
+		for (int x = 0; x < plotList.size(); x++) {
+			listAdapter.add("Plot id:  " + plotList.get(x).getPlotId() + " "
+					+ "Soil type:  " + plotList.get(x).getSoilType());
 
 		}
 

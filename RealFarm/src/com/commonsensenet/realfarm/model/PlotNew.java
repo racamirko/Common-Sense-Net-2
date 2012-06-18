@@ -4,17 +4,25 @@ public class PlotNew {
 
 	protected int mPlotId;
 	protected int mPlotUserId;
+	
+	protected int mplotSeedTypeId;
+	protected int mpointX;
+	protected int mpointY;
 	protected String mPlotImageName;
 	protected String mSoilType;
-	protected String mMainCrop;
+	protected int mdeleteFlag;
 	protected int madminFlag;
 
-	public PlotNew(int PlotId,int PlotUserId, String PlotImageName, String SoilType,String MainCrop, int adminFlag) {
+	public PlotNew(int PlotId,int PlotUserId, int plotSeedTypeId,int pointX, int pointY,
+			String PlotImageName, String SoilType,int deleteFlag, int adminFlag) {
 		mPlotId = PlotId;
 		mPlotUserId = PlotUserId;
+		mplotSeedTypeId=plotSeedTypeId;
+		mpointX=pointX;
+		mpointY=pointY;
 		mPlotImageName = PlotImageName;
 		mSoilType = SoilType;
-		mMainCrop = MainCrop;
+		mdeleteFlag=deleteFlag;
 		madminFlag=adminFlag;
 	}
 
@@ -26,6 +34,15 @@ public class PlotNew {
 		return mPlotUserId;
 	}
 
+	public int getplotSeedTypeId() {
+		return mplotSeedTypeId;
+	}
+	public int getpointX() {
+		return mpointX;
+	}
+	public int getpointY() {
+		return mpointY;
+	}
 	public String getPlotImageName() {
 		return mPlotImageName;
 	}
@@ -35,8 +52,9 @@ public class PlotNew {
 	}
 	
 
-	public String getMainCrop() {
-		return mMainCrop;
+	
+	public int getdeleteFlag() {
+		return mdeleteFlag;
 	}
 	
 	public int getadminFlag() {
