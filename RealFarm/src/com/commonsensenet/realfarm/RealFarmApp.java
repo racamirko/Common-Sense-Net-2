@@ -9,31 +9,19 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
  * across activities such as the database
  * 
  * @author Julien Freudiger
+ * @author Oscar Bola–os (@oscarbolanos)
  * 
  */
 public class RealFarmApp extends Application {
 
-	private RealFarmDatabase db;
-	private int mId = 0;
+	/** Database used by the application. */
+	private RealFarmDatabase mDatabase;
 
 	public RealFarmDatabase getDatabase() {
-		return db;
-	}
-
-	public int getUserId() {
-		return mId;
-	}
-
-	public RealFarmDatabase setDatabase() {
-		db = new RealFarmDatabase(getApplicationContext());
-		return db;
+		return mDatabase;
 	}
 
 	public void setDatabase(RealFarmDatabase db) {
-		this.db = db;
-	}
-
-	public void setUserId(int userId) {
-		mId = userId;
+		mDatabase = db;
 	}
 }
