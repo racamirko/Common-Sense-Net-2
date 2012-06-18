@@ -8,7 +8,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
-import android.graphics.Point;
 import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
@@ -370,37 +369,37 @@ public class Settings extends Activity {
 				.getUserId();
 
 		// get plot list from db
-		List<Plot> poly = mDataProvider.getPlotsByUserId(userId);
+		List<Plot> poly = mDataProvider.getAllPlotListByUserId(userId);
 
 		plotNumber = poly.size();
 
 		// for each stored row
-		for (int i = 0; i < plotNumber; i++) {
-
-			LinearLayout plotLayout = new LinearLayout(this);
-			LayoutParams layoutParams = new LinearLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			plotLayout.setLayoutParams(layoutParams);
-			plotLayout.setWeightSum(1);
-
-			TextView tv = new TextView(this);
-			tv.setText("plot " + i);
-			plotLayout.addView(tv);
-
-			Point[] coords = poly.get(i).getCoordinates();
-
-			for (int j = 0; j < coords.length; j++) {
-				Button b = new Button(this);
-				b.setText("x, y");
-				b.setBackgroundColor(Color.GREEN);
-				b.setOnClickListener(OnClickAllowEdit(poly.get(i).getId(),
-						coords[j].x, coords[j].y));
-				plotLayout.addView(b);
-			}
-			int plotId = poly.get(i).getId();
-			addButton(plotLayout, plotId);
-			container2.addView(plotLayout);
-		}
+		// for (int i = 0; i < plotNumber; i++) {
+		//
+		// LinearLayout plotLayout = new LinearLayout(this);
+		// LayoutParams layoutParams = new LinearLayout.LayoutParams(
+		// LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		// plotLayout.setLayoutParams(layoutParams);
+		// plotLayout.setWeightSum(1);
+		//
+		// TextView tv = new TextView(this);
+		// tv.setText("plot " + i);
+		// plotLayout.addView(tv);
+		//
+		// Point[] coords = poly.get(i).getCoordinates();
+		//
+		// for (int j = 0; j < coords.length; j++) {
+		// Button b = new Button(this);
+		// b.setText("x, y");
+		// b.setBackgroundColor(Color.GREEN);
+		// b.setOnClickListener(OnClickAllowEdit(poly.get(i).getId(),
+		// coords[j].x, coords[j].y));
+		// plotLayout.addView(b);
+		// }
+		// int plotId = poly.get(i).getId();
+		// addButton(plotLayout, plotId);
+		// container2.addView(plotLayout);
+		// }
 
 		// Set + button
 		ib = new ImageButton(this);

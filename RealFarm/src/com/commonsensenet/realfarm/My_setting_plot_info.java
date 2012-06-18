@@ -18,20 +18,48 @@ import android.widget.ListView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.PlotNew;
-import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.model.Plot;
 
 public class My_setting_plot_info extends Activity {
 
-	protected RealFarmProvider mDataProvider;
+	/** Context of the current application. */
+	private final Context mContext = this;
 
-	private ListView mainListView;
-	private ArrayAdapter<String> listAdapter;
-	public User ReadUser = null;
-	public int Position; // Has copy of mainlistview position
-	public int PlotIdDelete = 0; // Contains plot id to which delete flag is set
+	/** Access to the underlying database of the application. */
+	private RealFarmProvider mDataProvider;
+	/** Identifier of the plot what will be deleted. */
+	private int mPlotIdDelete;
+	/** ListAdapter used to handle the plots. */
+	private ArrayAdapter<String> mPlotsListAdapter;
+	/** ListView where the plots are rendered. */
+	private ListView mPlotsListView;
 
-	private final Context context = this;
+	public void listViewSettings() {
+
+		// default value
+		mPlotIdDelete = -1;
+
+		mPlotsListView = (ListView) findViewById(R.id.mainListView);
+
+		mPlotsListView.setItemsCanFocus(true);
+		String[] planets = new String[] {}; // Sets parameters for list view
+		ArrayList<String> planetList = new ArrayList<String>();
+		planetList.addAll(Arrays.asList(planets));
+		mPlotsListAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,
+				planetList);
+		mPlotsListView.setAdapter(mPlotsListAdapter);
+
+		// gets the users from the database.
+		List<Plot> plotList = mDataProvider.getAllPlotListByUserDeleteFlag(
+				Global.userId, 0);
+
+		// adds the plot into the list adapter.
+		for (int x = 0; x < plotList.size(); x++) {
+			mPlotsListAdapter.add("Plot id:  " + plotList.get(x).getPlotId()
+					+ " " + "Soil type:  " + plotList.get(x).getSoilType());
+
+		}
+	}
 
 	public void onBackPressed() {
 
@@ -46,12 +74,12 @@ public class My_setting_plot_info extends Activity {
 		setContentView(R.layout.my_setting_plot_info);
 		System.out.println("In My_setting_plot_info call");
 
-		mDataProvider = RealFarmProvider.getInstance(context); // Working
+		mDataProvider = RealFarmProvider.getInstance(mContext); // Working
 
 		Button AddPlot = (Button) findViewById(R.id.AddPlot);
 		// Button DeleteUser;
 		// Button DeleteUser = (Button) findViewById(R.id.DeleteUser);
-		ListViewSettings();
+		listViewSettings();
 		// listimgview();
 
 		// add the event listeners
@@ -64,14 +92,14 @@ public class My_setting_plot_info extends Activity {
 						My_settings_plot_details.class);
 				startActivity(adminintent123);
 				My_setting_plot_info.this.finish();
-				ListViewSettings();
+				listViewSettings();
 				// listimgview();
 			}
 		});
 
 		// final List<User> userList =mDataProvider.getUserList(); //Working
 
-		mainListView
+		mPlotsListView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
 					public void onItemClick(AdapterView parent, View v,
 							int position, long id) {
@@ -93,7 +121,7 @@ public class My_setting_plot_info extends Activity {
 					}
 				});
 
-		mainListView
+		mPlotsListView
 				.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
 					public boolean onItemLongClick(AdapterView parent, View v,
 							int position, long id) {
@@ -102,19 +130,19 @@ public class My_setting_plot_info extends Activity {
 
 						System.out
 								.println("in main list LONG CLICK of my settings plot info");
-						Position = position + 1;
+						// Position = position + 1;
 						// ReadUser= mDataProvider.getUserById(position+1);
 
 						System.out.println(position);
-						List<PlotNew> PlotList = mDataProvider
+						List<Plot> PlotList = mDataProvider
 								.getAllPlotListByUserDeleteFlag(Global.userId,
 										0); // Get plot list for that user id
 											// whose deleteFlag=0
 
-						PlotIdDelete = PlotList.get(position).getPlotId();
+						mPlotIdDelete = PlotList.get(position).getPlotId();
 
 						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-								context);
+								mContext);
 
 						// set title
 						alertDialogBuilder.setTitle("Delete");
@@ -132,7 +160,7 @@ public class My_setting_plot_info extends Activity {
 												System.out.println("Yes");
 
 												mDataProvider
-														.setDeleteFlagForPlot(PlotIdDelete);
+														.setDeleteFlagForPlot(mPlotIdDelete);
 												mDataProvider.getAllPlotList();
 
 												finish();
@@ -163,28 +191,4 @@ public class My_setting_plot_info extends Activity {
 				});
 
 	} // End of onCreate()
-
-	public void ListViewSettings() {
-
-		mainListView = (ListView) findViewById(R.id.mainListView);
-
-		mainListView.setItemsCanFocus(true);
-		String[] planets = new String[] {}; // Sets parameters for list view
-		ArrayList<String> planetList = new ArrayList<String>();
-		planetList.addAll(Arrays.asList(planets));
-		listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,
-				planetList);
-		mainListView.setAdapter(listAdapter);
-
-		// gets the users from the database.
-		List<PlotNew> plotList = mDataProvider.getAllPlotListByUserDeleteFlag(
-				Global.userId, 0);
-
-		// adds the plot into the list adapter.
-		for (int x = 0; x < plotList.size(); x++) {
-			listAdapter.add("Plot id:  " + plotList.get(x).getPlotId() + " "
-					+ "Soil type:  " + plotList.get(x).getSoilType());
-
-		}
-	}
 }

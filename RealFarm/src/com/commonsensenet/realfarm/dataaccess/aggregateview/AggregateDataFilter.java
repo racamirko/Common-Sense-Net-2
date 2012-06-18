@@ -13,31 +13,31 @@ public class AggregateDataFilter {
 	protected Plot plot;
 	protected Seed seed;
 	protected User user;
-	
+
 	protected DateFilterModifier dateMod;
 	protected Date dateValue;
-	
-	public AggregateDataFilter setMessageType( MessageType mesType ){
+
+	public AggregateDataFilter setMessageType(MessageType mesType) {
 		typeFilter = mesType;
 		return this;
 	}
-	
-	public AggregateDataFilter setPlot( Plot plot ){
+
+	public AggregateDataFilter setPlot(Plot plot) {
 		this.plot = plot;
 		return this;
 	}
 
-	public AggregateDataFilter setSeed( Seed seed ){
+	public AggregateDataFilter setSeed(Seed seed) {
 		this.seed = seed;
 		return this;
 	}
 
-	public AggregateDataFilter setUser( User user ){
+	public AggregateDataFilter setUser(User user) {
 		this.user = user;
 		return this;
 	}
 
-	public AggregateDataFilter setDate( Date date, DateFilterModifier dateMod ){
+	public AggregateDataFilter setDate(Date date, DateFilterModifier dateMod) {
 		this.dateValue = date;
 		this.dateMod = dateMod;
 		return this;

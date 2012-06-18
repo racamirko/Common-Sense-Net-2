@@ -22,7 +22,7 @@ import com.commonsensenet.realfarm.actions.action_sowing;
 import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.PlotNew;
+import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.User;
 
 public class Plot_Image extends Activity {
@@ -143,7 +143,7 @@ public class Plot_Image extends Activity {
 
 		// gets the users from the database.
 		//List<PlotNew> userList = mDataProvider.getAllPlotList();
-		List<PlotNew>  plotList=mDataProvider.
+		List<Plot>  plotList=mDataProvider.
 		getAllPlotListByUserDeleteFlag(Global.userId,0);                                     //added with audio integration
 
 		// adds the plot into the list adapter.
