@@ -123,78 +123,6 @@
                 <RelativeLayout
                     android:id="@+id/RelativeLayoutwf_2"
                     android:layout_width="wrap_content"
-<<<<<<< HEAD
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/variety_sow_txt_btn"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="55dp"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="Plot Image"
-                    android:textColor="#000000"
-                    android:textSize="22sp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="40dp"
-                android:layout_height="170dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageButton
-                    android:id="@+id/variety_sow_img_btn"
-                    android:layout_width="40dip"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="0dp"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/date" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="170dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/dlg_plot_img_test"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/empty"
-                   />
-
-                <Button
-                    android:id="@+id/home_btn_list_plot"
-                    android:layout_width="120dp"
-                    android:layout_height="170dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
-
-            </RelativeLayout>
-        </TableRow>
-      </LinearLayout>
-    
-     
-      <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="70dp"
-        android:orientation="horizontal" >
-
-        <TableRow
-            android:id="@+id/soiltype_tr"
-=======
                     android:layout_height="170dp"
                     android:layout_margin="5dip"
                     android:gravity="right" >
@@ -219,7 +147,6 @@
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
->>>>>>> Several UI Modifications
             android:layout_width="fill_parent"
             android:layout_height="70dp"
             android:orientation="horizontal" >
@@ -236,29 +163,6 @@
                     android:id="@+id/RelativeLayoutwf_2"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-<<<<<<< HEAD
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/date" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/dlg_img_soil_plot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_soil_plot"
-=======
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
@@ -304,7 +208,6 @@
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayoutwf_2"
->>>>>>> Several UI Modifications
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
                     android:layout_margin="5dip"
@@ -357,29 +260,6 @@
                     android:id="@+id/RelativeLayoutwf_2"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
-<<<<<<< HEAD
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/maincrop" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/dlg_img_crop_plot"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_crop_plot"
-=======
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
@@ -427,7 +307,6 @@
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayoutwf_2"
->>>>>>> Several UI Modifications
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
                     android:layout_margin="5dip"
