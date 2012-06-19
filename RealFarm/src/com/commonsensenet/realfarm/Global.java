@@ -15,4 +15,5 @@ public class Global {
 	public static int userId = 1;
 	public static int videosel;;
 	public static boolean WriteToSD = false;
+	public static String plot_img_path;
 }

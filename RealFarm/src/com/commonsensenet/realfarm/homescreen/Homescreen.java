@@ -487,7 +487,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			System.out.println("Action selling clicked");
 			Global.actionno = 3; // for selling
-			if (no_of_plots > 1) {
+			inte = new Intent(this, action_selling.class);
+			this.startActivity(inte);
+			this.finish();
+			return;
+			
+		/*	if (no_of_plots > 1) {
 
 				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
@@ -508,7 +513,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				this.finish();
 				return;
 
-			}
+			}*/
 
 		}
 

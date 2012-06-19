@@ -6,64 +6,11 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/rldate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/fillDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:gravity="center_vertical|center_horizontal"
-            android:textSize="25sp" >
-        </TextView>
-
-        <Button
-            android:id="@+id/Date_Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dip"
-            android:background="@drawable/selected_date_icon"
-            android:clickable="true"
-            android:longClickable="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rltime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/fillTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:gravity="center_vertical|center_horizontal"
-            android:textSize="25sp" >
-
-            <requestFocus />
-        </TextView>
-
-        <Button
-            android:id="@+id/Time_Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/selected_time_icon"
-            android:clickable="true"
-            android:longClickable="true" />
-    </LinearLayout>
-
+       
     <FrameLayout
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
-        android:layout_height="250dip"
+        android:layout_height="300dip"
         android:layout_marginTop="7dip"
         android:focusable="true" >
     </FrameLayout>

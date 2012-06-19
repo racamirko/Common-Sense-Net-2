@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
+
 
 import com.commonsensenet.realfarm.actions.action_fertilizing;
 import com.commonsensenet.realfarm.actions.action_harvest;
@@ -41,8 +41,8 @@ public class ChoosePlotActivity extends Activity {
 		List<Plot> plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
 				Global.userId, 0);
 
-		Toast.makeText(this, "Total plots: " + plots.size(), Toast.LENGTH_SHORT)
-				.show();
+	//	Toast.makeText(this, "Total plots: " + plots.size(), Toast.LENGTH_SHORT)
+	//			.show();
 
 		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 

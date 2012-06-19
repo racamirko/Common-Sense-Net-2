@@ -1,4 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/def_img">
+    
+    
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -555,65 +561,30 @@
         </TableRow>
     </LinearLayout>
 
-    <TableRow
-        android:id="@+id/tableRow1"
-        android:layout_width="match_parent"
-        android:layout_height="64dp"
-        android:layout_marginLeft="0dp"
-        android:layout_marginTop="0dp"
-        android:background="@drawable/def_img" >
+ </LinearLayout>
+ 
+    <LinearLayout
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
 
-        <RelativeLayout
-            android:id="@+id/RelativeLayoutwf_2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="75dp"
-            android:layout_marginTop="5dp" >
+        <Button
+            android:id="@+id/sow_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_ok"
+            android:text="@string/button_ok" />
 
-            <ImageView
-                android:id="@+id/okbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:src="@drawable/ic_72px_ok" />
-
-            <Button
-                android:id="@+id/sow_ok"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignBottom="@+id/okbutton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/okbutton"
-                android:background="@drawable/square_btn_transp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/RelativeLayoutwf_2"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="50dp"
-            android:layout_marginTop="5dp" >
-
-            <ImageView
-                android:id="@+id/cancelbutton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="2"
-                android:src="@drawable/ic_72px_cancel" />
-
-            <Button
-                android:id="@+id/sow_cancel"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_alignBottom="@+id/cancelbutton"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentTop="true"
-                android:layout_alignRight="@+id/cancelbutton"
-                android:background="@drawable/square_btn_transp" />
-        </RelativeLayout>
-    </TableRow>
-
-</LinearLayout>
+        <Button
+            android:id="@+id/sow_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_cancel"
+            android:text="@string/button_cancel" />
+    </LinearLayout>
+    
+</RelativeLayout>

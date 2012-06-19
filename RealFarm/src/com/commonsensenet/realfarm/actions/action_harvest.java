@@ -101,18 +101,19 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		harvest_year_set.setText("2012");
 		year_harvest = "2012";
 		bg_year_harvest.setImageResource(R.drawable.empty_not);
+		System.out.println("Plant details entered1");
 		final Button item1;
 		final Button item2;
 		final Button item3;
 		final Button item4;
 		ImageButton home;
 		ImageButton help;
-
+		System.out.println("Plant details entered2");
 		item1 = (Button) findViewById(R.id.home_btn_units_no_harvest);
 		item2 = (Button) findViewById(R.id.home_btn_units_harvest);
 		item3 = (Button) findViewById(R.id.home_btn_harvest_date);
 		item4 = (Button) findViewById(R.id.home_btn_harvest_year);
-
+		System.out.println("Plant details entered3");
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
 		item1.setOnLongClickListener(this);
@@ -125,7 +126,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		smiley3.setOnLongClickListener(this);
 
 		help.setOnLongClickListener(this);
-
+		System.out.println("Plant details entered4");
 		smiley1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -402,7 +403,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 			}
 		});
 
-		item3.setOnClickListener(new View.OnClickListener() {
+			item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
@@ -700,7 +701,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		});
 
 		Button btnNext = (Button) findViewById(R.id.harvest_ok);
-		Button cancel = (Button) findViewById(R.id.home_btn_wf_2); // integration
+		Button cancel = (Button) findViewById(R.id.harvest_cancel); // integration
 
 		btnNext.setOnLongClickListener(this);
 		cancel.setOnLongClickListener(this);
@@ -933,7 +934,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 			playAudio(R.raw.ok);
 
 		}
-		if (v.getId() == R.id.home_btn_wf_2) {
+		if (v.getId() == R.id.harvest_cancel) {
 
 			playAudio(R.raw.cancel);
 

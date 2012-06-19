@@ -34,9 +34,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider
-					.File_Log_Create("UIlog.txt",
-							"***** user hasclciked soft key BACK in fertilizer page*********** \r\n");
+			mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Softkey "+ " click " + " Back_button " + " null " + " \r\n");
 
 		}
 		Intent adminintent = new Intent(action_fertilizing.this,
@@ -77,8 +75,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt",
-					"***** In Action Fertilizing*********** \r\n");
+			mDataProvider.File_Log_Create("UIlog.txt"," Homepage "+ " actionicon "+ " click " + " fertilizingicon " + " null " + " \r\n");
 
 		}
 
@@ -117,9 +114,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In Selection of variety of fertilizer*********** \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " type_fertilizer " + " null " + " \r\n");
 
 				}
 				final Button fert1;
@@ -157,9 +152,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** User selected Fertilizer 1*********** \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " fertilizer1 " + " fertilizer1 " + " \r\n");
 
 						}
 
@@ -183,9 +176,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** User selected Fertilizer 2*********** \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " fertilizer2 " + " fertilizer2 " + " \r\n");
+
 
 						}
 						dlg.cancel();
@@ -208,9 +200,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** User selected Fertilizer 3*********** \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " fertilizer3 " + " fertilizer3 " + " \r\n");
+
 
 						}
 						dlg.cancel();
@@ -235,9 +226,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"*****In selection of fertilizer units*********** \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " units_fertilizer " + " null " + " \r\n");
+
 
 				}
 
@@ -276,9 +266,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** User selected Bag of 10 Kgs*********** \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " units_fertilizer " + units_fert + " \r\n");
+
 
 						}
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
@@ -302,9 +291,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** User selected Bag of 20 Kgs*********** \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " units_fertilizer " + units_fert + " \r\n");
 
 						}
 						dlg.cancel();
@@ -327,9 +314,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** User selected Bag of 50 Kgs*********** \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " units_fertilizer " + units_fert + " \r\n");
+
 
 						}
 						dlg.cancel();
@@ -373,9 +359,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In Selection of day for fertilizer *********** \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " day_fertilizer " + " null " + " \r\n");
+
 
 				}
 
@@ -411,8 +396,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt", "*****"
-									+ fert_day_sel + "*********** \r\n");
+		    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " day_fertilizer " + fert_day_sel + " \r\n");
 
 						}
 						dlg.cancel();
@@ -432,8 +416,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt", "*****"
-									+ fert_day_sel + "*********** \r\n");
+		    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " day_fertilizer " + fert_day_sel + " \r\n");
+
 
 						}
 						dlg.cancel();
@@ -453,8 +437,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt", "*****"
-									+ fert_day_sel + "*********** \r\n");
+		    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " day_fertilizer " + fert_day_sel + " \r\n");
+
 
 						}
 						dlg.cancel();
@@ -473,8 +457,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt", "*****"
-									+ fert_day_sel + "*********** \r\n");
+		    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " day_fertilizer " + fert_day_sel + " \r\n");
+
 
 						}
 						dlg.cancel();
@@ -493,8 +477,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt", "*****"
-									+ fert_day_sel + "*********** \r\n");
+		    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " day_fertilizer " + fert_day_sel + " \r\n");
+
 
 						}
 						dlg.cancel();
@@ -521,10 +505,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of no of bags of fertilizer*********** \r\n");
-
+					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " no_units_fertilizer " + " null " + " \r\n");
 				}
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
@@ -552,9 +533,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 								String logtime = getcurrenttime();
 								mDataProvider.File_Log_Create("UIlog.txt",
 										logtime + " -> ");
-								mDataProvider.File_Log_Create("UIlog.txt",
-										"***** entered no " + fert_no_sel
-												+ " of abags*********** \r\n");
+			    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " number_picker "+ " click " + " no_units_fertilizer " + fert_no_sel + " \r\n");
 
 							}
 						}
@@ -569,9 +548,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** User clicked cancel in number picker fertilizer *********** \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " number_picker "+ " click " + " cancel_no_units " + "cancelnumberentry" + " \r\n");
 
 						}
 						dlg.cancel();
@@ -595,9 +572,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** User clicked cancel on fertilizer page*********** \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Cancel "+ " click " + " Cancel_btn " + "null" + " \r\n");
 
 				}
 			}
@@ -612,9 +587,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user clicked OK on fertilizer page*********** \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " OK "+ " click " + " OK_btn " + "null" + " \r\n");
 
 				}
 
@@ -632,9 +605,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
 								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT Filled units in fertilizer page*********** \r\n");
+						mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Incomplete "+ " Auto " + " ok_btn " + "units_fertilizer" + " \r\n");
 
 					}
 
@@ -658,9 +629,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
 								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT selected variety  in fertilizer page*********** \r\n");
+						mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Incomplete "+ " Auto " + " ok_btn " + "type_fertilizer" + " \r\n");
 
 					}
 
@@ -687,10 +656,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
 								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has Filled all details in fertilizer page*********** \r\n");
-
+						mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " complete "+ " Auto " + " ok_btn " + "null" + " \r\n");
 					}
 					Intent adminintent = new Intent(action_fertilizing.this,
 							Homescreen.class);
@@ -717,9 +683,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user has clciked home button in fertilizer page*********** \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " home "+ " click " + " home_btn " + "header_home" + " \r\n");
 
 				}
 
@@ -749,10 +713,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to variety of fert audio in fert*********** \r\n");
-
+				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " type_fertilizer " + "Audio_played" + " \r\n");
 			}
 
 		}
@@ -764,9 +725,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to units audio in fert*********** \r\n");
+				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " units_fertilizer " + "Audio_played" + " \r\n");
 
 			}
 		}
@@ -779,9 +738,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to units audio in fert*********** \r\n");
+    			mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " units_fertilizer " + "Audio_played" + " \r\n");
 
 			}
 		}
@@ -793,9 +750,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to day audio in fert*********** \r\n");
+				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " day_fertilizer " + "Audio_played" + " \r\n");
 
 			}
 		}
@@ -817,9 +772,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to help audio in fert*********** \r\n");
+				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " help_fertilizer " + "Audio_played" + " \r\n");
+
 
 			}
 		}

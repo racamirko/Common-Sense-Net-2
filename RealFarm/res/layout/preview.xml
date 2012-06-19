@@ -6,60 +6,6 @@
     android:gravity="center"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/rldate"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/fillDate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:gravity="center_vertical|center_horizontal"
-            android:textSize="25sp" >
-        </TextView>
-
-        <Button
-            android:id="@+id/Date_Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginRight="6dip"
-            android:background="@drawable/selected_date_icon"
-            android:clickable="true"
-            android:longClickable="true" />
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/rltime"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="10dip"
-        android:orientation="horizontal" >
-
-        <TextView
-            android:id="@+id/fillTime"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="8"
-            android:gravity="center_vertical|center_horizontal"
-            android:textSize="25sp" >
-
-            <requestFocus />
-        </TextView>
-
-        <Button
-            android:id="@+id/Time_Button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="2dip"
-            android:layout_marginRight="5dip"
-            android:background="@drawable/selected_time_icon"
-            android:clickable="true"
-            android:longClickable="true" />
-    </LinearLayout>
-
     <RelativeLayout
         android:id="@+id/r1"
         android:layout_width="wrap_content"
@@ -68,7 +14,7 @@
         <ImageView
             android:id="@+id/viewPhotoTakenView"
             android:layout_width="fill_parent"
-            android:layout_height="240dip"
+            android:layout_height="300dip"
             android:layout_alignParentTop="true"
             android:layout_alignRight="@+id/button_retake" />
     </RelativeLayout>
@@ -77,21 +23,30 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" >
 
-        <ImageButton
+            <LinearLayout
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
             android:id="@+id/button_save"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="25dp"
-            android:layout_marginRight="13dp"
-            android:src="@drawable/okay" />
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_ok"
+            android:text="@string/button_ok" />
 
-        <ImageButton
+        <Button
             android:id="@+id/button_retake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginRight="31dp"
-            android:layout_toRightOf="@+id/button_save"
-            android:src="@drawable/trash_delete" />
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_cancel"
+            android:text="@string/button_cancel" />
+    </LinearLayout>
+
     </RelativeLayout>
 
 </LinearLayout>

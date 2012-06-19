@@ -65,7 +65,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 			Global.flag_camera = false;
 			final ImageView img_1;
 			img_1 = (ImageView) findViewById(R.id.dlg_plot_img_test);
-			mPlotImage = "Image";
+			mPlotImage = Global.plot_img_path;
 
 			img_1.setImageBitmap(Global._rotated);
 
@@ -98,7 +98,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 				startActivity(new Intent(My_settings_plot_details.this,
 						OwnCameraActivity.class));
 
-				mPlotImage = "Image";
+				//mPlotImage = "Image";
 
 				My_settings_plot_details.this.finish();
 

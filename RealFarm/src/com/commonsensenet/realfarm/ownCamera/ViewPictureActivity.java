@@ -18,6 +18,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -46,8 +47,8 @@ public class ViewPictureActivity extends Activity {
 		setContentView(R.layout.preview);
 		Log.d(TAG, "Entered new acivity");
 
-		displayDate = (TextView) findViewById(R.id.fillDate);
-		displayTime = (TextView) findViewById(R.id.fillTime);
+	//	displayDate = (TextView) findViewById(R.id.fillDate);
+	//	displayTime = (TextView) findViewById(R.id.fillTime);
 
 		// receive image in byte[] passed by OwnCameraActivity
 		Bundle extras = getIntent().getExtras();
@@ -65,8 +66,8 @@ public class ViewPictureActivity extends Activity {
 			// hours = time[0];
 			// minutes = time[1];
 
-			displayDate.setText(date_todisplay);
-			displayTime.setText(time_todisplay);
+		//	displayDate.setText(date_todisplay);
+		//	displayTime.setText(time_todisplay);
 			image_file_uri = (Uri) extras.get("image_file_uri");
 			Log.d(TAG, "Picture uri transfered to next activity"
 					+ image_file_uri);
@@ -82,6 +83,7 @@ public class ViewPictureActivity extends Activity {
 		InputStream is = null;
 		try {
 			is = c.openInputStream(image_file_uri);
+		
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -104,9 +106,9 @@ public class ViewPictureActivity extends Activity {
 
 		image_path = image_file_uri.getPath();
 		image_file = new File(image_path);
-
+		Global.plot_img_path=image_path;
 		// Adding listener to the retake button
-		ImageButton retakeButton = (ImageButton) findViewById(R.id.button_retake);
+		Button retakeButton = (Button) findViewById(R.id.button_retake);
 		retakeButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -135,7 +137,7 @@ public class ViewPictureActivity extends Activity {
 		});
 
 		// Adding listener to the save button
-		ImageButton saveButton = (ImageButton) findViewById(R.id.button_save);
+		Button saveButton = (Button) findViewById(R.id.button_save);
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -162,9 +164,9 @@ public class ViewPictureActivity extends Activity {
 	}
 
 	// display current date
-	public void setCurrentDateOnView() {
+/*	public void setCurrentDateOnView() {
 
-		displayDate = (TextView) findViewById(R.id.fillDate);
+	displayDate = (TextView) findViewById(R.id.fillDate);
 
 		final Calendar c = Calendar.getInstance();
 		year = c.get(Calendar.YEAR);
@@ -190,7 +192,7 @@ public class ViewPictureActivity extends Activity {
 		// displayTime.setText(new
 		// StringBuilder().append(hours).append(":").append(minutes));
 
-	}
+	}*/
 
 	// override on back pressed
 

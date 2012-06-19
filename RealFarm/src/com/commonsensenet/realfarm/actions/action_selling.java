@@ -8,9 +8,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
@@ -25,7 +27,15 @@ public class action_selling extends HelpEnabledActivity {
 	private String quality_sell = "0", selling_pickcheck = "0";
 	private int sellprice_no, sell_no;
 	private String sellprice_no_sel, sell_no_sel, units_sell = "0";
-
+	String crop_sell;
+	int date_sel;
+	String date_sel_str;
+	String months_harvest;
+    int sell_price;
+	String sell_price_sel;
+	 int sell_no_rem;
+	 String units_rem_sell;
+ String sell_no_sel_rem;
 	protected void cancelaudio() {
 
 		playAudio(R.raw.cancel);
@@ -50,102 +60,247 @@ public class action_selling extends HelpEnabledActivity {
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("Plant details entered");
+		System.out.println("selling details entered");
 		mDataProvider = RealFarmProvider.getInstance(context);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.selling_dialog);
-		System.out.println("plant done");
+		System.out.println("selling done");
 
 		playAudio(R.raw.clickingselling);
+		
+		final ImageView bg_crop_sell = (ImageView) findViewById(R.id.img_bg_units_no_sow);
+		final ImageView bg_date_sell = (ImageView) findViewById(R.id.img_bg_date_sell);
+		final ImageView bg_month_sell = (ImageView) findViewById(R.id.img_bg_month_sell);
+		final ImageView bg_units_sell = (ImageView) findViewById(R.id.img_bg_units_sell);
+		final ImageView bg_units_no_sell = (ImageView) findViewById(R.id.img_bg_units_no_sell);
+		final ImageView bg_price_sell = (ImageView) findViewById(R.id.img_bg_price_sell);
+		final ImageView bg_units_no_rem_sell = (ImageView) findViewById(R.id.img_bg_units_no_rem_sell);
+		final ImageView bg_units_rem_sell = (ImageView) findViewById(R.id.img_bg_units_rem_sell);
+		
+		//bg_day_sow.setImageResource(R.drawable.empty_not);
+		
+		
 
-		final Button item1;
-		final Button item2;
-		final Button item3;
-		final Button item4;
-		// Button quintal;
-		// Button kgs;
+		final Button item1 = (Button) findViewById(R.id.home_btn_crop_sell);
+		final Button item2 = (Button) findViewById(R.id.home_btn_date_sell);
+		final Button item3 = (Button) findViewById(R.id.home_btn_month_sell);
+		final Button item4 = (Button) findViewById(R.id.home_btn_units_no_sell);
+		final Button item5 = (Button) findViewById(R.id.home_btn_units_sell);
+		final Button item6 = (Button) findViewById(R.id.home_btn_price_sell);
+		final Button item7 = (Button) findViewById(R.id.home_btn_units_no_rem_sell);
+		final Button item8 = (Button) findViewById(R.id.home_btn_units_rem_sell);
+		
+				
+		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
+		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 
-		ImageButton home;
-		ImageButton help;
-
-		item1 = (Button) findViewById(R.id.home_btn_sell);
-		item2 = (Button) findViewById(R.id.home_btn_sell_price);
-		item3 = (Button) findViewById(R.id.home_btn_units_no_sell);
-		item4 = (Button) findViewById(R.id.home_btn_units_sell);
-		// Integration
-		// quintal = (Button) findViewById(R.id.button2); //Integration
-		// kgs = (Button) findViewById(R.id.button3); //Integration
-
-		home = (ImageButton) findViewById(R.id.aggr_img_home);
-		help = (ImageButton) findViewById(R.id.aggr_img_help);
-
-		item1.setOnLongClickListener(this);
+		
+		item1.setOnLongClickListener(this); 
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
-		// quintal.setOnLongClickListener(this);
-		// kgs.setOnLongClickListener(this);
+		item5.setOnLongClickListener(this);
+		item6.setOnLongClickListener(this);
+		item7.setOnLongClickListener(this);
+		item8.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
-
+		
+		
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				Log.d("in selling dialog", "in dialog");
+				
 				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.quality_selling_dialog);
+				dlg.setContentView(R.layout.variety_sowing_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Quality of seeds");
-				Log.d("in selling dialog", "in dialog");
+				dlg.setTitle("Choose the crop ");
+				
 				dlg.show();
+				if (Global.WriteToSD == true) {
 
-				final Button quality1;
-				final Button quality2;
-				final Button quality3;
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_sell);
-				quality1 = (Button) dlg.findViewById(R.id.sell_quality_1);
-				quality2 = (Button) dlg.findViewById(R.id.sell_quality_2);
-				quality3 = (Button) dlg.findViewById(R.id.sell_quality_3);
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** In selection of variety of seed sowed in  Sowing*********** \r\n");
 
-				((Button) dlg.findViewById(R.id.sell_quality_1))
+				}
+				final Button variety1;
+				final Button variety2;
+				final Button variety3;
+				final Button variety4;
+				final Button variety5;
+				final Button variety6;
+				// final Button variety7;
+				final ImageView img_1;
+				img_1 = (ImageView) findViewById(R.id.img_bg_crop_sell);
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_crop_sell);
+				variety1 = (Button) dlg.findViewById(R.id.home_btn_var_sow_1);
+				variety2 = (Button) dlg.findViewById(R.id.home_btn_var_sow_2);
+				variety3 = (Button) dlg.findViewById(R.id.home_btn_var_sow_3);
+				variety4 = (Button) dlg.findViewById(R.id.home_btn_var_sow_4);
+				variety5 = (Button) dlg.findViewById(R.id.home_btn_var_sow_5);
+				variety6 = (Button) dlg.findViewById(R.id.home_btn_var_sow_6);
+
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_1))
 						.setOnLongClickListener(parentReference); // audio
 																	// integration
-				((Button) dlg.findViewById(R.id.sell_quality_2))
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_2))
 						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.sell_quality_3))
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_3))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_4))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_5))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_6))
 						.setOnLongClickListener(parentReference);
 
-				quality1.setOnClickListener(new View.OnClickListener() {
+				variety1.setOnClickListener(new View.OnClickListener() {
+					
+
 					public void onClick(View v) {
-						Log.d("quality 1 picked ", "in dialog");
-						var_text.setText("Good");
-						quality_sell = "Good";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_tr);
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						var_text.setText("Bajra");
+						crop_sell = "Bajra";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + crop_sell
+											+ " for Sowing*********** \r\n");
+
+						}
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
 					}
 				});
 
-				quality2.setOnClickListener(new View.OnClickListener() {
+				variety2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						Log.d("quality 2 picked ", "in dialog");
-						var_text.setText("Satisfactory");
-						quality_sell = "Satisfactory";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_tr);
+						Log.d("var 2 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						var_text.setText("Castor");
+						crop_sell = "Castor";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + crop_sell
+											+ " for Sowing*********** \r\n");
+
+						}
 						dlg.cancel();
 					}
 				});
 
-				quality3.setOnClickListener(new View.OnClickListener() {
+				variety3.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						Log.d("quality 3 picked ", "in dialog");
-						var_text.setText("Poor");
-						quality_sell = "Poor";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_tr);
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("Cowpea");
+						crop_sell = "Cowpea";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + crop_sell
+											+ " for Sowing*********** \r\n");
+
+						}
+
+						dlg.cancel();
+					}
+				});
+
+				variety4.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_greengram_tiled);
+						var_text.setText("Greengram");
+						crop_sell = "Greengram";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + crop_sell
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+				variety5.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_groundnut_tiled);
+						var_text.setText("Groundnut");
+						crop_sell = "Groundnut";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + crop_sell
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+				variety6.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
+						var_text.setText("Horsegram");
+						crop_sell = "Horsegram";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + crop_sell
+											+ " for Sowing*********** \r\n");
+
+						}
 						dlg.cancel();
 					}
 				});
@@ -153,41 +308,38 @@ public class action_selling extends HelpEnabledActivity {
 			}
 		});
 
-		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_sell_price);
+		
+		
+		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_date_sell);
 
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.sellingprice_dialog);
+				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Enter the selling price");
+				dlg.setTitle("Choose the Date");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				Button no_ok = (Button) dlg
-						.findViewById(R.id.sellingprice_no_ok);
+				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
-						.findViewById(R.id.sellingprice_no_cancel);
+						.findViewById(R.id.number_cancel);
 				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
+				public void onClick(View v) {
 
-						NumberPicker mynp2 = (NumberPicker) dlg
-								.findViewById(R.id.sellingpriceno);
-						sellprice_no = mynp2.getValue();
-						sellprice_no_sel = String.valueOf(sellprice_no);
-						no_text.setText(sellprice_no_sel);
-						// Toast.makeText(action_selling.this, "User enetred " +
-						// sellprice_no_sel + " rupees",
-						// Toast.LENGTH_LONG).show();
-						if (sellprice_no != 0) {
+						NumberPicker mynpd = (NumberPicker) dlg.findViewById(R.id.numberpick);
+						date_sel = mynpd.getValue();
+						date_sel_str = String.valueOf(date_sel);
+						no_text.setText(date_sel_str);
+						if (date_sel != 0) {
 
-							TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_price_tr);
+							TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
 
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-
+							tr_feedback.setBackgroundResource(R.drawable.def_img);
+							bg_date_sell.setImageResource(R.drawable.empty_not);
+							
 						}
 
 						dlg.cancel();
@@ -196,15 +348,280 @@ public class action_selling extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider
+									.File_Log_Create("UIlog.txt",
+											"***** user selected cancel on selction of bags for Sowing*********** \r\n");
+
+						}
 					}
 				});
 
 			}
 		});
-
-		final TextView no_text_1 = (TextView) findViewById(R.id.dlg_lbl_unit_no_sell);
-
+		
+		
+		
 		item3.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				Log.d("in variety sowing dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.months_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the month ");
+				Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
+
+				final Button month1 = (Button) dlg
+						.findViewById(R.id.home_month_1);
+				final Button month2 = (Button) dlg
+						.findViewById(R.id.home_month_2);
+				final Button month3 = (Button) dlg
+						.findViewById(R.id.home_month_3);
+				final Button month4 = (Button) dlg
+						.findViewById(R.id.home_month_4);
+				final Button month5 = (Button) dlg
+						.findViewById(R.id.home_month_5);
+				final Button month6 = (Button) dlg
+						.findViewById(R.id.home_month_6);
+				final Button month7 = (Button) dlg
+						.findViewById(R.id.home_month_7);
+				final Button month8 = (Button) dlg
+						.findViewById(R.id.home_month_8);
+				final Button month9 = (Button) dlg
+						.findViewById(R.id.home_month_9);
+				final Button month10 = (Button) dlg
+						.findViewById(R.id.home_month_10);
+				final Button month11 = (Button) dlg
+						.findViewById(R.id.home_month_11);
+				final Button month12 = (Button) dlg
+						.findViewById(R.id.home_month_12);
+
+				((Button) dlg.findViewById(R.id.home_month_1))
+						.setOnLongClickListener(parentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_month_2))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_3))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_4))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_5))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_6))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_7))
+						.setOnLongClickListener(parentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_month_8))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_9))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_10))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_11))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_12))
+						.setOnLongClickListener(parentReference);
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_sell);
+
+				month1.setOnClickListener(new View.OnClickListener() {
+			
+
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("January");
+						months_harvest = "January";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("February");
+						months_harvest = "February";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("March");
+						months_harvest = "March";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month4.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("April");
+						months_harvest = "April";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month5.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("May");
+						months_harvest = "May";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month6.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("June");
+						months_harvest = "June";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month7.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("July");
+						months_harvest = "July";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month8.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("August");
+						months_harvest = "August";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month9.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("September");
+						months_harvest = "September";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month10.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("October");
+						months_harvest = "October";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month11.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("November");
+						months_harvest = "November";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month12.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("December");
+						months_harvest = "December";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sell.setImageResource(R.drawable.empty_not);
+						dlg.cancel();
+					}
+				});
+
+			}
+
+		});
+		
+		
+		
+		final TextView no_text1 = (TextView) findViewById(R.id.dlg_lbl_unit_no_sell);
+
+		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
@@ -214,6 +631,8 @@ public class action_selling extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Number of bags");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
+
+				
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
@@ -225,15 +644,14 @@ public class action_selling extends HelpEnabledActivity {
 								.findViewById(R.id.numberpick);
 						sell_no = mynp1.getValue();
 						sell_no_sel = String.valueOf(sell_no);
-						no_text_1.setText(sell_no_sel);
-
+						no_text1.setText(sell_no_sel);
 						if (sell_no != 0) {
 
-							TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
+							TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-
+							tr_feedback.setBackgroundResource(R.drawable.def_img);
+							bg_units_no_sell.setImageResource(R.drawable.empty_not);
+							
 						}
 
 						dlg.cancel();
@@ -242,21 +660,28 @@ public class action_selling extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
+					
 					}
 				});
 
 			}
 		});
-
-		item4.setOnClickListener(new View.OnClickListener() {
+		
+		
+		
+		
+		
+		
+		
+		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				Log.d("in units fert dialog", "in dialog");
+				Log.d("in units sow dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.units_dialog);
 				dlg.setCancelable(true);
 				dlg.setTitle("Choose the units");
-				Log.d("in units fert dialog", "in dialog");
+				Log.d("in units sow dialog", "in dialog");
 				dlg.show();
 
 				final Button unit1;
@@ -266,18 +691,29 @@ public class action_selling extends HelpEnabledActivity {
 				// final ImageView img_1 = (ImageView)
 				// findViewById(R.id.dlg_unit_sow);
 
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_units_sell);
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_unit_sell);
 				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
 
 				((Button) dlg.findViewById(R.id.home_btn_units_1))
-						.setOnLongClickListener(parentReference); // audio
+						.setOnLongClickListener(parentReference); // Audio
 																	// integration
 				((Button) dlg.findViewById(R.id.home_btn_units_2))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_btn_units_3))
 						.setOnLongClickListener(parentReference);
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** In selection of units for Sowing*********** \r\n");
+
+				}
 
 				unit1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -286,10 +722,22 @@ public class action_selling extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 						var_text.setText("Bag of 10 Kgs");
 						units_sell = "Bag of 10 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
+						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_sell.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sell
+											+ " for Sowing*********** \r\n");
+
+						}
 						dlg.cancel();
 					}
 				});
@@ -300,9 +748,22 @@ public class action_selling extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Bag of 20 Kgs");
 						units_sell = "Bag of 20 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
+						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_sell.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sell
+											+ " for Sowing*********** \r\n");
+
+						}
 						dlg.cancel();
 					}
 				});
@@ -313,249 +774,276 @@ public class action_selling extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("Bag of 50 Kgs");
 						units_sell = "Bag of 50 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
+						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_sell.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sell
+											+ " for Sowing*********** \r\n");
+
+						}
 						dlg.cancel();
 					}
 				});
 
 			}
 		});
+		
+		
+		
+		final TextView no_text2 = (TextView) findViewById(R.id.dlg_lbl_price_sell);
 
-		/*
-		 * final Button quality1; quality1 = (Button)
-		 * findViewById(R.id.sell_quality_1);
-		 * 
-		 * quality1.setOnClickListener(new View.OnClickListener() { public void
-		 * onClick(View v) { Log.d("quality 1 picked dialog", "in dialog");
-		 * 
-		 * 
-		 * } });
-		 */
-
-		final Button pickup;
-		final Button checkin;
-		pickup = (Button) findViewById(R.id.home_btn_checkin);
-		checkin = (Button) findViewById(R.id.home_btn_pickup);
-
-		pickup.setOnLongClickListener(this); // Integration
-		checkin.setOnLongClickListener(this);
-
-		pickup.setOnClickListener(new View.OnClickListener() {
-
+		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				pickup.setBackgroundResource(R.drawable.empty_80_40btnsel);
-				checkin.setBackgroundResource(R.drawable.empty_80_40btn);
-				selling_pickcheck = "pickup";
-				TableRow tr_feedback = (TableRow) findViewById(R.id.pick_check_tr);
+			
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.numberentry_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Enter the Price");
+				
+				dlg.show();
 
-				tr_feedback.setBackgroundResource(R.drawable.def_img);
+				
+
+				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
+				Button no_cancel = (Button) dlg
+						.findViewById(R.id.number_cancel);
+				no_ok.setOnClickListener(new View.OnClickListener() {
+					
+
+					public void onClick(View v) {
+
+						NumberPicker mynp1 = (NumberPicker) dlg
+								.findViewById(R.id.numberpick);
+						sell_price = mynp1.getValue();
+						sell_price_sel = String.valueOf(sell_price);
+						no_text2.setText(sell_price_sel);
+						if (sell_no != 0) {
+
+							TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
+
+							tr_feedback.setBackgroundResource(R.drawable.def_img);
+							bg_price_sell.setImageResource(R.drawable.empty_not);
+							
+						}
+
+						dlg.cancel();
+					}
+				});
+				no_cancel.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						dlg.cancel();
+					
+					}
+				});
+
 			}
 		});
+		
+		
+		final TextView no_text3 = (TextView) findViewById(R.id.dlg_lbl_unit_no_rem_sell);
 
-		checkin.setOnClickListener(new View.OnClickListener() {
+		item7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				pickup.setBackgroundResource(R.drawable.empty_80_40btn);
-				checkin.setBackgroundResource(R.drawable.empty_80_40btnsel);
-				selling_pickcheck = "checkin";
-				TableRow tr_feedback = (TableRow) findViewById(R.id.pick_check_tr);
+				Log.d("in variety sowing dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.numberentry_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the Number of bags");
+				Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
 
-				tr_feedback.setBackgroundResource(R.drawable.def_img);
+				
+
+				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
+				Button no_cancel = (Button) dlg
+						.findViewById(R.id.number_cancel);
+				no_ok.setOnClickListener(new View.OnClickListener() {
+					
+
+					public void onClick(View v) {
+
+						NumberPicker mynp1 = (NumberPicker) dlg
+								.findViewById(R.id.numberpick);
+						sell_no_rem = mynp1.getValue();
+						sell_no_sel_rem = String.valueOf(sell_no_rem);
+						no_text3.setText(sell_no_sel_rem);
+						if (sell_no_rem != 0) {
+
+							TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
+
+							tr_feedback.setBackgroundResource(R.drawable.def_img);
+							bg_units_no_rem_sell.setImageResource(R.drawable.empty_not);
+							
+						}
+
+						dlg.cancel();
+					}
+				});
+				no_cancel.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						dlg.cancel();
+					
+					}
+				});
+
 			}
 		});
-
-		Button btnNext = (Button) findViewById(R.id.selling_ok);
-		Button cancel = (Button) findViewById(R.id.home_btn_wf_2);
-
-		btnNext.setOnLongClickListener(this); // Integration
-		cancel.setOnLongClickListener(this);
-
-		cancel.setOnClickListener(new View.OnClickListener() {
+		
+		
+		
+		item8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				cancelaudio();
-			}
+				stopaudio();
+				Log.d("in units sow dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.units_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the units");
+				Log.d("in units sow dialog", "in dialog");
+				dlg.show();
 
-		});
+				final Button unit1;
+				final Button unit2;
+				final Button unit3;
 
-		btnNext.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
+				// final ImageView img_1 = (ImageView)
+				// findViewById(R.id.dlg_unit_sow);
 
-				System.out.println("in ok clicked");
-				int flag1, flag2, flag3, flag4;
-				if (quality_sell.toString().equalsIgnoreCase("0")) {
-					flag1 = 1;
-					// System.out.println("1 details clicked");
-					TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_tr);
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_unit_rem_sell);
+				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
+				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
+				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+				((Button) dlg.findViewById(R.id.home_btn_units_1))
+						.setOnLongClickListener(parentReference); // Audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_btn_units_2))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_units_3))
+						.setOnLongClickListener(parentReference);
+				if (Global.WriteToSD == true) {
 
-				} else {
-					flag1 = 0;
-
-					TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
-				}
-
-				if (selling_pickcheck.toString().equalsIgnoreCase("0")) {
-					// System.out.println("2 details clicked");
-					flag2 = 1;
-					// Toast.makeText(action_selling.this, "User enetred in 2",
-					// Toast.LENGTH_LONG).show();
-					TableRow tr_feedback = (TableRow) findViewById(R.id.pick_check_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-				} else {
-
-					flag2 = 0;
-					// Toast.makeText(action_selling.this,
-					// " not User enetred in 2", Toast.LENGTH_LONG).show();
-					TableRow tr_feedback = (TableRow) findViewById(R.id.pick_check_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
-				}
-
-				if (sellprice_no == 0) {
-					// System.out.println("3 details clicked");
-					flag3 = 1;
-					// Toast.makeText(action_selling.this, "User enetred " +
-					// selling_price + " rupees", Toast.LENGTH_LONG).show();
-					TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_price_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-				} else {
-
-					flag3 = 0;
-					// Toast.makeText(action_selling.this, "User enetred " +
-					// selling_price + " rupees", Toast.LENGTH_LONG).show();
-					TableRow tr_feedback = (TableRow) findViewById(R.id.quality_sell_price_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
-				}
-
-				if (units_sell.toString().equalsIgnoreCase("0") || sell_no == 0) {
-					// System.out.println("4 details clicked");
-					flag4 = 1;
-					// Toast.makeText(action_selling.this, "User enetred " +
-					// selling_quintal + " quintals", Toast.LENGTH_LONG).show();
-
-					// Toast.makeText(action_selling.this, "User enetred " +
-					// selling_kg + " kgs", Toast.LENGTH_LONG).show();
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-				} else {
-
-					flag4 = 0;
-					// Toast.makeText(action_selling.this, "User enetred " +
-					// selling_quintal + " quintals", Toast.LENGTH_LONG).show();
-
-					// Toast.makeText(action_selling.this, "User enetred " +
-					// selling_kg + " kgs", Toast.LENGTH_LONG).show();
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_sell_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
-				}
-
-				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
-					System.out.println("selling writing");
+					String logtime = getcurrenttime();
 					mDataProvider
-							.setselling(sell_no, 0, units_sell, "Today",
-									sellprice_no, quality_sell,
-									selling_pickcheck, 1, 0);
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
 
-					System.out.println("selling reading");
-					mDataProvider.getselling();
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** In selection of units for Sowing*********** \r\n");
 
-					Intent adminintent = new Intent(action_selling.this,
-							Homescreen.class);
+				}
 
-					startActivity(adminintent);
-					action_selling.this.finish();
-					okaudio();
+				unit1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						var_text.setText("Bag of 10 Kgs");
+						units_rem_sell = "Bag of 10 Kgs";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
-				} else
-					initmissingval();
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sell
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+				unit2.setOnClickListener(new View.OnClickListener() {
+					
+
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						var_text.setText("Bag of 20 Kgs");
+						units_rem_sell = "Bag of 20 Kgs";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sell
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+				unit3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("Bag of 50 Kgs");
+						units_rem_sell = "Bag of 50 Kgs";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sell
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
 
 			}
 		});
-
-		home.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent adminintent = new Intent(action_selling.this,
-						Homescreen.class);
-
-				startActivity(adminintent);
-				action_selling.this.finish();
-
-			}
-		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 
 	}
 
 	@Override
 	public boolean onLongClick(View v) { // latest
 
-		if (v.getId() == R.id.home_btn_sell_price) {
-			playAudio(R.raw.enterpricedetails);
-		}
-
-		if (v.getId() == R.id.home_btn_sell) {
-			playAudio(R.raw.qualityofseeds);
-		}
-
-		if (v.getId() == R.id.home_btn_units_no_sell
-				|| v.getId() == R.id.home_btn_units_sell) {
-			playAudio(R.raw.selecttheunits);
-		}
-
-		if (v.getId() == R.id.home_btn_pickup) {
-			playAudio(R.raw.pickup);
-		}
-
-		if (v.getId() == R.id.home_btn_checkin) {
-			playAudio(R.raw.checkin);
-		}
-
-		if (v.getId() == R.id.selling_ok) {
-			playAudio(R.raw.ok);
-		}
-
-		if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help);
-		}
-
-		if (v.getId() == R.id.sell_quality_1) { // audio integration
-			playAudio(R.raw.feedbackgoodforqualityofseeds);
-		}
-
-		if (v.getId() == R.id.sell_quality_2) { // added
-			playAudio(R.raw.feedbacksatisfactoryforqualityofseeds);
-		}
-
-		if (v.getId() == R.id.sell_quality_3) { // added
-			playAudio(R.raw.feedbackpoorforqualityofseeds);
-		}
-
-		if (v.getId() == R.id.home_btn_units_1) { // added
-			playAudio(R.raw.bagof10kg);
-		}
-
-		if (v.getId() == R.id.home_btn_units_2) { // added
-			playAudio(R.raw.bagof20kg);
-		}
-
-		if (v.getId() == R.id.home_btn_units_3) { // added
-			playAudio(R.raw.bagof50kg);
-		}
-
-		if (v.getId() == R.id.home_btn_wf_2) { // added
-			playAudio(R.raw.cancel);
-		}
-
+		
 		return true;
 	}
 }

@@ -53,10 +53,10 @@ public class OwnCameraActivity extends Activity implements
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.own_camera_main);
 
-		displayDate = (TextView) findViewById(R.id.fillDate);
-		displayTime = (TextView) findViewById(R.id.fillTime);
+	//	displayDate = (TextView) findViewById(R.id.fillDate);
+	//	displayTime = (TextView) findViewById(R.id.fillTime);
 
-		setCurrentDateOnView();
+	//	setCurrentDateOnView();
 
 		// create an instance of camera
 
@@ -207,8 +207,8 @@ public class OwnCameraActivity extends Activity implements
 
 				Uri image_file_uri = getOutputMediaFileUri(MEDIA_TYPE_IMAGE);
 				intent.putExtra("image_file_uri", image_file_uri);
-				intent.putExtra("date_selected", displayDate.getText());
-				intent.putExtra("time_selected", displayTime.getText());
+			//	intent.putExtra("date_selected", displayDate.getText());
+			//	intent.putExtra("time_selected", displayTime.getText());
 				int[] date = { day, month, year };
 				int[] time = { hours, minutes };
 				intent.putExtra("date", date);

@@ -1,10 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/def_img">
+
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+   <LinearLayout
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="60dp"
@@ -16,7 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_72px_irrigation1" />
+            android:src="@drawable/selling" />
 
         <ImageView
             android:id="@+id/aggr_img_icon"
@@ -27,14 +32,14 @@
 
         <Button
             android:id="@+id/button123"
-            android:layout_width="60dip"
+            android:layout_width="70dip"
             android:layout_height="wrap_content"
             android:text="Button"
             android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/aggr_img_home"
-            android:layout_width="60dip"
+            android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/home"
@@ -42,186 +47,215 @@
 
         <ImageButton
             android:id="@+id/aggr_img_help"
-            android:layout_width="60dip"
-            android:layout_height="wrap_content"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
             android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
+    
+     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="75dp"
+        android:orientation="horizontal" >
 
+        <TableRow
+            android:id="@+id/crop_sell_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/def_img"
+            android:paddingBottom="5dip"
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/variety_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Crop"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/crop_sell_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/variety_sow_img_btn"
+                    android:layout_width="40dip"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center"
+                    android:src="@drawable/variety_sow" />
+            </RelativeLayout>
+
+           <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/img_bg_crop_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_crop_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Crop"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="22sp" />
+
+                <Button
+                    android:id="@+id/home_btn_crop_sell"
+                    android:layout_width="160dp"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
+
+            </RelativeLayout>
+        </TableRow>
+    </LinearLayout>
+    
+    
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/MainLayout"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/def_img"
-        android:gravity="center_vertical|center_horizontal"
-        android:orientation="vertical" >
+        android:layout_height="70dp"
+        android:orientation="horizontal" >
 
         <TableRow
-            android:id="@+id/quality_sell_price_tr"
-            android:layout_width="match_parent"
-            android:layout_height="86dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/def_img" >
+            android:id="@+id/date_sell_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/def_img"
+            android:paddingBottom="10dip"
+            android:paddingTop="4dip" >
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
                 android:layout_width="wrap_content"
-                android:layout_height="80dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/amount_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Date"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/amount_sow_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/amount_sow_img_btn"
+                    android:layout_width="40dip"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center"
+                    android:src="@drawable/date" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.09" >
 
                 <ImageView
-                    android:id="@+id/dlg_img_seed"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="5dip"
-                    android:src="@drawable/pic_90px_button_tiled" />
+                    android:id="@+id/img_bg_date_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/empty" />
 
                 <TextView
-                    android:id="@+id/dlg_lbl_sell_price"
+                    android:id="@+id/dlg_lbl_date_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
+                    android:paddingLeft="5dp"
                     android:paddingTop="5dip"
-                    android:text="Enter Selling price details"
+                    android:text="Date"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Button
-                    android:id="@+id/home_btn_sell_price"
+                    android:id="@+id/home_btn_date_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/dlg_img_seed"
+                    android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/dlg_img_seed"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_date_sell"
                     android:background="@drawable/square_btn_transp" />
+
             </RelativeLayout>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/quality_sell_tr"
-            android:layout_width="match_parent"
-            android:layout_height="92dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/def_img" >
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.09" >
-
-                <ImageView
-                    android:id="@+id/dlg_img_seed"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="5dip"
-                    android:src="@drawable/pic_90px_button_tiled" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignLeft="@+id/dlg_img_seed"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="65dp"
-                    android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
-                    android:text="Quality of seeds"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Button
-                    android:id="@+id/home_btn_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBottom="@+id/dlg_img_seed"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/dlg_img_seed"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-        </TableRow>
-        <!--
-  <TableRow
-          android:id="@+id/units_sell_tr"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dp"
-           android:layout_marginLeft="0dp"
-           android:background="@drawable/def_img"  >
-     
-
-        <com.commonsensenet.realfarm.control.NumberPicker
-            android:id="@+id/unit_quintal_sell"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-              android:layout_marginLeft="55dp" 
-            android:orientation="vertical" >
-        </com.commonsensenet.realfarm.control.NumberPicker>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="65dp"
-            android:layout_height="45dp"
-             android:layout_marginTop="60dp"
-            android:text="quintals" 
-            android:background="@drawable/square_btn_transp" />
-
-                       
-             <com.commonsensenet.realfarm.control.NumberPicker
-            android:id="@+id/unit_kg_sell"
-            android:layout_width="wrap_content"
-               android:layout_marginTop="5dp"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
-        </com.commonsensenet.realfarm.control.NumberPicker>
-    
-                    <Button
-            android:id="@+id/button3"
-           android:layout_width="65dp"
-            android:layout_height="45dp"
-             android:layout_marginTop="60dp"
-            android:text="Kgs" 
-            android:background="@drawable/square_btn_transp" />
-        
-                  
-  </TableRow>
-        -->
-
-        <TableRow
-            android:id="@+id/units_sell_tr"
-            android:layout_width="match_parent"
-            android:layout_height="77dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/def_img" >
-
-            <!--
-        <com.commonsensenet.realfarm.control.NumberPicker
-            android:id="@+id/fert_no"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="20dp" 
-            android:orientation="vertical" >
-        </com.commonsensenet.realfarm.control.NumberPicker>
-            -->
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
@@ -230,23 +264,127 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.09"
-                android:paddingLeft="10dp" >
+                android:paddingLeft="10dp"
+                android:paddingRight="12dp" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
+                    android:id="@+id/img_bg_month_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_month_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dip"
+                    android:text="Month"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Button
+                    android:id="@+id/home_btn_month_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_month_sell"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
+    </LinearLayout>
+    
+     <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal" >
+
+        <TableRow
+            android:id="@+id/quant_sell_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/def_img"
+            android:paddingBottom="10dip"
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/amount_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Quantity"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/amount_sow_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/amount_sow_img_btn"
+                    android:layout_width="40dip"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_48px_pest" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+
+                <ImageView
+                    android:id="@+id/img_bg_units_no_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
-                    android:paddingLeft="15dp"
+                    android:paddingLeft="5dp"
                     android:paddingTop="5dip"
-                    android:text="Select the No"
+                    android:text="No"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Button
@@ -255,20 +393,10 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_units_no_sell"
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
-
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="55dp"
-                android:layout_height="45dp"
-                android:layout_marginLeft="5dp"
-                android:layout_marginRight="5dp"
-                android:layout_marginTop="20dp"
-                android:background="@drawable/square_btn_transp"
-                android:text=" X " />
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
@@ -277,156 +405,294 @@
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.09"
-                android:paddingRight="10dp" >
+                android:paddingLeft="10dp"
+                android:paddingRight="12dp" >
 
                 <ImageView
-                    android:id="@+id/dlg_unit_sow"
+                    android:id="@+id/img_bg_units_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/pic_90px_button_tiled" />
+                    android:src="@drawable/empty" />
 
                 <TextView
-                    android:id="@+id/dlg_lbl_units_sell"
+                    android:id="@+id/dlg_lbl_unit_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
                     android:paddingLeft="15dp"
                     android:paddingTop="5dip"
-                    android:text="Select the units"
+                    android:text="Kg&apos;s"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Button
                     android:id="@+id/home_btn_units_sell"
-                    android:layout_width="80dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
                     android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:paddingLeft="15dp" />
-            </RelativeLayout>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/pick_check_tr"
-            android:layout_width="match_parent"
-            android:layout_height="48dp"
-            android:layout_marginTop="8dp"
-            android:background="@drawable/def_img" >
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp" >
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="75dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/empty_80_40btn" />
-
-                <Button
-                    android:id="@+id/home_btn_pickup"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:text="Pick Up" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="80dp"
-                android:layout_height="40dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp" >
-
-                <ImageView
-                    android:id="@+id/imageView1"
-                    android:layout_width="75dp"
-                    android:layout_height="35dp"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/empty_80_40btn" />
-
-                <Button
-                    android:id="@+id/home_btn_checkin"
-                    android:layout_width="80dp"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:text="Check In" />
-            </RelativeLayout>
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/tableRow1"
-            android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginLeft="45dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/def_img" >
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp" >
-
-                <ImageView
-                    android:id="@+id/okbutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:src="@drawable/ic_72px_ok" />
-
-                <Button
-                    android:id="@+id/selling_ok"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignBottom="@+id/okbutton"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/okbutton"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="70dp"
-                android:layout_height="70dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginLeft="50dp"
-                android:layout_marginTop="5dp" >
-
-                <ImageView
-                    android:id="@+id/cancelbutton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="2"
-                    android:src="@drawable/ic_72px_cancel" />
-
-                <Button
-                    android:id="@+id/home_btn_wf_2"
-                    android:layout_width="70dp"
-                    android:layout_height="70dp"
-                    android:layout_alignBottom="@+id/cancelbutton"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/cancelbutton"
+                    android:layout_alignRight="@+id/img_bg_units_sell"
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
         </TableRow>
     </LinearLayout>
+    
+      <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal" >
+
+        <TableRow
+            android:id="@+id/price_sell_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/def_img"
+            android:paddingBottom="10dip"
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/treat_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignRight="@+id/treat_sow_txt_btn"
+                    android:layout_centerVertical="true"
+                    android:layout_weight="1"
+                    android:text=" Price/ quintal"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/treat_sow_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/treat_sow_img_btn"
+                    android:layout_width="40dip"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center"
+                    android:src="@drawable/sell" />
+
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/img_bg_price_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_price_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="3dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Price"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="22sp" />
+
+                <Button
+                    android:id="@+id/home_btn_price_sell"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
+    </LinearLayout>
+    
+    <TableRow
+            android:id="@+id/rem_quant_sell_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/def_img"
+            android:paddingBottom="10dip"
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/amount_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Remaining"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/amount_sow_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/amount_sow_img_btn"
+                    android:layout_width="40dip"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center"
+                    android:src="@drawable/ic_48px_pest" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+
+                <ImageView
+                    android:id="@+id/img_bg_units_no_rem_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_unit_no_rem_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignRight="@+id/dlg_unit_sow"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dip"
+                    android:text="No"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Button
+                    android:id="@+id/home_btn_units_no_rem_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_units_no_rem_sell"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09"
+                android:paddingLeft="10dp"
+                android:paddingRight="12dp" >
+
+                <ImageView
+                    android:id="@+id/img_bg_units_rem_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_unit_rem_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="15dp"
+                    android:paddingTop="5dip"
+                    android:text="Kg&apos;s"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Button
+                    android:id="@+id/home_btn_units_rem_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_units_rem_sell"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
 
 </LinearLayout>
+ <LinearLayout
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/sell_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_ok"
+            android:text="@string/button_ok" />
+
+        <Button
+            android:id="@+id/sell_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_cancel"
+            android:text="@string/button_cancel" />
+    </LinearLayout>
+    
+</RelativeLayout>
