@@ -2,47 +2,34 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:orientation="vertical" 
-    
- >
-    
+    android:orientation="vertical" >
 
-   
+    <LinearLayout
+        android:id="@+id/itemsPanel"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="20dip" />
 
-        <LinearLayout
-            android:id="@+id/itemsPanel"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            
-            android:padding="20dip"   
-            />
+    <ListView
+        android:id="@+id/mainListView"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/AddUser"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="10.0sp" >
+    </ListView>
 
-
-			 <ListView
-			     android:id="@+id/mainListView"
-			     android:layout_width="fill_parent"
-			     android:layout_height="wrap_content"
-			     android:layout_above="@+id/AddUser"
-			     android:layout_alignParentLeft="true"
-			     android:layout_alignParentTop="true"
-			      android:divider="@android:color/transparent"
-                 android:dividerHeight="10.0sp" >
-
-			 </ListView>
-			
-
-			 
-  
-
-			 <Button
-			     android:id="@+id/AddUser"
-			     android:layout_width="160dip"
-			     android:layout_height="80dip"
-			     android:layout_alignParentBottom="true"
-			     android:layout_toRightOf="@+id/Name"
-			     android:text="AddUser"
-			     android:textSize="20sp"
-			     android:textStyle="bold" />
+    <Button
+        android:id="@+id/AddUser"
+        android:layout_width="160dip"
+        android:layout_height="80dip"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/Name"
+        android:text="AddUser"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

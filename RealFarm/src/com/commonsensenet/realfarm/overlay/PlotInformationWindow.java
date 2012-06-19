@@ -10,7 +10,6 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnDismissListener;
-import android.graphics.Typeface;
 import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.view.Gravity;
@@ -191,16 +190,12 @@ public class PlotInformationWindow extends CustomPopupWindow {
 
 		// inflates the layout
 		RelativeLayout container = (RelativeLayout) mInflater.inflate(
-				R.layout.growing_item, null);
+				R.layout.tpl_plot_item, null);
 
-		ImageView img = (ImageView) container.findViewById(R.id.icon);
-		TextView lblTitle = (TextView) container.findViewById(R.id.firstLine);
+		ImageView img = (ImageView) container.findViewById(R.id.icon_plot);
+		TextView lblTitle = (TextView) container.findViewById(R.id.label_plot_title);
 		TextView tblKannada = (TextView) container
-				.findViewById(R.id.secondLine);
-
-		Typeface tf = Typeface.createFromAsset(mContext.getAssets(),
-				"fonts/Kedage.dfont");
-		tblKannada.setTypeface(tf);
+				.findViewById(R.id.label_plot_description);
 
 		if (icon != -1)
 			img.setImageResource(icon);

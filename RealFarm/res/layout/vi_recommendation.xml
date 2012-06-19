@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="horizontal"
-    android:layout_gravity="center_vertical">
+    android:layout_gravity="center_vertical"
+    android:orientation="horizontal" >
 
     <ImageView
         android:id="@+id/img_desc"
@@ -11,16 +11,16 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_margin="10dip"
-        android:src="@drawable/ic_90px_sowing"
-        android:background="@drawable/circular_icon_bg"/>
-    
+        android:background="@drawable/circular_icon_bg"
+        android:src="@drawable/ic_90px_sowing" />
+
     <TextView
         android:id="@+id/lbl_desc"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingTop="10dip"
-        android:paddingLeft="10dip"
         android:layout_toRightOf="@+id/img_desc"
+        android:paddingLeft="10dip"
+        android:paddingTop="10dip"
         android:text="Medium Text"
         android:textAppearance="?android:attr/textAppearanceMedium" />
 
@@ -28,9 +28,9 @@
         android:id="@+id/lbl_detail"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:paddingLeft="10dip"
-        android:layout_toRightOf="@+id/img_desc"
         android:layout_below="@+id/lbl_desc"
+        android:layout_toRightOf="@+id/img_desc"
+        android:paddingLeft="10dip"
         android:text="Small Text"
         android:textAppearance="?android:attr/textAppearanceSmall" />
 
@@ -40,15 +40,15 @@
         android:layout_height="40dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_margin="5dp"
         android:background="@drawable/circular_btn"
-        android:src="@drawable/ic_48px_thumbs_up"
-        android:layout_margin="5dp" />
+        android:src="@drawable/ic_48px_thumbs_up" />
 
-    <Button 
+    <Button
         android:id="@+id/btn_main_click"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_marginRight="50dp"
-        android:background="@drawable/square_btn_transp"/>
-    
+        android:background="@drawable/square_btn_transp" />
+
 </RelativeLayout>

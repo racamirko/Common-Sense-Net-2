@@ -27,7 +27,7 @@
             android:textColor="@android:color/black"
             android:textSize="30dp" />
 
-            <ImageButton
+        <ImageButton
             android:id="@+id/aggr_img_home1"
             android:layout_width="50dip"
             android:layout_height="match_parent"
@@ -49,8 +49,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/dlg_img_seed"
-        android:layout_marginTop="10dip" 
-        android:background="@drawable/def_img">
+        android:layout_marginTop="10dip"
+        android:background="@drawable/def_img" >
+
         <LinearLayout
             android:id="@+id/dlg_linlay_userDataDetails"
             android:layout_width="match_parent"

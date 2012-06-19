@@ -130,12 +130,11 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Problems"
-                    android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
-                   
                     android:textSize="20sp" />
 
                 <Button
@@ -212,7 +211,6 @@
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
                     android:src="@drawable/pest_type" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -233,8 +231,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentTop="true"
-                    android:layout_weight="1"
                     android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
                     android:text="Pesticide name"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="20sp" />
@@ -471,9 +469,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:layout_marginLeft="10dp"
                     android:text="Date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />

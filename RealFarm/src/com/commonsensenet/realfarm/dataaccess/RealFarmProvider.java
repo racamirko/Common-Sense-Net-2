@@ -51,8 +51,8 @@ public class RealFarmProvider {
 
 	public static RealFarmProvider getInstance(Context ctx) {
 		if (!sMapProviders.containsKey(ctx))
-			sMapProviders.put(ctx, new RealFarmProvider(
-					new RealFarmDatabase(ctx)));
+			sMapProviders.put(ctx, new RealFarmProvider(new RealFarmDatabase(
+					ctx)));
 		return sMapProviders.get(ctx);
 	}
 
@@ -359,9 +359,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						// RealFarmDatabase.COLUMN_NAME_PLOT_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGENAME,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG }, null,
@@ -408,20 +408,15 @@ public class RealFarmProvider {
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
 				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGENAME,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG },
 				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
 						+ " AND "
 						+ RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "="
 						+ delete + "", null, null, null, null);
-
-		// },RealFarmDatabase.COLUMN_NAME_ACTION_USERID + "= " +
-		// userId + " AND " + RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID + "= "
-		// +
-		// plotId + "", null, null, null, null);
 
 		c.moveToFirst();
 
@@ -448,7 +443,7 @@ public class RealFarmProvider {
 		return plotList;
 	}
 
-	public List<Plot> getPlotsByUserId(int userId) { // modified
+	public List<Plot> getPlotsByUserId(int userId) {
 
 		// opens the database.
 		List<Plot> plotList = new LinkedList<Plot>();
@@ -461,9 +456,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_ID,
 						// RealFarmDatabase.COLUMN_NAME_PLOT_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGENAME,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG },
@@ -506,9 +501,9 @@ public class RealFarmProvider {
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
 				new String[] {
 						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGENAME,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG },
@@ -554,8 +549,9 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_FERTILIZER,
-				new String[] { RealFarmDatabase.COLUMN_NAME_FERTILIZER_ID,
+		Cursor c = mDatabase.getAllEntries(
+				RealFarmDatabase.TABLE_NAME_FERTILIZER, new String[] {
+						RealFarmDatabase.COLUMN_NAME_FERTILIZER_ID,
 						RealFarmDatabase.COLUMN_NAME_FERTILIZER_NAME,
 						RealFarmDatabase.COLUMN_NAME_FERTILIZER_AUDIO,
 						RealFarmDatabase.COLUMN_NAME_FERTILIZER_STAGEID,
@@ -720,7 +716,7 @@ public class RealFarmProvider {
 		// obtains the growing information of all the available plots.
 		for (int x = 0; x < tmpPlots.size(); x++) {
 			// adds all the growing information from the given plot
-			growing.addAll(getGrowingsByPlotId(tmpPlots.get(x).getPlotId()));
+			growing.addAll(getGrowingsByPlotId(tmpPlots.get(x).getId()));
 		}
 
 		return growing;
@@ -896,8 +892,9 @@ public class RealFarmProvider {
 		mDatabase.open();
 		Log.d("done: ", "in market price");
 		// query all actions
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_MARKETPRICE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ID,
+		Cursor c = mDatabase.getEntries(
+				RealFarmDatabase.TABLE_NAME_MARKETPRICE, new String[] {
+						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ID,
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_DATE,
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE,
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE,
@@ -1018,8 +1015,9 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_PESTICIDE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PESTICIDE_ID,
+		Cursor c = mDatabase.getAllEntries(
+				RealFarmDatabase.TABLE_NAME_PESTICIDE, new String[] {
+						RealFarmDatabase.COLUMN_NAME_PESTICIDE_ID,
 						RealFarmDatabase.COLUMN_NAME_PESTICIDE_NAME,
 						RealFarmDatabase.COLUMN_NAME_PESTICIDE_AUDIO,
 						RealFarmDatabase.COLUMN_NAME_PESTICIDE_ADMINFLAG });
@@ -1065,9 +1063,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						// RealFarmDatabase.COLUMN_NAME_PLOT_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX,
-						RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERX,
+						RealFarmDatabase.COLUMN_NAME_PLOT_CENTERY,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGENAME,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG },
 				RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "=" + delete,
@@ -1207,8 +1205,9 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_PROBLEMTYPE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_ID,
+		Cursor c = mDatabase.getAllEntries(
+				RealFarmDatabase.TABLE_NAME_PROBLEMTYPE, new String[] {
+						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_ID,
 						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_NAME,
 						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_AUDIO,
 						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_RESOURCE,
@@ -1248,8 +1247,9 @@ public class RealFarmProvider {
 
 		List<Recommendation> result = new ArrayList<Recommendation>();
 
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_RECOMMENDATION,
-				new String[] { RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID,
+		Cursor c = mDatabase.getEntries(
+				RealFarmDatabase.TABLE_NAME_RECOMMENDATION, new String[] {
+						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID,
 						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_SEEDID,
 						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ACTIONID,
 						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_DATE },
@@ -1850,8 +1850,9 @@ public class RealFarmProvider {
 		mDatabase.open();
 		Log.d("done: ", "in Wf getdata");
 		// query all actions
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_WEATHERFORECAST,
-				new String[] { RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
+		Cursor c = mDatabase.getEntries(
+				RealFarmDatabase.TABLE_NAME_WEATHERFORECAST, new String[] {
+						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
 						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
 						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_VALUE,
 						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE,
@@ -1910,8 +1911,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		long result = mDatabase
-				.insertEntriesdb(RealFarmDatabase.TABLE_NAME_LOG, args);
+		long result = mDatabase.insertEntriesdb(
+				RealFarmDatabase.TABLE_NAME_LOG, args);
 
 		mDatabase.close();
 
@@ -1922,26 +1923,12 @@ public class RealFarmProvider {
 	public long removeAction(int id) {
 		mDatabase.open();
 
-		long result = mDatabase.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+		long result = mDatabase.deleteEntriesdb(
+				RealFarmDatabase.TABLE_NAME_ACTION,
 				RealFarmDatabase.COLUMN_NAME_ACTION_ID + "=" + id, null);
 
 		mDatabase.close();
 		return result;
-	}
-
-	public long removePoint(int plotId, int lat, int lon) {
-
-		mDatabase.open();
-
-		long result = mDatabase.deleteEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
-				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
-						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon
-						+ " and " + RealFarmDatabase.COLUMN_NAME_POINT_PLOTID
-						+ " = " + plotId, null);
-
-		mDatabase.close();
-		return result;
-
 	}
 
 	public long setAction(int actionNameID, int growingID, String date) {
@@ -1953,8 +1940,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		long result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
-				args);
+		long result = mDatabase.insertEntriesdb(
+				RealFarmDatabase.TABLE_NAME_ACTION, args);
 
 		mDatabase.close();
 
@@ -2014,7 +2001,8 @@ public class RealFarmProvider {
 		// result = mDb
 		// .update(RealFarmDatabase.TABLE_NAME_PLOT, args,null,null);
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 		// }
 
 		mDatabase.close();
@@ -2101,7 +2089,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 
 		mDatabase.close();
 
@@ -2115,8 +2104,8 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID, seedId);
 
-		long result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_GROWING,
-				args);
+		long result = mDatabase.insertEntriesdb(
+				RealFarmDatabase.TABLE_NAME_GROWING, args);
 
 		mDatabase.close();
 		return result;
@@ -2153,7 +2142,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 
 		mDatabase.close();
 
@@ -2190,7 +2180,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 
 		mDatabase.close();
 
@@ -2225,67 +2216,46 @@ public class RealFarmProvider {
 		mDatabase.open();
 
 		// add to plot list
-		long result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT,
-				args);
+		long result = mDatabase.insertEntriesdb(
+				RealFarmDatabase.TABLE_NAME_PLOT, args);
 
 		mDatabase.close();
 		return result;
 
 	}
 
-	public long setPlotNew(int plotSeedTypeId, int pointX, int pointY,
-			String PlotImage, String SoilType, int delete, int admin) { // main
-																		// crop
-																		// info
-																		// corresponds
-																		// to
-																		// seedtype
-																		// id
+	// main crop info corresponds to seed type id
+	public long setPlotNew(int seedTypeId, int centerX, int centerY,
+			String plotImage, String soilType, int delete, int admin) {
 
-		// plotPlotId++;
-		Global.plotId++;
+		// increases the current plot id
 		System.out.println("SETPLOTNEW");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, Global.plotId);
+		// TODO: you can't guarantee the plot id using
+		// Global.plotId, maybe the result has the current id?
+
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, Global.userId);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID,
-				plotSeedTypeId);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTX, pointX);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_POINTY, pointY);
-		// args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMG,PlotImage);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, SoilType);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_PLOT_SEEDTYPEID, seedTypeId);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_CENTERX, centerX);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_CENTERY, centerY);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGENAME, plotImage);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, soilType);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG, delete);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG, admin);
 
-		long result;
-
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_PLOT, args);
+		long result = mDatabase.insertEntriesdb(
+				RealFarmDatabase.TABLE_NAME_PLOT, args);
+
+		// sets the current plotid based on the result of the insert operation.
+		// TODO: shouldn't cast the result plotId should be a long.
+		Global.plotId = (int)result;
 
 		mDatabase.close();
 
 		return result;
-	}
-
-	public long setPoint(int plotID, int lat, int lon) {
-
-		ContentValues pointstoadd = new ContentValues();
-		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_X, lat);
-		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, lon);
-		pointstoadd.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
-
-		mDatabase.open();
-
-		// add to points list
-		long result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_POINT,
-				pointstoadd);
-
-		mDatabase.close();
-
-		return result;
-
 	}
 
 	public long setProblem(String day, String probType, int sent, int admin) {
@@ -2314,7 +2284,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 
 		mDatabase.close();
 
@@ -2354,7 +2325,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 
 		mDatabase.close();
 
@@ -2391,7 +2363,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 
 		mDatabase.close();
 
@@ -2428,7 +2401,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION, args);
+		result = mDatabase.insertEntriesdb(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
 
 		mDatabase.close();
 
@@ -2457,8 +2431,8 @@ public class RealFarmProvider {
 					RealFarmDatabase.COLUMN_NAME_USER_MOBILE + " = '"
 							+ deviceId + "'", null);
 		} else { // user must be created
-			result = mDatabase
-					.insertEntriesdb(RealFarmDatabase.TABLE_NAME_USER, args);
+			result = mDatabase.insertEntriesdb(
+					RealFarmDatabase.TABLE_NAME_USER, args);
 		}
 
 		// if main id is undefined and result is good
@@ -2509,41 +2483,5 @@ public class RealFarmProvider {
 
 	public void setWFDataChangeListener(OnDataChangeListener listener) {
 		sWeatherForecastDataListener = listener;
-	}
-
-	public long updatePoint(int plotID, int lat, int lon, int newLat, int newLon) {
-
-		long result = 0;
-
-		// find point id
-		mDatabase.open();
-
-		Cursor c0 = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_POINT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_POINT_ID },
-				RealFarmDatabase.COLUMN_NAME_POINT_X + "=" + lat + " and "
-						+ RealFarmDatabase.COLUMN_NAME_POINT_Y + "=" + lon,
-				null, null, null, null);
-
-		// if there is such point in the table, update
-		if (c0.getCount() > 0) {
-
-			c0.moveToFirst();
-
-			int pointID = c0.getInt(0); // pointID to modify
-
-			ContentValues pointtoupdate = new ContentValues();
-			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_X, newLat);
-			pointtoupdate.put(RealFarmDatabase.COLUMN_NAME_POINT_Y, newLon);
-			pointtoupdate
-					.put(RealFarmDatabase.COLUMN_NAME_POINT_PLOTID, plotID);
-
-			result = mDatabase.update(RealFarmDatabase.TABLE_NAME_POINT,
-					pointtoupdate, RealFarmDatabase.COLUMN_NAME_POINT_ID
-							+ " = " + pointID, null);
-
-		}
-		c0.close();
-		mDatabase.close();
-		return result;
 	}
 }

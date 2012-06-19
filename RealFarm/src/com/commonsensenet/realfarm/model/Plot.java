@@ -3,25 +3,24 @@ package com.commonsensenet.realfarm.model;
 public class Plot {
 
 	protected int mAdminFlag;
+	protected int mCenterX;
+	protected int mCenterY;
 	protected int mDeleteFlag;
-	protected int mPlotId;
-	protected String mPlotImageName;
-	protected int mplotSeedTypeId;
-	protected int mPlotUserId;
-	protected int mpointX;
-	protected int mpointY;
+	protected int mId;
+	protected String mImageName;
+	protected int mSeedTypeId;
 	protected String mSoilType;
+	protected int mUserId;
 
-	public Plot(int PlotId, int PlotUserId, int plotSeedTypeId, int pointX,
-			int pointY, String PlotImageName, String SoilType, int deleteFlag,
-			int adminFlag) {
-		mPlotId = PlotId;
-		mPlotUserId = PlotUserId;
-		mplotSeedTypeId = plotSeedTypeId;
-		mpointX = pointX;
-		mpointY = pointY;
-		mPlotImageName = PlotImageName;
-		mSoilType = SoilType;
+	public Plot(int id, int userId, int seedTypeId, int centerX, int centerY,
+			String imageName, String soilType, int deleteFlag, int adminFlag) {
+		mId = id;
+		mUserId = userId;
+		mSeedTypeId = seedTypeId;
+		mCenterX = centerX;
+		mCenterY = centerY;
+		mImageName = imageName;
+		mSoilType = soilType;
 		mDeleteFlag = deleteFlag;
 		mAdminFlag = adminFlag;
 	}
@@ -30,36 +29,35 @@ public class Plot {
 		return mAdminFlag;
 	}
 
+	public int getCenterX() {
+		return mCenterX;
+	}
+
+	public int getCenterY() {
+		return mCenterY;
+	}
+
 	public int getDeleteFlag() {
 		return mDeleteFlag;
 	}
 
-	public int getPlotId() {
-		return mPlotId;
+	public int getId() {
+		return mId;
 	}
 
-	public String getPlotImageName() {
-		return mPlotImageName;
+	public String getImageName() {
+		return mImageName;
 	}
 
-	public int getplotSeedTypeId() {
-		return mplotSeedTypeId;
-	}
-
-	public int getPlotUserId() {
-		return mPlotUserId;
-	}
-
-	public int getpointX() {
-		return mpointX;
-	}
-
-	public int getpointY() {
-		return mpointY;
+	public int getSeedTypeId() {
+		return mSeedTypeId;
 	}
 
 	public String getSoilType() {
 		return mSoilType;
 	}
 
+	public int getUserId() {
+		return mUserId;
+	}
 }

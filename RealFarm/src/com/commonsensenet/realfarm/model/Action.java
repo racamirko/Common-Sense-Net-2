@@ -2,20 +2,20 @@ package com.commonsensenet.realfarm.model;
 
 public class Action {
 
-	private int mId;
 	private int mActionNameId;
 	private String mActionPerformedDate;
 	private String mActionType;
 	private String mDay;
 	private int mGrowingId;
 	private String mHarvFeedback;
+	private int mId;
 	private int mIsAdmin;
 	private String mPestcideType;
 	private int mPlotId;
 	private String mProbType;
+	private String mQualityOfSeed;
 	private int mQuantity1;
 	private int mQuantity2;
-	private String mQualityOfSeed;
 	private String mSeedVariety;
 	private int mSellingPrice;
 	private String mSellType;
@@ -58,10 +58,6 @@ public class Action {
 		mPestcideType = PestcideType;
 	}
 
-	public int getId() {
-		return mId;
-	}
-
 	public int getActionNameId() {
 		return mActionNameId;
 	}
@@ -72,10 +68,6 @@ public class Action {
 
 	public String getActionType() {
 		return mActionType;
-	}
-
-	public int getIsAdmin() {
-		return mIsAdmin;
 	}
 
 	public String getDay() {
@@ -90,6 +82,14 @@ public class Action {
 		return mHarvFeedback;
 	}
 
+	public int getId() {
+		return mId;
+	}
+
+	public int getIsAdmin() {
+		return mIsAdmin;
+	}
+
 	public String getPesticidType() {
 		return mPestcideType;
 	}
@@ -102,6 +102,10 @@ public class Action {
 		return mProbType;
 	}
 
+	public String getQualityOfSeed() {
+		return mQualityOfSeed;
+	}
+
 	public int getQuantity1() {
 		return mQuantity1;
 	}
@@ -110,12 +114,12 @@ public class Action {
 		return mQuantity2;
 	}
 
-	public String getQualityOfSeed() {
-		return mQualityOfSeed;
+	public String getSeedVariery() {
+		return mSeedVariety;
 	}
 
-	public String getTreatment() {
-		return mTreatment;
+	public int getSellingPrice() {
+		return mSellingPrice;
 	}
 
 	public String getSellType() {
@@ -126,8 +130,8 @@ public class Action {
 		return mSend;
 	}
 
-	public int getSellingPrice() {
-		return mSellingPrice;
+	public String getTreatment() {
+		return mTreatment;
 	}
 
 	public String getTypeFert() {
@@ -140,9 +144,5 @@ public class Action {
 
 	public int getUserId() {
 		return mUserId;
-	}
-
-	public String getSeedVariery() {
-		return mSeedVariety;
 	}
 }

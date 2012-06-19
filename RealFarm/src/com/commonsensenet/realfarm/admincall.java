@@ -66,7 +66,7 @@ public class admincall extends Activity {
 
 		mainListView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					public void onItemClick(AdapterView parent, View v,
+					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 						// Start your Activity according to the item just
 						// clicked.
@@ -108,7 +108,7 @@ public class admincall extends Activity {
 
 		mainListView
 				.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-					public boolean onItemLongClick(AdapterView parent, View v,
+					public boolean onItemLongClick(AdapterView<?> parent, View v,
 							int position, long id) {
 						// Start your Activity according to the item just
 						// clicked.
@@ -151,7 +151,8 @@ public class admincall extends Activity {
 
 												mDataProvider
 														.setDeleteFlagForUser(Global.userId);
-												// TODO: why the return value is not stored?
+												// TODO: why the return value is
+												// not stored?
 												mDataProvider.getUsers();
 
 												// mDataProvider.getuserDelete(0);
@@ -195,8 +196,8 @@ public class admincall extends Activity {
 		String[] planets = new String[] {}; // Sets parameters for list view
 		ArrayList<String> planetList = new ArrayList<String>();
 		planetList.addAll(Arrays.asList(planets));
-		listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,
-				planetList);
+		listAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, planetList);
 		mainListView.setAdapter(listAdapter);
 
 		// gets the users from the database.

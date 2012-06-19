@@ -1,7 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
@@ -12,13 +10,13 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.view.PlotItemAdapter;
 
 public class My_setting_plot_info extends Activity {
 
@@ -30,33 +28,24 @@ public class My_setting_plot_info extends Activity {
 	/** Identifier of the plot what will be deleted. */
 	private int mPlotIdDelete;
 	/** ListAdapter used to handle the plots. */
-	private ArrayAdapter<String> mPlotsListAdapter;
+	private PlotItemAdapter mPlotItemAdapter;
 	/** ListView where the plots are rendered. */
 	private ListView mPlotsListView;
 
-	public void listViewSettings() {
+	private void listViewSettings() {
+
+		// gets the users from the database.
+		List<Plot> plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0);
+
+		// initializes the list adapter
+		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 
 		// gets the list from the UI.
 		mPlotsListView = (ListView) findViewById(R.id.list_plots);
 		mPlotsListView.setItemsCanFocus(true);
-
-		String[] planets = new String[] {}; // Sets parameters for list view
-		ArrayList<String> planetList = new ArrayList<String>();
-		planetList.addAll(Arrays.asList(planets));
-		mPlotsListAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,
-				planetList);
-		mPlotsListView.setAdapter(mPlotsListAdapter);
-
-		// gets the users from the database.
-		List<Plot> plotList = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0);
-
-		// adds the plot into the list adapter.
-		for (int x = 0; x < plotList.size(); x++) {
-			mPlotsListAdapter.add("Plot id:  " + plotList.get(x).getPlotId()
-					+ " " + "Soil type:  " + plotList.get(x).getSoilType());
-
-		}
+		// sets the custom adapter.
+		mPlotsListView.setAdapter(mPlotItemAdapter);
 	}
 
 	public void onBackPressed() {
@@ -69,22 +58,22 @@ public class My_setting_plot_info extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// sets the layout of the activity
 		setContentView(R.layout.my_setting_plot_info);
-		System.out.println("In My_setting_plot_info call");
+
+		// gets the data provider
+		mDataProvider = RealFarmProvider.getInstance(mContext);
 
 		// default value
 		mPlotIdDelete = -1;
 
-		mDataProvider = RealFarmProvider.getInstance(mContext);
-
-		Button AddPlot = (Button) findViewById(R.id.button_add_plot);
-		// Button DeleteUser;
-		// Button DeleteUser = (Button) findViewById(R.id.DeleteUser);
 		listViewSettings();
-		// listimgview();
+
+		Button btnAddPlot = (Button) findViewById(R.id.button_add_plot);
 
 		// add the event listeners
-		AddPlot.setOnClickListener(new View.OnClickListener() {
+		btnAddPlot.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				System.out.println("In add user");
 
@@ -94,15 +83,12 @@ public class My_setting_plot_info extends Activity {
 				startActivity(adminintent123);
 				My_setting_plot_info.this.finish();
 				listViewSettings();
-				// listimgview();
 			}
 		});
 
-		// final List<User> userList =mDataProvider.getUserList(); //Working
-
 		mPlotsListView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-					public void onItemClick(AdapterView parent, View v,
+					public void onItemClick(AdapterView<?> parent, View v,
 							int position, long id) {
 						// Start your Activity according to the item just
 						// clicked.
@@ -124,7 +110,7 @@ public class My_setting_plot_info extends Activity {
 
 		mPlotsListView
 				.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-					public boolean onItemLongClick(AdapterView parent, View v,
+					public boolean onItemLongClick(AdapterView<?> parent, View v,
 							int position, long id) {
 						// Start your Activity according to the item just
 						// clicked.
@@ -135,12 +121,11 @@ public class My_setting_plot_info extends Activity {
 						// ReadUser= mDataProvider.getUserById(position+1);
 
 						System.out.println(position);
+						// get plot list for that user id whose deleteFlag = 0;
 						List<Plot> PlotList = mDataProvider
-								.getPlotsByUserIdAndDeleteFlag(Global.userId,
-										0); // Get plot list for that user id
-											// whose deleteFlag=0
+								.getPlotsByUserIdAndDeleteFlag(Global.userId, 0);
 
-						mPlotIdDelete = PlotList.get(position).getPlotId();
+						mPlotIdDelete = PlotList.get(position).getId();
 
 						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 								mContext);
@@ -187,9 +172,7 @@ public class My_setting_plot_info extends Activity {
 						alertDialog.show();
 
 						return true;
-
 					}
 				});
-
-	} // End of onCreate()
+	}
 }

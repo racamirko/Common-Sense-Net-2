@@ -25,7 +25,7 @@
             android:layout_margin="5dp"
             android:src="@drawable/plot" />
 
-          <Button
+        <Button
             android:id="@+id/button123"
             android:layout_width="75dip"
             android:layout_height="wrap_content"
@@ -130,9 +130,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:layout_marginLeft="10dp"
                     android:text="Variety"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
@@ -369,10 +369,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Date"
-                          android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
@@ -383,7 +383,6 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp" />
-
             </RelativeLayout>
         </TableRow>
     </LinearLayout>
@@ -417,7 +416,6 @@
                     android:layout_alignRight="@+id/treat_sow_txt_btn"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    
                     android:text="  Treatment"
                     android:textColor="#000000"
                     android:textSize="20sp" />
@@ -467,10 +465,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="3dp"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Treatment"
-                          android:layout_marginLeft="3dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 

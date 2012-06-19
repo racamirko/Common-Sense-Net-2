@@ -1,271 +1,261 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/linearLayout1"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" >
-            
-     
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dlg_img_seed"
+        android:layout_marginTop="10dip" >
 
-      <ScrollView
-          android:layout_below="@+id/dlg_img_seed"
-          android:id="@+id/scrollView1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dip">
+        <LinearLayout
+            android:id="@+id/dlg_linlay_userDataDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-          <LinearLayout
-              android:id="@+id/dlg_linlay_userDataDetails"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                  <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+                <ImageView
+                    android:id="@+id/dlg_var_sow_1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/pic_90px_bajra_tiled" />
 
-                   <ImageView
-                      android:id="@+id/dlg_var_sow_1"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      android:src="@drawable/pic_90px_bajra_tiled" />
-                  <Button
-                      android:id="@+id/home_btn_plot_crop_1"
-                      android:layout_width="80dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/square_btn_transp" />
+                <Button
+                    android:id="@+id/home_btn_plot_crop_1"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_centerVertical="true"
-                         android:layout_marginLeft="62dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Bajra"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Bajra"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-              </RelativeLayout>
-              
-               
-              
-                  <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      android:src="@drawable/pic_90px_castor_tiled" />
-                  <Button
-                      android:id="@+id/home_btn_plot_crop_2"
-                      android:layout_width="80dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/square_btn_transp" />
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/pic_90px_castor_tiled" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBaseline="@+id/home_btn_var_sow_2"
-                         android:layout_alignBottom="@+id/home_btn_var_sow_2"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_marginLeft="64dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Castor"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <Button
+                    android:id="@+id/home_btn_plot_crop_2"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
 
-              </RelativeLayout>
-              
-                  <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/home_btn_var_sow_2"
+                    android:layout_alignBottom="@+id/home_btn_var_sow_2"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_marginLeft="64dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Castor"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      android:src="@drawable/pic_90px_cowpea_tiled" />
-                  <Button
-                      android:id="@+id/home_btn_plot_crop_3"
-                      android:layout_width="80dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/square_btn_transp" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBaseline="@+id/home_btn_var_sow_3"
-                         android:layout_alignBottom="@+id/home_btn_var_sow_3"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_marginLeft="58dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Cowpea"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/pic_90px_cowpea_tiled" />
 
-              </RelativeLayout>
-              
-              <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+                <Button
+                    android:id="@+id/home_btn_plot_crop_3"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      android:src="@drawable/pic_90px_greengram_tiled" />
-                  <Button
-                      android:id="@+id/home_btn_plot_crop_4"
-                      android:layout_width="80dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/square_btn_transp" />
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/home_btn_var_sow_3"
+                    android:layout_alignBottom="@+id/home_btn_var_sow_3"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_marginLeft="58dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Cowpea"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBaseline="@+id/home_btn_har_1"
-                         android:layout_alignBottom="@+id/home_btn_har_1"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Greengram"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-              </RelativeLayout>
-              
-                <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/pic_90px_greengram_tiled" />
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      android:src="@drawable/pic_90px_groundnut_tiled" />
-                  <Button
-                      android:id="@+id/home_btn_plot_crop_5"
-                      android:layout_width="80dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/square_btn_transp" />
+                <Button
+                    android:id="@+id/home_btn_plot_crop_4"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBaseline="@+id/home_btn_har_1"
-                         android:layout_alignBottom="@+id/home_btn_har_1"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Groundnut"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/home_btn_har_1"
+                    android:layout_alignBottom="@+id/home_btn_har_1"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Greengram"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-              </RelativeLayout>
-                  
-                  <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="wrap_content"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                  android:layout_weight="0.09" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      android:src="@drawable/pic_90px_horsegram_tiled" />
-                  <Button
-                      android:id="@+id/home_btn_plot_crop_6"
-                      android:layout_width="80dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/square_btn_transp" />
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/pic_90px_groundnut_tiled" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBaseline="@+id/home_btn_har_1"
-                         android:layout_alignBottom="@+id/home_btn_har_1"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_marginLeft="65dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Horsegram"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <Button
+                    android:id="@+id/home_btn_plot_crop_5"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
 
-              </RelativeLayout>
-                  
-          </LinearLayout>
-          
-      </ScrollView>
-      
-      
-      
-      
-  </RelativeLayout>
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/home_btn_har_1"
+                    android:layout_alignBottom="@+id/home_btn_har_1"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Groundnut"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip"
+                    android:src="@drawable/pic_90px_horsegram_tiled" />
+
+                <Button
+                    android:id="@+id/home_btn_plot_crop_6"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/home_btn_har_1"
+                    android:layout_alignBottom="@+id/home_btn_har_1"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_marginLeft="65dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Horsegram"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

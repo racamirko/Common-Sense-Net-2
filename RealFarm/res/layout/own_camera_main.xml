@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:ems="8"
             android:gravity="center_vertical|center_horizontal"
-           
             android:textSize="25sp" >
         </TextView>
 
@@ -45,7 +44,6 @@
             android:layout_height="wrap_content"
             android:ems="8"
             android:gravity="center_vertical|center_horizontal"
-          
             android:textSize="25sp" >
 
             <requestFocus />
@@ -66,8 +64,8 @@
         android:id="@+id/camera_preview"
         android:layout_width="match_parent"
         android:layout_height="250dip"
-        android:focusable="true" 
-        android:layout_marginTop="7dip">
+        android:layout_marginTop="7dip"
+        android:focusable="true" >
     </FrameLayout>
 
     <Button

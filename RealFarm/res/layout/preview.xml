@@ -18,7 +18,6 @@
             android:layout_height="wrap_content"
             android:ems="8"
             android:gravity="center_vertical|center_horizontal"
-          
             android:textSize="25sp" >
         </TextView>
 
@@ -45,7 +44,6 @@
             android:layout_height="wrap_content"
             android:ems="8"
             android:gravity="center_vertical|center_horizontal"
-           
             android:textSize="25sp" >
 
             <requestFocus />
@@ -85,16 +83,14 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="25dp"
             android:layout_marginRight="13dp"
-           
             android:src="@drawable/okay" />
 
         <ImageButton
             android:id="@+id/button_retake"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/button_save"
             android:layout_marginRight="31dp"
-           
+            android:layout_toRightOf="@+id/button_save"
             android:src="@drawable/trash_delete" />
     </RelativeLayout>
 

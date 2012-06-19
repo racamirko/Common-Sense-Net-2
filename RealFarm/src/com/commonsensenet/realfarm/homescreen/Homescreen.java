@@ -26,10 +26,10 @@ import android.widget.Toast;
 
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
 import com.commonsensenet.realfarm.Addplot_sm;
+import com.commonsensenet.realfarm.ChoosePlotActivity;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.Marketprice_details;
 import com.commonsensenet.realfarm.My_setting_plot_info;
-import com.commonsensenet.realfarm.Plot_Image;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.WF_details;
 import com.commonsensenet.realfarm.admin;
@@ -321,14 +321,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// Action pages
 
-		if (v.getId() == R.id.btn_action_plant
-				|| v.getId() == R.id.btn_action_plant) {
+		if (v.getId() == R.id.btn_action_plant) {
 			System.out.println("Action Sowing clicked");
 			Global.actionno = 1; // for sow
 			// inte = new Intent(this, action_sowing.class);
 			if (no_of_plots > 1) {
 
-				inte = new Intent(this, Plot_Image.class);
+				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
 				this.finish();
 				return;
@@ -350,13 +349,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			}
 		}
 
-		if (v.getId() == R.id.btn_action_yield
-				|| v.getId() == R.id.btn_action_yield) {
+		if (v.getId() == R.id.btn_action_yield) {
 			System.out.println("Action harvest clicked");
 			Global.actionno = 2; // for harvest
 			if (no_of_plots > 1) {
 
-				inte = new Intent(this, Plot_Image.class);
+				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
 				this.finish();
 				return;
@@ -378,8 +376,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			}
 		}
 
-		if (v.getId() == R.id.btn_action_diary
-				|| v.getId() == R.id.btn_action_diary) {
+		if (v.getId() == R.id.btn_action_diary) {
 
 			System.out.println("My diray clicked");
 
@@ -412,13 +409,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		}
 
-		if (v.getId() == R.id.btn_action_fertilize
-				|| v.getId() == R.id.btn_action_fertilize) {
+		if (v.getId() == R.id.btn_action_fertilize) {
 			System.out.println("Fertilize action clicked");
 			Global.actionno = 4; // for fertilize
 			if (no_of_plots > 1) {
 
-				inte = new Intent(this, Plot_Image.class);
+				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
 				this.finish();
 				return;
@@ -440,13 +436,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			}
 		}
 
-		if (v.getId() == R.id.btn_action_spray
-				|| v.getId() == R.id.btn_action_spray) {
+		if (v.getId() == R.id.btn_action_spray) {
 			System.out.println("Spraying action clicked");
 			Global.actionno = 5; // for spray
 			if (no_of_plots > 1) {
 
-				inte = new Intent(this, Plot_Image.class);
+				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
 				this.finish();
 				return;
@@ -494,7 +489,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Global.actionno = 3; // for selling
 			if (no_of_plots > 1) {
 
-				inte = new Intent(this, Plot_Image.class);
+				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
 				this.finish();
 				return;
@@ -523,7 +518,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Global.actionno = 8; // for selling
 			if (no_of_plots > 1) {
 
-				inte = new Intent(this, Plot_Image.class);
+				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
 				this.finish();
 				return;
@@ -552,7 +547,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Global.actionno = 8; // for selling
 			if (no_of_plots > 1) {
 
-				inte = new Intent(this, Plot_Image.class);
+				inte = new Intent(this, ChoosePlotActivity.class);
 				this.startActivity(inte);
 				this.finish();
 				return;

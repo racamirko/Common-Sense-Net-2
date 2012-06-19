@@ -47,7 +47,6 @@
             android:layout_margin="3dp"
             android:background="@drawable/help"
             android:src="@drawable/square_btn_transp" />
-
     </LinearLayout>
 
     <LinearLayout
@@ -112,7 +111,6 @@
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
                     android:src="@drawable/ic_48px_fertilizing2" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -133,9 +131,9 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                     android:layout_marginLeft="5dp"
                     android:text="Fertilizer"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="21sp" />
@@ -212,7 +210,6 @@
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
                     android:src="@drawable/ic_48px_pest" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -228,8 +225,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:src="@drawable/empty" />
-                
-                  <TextView
+
+                <TextView
                     android:id="@+id/dlg_lbl_unit_no_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -251,7 +248,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignRight="@+id/img_bg_units_no_fert"
                     android:background="@drawable/square_btn_transp" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -268,7 +264,6 @@
                     android:id="@+id/img_bg_units_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    
                     android:src="@drawable/empty" />
 
                 <TextView
@@ -279,7 +274,7 @@
                     android:paddingBottom="5dip"
                     android:paddingLeft="15dp"
                     android:paddingTop="5dip"
-                    android:text="Kg's"
+                    android:text="Kg&apos;s"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Button
@@ -291,7 +286,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_alignTop="@+id/dlg_lbl_units_fert"
                     android:background="@drawable/square_btn_transp" />
-                
             </RelativeLayout>
         </TableRow>
     </LinearLayout>
@@ -356,7 +350,6 @@
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
                     android:src="@drawable/date" />
-
             </RelativeLayout>
 
             <RelativeLayout

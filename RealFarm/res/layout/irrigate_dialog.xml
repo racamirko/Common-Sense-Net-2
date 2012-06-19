@@ -25,7 +25,7 @@
             android:layout_margin="5dp"
             android:src="@drawable/plot" />
 
-          <Button
+        <Button
             android:id="@+id/button123"
             android:layout_width="75dip"
             android:layout_height="wrap_content"
@@ -128,10 +128,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:gravity="right"
                     android:text="Method"
-                    android:layout_marginLeft="5dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
 
@@ -206,7 +206,6 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:src="@drawable/time" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -214,7 +213,6 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_marginBottom="5dp"
-                
                 android:layout_marginRight="15dp"
                 android:layout_marginTop="5dp"
                 android:layout_weight="0.09" >
@@ -230,11 +228,10 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
                     android:paddingBottom="5dip"
-                  
                     android:paddingTop="5dip"
                     android:text="Hours"
-                    android:layout_marginLeft="10dp"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="20sp" />
 
@@ -247,7 +244,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignRight="@+id/img_bg_hrs_irr"
                     android:background="@drawable/square_btn_transp" />
-
             </RelativeLayout>
         </TableRow>
     </LinearLayout>
@@ -331,8 +327,8 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                   android:layout_marginLeft="5dp"
                     android:text="Date"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />

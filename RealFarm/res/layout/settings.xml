@@ -1,54 +1,72 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView android:orientation="vertical"
-	xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent">
-
-	<LinearLayout android:orientation="vertical"
-		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:id="@+id/linearLayout1" android:gravity="top">
-
-		<TextView android:text="@string/you" android:layout_width="wrap_content"
-			android:layout_height="wrap_content" android:textSize="30sp"
-			android:id="@+id/text" />
-
-		<EditText android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:hint="@string/firstname"
-			android:id="@+id/editText1" android:singleLine="true" />
-		<EditText android:layout_width="fill_parent"
-			android:layout_height="wrap_content" android:hint="@string/lastname"
-			android:id="@+id/editText2" android:singleLine="true" />
-		<TextView
-    android:id="@+id/TextView01"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:gravity="center"
-    android:text="@string/mobilenumber" />
-		
-		<EditText
-    android:id="@+id/MobileNo"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:singleLine="true" />
-		
-		<Button
-    android:id="@+id/OK"
-    android:layout_width="100dp"
-    android:layout_height="wrap_content"
-    android:layout_gravity="center"
-    android:text="OK"
-    android:textSize="28sp"
-    android:textStyle="bold" />
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
 
-		<!-- <ImageView android:maxWidth="50px" android:layout_width="100dp" android:src="@drawable/male" 
+    <LinearLayout
+        android:id="@+id/linearLayout1"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:gravity="top"
+        android:orientation="vertical" >
+
+        <TextView
+            android:id="@+id/text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/you"
+            android:textSize="30sp" />
+
+        <EditText
+            android:id="@+id/editText1"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/firstname"
+            android:singleLine="true" />
+
+        <EditText
+            android:id="@+id/editText2"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/lastname"
+            android:singleLine="true" />
+
+        <TextView
+            android:id="@+id/TextView01"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/mobilenumber" />
+
+        <EditText
+            android:id="@+id/MobileNo"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:singleLine="true" />
+
+        <Button
+            android:id="@+id/OK"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="OK"
+            android:textSize="28sp"
+            android:textStyle="bold" />
+
+        <!--
+             <ImageView android:maxWidth="50px" android:layout_width="100dp" android:src="@drawable/male" 
 			android:layout_height="100dp" android:id="@+id/profileImage" android:maxHeight="50px" 
-			/> -->
+			/>
+        -->
 
-		<LinearLayout android:orientation="vertical"
-			android:layout_width="fill_parent" android:layout_height="fill_parent"
-			android:id="@+id/linearLayout2" android:layout_weight="1">
+        <LinearLayout
+            android:id="@+id/linearLayout2"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:orientation="vertical" >
+        </LinearLayout>
+    </LinearLayout>
 
-		</LinearLayout>
-
-	</LinearLayout>
 </ScrollView>
-

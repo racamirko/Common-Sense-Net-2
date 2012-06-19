@@ -25,7 +25,6 @@
             android:layout_marginLeft="5dp"
             android:text="Plot Screen"
             android:textSize="30dp" />
-
     </LinearLayout>
 
     <ListView

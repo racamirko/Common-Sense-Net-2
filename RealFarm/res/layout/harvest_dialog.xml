@@ -25,7 +25,7 @@
             android:layout_margin="5dp"
             android:src="@drawable/plot" />
 
-         <Button
+        <Button
             android:id="@+id/button123"
             android:layout_width="75dip"
             android:layout_height="wrap_content"
@@ -146,23 +146,23 @@
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
         </TableRow>
-      </LinearLayout>
-        
-       <LinearLayout
+    </LinearLayout>
+
+    <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
         android:layout_height="70dp"
-        android:orientation="horizontal" >    
+        android:orientation="horizontal" >
+
         <TableRow
             android:id="@+id/harvest_year_tr"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
             android:background="@drawable/def_img"
             android:paddingBottom="10dip"
-            android:paddingTop="4dip" 
-            
-           >
-      <RelativeLayout
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
@@ -210,13 +210,13 @@
                     android:gravity="center"
                     android:src="@drawable/date" />
             </RelativeLayout>
+
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_margin="5dip"
-                android:gravity="right"
-                 >
+                android:gravity="right" >
 
                 <ImageView
                     android:id="@+id/img_bg_year_harvest"
@@ -242,10 +242,8 @@
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp" />
-
             </RelativeLayout>
         </TableRow>
-        
     </LinearLayout>
 
     <LinearLayout
@@ -407,8 +405,7 @@
                 android:id="@+id/imageView1"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_alignParentTop="true"
-                 />
+                android:layout_alignParentTop="true" />
 
             <Button
                 android:id="@+id/home_btn_har_1"
@@ -431,8 +428,7 @@
                 android:id="@+id/imageView1"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_alignParentTop="true"
-               />
+                android:layout_alignParentTop="true" />
 
             <Button
                 android:id="@+id/home_btn_har_2"
@@ -455,8 +451,7 @@
                 android:id="@+id/imageView1"
                 android:layout_width="70dp"
                 android:layout_height="70dp"
-                android:layout_alignParentTop="true"
-                />
+                android:layout_alignParentTop="true" />
 
             <Button
                 android:id="@+id/home_btn_har_3"

@@ -1,157 +1,143 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-  <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-      android:id="@+id/linearLayout1"
-      android:layout_width="match_parent"
-      android:layout_height="match_parent" >
-            
-     
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dlg_img_seed"
+        android:layout_marginTop="10dip" >
 
-      <ScrollView
-          android:layout_below="@+id/dlg_img_seed"
-          android:id="@+id/scrollView1"
-          android:layout_width="match_parent"
-          android:layout_height="wrap_content"
-          android:layout_marginTop="10dip">
+        <LinearLayout
+            android:id="@+id/dlg_linlay_userDataDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-          <LinearLayout
-              android:id="@+id/dlg_linlay_userDataDetails"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="180dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                  <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="180dp"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                   android:layout_marginLeft="65dp"
-                  android:layout_weight="0.09" >
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip" />
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      />
-                  <Button
-                      android:id="@+id/plot_img_1"
-                      android:layout_width="180dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/plot" />
+                <Button
+                    android:id="@+id/plot_img_1"
+                    android:layout_width="180dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/plot" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_centerVertical="true"
-                         android:layout_marginLeft="2dp"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Plot A"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="2dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Plot A"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-              </RelativeLayout>
-              
-               
-              
-                  <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="180dp"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                   android:layout_marginLeft="65dp"
-                  android:layout_weight="0.09" >
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="180dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                       />
-                  <Button
-                      android:id="@+id/plot_img_2"
-                      android:layout_width="180dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/plot" />
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip" />
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBaseline="@+id/home_btn_har_1"
-                         android:layout_alignBottom="@+id/home_btn_har_1"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_marginLeft="5dp"
-                         android:layout_centerVertical="true"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Plot B"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <Button
+                    android:id="@+id/plot_img_2"
+                    android:layout_width="180dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/plot" />
 
-              </RelativeLayout>
-              
-                  <RelativeLayout
-                  android:id="@+id/RelativeLayoutwf_2"
-                  android:layout_width="180dp"
-                  android:layout_height="80dp"
-                  android:layout_marginBottom="5dp"
-                  android:layout_marginTop="5dp"
-                   android:layout_marginLeft="65dp"
-                  android:layout_weight="0.09" >
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/home_btn_har_1"
+                    android:layout_alignBottom="@+id/home_btn_har_1"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Plot B"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-                   <ImageView
-                      android:id="@+id/dlg_img_seed"
-                      android:layout_width="fill_parent"
-                      android:layout_height="wrap_content"
-                      android:layout_alignParentLeft="true"
-                      android:layout_centerVertical="true"
-                      android:layout_margin="10dip"
-                      />
-                  <Button
-                      android:id="@+id/plot_img_3"
-                      android:layout_width="180dp"
-                      android:layout_height="80dp"
-                      android:layout_alignParentLeft="true"
-                      android:layout_alignParentRight="true"
-                      android:layout_alignParentTop="true"
-                      android:background="@drawable/plot" />
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="180dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="65dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
 
-                     <TextView
-                         android:id="@+id/dlg_lbl_details"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_alignBaseline="@+id/home_btn_har_1"
-                         android:layout_alignBottom="@+id/home_btn_har_1"
-                         android:layout_alignLeft="@+id/dlg_img_seed"
-                         android:layout_marginLeft="5dp"
-                         android:layout_centerVertical="true"
-                         android:paddingBottom="5dip"
-                         android:paddingTop="5dip"
-                         android:text="Plot C"
-                         android:textAppearance="?android:attr/textAppearanceMedium" />
+                <ImageView
+                    android:id="@+id/dlg_img_seed"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_margin="10dip" />
 
-              </RelativeLayout>
-              
-         
-          </LinearLayout>
-          
-      </ScrollView>
-      
-      
-      
-      
-  </RelativeLayout>
+                <Button
+                    android:id="@+id/plot_img_3"
+                    android:layout_width="180dp"
+                    android:layout_height="80dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/plot" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_details"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBaseline="@+id/home_btn_har_1"
+                    android:layout_alignBottom="@+id/home_btn_har_1"
+                    android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Plot C"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

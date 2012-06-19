@@ -19,7 +19,7 @@
     <uses-permission android:name="android.permission.WAKE_LOCK" />
     <uses-permission android:name="android.permission.VIBRATE" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
-        <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".RealFarmApp"
@@ -68,11 +68,6 @@
 
         <service android:name="com.buzzbox.mob.android.scheduler.ScheduledService" />
 
-        <activity
-            android:name=".PlotEditor"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name="admincall"
             android:screenOrientation="portrait"
@@ -134,11 +129,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".Plot_Image"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".Plot_Blank"
+            android:name=".ChoosePlotActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
@@ -150,14 +141,6 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".MySimpleArrayAdapter"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
-            android:name=".Plot_test"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
             android:name=".videos"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
@@ -165,8 +148,7 @@
             android:name=".PlayVideoResFolder"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-         <activity
+        <activity
             android:name=".ownCamera.OwnCameraActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
@@ -181,10 +163,9 @@
                 <data android:scheme="file" />
             </intent-filter>
         </activity>
-        
-        
+
         <receiver
-            android:name="com.commonsensenet.realfarm.RealFarmDataSynchronizationService"
+            android:name=".RealFarmDataSynchronizationService"
             android:exported="true" >
             <intent-filter android:priority="100" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

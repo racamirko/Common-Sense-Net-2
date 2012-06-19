@@ -21,13 +21,14 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class My_settings_plot_details extends HelpEnabledActivity {
 
-	private final Context context = this;	
-	
+	private final Context mContext = this;
+
 	private RealFarmProvider mDataProvider;
+	private String mMainCrop = "0";
+	private String mPlotImage = "0";
+	private int mSeedTypeId = 0;
+	private String mSoilType = "0";
 	private final My_settings_plot_details parentReference = this;
-	private String PlotImage = "0";
-	private int SeedTypeId = 0;
-	private String SoilType = "0", MainCrop = "0";
 
 	public void onBackPressed() {
 
@@ -37,21 +38,17 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 				Homescreen.class);
 		startActivity(adminintent123);
 		My_settings_plot_details.this.finish();
-
-		SoundQueue sq = SoundQueue.getInstance(); // audio integration
-		sq.stop();
-
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		// sets the layout
 		setContentView(R.layout.my_settings_plot_details);
-		mDataProvider = RealFarmProvider.getInstance(context); // Working
+		// gets the database provided
+		mDataProvider = RealFarmProvider.getInstance(mContext);
 
-		ImageButton home1;
-		ImageButton help1;
-		home1 = (ImageButton) findViewById(R.id.aggr_img_home1);
-		help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
+		ImageButton home1 = (ImageButton) findViewById(R.id.aggr_img_home1);
+		ImageButton help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
 		help1.setOnLongClickListener(this);
 
 		home1.setOnClickListener(new View.OnClickListener() {
@@ -64,17 +61,13 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 			}
 		});
 
-		// img_1.setImageResource(R.drawable.def_img_not);
-		// img_1.setImageResource(R.drawable.ic_72px_ok);
 		if (Global.flag_camera == true) {
 			Global.flag_camera = false;
 			final ImageView img_1;
 			img_1 = (ImageView) findViewById(R.id.dlg_plot_img_test);
-			PlotImage = "Image";
+			mPlotImage = "Image";
 
 			img_1.setImageBitmap(Global._rotated);
-
-		} else {
 
 		}
 
@@ -105,7 +98,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 				startActivity(new Intent(My_settings_plot_details.this,
 						OwnCameraActivity.class));
 
-				PlotImage = "Image";
+				mPlotImage = "Image";
 
 				My_settings_plot_details.this.finish();
 
@@ -146,7 +139,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						// img_1.setMaxWidth(300);
 						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Loamy");
-						SoilType = "Loamy";
+						mSoilType = "Loamy";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -160,7 +153,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						Log.d("var 2 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Sandy");
-						SoilType = "Sandy";
+						mSoilType = "Sandy";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -173,7 +166,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Clay");
-						SoilType = "Clay";
+						mSoilType = "Clay";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -214,8 +207,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 				crop6 = (Button) dlg.findViewById(R.id.home_btn_plot_crop_6);
 
 				((Button) dlg.findViewById(R.id.home_btn_plot_crop_1))
-						.setOnLongClickListener(parentReference); // Audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_btn_plot_crop_2))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_btn_plot_crop_3))
@@ -233,9 +225,9 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						// img_1.setMaxWidth(300);
 						img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 						var_text.setText("Bajra");
-						MainCrop = "Bajra";
+						mMainCrop = "Bajra";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						SeedTypeId = 5; // added with audio integration
+						mSeedTypeId = 5; // added with audio integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
@@ -247,9 +239,9 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						Log.d("var 2 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Castor");
-						MainCrop = "Castor";
+						mMainCrop = "Castor";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						SeedTypeId = 6; // added with audio integration
+						mSeedTypeId = 6; // added with audio integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						dlg.cancel();
 					}
@@ -260,9 +252,9 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("Cowpea");
-						MainCrop = "Cowpea";
+						mMainCrop = "Cowpea";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						SeedTypeId = 7; // added with audio integration
+						mSeedTypeId = 7; // added with audio integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						dlg.cancel();
 					}
@@ -273,9 +265,9 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_greengram_tiled);
 						var_text.setText("Greengram");
-						MainCrop = "Greengram";
+						mMainCrop = "Greengram";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						SeedTypeId = 8; // added with audio integration
+						mSeedTypeId = 8; // added with audio integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						dlg.cancel();
 					}
@@ -285,8 +277,8 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_groundnut_tiled);
 						var_text.setText("Groundnut");
-						MainCrop = "Groundnut";
-						SeedTypeId = 3; // added with audio integration
+						mMainCrop = "Groundnut";
+						mSeedTypeId = 3; // added with audio integration
 						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -298,9 +290,9 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
 						var_text.setText("Horsegram");
-						MainCrop = "Horsegram";
+						mMainCrop = "Horsegram";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						SeedTypeId = 9; // added with audio integration
+						mSeedTypeId = 9; // added with audio integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						dlg.cancel();
 					}
@@ -313,7 +305,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 			public void onClick(View v) {
 
 				int flag1, flag2, flag3;
-				if (PlotImage.toString().equalsIgnoreCase("0")) {
+				if (mPlotImage.toString().equalsIgnoreCase("0")) {
 					flag1 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.plot_tr);
@@ -328,7 +320,10 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
-				if (SoilType.toString().equalsIgnoreCase("0")) {
+				// TODO: overrides image requirement
+				flag1 = 0;
+
+				if (mSoilType.toString().equalsIgnoreCase("0")) {
 
 					flag2 = 1;
 
@@ -344,7 +339,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
-				if (MainCrop.toString().equalsIgnoreCase("0")) {
+				if (mMainCrop.toString().equalsIgnoreCase("0")) {
 
 					flag3 = 1;
 
@@ -368,7 +363,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 					startActivity(adminintent);
 					My_settings_plot_details.this.finish();
 
-					PutPlotToDatabase();
+					addPlotToDatabase();
 					mDataProvider.getPlots();
 
 				} else
@@ -440,115 +435,88 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.aggr_img_help1) {
-
 			playAudio(R.raw.help);
 		}
 
 		if (v.getId() == R.id.home_btn_list_plot) { // added
-
 			playAudio(R.raw.plotimage);
 		}
 
 		if (v.getId() == R.id.plot_img_1) { // added
-
 			playAudio(R.raw.audio1);
 		}
 
 		if (v.getId() == R.id.plot_img_2) { // added
-
 			playAudio(R.raw.audio2);
 		}
 
 		if (v.getId() == R.id.plot_img_3) { // added
-
 			playAudio(R.raw.audio3);
 		}
 
 		if (v.getId() == R.id.home_btn_soil_plot) { // added
-
 			playAudio(R.raw.soiltype);
 		}
 
 		if (v.getId() == R.id.plot_soil_1) { // added
-
 			playAudio(R.raw.loamy);
-
 		}
 
 		if (v.getId() == R.id.plot_soil_2) { // added
-
 			playAudio(R.raw.sandy);
 		}
 
 		if (v.getId() == R.id.plot_soil_3) { // added
-
 			playAudio(R.raw.clay);
 		}
 
 		if (v.getId() == R.id.home_btn_crop_plot) { // added
-
 			playAudio(R.raw.yieldinfo);
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_1) { // added
-
 			playAudio(R.raw.bajra);
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_2) { // added
-
 			playAudio(R.raw.castor);
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_3) { // added
-
 			playAudio(R.raw.cowpea);
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_4) { // added
-
 			playAudio(R.raw.greengram);
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_5) { // added
-
 			playAudio(R.raw.groundnuts);
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_6) { // added
-
 			playAudio(R.raw.horsegram);
 		}
 
 		if (v.getId() == R.id.button_ok) { // added
-
 			playAudio(R.raw.ok);
 		}
 
 		if (v.getId() == R.id.button_cancel) { // added
-
 			playAudio(R.raw.cancel);
 		}
 
 		return true;
 	}
 
-	public void PutPlotToDatabase() {
-		// System.out.println("User data is put to database");
+	private void addPlotToDatabase() {
 
-		// Global.plotId++;
-		// Global.userId++;
+		mDataProvider.setPlotNew(mSeedTypeId, 111, 222, mPlotImage, mSoilType,
+				0, 0);
 
-		String plotImage12 = PlotImage;
-		String SoilType12 = SoilType;
-		// String MainCrop12 = MainCrop;
-
-		mDataProvider.setPlotNew(SeedTypeId, 111, 222, plotImage12, SoilType12,
-				0, 0); // added with audio integration
-
-		// This has to be uccommented to enter plot details into database
-		Toast.makeText(getBaseContext(),
-				"Plot Details is put to Database" + plotImage12 + SoilType12,
-				Toast.LENGTH_SHORT).show();
+		Toast.makeText(
+				getBaseContext(),
+				"Plot Details is put to Database " + mPlotImage + " "
+						+ mSoilType, Toast.LENGTH_SHORT).show();
 	}
 }

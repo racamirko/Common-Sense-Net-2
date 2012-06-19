@@ -27,7 +27,6 @@ public class videos extends HelpEnabledActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.videos);
-		System.out.println("In My_setting_plot_info call");
 
 		ImageButton home, help;
 		// ImageButton help;

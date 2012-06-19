@@ -1,150 +1,145 @@
 <?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android">
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
 
-	<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	    android:layout_width="fill_parent"
-	    android:layout_height="fill_parent"
-	    android:orientation="horizontal" >
-	
-	    <!--     android:baselineAligned="true" -->
-	    <LinearLayout
-	        android:id="@+id/col_news1"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:gravity="center_vertical"
-	        android:paddingRight="2dp"
-	        android:orientation="vertical">
-	
-	        <RelativeLayout
-	            android:id="@+id/relativeLayout1"
-	            android:layout_width="match_parent"
-	            android:layout_height="wrap_content" >
-	
-	            <ImageButton
-	                android:id="@+id/btn_info_yield"
-	                android:layout_width="120dp"
-	                android:layout_height="120dp"
-	                android:layout_marginBottom="2dp"
-	                android:background="@drawable/circular_btn_normal"
-	                android:src="@drawable/ic_90px_harvesting1" />
-	
-	            <TextView
-	                android:id="@+id/textView1"
-	                android:layout_width="wrap_content"
-	                android:layout_height="wrap_content"
-	                android:layout_alignBottom="@+id/btn_info_yield"
-	                android:layout_alignRight="@+id/btn_info_yield"
-	                android:layout_centerHorizontal="true"
-	                android:padding="5dp"
-	                android:text="20"
-	                android:background="@color/button_background_normal_end"
-	                android:textColor="#000000"
-	                android:textAppearance="?android:attr/textAppearanceLarge" />
-	
-	        </RelativeLayout>
-	
-	        <ImageButton
-	            android:id="@+id/btn_info_warn"
-	            android:layout_width="120dp"
-	            android:layout_height="120dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_90px_reporting" />
-	
-	    </LinearLayout>
-	
-	    <LinearLayout
-	        android:id="@+id/col_news2"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:gravity="center_vertical"
-	        android:orientation="vertical">
-	
-	        <ImageButton
-	            android:id="@+id/btn_info_advice"
-	            android:layout_width="120dp"
-	            android:layout_height="120dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_90px_diary1"
-	            android:layout_marginBottom="2dp"/>
-	
-	        <ImageButton
-	            android:id="@+id/btn_info_actions"
-	            android:layout_width="120dp"
-	            android:layout_height="120dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_90px_sowing" />
-	
-	    </LinearLayout>
-	
-	    <LinearLayout
-	        android:id="@+id/col_actions"
-	        android:layout_width="wrap_content"
-	        android:layout_height="match_parent"
-	        android:layout_gravity="fill_horizontal"
-	        android:orientation="vertical"
-	        android:gravity="center_vertical"
-	        android:paddingLeft="15dp">
-	
-	        <ImageButton
-	            android:id="@+id/btn_action_plant"
-	            android:layout_width="60dp"
-	            android:layout_height="60dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_48px_sowing" />
-	
-	        <ImageButton
-	            android:id="@+id/btn_action_fertilize"
-	            android:layout_width="60dp"
-	            android:layout_height="60dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_48px_fertilizing2" />
-	
-	        <ImageButton
-	            android:id="@+id/btn_action_spray"
-	            android:layout_width="60dp"
-	            android:layout_height="60dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_48px_spraying2" />
-	
-	        <ImageButton
-	            android:id="@+id/btn_action_problem"
-	            android:layout_width="60dp"
-	            android:layout_height="60dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_48px_reporting" />
-	        
-	        <ImageButton
-	            android:id="@+id/btn_action_irrigate"
-	            android:layout_width="60dp"
-	            android:layout_height="60dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_48px_irrigation2" />
-	        
-	        <ImageButton
-	            android:id="@+id/btn_action_yield"
-	            android:layout_width="60dp"
-	            android:layout_height="60dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_48px_harvesting1" />
-	
-	        <ImageButton
-	            android:id="@+id/btn_action_diary"
-	            android:layout_width="60dp"
-	            android:layout_height="60dp"
-	            android:background="@drawable/circular_btn_normal"
-	            android:src="@drawable/ic_48px_planning" />
-	
-	    </LinearLayout>
-	
-	</LinearLayout>
+        <!-- android:baselineAligned="true" -->
+
+        <LinearLayout
+            android:id="@+id/col_news1"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingRight="2dp" >
+
+            <RelativeLayout
+                android:id="@+id/relativeLayout1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+
+                <ImageButton
+                    android:id="@+id/btn_info_yield"
+                    android:layout_width="120dp"
+                    android:layout_height="120dp"
+                    android:layout_marginBottom="2dp"
+                    android:background="@drawable/circular_btn_normal"
+                    android:src="@drawable/ic_90px_harvesting1" />
+
+                <TextView
+                    android:id="@+id/textView1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignBottom="@+id/btn_info_yield"
+                    android:layout_alignRight="@+id/btn_info_yield"
+                    android:layout_centerHorizontal="true"
+                    android:background="@color/button_background_normal_end"
+                    android:padding="5dp"
+                    android:text="20"
+                    android:textAppearance="?android:attr/textAppearanceLarge"
+                    android:textColor="#000000" />
+            </RelativeLayout>
+
+            <ImageButton
+                android:id="@+id/btn_info_warn"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_90px_reporting" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/col_news2"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:orientation="vertical" >
+
+            <ImageButton
+                android:id="@+id/btn_info_advice"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="2dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_90px_diary1" />
+
+            <ImageButton
+                android:id="@+id/btn_info_actions"
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_90px_sowing" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/col_actions"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="fill_horizontal"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:paddingLeft="15dp" >
+
+            <ImageButton
+                android:id="@+id/btn_action_plant"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_48px_sowing" />
+
+            <ImageButton
+                android:id="@+id/btn_action_fertilize"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_48px_fertilizing2" />
+
+            <ImageButton
+                android:id="@+id/btn_action_spray"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_48px_spraying2" />
+
+            <ImageButton
+                android:id="@+id/btn_action_problem"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_48px_reporting" />
+
+            <ImageButton
+                android:id="@+id/btn_action_irrigate"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_48px_irrigation2" />
+
+            <ImageButton
+                android:id="@+id/btn_action_yield"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_48px_harvesting1" />
+
+            <ImageButton
+                android:id="@+id/btn_action_diary"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_48px_planning" />
+        </LinearLayout>
+    </LinearLayout>
 
     <ImageView
         android:id="@+id/helpIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_76px_sound"
-        android:visibility="invisible"
-         />
-		
+        android:visibility="invisible" />
+
 </merge>

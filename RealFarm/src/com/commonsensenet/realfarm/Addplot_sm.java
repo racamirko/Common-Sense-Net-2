@@ -23,25 +23,20 @@ public class Addplot_sm extends HelpEnabledActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addplot_sm);
-		System.out.println("In My_setting_plot_info call");
 
-		Button AddPlot = (Button) findViewById(R.id.button_add_plot);
-		Button SMvalue = (Button) findViewById(R.id.button_soil_moisture);
+		Button btnAddPlot = (Button) findViewById(R.id.button_add_plot);
+		Button btnSoilMoisture = (Button) findViewById(R.id.button_soil_moisture);
 
-		AddPlot.setOnLongClickListener(this); // Integration
-		SMvalue.setOnLongClickListener(this);
+		btnAddPlot.setOnLongClickListener(this);
+		btnSoilMoisture.setOnLongClickListener(this);
 
-		ImageButton home;
-		ImageButton help;
-
-		home = (ImageButton) findViewById(R.id.aggr_img_home1);
-		help = (ImageButton) findViewById(R.id.aggr_img_help1);
+		ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home1);
+		ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help1);
 		help.setOnLongClickListener(this);
 
 		// add the event listeners
-		AddPlot.setOnClickListener(new View.OnClickListener() {
+		btnAddPlot.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				System.out.println("In add user");
 
 				Global.CallToPlotInfo = 1;
 				Intent adminintent123 = new Intent(Addplot_sm.this,
@@ -53,13 +48,12 @@ public class Addplot_sm extends HelpEnabledActivity {
 		});
 
 		// add the event listeners
-		SMvalue.setOnClickListener(new View.OnClickListener() {
+		btnSoilMoisture.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				System.out.println("In add user");
 
 				Global.actionno = 7;
 				Intent adminintent123 = new Intent(Addplot_sm.this,
-						Plot_Image.class);
+						ChoosePlotActivity.class);
 				startActivity(adminintent123);
 				Addplot_sm.this.finish();
 
@@ -72,11 +66,9 @@ public class Addplot_sm extends HelpEnabledActivity {
 						Homescreen.class);
 				startActivity(adminintent123);
 				Addplot_sm.this.finish();
-
 			}
 		});
-
-	} // End of oncreate()
+	}
 
 	@Override
 	public boolean onLongClick(View v) { // latest

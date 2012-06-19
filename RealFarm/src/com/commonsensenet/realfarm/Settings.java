@@ -3,9 +3,7 @@ package com.commonsensenet.realfarm;
 import java.util.List;
 
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Color;
 import android.location.Location;
@@ -13,10 +11,8 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.telephony.TelephonyManager;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.ViewGroup;
 import android.view.ViewGroup.LayoutParams;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -133,7 +129,7 @@ public class Settings extends Activity {
 		}
 
 		// add plot to list and coordinates
-		long result = mDataProvider.setPoint(plotID, lat, lon);
+		long result = -1;// mDataProvider.setPoint(plotID, lat, lon);
 
 		res[0] = (int) result;
 		res[1] = lat;
@@ -143,12 +139,12 @@ public class Settings extends Activity {
 
 	public void changeLatLon(int plotID, int lat, int lon, int newLat,
 			int newLon) {
-		mDataProvider.updatePoint(plotID, lat, lon, newLat, newLon);
+		// mDataProvider.updatePoint(plotID, lat, lon, newLat, newLon);
 		plotList();
 	}
 
 	public void deleteLatLon(int plotID, int lat, int lon) {
-		mDataProvider.removePoint(plotID, lat, lon);
+		// mDataProvider.removePoint(plotID, lat, lon);
 		plotList();
 	}
 
@@ -198,61 +194,62 @@ public class Settings extends Activity {
 			final int lon) {
 		return new View.OnClickListener() {
 
-			private EditText text;
-			private EditText text2;
+			// private EditText text;
+			// private EditText text2;
 
-			public void editValue(int param) {
-
-				if (param == 1)
-					changeLatLon(plotID, lat, lon,
-							Integer.parseInt(text.getText().toString()),
-							Integer.parseInt(text2.getText().toString()));
-				else if (param == 2)
-					deleteLatLon(plotID, lat, lon);
-
-			}
+			// public void editValue(int param) {
+			//
+			// if (param == 1)
+			// changeLatLon(plotID, lat, lon,
+			// Integer.parseInt(text.getText().toString()),
+			// Integer.parseInt(text2.getText().toString()));
+			// else if (param == 2)
+			// deleteLatLon(plotID, lat, lon);
+			//
+			// }
 
 			public void onClick(View v) {
 
-				LayoutInflater inflater = (LayoutInflater) getApplicationContext()
-						.getSystemService(LAYOUT_INFLATER_SERVICE);
-				View layout = inflater.inflate(
-						R.layout.settings_add_point_dialog,
-						(ViewGroup) findViewById(R.id.layout_root));
-
-				AlertDialog.Builder alert = new AlertDialog.Builder(
-						Settings.this);
-
-				text = (EditText) layout.findViewById(R.id.lat);
-				text.setText(Integer.toString(lat));
-				text2 = (EditText) layout.findViewById(R.id.lon);
-				text2.setText(Integer.toString(lon));
-
-				alert.setView(layout);
-				alert.setTitle(R.string.editPoint);
-				alert.setMessage(R.string.valuemicro);
-
-				alert.setPositiveButton("ok",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-								/* User clicked ok so do some stuff */
-
-								editValue(1);
-
-							}
-						});
-
-				alert.setNegativeButton("Delete",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog,
-									int whichButton) {
-
-								/* User clicked cancel so do some stuff */
-								editValue(2);
-							}
-						});
-				alert.show();
+				// LayoutInflater inflater = (LayoutInflater)
+				// getApplicationContext()
+				// .getSystemService(LAYOUT_INFLATER_SERVICE);
+				// View layout = inflater.inflate(
+				// R.layout.settings_add_point_dialog,
+				// (ViewGroup) findViewById(R.id.layout_root));
+				//
+				// AlertDialog.Builder alert = new AlertDialog.Builder(
+				// Settings.this);
+				//
+				// text = (EditText) layout.findViewById(R.id.lat);
+				// text.setText(Integer.toString(lat));
+				// text2 = (EditText) layout.findViewById(R.id.lon);
+				// text2.setText(Integer.toString(lon));
+				//
+				// alert.setView(layout);
+				// alert.setTitle(R.string.editPoint);
+				// alert.setMessage(R.string.valuemicro);
+				//
+				// alert.setPositiveButton("ok",
+				// new DialogInterface.OnClickListener() {
+				// public void onClick(DialogInterface dialog,
+				// int whichButton) {
+				// /* User clicked ok so do some stuff */
+				//
+				// editValue(1);
+				//
+				// }
+				// });
+				//
+				// alert.setNegativeButton("Delete",
+				// new DialogInterface.OnClickListener() {
+				// public void onClick(DialogInterface dialog,
+				// int whichButton) {
+				//
+				// /* User clicked cancel so do some stuff */
+				// editValue(2);
+				// }
+				// });
+				// alert.show();
 
 			}
 		};

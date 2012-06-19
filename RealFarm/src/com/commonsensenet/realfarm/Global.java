@@ -11,7 +11,7 @@ public class Global {
 	public static boolean EnableAudio = true;
 	public static boolean flag_camera;
 	public static int lang_flag = 0;
-	public static int plotId = 0; // Assuming that two plot values are hard
+	public static int plotId = 0;
 	public static int userId = 1;
 	public static int videosel;;
 	public static boolean WriteToSD = false;
