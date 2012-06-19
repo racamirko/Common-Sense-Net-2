@@ -20,12 +20,9 @@ import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class action_fertilizing extends HelpEnabledActivity { // integration
-	// MediaPlayer mp = null;
-	protected RealFarmProvider mDataProvider;
-
+public class action_fertilizing extends HelpEnabledActivity {
+	private RealFarmProvider mDataProvider;
 	private final action_fertilizing parentReference = this;
-	private int quantity_fert;
 	private String units_fert = "0", fert_var_sel = "0", fert_day_sel;
 	private int fert_no;
 	private String fert_no_sel;
@@ -128,10 +125,6 @@ public class action_fertilizing extends HelpEnabledActivity { // integration
 				final Button fert1;
 				final Button fert2;
 				final Button fert3;
-
-				// final Button variety7;
-				final ImageView img_1;
-				img_1 = (ImageView) findViewById(R.id.dlg_var_sow);
 
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_var_fert);
 				fert1 = (Button) dlg.findViewById(R.id.home_var_fert_1);
@@ -251,9 +244,6 @@ public class action_fertilizing extends HelpEnabledActivity { // integration
 				final Button unit1;
 				final Button unit2;
 				final Button unit3;
-
-				final ImageView img_1;
-				img_1 = (ImageView) findViewById(R.id.dlg_unit_sow);
 
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_units_fert);
 				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
@@ -378,8 +368,6 @@ public class action_fertilizing extends HelpEnabledActivity { // integration
 				((Button) dlg.findViewById(R.id.home_day_5))
 						.setOnLongClickListener(parentReference);
 
-				final ImageView img_1;
-				img_1 = (ImageView) findViewById(R.id.dlg_unit_sow);
 				if (Global.WriteToSD == true) {
 
 					String logtime = getcurrenttime();
@@ -632,7 +620,7 @@ public class action_fertilizing extends HelpEnabledActivity { // integration
 
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
-				int flag1, flag2, flag3;
+				int flag1, flag2;
 				if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
 					flag1 = 1;
 

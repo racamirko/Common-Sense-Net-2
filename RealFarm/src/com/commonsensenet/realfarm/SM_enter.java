@@ -1,8 +1,6 @@
 package com.commonsensenet.realfarm;
 
-import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -11,36 +9,16 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.User;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class SM_enter extends HelpEnabledActivity {
 
-	final Context context = this;
-
-	/** View where the items are displayed. */
-
-	protected RealFarmProvider mDataProvider;
-	public int Position; // Has copy of mainlistview position
-
-	public User ReadUser = null;
-
-	// @Override
-	protected void initmissingval() {
-
-		playAudio(R.raw.missinginfo);
-	}
-
 	public void onBackPressed() {
 
-		stopAudio();
-		Intent adminintent123 = new Intent(SM_enter.this, Plot_Image.class); // added
-																				// with
-																				// audio
-																				// integration
+		stopaudio();
+		Intent adminintent123 = new Intent(SM_enter.this, Plot_Image.class);
+
 		startActivity(adminintent123);
 		SM_enter.this.finish();
 	}
@@ -49,8 +27,6 @@ public class SM_enter extends HelpEnabledActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.smenter_dialog);
 		System.out.println("SM eneter");
-
-		mDataProvider = RealFarmProvider.getInstance(context); // Working
 
 		ImageButton home1;
 		ImageButton help1;
@@ -120,9 +96,5 @@ public class SM_enter extends HelpEnabledActivity {
 		}
 
 		return true;
-	}
-
-	protected void stopAudio() {
-		SoundQueue.getInstance().stop();
 	}
 }

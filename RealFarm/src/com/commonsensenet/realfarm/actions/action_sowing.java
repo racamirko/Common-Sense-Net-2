@@ -3,19 +3,16 @@ package com.commonsensenet.realfarm.actions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
@@ -26,1330 +23,1144 @@ import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_sowing extends HelpEnabledActivity {
-	//MediaPlayer mp = null;                  //Integration
-	 protected RealFarmProvider mDataProvider;
-	   private Context context=this;
-	   final action_sowing parentReference = this;                       //audio integration
-	String treatment_sow="0", days_sel_sow="0", units_sow="0",seed_sow="0";
-	int sow_no;
-	String sow_no_sel;
-	 public void onBackPressed() {
-			
-		 if(mp != null)
-			{
-				mp.stop();
-			mp.release();
-				mp = null;
-			}
-	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-						mDataProvider.File_Log_Create("UIlog.txt","***** user has clicked soft key BACK in Spraying page*********** \r\n");
-					
-						}
-		 
-			Intent adminintent = new Intent(action_sowing.this,Homescreen.class);
-			        
-			      startActivity(adminintent);                        
-			      action_sowing.this.finish();
-			      
-			      SoundQueue sq = SoundQueue.getInstance();    //audio integration
-					sq.stop();        
-}
-	
-    /** Called when the activity is first created. */
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-    	System.out.println("Plant details entered");
-     	mDataProvider = RealFarmProvider.getInstance(context);
-    	        super.onCreate(savedInstanceState);
-    	        setContentView(R.layout.sowing_dialog);
-    	    	System.out.println("plant done");
-    	    	final TextView day_sow = (TextView) findViewById(R.id.dlg_lbl_day_sow);	    	
-    	    	day_sow.setText("Today");
-    	    	days_sel_sow="Today";
-    	    	
-    	    	if(Global.EnableAudio==true)                        //checking for audio enable
-    	    	{
-    	    	if(mp != null)
-    			{
-    				mp.stop();
-    				mp.release();
-    				mp = null;
-    			}
-    			mp = MediaPlayer.create(this, R.raw.thankyouclickingactionsowing);
-    			mp.start();
-    			
-    	    	}
-    			
-    			
-				if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				mDataProvider.File_Log_Create("UIlog.txt","***** In Action Sowing*********** \r\n");
-			
-				}
-				
-				// final ImageView bg_var_sow = (ImageView) findViewById(R.id.img_bg_var_sow);
-				 final ImageView bg_units_no_sow = (ImageView) findViewById(R.id.img_bg_units_no_sow);
-				 final ImageView bg_units_sow = (ImageView) findViewById(R.id.img_bg_units_sow);
-				 final ImageView bg_treatment_sow = (ImageView) findViewById(R.id.img_bg_treatment_sow);
-				 final ImageView bg_day_sow = (ImageView) findViewById(R.id.img_bg_day_sow);
-				    bg_day_sow.setImageResource(R.drawable.empty_not);
-    			
-    final Button item1;
-    final Button item2;
-    final Button item3;
-    final Button item4;
-    final Button item5;
-    ImageButton home;
-    ImageButton help;
-    item1 = (Button) findViewById(R.id.home_btn_var_sow);
-    item2 = (Button) findViewById(R.id.home_btn_units_sow);
-    item3 = (Button) findViewById(R.id.home_btn_day_sow);
-    item4 = (Button) findViewById(R.id.home_btn_treat_sow);
-    item5 = (Button) findViewById(R.id.home_btn_units_no_sow);
-    home = (ImageButton) findViewById(R.id.aggr_img_home);
-    help = (ImageButton) findViewById(R.id.aggr_img_help);
-    
-    item1.setOnLongClickListener(this);                                       //Integration
-    item2.setOnLongClickListener(this);
-    item3.setOnLongClickListener(this);
-    item4.setOnLongClickListener(this);
-    item5.setOnLongClickListener(this);
-    help.setOnLongClickListener(this);
-    
+	private Context context = this;
+	private RealFarmProvider mDataProvider;
+	private final action_sowing parentReference = this; // audio integration
+	private int sow_no;
+	private String sow_no_sel;
+	private String treatment_sow = "0", days_sel_sow = "0", units_sow = "0",
+			seed_sow = "0";
 
-	item1.setOnClickListener(new View.OnClickListener() {
+	protected void cancelaudio() {
+		playAudio(R.raw.cancel);
+
+		Intent adminintent = new Intent(action_sowing.this, Homescreen.class);
+
+		startActivity(adminintent);
+		action_sowing.this.finish();
+	}
+
+	public void onBackPressed() {
+
+		SoundQueue.getInstance().stop();
+
+		if (Global.WriteToSD == true) {
+
+			String logtime = getcurrenttime();
+			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
+			mDataProvider
+					.File_Log_Create("UIlog.txt",
+							"***** user has clicked soft key BACK in Spraying page*********** \r\n");
+
+		}
+
+		Intent adminintent = new Intent(action_sowing.this, Homescreen.class);
+
+		startActivity(adminintent);
+		action_sowing.this.finish();
+	}
+
+	/** Called when the activity is first created. */
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		System.out.println("Plant details entered");
+		mDataProvider = RealFarmProvider.getInstance(context);
+		super.onCreate(savedInstanceState);
+		setContentView(R.layout.sowing_dialog);
+		System.out.println("plant done");
+		final TextView day_sow = (TextView) findViewById(R.id.dlg_lbl_day_sow);
+		day_sow.setText("Today");
+		days_sel_sow = "Today";
+
+		playAudio(R.raw.thankyouclickingactionsowing);
+
+		if (Global.WriteToSD == true) {
+
+			String logtime = getcurrenttime();
+			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
+			mDataProvider.File_Log_Create("UIlog.txt",
+					"***** In Action Sowing*********** \r\n");
+
+		}
+
+		// final ImageView bg_var_sow = (ImageView)
+		// findViewById(R.id.img_bg_var_sow);
+		final ImageView bg_units_no_sow = (ImageView) findViewById(R.id.img_bg_units_no_sow);
+		final ImageView bg_units_sow = (ImageView) findViewById(R.id.img_bg_units_sow);
+		final ImageView bg_treatment_sow = (ImageView) findViewById(R.id.img_bg_treatment_sow);
+		final ImageView bg_day_sow = (ImageView) findViewById(R.id.img_bg_day_sow);
+		bg_day_sow.setImageResource(R.drawable.empty_not);
+
+		final Button item1;
+		final Button item2;
+		final Button item3;
+		final Button item4;
+		final Button item5;
+		ImageButton home;
+		ImageButton help;
+		item1 = (Button) findViewById(R.id.home_btn_var_sow);
+		item2 = (Button) findViewById(R.id.home_btn_units_sow);
+		item3 = (Button) findViewById(R.id.home_btn_day_sow);
+		item4 = (Button) findViewById(R.id.home_btn_treat_sow);
+		item5 = (Button) findViewById(R.id.home_btn_units_no_sow);
+		home = (ImageButton) findViewById(R.id.aggr_img_home);
+		help = (ImageButton) findViewById(R.id.aggr_img_help);
+
+		item1.setOnLongClickListener(this); // Integration
+		item2.setOnLongClickListener(this);
+		item3.setOnLongClickListener(this);
+		item4.setOnLongClickListener(this);
+		item5.setOnLongClickListener(this);
+		help.setOnLongClickListener(this);
+
+		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				stopaudio() ;
+				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
-		    	dlg.setContentView(R.layout.variety_sowing_dialog);
-		    	dlg.setCancelable(true);
-		        dlg.setTitle("Choose the Variety of seed sowed");
-		    	Log.d("in variety sowing dialog", "in dialog");
-		    	dlg.show();
-		    	if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				mDataProvider.File_Log_Create("UIlog.txt","***** In selection of variety of seed sowed in  Sowing*********** \r\n");
-			
+				dlg.setContentView(R.layout.variety_sowing_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the Variety of seed sowed");
+				Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** In selection of variety of seed sowed in  Sowing*********** \r\n");
+
 				}
-		    	final Button variety1;
-		    	final Button variety2;
-		    	final Button variety3;
-		    	final Button variety4;
-		    	final Button variety5;
-		    	final Button variety6;
-	//	    	final Button variety7;
-		    	final ImageView img_1;
-		    	img_1 = (ImageView) findViewById(R.id.dlg_var_sow);
-		    			    
-		    	
-		    	final TextView var_text = (TextView) findViewById(R.id.dlg_var_text_sow);
-		    	variety1 = (Button) dlg.findViewById(R.id.home_btn_var_sow_1);
-		    	variety2 = (Button) dlg.findViewById(R.id.home_btn_var_sow_2);
-		    	variety3 = (Button) dlg.findViewById(R.id.home_btn_var_sow_3);
-		    	variety4 = (Button) dlg.findViewById(R.id.home_btn_var_sow_4);
-		    	variety5 = (Button) dlg.findViewById(R.id.home_btn_var_sow_5);
-		    	variety6 = (Button) dlg.findViewById(R.id.home_btn_var_sow_6);
-		    	
-		    	((Button) dlg.findViewById(R.id.home_btn_var_sow_1)).setOnLongClickListener(parentReference);  //audio integration
-		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_2)).setOnLongClickListener(parentReference);
-		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_3)).setOnLongClickListener(parentReference);
-		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_4)).setOnLongClickListener(parentReference);
-		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_5)).setOnLongClickListener(parentReference);
-		        ((Button) dlg.findViewById(R.id.home_btn_var_sow_6)).setOnLongClickListener(parentReference);
-		    	
-		     		    	
-		    	variety1.setOnClickListener(new View.OnClickListener() {
-		    			public void onClick(View v) {
-		    				Log.d("var 1 picked ", "in dialog");
-		    				//img_1.setMaxWidth(300);
-		    				img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-		    				var_text.setText("Bajra");
-		    				seed_sow="Bajra";
-		    				  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-		  	    	      	
-		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-		  	    	    	if(Global.WriteToSD==true)
-							{
-								
-							String	logtime=getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-						
-							mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ seed_sow + " for Sowing*********** \r\n");
-							
-						
-							}
-		    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-		    				dlg.cancel();                      
-		    				}
-		     	});
-		     	
-		    	variety2.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 2 picked ", "in dialog");   
-	    				img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-	    				var_text.setText("Castor");
-	    				seed_sow="Castor";
-	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-	  	    	      	
-	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	  	    	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ seed_sow + " for Sowing*********** \r\n");
-						
-					
+				final Button variety1;
+				final Button variety2;
+				final Button variety3;
+				final Button variety4;
+				final Button variety5;
+				final Button variety6;
+				// final Button variety7;
+				final ImageView img_1;
+				img_1 = (ImageView) findViewById(R.id.dlg_var_sow);
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_var_text_sow);
+				variety1 = (Button) dlg.findViewById(R.id.home_btn_var_sow_1);
+				variety2 = (Button) dlg.findViewById(R.id.home_btn_var_sow_2);
+				variety3 = (Button) dlg.findViewById(R.id.home_btn_var_sow_3);
+				variety4 = (Button) dlg.findViewById(R.id.home_btn_var_sow_4);
+				variety5 = (Button) dlg.findViewById(R.id.home_btn_var_sow_5);
+				variety6 = (Button) dlg.findViewById(R.id.home_btn_var_sow_6);
+
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_1))
+						.setOnLongClickListener(parentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_2))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_3))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_4))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_5))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_6))
+						.setOnLongClickListener(parentReference);
+
+				variety1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						var_text.setText("Bajra");
+						seed_sow = "Bajra";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + seed_sow
+											+ " for Sowing*********** \r\n");
+
 						}
-	    				dlg.cancel();                      
-	    				}
-	     	});
-		    	
-		    	variety3.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 3 picked ", "in dialog");  
-	    				img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-	    				var_text.setText("Cowpea");
-	    				seed_sow="Cowpea";
-	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-	  	    	      	
-	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	  	    	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ seed_sow + " for Sowing*********** \r\n");
-						
-					
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						dlg.cancel();
+					}
+				});
+
+				variety2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						var_text.setText("Castor");
+						seed_sow = "Castor";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + seed_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+				variety3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("Cowpea");
+						seed_sow = "Cowpea";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + seed_sow
+											+ " for Sowing*********** \r\n");
+
 						}
 
-	    				dlg.cancel();                      
-	    				}
-	     	});
-		    	
-		    	variety4.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 3 picked ", "in dialog");  
-	    				img_1.setImageResource(R.drawable.pic_90px_greengram_tiled);
-	    				var_text.setText("Greengram");
-	    				seed_sow="Greengram";
-	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-	  	    	      	
-	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	  	    	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ seed_sow + " for Sowing*********** \r\n");
-						
-					
+						dlg.cancel();
+					}
+				});
+
+				variety4.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_greengram_tiled);
+						var_text.setText("Greengram");
+						seed_sow = "Greengram";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + seed_sow
+											+ " for Sowing*********** \r\n");
+
 						}
-	    				dlg.cancel();                      
-	    				}
-	     	});
-		    	variety5.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 3 picked ", "in dialog");  
-	    				img_1.setImageResource(R.drawable.pic_90px_groundnut_tiled);
-	    				var_text.setText("Groundnut");
-	    				seed_sow="Groundnut";
-	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-	  	    	      	
-	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	  	    	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ seed_sow + " for Sowing*********** \r\n");
-						
-					
+						dlg.cancel();
+					}
+				});
+				variety5.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_groundnut_tiled);
+						var_text.setText("Groundnut");
+						seed_sow = "Groundnut";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + seed_sow
+											+ " for Sowing*********** \r\n");
+
 						}
-	    				dlg.cancel();                      
-	    				}
-	     	});
-		    	variety6.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 3 picked ", "in dialog");  
-	    				img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
-	    				var_text.setText("Horsegram");
-	    				seed_sow="Horsegram";
-	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-	  	    	      	
-	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	  	    	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ seed_sow + " for Sowing*********** \r\n");
-						
-					
+						dlg.cancel();
+					}
+				});
+				variety6.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
+						var_text.setText("Horsegram");
+						seed_sow = "Horsegram";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + seed_sow
+											+ " for Sowing*********** \r\n");
+
 						}
-	    				dlg.cancel();                      
-	    				}
-	     	});
-			
+						dlg.cancel();
+					}
+				});
+
 			}
 		});
-    
-	item2.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View v) {
-			stopaudio() ;
-			Log.d("in units sow dialog", "in dialog");
-			final Dialog dlg = new Dialog(v.getContext());
-	    	dlg.setContentView(R.layout.units_dialog);
-	    	dlg.setCancelable(true);
-	        dlg.setTitle("Choose the units");
-	    	Log.d("in units sow dialog", "in dialog");
-	    	dlg.show();
 
-	    	
-	    	final Button unit1;
-	    	final Button unit2;
-	    	final Button unit3;
-	    	
-	    	final ImageView img_1;
-	    	img_1 = (ImageView) findViewById(R.id.dlg_unit_sow);
-	    	
-	    	final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_unit_sow);
-	    	unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
-	    	unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
-	    	unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
-	    	
-	    	((Button) dlg.findViewById(R.id.home_btn_units_1)).setOnLongClickListener(parentReference);   //Audio integration
-            ((Button) dlg.findViewById(R.id.home_btn_units_2)).setOnLongClickListener(parentReference);
-            ((Button) dlg.findViewById(R.id.home_btn_units_3)).setOnLongClickListener(parentReference);
-	    	if(Global.WriteToSD==true)
-			{
-				
-			String	logtime=getcurrenttime();
-			mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-		
-			mDataProvider.File_Log_Create("UIlog.txt","***** In selection of units for Sowing*********** \r\n");
-			
-		
-			}
-	    	
-	    	unit1.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 1 picked ", "in dialog");
-	    				//img_1.setMaxWidth(300);
-	    			//	img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-	    				var_text.setText("Bag of 10 Kgs");
-	    				units_sow="Bag of 10 Kgs";
-	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-	  	    	      	
-	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	  	    	      bg_units_sow.setImageResource(R.drawable.empty_not);
-	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-	  	    	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ units_sow + " for Sowing*********** \r\n");
-						
-					
-						}
-	    				dlg.cancel();                      
-	    				}
-	     	});
-	     	
-	    	unit2.setOnClickListener(new View.OnClickListener() {
-    			public void onClick(View v) {
-    				Log.d("var 2 picked ", "in dialog");   
-    			//	img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-    				var_text.setText("Bag of 20 Kgs");
-    				units_sow="Bag of 20 Kgs";
-    				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-  	    	      	
-  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-  	    	      bg_units_sow.setImageResource(R.drawable.empty_not);
-  	    	      if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ units_sow + " for Sowing*********** \r\n");
-					
-				
-					}
-    				dlg.cancel();                      
-    				}
-     	});
-	    	
-	    	unit3.setOnClickListener(new View.OnClickListener() {
-    			public void onClick(View v) {
-    				Log.d("var 3 picked ", "in dialog");  
-    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-    				var_text.setText("Bag of 50 Kgs");
-    				units_sow="Bag of 50 Kgs";
-    				  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-  	    	      	
-  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-  	    	      bg_units_sow.setImageResource(R.drawable.empty_not);
-  	    	      if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ units_sow + " for Sowing*********** \r\n");
-					
-				
-					}
-    				dlg.cancel();                      
-    				}
-     	});
-		
-		}
-	});
-	
-	
-	item3.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View v) {
-			stopaudio() ;
-			Log.d("in day sowing dialog", "in dialog");
-			final Dialog dlg = new Dialog(v.getContext());
-	    	dlg.setContentView(R.layout.days_dialog);
-	    	dlg.setCancelable(true);
-	        dlg.setTitle("Choose the day");
-	    	Log.d("in day sowing dialog", "in dialog");
-	    	dlg.show();
-
-	    	   if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** In selection of day for Sowing*********** \r\n");
-				
-			
-				}
-	    	
-	    	final Button day1;
-	    	final Button day2;
-	    	final Button day3;
-	    	final Button day4;
-	    	final Button day5;
-	    		    	
-	    	final ImageView img_1;
-	    	img_1 = (ImageView) findViewById(R.id.dlg_unit_sow);
-	    	
-	    	
-	    	day1 = (Button) dlg.findViewById(R.id.home_day_1);
-	    	day2 = (Button) dlg.findViewById(R.id.home_day_2);
-	    	day3 = (Button) dlg.findViewById(R.id.home_day_3);
-	    	day4 = (Button) dlg.findViewById(R.id.home_day_4);
-	    	day5 = (Button) dlg.findViewById(R.id.home_day_5);
-	    	
-	    	 ((Button) dlg.findViewById(R.id.home_day_1)).setOnLongClickListener(parentReference);    //audio integration
-             ((Button) dlg.findViewById(R.id.home_day_2)).setOnLongClickListener(parentReference);
-             ((Button) dlg.findViewById(R.id.home_day_3)).setOnLongClickListener(parentReference);
-             ((Button) dlg.findViewById(R.id.home_day_4)).setOnLongClickListener(parentReference);
-             ((Button) dlg.findViewById(R.id.home_day_5)).setOnLongClickListener(parentReference);
-	    	
-	    	day1.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 1 picked ", "in dialog");
-	    				//img_1.setMaxWidth(300);
-	    			//	img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-	    				day_sow.setText("Two week before");
-	    				days_sel_sow="Two week before";
-	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-	    				   if(Global.WriteToSD==true)
-							{
-								
-							String	logtime=getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-						
-							mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ days_sel_sow + " for Sowing*********** \r\n");
-							
-						
-							}
-	    				dlg.cancel();                      
-	    				}
-	     	});
-	     	
-	    	day2.setOnClickListener(new View.OnClickListener() {
-    			public void onClick(View v) {
-    				Log.d("var 2 picked ", "in dialog");   
-    			//	img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-    				day_sow.setText("One week before");
-    				days_sel_sow="One week before";
-    				  if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ days_sel_sow + " for Sowing*********** \r\n");
-						
-					
-						}
-    				dlg.cancel();                      
-    				}
-     	});
-	    	
-	    	day3.setOnClickListener(new View.OnClickListener() {
-    			public void onClick(View v) {
-    				Log.d("var 3 picked ", "in dialog");  
-    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-    				day_sow.setText("Yesterday");
-    				days_sel_sow="Yesterday";
-    				  if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ days_sel_sow + " for Sowing*********** \r\n");
-						
-					
-						}
-    				dlg.cancel();                      
-    				}
-     	});
-	    	day4.setOnClickListener(new View.OnClickListener() {
-    			public void onClick(View v) {
-    				Log.d("var 3 picked ", "in dialog");  
-    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-    				day_sow.setText("Today");
-    				days_sel_sow="Today";
-    				  if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ days_sel_sow + " for Sowing*********** \r\n");
-						
-					
-						}
-    				dlg.cancel();                      
-    				}
-     	});
-	    	day5.setOnClickListener(new View.OnClickListener() {
-    			public void onClick(View v) {
-    				Log.d("var 3 picked ", "in dialog");  
-    				//img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-    				day_sow.setText("Tomorrow");
-    				days_sel_sow="Tomorrow";
-    				  if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ days_sel_sow + " for Sowing*********** \r\n");
-						
-					
-						}
-    				dlg.cancel();                      
-    				}
-     	});
-		
-		}
-	});
-	
-	
-	
-	item4.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View v) {
-			stopaudio() ;
-			Log.d("in treat sow dialog", "in dialog");
-			final Dialog dlg = new Dialog(v.getContext());
-	    	dlg.setContentView(R.layout.treat_sow_dialog);
-	    	dlg.setCancelable(true);
-	        dlg.setTitle("Select weather you have treated the seeds");
-	    	Log.d("in treat sow dialog", "in dialog");
-	    	dlg.show();
-
-	    	  if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** In selection of treatment to seeds for Sowing*********** \r\n");
-				
-			
-				}
-	    	
-	    	final Button treat1;
-	    	final Button treat2;
-	   
-	    	
-	    	final ImageView img_1;
-	    	img_1 = (ImageView) findViewById(R.id.dlg_unit_sow);
-	    	
-	    	final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_treat_sow);
-	    	treat1 = (Button) dlg.findViewById(R.id.home_treat_sow_1);
-	    	treat2 = (Button) dlg.findViewById(R.id.home_treat_sow_2);
-	    	
-	    	((Button) dlg.findViewById(R.id.home_treat_sow_1)).setOnLongClickListener(parentReference);  //Audio integration     
-            ((Button) dlg.findViewById(R.id.home_treat_sow_2)).setOnLongClickListener(parentReference);
-	    	
-	    	
-	    	
-	    	treat1.setOnClickListener(new View.OnClickListener() {
-	    			public void onClick(View v) {
-	    				Log.d("var 1 picked ", "in dialog");
-	    				//img_1.setMaxWidth(300);
-	    			//	img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-	    				var_text.setText("Treated");
-	    				treatment_sow="treated";
-	    				  TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
-	  	    	      	
-	  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	  	    	      bg_treatment_sow.setImageResource(R.drawable.empty_not);
-	    				//item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-	  	    	      if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ treatment_sow + " for Sowing*********** \r\n");
-						
-					
-						}
-	    				dlg.cancel();                      
-	    				}
-	     	});
-	     	
-	    	treat2.setOnClickListener(new View.OnClickListener() {
-    			public void onClick(View v) {
-    				Log.d("var 2 picked ", "in dialog");   
-    			//	img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-    				var_text.setText("May not Treat");
-    				treatment_sow="may not treat";
-    				  TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
-  	    	      	
-  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-  	    	      bg_treatment_sow.setImageResource(R.drawable.empty_not);
-  	    	      if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ treatment_sow + " for Sowing*********** \r\n");
-					
-				
-					}
-    				dlg.cancel();                      
-    				}
-     	});
-	    	
-	    
-		
-		}
-	});
-	
-	
-	final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_unit_no_sow); 
-	   
-	item5.setOnClickListener(new View.OnClickListener() {
-		public void onClick(View v) {
-			stopaudio() ;
-			Log.d("in variety sowing dialog", "in dialog");
-			final Dialog dlg = new Dialog(v.getContext());
-	    	dlg.setContentView(R.layout.numberentry_dialog);
-	    	dlg.setCancelable(true);
-	        dlg.setTitle("Choose the Number of bags");
-	    	Log.d("in variety sowing dialog", "in dialog");
-	    	dlg.show();
-	    	
-	    	  if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** in selection of bags for Sowing*********** \r\n");
-				
-			
-				}
-	    	
-	    	  Button no_ok=(Button) dlg.findViewById(R.id.number_ok);
-	   	   Button no_cancel=(Button) dlg.findViewById(R.id.number_cancel);
-	   	no_ok.setOnClickListener(new View.OnClickListener() {
-		    	public void onClick(View v) {
-		    		
-		    		  NumberPicker mynp1 = (NumberPicker) dlg.findViewById(R.id.numberpick);
-		    		    sow_no = mynp1.getValue();
-		    		    sow_no_sel= String.valueOf(sow_no);
-		    		    no_text.setText(sow_no_sel);
-		    		    if(sow_no !=0)
-		    		    {
-		    		    	 
-		    		    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-		  	    	      	
-		  	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-		  	    	      bg_units_no_sow.setImageResource(R.drawable.empty_not);
-		  	    	      if(Global.WriteToSD==true)
-							{
-								
-							String	logtime=getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-						
-							mDataProvider.File_Log_Create("UIlog.txt","***** user selected"+ sow_no_sel + " of bags for Sowing*********** \r\n");
-							
-						
-							}
-		    		    }
-		    		    
-		    		    dlg.cancel(); 
-		    	}
-	   	 });
-	   	no_cancel.setOnClickListener(new View.OnClickListener() {
-	    	public void onClick(View v) {
-	    		dlg.cancel(); 	
-	    		 if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user selected cancel on selction of bags for Sowing*********** \r\n");
-					
-				
-					}
-	    	}
-	    	});
-	   	
-	   
-	   	   
-		}
-	});
-	
-	final CheckBox intercrop = (CheckBox) findViewById(R.id.chkintercrop);
-	
-	intercrop.setOnLongClickListener(this);                                   //audio integration
-	 
-	intercrop.setOnClickListener(new OnClickListener() {
- 	
-	  public void onClick(View v) {
-                //is chkIos checked?
-		if (((CheckBox) v).isChecked()) {
-		
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user selected intercrop for Sowing*********** \r\n");
-				
-			
-				}
-		}
- 
-	  }
-	});
-	
-
-	   Button btnNext=(Button) findViewById(R.id.sow_ok);  
-	   Button cancel=(Button) findViewById(R.id.sow_cancel);  
-	   
-	   btnNext.setOnLongClickListener(this);                                       //Integration
-	   cancel.setOnLongClickListener(this); 
-	   
-	   cancel.setOnClickListener(new View.OnClickListener() {
-	    	public void onClick(View v) {
-               cancelaudio();
-               
-               if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user clicked cancel in Sowing*********** \r\n");
-				
-			
-				}
-	    	}
-	   
-	    	});
-	   
-	    btnNext.setOnClickListener(new View.OnClickListener() {
-	    	public void onClick(View v) {
-	    		
-	    		 if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user clicked OK in Sowing*********** \r\n");
-					
-				
-					}
-	    		
-	    	//	 Toast.makeText(action_sowing.this, "User enetred " + sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
-	    		 int flag1, flag2,flag3;
-	    		 if(seed_sow.toString().equalsIgnoreCase("0") )
-	    		    {
-	    			 flag1 =1;
-	    	    	  
-	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-	    	      	
-	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-	    	      	 if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user has NOT filled seed variety for Sowing*********** \r\n");
-						
-					
-						}
-	    			 
-	    		    }
-	    		 else
-	    		 {
-	    			 flag1 =0;
-	    	    	  
-	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-	    	      	
-	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	    		 }
-	    		
-	    		 if(units_sow.toString().equalsIgnoreCase("0") ||  sow_no == 0)
-	    		    {
-	    		    
-	    			 flag2 =1;
-	    	    	  
-	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-	    	      	
-	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-	    	      	
-	    	     	 if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user has NOT filled units for Sowing*********** \r\n");
-						
-					
-						}
-	    	      	
-	    		    }
-	    		 else
-	    		 {
-	    			 
-	    			 flag2 =0;
-	    	    	  
-	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-	    	      	
-	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	    		 }
-	    		 
-	    		 if(treatment_sow.toString().equalsIgnoreCase("0"))
-	    		    {
-	    		    
-	    			 flag3 =1;
-	    	    	  
-	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
-	    	      	
-	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-	    	      	
-	    	     	 if(Global.WriteToSD==true)
-						{
-							
-						String	logtime=getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-					
-						mDataProvider.File_Log_Create("UIlog.txt","***** user has NOT filled treatment for Sowing*********** \r\n");
-						
-					
-						}
-	    	      	
-	    		    }
-	    		 else
-	    		 {
-	    			 
-	    			 flag3 =0;
-	    	    	  
-	    	    	  TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
-	    	      	
-	    	      	tr_feedback.setBackgroundResource(R.drawable.def_img);
-	    		 }
-	    		 
-	    		 
-	    		 
-	    		 
-	    		 if(flag1 ==0 && flag2 ==0 && flag3 ==0) 
-	    		    {   	 
-	    			 System.out.println("sowing writing");
-	    				mDataProvider.setSowing(sow_no, seed_sow, units_sow, days_sel_sow, treatment_sow,
-	    						0, 0);
-
-	    				System.out.println("sowing reading");
-	    				mDataProvider.getsowing();
-	    			
-	    			  	 if(Global.WriteToSD==true)
-							{
-								
-							String	logtime=getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-						
-							mDataProvider.File_Log_Create("UIlog.txt","***** user has filled all details for Sowing*********** \r\n");
-							
-						
-							}
-	    				
-	    		    	 Intent adminintent = new Intent(action_sowing.this,Homescreen.class);
-	    			      startActivity(adminintent);                        
-	    			      action_sowing.this.finish();
-	    			      okaudio();	
-	 	    			 
-	    		    }
-	    		 else
-	    			 initmissingval();
-	    		 
-	    		 
-	    	}
-	    });
- 
-	    home.setOnClickListener(new View.OnClickListener() {
+		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent adminintent = new Intent(action_sowing.this,Homescreen.class);
-		        
-			      startActivity(adminintent);                        
-			      action_sowing.this.finish();
-			   	 if(Global.WriteToSD==true)
-					{
-						
-					String	logtime=getcurrenttime();
-					mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-				
-					mDataProvider.File_Log_Create("UIlog.txt","***** user has clicked home btn in Sowing*********** \r\n");
-					
-				
+				stopaudio();
+				Log.d("in units sow dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.units_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the units");
+				Log.d("in units sow dialog", "in dialog");
+				dlg.show();
+
+				final Button unit1;
+				final Button unit2;
+				final Button unit3;
+
+				// final ImageView img_1 = (ImageView)
+				// findViewById(R.id.dlg_unit_sow);
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_unit_sow);
+				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
+				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
+				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
+
+				((Button) dlg.findViewById(R.id.home_btn_units_1))
+						.setOnLongClickListener(parentReference); // Audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_btn_units_2))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_btn_units_3))
+						.setOnLongClickListener(parentReference);
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** In selection of units for Sowing*********** \r\n");
+
+				}
+
+				unit1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						var_text.setText("Bag of 10 Kgs");
+						units_sow = "Bag of 10 Kgs";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_sow.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
 					}
-				                    
+				});
+
+				unit2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						var_text.setText("Bag of 20 Kgs");
+						units_sow = "Bag of 20 Kgs";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_sow.setImageResource(R.drawable.empty_not);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+				unit3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("Bag of 50 Kgs");
+						units_sow = "Bag of 50 Kgs";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_units_sow.setImageResource(R.drawable.empty_not);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + units_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+			}
+		});
+
+		item3.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				Log.d("in day sowing dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.days_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the day");
+				Log.d("in day sowing dialog", "in dialog");
+				dlg.show();
+
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** In selection of day for Sowing*********** \r\n");
+
 				}
- 	});
-    
-	   
-	
-   
-    }
+
+				final Button day1;
+				final Button day2;
+				final Button day3;
+				final Button day4;
+				final Button day5;
+
+				// final ImageView img_1 = (ImageView)
+				// findViewById(R.id.dlg_unit_sow);
+
+				day1 = (Button) dlg.findViewById(R.id.home_day_1);
+				day2 = (Button) dlg.findViewById(R.id.home_day_2);
+				day3 = (Button) dlg.findViewById(R.id.home_day_3);
+				day4 = (Button) dlg.findViewById(R.id.home_day_4);
+				day5 = (Button) dlg.findViewById(R.id.home_day_5);
+
+				((Button) dlg.findViewById(R.id.home_day_1))
+						.setOnLongClickListener(parentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_day_2))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_day_3))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_day_4))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_day_5))
+						.setOnLongClickListener(parentReference);
+
+				day1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						day_sow.setText("Two week before");
+						days_sel_sow = "Two week before";
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + days_sel_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+				day2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						day_sow.setText("One week before");
+						days_sel_sow = "One week before";
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + days_sel_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+				day3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						day_sow.setText("Yesterday");
+						days_sel_sow = "Yesterday";
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + days_sel_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+				day4.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						day_sow.setText("Today");
+						days_sel_sow = "Today";
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + days_sel_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+				day5.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						day_sow.setText("Tomorrow");
+						days_sel_sow = "Tomorrow";
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + days_sel_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+			}
+		});
+
+		item4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				Log.d("in treat sow dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.treat_sow_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Select weather you have treated the seeds");
+				Log.d("in treat sow dialog", "in dialog");
+				dlg.show();
+
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** In selection of treatment to seeds for Sowing*********** \r\n");
+
+				}
+
+				final Button treat1;
+				final Button treat2;
+
+				// final ImageView img_ = (ImageView)
+				// findViewById(R.id.dlg_unit_sow);
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_treat_sow);
+				treat1 = (Button) dlg.findViewById(R.id.home_treat_sow_1);
+				treat2 = (Button) dlg.findViewById(R.id.home_treat_sow_2);
+
+				((Button) dlg.findViewById(R.id.home_treat_sow_1))
+						.setOnLongClickListener(parentReference); // Audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_treat_sow_2))
+						.setOnLongClickListener(parentReference);
+
+				treat1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						var_text.setText("Treated");
+						treatment_sow = "treated";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_treatment_sow.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + treatment_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+				treat2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						var_text.setText("May not Treat");
+						treatment_sow = "may not treat";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_treatment_sow.setImageResource(R.drawable.empty_not);
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider.File_Log_Create("UIlog.txt",
+									"***** user selected" + treatment_sow
+											+ " for Sowing*********** \r\n");
+
+						}
+						dlg.cancel();
+					}
+				});
+
+			}
+		});
+
+		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_unit_no_sow);
+
+		item5.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				Log.d("in variety sowing dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.numberentry_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the Number of bags");
+				Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
+
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** in selection of bags for Sowing*********** \r\n");
+
+				}
+
+				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
+				Button no_cancel = (Button) dlg
+						.findViewById(R.id.number_cancel);
+				no_ok.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						NumberPicker mynp1 = (NumberPicker) dlg
+								.findViewById(R.id.numberpick);
+						sow_no = mynp1.getValue();
+						sow_no_sel = String.valueOf(sow_no);
+						no_text.setText(sow_no_sel);
+						if (sow_no != 0) {
+
+							TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+
+							tr_feedback
+									.setBackgroundResource(R.drawable.def_img);
+							bg_units_no_sow
+									.setImageResource(R.drawable.empty_not);
+							if (Global.WriteToSD == true) {
+
+								String logtime = getcurrenttime();
+								mDataProvider.File_Log_Create("UIlog.txt",
+										logtime + " -> ");
+
+								mDataProvider
+										.File_Log_Create(
+												"UIlog.txt",
+												"***** user selected"
+														+ sow_no_sel
+														+ " of bags for Sowing*********** \r\n");
+
+							}
+						}
+
+						dlg.cancel();
+					}
+				});
+				no_cancel.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						dlg.cancel();
+						if (Global.WriteToSD == true) {
+
+							String logtime = getcurrenttime();
+							mDataProvider.File_Log_Create("UIlog.txt", logtime
+									+ " -> ");
+
+							mDataProvider
+									.File_Log_Create("UIlog.txt",
+											"***** user selected cancel on selction of bags for Sowing*********** \r\n");
+
+						}
+					}
+				});
+
+			}
+		});
+
+		final CheckBox intercrop = (CheckBox) findViewById(R.id.chkintercrop);
+
+		intercrop.setOnLongClickListener(this); // audio integration
+
+		intercrop.setOnClickListener(new OnClickListener() {
+
+			public void onClick(View v) {
+				// is chkIos checked?
+				if (((CheckBox) v).isChecked()) {
+
+					if (Global.WriteToSD == true) {
+
+						String logtime = getcurrenttime();
+						mDataProvider.File_Log_Create("UIlog.txt", logtime
+								+ " -> ");
+
+						mDataProvider
+								.File_Log_Create("UIlog.txt",
+										"***** user selected intercrop for Sowing*********** \r\n");
+
+					}
+				}
+
+			}
+		});
+
+		Button btnNext = (Button) findViewById(R.id.sow_ok);
+		Button cancel = (Button) findViewById(R.id.sow_cancel);
+
+		btnNext.setOnLongClickListener(this); // Integration
+		cancel.setOnLongClickListener(this);
+
+		cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				cancelaudio();
+
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** user clicked cancel in Sowing*********** \r\n");
+
+				}
+			}
+
+		});
+
+		btnNext.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider.File_Log_Create("UIlog.txt",
+							"***** user clicked OK in Sowing*********** \r\n");
+
+				}
+
+				// Toast.makeText(action_sowing.this, "User enetred " +
+				// sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
+				int flag1, flag2, flag3;
+				if (seed_sow.toString().equalsIgnoreCase("0")) {
+					flag1 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+					if (Global.WriteToSD == true) {
+
+						String logtime = getcurrenttime();
+						mDataProvider.File_Log_Create("UIlog.txt", logtime
+								+ " -> ");
+
+						mDataProvider
+								.File_Log_Create("UIlog.txt",
+										"***** user has NOT filled seed variety for Sowing*********** \r\n");
+
+					}
+
+				} else {
+					flag1 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+
+				if (units_sow.toString().equalsIgnoreCase("0") || sow_no == 0) {
+
+					flag2 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+					if (Global.WriteToSD == true) {
+
+						String logtime = getcurrenttime();
+						mDataProvider.File_Log_Create("UIlog.txt", logtime
+								+ " -> ");
+
+						mDataProvider
+								.File_Log_Create("UIlog.txt",
+										"***** user has NOT filled units for Sowing*********** \r\n");
+
+					}
+
+				} else {
+
+					flag2 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+
+				if (treatment_sow.toString().equalsIgnoreCase("0")) {
+
+					flag3 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+					if (Global.WriteToSD == true) {
+
+						String logtime = getcurrenttime();
+						mDataProvider.File_Log_Create("UIlog.txt", logtime
+								+ " -> ");
+
+						mDataProvider
+								.File_Log_Create("UIlog.txt",
+										"***** user has NOT filled treatment for Sowing*********** \r\n");
+
+					}
+
+				} else {
+
+					flag3 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+
+				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
+					System.out.println("sowing writing");
+					mDataProvider.setSowing(sow_no, seed_sow, units_sow,
+							days_sel_sow, treatment_sow, 0, 0);
+
+					System.out.println("sowing reading");
+					mDataProvider.getsowing();
+
+					if (Global.WriteToSD == true) {
+
+						String logtime = getcurrenttime();
+						mDataProvider.File_Log_Create("UIlog.txt", logtime
+								+ " -> ");
+
+						mDataProvider
+								.File_Log_Create("UIlog.txt",
+										"***** user has filled all details for Sowing*********** \r\n");
+
+					}
+
+					Intent adminintent = new Intent(action_sowing.this,
+							Homescreen.class);
+					startActivity(adminintent);
+					action_sowing.this.finish();
+					okaudio();
+
+				} else
+					initmissingval();
+
+			}
+		});
+
+		home.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent adminintent = new Intent(action_sowing.this,
+						Homescreen.class);
+
+				startActivity(adminintent);
+				action_sowing.this.finish();
+				if (Global.WriteToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** user has clicked home btn in Sowing*********** \r\n");
+
+				}
+
+			}
+		});
+
+	}
 
 	@Override
-	protected void initKannada() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	protected void cancelaudio() {
-		// TODO Auto-generated method stub
-		
-		if(Global.EnableAudio==true)                        //checking for audio enable
-    	{
-		if(mp != null)
-		{
-			mp.stop();
-			mp.release();
-			mp = null;
+	public boolean onLongClick(View v) { // latest
+
+		if (v.getId() == R.id.home_btn_var_sow) {
+
+			playAudio(R.raw.varietyofseedssowd);
+
+			if (Global.WriteToSD == true) {
+
+				String logtime = getcurrenttime();
+				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+				mDataProvider
+						.File_Log_Create("UIlog.txt",
+								"***** user has listened to variety of seed audio in Sowing*********** \r\n");
+
+			}
 		}
-		mp = MediaPlayer.create(this, R.raw.cancel);
-		mp.start();
-    	}
-		Intent adminintent = new Intent(action_sowing.this,Homescreen.class);
-        
-	      startActivity(adminintent);                        
-	      action_sowing.this.finish();
-	}
-	protected void okaudio() {
-		// TODO Auto-generated method stub
-		
-		if(Global.EnableAudio==true)                        //checking for audio enable
-    	{
-		if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
+
+		if (v.getId() == R.id.home_btn_units_sow
+				|| v.getId() == R.id.home_btn_units_no_sow) {
+
+			playAudio(R.raw.selecttheunits);
+
+			if (Global.WriteToSD == true) {
+
+				String logtime = getcurrenttime();
+				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+				mDataProvider
+						.File_Log_Create("UIlog.txt",
+								"***** user has listened to units audio in Sowing*********** \r\n");
 			}
-			mp = MediaPlayer.create(this, R.raw.ok);
-			mp.start();
-    	}
-		
-	    	 
-		
-	}
-	
-	protected void stopaudio() {
-		// TODO Auto-generated method stub
-		if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-	}
-	
-	protected void initmissingval() {
-		// TODO Auto-generated method stub
-		
-		if(Global.EnableAudio==true)                        //checking for audio enable
-    	{
-		if(mp != null)
-		{
-			mp.stop();
-			mp.release();
-			mp = null;
 		}
-		mp = MediaPlayer.create(this, R.raw.missinginfo);
-		mp.start();
-    	}
-	}
-	
-    
-	@Override
-	public boolean onLongClick(View v) {                      //latest
-	
-		if( v.getId() == R.id.home_btn_var_sow){
-			if(Global.EnableAudio==true)                        //checking for audio enable
-	    	{
-			
-			if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
+
+		if (v.getId() == R.id.home_btn_day_sow) {
+
+			playAudio(R.raw.selectthedate);
+
+			if (Global.WriteToSD == true) {
+
+				String logtime = getcurrenttime();
+				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+				mDataProvider
+						.File_Log_Create("UIlog.txt",
+								"***** user has listened to day audio in Sowing*********** \r\n");
+
 			}
-			mp = MediaPlayer.create(this, R.raw.varietyofseedssowd);
-			mp.start();
-	    	}
-		  	 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to variety of seed audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
-		
-       if( v.getId() == R.id.home_btn_units_sow || v.getId() ==  R.id.home_btn_units_no_sow){
-			
-    		if(Global.EnableAudio==true)                        //checking for audio enable
-	    	{
-			if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
+
+		if (v.getId() == R.id.home_btn_treat_sow) {
+
+			playAudio(R.raw.treatmenttoseeds1);
+
+			if (Global.WriteToSD == true) {
+
+				String logtime = getcurrenttime();
+				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+				mDataProvider
+						.File_Log_Create("UIlog.txt",
+								"***** user has listened to traetment audio in Sowing*********** \r\n");
+
 			}
-			mp = MediaPlayer.create(this, R.raw.selecttheunits);
-			mp.start();
-	    	}
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to units audio in Sowing*********** \r\n");
-				
-			
-				}
 		}
-       
-       if( v.getId() == R.id.home_btn_day_sow){
-			
-    	   
-    		if(Global.EnableAudio==true)                        //checking for audio enable
-	    	{
-			if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.selectthedate);
-			mp.start();
-			
-	    	}
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to day audio in Sowing*********** \r\n");
-				
-			
-				}
+
+		if (v.getId() == R.id.sow_ok) {
+			playAudio(R.raw.ok);
 		}
-       
-       if( v.getId() == R.id.home_btn_treat_sow){
-			
-    	   
-    		if(Global.EnableAudio==true)                        //checking for audio enable
-	    	{
-  			if(mp != null)
-  			{
-  				mp.stop();
-  				mp.release();
-  				mp = null;
-  			}
-  			mp = MediaPlayer.create(this, R.raw.treatmenttoseeds1);
-  			mp.start();
-  			
-	    	}
-  			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to traetment audio in Sowing*********** \r\n");
-				
-			
-				}
-  		}
-		
-       if( v.getId() == R.id.sow_ok){
-			
-    	   
-    		if(Global.EnableAudio==true)                        //checking for audio enable
-	    	{
- 			if(mp != null)
- 			{
- 				mp.stop();
- 				mp.release();
- 				mp = null;
- 			}
- 			mp = MediaPlayer.create(this, R.raw.ok);
- 			mp.start();
-	    	}
- 			
- 		}
-		
-       if( v.getId() == R.id.sow_cancel){
-    	   
-    		if(Global.EnableAudio==true)                        //checking for audio enable
-	    	{
-			
- 			if(mp != null)
- 			{
- 				mp.stop();
- 				mp.release();
- 				mp = null;
- 			}
- 			mp = MediaPlayer.create(this, R.raw.cancel);
- 			mp.start();
-	    	}
- 			
- 		}
-       
-       
-       if( v.getId() ==R.id.aggr_img_help ){
-    	   
-    		if(Global.EnableAudio==true)                        //checking for audio enable
-	    	{
-			
-			if(mp != null)
-			{
-				mp.stop();
-				mp.release();
-				mp = null;
-			}
-			mp = MediaPlayer.create(this, R.raw.help);
-			mp.start();
-			
-	    	}
-			
-			 if(Global.WriteToSD==true)
-				{
-					
-				String	logtime=getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt",logtime+" -> ");
-			
-				mDataProvider.File_Log_Create("UIlog.txt","***** user has listened to help audio in Sowing*********** \r\n");
-				
-			
-				}
+
+		if (v.getId() == R.id.sow_cancel) {
+			playAudio(R.raw.cancel);
 		}
-       
-       if( v.getId() == R.id.home_btn_var_sow_1){                      //audio integration
-			
-			 
-			 System.out.println("variety sow1 called");
-				playAudio(R.raw.bajra);
-				
+
+		if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.help);
+
+			if (Global.WriteToSD == true) {
+
+				String logtime = getcurrenttime();
+				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
+
+				mDataProvider
+						.File_Log_Create("UIlog.txt",
+								"***** user has listened to help audio in Sowing*********** \r\n");
+
 			}
-			
-	if( v.getId() == R.id.home_btn_var_sow_2){
-				
-				playAudio(R.raw.castor);
-				
-			}
+		}
 
-	if( v.getId() == R.id.home_btn_var_sow_3){
-		
-		playAudio(R.raw.cowpea);
-		
-	}
+		if (v.getId() == R.id.home_btn_var_sow_1) { // audio integration
 
-	if( v.getId() == R.id.home_btn_var_sow_4){
-		
-		playAudio(R.raw.greengram);
-		
-	}
+			System.out.println("variety sow1 called");
+			playAudio(R.raw.bajra);
 
-	if( v.getId() == R.id.home_btn_var_sow_5){
-		
-		playAudio(R.raw.groundnut1);
-		
-	}
+		}
 
-	if( v.getId() == R.id.home_btn_var_sow_6){
-		
-		playAudio(R.raw.horsegram);
-		
-	}
-	
-	if( v.getId() == R.id.home_btn_units_1){
-		
-		playAudio(R.raw.bagof10kg);
-		
-	}
+		if (v.getId() == R.id.home_btn_var_sow_2) {
 
-	if( v.getId() == R.id.home_btn_units_2){
-		
-		playAudio(R.raw.bagof20kg);
-		
-	}
+			playAudio(R.raw.castor);
 
-	if( v.getId() == R.id.home_btn_units_3){
-		
-		playAudio(R.raw.bagof50kg);
-		
-	}
-	
-	if( v.getId() == R.id.home_day_1){
-		
-		playAudio(R.raw.twoweeksbefore);
-		
-	}
+		}
 
-	if( v.getId() == R.id.home_day_2){
-		
-		playAudio(R.raw.oneweekbefore);
-		
-	}
+		if (v.getId() == R.id.home_btn_var_sow_3) {
 
-	if( v.getId() == R.id.home_day_3){
-		
-		playAudio(R.raw.yesterday);
-		
-	}
+			playAudio(R.raw.cowpea);
 
-	if( v.getId() == R.id.home_day_4){
-		
-		playAudio(R.raw.todayonly);
-		
-	}
+		}
 
-	if( v.getId() == R.id.home_day_5){
-		
-		playAudio(R.raw.tomorrows);
-		
-	}
-	
-	if( v.getId() == R.id.home_treat_sow_1){
-		
-		playAudio(R.raw.treatmenttoseeds2);
-		
-	}
+		if (v.getId() == R.id.home_btn_var_sow_4) {
 
-	if( v.getId() == R.id.home_treat_sow_2){
-		
-		playAudio(R.raw.treatmenttoseeds3);
-		
-	}
-	
-if( v.getId() == R.id.chkintercrop){
-		
-	if(Global.EnableAudio==true)                        //checking for audio enable
-	{
-	
-	if(mp != null)
-	{
-		mp.stop();
-		mp.release();
-		mp = null;
-	}
-	mp = MediaPlayer.create(this, R.raw.yieldinfo);
-	mp.start();
-	
-	}                          
-		
-	}
+			playAudio(R.raw.greengram);
 
-       
+		}
+
+		if (v.getId() == R.id.home_btn_var_sow_5) {
+
+			playAudio(R.raw.groundnut1);
+
+		}
+
+		if (v.getId() == R.id.home_btn_var_sow_6) {
+
+			playAudio(R.raw.horsegram);
+
+		}
+
+		if (v.getId() == R.id.home_btn_units_1) {
+
+			playAudio(R.raw.bagof10kg);
+
+		}
+
+		if (v.getId() == R.id.home_btn_units_2) {
+
+			playAudio(R.raw.bagof20kg);
+
+		}
+
+		if (v.getId() == R.id.home_btn_units_3) {
+
+			playAudio(R.raw.bagof50kg);
+
+		}
+
+		if (v.getId() == R.id.home_day_1) {
+
+			playAudio(R.raw.twoweeksbefore);
+
+		}
+
+		if (v.getId() == R.id.home_day_2) {
+
+			playAudio(R.raw.oneweekbefore);
+
+		}
+
+		if (v.getId() == R.id.home_day_3) {
+
+			playAudio(R.raw.yesterday);
+
+		}
+
+		if (v.getId() == R.id.home_day_4) {
+			playAudio(R.raw.todayonly);
+		}
+
+		if (v.getId() == R.id.home_day_5) {
+			playAudio(R.raw.tomorrows);
+		}
+
+		if (v.getId() == R.id.home_treat_sow_1) {
+			playAudio(R.raw.treatmenttoseeds2);
+		}
+
+		if (v.getId() == R.id.home_treat_sow_2) {
+			playAudio(R.raw.treatmenttoseeds3);
+		}
+
+		if (v.getId() == R.id.chkintercrop) {
+			playAudio(R.raw.yieldinfo);
+		}
 
 		return true;
 	}
-	
-	 public void playAudio(int resid)                      //audio integration
-	    {
-		 if(Global.EnableAudio==true)                        //checking for audio enable
-		 {
-		// System.out.println("play audio called");
-	    SoundQueue sq = SoundQueue.getInstance();
-		// stops any sound that could be playing.
-		sq.stop();
-		
-		sq.addToQueue(resid);
-		//sq.addToQueue(R.raw.treatmenttoseeds3);
-		sq.play();
-		 }
-
-	    	
-	    }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
 }

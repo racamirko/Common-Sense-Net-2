@@ -1,23 +1,17 @@
 package com.commonsensenet.realfarm;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Addplot_sm extends HelpEnabledActivity {
-
-	private final Context context = this;
-	protected RealFarmProvider mDataProvider;
-
-
+	
 	public void onBackPressed() {
 		SoundQueue.getInstance().stop();
 
@@ -30,8 +24,6 @@ public class Addplot_sm extends HelpEnabledActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.addplot_sm);
 		System.out.println("In My_setting_plot_info call");
-
-		mDataProvider = RealFarmProvider.getInstance(context); // Working
 
 		Button AddPlot = (Button) findViewById(R.id.button_add_plot);
 		Button SMvalue = (Button) findViewById(R.id.button_soil_moisture);

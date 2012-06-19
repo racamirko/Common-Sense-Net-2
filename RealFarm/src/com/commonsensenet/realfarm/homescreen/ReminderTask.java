@@ -13,7 +13,8 @@ import com.buzzbox.mob.android.scheduler.TaskResult;
  * 
  */
 public class ReminderTask implements Task {
-	PendingIntent sentPI, deliveredPI;
+	protected PendingIntent sentPI;
+	protected PendingIntent deliveredPI;
 
 	public String getTitle() {
 		return "Reminder";

@@ -3,12 +3,10 @@ package com.commonsensenet.realfarm.actions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
@@ -24,14 +22,23 @@ import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_harvest extends HelpEnabledActivity { // Integration
-	int feedback_sel;
-	int harvest_no;
-	String year_harvest;
-	String harvest_no_sel, units_harvest = "0", strDateTime = "0",
-			feedback_txt, months_harvest = "0";
-	protected RealFarmProvider mDataProvider;
 	private Context context = this;
-	final action_harvest parentReference = this; // audio integration
+	private int feedback_sel;
+	private int harvest_no;
+	private String harvest_no_sel, units_harvest = "0", feedback_txt,
+			months_harvest = "0";
+	private RealFarmProvider mDataProvider;
+	private final action_harvest parentReference = this; // audio integration
+	private String year_harvest;
+
+	protected void cancelaudio() {
+		playAudio(R.raw.cancel);
+
+		Intent adminintent = new Intent(action_harvest.this, Homescreen.class);
+
+		startActivity(adminintent);
+		action_harvest.this.finish();
+	}
 
 	// MediaPlayer mp = null; //integration
 	public void onBackPressed() {
@@ -283,9 +290,6 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				final Button unit2;
 				final Button unit3;
 
-				final ImageView img_1;
-				img_1 = (ImageView) findViewById(R.id.dlg_unit_sow);
-
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_units_harvest);
 				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
@@ -397,8 +401,6 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 			}
 		});
-
-		final TextView no_text_2 = (TextView) findViewById(R.id.dlg_lbl_harvest_date);
 
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -735,7 +737,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 				// to know which feedback user clicked
 
-				String feedback = String.valueOf(feedback_sel);
+				// String feedback = String.valueOf(feedback_sel);
 				// Toast.makeText(action_harvest.this,
 				// "User selected feedback  " + feedback,
 				// Toast.LENGTH_LONG).show();
@@ -879,29 +881,6 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 			}
 		});
-	}
-
-	protected void initmissingval() {
-		playAudio(R.raw.missinginfo);
-	}
-
-	protected void cancelaudio() {
-		playAudio(R.raw.cancel);
-
-		Intent adminintent = new Intent(action_harvest.this, Homescreen.class);
-
-		startActivity(adminintent);
-		action_harvest.this.finish();
-	}
-
-	protected void okaudio() {
-
-		playAudio(R.raw.ok);
-
-	}
-
-	protected void stopaudio() {
-		SoundQueue.getInstance().stop();
 	}
 
 	@Override
@@ -1105,5 +1084,9 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 			sq.play();
 		}
 
+	}
+
+	protected void stopaudio() {
+		SoundQueue.getInstance().stop();
 	}
 }

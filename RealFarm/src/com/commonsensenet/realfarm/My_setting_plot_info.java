@@ -48,7 +48,7 @@ public class My_setting_plot_info extends Activity {
 		mPlotsListView.setAdapter(mPlotsListAdapter);
 
 		// gets the users from the database.
-		List<Plot> plotList = mDataProvider.getAllPlotListByUserDeleteFlag(
+		List<Plot> plotList = mDataProvider.getPlotsByUserIdAndDeleteFlag(
 				Global.userId, 0);
 
 		// adds the plot into the list adapter.
@@ -136,7 +136,7 @@ public class My_setting_plot_info extends Activity {
 
 						System.out.println(position);
 						List<Plot> PlotList = mDataProvider
-								.getAllPlotListByUserDeleteFlag(Global.userId,
+								.getPlotsByUserIdAndDeleteFlag(Global.userId,
 										0); // Get plot list for that user id
 											// whose deleteFlag=0
 
@@ -162,7 +162,7 @@ public class My_setting_plot_info extends Activity {
 
 												mDataProvider
 														.setDeleteFlagForPlot(mPlotIdDelete);
-												mDataProvider.getAllPlotList();
+												mDataProvider.getPlots();
 
 												finish();
 												startActivity(getIntent());

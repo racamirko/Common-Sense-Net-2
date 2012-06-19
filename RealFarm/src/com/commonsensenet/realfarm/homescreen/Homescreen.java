@@ -55,371 +55,15 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
  * 
  */
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
-	private String logTag = "Homescreen", lang_selected;
-	private RealFarmProvider mDataProvider;
+	public enum InfoType {
+		ACTIONS, ADVICE, WARN, WF, YIELD
+	}
+
 	private final Context context = this;
+	public static String LOG_TAG = "Homescreen";
+	private String lang_selected;
 	private PlotInformationWindow mCurrentWindow;
-	private SoundQueue mSoundQueue;
-	public int i = 0;
-
-	// MediaPlayer mp = null;
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		if (Global.lang_flag == 0) {
-			selectlang();
-
-		}
-		super.onCreate(savedInstanceState, R.layout.homescreen);
-
-		mDataProvider = RealFarmProvider.getInstance(context);
-		ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);
-		Log.i(logTag, "App started");
-		Log.i(logTag, "scheduler activated");
-		SchedulerManager.getInstance().saveTask(this.getApplicationContext(),
-				"*/1 * * * *", // a cron string
-				ReminderTask.class);
-		SchedulerManager.getInstance().restart(this.getApplicationContext(),
-				ReminderTask.class);
-
-		// setup listener to all buttons
-		// initDb(); //Clears the database
-		initActionListener();
-		initTiles();
-		initSoundSys();
-		setHelpIcon(findViewById(R.id.helpIndicator));
-
-		btnSound.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				InitAudio();
-			}
-		});
-
-		TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
-		tmpText.setText(getString(R.string.k_solved));
-
-		tmpText = (TextView) findViewById(R.id.home_lbl_advice);
-		tmpText.setText(getString(R.string.k_news));
-
-		tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
-		tmpText.setText(getString(R.string.k_farmers));
-
-		tmpText = (TextView) findViewById(R.id.home_lbl_yield);
-		tmpText.setText(getString(R.string.k_harvest));
-
-		// WriteDataBaseToSDcard();
-	}
-
-	protected void selectlang() {
-		Global.lang_flag = 1;
-		Log.d("in Lang selection", "in dialog");
-		final Dialog dlg = new Dialog(this);
-		dlg.setContentView(R.layout.language_dialog);
-		dlg.setCancelable(true);
-		dlg.setTitle("Please select the language");
-		Log.d("in variety sowing dialog", "in dialog");
-		dlg.show();
-
-		final Button lang1 = (Button) dlg.findViewById(R.id.home_lang_1);
-		final Button lang2 = (Button) dlg.findViewById(R.id.home_lang_2);
-		final Button lang3 = (Button) dlg.findViewById(R.id.home_lang_3);
-		final Button lang4 = (Button) dlg.findViewById(R.id.home_lang_4);
-		final Button lang5 = (Button) dlg.findViewById(R.id.home_lang_5);
-
-		lang1.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				lang_selected = "Kannada";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
-		lang2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				lang_selected = "Telugu";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
-		lang3.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				lang_selected = "Hindi";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
-		lang4.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				lang_selected = "Tamil";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
-		lang5.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				lang_selected = "Malayalam";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
-	}
-
-	public void InitAudio() {
-
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				context);
-
-		// set title
-		alertDialogBuilder.setTitle("Enable audio");
-
-		// set dialog message
-		alertDialogBuilder
-				.setMessage("Click Yes to enable audio !")
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								// if this button is clicked, close
-								// current activity
-								System.out.println("Yes");
-
-								Global.EnableAudio = true;
-
-							}
-						})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-
-						System.out.println("No");
-						Global.EnableAudio = false;
-						dialog.cancel();
-					}
-				});
-
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		// show it
-		alertDialog.show();
-
-	}
-
-	public void WriteDataBaseToSDcard() {
-		Global.WriteToSD = true;
-		mDataProvider.Log_Database_backupdate();
-		mDataProvider.getUserList(); // User
-		mDataProvider.getNewActionsList(); // New action table
-		mDataProvider.getsowing(); // Sowing
-		mDataProvider.getfertizing(); // Fertilizing action
-		mDataProvider.getspraying(); // Spraying action
-		mDataProvider.getharvesting(); // Harvesting acion
-		mDataProvider.getselling(); // Selling action
-		mDataProvider.getMarketPrice(); // Market price
-		mDataProvider.getAllPlotList(); // New plot list
-		mDataProvider.getSeedsList(); // Seed type
-		mDataProvider.getActionNamesList(); // Action names
-		mDataProvider.getSeedTypeStages(); // Seedtype stages
-		mDataProvider.getUnit(); // units
-		mDataProvider.getLog(); // Log
-		mDataProvider.getGrowings(); // growings
-		mDataProvider.getFertilizer(); // Fertilizer
-		mDataProvider.getActionTranslation(); // Action translation
-		mDataProvider.getPesticides(); // Pesticides
-		mDataProvider.getStages(); // stages
-		mDataProvider.getProblems(); // problems
-		mDataProvider.getProblemType(); // problem type
-
-	}
-
-	protected void initSoundSys() {
-		Log.i(logTag, "Init sound sys");
-		// gets and initializes the SoundQueue.
-		mSoundQueue = SoundQueue.getInstance();
-		mSoundQueue.init(this);
-
-	}
-
-	protected void initDb() {
-		Log.i(logTag, "Resetting database");
-		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
-	}
-
-	protected void initTiles() {
-		Log.i(logTag, "Initializing tiles");
-		LinearLayout layAdvice = (LinearLayout) findViewById(R.id.home_lay_advice);
-		LinearLayout layActions = (LinearLayout) findViewById(R.id.home_lay_actions);
-		LinearLayout layWarn = (LinearLayout) findViewById(R.id.home_lay_warn);
-		LinearLayout layYield = (LinearLayout) findViewById(R.id.home_lay_yield);
-		LinearLayout layWf = (LinearLayout) findViewById(R.id.home_lay_wf);
-
-		populateTiles(InfoType.ADVICE, layAdvice);
-		populateTiles(InfoType.ACTIONS, layActions);
-		populateTiles(InfoType.WARN, layWarn);
-		populateTiles(InfoType.YIELD, layYield);
-		populateTiles(InfoType.WF, layWf);
-	}
-
-	protected void populateTiles(InfoType infoType, LinearLayout layout) {
-		Vector<Recommendation> info = new Vector<Recommendation>();
-
-		/* dummy implementation */
-		DummyHomescreenData dummyData = new DummyHomescreenData(this, this, 5);
-		Random rn = new Random();
-		dummyData.generateDummyItems(rn.nextInt(5), info);
-		RealFarmProvider dataProv = dummyData.getDataProvider();
-		/* end dummy impl */
-
-		Iterator<Recommendation> iter = info.iterator();
-		while (iter.hasNext()) {
-			Recommendation tmpRec = iter.next();
-			ImageView tmpView = new ImageView(this);
-			tmpView.setImageResource(dataProv.getActionNameById(
-					tmpRec.getAction()).getRes());
-			tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
-			layout.addView(tmpView);
-			tmpView.getLayoutParams().height = 45;
-			tmpView.getLayoutParams().width = 45;
-		}
-		info.clear();
-	}
-
-	public void WriteActionToDatabase() {
-
-		/*
-		 * System.out.println("action writing"); mDataProvider .setActionNew(1,
-		 * 3, 2, "Sowing", "groundnut", 1000, 2000, "kg", "monday", 4, 5,
-		 * "fertilizer 1", "problem 1", "good", 10000, "medium", "pickup", 1, 0,
-		 * "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(1, 4, 5, "fertilizing", "tmv-2", 2000,
-		 * 3000, "kg", "monday", 4, 5, "fertilizer 1", "problem 3", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(1, 5, 3, "spraying", "groundnut", 1000,
-		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(1, 8, 3, "harvest", "groundnut", 1000,
-		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(8, 12, 3, "selling", "groundnut", 1000,
-		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * /* mDataProvider.setActionNew(1, 4, 5, "fertilizing", "tmv-1",2000,
-		 * 3000, "kg","monday", 4, 5,"fertilizer 1", "problem 3","good", 10000,
-		 * "medium", "pickup",1, 0 , "treated", "pest1");
-		 */
-
-		/*
-		 * System.out.println("action reading");
-		 * mDataProvider.getNewActionsList();
-		 * 
-		 * System.out.println("sowing writing"); mDataProvider.setSowing(500,
-		 * "castor", "kgs", "today", "treated", 0, 0);
-		 * 
-		 * System.out.println("sowing reading"); mDataProvider.getsowing();
-		 * 
-		 * System.out.println("fertilizing writing");
-		 * mDataProvider.setFertilizing(200, "fert 1", "kgs", "today", 1, 0);
-		 * 
-		 * System.out.println("fertilizing reading");
-		 * mDataProvider.getfertizing();
-		 * 
-		 * System.out.println("spraying writing");
-		 * mDataProvider.setspraying(100, "quint", "today", "prob 1", 1, 0,
-		 * "pest1");
-		 * 
-		 * System.out.println("spraying reading"); mDataProvider.getspraying();
-		 * 
-		 * System.out.println("harvesting writing");
-		 * mDataProvider.setHarvest(100, 200, "quintals", "tomorrow", "good", 1,
-		 * 0);
-		 * 
-		 * System.out.println("harvesting reading");
-		 * mDataProvider.getharvesting();
-		 * 
-		 * System.out.println("selling writing"); mDataProvider.setselling(300,
-		 * 400, "kgs", "today", 5000, "medium", "pickup", 1, 0);
-		 * 
-		 * System.out.println("selling reading"); mDataProvider.getselling();
-		 * 
-		 * 
-		 * System.out.println("market price writing");
-		 * mDataProvider.setMarketPrice(1,"22-05-2012","groundnut", 2000, 0);
-		 * 
-		 * System.out.println("market price reading");
-		 * mDataProvider.getMarketPrice();
-		 */
-		/*
-		 * mSoundQueue = new SoundQueue(this);
-		 * mSoundQueue.addToQueue(R.raw.audio1);
-		 * mSoundQueue.addToQueue(R.raw.audio2);
-		 * mSoundQueue.addToQueue(R.raw.audio3); mSoundQueue.play();
-		 */
-
-		// System.out.println("Reading getuser delete");
-		System.out.println("Irrigation writing");
-		mDataProvider.setIrrigation(2, "hours", // qua1 mapped to no of hours
-				"today", 0, 0, "Fertilizer1");
-
-		mDataProvider.setIrrigation(4, "hours", // qua1 mapped to no of hours
-				"tomorrow", 0, 0, "Fertilizer2");
-
-		System.out.println("Irrigation reading");
-		mDataProvider.getirrigate();
-
-		System.out.println("Problem writing");
-		mDataProvider.setProblem("today", "Problem1", 0, 0);
-		mDataProvider.setProblem("tomorrow", "Problem2", 0, 0);
-		// mDataProvider.setProblem(String day,String probType, int sent, int
-		// admin);
-
-		System.out.println("Problem reading");
-		mDataProvider.getProblem();
-
-		System.out.println("New plot writing");
-		mDataProvider.setPlotNew(1, 123, 456, "plot image1", "Loamy", 0, 0);
-
-		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
-
-		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
-
-		System.out.println("newplot  reading");
-		mDataProvider.getAllPlotList();
-		mDataProvider.getPlotDelete(0);
-
-		System.out.println("newplot  reading based on userid");
-		mDataProvider.getAllPlotListByUserId(1);
-
-		System.out.println("newplot reading based on userid and plotid");
-		mDataProvider.getAllPlotListByUserIdPlotId(1, 1);
-
-	}
+	private RealFarmProvider mDataProvider;
 
 	private void initActionListener() {
 		((Button) findViewById(R.id.home_btn_advice)).setOnClickListener(this);
@@ -525,6 +169,72 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	}
 
+	public void InitAudio() {
+
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
+				context);
+
+		// set title
+		alertDialogBuilder.setTitle("Enable audio");
+
+		// set dialog message
+		alertDialogBuilder
+				.setMessage("Click Yes to enable audio !")
+				.setCancelable(false)
+				.setPositiveButton("Yes",
+						new DialogInterface.OnClickListener() {
+							public void onClick(DialogInterface dialog, int id) {
+								// if this button is clicked, close
+								// current activity
+								System.out.println("Yes");
+
+								Global.EnableAudio = true;
+
+							}
+						})
+				.setNegativeButton("No", new DialogInterface.OnClickListener() {
+					public void onClick(DialogInterface dialog, int id) {
+
+						System.out.println("No");
+						Global.EnableAudio = false;
+						dialog.cancel();
+					}
+				});
+
+		// create alert dialog
+		AlertDialog alertDialog = alertDialogBuilder.create();
+
+		// show it
+		alertDialog.show();
+
+	}
+
+	protected void initDb() {
+		Log.i(LOG_TAG, "Resetting database");
+		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
+	}
+
+	protected void initSoundSys() {
+		Log.i(LOG_TAG, "Init sound sys");
+		// gets and initializes the SoundQueue.
+		SoundQueue.getInstance().init(this);
+	}
+
+	protected void initTiles() {
+		Log.i(LOG_TAG, "Initializing tiles");
+		LinearLayout layAdvice = (LinearLayout) findViewById(R.id.home_lay_advice);
+		LinearLayout layActions = (LinearLayout) findViewById(R.id.home_lay_actions);
+		LinearLayout layWarn = (LinearLayout) findViewById(R.id.home_lay_warn);
+		LinearLayout layYield = (LinearLayout) findViewById(R.id.home_lay_yield);
+		LinearLayout layWf = (LinearLayout) findViewById(R.id.home_lay_wf);
+
+		populateTiles(InfoType.ADVICE, layAdvice);
+		populateTiles(InfoType.ACTIONS, layActions);
+		populateTiles(InfoType.WARN, layWarn);
+		populateTiles(InfoType.YIELD, layYield);
+		populateTiles(InfoType.WF, layWf);
+	}
+
 	@Override
 	public void onBackPressed() {
 		// stops all playing sounds.
@@ -548,19 +258,19 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
-		Log.i(logTag, "Button clicked!");
+		Log.i(LOG_TAG, "Button clicked!");
 		String txt = "";
 		Intent inte;
 
 		// int no_of_plots = mDataProvider.getAllPlotList().size();
 
-		int no_of_plots = mDataProvider.getAllPlotListByUserDeleteFlag(
+		int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
 				Global.userId, 0).size(); // added with audio integration
 		// String no_of_plots_str = String.valueOf(no_of_plots);
 
 		if (v.getId() == R.id.btn_info_actions
 				|| v.getId() == R.id.home_btn_actions) {
-			Log.d(logTag, "Starting actions info");
+			Log.d(LOG_TAG, "Starting actions info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "actions");
 			this.startActivity(inte);
@@ -568,14 +278,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 		if (v.getId() == R.id.btn_info_advice
 				|| v.getId() == R.id.home_btn_advice) {
-			Log.d(logTag, "Starting advice info");
+			Log.d(LOG_TAG, "Starting advice info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "advice");
 			this.startActivity(inte);
 			return;
 		}
 		if (v.getId() == R.id.btn_info_warn || v.getId() == R.id.home_btn_warn) {
-			Log.d(logTag, "Starting warn info");
+			Log.d(LOG_TAG, "Starting warn info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "warn");
 			this.startActivity(inte);
@@ -583,7 +293,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 		if (v.getId() == R.id.btn_info_yield
 				|| v.getId() == R.id.home_btn_yield) {
-			Log.d(logTag, "Starting yield info");
+			Log.d(LOG_TAG, "Starting yield info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
@@ -762,7 +472,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			System.out.println("My settings clicked");
 
 			System.out.println("Displaying plot information list");
-			mDataProvider.getAllPlotList();
+			mDataProvider.getPlots();
 			inte = new Intent(this, Addplot_sm.class);
 			this.startActivity(inte);
 			this.finish();
@@ -887,9 +597,52 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					Toast.LENGTH_SHORT).show();
 	}
 
-	public enum InfoType {
-		ADVICE, ACTIONS, WARN, YIELD, WF
-	};
+	// MediaPlayer mp = null;
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		if (Global.lang_flag == 0) {
+			selectlang();
+
+		}
+		super.onCreate(savedInstanceState, R.layout.homescreen);
+
+		mDataProvider = RealFarmProvider.getInstance(context);
+		ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);
+		Log.i(LOG_TAG, "App started");
+		Log.i(LOG_TAG, "scheduler activated");
+		SchedulerManager.getInstance().saveTask(this.getApplicationContext(),
+				"*/1 * * * *", // a cron string
+				ReminderTask.class);
+		SchedulerManager.getInstance().restart(this.getApplicationContext(),
+				ReminderTask.class);
+
+		// setup listener to all buttons
+		// initDb(); //Clears the database
+		initActionListener();
+		initTiles();
+		initSoundSys();
+		setHelpIcon(findViewById(R.id.helpIndicator));
+
+		btnSound.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				InitAudio();
+			}
+		});
+
+		TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
+		tmpText.setText(getString(R.string.k_solved));
+
+		tmpText = (TextView) findViewById(R.id.home_lbl_advice);
+		tmpText.setText(getString(R.string.k_news));
+
+		tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
+		tmpText.setText(getString(R.string.k_farmers));
+
+		tmpText = (TextView) findViewById(R.id.home_lbl_yield);
+		tmpText.setText(getString(R.string.k_harvest));
+
+		// WriteDataBaseToSDcard();
+	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getMenuInflater();
@@ -907,6 +660,250 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// default:
 		return super.onOptionsItemSelected(item);
+	}
+
+	protected void populateTiles(InfoType infoType, LinearLayout layout) {
+		Vector<Recommendation> info = new Vector<Recommendation>();
+
+		/* dummy implementation */
+		DummyHomescreenData dummyData = new DummyHomescreenData(this, this, 5);
+		Random rn = new Random();
+		dummyData.generateDummyItems(rn.nextInt(5), info);
+		RealFarmProvider dataProv = dummyData.getDataProvider();
+		/* end dummy impl */
+
+		Iterator<Recommendation> iter = info.iterator();
+		while (iter.hasNext()) {
+			Recommendation tmpRec = iter.next();
+			ImageView tmpView = new ImageView(this);
+			tmpView.setImageResource(dataProv.getActionNameById(
+					tmpRec.getAction()).getRes());
+			tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
+			layout.addView(tmpView);
+			tmpView.getLayoutParams().height = 45;
+			tmpView.getLayoutParams().width = 45;
+		}
+		info.clear();
+	}
+
+	protected void selectlang() {
+		Global.lang_flag = 1;
+		Log.d("in Lang selection", "in dialog");
+		final Dialog dlg = new Dialog(this);
+		dlg.setContentView(R.layout.language_dialog);
+		dlg.setCancelable(true);
+		dlg.setTitle("Please select the language");
+		Log.d("in variety sowing dialog", "in dialog");
+		dlg.show();
+
+		final Button lang1 = (Button) dlg.findViewById(R.id.home_lang_1);
+		final Button lang2 = (Button) dlg.findViewById(R.id.home_lang_2);
+		final Button lang3 = (Button) dlg.findViewById(R.id.home_lang_3);
+		final Button lang4 = (Button) dlg.findViewById(R.id.home_lang_4);
+		final Button lang5 = (Button) dlg.findViewById(R.id.home_lang_5);
+
+		lang1.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.d("var 1 picked ", "in dialog");
+				// img_1.setMaxWidth(300);
+				lang_selected = "Kannada";
+				Toast.makeText(Homescreen.this,
+						"The Language selected is " + lang_selected,
+						Toast.LENGTH_SHORT).show();
+				dlg.cancel();
+			}
+		});
+
+		lang2.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.d("var 1 picked ", "in dialog");
+				// img_1.setMaxWidth(300);
+				lang_selected = "Telugu";
+				Toast.makeText(Homescreen.this,
+						"The Language selected is " + lang_selected,
+						Toast.LENGTH_SHORT).show();
+				dlg.cancel();
+			}
+		});
+
+		lang3.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.d("var 1 picked ", "in dialog");
+				// img_1.setMaxWidth(300);
+				lang_selected = "Hindi";
+				Toast.makeText(Homescreen.this,
+						"The Language selected is " + lang_selected,
+						Toast.LENGTH_SHORT).show();
+				dlg.cancel();
+			}
+		});
+
+		lang4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.d("var 1 picked ", "in dialog");
+				// img_1.setMaxWidth(300);
+				lang_selected = "Tamil";
+				Toast.makeText(Homescreen.this,
+						"The Language selected is " + lang_selected,
+						Toast.LENGTH_SHORT).show();
+				dlg.cancel();
+			}
+		});
+
+		lang5.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Log.d("var 1 picked ", "in dialog");
+				// img_1.setMaxWidth(300);
+				lang_selected = "Malayalam";
+				Toast.makeText(Homescreen.this,
+						"The Language selected is " + lang_selected,
+						Toast.LENGTH_SHORT).show();
+				dlg.cancel();
+			}
+		});
+
+	};
+
+	public void WriteActionToDatabase() {
+
+		/*
+		 * System.out.println("action writing"); mDataProvider .setActionNew(1,
+		 * 3, 2, "Sowing", "groundnut", 1000, 2000, "kg", "monday", 4, 5,
+		 * "fertilizer 1", "problem 1", "good", 10000, "medium", "pickup", 1, 0,
+		 * "treated", "pest1");
+		 * 
+		 * mDataProvider .setActionNew(1, 4, 5, "fertilizing", "tmv-2", 2000,
+		 * 3000, "kg", "monday", 4, 5, "fertilizer 1", "problem 3", "good",
+		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
+		 * 
+		 * mDataProvider .setActionNew(1, 5, 3, "spraying", "groundnut", 1000,
+		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
+		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
+		 * 
+		 * mDataProvider .setActionNew(1, 8, 3, "harvest", "groundnut", 1000,
+		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
+		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
+		 * 
+		 * mDataProvider .setActionNew(8, 12, 3, "selling", "groundnut", 1000,
+		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
+		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
+		 * 
+		 * /* mDataProvider.setActionNew(1, 4, 5, "fertilizing", "tmv-1",2000,
+		 * 3000, "kg","monday", 4, 5,"fertilizer 1", "problem 3","good", 10000,
+		 * "medium", "pickup",1, 0 , "treated", "pest1");
+		 */
+
+		/*
+		 * System.out.println("action reading");
+		 * mDataProvider.getNewActionsList();
+		 * 
+		 * System.out.println("sowing writing"); mDataProvider.setSowing(500,
+		 * "castor", "kgs", "today", "treated", 0, 0);
+		 * 
+		 * System.out.println("sowing reading"); mDataProvider.getsowing();
+		 * 
+		 * System.out.println("fertilizing writing");
+		 * mDataProvider.setFertilizing(200, "fert 1", "kgs", "today", 1, 0);
+		 * 
+		 * System.out.println("fertilizing reading");
+		 * mDataProvider.getfertizing();
+		 * 
+		 * System.out.println("spraying writing");
+		 * mDataProvider.setspraying(100, "quint", "today", "prob 1", 1, 0,
+		 * "pest1");
+		 * 
+		 * System.out.println("spraying reading"); mDataProvider.getspraying();
+		 * 
+		 * System.out.println("harvesting writing");
+		 * mDataProvider.setHarvest(100, 200, "quintals", "tomorrow", "good", 1,
+		 * 0);
+		 * 
+		 * System.out.println("harvesting reading");
+		 * mDataProvider.getharvesting();
+		 * 
+		 * System.out.println("selling writing"); mDataProvider.setselling(300,
+		 * 400, "kgs", "today", 5000, "medium", "pickup", 1, 0);
+		 * 
+		 * System.out.println("selling reading"); mDataProvider.getselling();
+		 * 
+		 * 
+		 * System.out.println("market price writing");
+		 * mDataProvider.setMarketPrice(1,"22-05-2012","groundnut", 2000, 0);
+		 * 
+		 * System.out.println("market price reading");
+		 * mDataProvider.getMarketPrice();
+		 */
+		/*
+		 * mSoundQueue = new SoundQueue(this);
+		 * mSoundQueue.addToQueue(R.raw.audio1);
+		 * mSoundQueue.addToQueue(R.raw.audio2);
+		 * mSoundQueue.addToQueue(R.raw.audio3); mSoundQueue.play();
+		 */
+
+		// System.out.println("Reading getuser delete");
+		System.out.println("Irrigation writing");
+		mDataProvider.setIrrigation(2, "hours", // qua1 mapped to no of hours
+				"today", 0, 0, "Fertilizer1");
+
+		mDataProvider.setIrrigation(4, "hours", // qua1 mapped to no of hours
+				"tomorrow", 0, 0, "Fertilizer2");
+
+		System.out.println("Irrigation reading");
+		mDataProvider.getirrigate();
+
+		System.out.println("Problem writing");
+		mDataProvider.setProblem("today", "Problem1", 0, 0);
+		mDataProvider.setProblem("tomorrow", "Problem2", 0, 0);
+		// mDataProvider.setProblem(String day,String probType, int sent, int
+		// admin);
+
+		System.out.println("Problem reading");
+		mDataProvider.getProblem();
+
+		System.out.println("New plot writing");
+		mDataProvider.setPlotNew(1, 123, 456, "plot image1", "Loamy", 0, 0);
+
+		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
+
+		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
+
+		System.out.println("newplot  reading");
+		mDataProvider.getPlots();
+		mDataProvider.getPlotDelete(0);
+
+		System.out.println("newplot  reading based on userid");
+		mDataProvider.getPlotsByUserId(1);
+
+		System.out.println("newplot reading based on userid and plotid");
+		mDataProvider.getPlotsByUserIdAndPlotId(1, 1);
+
+	}
+
+	public void WriteDataBaseToSDcard() {
+		Global.WriteToSD = true;
+		mDataProvider.Log_Database_backupdate();
+		mDataProvider.getUsers(); // User
+		mDataProvider.getActions(); // New action table
+		mDataProvider.getsowing(); // Sowing
+		mDataProvider.getfertizing(); // Fertilizing action
+		mDataProvider.getspraying(); // Spraying action
+		mDataProvider.getharvesting(); // Harvesting acion
+		mDataProvider.getselling(); // Selling action
+		mDataProvider.getMarketPrices(); // Market price
+		mDataProvider.getPlots(); // New plot list
+		mDataProvider.getSeeds(); // Seed type
+		mDataProvider.getActionNames(); // Action names
+		mDataProvider.getSeedTypeStages(); // Seedtype stages
+		mDataProvider.getUnit(); // units
+		mDataProvider.getLog(); // Log
+		mDataProvider.getGrowings(); // growings
+		mDataProvider.getFertilizer(); // Fertilizer
+		// mDataProvider.getActionTranslation(); // Action translation
+		mDataProvider.getPesticides(); // Pesticides
+		mDataProvider.getStages(); // stages
+		mDataProvider.getProblems(); // problems
+		mDataProvider.getProblemType(); // problem type
+
 	}
 
 }

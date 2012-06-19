@@ -16,12 +16,12 @@ public class VIDataAdapter extends BaseAdapter {
 	protected Vector<VisualItem> items;
 	protected LayoutInflater inflater;
 
-	public VIDataAdapter( Vector<VisualItem> items, LayoutInflater inflater ){
+	public VIDataAdapter(Vector<VisualItem> items, LayoutInflater inflater) {
 		this.items = items;
 		this.inflater = inflater;
 		Log.d(logTag, "created");
 	}
-	
+
 	public int getCount() {
 		return items.size();
 	}

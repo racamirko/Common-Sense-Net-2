@@ -1,42 +1,30 @@
 package com.commonsensenet.realfarm.ownCamera;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.io.InputStream;
-import java.net.URI;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.ContentResolver;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.My_settings_plot_details;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class ViewPictureActivity extends Activity {
 
@@ -44,18 +32,12 @@ public class ViewPictureActivity extends Activity {
 	protected static final String TAG = "Check_Image";
 	protected Bitmap bMap = null;
 	private ImageView iView = null;
-private Uri image_file_uri;
+	private Uri image_file_uri;
 	private File image_file;
 	private String image_path;
 	private int year, month, day;
-	private int hours, minutes;
 	private TextView displayDate;
 	private TextView displayTime;
-	private Button dateBtn;
-	private Button timeBtn;
-	private Dialog datedlg;
-	private Dialog timedlg;
-	private SQLiteDatabase db;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -67,8 +49,6 @@ private Uri image_file_uri;
 		displayDate = (TextView) findViewById(R.id.fillDate);
 		displayTime = (TextView) findViewById(R.id.fillTime);
 
-		
-
 		// receive image in byte[] passed by OwnCameraActivity
 		Bundle extras = getIntent().getExtras();
 
@@ -78,12 +58,12 @@ private Uri image_file_uri;
 			CharSequence time_todisplay = (CharSequence) extras
 					.get("time_selected");
 			int[] date = (int[]) extras.get("date");
-			int[] time = (int[]) extras.get("time");
+			// int[] time = (int[]) extras.get("time");
 			day = date[0];
 			month = date[1];
 			year = date[2];
-			hours = time[0];
-			minutes = time[1];
+			// hours = time[0];
+			// minutes = time[1];
 
 			displayDate.setText(date_todisplay);
 			displayTime.setText(time_todisplay);
@@ -124,12 +104,11 @@ private Uri image_file_uri;
 
 		image_path = image_file_uri.getPath();
 		image_file = new File(image_path);
-		
+
 		// Adding listener to the retake button
 		ImageButton retakeButton = (ImageButton) findViewById(R.id.button_retake);
 		retakeButton.setOnClickListener(new View.OnClickListener() {
 
-	
 			public void onClick(View v) {
 				// TODO: clean image and return to previous activity
 
@@ -159,35 +138,27 @@ private Uri image_file_uri;
 		ImageButton saveButton = (ImageButton) findViewById(R.id.button_save);
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
-		
 			public void onClick(View v) {
-		/*		// add event to db : add image and time-date to db
-				db = openOrCreateDatabase("EventsDB", MODE_PRIVATE, null);
-				// month = month + 1;
-				// db.execSQL("INSERT INTO EventsTable VALUES ('" + year +
-				// "', '"
-				// + month + "', '" + day + "', '" + hours + minutes
-				// + "', '" + Constants.PICTURE + "','" + image_file_path
-				// + "');");
-				month = month + 1;
-				db.execSQL("INSERT INTO EventsTable VALUES ('" + year + "', '"
-						+ month + "', '" + day + "', '" + pad(hours)
-						+ pad(minutes) + "', '" + Constants.PICTURE + "','"
-						+ image_file + "');");*/
+				/*
+				 * // add event to db : add image and time-date to db db =
+				 * openOrCreateDatabase("EventsDB", MODE_PRIVATE, null); //
+				 * month = month + 1; //
+				 * db.execSQL("INSERT INTO EventsTable VALUES ('" + year + //
+				 * "', '" // + month + "', '" + day + "', '" + hours + minutes
+				 * // + "', '" + Constants.PICTURE + "','" + image_file_path //
+				 * + "');"); month = month + 1;
+				 * db.execSQL("INSERT INTO EventsTable VALUES ('" + year +
+				 * "', '" + month + "', '" + day + "', '" + pad(hours) +
+				 * pad(minutes) + "', '" + Constants.PICTURE + "','" +
+				 * image_file + "');");
+				 */
 				Intent kintent = new Intent(ViewPictureActivity.this,
 						My_settings_plot_details.class);
-				Global.flag_camera=true;
+				Global.flag_camera = true;
 				startActivity(kintent);
 				ViewPictureActivity.this.finish();
 			}
 		});
-	}
-
-	private static String pad(int c) {
-		if (c >= 10)
-			return String.valueOf(c);
-		else
-			return "0" + String.valueOf(c);
 	}
 
 	// display current date
@@ -214,8 +185,8 @@ private Uri image_file_uri;
 		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
 		String formattedTime = sdf.format(currentDate);
 		displayTime.setText(formattedTime);
-		hours = currentDate.getHours();
-		minutes = currentDate.getMinutes();
+		// hours = currentDate.getHours();
+		// minutes = currentDate.getMinutes();
 		// displayTime.setText(new
 		// StringBuilder().append(hours).append(":").append(minutes));
 
@@ -225,22 +196,17 @@ private Uri image_file_uri;
 
 	@Override
 	public void onBackPressed() {
-	/*	Log.d(TAG, "Back button pressed-return to take photo");
-		Bundle bundle = new Bundle();
-		bundle.putBoolean("retake", true);
-		Intent mIntent = new Intent();
-		mIntent.putExtras(bundle);
-		setResult(RESULT_OK, mIntent);
-		super.onBackPressed();*/
-		Intent adminintent123 = new Intent(
-				ViewPictureActivity.this, My_settings_plot_details.class);
+		/*
+		 * Log.d(TAG, "Back button pressed-return to take photo"); Bundle bundle
+		 * = new Bundle(); bundle.putBoolean("retake", true); Intent mIntent =
+		 * new Intent(); mIntent.putExtras(bundle); setResult(RESULT_OK,
+		 * mIntent); super.onBackPressed();
+		 */
+		Intent adminintent123 = new Intent(ViewPictureActivity.this,
+				My_settings_plot_details.class);
 		startActivity(adminintent123);
 		ViewPictureActivity.this.finish();
-		
+
 	}
-	
-
-
-	
 
 }

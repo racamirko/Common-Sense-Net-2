@@ -12,22 +12,10 @@ import android.widget.Toast;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
 public class adminenter extends Activity {
-	public int Click_Count = 0;
-	public Button btn_write, btn_read;
-	public EditText et_write, et_read, et_fileName1, et_fileName2,
-			et_writtenText;
 
-	long dbreturn;
-	public RealFarmProvider mDataProvider;
-	final Context context = this;
+	private final Context context = this;
+	private RealFarmProvider mDataProvider;
 	private EditText MobileNumber, firstname12, lastname12;
-
-	public static final String DEBUG_ID = "RealFarm Testing";
-	public static final String TABLE_NAME_USER = "user";
-	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
-	public static final String COLUMN_NAME_USER_ID = "id";
-	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
-	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
 
 	public void onBackPressed() {
 
@@ -84,7 +72,8 @@ public class adminenter extends Activity {
 		mDataProvider.setUserInfo(MobileNumberString, firstname12String,
 				lastname12String);
 		// mDataProvider.setUserInfo("124","jljf","ldl");
-		mDataProvider.getUserList();
+		// TODO: why the return value is not stored?
+		mDataProvider.getUsers();
 		Toast.makeText(getBaseContext(), "User Details is put to Database",
 				Toast.LENGTH_SHORT).show();
 

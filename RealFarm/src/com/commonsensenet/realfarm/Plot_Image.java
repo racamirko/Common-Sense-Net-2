@@ -23,20 +23,38 @@ import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.Plot;
-import com.commonsensenet.realfarm.model.User;
 
 public class Plot_Image extends Activity {
-	/** View where the items are displayed. */
+	private final Context context = this;
 
-	protected RealFarmProvider mDataProvider;
-
-	private ListView mainListView;
 	private ArrayAdapter<String> listAdapter;
-	public User ReadUser = null;
-	public int Position; // Has copy of mainlistview position
+	private ListView mainListView;
+	private RealFarmProvider mDataProvider;
 
-	final Context context = this;
-	String name;
+	public void ListViewSettings() {
+
+		mainListView = (ListView) findViewById(R.id.mainListView);
+
+		mainListView.setItemsCanFocus(true);
+		String[] planets = new String[] {}; // Sets parameters for list view
+		ArrayList<String> planetList = new ArrayList<String>();
+		planetList.addAll(Arrays.asList(planets));
+		listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,
+				planetList);
+		mainListView.setAdapter(listAdapter);
+
+		// gets the users from the database.
+		// List<PlotNew> userList = mDataProvider.getAllPlotList();
+		List<Plot> plotList = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0); // added with audio integration
+
+		// adds the plot into the list adapter.
+		for (int x = 0; x < plotList.size(); x++) {
+			listAdapter.add("Plot id:  " + plotList.get(x).getPlotId() + " "
+					+ "Soil type:  " + plotList.get(x).getSoilType());
+
+		}
+	}
 
 	public void onBackPressed() {
 
@@ -52,8 +70,9 @@ public class Plot_Image extends Activity {
 		int no_of_plots;
 		mDataProvider = RealFarmProvider.getInstance(context); // Working
 
-	//	no_of_plots = mDataProvider.getAllPlotList().size();
-		no_of_plots = mDataProvider.getAllPlotListByUserDeleteFlag(Global.userId,0).size();                                     //added with audio integration
+		// no_of_plots = mDataProvider.getAllPlotList().size();
+		no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0).size(); // added with audio integration
 		String no_of_plots_str = String.valueOf(no_of_plots);
 
 		ListViewSettings();
@@ -128,30 +147,5 @@ public class Plot_Image extends Activity {
 				});
 
 	} // End of oncreate()
-
-	public void ListViewSettings() {
-
-		mainListView = (ListView) findViewById(R.id.mainListView);
-
-		mainListView.setItemsCanFocus(true);
-		String[] planets = new String[] {}; // Sets parameters for list view
-		ArrayList<String> planetList = new ArrayList<String>();
-		planetList.addAll(Arrays.asList(planets));
-		listAdapter = new ArrayAdapter<String>(this, R.layout.simplerow,
-				planetList);
-		mainListView.setAdapter(listAdapter);
-
-		// gets the users from the database.
-		//List<PlotNew> userList = mDataProvider.getAllPlotList();
-		List<Plot>  plotList=mDataProvider.
-		getAllPlotListByUserDeleteFlag(Global.userId,0);                                     //added with audio integration
-
-		// adds the plot into the list adapter.
-		for (int x = 0; x < plotList.size(); x++) {
-			listAdapter.add("Plot id:  " + plotList.get(x).getPlotId() + " "
-					+ "Soil type:  " + plotList.get(x).getSoilType());
-
-		}
-	}
 
 }

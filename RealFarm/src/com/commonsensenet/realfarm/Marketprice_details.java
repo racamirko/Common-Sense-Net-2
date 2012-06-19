@@ -1,10 +1,7 @@
 package com.commonsensenet.realfarm;
 
-import java.util.List;
-
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
@@ -16,21 +13,22 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListener;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.User;
-import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Marketprice_details extends HelpEnabledActivity implements
 		OnDataChangeListener {
 
-	protected RealFarmProvider mDataProvider;
-	public User ReadUser = null;
-	public int Position; // Has copy of mainlistview position
+	private int[] arr = new int[2];
+	private final Context context = this;
+	private ImageView img_1;
+	private ImageView img_2;
+	private RealFarmProvider mDataProvider;
 	private int mpvalue, wfvalue;
+	private TextView text_1;
+	private TextView text_2;
+	private TextView text_4;
+	private TextView text_5;
 	private String unit = "Rs";
-	protected List<WeatherForecast> Wftodaydata;
-	protected int wfsize;
-	final Context context = this;
 
 	public void onBackPressed() {
 
@@ -46,15 +44,6 @@ public class Marketprice_details extends HelpEnabledActivity implements
 		SoundQueue sq = SoundQueue.getInstance(); // audio integration
 		sq.stop();
 	}
-
-	TextView text_1;
-	TextView text_2;
-	TextView text_4;
-	TextView text_5;
-	ImageView img_1;
-	ImageView img_2;
-	int[] arr = new int[2];
-	int i = 0;
 
 	public void onCreate(Bundle savedInstanceState) {
 		System.out.println("WF details entered");

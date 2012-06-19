@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.content.Context;
 import android.content.Intent;
-import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -17,7 +16,6 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListener;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
@@ -27,19 +25,13 @@ public class WF_details extends HelpEnabledActivity implements
 	private final Context context = this;
 	private ImageView img_1;
 	private ImageView img_2;
-	/** View where the items are displayed. */
-
-	protected RealFarmProvider mDataProvider;
-	public int Position; // Has copy of mainlistview position
-	public User ReadUser = null;
-
+	private RealFarmProvider mDataProvider;
 	private TextView text_1;
 	private TextView text_2;
 	private TextView text_4;
 	private TextView text_5;
 	private String unit = "¡C";
-	protected int wfsize;
-	protected List<WeatherForecast> Wftodaydata;
+	private List<WeatherForecast> Wftodaydata;
 	private int wfvalue;
 
 	public void onBackPressed() {
@@ -118,21 +110,19 @@ public class WF_details extends HelpEnabledActivity implements
 		wf5.setOnLongClickListener(this);
 		// fetch data from DB
 
-		Wftodaydata = mDataProvider.getWFData();
-		// Log.d("WFsize ","wfsize_str");
-		wfsize = mDataProvider.getWFData().size() - 1;
+		Wftodaydata = mDataProvider.getWeatherForecasts();
 
 		Log.d("WFsize ", "wfsize_str");
 
-		int wfvalue = Wftodaydata.get(mDataProvider.getWFData().size() - 1)
-				.getvalue();
+		int wfvalue = Wftodaydata.get(
+				mDataProvider.getWeatherForecasts().size() - 1).getvalue();
 
-		String wftype = Wftodaydata.get(mDataProvider.getWFData().size() - 1)
-				.gettype();
-		int wfvalue1 = Wftodaydata.get(mDataProvider.getWFData().size() - 1)
-				.getvalue1();
-		String wftype1 = Wftodaydata.get(mDataProvider.getWFData().size() - 1)
-				.gettype1();
+		String wftype = Wftodaydata.get(
+				mDataProvider.getWeatherForecasts().size() - 1).gettype();
+		int wfvalue1 = Wftodaydata.get(
+				mDataProvider.getWeatherForecasts().size() - 1).getvalue1();
+		String wftype1 = Wftodaydata.get(
+				mDataProvider.getWeatherForecasts().size() - 1).gettype1();
 		Log.d("WFsize after", " wfsize");
 
 		System.out.println("changing layout of WF");

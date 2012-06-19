@@ -183,8 +183,8 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 					String adminflag = separated[8];
 					int admin_flag = new Integer(adminflag);
 
-					mDataProvider.getWFData();
-					int wf_size = mDataProvider.getWFData().size() + 1;
+					mDataProvider.getWeatherForecasts();
+					int wf_size = mDataProvider.getWeatherForecasts().size() + 1;
 					mDataProvider.setWFData(wf_size, separated[2], wf_val,
 							type1, separated[5], wf_val1, type2, admin_flag); // int
 																				// WF_ID,
@@ -204,7 +204,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 																				// WF_adminflag)
 
 					Log.d("inserted to DB ", "inserrted data");
-					mDataProvider.getWFData();
+					mDataProvider.getWeatherForecasts();
 					Log.d("inserted to DB ", "after inserting data");
 				}
 
@@ -270,7 +270,8 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 
 						mDataProvider.setUserInfo(separated[5], separated[3],
 								separated[4]);
-						mDataProvider.getUserList();
+						// TODO: why the return value is not stored?
+						mDataProvider.getUsers();
 
 						System.out.println("User details is put to database");
 						// mDataProvider.setUserInfo(separated[5] ,separated[3],

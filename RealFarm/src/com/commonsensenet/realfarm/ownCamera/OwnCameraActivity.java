@@ -9,9 +9,6 @@ import java.util.Calendar;
 import java.util.Date;
 
 import android.app.Activity;
-import android.app.DatePickerDialog;
-import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -29,15 +26,11 @@ import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.FrameLayout;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.TimePicker;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.My_settings_plot_details;
-import  com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.R;
 
 public class OwnCameraActivity extends Activity implements
 		SurfaceHolder.Callback {
@@ -54,10 +47,6 @@ public class OwnCameraActivity extends Activity implements
 	private int hours, minutes;
 	private TextView displayDate;
 	private TextView displayTime;
-	private Button dateBtn;
-	private Button timeBtn;
-	private Dialog datedlg;
-	private Dialog timedlg;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -67,7 +56,6 @@ public class OwnCameraActivity extends Activity implements
 		displayDate = (TextView) findViewById(R.id.fillDate);
 		displayTime = (TextView) findViewById(R.id.fillTime);
 
-	
 		setCurrentDateOnView();
 
 		// create an instance of camera
@@ -183,13 +171,6 @@ public class OwnCameraActivity extends Activity implements
 		// displayTime.setText(new
 		// StringBuilder().append(hours).append(":").append(minutes));
 
-	}
-
-	private static String pad(int c) {
-		if (c >= 10)
-			return String.valueOf(c);
-		else
-			return "0" + String.valueOf(c);
 	}
 
 	/** send raw image to view picture activity, image will be saved there */

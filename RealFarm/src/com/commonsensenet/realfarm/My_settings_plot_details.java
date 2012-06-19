@@ -1,15 +1,12 @@
 package com.commonsensenet.realfarm;
 
 import android.app.Dialog;
-import android.content.ContentValues;
 import android.content.Context;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
@@ -23,27 +20,14 @@ import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class My_settings_plot_details extends HelpEnabledActivity {
-	// MediaPlayer mp = null;
-	ContentValues User_Details = new ContentValues();
-	ContentValues users = new ContentValues();
 
-	final My_settings_plot_details parentReference = this; // Audio integration
-
-	public int Click_Count = 0;
-	public Button btn_write, btn_read;
-	public EditText et_write, et_read, et_fileName1, et_fileName2,
-			et_writtenText;
-	String FirstName, LastName, MobileNumber;
-	SQLiteDatabase db;
-	long dbreturn;
-	public RealFarmProvider mDataProvider;
-	int tmp;
-	String PlotImage = "0";
-	String SoilType = "0", MainCrop = "0";
-	public int SeedTypeId = 0;
-
-	final Context context = this;
-	int Setting_info = 1, Home = 2;
+	private final Context context = this;	
+	
+	private RealFarmProvider mDataProvider;
+	private final My_settings_plot_details parentReference = this;
+	private String PlotImage = "0";
+	private int SeedTypeId = 0;
+	private String SoilType = "0", MainCrop = "0";
 
 	public void onBackPressed() {
 
@@ -98,7 +82,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 		Button plotcrop = (Button) findViewById(R.id.home_btn_crop_plot);
 		Button plotsoil = (Button) findViewById(R.id.home_btn_soil_plot);
 		Button plotok = (Button) findViewById(R.id.button_ok);
-		Button plotcancel = (Button) findViewById(R.id.button_cancel);
+		// Button plotcancel = (Button) findViewById(R.id.button_cancel);
 
 		((Button) findViewById(R.id.home_btn_list_plot))
 				.setOnLongClickListener(parentReference); // Audio integration
@@ -385,7 +369,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 					My_settings_plot_details.this.finish();
 
 					PutPlotToDatabase();
-					mDataProvider.getAllPlotList();
+					mDataProvider.getPlots();
 
 				} else
 					initmissingval();
@@ -450,34 +434,6 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 		 * });
 		 */
 
-	}
-
-	public void PutPlotToDatabase() {
-		// System.out.println("User data is put to database");
-
-		// Global.plotId++;
-		// Global.userId++;
-
-		String plotImage12 = PlotImage;
-		String SoilType12 = SoilType;
-		String MainCrop12 = MainCrop;
-
-		mDataProvider.setPlotNew(SeedTypeId, 111, 222, plotImage12, SoilType12,
-				0, 0); // added with audio integration
-
-		// This has to be uccommented to enter plot details into database
-		Toast.makeText(getBaseContext(),
-				"Plot Details is put to Database" + plotImage12 + SoilType12,
-				Toast.LENGTH_SHORT).show();
-	}
-
-	// @Override
-	protected void initmissingval() {
-		playAudio(R.raw.missinginfo);
-	}
-
-	protected void stopaudio() {
-		SoundQueue.getInstance().stop();
 	}
 
 	@Override
@@ -575,5 +531,24 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 		}
 
 		return true;
+	}
+
+	public void PutPlotToDatabase() {
+		// System.out.println("User data is put to database");
+
+		// Global.plotId++;
+		// Global.userId++;
+
+		String plotImage12 = PlotImage;
+		String SoilType12 = SoilType;
+		// String MainCrop12 = MainCrop;
+
+		mDataProvider.setPlotNew(SeedTypeId, 111, 222, plotImage12, SoilType12,
+				0, 0); // added with audio integration
+
+		// This has to be uccommented to enter plot details into database
+		Toast.makeText(getBaseContext(),
+				"Plot Details is put to Database" + plotImage12 + SoilType12,
+				Toast.LENGTH_SHORT).show();
 	}
 }

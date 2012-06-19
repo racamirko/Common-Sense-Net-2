@@ -9,13 +9,18 @@ import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.User;
 
 public class AggregateDataFilter {
-	protected MessageType typeFilter;
-	protected Plot plot;
-	protected Seed seed;
-	protected User user;
-
 	protected DateFilterModifier dateMod;
 	protected Date dateValue;
+	protected Plot plot;
+	protected Seed seed;
+	protected MessageType typeFilter;
+	protected User user;
+
+	public AggregateDataFilter setDate(Date date, DateFilterModifier dateMod) {
+		this.dateValue = date;
+		this.dateMod = dateMod;
+		return this;
+	}
 
 	public AggregateDataFilter setMessageType(MessageType mesType) {
 		typeFilter = mesType;
@@ -34,12 +39,6 @@ public class AggregateDataFilter {
 
 	public AggregateDataFilter setUser(User user) {
 		this.user = user;
-		return this;
-	}
-
-	public AggregateDataFilter setDate(Date date, DateFilterModifier dateMod) {
-		this.dateValue = date;
-		this.dateMod = dateMod;
 		return this;
 	}
 

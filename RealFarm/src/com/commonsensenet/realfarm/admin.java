@@ -11,10 +11,10 @@ import android.widget.Toast;
 
 public class admin extends Activity {
 
-	public EditText password;
-	public Button btnSubmit;
-	public String pwd = "a";
-	public String EnterPwd;
+	private EditText password;
+	private Button btnSubmit;
+	private String pwd = "a";
+	private String EnterPwd;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -22,7 +22,6 @@ public class admin extends Activity {
 		setContentView(R.layout.admin);
 
 		addListenerOnButton();
-
 	}
 
 	public void addListenerOnButton() {
@@ -47,10 +46,8 @@ public class admin extends Activity {
 					Toast.makeText(admin.this, "Enter correct password",
 							Toast.LENGTH_SHORT).show();
 				}
-
 			}
 
 		});
-
 	}
 }

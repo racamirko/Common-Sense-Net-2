@@ -36,13 +36,11 @@ public class Settings extends Activity {
 	private boolean flagNewSim = false;
 	private ImageButton ib;
 	private RealFarmProvider mDataProvider;
+	private EditText MobileNumber, firstname12, lastname12;
 	private String origFirstname;
 	private String origLastname;
 	private int plotNumber = 0;
-	// private TelephonyManager telephonyManager;
 	private int userId;
-
-	EditText MobileNumber, firstname12, lastname12; // Prakruthi
 
 	private void addButton(LinearLayout plotLayout, int plotID) {
 		Button b = new Button(this);
@@ -369,7 +367,7 @@ public class Settings extends Activity {
 				.getUserId();
 
 		// get plot list from db
-		List<Plot> poly = mDataProvider.getAllPlotListByUserId(userId);
+		List<Plot> poly = mDataProvider.getPlotsByUserId(userId);
 
 		plotNumber = poly.size();
 
@@ -428,7 +426,8 @@ public class Settings extends Activity {
 
 		mDataProvider.setUserInfo(MobileNumberString, firstname12String,
 				lastname12String);
-		mDataProvider.getUserList();
+		// TODO: why the return value is not stored?
+		mDataProvider.getUsers();
 		Toast.makeText(getBaseContext(), "User Details is put to Database",
 				Toast.LENGTH_SHORT).show();
 

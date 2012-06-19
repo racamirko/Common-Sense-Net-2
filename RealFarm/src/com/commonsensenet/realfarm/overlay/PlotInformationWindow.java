@@ -107,7 +107,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		mUserId = userId;
 
 		// loads the actions from the database.
-		mActionList = mDataProvider.getActionNamesList();
+		mActionList = mDataProvider.getActionNames();
 		mSeeds = new HashMap<Integer, Seed>();
 
 		// cancel button
@@ -252,7 +252,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 					// all seeds can be used
 					if (actionName.compareTo("Sow") == 0) {
 						List<Seed> allSeedList = new ArrayList<Seed>();
-						allSeedList = mDataProvider.getSeedsList();
+						allSeedList = mDataProvider.getSeeds();
 
 						// A new growing id will be created with one seed id
 						for (int i = 0; i < allSeedList.size(); i++) {
@@ -491,7 +491,7 @@ public class PlotInformationWindow extends CustomPopupWindow {
 		// removes all visual elements
 		mItemsPanel.removeAllViews();
 
-		List<Action> actionList = mDataProvider.getActions(Global.userId,
+		List<Action> actionList = mDataProvider.getActionsByUserIdAndPlotId(Global.userId,
 				Global.plotId);
 		// mDataProvider.getActionsByUserId(mUserId);
 

@@ -20,5 +20,4 @@ public class AggregateRecommendation extends Recommendation {
 	public Vector<Integer> getUserIds() {
 		return mUserIds;
 	}
-
 }

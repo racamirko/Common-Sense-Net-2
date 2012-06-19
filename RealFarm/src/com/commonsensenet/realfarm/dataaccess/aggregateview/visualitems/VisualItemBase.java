@@ -12,28 +12,30 @@ import android.view.View.OnClickListener;
 /**
  * VisualItemBase
  * 
- * TODO If no common methods emerge, eliminate this class. Usage of VisualItem interface is encouraged throughout the code.
+ * TODO If no common methods emerge, eliminate this class. Usage of VisualItem
+ * interface is encouraged throughout the code.
  * 
  * @author Mirko Raca <mirko.raca@epfl.ch>
- *
+ * 
  */
 abstract public class VisualItemBase implements VisualItem, OnClickListener {
 	private String logTag = "VisualItemBase";
 	protected LayoutInflater inflater;
 	protected RealFarmProvider dataProvider;
 	protected Context ctx;
-	
-	public VisualItemBase(Context ctx,RealFarmProvider dataProvider){
+
+	public VisualItemBase(Context ctx, RealFarmProvider dataProvider) {
 		this.dataProvider = dataProvider;
 		this.ctx = ctx;
 	}
-	
-	public View populateView(View view, ViewGroup parent, LayoutInflater inflater){
+
+	public View populateView(View view, ViewGroup parent,
+			LayoutInflater inflater) {
 		Log.e(logTag, "populateView - generic visual item");
 		throw new UnsupportedOperationException();
 	}
 
-	public Object getDataItem(){
+	public Object getDataItem() {
 		Log.e(logTag, "getDataItem - generic visual item");
 		throw new UnsupportedOperationException();
 	}
@@ -42,10 +44,10 @@ abstract public class VisualItemBase implements VisualItem, OnClickListener {
 		Log.e(logTag, "onClick - generic visual item");
 		throw new UnsupportedOperationException();
 	}
-	
-	public int getLayoutTag(){
+
+	public int getLayoutTag() {
 		Log.e(logTag, "getLayoutTag - generic visual item");
 		throw new UnsupportedOperationException();
 	}
-	
+
 }

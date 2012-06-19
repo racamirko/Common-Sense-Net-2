@@ -20,11 +20,10 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public abstract class HelpEnabledActivity extends Activity implements
 		OnLongClickListener, OnTouchListener {
-	private class HelpAnimation extends AlphaAnimation {
+	public class HelpAnimation extends AlphaAnimation {
 		protected View mViewAnimated; // animation icon
 		protected View mViewAssociated; // associated view on which we're
 										// dispalying the help
-
 		public HelpAnimation(float fromAlpha, float toAlpha) {
 			super(fromAlpha, toAlpha);
 
@@ -66,6 +65,18 @@ public abstract class HelpEnabledActivity extends Activity implements
 			this.mViewAssociated = mViewAssociated;
 		}
 
+	}
+
+	protected void stopaudio() {
+		SoundQueue.getInstance().stop();
+	}
+
+	protected void initmissingval() {
+		playAudio(R.raw.missinginfo);
+	}
+
+	protected void okaudio() {
+		playAudio(R.raw.ok);
 	}
 
 	private static final String LOG_TAG = "HelpEnabledActivity";

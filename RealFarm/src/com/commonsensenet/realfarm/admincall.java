@@ -21,15 +21,11 @@ import com.commonsensenet.realfarm.model.User;
 
 public class admincall extends Activity {
 
-	protected RealFarmProvider mDataProvider;
-
-	private ListView mainListView;
-	private ArrayAdapter<String> listAdapter;
-	public User ReadUser = null;
-	public int Position; // Has copy of mainlistview position
-	public int userId;
-
 	private final Context context = this;
+	private ArrayAdapter<String> listAdapter;
+	private ListView mainListView;
+	private RealFarmProvider mDataProvider;
+	private int Position;
 
 	public void onBackPressed() {
 
@@ -66,7 +62,7 @@ public class admincall extends Activity {
 			}
 		});
 
-		final List<User> userList = mDataProvider.getUserList(); // Working
+		// final List<User> userList = mDataProvider.getUserList(); // Working
 
 		mainListView
 				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -82,7 +78,7 @@ public class admincall extends Activity {
 
 						System.out.println(Position);
 						List<User> userListNoDelete = mDataProvider
-								.getuserDelete(0); // Get the users whose delete
+								.getUserDelete(0); // Get the users whose delete
 													// flag=0
 
 						Global.userId = userListNoDelete.get(position)
@@ -93,19 +89,18 @@ public class admincall extends Activity {
 						System.out.println("Global userId in admincall");
 						System.out.println(Global.userId);
 
-						ReadUser = mDataProvider.getUserById(userListNoDelete
-								.get(position).getUserId()); // Get the user
-																// name who is
-																// selected
-						// mDataProvider.getUserList();
+						// gets the selected user.
+						// ReadUser = mDataProvider.getUserById(userListNoDelete
+						// .get(position).getUserId());
 
-						mDataProvider.getuserDelete(0);
+						// mDataProvider.getuserDelete(0);
 
 						// Intent AdmincallToHome = new Intent(admincall.this,
 						// Homescreen.class); // This works When user is pressed
 						// it goes to homescreen
 						// startActivity(AdmincallToHome);
 
+						// TODO: finish this method
 						admincall.this.finish();
 
 					}
@@ -123,7 +118,7 @@ public class admincall extends Activity {
 						// ReadUser= mDataProvider.getUserById(position+1);
 						System.out.println(position);
 						List<User> userListNoDelete = mDataProvider
-								.getuserDelete(0); // Get the users whose delete
+								.getUserDelete(0); // Get the users whose delete
 													// flag=0
 
 						Global.userId = userListNoDelete.get(position)
@@ -156,16 +151,8 @@ public class admincall extends Activity {
 
 												mDataProvider
 														.setDeleteFlagForUser(Global.userId);
-												mDataProvider.getUserList(); // User
-																				// is
-																				// read
-																				// to
-																				// check
-																				// if
-																				// delete
-																				// flag
-																				// is
-																				// set
+												// TODO: why the return value is not stored?
+												mDataProvider.getUsers();
 
 												// mDataProvider.getuserDelete(0);
 
@@ -214,7 +201,7 @@ public class admincall extends Activity {
 
 		// gets the users from the database.
 		// List<User> userList = mDataProvider.getUserList();
-		List<User> userList = mDataProvider.getuserDelete(0);
+		List<User> userList = mDataProvider.getUserDelete(0);
 		// adds the users into the list adapter.
 		for (int x = 0; x < userList.size(); x++) {
 			listAdapter.add(userList.get(x).getFirstName() + " "

@@ -23,11 +23,10 @@ import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class VIAggrRecommendation extends VisualItemBase {
-	private String logTag = "VIAggrRecommendation";
 	private static final int layoutTag = 2;
-
-	protected AggregateRecommendation aggrRec;
-	protected boolean liked; // TODO should be moved to the data level
+	private AggregateRecommendation aggrRec;
+	private boolean liked; // TODO should be moved to the data level
+	private String logTag = "VIAggrRecommendation";
 
 	public VIAggrRecommendation(AggregateRecommendation aggrRec, Context ctx,
 			RealFarmProvider dataProvider) {
@@ -37,43 +36,13 @@ public class VIAggrRecommendation extends VisualItemBase {
 	}
 
 	@Override
-	public View populateView(View view, ViewGroup parent,
-			LayoutInflater inflater) {
-		Log.d(logTag, "populateView");
-		View element;
-		if (view != null && (Integer) view.getTag() == layoutTag)
-			element = view;
-		else
-			element = inflater.inflate(R.layout.vi_aggr_recommendation, parent,
-					false);
-
-		element.setTag(new Integer(layoutTag));
-		// populate elements
-		TextView lblCountPeople = (TextView) element
-				.findViewById(R.id.lbl_count_people);
-		ImageView imgAction = (ImageView) element.findViewById(R.id.img_action);
-		ImageView imgPlant = (ImageView) element.findViewById(R.id.img_plant);
-		ImageButton btnLike = (ImageButton) element
-				.findViewById(R.id.aggr_item_btn_like);
-		Button btnMain = (Button) element.findViewById(R.id.btn_main_click);
-
-		Seed seed = dataProvider.getSeedById(aggrRec.getSeed());
-
-		lblCountPeople.setText(String.valueOf(aggrRec.getUserIds().size())
-				+ "  ");
-		imgAction.setImageResource(dataProvider.getActionNameById(
-				aggrRec.getAction()).getRes());
-		imgPlant.setImageResource(seed.getResBg());
-
-		btnLike.setOnClickListener(this);
-		btnMain.setOnClickListener(this);
-
-		return element;
+	public Object getDataItem() {
+		return aggrRec;
 	}
 
 	@Override
-	public Object getDataItem() {
-		return aggrRec;
+	public int getLayoutTag() {
+		return layoutTag;
 	}
 
 	@Override
@@ -150,11 +119,6 @@ public class VIAggrRecommendation extends VisualItemBase {
 		}
 	}
 
-	@Override
-	public int getLayoutTag() {
-		return layoutTag;
-	}
-
 	public void playAudio() {
 		Toast.makeText(
 				ctx,
@@ -184,6 +148,41 @@ public class VIAggrRecommendation extends VisualItemBase {
 		sq.addToQueue(R.raw.msg_user);
 		sq.addToQueue(R.raw.msg_action);
 		sq.play();
+	}
+
+	@Override
+	public View populateView(View view, ViewGroup parent,
+			LayoutInflater inflater) {
+		Log.d(logTag, "populateView");
+		View element;
+		if (view != null && (Integer) view.getTag() == layoutTag)
+			element = view;
+		else
+			element = inflater.inflate(R.layout.vi_aggr_recommendation, parent,
+					false);
+
+		element.setTag(new Integer(layoutTag));
+		// populate elements
+		TextView lblCountPeople = (TextView) element
+				.findViewById(R.id.lbl_count_people);
+		ImageView imgAction = (ImageView) element.findViewById(R.id.img_action);
+		ImageView imgPlant = (ImageView) element.findViewById(R.id.img_plant);
+		ImageButton btnLike = (ImageButton) element
+				.findViewById(R.id.aggr_item_btn_like);
+		Button btnMain = (Button) element.findViewById(R.id.btn_main_click);
+
+		Seed seed = dataProvider.getSeedById(aggrRec.getSeed());
+
+		lblCountPeople.setText(String.valueOf(aggrRec.getUserIds().size())
+				+ "  ");
+		imgAction.setImageResource(dataProvider.getActionNameById(
+				aggrRec.getAction()).getRes());
+		imgPlant.setImageResource(seed.getResBg());
+
+		btnLike.setOnClickListener(this);
+		btnMain.setOnClickListener(this);
+
+		return element;
 	}
 
 }
