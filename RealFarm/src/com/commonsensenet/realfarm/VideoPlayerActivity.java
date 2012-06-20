@@ -49,7 +49,12 @@ public class VideoPlayerActivity extends Activity {
 		mVideoView.setVideoURI(Uri.parse(videoPath));
 
 		// creates a new MediaController
-		MediaController mediaController = new MediaController(this);
+		MediaController mediaController = new MediaController(this) {
+			@Override
+			public void show() {
+				super.show(0);
+			}
+		};
 		mediaController.setAnchorView(mVideoView);
 
 		// sets the media controller.
@@ -57,6 +62,8 @@ public class VideoPlayerActivity extends Activity {
 
 		// plays the video.
 		mVideoView.start();
+		// makes it always visible.
+		// mediaController.show(0);
 
 		// listens to the back button event.
 		final Button video_back = (Button) findViewById(R.id.button_videoplayer_back);

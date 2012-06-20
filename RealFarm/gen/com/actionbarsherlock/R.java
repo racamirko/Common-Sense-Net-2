@@ -1853,26 +1853,27 @@ containing a value of this type.
         public static final int actions=0x7f0b00c8;
         public static final int app_name=0x7f0b00b8;
         public static final int btn_submit=0x7f0b00ca;
-        public static final int button_add_plot=0x7f0b00ce;
-        public static final int button_cancel=0x7f0b00cd;
+        public static final int button_add_plot=0x7f0b00cf;
+        public static final int button_back_to_videos=0x7f0b00cd;
+        public static final int button_cancel=0x7f0b00ce;
         /**  orbolanos: new version. 
          */
         public static final int button_ok=0x7f0b00cc;
-        public static final int dateLastWeek=0x7f0b00da;
-        public static final int dateMoreThanAWeek=0x7f0b00db;
-        public static final int dateToday=0x7f0b00d8;
-        public static final int dateYesterday=0x7f0b00d9;
-        public static final int date_last_week=0x7f0b00d2;
-        public static final int date_more_than_a_week=0x7f0b00d3;
-        public static final int date_today=0x7f0b00d0;
-        public static final int date_yesterday=0x7f0b00d1;
+        public static final int dateLastWeek=0x7f0b00db;
+        public static final int dateMoreThanAWeek=0x7f0b00dc;
+        public static final int dateToday=0x7f0b00d9;
+        public static final int dateYesterday=0x7f0b00da;
+        public static final int date_last_week=0x7f0b00d3;
+        public static final int date_more_than_a_week=0x7f0b00d4;
+        public static final int date_today=0x7f0b00d1;
+        public static final int date_yesterday=0x7f0b00d2;
         public static final int editAction=0x7f0b00c6;
         public static final int editPoint=0x7f0b00c5;
         public static final int exitMsg=0x7f0b00c3;
         public static final int exitTitle=0x7f0b00c4;
         public static final int firstname=0x7f0b00bb;
         public static final int friends=0x7f0b00c0;
-        public static final int hello=0x7f0b00d4;
+        public static final int hello=0x7f0b00d5;
         public static final int k_110=0x7f0b004c;
         public static final int k_130=0x7f0b004b;
         public static final int k_1_bag=0x7f0b009e;
@@ -2069,7 +2070,7 @@ containing a value of this type.
         public static final int k_yes=0x7f0b0081;
         public static final int k_yesterday=0x7f0b004e;
         public static final int k_your_crop=0x7f0b000b;
-        public static final int label_arrow=0x7f0b00cf;
+        public static final int label_arrow=0x7f0b00d0;
         public static final int lastname=0x7f0b00bc;
         public static final int lblPassword=0x7f0b00c9;
         public static final int map=0x7f0b00bd;
@@ -2077,13 +2078,13 @@ containing a value of this type.
         public static final int menu_help=0x7f0b00ba;
         public static final int menu_settings=0x7f0b00b9;
         public static final int mobilenumber=0x7f0b00cb;
-        public static final int mylocation=0x7f0b00d6;
+        public static final int mylocation=0x7f0b00d7;
         public static final int news=0x7f0b00bf;
         public static final int plot=0x7f0b00be;
         public static final int recommendation=0x7f0b00c2;
         public static final int seed=0x7f0b00c7;
-        public static final int village=0x7f0b00d7;
-        public static final int you=0x7f0b00d5;
+        public static final int village=0x7f0b00d8;
+        public static final int you=0x7f0b00d6;
     }
     public static final class style {
         public static final int Animations=0x7f0c0058;
