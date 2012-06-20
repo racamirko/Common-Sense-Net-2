@@ -1,14 +1,11 @@
 package com.commonsensenet.realfarm.actions;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.view.View.OnTouchListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TableRow;
@@ -20,19 +17,22 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_fertilizing extends HelpEnabledActivity implements
-		OnLongClickListener, OnTouchListener {
+		OnLongClickListener {
+	/** Database provider used to persist the data. */
 	private RealFarmProvider mDataProvider;
-	private final action_fertilizing parentReference = this;
+	/** Reference to the current instance. */
+	private final action_fertilizing mParentReference = this;
 	private String units_fert = "0", fert_var_sel = "0", day_fert_sel = "0",
 			day_fert_sel_1;
 	private int fert_no, day_fert_int;
 	private String fert_no_sel, months_fert = "0";
-	private Context context = this;
 
 	public void onBackPressed() {
+
+		// stops all active audio.
+		stopAudio();
 
 		if (Global.writeToSD == true) {
 			String logtime = getCurrentTime();
@@ -47,15 +47,13 @@ public class action_fertilizing extends HelpEnabledActivity implements
 		startActivity(adminintent);
 		action_fertilizing.this.finish();
 
-		SoundQueue sq = SoundQueue.getInstance();
-		sq.stop();
 	}
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		System.out.println("Plant details entered");
-		mDataProvider = RealFarmProvider.getInstance(context);
+		mDataProvider = RealFarmProvider.getInstance(this);
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fertilizing_dialog);
 		System.out.println("plant done");
@@ -90,7 +88,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 		item4 = (Button) findViewById(R.id.home_btn_units_no_fert);
 		item5 = (Button) findViewById(R.id.home_btn_month_fert);
 
-		item1.setOnLongClickListener(this); // Integration
+		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
@@ -126,12 +124,12 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				fert3 = (Button) dlg.findViewById(R.id.home_var_fert_3);
 
 				((Button) dlg.findViewById(R.id.home_var_fert_1))
-						.setOnLongClickListener(parentReference); // audio
+						.setOnLongClickListener(mParentReference); // audio
 																	// integration
 				((Button) dlg.findViewById(R.id.home_var_fert_2))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_var_fert_3))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 
 				fert1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -248,12 +246,12 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
 
 				((Button) dlg.findViewById(R.id.home_btn_units_1))
-						.setOnLongClickListener(parentReference); // audio
+						.setOnLongClickListener(mParentReference); // audio
 																	// integration
 				((Button) dlg.findViewById(R.id.home_btn_units_2))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_btn_units_3))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 
 				unit1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -279,7 +277,6 @@ public class action_fertilizing extends HelpEnabledActivity implements
 											+ " \r\n");
 
 						}
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
 					}
 				});
@@ -330,12 +327,10 @@ public class action_fertilizing extends HelpEnabledActivity implements
 									" Fertilizing " + " in_popup " + " click "
 											+ " units_fertilizer " + units_fert
 											+ " \r\n");
-
 						}
 						dlg.cancel();
 					}
 				});
-
 			}
 		});
 
@@ -374,6 +369,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 						dlg.cancel();
 					}
 				});
+
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
@@ -386,11 +382,9 @@ public class action_fertilizing extends HelpEnabledActivity implements
 							mDataProvider
 									.File_Log_Create("UIlog.txt",
 											"***** user selected cancel on selction of bags for Sowing*********** \r\n");
-
 						}
 					}
 				});
-
 			}
 		});
 
@@ -510,31 +504,31 @@ public class action_fertilizing extends HelpEnabledActivity implements
 						.findViewById(R.id.home_month_12);
 
 				((Button) dlg.findViewById(R.id.home_month_1))
-						.setOnLongClickListener(parentReference); // audio
+						.setOnLongClickListener(mParentReference); // audio
 																	// integration
 				((Button) dlg.findViewById(R.id.home_month_2))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_3))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_4))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_5))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_6))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_7))
-						.setOnLongClickListener(parentReference); // audio
+						.setOnLongClickListener(mParentReference); // audio
 																	// integration
 				((Button) dlg.findViewById(R.id.home_month_8))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_9))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_10))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_11))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 				((Button) dlg.findViewById(R.id.home_month_12))
-						.setOnLongClickListener(parentReference);
+						.setOnLongClickListener(mParentReference);
 
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_fert);
 
@@ -725,7 +719,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 		Button btnNext = (Button) findViewById(R.id.fert_ok);
 		Button cancel = (Button) findViewById(R.id.fert_cancel);
 
-		btnNext.setOnLongClickListener(this); // Integration
+		btnNext.setOnLongClickListener(this);
 		cancel.setOnLongClickListener(this);
 
 		cancel.setOnClickListener(new View.OnClickListener() {
@@ -759,8 +753,6 @@ public class action_fertilizing extends HelpEnabledActivity implements
 
 				}
 
-				// Toast.makeText(action_fertilizing.this, "User enetred " +
-				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
 				int flag1, flag2, flag3;
 				if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
 					flag1 = 1;
@@ -782,9 +774,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 
 				} else {
 					flag1 = 0;
-
 					TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -810,9 +800,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				} else {
 
 					flag2 = 0;
-
 					TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -839,11 +827,8 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				} else {
 
 					flag3 = 0;
-
 					day_fert_sel = day_fert_sel_1 + "." + months_fert;
-
 					TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -875,13 +860,10 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				} else {
 					initmissingval();
 				}
-
 			}
 		});
-
 	}
 
-	// @Override
 	protected void initmissingval() {
 		playAudio(R.raw.missinginfo);
 	}
@@ -966,74 +948,51 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
 						+ " audio " + " longtap " + " help_fertilizer "
 						+ "Audio_played" + " \r\n");
-
 			}
 		}
 
 		if (v.getId() == R.id.home_var_fert_1) { // audio integration
-
 			playAudio(R.raw.fertilizer1);
-
 		}
 
 		if (v.getId() == R.id.home_var_fert_2) {
-
 			playAudio(R.raw.fertilizer2);
-
 		}
 
 		if (v.getId() == R.id.home_var_fert_3) {
-
 			playAudio(R.raw.fertilizer3);
-
 		}
 
 		if (v.getId() == R.id.home_btn_units_1) {
-
 			playAudio(R.raw.bagof10kg);
-
 		}
 
 		if (v.getId() == R.id.home_btn_units_2) {
-
 			playAudio(R.raw.bagof20kg);
-
 		}
 
 		if (v.getId() == R.id.home_btn_units_3) {
-
 			playAudio(R.raw.bagof50kg);
-
 		}
 
 		if (v.getId() == R.id.home_day_1) {
-
 			playAudio(R.raw.twoweeksbefore);
-
 		}
 
 		if (v.getId() == R.id.home_day_2) {
-
 			playAudio(R.raw.oneweekbefore);
-
 		}
 
 		if (v.getId() == R.id.home_day_3) {
-
 			playAudio(R.raw.yesterday);
-
 		}
 
 		if (v.getId() == R.id.home_day_4) {
-
 			playAudio(R.raw.todayonly);
-
 		}
 
 		if (v.getId() == R.id.home_day_5) {
-
 			playAudio(R.raw.tomorrows);
-
 		}
 
 		return true;
@@ -1050,10 +1009,5 @@ public class action_fertilizing extends HelpEnabledActivity implements
 
 	protected void okAudio() {
 		playAudio(R.raw.ok);
-	}
-
-	// TODO: implement
-	public boolean onTouch(View v, MotionEvent event) {
-		return true;
 	}
 }
