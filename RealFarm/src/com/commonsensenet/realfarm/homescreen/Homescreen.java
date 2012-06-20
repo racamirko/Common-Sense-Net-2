@@ -9,6 +9,7 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -16,10 +17,14 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -61,8 +66,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	public static String LOG_TAG = "Homescreen";
 	private final Context mContext = this;
-	private String mSelectedLanguage;
 	private RealFarmProvider mDataProvider;
+	private String mSelectedLanguage;
 
 	private void initActionListener() {
 		((Button) findViewById(R.id.home_btn_advice)).setOnClickListener(this);
@@ -659,80 +664,51 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	protected void selectlang() {
 		Log.d("in Lang selection", "in dialog");
 
-		Global.langFlag = 1;
-		final Dialog dlg = new Dialog(this);
-		dlg.setContentView(R.layout.language_dialog);
-		dlg.setCancelable(true);
-		dlg.setTitle("Please select the language");
-		Log.d("in variety sowing dialog", "in dialog");
-		dlg.show();
+		// dialog used to request the information
+		final Dialog dialog = new Dialog(this);
 
-		final Button lang1 = (Button) dlg.findViewById(R.id.home_lang_1);
-		final Button lang2 = (Button) dlg.findViewById(R.id.home_lang_2);
-		final Button lang3 = (Button) dlg.findViewById(R.id.home_lang_3);
-		final Button lang4 = (Button) dlg.findViewById(R.id.home_lang_4);
-		final Button lang5 = (Button) dlg.findViewById(R.id.home_lang_5);
+		// gets the language list from the resources.
+		Resources res = getResources();
+		String[] languages = res.getStringArray(R.array.array_languages);
 
-		lang1.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				mSelectedLanguage = "Kannada";
+		ListView languageList = new ListView(this);
+		ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				languages);
+		// sets the adapter.
+		languageList.setAdapter(languageAdapter);
+
+		// adds the event listener to detect the language selection.
+		languageList.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				// marks the language as selected.
+				Global.langFlag = 1;
+
+				// stores the selected language.
+				mSelectedLanguage = (String) parent.getAdapter().getItem(
+						position);
+
 				Toast.makeText(Homescreen.this,
 						"The Language selected is " + mSelectedLanguage,
 						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
+
+				// closes the dialog.
+				dialog.dismiss();
 			}
+
 		});
 
-		lang2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				mSelectedLanguage = "Telugu";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + mSelectedLanguage,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
+		// sets the view
+		dialog.setContentView(languageList);
+		// sets the properties of the dialog.
+		dialog.setTitle("Please select your language");
+		dialog.setCancelable(true);
 
-		lang3.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				mSelectedLanguage = "Hindi";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + mSelectedLanguage,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
-		lang4.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				mSelectedLanguage = "Tamil";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + mSelectedLanguage,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
-		lang5.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Log.d("var 1 picked ", "in dialog");
-				// img_1.setMaxWidth(300);
-				mSelectedLanguage = "Malayalam";
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + mSelectedLanguage,
-						Toast.LENGTH_SHORT).show();
-				dlg.cancel();
-			}
-		});
-
+		// displays the dialog.
+		dialog.show();
 	};
 
 	public void writeActionToDatabase() {
