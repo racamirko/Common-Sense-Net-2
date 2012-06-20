@@ -110,8 +110,8 @@ public class My_setting_plot_info extends Activity {
 
 		mPlotsListView
 				.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-					public boolean onItemLongClick(AdapterView<?> parent, View v,
-							int position, long id) {
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View v, int position, long id) {
 						// Start your Activity according to the item just
 						// clicked.
 
