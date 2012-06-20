@@ -3,9 +3,6 @@ package com.commonsensenet.realfarm.ownCamera;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.InputStream;
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-import java.util.Date;
 
 import android.app.Activity;
 import android.content.ContentResolver;
@@ -19,9 +16,7 @@ import android.os.Environment;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.My_settings_plot_details;
@@ -30,50 +25,46 @@ import com.commonsensenet.realfarm.R;
 public class ViewPictureActivity extends Activity {
 
 	public static final int MEDIA_TYPE_IMAGE = 1;
-	protected static final String TAG = "Check_Image";
-	protected Bitmap bMap = null;
+	public static final String LOG_TAG = "Check_Image";
 	private ImageView iView = null;
 	private Uri image_file_uri;
 	private File image_file;
 	private String image_path;
-	private int year, month, day;
-	private TextView displayDate;
-	private TextView displayTime;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		// TODO Auto-generated method stub
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preview);
-		Log.d(TAG, "Entered new acivity");
+		Log.d(LOG_TAG, "Entered new acivity");
 
-	//	displayDate = (TextView) findViewById(R.id.fillDate);
-	//	displayTime = (TextView) findViewById(R.id.fillTime);
+		// displayDate = (TextView) findViewById(R.id.fillDate);
+		// displayTime = (TextView) findViewById(R.id.fillTime);
 
 		// receive image in byte[] passed by OwnCameraActivity
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-			CharSequence date_todisplay = (CharSequence) extras
-					.get("date_selected");
-			CharSequence time_todisplay = (CharSequence) extras
-					.get("time_selected");
-			int[] date = (int[]) extras.get("date");
+			// CharSequence date_todisplay = (CharSequence) extras
+			// .get("date_selected");
+			// CharSequence time_todisplay = (CharSequence) extras
+			// .get("time_selected");
+			// int[] date = (int[]) extras.get("date");
 			// int[] time = (int[]) extras.get("time");
-			day = date[0];
-			month = date[1];
-			year = date[2];
+			// day = date[0];
+			// month = date[1];
+			// year = date[2];
 			// hours = time[0];
 			// minutes = time[1];
 
-		//	displayDate.setText(date_todisplay);
-		//	displayTime.setText(time_todisplay);
+			// displayDate.setText(date_todisplay);
+			// displayTime.setText(time_todisplay);
 			image_file_uri = (Uri) extras.get("image_file_uri");
-			Log.d(TAG, "Picture uri transfered to next activity"
+			Log.d(LOG_TAG, "Picture uri transfered to next activity"
 					+ image_file_uri);
 		} else {
 			// setCurrentDateOnView();
-			Log.d(TAG, "No data received");
+			Log.d(LOG_TAG, "No data received");
 		}
 
 		// Add image to the imageview of the layout
@@ -83,7 +74,7 @@ public class ViewPictureActivity extends Activity {
 		InputStream is = null;
 		try {
 			is = c.openInputStream(image_file_uri);
-		
+
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -102,11 +93,11 @@ public class ViewPictureActivity extends Activity {
 		iView.setImageBitmap(Global._rotated);
 
 		// iView.setImageURI(image_file_uri);
-		Log.d(TAG, "Image added to view" + image_file_uri);
+		Log.d(LOG_TAG, "Image added to view" + image_file_uri);
 
 		image_path = image_file_uri.getPath();
 		image_file = new File(image_path);
-		Global.plot_img_path=image_path;
+		Global.plot_img_path = image_path;
 		// Adding listener to the retake button
 		Button retakeButton = (Button) findViewById(R.id.button_retake);
 		retakeButton.setOnClickListener(new View.OnClickListener() {
@@ -119,9 +110,9 @@ public class ViewPictureActivity extends Activity {
 				boolean deleted = image_file.delete();
 
 				if (deleted)
-					Log.d(TAG, "Image file deleted");
+					Log.d(LOG_TAG, "Image file deleted");
 				else
-					Log.d(TAG, "File still in gallery");
+					Log.d(LOG_TAG, "File still in gallery");
 
 				sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri
 						.parse("file://"
@@ -131,7 +122,7 @@ public class ViewPictureActivity extends Activity {
 				Intent intent = new Intent();
 				intent.putExtra("retake", true);
 				setResult(RESULT_OK, intent);
-				Log.d(TAG, "Return to camera.");
+				Log.d(LOG_TAG, "Return to camera.");
 				finish();
 			}
 		});
@@ -164,37 +155,31 @@ public class ViewPictureActivity extends Activity {
 	}
 
 	// display current date
-/*	public void setCurrentDateOnView() {
-
-	displayDate = (TextView) findViewById(R.id.fillDate);
-
-		final Calendar c = Calendar.getInstance();
-		year = c.get(Calendar.YEAR);
-		month = c.get(Calendar.MONTH);
-		day = c.get(Calendar.DAY_OF_MONTH);
-
-		// set current date into textview
-		displayDate.setText(new StringBuilder()
-				// Month is 0 based, just add 1
-				.append(day).append("-").append(month + 1).append("-")
-				.append(year).append(" "));
-
-		// set current time into textview
-
-		displayTime = (TextView) findViewById(R.id.fillTime);
-
-		Date currentDate = new Date();
-		SimpleDateFormat sdf = new SimpleDateFormat("HH:mm");
-		String formattedTime = sdf.format(currentDate);
-		displayTime.setText(formattedTime);
-		// hours = currentDate.getHours();
-		// minutes = currentDate.getMinutes();
-		// displayTime.setText(new
-		// StringBuilder().append(hours).append(":").append(minutes));
-
-	}*/
-
-	// override on back pressed
+	/*
+	 * public void setCurrentDateOnView() {
+	 * 
+	 * displayDate = (TextView) findViewById(R.id.fillDate);
+	 * 
+	 * final Calendar c = Calendar.getInstance(); year = c.get(Calendar.YEAR);
+	 * month = c.get(Calendar.MONTH); day = c.get(Calendar.DAY_OF_MONTH);
+	 * 
+	 * // set current date into textview displayDate.setText(new StringBuilder()
+	 * // Month is 0 based, just add 1 .append(day).append("-").append(month +
+	 * 1).append("-") .append(year).append(" "));
+	 * 
+	 * // set current time into textview
+	 * 
+	 * displayTime = (TextView) findViewById(R.id.fillTime);
+	 * 
+	 * Date currentDate = new Date(); SimpleDateFormat sdf = new
+	 * SimpleDateFormat("HH:mm"); String formattedTime =
+	 * sdf.format(currentDate); displayTime.setText(formattedTime); // hours =
+	 * currentDate.getHours(); // minutes = currentDate.getMinutes(); //
+	 * displayTime.setText(new //
+	 * StringBuilder().append(hours).append(":").append(minutes));
+	 * 
+	 * }
+	 */
 
 	@Override
 	public void onBackPressed() {
@@ -208,7 +193,5 @@ public class ViewPictureActivity extends Activity {
 				My_settings_plot_details.class);
 		startActivity(adminintent123);
 		ViewPictureActivity.this.finish();
-
 	}
-
 }

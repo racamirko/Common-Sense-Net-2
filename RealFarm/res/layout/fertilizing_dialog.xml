@@ -56,13 +56,13 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal" >
 
         <TableRow
             android:id="@+id/var_fert_tr"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@drawable/def_img"
             android:paddingBottom="10dip"
@@ -157,13 +157,13 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal" >
 
         <TableRow
             android:id="@+id/units_fert_tr"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@drawable/def_img"
             android:paddingBottom="10dip"
@@ -297,13 +297,13 @@
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="70dp"
         android:orientation="horizontal" >
 
         <TableRow
             android:id="@+id/day_fert_tr"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:background="@drawable/def_img"
             android:paddingBottom="10dip"
@@ -396,7 +396,7 @@
 
     <LinearLayout
         style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >

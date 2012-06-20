@@ -28,8 +28,8 @@ public abstract class PromptDialog extends AlertDialog.Builder implements
 		input = new EditText(context);
 		setView(input);
 
-		setPositiveButton(R.string.ok, this);
-		setNegativeButton(R.string.cancel, this);
+		setPositiveButton(R.string.button_ok, this);
+		setNegativeButton(R.string.button_cancel, this);
 	}
 
 	/**

@@ -10,18 +10,19 @@ import android.widget.ArrayAdapter;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.Action;
 
-public class PlotItemAdapter extends ArrayAdapter<Plot> {
+public class ActionItemAdapter extends ArrayAdapter<Action> {
+
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
 
 	/**
-	 * Creates a new PlotItemAdapter instance.
+	 * Creates a new ActionItemAdapter instance.
 	 */
-	public PlotItemAdapter(Context context, List<Plot> plots,
+	public ActionItemAdapter(Context context, List<Action> actions,
 			RealFarmProvider dataProvider) {
-		super(context, android.R.layout.simple_list_item_1, plots);
+		super(context, android.R.layout.simple_list_item_1, actions);
 
 		// TODO: this shouldn't be done!!
 		mDataProvider = dataProvider;
@@ -29,19 +30,20 @@ public class PlotItemAdapter extends ArrayAdapter<Plot> {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
-		PlotItemWrapper wrapper = null;
+		ActionItemWrapper wrapper = null;
 		if (row == null) {
 
 			LayoutInflater li = (LayoutInflater) getContext().getSystemService(
 					Context.LAYOUT_INFLATER_SERVICE);
-			row = li.inflate(R.layout.tpl_plot_item, null);
-			wrapper = new PlotItemWrapper(row);
+			row = li.inflate(R.layout.tpl_diary_item, null);
+			wrapper = new ActionItemWrapper(row);
 			row.setTag(wrapper);
 		} else {
-			wrapper = (PlotItemWrapper) row.getTag();
+			wrapper = (ActionItemWrapper) row.getTag();
 		}
 
-		wrapper.populateFrom(this.getItem(position), mDataProvider);
+		wrapper.populateFrom(this.getItem(position), mDataProvider,
+				this.getContext());
 		return (row);
 	}
 }

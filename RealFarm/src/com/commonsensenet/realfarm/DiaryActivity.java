@@ -17,51 +17,45 @@ import com.commonsensenet.realfarm.actions.action_sowing;
 import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.model.Plot;
-import com.commonsensenet.realfarm.view.PlotItemAdapter;
+import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.view.ActionItemAdapter;
 
-/**
- * Activity that enables the selection of one plot.
- * 
- * @author Oscar Bola–os (@oscarbolanos)
- * 
- */
-public class ChoosePlotActivity extends Activity {
+public class DiaryActivity extends Activity {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
-	/** ListAdapter used to handle the plots. */
-	private PlotItemAdapter mPlotItemAdapter;
+	/** ListAdapter used to handle the actions. */
+	private ActionItemAdapter mActionItemAdapter;
 	/** ListView where the plots are rendered. */
 	private ListView mPlotsListView;
 
 	private void listViewSettings() {
 
-		// gets the users from the database.
-		List<Plot> plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0);
+		// gets the actions from the database
+		List<Action> actions = mDataProvider.getActions();
 
-		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
+		// creates the custom adapter.
+		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);
 
 		// gets the list from the UI.
-		mPlotsListView = (ListView) findViewById(R.id.list_plots);
+		mPlotsListView = (ListView) findViewById(R.id.list_diary);
 		mPlotsListView.setItemsCanFocus(true);
+
 		// sets the custom adapter.
-		mPlotsListView.setAdapter(mPlotItemAdapter);
+		mPlotsListView.setAdapter(mActionItemAdapter);
 	}
 
 	public void onBackPressed() {
 
-		Intent adminintent123 = new Intent(ChoosePlotActivity.this,
-				Homescreen.class);
+		Intent adminintent123 = new Intent(DiaryActivity.this, Homescreen.class);
 		startActivity(adminintent123);
-		ChoosePlotActivity.this.finish();
+		DiaryActivity.this.finish();
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// sets the layout
-		setContentView(R.layout.act_choose_plot);
+		setContentView(R.layout.act_diary);
 
 		// gets the data provider
 		mDataProvider = RealFarmProvider.getInstance(this);
@@ -113,9 +107,19 @@ public class ChoosePlotActivity extends Activity {
 						// if the intent is valid it opens the activity
 						if (intent != null) {
 							view.getContext().startActivity(intent);
-							ChoosePlotActivity.this.finish();
+							DiaryActivity.this.finish();
 						}
 					}
 				});
 	}
+
+	// private View.OnClickListener OnClickDiary(final int actionID) {
+	// return new View.OnClickListener() {
+	//
+	// public void onClick(View v) {
+	// // removes the selected action
+	// mDataProvider.removeAction(actionID);
+	// }
+	// };
+	// }
 }

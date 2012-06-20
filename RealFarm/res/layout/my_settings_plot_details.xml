@@ -56,13 +56,13 @@
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="170dp"
             android:orientation="horizontal" >
 
             <TableRow
                 android:id="@+id/plot_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="170dp"
                 android:background="@drawable/def_img"
                 android:paddingBottom="10dip"
@@ -129,8 +129,8 @@
 
                     <ImageView
                         android:id="@+id/dlg_plot_img_test"
-                        android:layout_width="fill_parent"
-                        android:layout_height="fill_parent"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:background="@drawable/empty" />
 
                     <Button
@@ -147,13 +147,13 @@
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:orientation="horizontal" >
 
             <TableRow
                 android:id="@+id/soiltype_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@drawable/def_img"
                 android:paddingBottom="10dip"
@@ -244,13 +244,13 @@
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="70dp"
             android:orientation="horizontal" >
 
             <TableRow
                 android:id="@+id/maincrop_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="70dp"
                 android:background="@drawable/def_img"
                 android:paddingBottom="10dip"
@@ -344,7 +344,7 @@
 
     <LinearLayout
         style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >

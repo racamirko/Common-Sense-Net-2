@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:orientation="vertical"
     android:weightSum="1" >
 
     <TextView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="20dp"
         android:gravity="center"
@@ -22,12 +22,12 @@
         android:text="Plot Id" />
 
     <ScrollView
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content" >
 
         <LinearLayout
             android:id="@+id/linearLayout2"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical" >
 
@@ -48,53 +48,53 @@
 
             <TextView
                 android:id="@+id/TextView01"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Plot User Id" />
 
             <EditText
                 android:id="@+id/et_writtenText"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true" />
 
             <TextView
                 android:id="@+id/TextView01"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Plot Image" />
 
             <EditText
                 android:id="@+id/et_fileName2"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true" />
 
             <TextView
                 android:id="@+id/TextView01"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Soil Type" />
 
             <EditText
                 android:id="@+id/et_writtenText"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true" />
 
             <TextView
                 android:id="@+id/TextView01"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Main Crop" />
 
             <EditText
                 android:id="@+id/et_writtenText"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:singleLine="true" />
         </LinearLayout>

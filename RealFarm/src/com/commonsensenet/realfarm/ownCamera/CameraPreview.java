@@ -11,41 +11,21 @@ import android.util.Log;
 
 public class CameraPreview extends SurfaceView implements
 		SurfaceHolder.Callback {
+	protected static final String LOG_TAG = "CameraPreview";
+	/** Camera interface used to capture the pictures. */
+	private Camera mCamera;
+	/** Holder used to detect the SurfaceView events. */
 	private SurfaceHolder mHolder;
-	private Camera mcamera;
-	protected static final String TAG = "Camera Preview";
 
 	public CameraPreview(Context context, Camera camera) {
 		super(context);
-		mcamera = camera;
+		mCamera = camera;
 		// Install a SurfaceHolder.callback so we get notified
 		// when the underlying surface is created and destroyed
 		mHolder = getHolder();
 		mHolder.addCallback(this);
 		// deprecated setting, but required on Android versions prior to 3.0
 		mHolder.setType(SurfaceHolder.SURFACE_TYPE_PUSH_BUFFERS);
-	}
-
-	public void surfaceCreated(SurfaceHolder mholder) {
-		// The Surface has been created, now tell the camera where to draw the
-		// preview.
-		try {
-			mcamera.setPreviewDisplay(mHolder);
-			mcamera.startPreview();
-			Log.d(TAG,"Preview created");
-
-		} catch (IOException e) {
-			Log.d(TAG, "Error setting camera preview: " + e.getMessage());
-		} catch (Exception e) {
-			Log.d(TAG, "Error - surfaceCreated: " + e.getMessage());
-		}
-
-	}
-
-	public void surfaceDestroyed(SurfaceHolder mholder) {
-		// empty. Take care of releasing the camera preview in your activity
-		mcamera.stopPreview();
-		Log.d(TAG,"Preview destroyed");
 	}
 
 	public void surfaceChanged(SurfaceHolder mholder, int format, int w, int h) {
@@ -59,29 +39,48 @@ public class CameraPreview extends SurfaceView implements
 
 		// stop preview before making changes
 		try {
-			mcamera.stopPreview();
+			mCamera.stopPreview();
 		} catch (Exception e) {
-			Log.d(TAG, "Unable to stop preview");
+			Log.d(LOG_TAG, "Unable to stop preview");
 		}
-		Parameters p = mcamera.getParameters();
-		mcamera.setDisplayOrientation(90);
-		mcamera.setParameters(p);
-		Log.d(TAG,"Surface changed");
+		Parameters p = mCamera.getParameters();
+		mCamera.setDisplayOrientation(90);
+		mCamera.setParameters(p);
+		Log.d(LOG_TAG, "Surface changed");
 
 		// set preview size and make any resize, rotate or
 		// reformatting changes here
 
 		// start preview with new settings
 		try {
-			mcamera.setPreviewDisplay(mholder);
-			mcamera.startPreview();
-			Log.d(TAG, "Starting camera preview ");
+			mCamera.setPreviewDisplay(mholder);
+			mCamera.startPreview();
+			Log.d(LOG_TAG, "Starting camera preview ");
 		} catch (IOException e) {
-			Log.d(TAG, "Error starting camera preview " + e.getMessage());
+			Log.d(LOG_TAG, "Error starting camera preview " + e.getMessage());
 		} catch (Exception e) {
-			Log.d(TAG, "Error 2 starting camera preview " + e.getMessage());
+			Log.d(LOG_TAG, "Error 2 starting camera preview " + e.getMessage());
 		}
-
 	}
 
+	public void surfaceCreated(SurfaceHolder mholder) {
+		// The Surface has been created, now tell the camera where to draw the
+		// preview.
+		try {
+			mCamera.setPreviewDisplay(mHolder);
+			mCamera.startPreview();
+			Log.d(LOG_TAG, "Preview created");
+
+		} catch (IOException e) {
+			Log.d(LOG_TAG, "Error setting camera preview: " + e.getMessage());
+		} catch (Exception e) {
+			Log.d(LOG_TAG, "Error - surfaceCreated: " + e.getMessage());
+		}
+	}
+
+	public void surfaceDestroyed(SurfaceHolder mholder) {
+		// empty. Take care of releasing the camera preview in your activity
+		mCamera.stopPreview();
+		Log.d(LOG_TAG, "Preview destroyed");
+	}
 }

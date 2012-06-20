@@ -20,13 +20,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.PopupWindow.OnDismissListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
 import com.commonsensenet.realfarm.Addplot_sm;
 import com.commonsensenet.realfarm.ChoosePlotActivity;
+import com.commonsensenet.realfarm.DiaryActivity;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.Marketprice_details;
 import com.commonsensenet.realfarm.My_setting_plot_info;
@@ -46,7 +46,6 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
-import com.commonsensenet.realfarm.overlay.PlotInformationWindow;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
@@ -62,7 +61,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private final Context context = this;
 	public static String LOG_TAG = "Homescreen";
 	private String lang_selected;
-	private PlotInformationWindow mCurrentWindow;
 	private RealFarmProvider mDataProvider;
 
 	private void initActionListener() {
@@ -378,35 +376,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_diary) {
 
-			System.out.println("My diray clicked");
-
-			// only one window can be displayed at the time.
-			if (mCurrentWindow == null) {
-
-				// displays the information about the plot on a different
-				// window.
-				mCurrentWindow = new PlotInformationWindow(
-						findViewById(R.id.linearLayout1), Global.userId,
-						mDataProvider);
-				// detects when it gets closed.
-				mCurrentWindow.setOnDismissListener(new OnDismissListener() {
-
-					public void onDismiss() {
-						mDataProvider
-								.logAction(
-										com.commonsensenet.realfarm.model.Log.PLOTINFO_DISMISS,
-										null);
-						// clears the current window when it gets
-						// closed.
-						mCurrentWindow = null;
-					}
-				});
-				// shows the window.
-				mCurrentWindow.show();
-			}
-
+			inte = new Intent(this, DiaryActivity.class);
+			this.startActivity(inte);
+			this.finish();
 			return;
-
 		}
 
 		if (v.getId() == R.id.btn_action_fertilize) {
@@ -467,6 +440,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			System.out.println("My settings clicked");
 
 			System.out.println("Displaying plot information list");
+			// TODO: why you are not saving the result?
 			mDataProvider.getPlots();
 			inte = new Intent(this, Addplot_sm.class);
 			this.startActivity(inte);
@@ -491,29 +465,23 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			this.startActivity(inte);
 			this.finish();
 			return;
-			
-		/*	if (no_of_plots > 1) {
 
-				inte = new Intent(this, ChoosePlotActivity.class);
-				this.startActivity(inte);
-				this.finish();
-				return;
-			}
-			if (no_of_plots == 1) {
-
-				inte = new Intent(this, action_selling.class);
-				this.startActivity(inte);
-				this.finish();
-				return;
-			}
-
-			if (no_of_plots == 0) {
-				inte = new Intent(this, My_setting_plot_info.class);
-				this.startActivity(inte);
-				this.finish();
-				return;
-
-			}*/
+			/*
+			 * if (no_of_plots > 1) {
+			 * 
+			 * inte = new Intent(this, ChoosePlotActivity.class);
+			 * this.startActivity(inte); this.finish(); return; } if
+			 * (no_of_plots == 1) {
+			 * 
+			 * inte = new Intent(this, action_selling.class);
+			 * this.startActivity(inte); this.finish(); return; }
+			 * 
+			 * if (no_of_plots == 0) { inte = new Intent(this,
+			 * My_setting_plot_info.class); this.startActivity(inte);
+			 * this.finish(); return;
+			 * 
+			 * }
+			 */
 
 		}
 

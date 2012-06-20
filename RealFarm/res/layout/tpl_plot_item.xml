@@ -1,56 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip" >
+    android:background="@drawable/list_item_btn"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="@dimen/margin" >
 
     <ImageView
         android:id="@+id/icon_plot"
-        android:layout_width="80dp"
-        android:layout_height="fill_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
         android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/margin"
         android:src="@drawable/pic_72px_castor" />
-    
+
     <ImageView
-        android:id="@+id/main_crop"
+        android:id="@+id/icon_plot_crop"
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignLeft="@+id/icon_plot"
-        android:layout_marginLeft="78dp"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@id/icon_plot"
-        android:src="@drawable/pic_72px_castor" />
-    
+        android:src="@drawable/pic_72px_greengram" />
+
     <TextView
         android:id="@+id/label_plot_description"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/label_plot_title"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:ellipsize="marquee"
+        android:layout_toRightOf="@id/icon_plot_crop"
         android:singleLine="true"
         android:text="Description"
-        android:textSize="15dip" />
+        android:textSize="@dimen/font_medium" />
 
     <TextView
         android:id="@+id/label_plot_title"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/main_crop"
+        android:layout_toRightOf="@id/icon_plot_crop"
+        android:singleLine="true"
         android:text="Title"
-        android:textSize="24dip" />
+        android:textSize="@dimen/font_xlarge" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:paddingRight="6dip"
-        android:text=">"
-        android:textSize="30px"
+        android:text="@string/label_arrow"
+        android:textSize="@dimen/font_large"
         android:textStyle="bold" >
     </TextView>
 

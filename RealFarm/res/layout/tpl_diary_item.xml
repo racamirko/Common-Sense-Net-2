@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="40dip"
+    android:background="@drawable/list_item_btn"
+    android:clickable="true"
+    android:focusable="true"
+    android:padding="@dimen/margin" >
+
+    <ImageView
+        android:id="@+id/icon_diary_action"
+        android:layout_width="28dip"
+        android:layout_height="28dip"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin"
+        android:background="@drawable/circular_btn_normal"
+        android:clickable="false"
+        android:src="@drawable/ic_48px_fertilizing1" />
+
+    <ImageView
+        android:id="@+id/icon_diary_crop"
+        android:layout_width="28dip"
+        android:layout_height="28dip"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_toRightOf="@id/icon_diary_action"
+        android:background="@drawable/square_btn_normal"
+        android:clickable="false"
+        android:scaleType="centerInside"
+        android:src="@drawable/pic_72px_bajra" />
+
+    <TextView
+        android:id="@+id/label_diary_title"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_toRightOf="@id/icon_diary_crop"
+        android:gravity="center_vertical"
+        android:text="Title"
+        android:textSize="@dimen/font_large" />
+
+    <TextView
+        android:id="@+id/label_diary_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:text="Date"
+        android:textSize="@dimen/font_medium" />
+
+</RelativeLayout>

@@ -4,17 +4,17 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
-        android:id="@+id/linearLayout1"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical" >
+        android:layout_margin="5dip" >
 
         <ImageView
             android:id="@+id/aggr_img_icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="5dp"
             android:background="@drawable/circular_btn_normal"
             android:src="@drawable/ic_48px_reporting" />
 
@@ -22,15 +22,15 @@
             android:id="@+id/aggr_lbl_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="5dp"
+            android:layout_toRightOf="@id/aggr_img_icon"
             android:text="Plot Screen"
             android:textSize="30dp" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/list"
         android:layout_width="match_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="match_parent" >
     </ListView>
 
 </LinearLayout>
