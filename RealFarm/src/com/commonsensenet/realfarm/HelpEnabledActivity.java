@@ -8,6 +8,7 @@ import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
  * Activity that enables the contains the ActionBar and the Help button.
@@ -17,6 +18,28 @@ import com.commonsensenet.realfarm.homescreen.Homescreen;
  * 
  */
 public abstract class HelpEnabledActivity extends SherlockActivity {
+	@Override
+	public void onBackPressed() {
+		// stops any currently playing sound.
+		SoundQueue.getInstance().stop();
+		super.onBackPressed();
+	}
+
+	protected void playAudio(int resid) // audio integration
+	{
+		if (Global.enableAudio) // checking for audio enable
+		{
+			// gets the singleton queue
+			SoundQueue sq = SoundQueue.getInstance();
+			// cleans any possibly playing sound
+			sq.clean();
+			// adds the sound to the queue
+			sq.addToQueue(resid);
+			// plays the sound
+			sq.play();
+		}
+	}
+
 	public void onCreate(Bundle savedInstanceState) {
 		// sets the global style of the application.
 		setTheme(RealFarmApp.THEME);
@@ -40,6 +63,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity {
 		// TODO: handle the help button click.
 
 		if (item.getTitle().toString().equals("Help")) {
+			playAudio(R.raw.help);
 			Toast.makeText(this, "Requested help!", Toast.LENGTH_SHORT).show();
 			return true;
 		}

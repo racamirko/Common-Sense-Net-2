@@ -145,13 +145,13 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".videos"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:name=".VideoActivity"
+            android:label="Videos"
+            android:screenOrientation="portrait" />
         <activity
-            android:name=".PlayVideoResFolder"
+            android:name=".VideoPlayerActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:theme="@android:style/Theme.NoTitleBar" />
         <activity
             android:name=".ownCamera.OwnCameraActivity"
             android:label="@string/app_name"

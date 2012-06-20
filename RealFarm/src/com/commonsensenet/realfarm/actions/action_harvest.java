@@ -1072,21 +1072,6 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		return true;
 	}
 
-	public void playAudio(int resid) {
-		if (Global.enableAudio == true) // checking for audio enable
-		{
-			System.out.println("play audio called");
-			SoundQueue sq = SoundQueue.getInstance();
-			// stops any sound that could be playing.
-			sq.stop();
-
-			sq.addToQueue(resid);
-			// sq.addToQueue(R.raw.treatmenttoseeds3);
-			sq.play();
-		}
-
-	}
-
 	protected void stopaudio() {
 		SoundQueue.getInstance().stop();
 	}

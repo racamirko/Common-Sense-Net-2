@@ -162,7 +162,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 		{
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();
-			// cleans any posibly playing sound
+			// cleans any possibly playing sound
 			sq.clean();
 			// adds the sound to the queue
 			sq.addToQueue(resid);

@@ -36,9 +36,9 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.Marketprice_details;
 import com.commonsensenet.realfarm.My_setting_plot_info;
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.VideoActivity;
 import com.commonsensenet.realfarm.WF_details;
 import com.commonsensenet.realfarm.admin;
-import com.commonsensenet.realfarm.videos;
 import com.commonsensenet.realfarm.actions.action_fertilizing;
 import com.commonsensenet.realfarm.actions.action_harvest;
 import com.commonsensenet.realfarm.actions.action_irrigate;
@@ -302,8 +302,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.home_btn_marketprice
-				|| v.getId() == R.id.home_btn_marketprice) {
+		if (v.getId() == R.id.home_btn_marketprice) {
 			System.out.println("Market Price details clicked");
 			inte = new Intent(this, Marketprice_details.class);
 			// inte.putExtra("type", "yield");
@@ -442,14 +441,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			this.finish();
 		}
 
-		if (v.getId() == R.id.btn_action_videos
-				|| v.getId() == R.id.btn_action_videos) {
-
-			inte = new Intent(this, videos.class);
-			this.startActivity(inte);
-			this.finish();
+		// opens the video activity
+		if (v.getId() == R.id.btn_action_videos) {
+			startActivity(new Intent(this, VideoActivity.class));
 			return;
-
 		}
 
 		if (v.getId() == R.id.btn_action_selling) {
