@@ -2,7 +2,6 @@ package com.commonsensenet.realfarm;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.widget.ListView;
 
@@ -16,7 +15,7 @@ import com.commonsensenet.realfarm.view.ActionItemAdapter;
  * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
-public class DiaryActivity extends Activity {
+public class DiaryActivity extends HelpEnabledActivity {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the actions. */

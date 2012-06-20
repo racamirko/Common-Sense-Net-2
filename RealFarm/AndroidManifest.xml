@@ -130,12 +130,12 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".ChoosePlotActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:label="Plots"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".DiaryActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />        
+            android:label="Diary"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".Addplot_sm"
             android:screenOrientation="portrait"

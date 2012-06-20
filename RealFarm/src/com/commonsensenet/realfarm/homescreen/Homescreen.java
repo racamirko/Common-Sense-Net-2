@@ -173,7 +173,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	}
 
-	public void InitAudio() {
+	public void initAudio() {
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 				mContext);
@@ -188,20 +188,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				.setPositiveButton("Yes",
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog, int id) {
-								// if this button is clicked, close
-								// current activity
-								System.out.println("Yes");
-
 								Global.enableAudio = true;
-
 							}
 						})
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
-
-						System.out.println("No");
 						Global.enableAudio = false;
-						dialog.cancel();
 					}
 				});
 
@@ -600,7 +592,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		btnSound.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				InitAudio();
+				initAudio();
 			}
 		});
 
