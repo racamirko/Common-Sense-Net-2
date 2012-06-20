@@ -580,7 +580,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// setup listener to all buttons
 		// initDb(); //Clears the database
-	/*	initActionListener();
+	/** Uncomment the below to work with Homescreen */
+		
+		/*	initActionListener();
 		initTiles();
 		initSoundSys();
 		setHelpIcon(findViewById(R.id.helpIndicator));
