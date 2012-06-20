@@ -566,8 +566,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			selectlang();
 		}
 
-	//	super.onCreate(savedInstanceState, R.layout.india_homescreen);
-		super.onCreate(savedInstanceState, R.layout.homescreen);
+		super.onCreate(savedInstanceState, R.layout.india_homescreen);
+	//	super.onCreate(savedInstanceState, R.layout.homescreen);
 		mDataProvider = RealFarmProvider.getInstance(mContext);
 		ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);
 		Log.i(LOG_TAG, "App started");
@@ -580,7 +580,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// setup listener to all buttons
 		// initDb(); //Clears the database
-		initActionListener();
+	/*	initActionListener();
 		initTiles();
 		initSoundSys();
 		setHelpIcon(findViewById(R.id.helpIndicator));
@@ -601,7 +601,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		tmpText.setText(getString(R.string.k_farmers));
 
 		tmpText = (TextView) findViewById(R.id.home_lbl_yield);
-		tmpText.setText(getString(R.string.k_harvest));
+		tmpText.setText(getString(R.string.k_harvest));*/
 
 		// WriteDataBaseToSDcard();
 	}

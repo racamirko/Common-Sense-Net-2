@@ -76,7 +76,7 @@ public class NumberPicker extends LinearLayout {
 
 	public void decrement() {
 		if (mValue > MINIMUM) {
-			mValue = mValue - 1;
+			mValue = mValue - mIncrementValue;
 			mValueText.setText(mValue.toString());
 		}
 	}
@@ -85,9 +85,15 @@ public class NumberPicker extends LinearLayout {
 		return mValue;
 	}
 
+	/**
+	 * Amount it will increment every time the plus or minus buttons are
+	 * pressed.
+	 */
+	private int mIncrementValue = 1;
+
 	public void increment() {
 		if (mValue < MAXIMUM) {
-			mValue = mValue + 1;
+			mValue = mValue + mIncrementValue;
 			mValueText.setText(mValue.toString());
 		}
 	}
