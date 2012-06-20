@@ -67,7 +67,7 @@ public class ViewPictureActivity extends Activity {
 			Log.d(LOG_TAG, "No data received");
 		}
 
-		// Add image to the imageview of the layout
+		// Add image to the ImageView of the layout
 		iView = (ImageView) findViewById(R.id.viewPhotoTakenView);
 
 		ContentResolver c = getContentResolver();
@@ -87,17 +87,17 @@ public class ViewPictureActivity extends Activity {
 		// rotate image
 		Matrix matrix = new Matrix();
 		matrix.postRotate(90);
-		Global._rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
+		Global.rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
 				bitmap.getHeight(), matrix, true);
 
-		iView.setImageBitmap(Global._rotated);
+		iView.setImageBitmap(Global.rotated);
 
 		// iView.setImageURI(image_file_uri);
 		Log.d(LOG_TAG, "Image added to view" + image_file_uri);
 
 		image_path = image_file_uri.getPath();
 		image_file = new File(image_path);
-		Global.plot_img_path = image_path;
+		Global.plotImagePath = image_path;
 		// Adding listener to the retake button
 		Button retakeButton = (Button) findViewById(R.id.button_retake);
 		retakeButton.setOnClickListener(new View.OnClickListener() {
@@ -147,7 +147,7 @@ public class ViewPictureActivity extends Activity {
 				 */
 				Intent kintent = new Intent(ViewPictureActivity.this,
 						My_settings_plot_details.class);
-				Global.flag_camera = true;
+				Global.cameraFlag = true;
 				startActivity(kintent);
 				ViewPictureActivity.this.finish();
 			}

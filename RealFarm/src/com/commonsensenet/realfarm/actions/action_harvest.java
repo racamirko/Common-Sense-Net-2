@@ -44,7 +44,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 	public void onBackPressed() {
 
 		SoundQueue.getInstance().stop();
-		if (Global.WriteToSD == true) {
+		if (Global.writeToSD == true) {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -88,7 +88,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 		playAudio(R.raw.clickingharvest);
 
-		if (Global.WriteToSD == true) {
+		if (Global.writeToSD == true) {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -138,7 +138,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
 
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -161,7 +161,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
 
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -185,7 +185,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
 
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -209,7 +209,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				dlg.setTitle("Choose the Number of bags");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -239,7 +239,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 									.setBackgroundResource(R.drawable.def_img);
 							bg_units_no_harvest
 									.setImageResource(R.drawable.empty_not);
-							if (Global.WriteToSD == true) {
+							if (Global.writeToSD == true) {
 
 								String logtime = getcurrenttime();
 								mDataProvider.File_Log_Create("UIlog.txt",
@@ -260,7 +260,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -303,7 +303,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_btn_units_3))
 						.setOnLongClickListener(parentReference);
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -326,7 +326,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 
 						bg_units_harvest.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -355,7 +355,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_harvest.setImageResource(R.drawable.empty_not);
 
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -383,7 +383,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_harvest.setImageResource(R.drawable.empty_not);
 
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -710,7 +710,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 			public void onClick(View v) {
 				cancelaudio();
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -744,7 +744,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				// Toast.LENGTH_LONG).show();
 
 				// to obtain the + - values
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -763,7 +763,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -789,7 +789,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					TableRow tr_units = (TableRow) findViewById(R.id.units_harvest_tr);
 
 					tr_units.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -814,7 +814,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					TableRow tr_months = (TableRow) findViewById(R.id.harvest_date_tr);
 
 					tr_months.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -839,7 +839,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					System.out.println("harvesting reading");
 					mDataProvider.getharvesting();
 
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -869,7 +869,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 				startActivity(adminintent);
 				action_harvest.this.finish();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -890,7 +890,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		if (v.getId() == R.id.home_btn_har_1) {
 
 			playAudio(R.raw.feedbackgood);
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -904,7 +904,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		if (v.getId() == R.id.home_btn_har_2) {
 
 			playAudio(R.raw.feedbackmoderate);
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -918,7 +918,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 			playAudio(R.raw.feedbackbad);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -942,7 +942,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		if (v.getId() == R.id.aggr_img_help) {
 
 			playAudio(R.raw.help);
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -957,7 +957,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				|| v.getId() == R.id.home_btn_units_harvest) {
 
 			playAudio(R.raw.selecttheunits);
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -1073,7 +1073,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 	}
 
 	public void playAudio(int resid) {
-		if (Global.EnableAudio == true) // checking for audio enable
+		if (Global.enableAudio == true) // checking for audio enable
 		{
 			System.out.println("play audio called");
 			SoundQueue sq = SoundQueue.getInstance();

@@ -6,15 +6,11 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Adapter;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
-import com.commonsensenet.realfarm.actions.action_fertilizing;
-import com.commonsensenet.realfarm.actions.action_harvest;
-import com.commonsensenet.realfarm.actions.action_irrigate;
-import com.commonsensenet.realfarm.actions.action_selling;
-import com.commonsensenet.realfarm.actions.action_sowing;
-import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.Plot;
@@ -23,10 +19,10 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
 /**
  * Activity that enables the selection of one plot.
  * 
- * @author Oscar Bola–os (@oscarbolanos)
+ * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
-public class ChoosePlotActivity extends Activity {
+public class ChoosePlotActivity extends Activity implements OnItemClickListener {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the plots. */
@@ -69,53 +65,24 @@ public class ChoosePlotActivity extends Activity {
 		// updates the list view
 		listViewSettings();
 
-		// test
-		mPlotsListView
-				.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+		// sets the listener
+		mPlotsListView.setOnItemClickListener(this);
+	}
 
-					public void onItemClick(AdapterView<?> parent, View view,
-							int position, long id) {
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// gets the selected view using the position
+		Plot selectedPlot = mPlotItemAdapter.getItem(position);
 
-						Intent intent = null;
-						switch (Global.actionno) {
-						case 1:
-							intent = new Intent(view.getContext(),
-									action_sowing.class);
-							break;
-						case 2:
-							intent = new Intent(view.getContext(),
-									action_harvest.class);
-							break;
-						case 3:
-							intent = new Intent(view.getContext(),
-									action_selling.class);
-							break;
-						case 4:
-							intent = new Intent(view.getContext(),
-									action_fertilizing.class);
-							break;
-						case 5:
-							intent = new Intent(view.getContext(),
-									action_spraying.class);
-							break;
-						case 6:
-							break;
-						case 7:
-							intent = new Intent(view.getContext(),
-									SM_enter.class);
-							break;
-						case 8:
-							intent = new Intent(view.getContext(),
-									action_irrigate.class);
-							break;
-						}
+		// sets the active plotId
+		Global.plotId = selectedPlot.getId();
 
-						// if the intent is valid it opens the activity
-						if (intent != null) {
-							view.getContext().startActivity(intent);
-							ChoosePlotActivity.this.finish();
-						}
-					}
-				});
+		// loads the target activity
+		if (Global.selectedAction != null) {
+			view.getContext().startActivity(
+					new Intent(view.getContext(), Global.selectedAction));
+			// ensures that back will not reach it.
+			ChoosePlotActivity.this.finish();
+		}
 	}
 }

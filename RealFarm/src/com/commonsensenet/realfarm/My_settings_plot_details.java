@@ -61,13 +61,13 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 			}
 		});
 
-		if (Global.flag_camera == true) {
-			Global.flag_camera = false;
+		if (Global.cameraFlag == true) {
+			Global.cameraFlag = false;
 			final ImageView img_1;
 			img_1 = (ImageView) findViewById(R.id.dlg_plot_img_test);
-			mPlotImage = Global.plot_img_path;
+			mPlotImage = Global.plotImagePath;
 
-			img_1.setImageBitmap(Global._rotated);
+			img_1.setImageBitmap(Global.rotated);
 
 		}
 

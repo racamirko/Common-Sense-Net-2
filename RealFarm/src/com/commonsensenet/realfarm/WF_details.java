@@ -337,7 +337,7 @@ public class WF_details extends HelpEnabledActivity implements
 		// stops any sound that could be playing.
 		sq.stop();
 
-		if (Global.EnableAudio == true) // checking for audio enable
+		if (Global.enableAudio == true) // checking for audio enable
 		{
 			if (currentValue == 1) {
 				sq.addToQueue(R.raw.todayweatherforecast);

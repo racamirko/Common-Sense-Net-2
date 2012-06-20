@@ -158,7 +158,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 
 	public void playAudio(int resid) // audio integration
 	{
-		if (Global.EnableAudio) // checking for audio enable
+		if (Global.enableAudio) // checking for audio enable
 		{
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();

@@ -216,7 +216,7 @@ public class Marketprice_details extends HelpEnabledActivity implements
 
 		SoundQueue sq = SoundQueue.getInstance();
 		sq.stop();
-		if (Global.EnableAudio == true) // checking for audio enable
+		if (Global.enableAudio == true) // checking for audio enable
 		{
 			if (Currentvalue == 111) {
 				// sq.addToQueue(R.raw.seekepura1);

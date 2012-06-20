@@ -116,7 +116,7 @@ public class action_selling extends HelpEnabledActivity {
 				dlg.setTitle("Choose the crop ");
 				
 				dlg.show();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -170,7 +170,7 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -195,7 +195,7 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -219,7 +219,7 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -244,7 +244,7 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -267,7 +267,7 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -290,7 +290,7 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -348,7 +348,7 @@ public class action_selling extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -703,7 +703,7 @@ public class action_selling extends HelpEnabledActivity {
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_btn_units_3))
 						.setOnLongClickListener(parentReference);
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -727,7 +727,7 @@ public class action_selling extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sell.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -753,7 +753,7 @@ public class action_selling extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sell.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -779,7 +779,7 @@ public class action_selling extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sell.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -932,7 +932,7 @@ public class action_selling extends HelpEnabledActivity {
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_btn_units_3))
 						.setOnLongClickListener(parentReference);
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -956,7 +956,7 @@ public class action_selling extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -984,7 +984,7 @@ public class action_selling extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -1010,7 +1010,7 @@ public class action_selling extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime

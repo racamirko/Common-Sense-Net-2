@@ -77,7 +77,7 @@ public class My_setting_plot_info extends Activity {
 			public void onClick(View v) {
 				System.out.println("In add user");
 
-				Global.CallToPlotInfo = 1;
+				Global.callToPlotInfo = 1;
 				Intent adminintent123 = new Intent(My_setting_plot_info.this,
 						My_settings_plot_details.class);
 				startActivity(adminintent123);

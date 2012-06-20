@@ -49,7 +49,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 		startActivity(adminintent);
 		action_spraying.this.finish();
-		if (Global.WriteToSD == true) {
+		if (Global.writeToSD == true) {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -74,7 +74,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 		playAudio(R.raw.clickingspraying);
 
-		if (Global.WriteToSD == true) {
+		if (Global.writeToSD == true) {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -124,7 +124,7 @@ public class action_spraying extends HelpEnabledActivity {
 				dlg.setTitle("Choose the problem for spraying");
 				Log.d("in problem spray dialog", "in dialog");
 				dlg.show();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -166,7 +166,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_prob_spray.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -193,7 +193,7 @@ public class action_spraying extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_prob_spray.setImageResource(R.drawable.empty_not);
 
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -219,7 +219,7 @@ public class action_spraying extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_prob_spray.setImageResource(R.drawable.empty_not);
 
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -247,7 +247,7 @@ public class action_spraying extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Pesticide");
 				Log.d("in units spray dialog", "in dialog");
 				dlg.show();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -291,7 +291,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_pest_spray.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -317,7 +317,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_pest_spray.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -342,7 +342,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_pest_spray.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -371,7 +371,7 @@ public class action_spraying extends HelpEnabledActivity {
 				Log.d("in units fert dialog", "in dialog");
 				dlg.show();
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -414,7 +414,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_spray.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -440,7 +440,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_spray.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -465,7 +465,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_spray.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -493,7 +493,7 @@ public class action_spraying extends HelpEnabledActivity {
 				dlg.setTitle("Choose the day");
 				Log.d("in day spray dialog", "in dialog");
 				dlg.show();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -538,7 +538,7 @@ public class action_spraying extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 						day_spray.setText("Two week before");
 						day_sel_spray = "Two week before";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -560,7 +560,7 @@ public class action_spraying extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						day_spray.setText("One week before");
 						day_sel_spray = "One week before";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -581,7 +581,7 @@ public class action_spraying extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						day_spray.setText("Yesterday");
 						day_sel_spray = "Yesterday";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -601,7 +601,7 @@ public class action_spraying extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						day_spray.setText("Today");
 						day_sel_spray = "Today";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -621,7 +621,7 @@ public class action_spraying extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						day_spray.setText("Tomorrow");
 						day_sel_spray = "Tomorrow";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -651,7 +651,7 @@ public class action_spraying extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Number of bags");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -681,7 +681,7 @@ public class action_spraying extends HelpEnabledActivity {
 									.setBackgroundResource(R.drawable.def_img);
 							bg_units_no_spray
 									.setImageResource(R.drawable.empty_not);
-							if (Global.WriteToSD == true) {
+							if (Global.writeToSD == true) {
 
 								String logtime = getcurrenttime();
 								mDataProvider.File_Log_Create("UIlog.txt",
@@ -703,7 +703,7 @@ public class action_spraying extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -730,7 +730,7 @@ public class action_spraying extends HelpEnabledActivity {
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				cancelaudio();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -746,7 +746,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -768,7 +768,7 @@ public class action_spraying extends HelpEnabledActivity {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -794,7 +794,7 @@ public class action_spraying extends HelpEnabledActivity {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -820,7 +820,7 @@ public class action_spraying extends HelpEnabledActivity {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -849,7 +849,7 @@ public class action_spraying extends HelpEnabledActivity {
 					System.out.println("spraying reading");
 					mDataProvider.getspraying();
 
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -876,7 +876,7 @@ public class action_spraying extends HelpEnabledActivity {
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -904,7 +904,7 @@ public class action_spraying extends HelpEnabledActivity {
 		if (v.getId() == R.id.home_btn_prob_spray) {
 			playAudio(R.raw.selecttheproblem);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -918,7 +918,7 @@ public class action_spraying extends HelpEnabledActivity {
 		if (v.getId() == R.id.home_btn_pest_spray) {
 			playAudio(R.raw.selectthepesticide);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -933,7 +933,7 @@ public class action_spraying extends HelpEnabledActivity {
 				|| v.getId() == R.id.home_btn_units_no_spray) {
 			playAudio(R.raw.selecttheunits);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -948,7 +948,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 			playAudio(R.raw.selectthedate);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -971,7 +971,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 			playAudio(R.raw.help);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");

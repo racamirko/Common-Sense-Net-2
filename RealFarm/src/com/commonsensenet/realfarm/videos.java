@@ -100,7 +100,7 @@ public class videos extends HelpEnabledActivity {
 	}
 
 	public void playAudio(int resid) {
-		if (Global.EnableAudio == true) // checking for audio enable
+		if (Global.enableAudio == true) // checking for audio enable
 		{
 			System.out.println("play audio called");
 			SoundQueue sq = SoundQueue.getInstance();

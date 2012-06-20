@@ -9,7 +9,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
  * across activities such as the database
  * 
  * @author Julien Freudiger
- * @author Oscar Bola–os (@oscarbolanos)
+ * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
 public class RealFarmApp extends Application {

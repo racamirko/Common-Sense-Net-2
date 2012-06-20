@@ -51,6 +51,7 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 /**
  * 
  * @author Mirko Raca <mirko.raca@epfl.ch>
+ * @author Oscar Bolaños <@oscarbolanos>
  * 
  */
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
@@ -58,9 +59,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		ACTIONS, ADVICE, WARN, WF, YIELD
 	}
 
-	private final Context context = this;
 	public static String LOG_TAG = "Homescreen";
-	private String lang_selected;
+	private final Context mContext = this;
+	private String mSelectedLanguage;
 	private RealFarmProvider mDataProvider;
 
 	private void initActionListener() {
@@ -106,7 +107,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				.setOnClickListener(this);
 		((ImageButton) findViewById(R.id.btn_action_fertilize))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_diary))
+		((ImageButton) findViewById(R.id.btn_action_fertilize))
 				.setOnTouchListener(this);
 
 		((ImageButton) findViewById(R.id.btn_action_irrigate))
@@ -170,7 +171,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	public void InitAudio() {
 
 		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				context);
+				mContext);
 
 		// set title
 		alertDialogBuilder.setTitle("Enable audio");
@@ -186,7 +187,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 								// current activity
 								System.out.println("Yes");
 
-								Global.EnableAudio = true;
+								Global.enableAudio = true;
 
 							}
 						})
@@ -194,7 +195,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					public void onClick(DialogInterface dialog, int id) {
 
 						System.out.println("No");
-						Global.EnableAudio = false;
+						Global.enableAudio = false;
 						dialog.cancel();
 					}
 				});
@@ -248,7 +249,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-								Global.lang_flag = 0;
+								Global.langFlag = 0;
 								// Exit the activity
 								Homescreen.this.finish();
 							}
@@ -258,13 +259,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	public void onClick(View v) {
 		Log.i(LOG_TAG, "Button clicked!");
 		String txt = "";
-		Intent inte;
-
-		// int no_of_plots = mDataProvider.getAllPlotList().size();
+		Intent inte = null;
 
 		int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
 				Global.userId, 0).size(); // added with audio integration
-		// String no_of_plots_str = String.valueOf(no_of_plots);
 
 		if (v.getId() == R.id.btn_info_actions
 				|| v.getId() == R.id.home_btn_actions) {
@@ -321,8 +319,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_plant) {
 			System.out.println("Action Sowing clicked");
-			Global.actionno = 1; // for sow
-			// inte = new Intent(this, action_sowing.class);
+			// Global.actionno = 1; // for sow
+			Global.selectedAction = action_sowing.class;
 			if (no_of_plots > 1) {
 
 				inte = new Intent(this, ChoosePlotActivity.class);
@@ -349,7 +347,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_yield) {
 			System.out.println("Action harvest clicked");
-			Global.actionno = 2; // for harvest
+			// Global.actionno = 2; // for harvest
+			Global.selectedAction = action_harvest.class;
 			if (no_of_plots > 1) {
 
 				inte = new Intent(this, ChoosePlotActivity.class);
@@ -375,16 +374,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_diary) {
-
-			inte = new Intent(this, DiaryActivity.class);
-			this.startActivity(inte);
-			this.finish();
+			startActivity(new Intent(this, DiaryActivity.class));
 			return;
 		}
 
 		if (v.getId() == R.id.btn_action_fertilize) {
 			System.out.println("Fertilize action clicked");
-			Global.actionno = 4; // for fertilize
+			// Global.actionno = 4; // for fertilize
+			Global.selectedAction = action_fertilizing.class;
 			if (no_of_plots > 1) {
 
 				inte = new Intent(this, ChoosePlotActivity.class);
@@ -411,7 +408,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_spray) {
 			System.out.println("Spraying action clicked");
-			Global.actionno = 5; // for spray
+			// Global.actionno = 5; // for spray
+			Global.selectedAction = action_spraying.class;
 			if (no_of_plots > 1) {
 
 				inte = new Intent(this, ChoosePlotActivity.class);
@@ -460,7 +458,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.btn_action_selling) {
 
 			System.out.println("Action selling clicked");
-			Global.actionno = 3; // for selling
+			// Global.actionno = 3; // for selling
+			Global.selectedAction = action_selling.class;
 			inte = new Intent(this, action_selling.class);
 			this.startActivity(inte);
 			this.finish();
@@ -488,7 +487,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.btn_action_problem) {
 
 			System.out.println("Action Problem clicked");
-			Global.actionno = 8; // for selling
+			// Global.actionno = 8; // for problem
+			Global.selectedAction = action_problem.class;
+
 			if (no_of_plots > 1) {
 
 				inte = new Intent(this, ChoosePlotActivity.class);
@@ -517,7 +518,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.btn_action_irrigate) {
 
 			System.out.println("Action irrigate clicked");
-			Global.actionno = 8; // for selling
+			// Global.actionno = 8; // for irrigate
+			Global.selectedAction = action_irrigate.class;
 			if (no_of_plots > 1) {
 
 				inte = new Intent(this, ChoosePlotActivity.class);
@@ -560,21 +562,21 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// this.startActivity(new Intent(this, OfflineMapDemo.class));
 
-		if (txt != "")
+		if (txt != "") {
 			Toast.makeText(this.getApplicationContext(), txt,
 					Toast.LENGTH_SHORT).show();
+		}
 	}
 
-	// MediaPlayer mp = null;
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		if (Global.lang_flag == 0) {
+		if (Global.langFlag == 0) {
 			selectlang();
-
 		}
+
 		super.onCreate(savedInstanceState, R.layout.homescreen);
 
-		mDataProvider = RealFarmProvider.getInstance(context);
+		mDataProvider = RealFarmProvider.getInstance(mContext);
 		ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);
 		Log.i(LOG_TAG, "App started");
 		Log.i(LOG_TAG, "scheduler activated");
@@ -655,8 +657,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	protected void selectlang() {
-		Global.lang_flag = 1;
 		Log.d("in Lang selection", "in dialog");
+
+		Global.langFlag = 1;
 		final Dialog dlg = new Dialog(this);
 		dlg.setContentView(R.layout.language_dialog);
 		dlg.setCancelable(true);
@@ -674,9 +677,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			public void onClick(View v) {
 				Log.d("var 1 picked ", "in dialog");
 				// img_1.setMaxWidth(300);
-				lang_selected = "Kannada";
+				mSelectedLanguage = "Kannada";
 				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
+						"The Language selected is " + mSelectedLanguage,
 						Toast.LENGTH_SHORT).show();
 				dlg.cancel();
 			}
@@ -686,9 +689,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			public void onClick(View v) {
 				Log.d("var 1 picked ", "in dialog");
 				// img_1.setMaxWidth(300);
-				lang_selected = "Telugu";
+				mSelectedLanguage = "Telugu";
 				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
+						"The Language selected is " + mSelectedLanguage,
 						Toast.LENGTH_SHORT).show();
 				dlg.cancel();
 			}
@@ -698,9 +701,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			public void onClick(View v) {
 				Log.d("var 1 picked ", "in dialog");
 				// img_1.setMaxWidth(300);
-				lang_selected = "Hindi";
+				mSelectedLanguage = "Hindi";
 				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
+						"The Language selected is " + mSelectedLanguage,
 						Toast.LENGTH_SHORT).show();
 				dlg.cancel();
 			}
@@ -710,9 +713,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			public void onClick(View v) {
 				Log.d("var 1 picked ", "in dialog");
 				// img_1.setMaxWidth(300);
-				lang_selected = "Tamil";
+				mSelectedLanguage = "Tamil";
 				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
+						"The Language selected is " + mSelectedLanguage,
 						Toast.LENGTH_SHORT).show();
 				dlg.cancel();
 			}
@@ -722,9 +725,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			public void onClick(View v) {
 				Log.d("var 1 picked ", "in dialog");
 				// img_1.setMaxWidth(300);
-				lang_selected = "Malayalam";
+				mSelectedLanguage = "Malayalam";
 				Toast.makeText(Homescreen.this,
-						"The Language selected is " + lang_selected,
+						"The Language selected is " + mSelectedLanguage,
 						Toast.LENGTH_SHORT).show();
 				dlg.cancel();
 			}
@@ -732,7 +735,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	};
 
-	public void WriteActionToDatabase() {
+	public void writeActionToDatabase() {
 
 		/*
 		 * System.out.println("action writing"); mDataProvider .setActionNew(1,
@@ -847,8 +850,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	}
 
-	public void WriteDataBaseToSDcard() {
-		Global.WriteToSD = true;
+	public void writeDatabaseToSDcard() {
+		Global.writeToSD = true;
 		mDataProvider.Log_Database_backupdate();
 		mDataProvider.getUsers(); // User
 		mDataProvider.getActions(); // New action table

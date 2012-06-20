@@ -14,7 +14,7 @@ import com.commonsensenet.realfarm.utils.DateHelper;
  * Class that wraps up the contents of a Plot, which is presented on a list
  * adapter.
  * 
- * @author Oscar Bola–os (@oscarbolanos)
+ * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
 public class ActionItemWrapper {

@@ -44,7 +44,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 		SoundQueue.getInstance().stop();
 
-		if (Global.WriteToSD == true) {
+		if (Global.writeToSD == true) {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -74,7 +74,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 		playAudio(R.raw.thankyouclickingactionsowing);
 
-		if (Global.WriteToSD == true) {
+		if (Global.writeToSD == true) {
 
 			String logtime = getcurrenttime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -123,7 +123,7 @@ public class action_sowing extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Variety of seed sowed");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -175,7 +175,7 @@ public class action_sowing extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -200,7 +200,7 @@ public class action_sowing extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -224,7 +224,7 @@ public class action_sowing extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -249,7 +249,7 @@ public class action_sowing extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -272,7 +272,7 @@ public class action_sowing extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -295,7 +295,7 @@ public class action_sowing extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -343,7 +343,7 @@ public class action_sowing extends HelpEnabledActivity {
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_btn_units_3))
 						.setOnLongClickListener(parentReference);
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -367,7 +367,7 @@ public class action_sowing extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sow.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -392,7 +392,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sow.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -417,7 +417,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sow.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -446,7 +446,7 @@ public class action_sowing extends HelpEnabledActivity {
 				Log.d("in day sowing dialog", "in dialog");
 				dlg.show();
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -493,7 +493,7 @@ public class action_sowing extends HelpEnabledActivity {
 						day_sow.setText("Two week before");
 						days_sel_sow = "Two week before";
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -514,7 +514,7 @@ public class action_sowing extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						day_sow.setText("One week before");
 						days_sel_sow = "One week before";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -535,7 +535,7 @@ public class action_sowing extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						day_sow.setText("Yesterday");
 						days_sel_sow = "Yesterday";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -555,7 +555,7 @@ public class action_sowing extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						day_sow.setText("Today");
 						days_sel_sow = "Today";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -575,7 +575,7 @@ public class action_sowing extends HelpEnabledActivity {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						day_sow.setText("Tomorrow");
 						days_sel_sow = "Tomorrow";
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -604,7 +604,7 @@ public class action_sowing extends HelpEnabledActivity {
 				Log.d("in treat sow dialog", "in dialog");
 				dlg.show();
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -644,7 +644,7 @@ public class action_sowing extends HelpEnabledActivity {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_treatment_sow.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -669,7 +669,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_treatment_sow.setImageResource(R.drawable.empty_not);
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -700,7 +700,7 @@ public class action_sowing extends HelpEnabledActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -731,7 +731,7 @@ public class action_sowing extends HelpEnabledActivity {
 									.setBackgroundResource(R.drawable.def_img);
 							bg_units_no_sow
 									.setImageResource(R.drawable.empty_not);
-							if (Global.WriteToSD == true) {
+							if (Global.writeToSD == true) {
 
 								String logtime = getcurrenttime();
 								mDataProvider.File_Log_Create("UIlog.txt",
@@ -753,7 +753,7 @@ public class action_sowing extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.WriteToSD == true) {
+						if (Global.writeToSD == true) {
 
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -780,7 +780,7 @@ public class action_sowing extends HelpEnabledActivity {
 				// is chkIos checked?
 				if (((CheckBox) v).isChecked()) {
 
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -806,7 +806,7 @@ public class action_sowing extends HelpEnabledActivity {
 			public void onClick(View v) {
 				cancelaudio();
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -824,7 +824,7 @@ public class action_sowing extends HelpEnabledActivity {
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -844,7 +844,7 @@ public class action_sowing extends HelpEnabledActivity {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -872,7 +872,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -901,7 +901,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -930,7 +930,7 @@ public class action_sowing extends HelpEnabledActivity {
 					System.out.println("sowing reading");
 					mDataProvider.getsowing();
 
-					if (Global.WriteToSD == true) {
+					if (Global.writeToSD == true) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -961,7 +961,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 				startActivity(adminintent);
 				action_sowing.this.finish();
-				if (Global.WriteToSD == true) {
+				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
@@ -985,7 +985,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 			playAudio(R.raw.varietyofseedssowd);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -1002,7 +1002,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 			playAudio(R.raw.selecttheunits);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -1017,7 +1017,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 			playAudio(R.raw.selectthedate);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -1033,7 +1033,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 			playAudio(R.raw.treatmenttoseeds1);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
@@ -1056,7 +1056,7 @@ public class action_sowing extends HelpEnabledActivity {
 		if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.help);
 
-			if (Global.WriteToSD == true) {
+			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");

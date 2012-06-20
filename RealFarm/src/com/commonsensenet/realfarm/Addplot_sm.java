@@ -11,7 +11,7 @@ import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Addplot_sm extends HelpEnabledActivity {
-	
+
 	public void onBackPressed() {
 		SoundQueue.getInstance().stop();
 
@@ -38,7 +38,7 @@ public class Addplot_sm extends HelpEnabledActivity {
 		btnAddPlot.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				Global.CallToPlotInfo = 1;
+				Global.callToPlotInfo = 1;
 				Intent adminintent123 = new Intent(Addplot_sm.this,
 						My_settings_plot_details.class); // My_settings_plot_info
 				startActivity(adminintent123);
@@ -51,7 +51,8 @@ public class Addplot_sm extends HelpEnabledActivity {
 		btnSoilMoisture.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				Global.actionno = 7;
+				// Global.actionno = 7;
+				Global.selectedAction = SM_enter.class;
 				Intent adminintent123 = new Intent(Addplot_sm.this,
 						ChoosePlotActivity.class);
 				startActivity(adminintent123);
