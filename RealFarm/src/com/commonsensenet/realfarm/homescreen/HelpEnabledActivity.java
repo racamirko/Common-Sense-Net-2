@@ -24,6 +24,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 		protected View mViewAnimated; // animation icon
 		protected View mViewAssociated; // associated view on which we're
 										// dispalying the help
+
 		public HelpAnimation(float fromAlpha, float toAlpha) {
 			super(fromAlpha, toAlpha);
 

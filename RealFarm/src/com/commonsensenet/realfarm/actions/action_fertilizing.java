@@ -5,37 +5,41 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
+import android.view.View.OnTouchListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.HelpEnabledActivity;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class action_fertilizing extends HelpEnabledActivity {
+public class action_fertilizing extends HelpEnabledActivity implements
+		OnLongClickListener, OnTouchListener {
 	private RealFarmProvider mDataProvider;
 	private final action_fertilizing parentReference = this;
-	private String units_fert = "0", fert_var_sel = "0", day_fert_sel="0", day_fert_sel_1;
+	private String units_fert = "0", fert_var_sel = "0", day_fert_sel = "0",
+			day_fert_sel_1;
 	private int fert_no, day_fert_int;
-	private String fert_no_sel, months_fert="0";
+	private String fert_no_sel, months_fert = "0";
 	private Context context = this;
 
 	public void onBackPressed() {
 
 		if (Global.writeToSD == true) {
-
-			String logtime = getcurrenttime();
+			String logtime = getCurrentTime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Softkey "+ " click " + " Back_button " + " null " + " \r\n");
-
+			mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+					+ " Softkey " + " click " + " Back_button " + " null "
+					+ " \r\n");
 		}
 		Intent adminintent = new Intent(action_fertilizing.this,
 				Homescreen.class);
@@ -43,7 +47,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 		startActivity(adminintent);
 		action_fertilizing.this.finish();
 
-		SoundQueue sq = SoundQueue.getInstance(); // audio integration
+		SoundQueue sq = SoundQueue.getInstance();
 		sq.stop();
 	}
 
@@ -55,28 +59,23 @@ public class action_fertilizing extends HelpEnabledActivity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.fertilizing_dialog);
 		System.out.println("plant done");
+
 		final TextView day_fert = (TextView) findViewById(R.id.dlg_lbl_day_fert);
-		
-
 		final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
-
 		final ImageView bg_units_no_fert = (ImageView) findViewById(R.id.img_bg_units_no_fert);
-
 		final ImageView bg_units_fert = (ImageView) findViewById(R.id.img_bg_units_fert);
-
 		final ImageView bg_var_fert = (ImageView) findViewById(R.id.img_bg_var_fert);
-		
 		final ImageView bg_month_fert = (ImageView) findViewById(R.id.img_bg_month_fert);
-
-		//bg_day_fert.setImageResource(R.drawable.empty_not);
 
 		playAudio(R.raw.clickingfertilising);
 
 		if (Global.writeToSD == true) {
 
-			String logtime = getcurrenttime();
+			String logtime = getCurrentTime();
 			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt"," Homepage "+ " actionicon "+ " click " + " fertilizingicon " + " null " + " \r\n");
+			mDataProvider.File_Log_Create("UIlog.txt", " Homepage "
+					+ " actionicon " + " click " + " fertilizingicon "
+					+ " null " + " \r\n");
 
 		}
 
@@ -85,26 +84,21 @@ public class action_fertilizing extends HelpEnabledActivity {
 		final Button item3;
 		final Button item4;
 		final Button item5;
-		ImageButton home;
-		ImageButton help;
 		item1 = (Button) findViewById(R.id.home_btn_var_fert);
 		item2 = (Button) findViewById(R.id.home_btn_units_fert);
 		item3 = (Button) findViewById(R.id.home_btn_day_fert);
 		item4 = (Button) findViewById(R.id.home_btn_units_no_fert);
 		item5 = (Button) findViewById(R.id.home_btn_month_fert);
-		home = (ImageButton) findViewById(R.id.aggr_img_home);
-		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
 		item1.setOnLongClickListener(this); // Integration
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 		item5.setOnLongClickListener(this);
-		help.setOnLongClickListener(this);
 
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				stopaudio();
+				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.variety_fert_dialog);
@@ -114,10 +108,12 @@ public class action_fertilizing extends HelpEnabledActivity {
 				dlg.show();
 				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
+					String logtime = getCurrentTime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " type_fertilizer " + " null " + " \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+							+ " selection " + " click " + " type_fertilizer "
+							+ " null " + " \r\n");
 
 				}
 				final Button fert1;
@@ -152,10 +148,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " fertilizer1 " + " fertilizer1 " + " \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " in_popup " + " click "
+											+ " fertilizer1 " + " fertilizer1 "
+											+ " \r\n");
 
 						}
 
@@ -176,11 +175,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 						bg_var_fert.setImageResource(R.drawable.empty_not);
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " fertilizer2 " + " fertilizer2 " + " \r\n");
-
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " in_popup " + " click "
+											+ " fertilizer2 " + " fertilizer2 "
+											+ " \r\n");
 
 						}
 						dlg.cancel();
@@ -200,11 +201,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 						bg_var_fert.setImageResource(R.drawable.empty_not);
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " fertilizer3 " + " fertilizer3 " + " \r\n");
-
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " in_popup " + " click "
+											+ " fertilizer3 " + " fertilizer3 "
+											+ " \r\n");
 
 						}
 						dlg.cancel();
@@ -216,7 +219,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				stopaudio();
+				stopAudio();
 				Log.d("in units fert dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.units_dialog);
@@ -226,11 +229,12 @@ public class action_fertilizing extends HelpEnabledActivity {
 				dlg.show();
 				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
+					String logtime = getCurrentTime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " units_fertilizer " + " null " + " \r\n");
-
+					mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+							+ " selection " + " click " + " units_fertilizer "
+							+ " null " + " \r\n");
 
 				}
 
@@ -266,11 +270,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " units_fertilizer " + units_fert + " \r\n");
-
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " in_popup " + " click "
+											+ " units_fertilizer " + units_fert
+											+ " \r\n");
 
 						}
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
@@ -291,10 +297,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 						bg_units_fert.setImageResource(R.drawable.empty_not);
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " units_fertilizer " + units_fert + " \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " in_popup " + " click "
+											+ " units_fertilizer " + units_fert
+											+ " \r\n");
 
 						}
 						dlg.cancel();
@@ -314,11 +323,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 						bg_units_fert.setImageResource(R.drawable.empty_not);
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " in_popup "+ " click " + " units_fertilizer " + units_fert + " \r\n");
-
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " in_popup " + " click "
+											+ " units_fertilizer " + units_fert
+											+ " \r\n");
 
 						}
 						dlg.cancel();
@@ -330,7 +341,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				stopaudio();
+				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
@@ -343,9 +354,10 @@ public class action_fertilizing extends HelpEnabledActivity {
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 				no_ok.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
+					public void onClick(View v) {
 
-						NumberPicker mynpd = (NumberPicker) dlg.findViewById(R.id.numberpick);
+						NumberPicker mynpd = (NumberPicker) dlg
+								.findViewById(R.id.numberpick);
 						day_fert_int = mynpd.getValue();
 						day_fert_sel_1 = String.valueOf(day_fert_int);
 						day_fert.setText(day_fert_sel_1);
@@ -353,9 +365,10 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.day_fert_tr);
 
-							tr_feedback.setBackgroundResource(R.drawable.def_img);
+							tr_feedback
+									.setBackgroundResource(R.drawable.def_img);
 							bg_day_fert.setImageResource(R.drawable.empty_not);
-							
+
 						}
 
 						dlg.cancel();
@@ -366,7 +379,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 						dlg.cancel();
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
 
@@ -378,7 +391,6 @@ public class action_fertilizing extends HelpEnabledActivity {
 					}
 				});
 
-
 			}
 		});
 
@@ -386,7 +398,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				stopaudio();
+				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
@@ -396,10 +408,12 @@ public class action_fertilizing extends HelpEnabledActivity {
 				dlg.show();
 				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
+					String logtime = getCurrentTime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " no_units_fertilizer " + " null " + " \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+							+ " selection " + " click "
+							+ " no_units_fertilizer " + " null " + " \r\n");
 				}
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
@@ -424,10 +438,14 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 							if (Global.writeToSD == true) {
 
-								String logtime = getcurrenttime();
+								String logtime = getCurrentTime();
 								mDataProvider.File_Log_Create("UIlog.txt",
 										logtime + " -> ");
-			    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " number_picker "+ " click " + " no_units_fertilizer " + fert_no_sel + " \r\n");
+								mDataProvider.File_Log_Create("UIlog.txt",
+										" Fertilizing " + " number_picker "
+												+ " click "
+												+ " no_units_fertilizer "
+												+ fert_no_sel + " \r\n");
 
 							}
 						}
@@ -439,10 +457,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 					public void onClick(View v) {
 						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
+							String logtime = getCurrentTime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " number_picker "+ " click " + " cancel_no_units " + "cancelnumberentry" + " \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " number_picker "
+											+ " click " + " cancel_no_units "
+											+ "cancelnumberentry" + " \r\n");
 
 						}
 						dlg.cancel();
@@ -452,11 +473,9 @@ public class action_fertilizing extends HelpEnabledActivity {
 			}
 		});
 
-		
-		
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				stopaudio();
+				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.months_dialog);
@@ -520,7 +539,6 @@ public class action_fertilizing extends HelpEnabledActivity {
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_fert);
 
 				month1.setOnClickListener(new View.OnClickListener() {
-			
 
 					public void onClick(View v) {
 
@@ -703,22 +721,7 @@ public class action_fertilizing extends HelpEnabledActivity {
 			}
 
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 		Button btnNext = (Button) findViewById(R.id.fert_ok);
 		Button cancel = (Button) findViewById(R.id.fert_cancel);
 
@@ -730,10 +733,12 @@ public class action_fertilizing extends HelpEnabledActivity {
 				cancelAudio();
 				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
+					String logtime = getCurrentTime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Cancel "+ " click " + " Cancel_btn " + "null" + " \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+							+ " Cancel " + " click " + " Cancel_btn " + "null"
+							+ " \r\n");
 
 				}
 			}
@@ -745,10 +750,12 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
+					String logtime = getCurrentTime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " OK "+ " click " + " OK_btn " + "null" + " \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+							+ " OK " + " click " + " OK_btn " + "null"
+							+ " \r\n");
 
 				}
 
@@ -763,10 +770,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
+						String logtime = getCurrentTime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
 								+ " -> ");
-						mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Incomplete "+ " Auto " + " ok_btn " + "units_fertilizer" + " \r\n");
+						mDataProvider.File_Log_Create("UIlog.txt",
+								" Fertilizing " + " Incomplete " + " Auto "
+										+ " ok_btn " + "units_fertilizer"
+										+ " \r\n");
 
 					}
 
@@ -787,10 +797,13 @@ public class action_fertilizing extends HelpEnabledActivity {
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
+						String logtime = getCurrentTime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
 								+ " -> ");
-						mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Incomplete "+ " Auto " + " ok_btn " + "type_fertilizer" + " \r\n");
+						mDataProvider.File_Log_Create("UIlog.txt",
+								" Fertilizing " + " Incomplete " + " Auto "
+										+ " ok_btn " + "type_fertilizer"
+										+ " \r\n");
 
 					}
 
@@ -802,11 +815,9 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				
-				
-				
-				if (months_fert.toString().equalsIgnoreCase("0") || day_fert_int ==0) {
+
+				if (months_fert.toString().equalsIgnoreCase("0")
+						|| day_fert_int == 0) {
 
 					flag3 = 1;
 
@@ -815,18 +826,21 @@ public class action_fertilizing extends HelpEnabledActivity {
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
+						String logtime = getCurrentTime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
 								+ " -> ");
-						mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " Incomplete "+ " Auto " + " ok_btn " + "type_fertilizer" + " \r\n");
+						mDataProvider.File_Log_Create("UIlog.txt",
+								" Fertilizing " + " Incomplete " + " Auto "
+										+ " ok_btn " + "type_fertilizer"
+										+ " \r\n");
 
 					}
 
 				} else {
 
 					flag3 = 0;
-					
-					day_fert_sel = day_fert_sel_1 + "."  + months_fert;
+
+					day_fert_sel = day_fert_sel_1 + "." + months_fert;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
 
@@ -844,10 +858,12 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
+						String logtime = getCurrentTime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
 								+ " -> ");
-						mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " complete "+ " Auto " + " ok_btn " + "null" + " \r\n");
+						mDataProvider.File_Log_Create("UIlog.txt",
+								" Fertilizing " + " complete " + " Auto "
+										+ " ok_btn " + "null" + " \r\n");
 					}
 					Intent adminintent = new Intent(action_fertilizing.this,
 							Homescreen.class);
@@ -856,26 +872,8 @@ public class action_fertilizing extends HelpEnabledActivity {
 					action_fertilizing.this.finish();
 					okAudio();
 
-				} else
+				} else {
 					initmissingval();
-
-			}
-		});
-
-		home.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent adminintent = new Intent(action_fertilizing.this,
-						Homescreen.class);
-
-				startActivity(adminintent);
-				action_fertilizing.this.finish();
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " home "+ " click " + " home_btn " + "header_home" + " \r\n");
-
 				}
 
 			}
@@ -885,15 +883,9 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 	// @Override
 	protected void initmissingval() {
-
 		playAudio(R.raw.missinginfo);
 	}
 
-	protected void stopaudio() {
-		SoundQueue.getInstance().stop();
-	}
-
-	@Override
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.home_btn_var_fert) {
@@ -902,9 +894,11 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
+				String logtime = getCurrentTime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " type_fertilizer " + "Audio_played" + " \r\n");
+				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+						+ " audio " + " longtap " + " type_fertilizer "
+						+ "Audio_played" + " \r\n");
 			}
 
 		}
@@ -914,9 +908,11 @@ public class action_fertilizing extends HelpEnabledActivity {
 			playAudio(R.raw.selecttheunits);
 			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
+				String logtime = getCurrentTime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " units_fertilizer " + "Audio_played" + " \r\n");
+				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+						+ " audio " + " longtap " + " units_fertilizer "
+						+ "Audio_played" + " \r\n");
 
 			}
 		}
@@ -927,9 +923,11 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
+				String logtime = getCurrentTime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-    			mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " units_fertilizer " + "Audio_played" + " \r\n");
+				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+						+ " audio " + " longtap " + " units_fertilizer "
+						+ "Audio_played" + " \r\n");
 
 			}
 		}
@@ -939,9 +937,11 @@ public class action_fertilizing extends HelpEnabledActivity {
 			playAudio(R.raw.selectthedate);
 			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
+				String logtime = getCurrentTime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " day_fertilizer " + "Audio_played" + " \r\n");
+				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+						+ " audio " + " longtap " + " day_fertilizer "
+						+ "Audio_played" + " \r\n");
 
 			}
 		}
@@ -961,10 +961,11 @@ public class action_fertilizing extends HelpEnabledActivity {
 			playAudio(R.raw.help);
 			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
+				String logtime = getCurrentTime();
 				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " audio "+ " longtap " + " help_fertilizer " + "Audio_played" + " \r\n");
-
+				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+						+ " audio " + " longtap " + " help_fertilizer "
+						+ "Audio_played" + " \r\n");
 
 			}
 		}
@@ -1049,5 +1050,10 @@ public class action_fertilizing extends HelpEnabledActivity {
 
 	protected void okAudio() {
 		playAudio(R.raw.ok);
+	}
+
+	// TODO: implement
+	public boolean onTouch(View v, MotionEvent event) {
+		return true;
 	}
 }

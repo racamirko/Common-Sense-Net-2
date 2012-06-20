@@ -1,7 +1,11 @@
 package com.commonsensenet.realfarm;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
@@ -21,8 +25,21 @@ public abstract class HelpEnabledActivity extends SherlockActivity {
 	@Override
 	public void onBackPressed() {
 		// stops any currently playing sound.
-		SoundQueue.getInstance().stop();
+		stopAudio();
+
 		super.onBackPressed();
+	}
+
+	protected String getCurrentTime() {
+		Calendar ctaq = Calendar.getInstance();
+		SimpleDateFormat dfaq = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String crntdt = dfaq.format(ctaq.getTime());
+		Log.i("strtdat", crntdt);
+		return crntdt;
+	}
+
+	protected void stopAudio() {
+		SoundQueue.getInstance().stop();
 	}
 
 	protected void playAudio(int resid) // audio integration
