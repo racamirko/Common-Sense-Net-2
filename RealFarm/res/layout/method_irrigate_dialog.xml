@@ -52,7 +52,7 @@
                     android:layout_marginLeft="62dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="fertilizer 1"
+                    android:text="Method 1"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
@@ -86,14 +86,15 @@
                     android:id="@+id/dlg_lbl_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/home_btn_har_1"
-                    android:layout_alignBottom="@+id/home_btn_har_1"
+                    android:layout_alignBaseline="@+id/home_var_fert_2"
+                    android:layout_alignBottom="@+id/home_var_fert_2"
                     android:layout_alignLeft="@+id/dlg_img_seed"
-                    android:layout_marginLeft="65dp"
+                    android:layout_marginLeft="66dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="fertilizer 2"
+                    android:text="Method 2"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -126,14 +127,15 @@
                     android:id="@+id/dlg_lbl_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/home_btn_har_1"
-                    android:layout_alignBottom="@+id/home_btn_har_1"
+                    android:layout_alignBaseline="@+id/home_var_fert_3"
+                    android:layout_alignBottom="@+id/home_var_fert_3"
                     android:layout_alignLeft="@+id/dlg_img_seed"
-                    android:layout_marginLeft="65dp"
+                    android:layout_marginLeft="66dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="fertilizer 3"
+                    android:text="Method 3"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

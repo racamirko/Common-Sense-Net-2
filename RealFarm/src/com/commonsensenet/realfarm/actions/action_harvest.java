@@ -24,12 +24,12 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 public class action_harvest extends HelpEnabledActivity { // Integration
 	private Context context = this;
 	private int feedback_sel;
-	private int harvest_no;
+	private int harvest_no, day_harvest_int;
 	private String harvest_no_sel, units_harvest = "0", feedback_txt,
-			months_harvest = "0";
+			months_harvest = "0", day_harvest_sel_1="0";
 	private RealFarmProvider mDataProvider;
 	private final action_harvest parentReference = this; // audio integration
-	private String year_harvest;
+	private String final_day_harvest;
 
 	protected void cancelaudio() {
 		playAudio(R.raw.cancel);
@@ -75,7 +75,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		final Button smiley3;
 
 		final ImageView bg_month_harvest = (ImageView) findViewById(R.id.img_bg_month_harvest);
-		final ImageView bg_year_harvest = (ImageView) findViewById(R.id.img_bg_year_harvest);
+		final ImageView bg_day_harvest = (ImageView) findViewById(R.id.img_bg_day_harvest);
 		final ImageView bg_units_no_harvest = (ImageView) findViewById(R.id.img_bg_units_no_harvest);
 		final ImageView bg_units_harvest = (ImageView) findViewById(R.id.img_bg_units_harvest);
 
@@ -97,10 +97,6 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 		}
 
-		final TextView harvest_year_set = (TextView) findViewById(R.id.dlg_lbl_harvest_year);
-		harvest_year_set.setText("2012");
-		year_harvest = "2012";
-		bg_year_harvest.setImageResource(R.drawable.empty_not);
 		System.out.println("Plant details entered1");
 		final Button item1;
 		final Button item2;
@@ -111,8 +107,10 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		System.out.println("Plant details entered2");
 		item1 = (Button) findViewById(R.id.home_btn_units_no_harvest);
 		item2 = (Button) findViewById(R.id.home_btn_units_harvest);
-		item3 = (Button) findViewById(R.id.home_btn_harvest_date);
-		item4 = (Button) findViewById(R.id.home_btn_harvest_year);
+		item3 = (Button) findViewById(R.id.home_btn_month_harvest);
+		item4 = (Button) findViewById(R.id.home_btn_day_harvest);
+		
+		
 		System.out.println("Plant details entered3");
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
@@ -319,7 +317,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 						Log.d("var 1 picked ", "in dialog");
 						// img_1.setMaxWidth(300);
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Bag of 10 Kgs");
+						var_text.setText("10 Kgs");
 						units_harvest = "Bag of 10 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 
@@ -348,7 +346,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Bag of 20 Kgs");
+						var_text.setText("20 Kgs");
 						units_harvest = "Bag of 20 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 
@@ -376,7 +374,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Bag of 50 Kgs");
+						var_text.setText("50 Kgs");
 						units_harvest = "Bag of 50 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
 
@@ -466,14 +464,14 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				((Button) dlg.findViewById(R.id.home_month_12))
 						.setOnLongClickListener(parentReference);
 
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_harvest_date);
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_harvest);
 
 				month1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("January");
-						months_harvest = "January";
+						var_text.setText("01");
+						months_harvest = "01";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -487,8 +485,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("February");
-						months_harvest = "February";
+						var_text.setText("02");
+						months_harvest = "02";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -502,8 +500,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("March");
-						months_harvest = "March";
+						var_text.setText("03");
+						months_harvest = "03";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -517,8 +515,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("April");
-						months_harvest = "April";
+						var_text.setText("04");
+						months_harvest = "04";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -532,8 +530,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("May");
-						months_harvest = "May";
+						var_text.setText("05");
+						months_harvest = "05";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -547,8 +545,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("June");
-						months_harvest = "June";
+						var_text.setText("06");
+						months_harvest = "06";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -562,8 +560,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("July");
-						months_harvest = "July";
+						var_text.setText("07");
+						months_harvest = "07";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -577,8 +575,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("August");
-						months_harvest = "August";
+						var_text.setText("08");
+						months_harvest = "08";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -592,8 +590,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("September");
-						months_harvest = "September";
+						var_text.setText("09");
+						months_harvest = "09";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -607,8 +605,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("October");
-						months_harvest = "October";
+						var_text.setText("10");
+						months_harvest = "10";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -622,8 +620,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("November");
-						months_harvest = "November";
+						var_text.setText("11");
+						months_harvest = "11";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -637,8 +635,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					public void onClick(View v) {
 
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("December");
-						months_harvest = "December";
+						var_text.setText("12");
+						months_harvest = "12";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -650,52 +648,61 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 			}
 
 		});
+			
+		final TextView day_fert = (TextView) findViewById(R.id.dlg_lbl_day_harvest);   
 
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.years_dialog);
+				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
 				dlg.setTitle("Choose the Year when harvested");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				final Button year1 = (Button) dlg
-						.findViewById(R.id.home_year_1);
-				final Button year2 = (Button) dlg
-						.findViewById(R.id.home_year_2);
+				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
+				Button no_cancel = (Button) dlg
+						.findViewById(R.id.number_cancel);
+				no_ok.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
 
-				year1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
+				
+				NumberPicker mynpd = (NumberPicker) dlg.findViewById(R.id.numberpick);
+				day_harvest_int = mynpd.getValue();
+				day_harvest_sel_1 = String.valueOf(day_harvest_int);
+				day_fert.setText(day_harvest_sel_1);
+				if (day_harvest_int != 0) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						harvest_year_set.setText("2011");
-						year_harvest = "2011";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+					TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					bg_day_harvest.setImageResource(R.drawable.empty_not);
+					
+				}
 
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_year_harvest.setImageResource(R.drawable.empty_not);
+				dlg.cancel();
+			}
+		});
+		no_cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				dlg.cancel();
+				if (Global.writeToSD == true) {
 
-						dlg.cancel();
-					}
-				});
-				year2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
+					String logtime = getcurrenttime();
+					mDataProvider.File_Log_Create("UIlog.txt", logtime
+							+ " -> ");
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						harvest_year_set.setText("2012");
-						year_harvest = "2012";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** user selected cancel on selction of bags for Sowing*********** \r\n");
 
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_year_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
+				}
+			}
+		});
+				
+				
+				
 			}
 
 		});
@@ -806,10 +813,9 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					tr_units.setBackgroundResource(R.drawable.def_img);
 				}
 
-				if (months_harvest.toString().equalsIgnoreCase("0")) {
+				if (months_harvest.toString().equalsIgnoreCase("0") || day_harvest_int == 0 ) {
 					flag3 = 1;
-					Toast.makeText(action_harvest.this,
-							" Please enter the kgs", Toast.LENGTH_LONG).show();
+					
 
 					TableRow tr_months = (TableRow) findViewById(R.id.harvest_date_tr);
 
@@ -826,6 +832,9 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 					}
 				} else {
 					flag3 = 0;
+					
+					final_day_harvest = day_harvest_int + "." + months_harvest;
+					
 					TableRow tr_units = (TableRow) findViewById(R.id.harvest_date_tr);
 
 					tr_units.setBackgroundResource(R.drawable.def_img);
@@ -834,7 +843,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 					System.out.println("harvesting writing");
 					mDataProvider.setHarvest(harvest_no, 0, units_harvest,
-							year_harvest + months_harvest, feedback_txt, 1, 0);
+							final_day_harvest, feedback_txt, 1, 0);
 
 					System.out.println("harvesting reading");
 					mDataProvider.getharvesting();
@@ -986,13 +995,13 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 		}
 
-		if (v.getId() == R.id.home_btn_harvest_date) { // added
+		if (v.getId() == R.id.home_btn_day_harvest) { // added
 
 			playAudio(R.raw.choosethemonthwhenharvested);
 
 		}
 
-		if (v.getId() == R.id.home_btn_harvest_year) { // added
+		if (v.getId() == R.id.home_btn_month_harvest) { // added
 
 			playAudio(R.raw.selectthedate);
 

@@ -28,8 +28,8 @@ public class NumberPicker extends LinearLayout {
 		}
 	}
 
-	private static final int ELEMENT_HEIGHT = 80;
-	private static final int ELEMENT_WIDTH = 60;
+	private static final int ELEMENT_HEIGHT = 60;
+	private static final int ELEMENT_WIDTH = 40;
 	private static final int MAXIMUM = 999;
 	private static final int MINIMUM = 0;
 	private static final long REPEAT_DELAY = 50;

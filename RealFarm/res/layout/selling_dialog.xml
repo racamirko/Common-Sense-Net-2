@@ -57,7 +57,7 @@
      <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="75dp"
+        android:layout_height="60dp"
         android:orientation="horizontal" >
 
         <TableRow
@@ -65,8 +65,7 @@
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
             android:background="@drawable/def_img"
-            android:paddingBottom="5dip"
-            android:paddingTop="4dip" >
+           >
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
@@ -158,7 +157,7 @@
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:orientation="horizontal" >
 
         <TableRow
@@ -166,8 +165,8 @@
             android:layout_width="fill_parent"
             android:layout_height="70dp"
             android:background="@drawable/def_img"
-            android:paddingBottom="10dip"
-            android:paddingTop="4dip" >
+         
+             >
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
@@ -254,7 +253,6 @@
                     android:layout_alignParentTop="true"
                     android:layout_alignRight="@+id/img_bg_date_sell"
                     android:background="@drawable/square_btn_transp" />
-
             </RelativeLayout>
 
             <RelativeLayout
@@ -295,12 +293,13 @@
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
         </TableRow>
+
     </LinearLayout>
     
      <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:orientation="horizontal" >
 
         <TableRow
@@ -420,7 +419,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
-                    android:paddingLeft="15dp"
+                    android:paddingLeft="10dp"
                     android:paddingTop="5dip"
                     android:text="Kg&apos;s"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
@@ -441,7 +440,7 @@
       <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="fill_parent"
-        android:layout_height="70dp"
+        android:layout_height="60dp"
         android:orientation="horizontal" >
 
         <TableRow
@@ -540,7 +539,7 @@
     <TableRow
             android:id="@+id/rem_quant_sell_tr"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@drawable/def_img"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
@@ -585,12 +584,13 @@
                 <ImageButton
                     android:id="@+id/amount_sow_img_btn"
                     android:layout_width="40dip"
-                    android:layout_height="60dp"
-                    android:layout_alignParentBottom="true"
+                    android:layout_height="50dp"
+                    android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
                     android:src="@drawable/ic_48px_pest" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -653,7 +653,7 @@
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
-                    android:paddingLeft="15dp"
+                    android:paddingLeft="10dp"
                     android:paddingTop="5dip"
                     android:text="Kg&apos;s"
                     android:textAppearance="?android:attr/textAppearanceMedium" />

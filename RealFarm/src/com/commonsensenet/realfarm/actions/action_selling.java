@@ -27,15 +27,15 @@ public class action_selling extends HelpEnabledActivity {
 	private String quality_sell = "0", selling_pickcheck = "0";
 	private int sellprice_no, sell_no;
 	private String sellprice_no_sel, sell_no_sel, units_sell = "0";
-	String crop_sell;
+	String crop_sell="0";
 	int date_sel;
-	String date_sel_str;
-	String months_harvest;
+	String date_sel_str="0";
+	String months_harvest="0";
     int sell_price;
-	String sell_price_sel;
+	String sell_price_sel="0";
 	 int sell_no_rem;
-	 String units_rem_sell;
- String sell_no_sel_rem;
+	 String units_rem_sell="0";
+ String sell_no_sel_rem="0";
 	protected void cancelaudio() {
 
 		playAudio(R.raw.cancel);
@@ -720,7 +720,7 @@ public class action_selling extends HelpEnabledActivity {
 						Log.d("var 1 picked ", "in dialog");
 						// img_1.setMaxWidth(300);
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Bag of 10 Kgs");
+						var_text.setText("10 Kgs");
 						units_sell = "Bag of 10 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
@@ -747,7 +747,7 @@ public class action_selling extends HelpEnabledActivity {
 						Log.d("var 2 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Bag of 20 Kgs");
-						units_sell = "Bag of 20 Kgs";
+						units_sell = "20 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -772,7 +772,7 @@ public class action_selling extends HelpEnabledActivity {
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Bag of 50 Kgs");
+						var_text.setText("50 Kgs");
 						units_sell = "Bag of 50 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
@@ -827,7 +827,7 @@ public class action_selling extends HelpEnabledActivity {
 						sell_price = mynp1.getValue();
 						sell_price_sel = String.valueOf(sell_price);
 						no_text2.setText(sell_price_sel);
-						if (sell_no != 0) {
+						if (sell_price != 0) {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
 
@@ -949,7 +949,7 @@ public class action_selling extends HelpEnabledActivity {
 						Log.d("var 1 picked ", "in dialog");
 						// img_1.setMaxWidth(300);
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Bag of 10 Kgs");
+						var_text.setText("10 Kgs");
 						units_rem_sell = "Bag of 10 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
@@ -977,7 +977,7 @@ public class action_selling extends HelpEnabledActivity {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Bag of 20 Kgs");
+						var_text.setText("20 Kgs");
 						units_rem_sell = "Bag of 20 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
@@ -1003,7 +1003,7 @@ public class action_selling extends HelpEnabledActivity {
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Bag of 50 Kgs");
+						var_text.setText("50 Kgs");
 						units_rem_sell = "Bag of 50 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
@@ -1031,6 +1031,152 @@ public class action_selling extends HelpEnabledActivity {
 		
 		
 		
+		Button btnNext = (Button) findViewById(R.id.sell_ok);
+		Button cancel = (Button) findViewById(R.id.sell_cancel);
+
+		btnNext.setOnLongClickListener(this); // Integration
+		cancel.setOnLongClickListener(this);
+
+		cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				cancelaudio();
+			}
+
+		});
+
+		
+		
+		btnNext.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				// Toast.makeText(action_fertilizing.this, "User enetred " +
+				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
+				int flag1, flag2, flag3, flag4, flag5;
+			
+				if (crop_sell.toString().equalsIgnoreCase("0")) {
+
+					flag1 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+				} else {
+
+					flag1 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+
+				if (months_harvest.toString().equalsIgnoreCase("0") || date_sel == 0) {
+
+					flag2 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+				} else {
+
+					flag2 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+				
+				
+				if (units_sell.toString().equalsIgnoreCase("0") || sell_no == 0) {
+
+					flag3 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+				} else {
+
+					flag3 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+				
+				
+				
+				if (sell_price == 0) {
+					flag4 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+				} else {
+					flag4 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+				
+				
+				if (units_rem_sell.toString().equalsIgnoreCase("0") || sell_no_rem == 0) {
+
+					flag5 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+				} else {
+
+					flag5 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+				
+				
+				
+				
+				
+				
+				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0 && flag5 == 0) {
+					
+			//		System.out.println("Irrigting Writing");
+			//		mDataProvider.setIrrigation(hrs_irrigate, "hours",
+		//					irr_day_sel, 0, 0, irr_method_sel);
+
+			//		System.out.println("Irrigting reading");
+			//		mDataProvider.getharvesting();
+
+					Intent adminintent = new Intent(action_selling.this,
+							Homescreen.class);
+
+					startActivity(adminintent);
+					action_selling.this.finish();
+					okaudio();
+
+				} else
+					initmissingval();
+
+			}
+		});
+
+		home.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent adminintent = new Intent(action_selling.this,
+						Homescreen.class);
+
+				startActivity(adminintent);
+				action_selling.this.finish();
+
+			}
+		});
 		
 		
 		

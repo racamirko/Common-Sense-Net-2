@@ -26,8 +26,8 @@ public class action_sowing extends HelpEnabledActivity {
 	private Context context = this;
 	private RealFarmProvider mDataProvider;
 	private final action_sowing parentReference = this; // audio integration
-	private int sow_no;
-	private String sow_no_sel;
+	private int sow_no, day_sow_int;
+	private String sow_no_sel, day_sow_str, months_sow="0";
 	private String treatment_sow = "0", days_sel_sow = "0", units_sow = "0",
 			seed_sow = "0";
 
@@ -69,8 +69,7 @@ public class action_sowing extends HelpEnabledActivity {
 		setContentView(R.layout.sowing_dialog);
 		System.out.println("plant done");
 		final TextView day_sow = (TextView) findViewById(R.id.dlg_lbl_day_sow);
-		day_sow.setText("Today");
-		days_sel_sow = "Today";
+		final TextView month_sow = (TextView) findViewById(R.id.dlg_lbl_month_sow);
 
 		playAudio(R.raw.thankyouclickingactionsowing);
 
@@ -89,7 +88,8 @@ public class action_sowing extends HelpEnabledActivity {
 		final ImageView bg_units_sow = (ImageView) findViewById(R.id.img_bg_units_sow);
 		final ImageView bg_treatment_sow = (ImageView) findViewById(R.id.img_bg_treatment_sow);
 		final ImageView bg_day_sow = (ImageView) findViewById(R.id.img_bg_day_sow);
-		bg_day_sow.setImageResource(R.drawable.empty_not);
+		final ImageView bg_month_sow = (ImageView) findViewById(R.id.img_bg_month_sow);
+	//	bg_day_sow.setImageResource(R.drawable.empty_not);
 
 		final Button item1;
 		final Button item2;
@@ -103,6 +103,8 @@ public class action_sowing extends HelpEnabledActivity {
 		item3 = (Button) findViewById(R.id.home_btn_day_sow);
 		item4 = (Button) findViewById(R.id.home_btn_treat_sow);
 		item5 = (Button) findViewById(R.id.home_btn_units_no_sow);
+		final Button item6 = (Button) findViewById(R.id.home_btn_month_sow);
+		
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
@@ -360,7 +362,7 @@ public class action_sowing extends HelpEnabledActivity {
 						Log.d("var 1 picked ", "in dialog");
 						// img_1.setMaxWidth(300);
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Bag of 10 Kgs");
+						var_text.setText("10 Kgs");
 						units_sow = "Bag of 10 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 
@@ -386,7 +388,7 @@ public class action_sowing extends HelpEnabledActivity {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Bag of 20 Kgs");
+						var_text.setText("20 Kgs");
 						units_sow = "Bag of 20 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 
@@ -411,7 +413,7 @@ public class action_sowing extends HelpEnabledActivity {
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Bag of 50 Kgs");
+						var_text.setText("50 Kgs");
 						units_sow = "Bag of 50 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 
@@ -438,158 +440,52 @@ public class action_sowing extends HelpEnabledActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				Log.d("in day sowing dialog", "in dialog");
+				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.days_dialog);
+				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the day");
-				Log.d("in day sowing dialog", "in dialog");
+				dlg.setTitle("Choose the Date");
+				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
+				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
+				Button no_cancel = (Button) dlg
+						.findViewById(R.id.number_cancel);
+				no_ok.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+
+				
+				NumberPicker mynpd = (NumberPicker) dlg.findViewById(R.id.numberpick);
+				day_sow_int = mynpd.getValue();
+				day_sow_str = String.valueOf(day_sow_int);
+				day_sow.setText(day_sow_str);
+				if (day_sow_int != 0) {
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					bg_day_sow.setImageResource(R.drawable.empty_not);
+					
+				}
+
+				dlg.cancel();
+			}
+		});
+		no_cancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				dlg.cancel();
 				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
+					mDataProvider.File_Log_Create("UIlog.txt", logtime
+							+ " -> ");
 
 					mDataProvider
 							.File_Log_Create("UIlog.txt",
-									"***** In selection of day for Sowing*********** \r\n");
+									"***** user selected cancel on selction of bags for Sowing*********** \r\n");
 
 				}
-
-				final Button day1;
-				final Button day2;
-				final Button day3;
-				final Button day4;
-				final Button day5;
-
-				// final ImageView img_1 = (ImageView)
-				// findViewById(R.id.dlg_unit_sow);
-
-				day1 = (Button) dlg.findViewById(R.id.home_day_1);
-				day2 = (Button) dlg.findViewById(R.id.home_day_2);
-				day3 = (Button) dlg.findViewById(R.id.home_day_3);
-				day4 = (Button) dlg.findViewById(R.id.home_day_4);
-				day5 = (Button) dlg.findViewById(R.id.home_day_5);
-
-				((Button) dlg.findViewById(R.id.home_day_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
-				((Button) dlg.findViewById(R.id.home_day_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_day_3))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_day_4))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_day_5))
-						.setOnLongClickListener(parentReference);
-
-				day1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						day_sow.setText("Two week before");
-						days_sel_sow = "Two week before";
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.writeToSD == true) {
-
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + days_sel_sow
-											+ " for Sowing*********** \r\n");
-
-						}
-						dlg.cancel();
-					}
-				});
-
-				day2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						day_sow.setText("One week before");
-						days_sel_sow = "One week before";
-						if (Global.writeToSD == true) {
-
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + days_sel_sow
-											+ " for Sowing*********** \r\n");
-
-						}
-						dlg.cancel();
-					}
-				});
-
-				day3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						day_sow.setText("Yesterday");
-						days_sel_sow = "Yesterday";
-						if (Global.writeToSD == true) {
-
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + days_sel_sow
-											+ " for Sowing*********** \r\n");
-
-						}
-						dlg.cancel();
-					}
-				});
-				day4.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						day_sow.setText("Today");
-						days_sel_sow = "Today";
-						if (Global.writeToSD == true) {
-
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + days_sel_sow
-											+ " for Sowing*********** \r\n");
-
-						}
-						dlg.cancel();
-					}
-				});
-				day5.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						day_sow.setText("Tomorrow");
-						days_sel_sow = "Tomorrow";
-						if (Global.writeToSD == true) {
-
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + days_sel_sow
-											+ " for Sowing*********** \r\n");
-
-						}
-						dlg.cancel();
-					}
-				});
-
+			}
+		});
 			}
 		});
 
@@ -770,6 +666,266 @@ public class action_sowing extends HelpEnabledActivity {
 			}
 		});
 
+		
+		item6.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				Log.d("in variety sowing dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.months_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the month ");
+				Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
+
+				final Button month1 = (Button) dlg
+						.findViewById(R.id.home_month_1);
+				final Button month2 = (Button) dlg
+						.findViewById(R.id.home_month_2);
+				final Button month3 = (Button) dlg
+						.findViewById(R.id.home_month_3);
+				final Button month4 = (Button) dlg
+						.findViewById(R.id.home_month_4);
+				final Button month5 = (Button) dlg
+						.findViewById(R.id.home_month_5);
+				final Button month6 = (Button) dlg
+						.findViewById(R.id.home_month_6);
+				final Button month7 = (Button) dlg
+						.findViewById(R.id.home_month_7);
+				final Button month8 = (Button) dlg
+						.findViewById(R.id.home_month_8);
+				final Button month9 = (Button) dlg
+						.findViewById(R.id.home_month_9);
+				final Button month10 = (Button) dlg
+						.findViewById(R.id.home_month_10);
+				final Button month11 = (Button) dlg
+						.findViewById(R.id.home_month_11);
+				final Button month12 = (Button) dlg
+						.findViewById(R.id.home_month_12);
+
+				((Button) dlg.findViewById(R.id.home_month_1))
+						.setOnLongClickListener(parentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_month_2))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_3))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_4))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_5))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_6))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_7))
+						.setOnLongClickListener(parentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_month_8))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_9))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_10))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_11))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_month_12))
+						.setOnLongClickListener(parentReference);
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_sow);
+
+				month1.setOnClickListener(new View.OnClickListener() {
+			
+
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("01");
+						months_sow = "01";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("02");
+						months_sow = "02";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("03");
+						months_sow = "03";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month4.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("04");
+						months_sow = "04";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month5.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("05");
+						months_sow = "05";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month6.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("06");
+						months_sow = "06";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month7.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("07");
+						months_sow = "07";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month8.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("08");
+						months_sow = "08";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month9.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("09");
+						months_sow = "09";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month10.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("10");
+						months_sow = "10";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month11.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("11");
+						months_sow = "11";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+
+						dlg.cancel();
+					}
+				});
+
+				month12.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("12");
+						months_sow = "12";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_month_sow.setImageResource(R.drawable.empty_not);
+						dlg.cancel();
+					}
+				});
+
+			}
+
+		});
+		
+		
+		
+		
+		
+		
+		
+		
+		
+		
 		final CheckBox intercrop = (CheckBox) findViewById(R.id.chkintercrop);
 
 		intercrop.setOnLongClickListener(this); // audio integration
@@ -837,7 +993,7 @@ public class action_sowing extends HelpEnabledActivity {
 
 				// Toast.makeText(action_sowing.this, "User enetred " +
 				// sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
-				int flag1, flag2, flag3;
+				int flag1, flag2, flag3, flag4;
 				if (seed_sow.toString().equalsIgnoreCase("0")) {
 					flag1 = 1;
 
@@ -921,8 +1077,40 @@ public class action_sowing extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
+				
+				
+				if (months_sow.toString().equalsIgnoreCase("0") || day_sow_int ==0) {
 
-				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
+					flag4 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+					if (Global.writeToSD == true) {
+
+						String logtime = getcurrenttime();
+						mDataProvider.File_Log_Create("UIlog.txt", logtime
+								+ " -> ");
+
+						mDataProvider
+								.File_Log_Create("UIlog.txt",
+										"***** user has NOT filled treatment for Sowing*********** \r\n");
+
+					}
+
+				} else {
+
+					flag4 = 0;
+
+					days_sel_sow = day_sow_int + "." + months_sow;
+					TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+				
+
+				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 ==0) {
 					System.out.println("sowing writing");
 					mDataProvider.setSowing(sow_no, seed_sow, units_sow,
 							days_sel_sow, treatment_sow, 0, 0);

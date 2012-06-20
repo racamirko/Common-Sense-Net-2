@@ -566,8 +566,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			selectlang();
 		}
 
+	//	super.onCreate(savedInstanceState, R.layout.india_homescreen);
 		super.onCreate(savedInstanceState, R.layout.homescreen);
-
 		mDataProvider = RealFarmProvider.getInstance(mContext);
 		ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);
 		Log.i(LOG_TAG, "App started");
