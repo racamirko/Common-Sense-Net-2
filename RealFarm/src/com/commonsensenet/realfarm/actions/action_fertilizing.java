@@ -136,8 +136,8 @@ public class action_fertilizing extends HelpEnabledActivity implements
 						Log.d("var 1 picked ", "in dialog");
 						// img_1.setMaxWidth(300);
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Fertilizer 1");
-						fert_var_sel = "Fertilizer 1";
+						var_text.setText("DAP");
+						fert_var_sel = "DAP";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -164,8 +164,8 @@ public class action_fertilizing extends HelpEnabledActivity implements
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Fertilizer 2");
-						fert_var_sel = "Fertilizer 2";
+						var_text.setText("FYM");
+						fert_var_sel = "FYM";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -190,8 +190,8 @@ public class action_fertilizing extends HelpEnabledActivity implements
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Fertilizer 3");
-						fert_var_sel = "Fertilizer 3";
+						var_text.setText("Complex");
+						fert_var_sel = "Complex";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.var_fert_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);

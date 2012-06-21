@@ -52,7 +52,7 @@
                     android:layout_marginLeft="62dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="fertilizer 1"
+                    android:text="DAP"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="fertilizer 2"
+                    android:text="FYM"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
@@ -132,7 +132,7 @@
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="fertilizer 3"
+                    android:text="Complex"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
         </LinearLayout>

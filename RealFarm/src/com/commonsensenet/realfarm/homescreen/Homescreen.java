@@ -155,6 +155,55 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		((ImageButton) findViewById(R.id.hmscrn_usr_icon))
 				.setOnTouchListener(this);
 
+		((ImageButton) findViewById(R.id.btn_action_sowing))
+				.setOnClickListener(this);
+		((ImageButton) findViewById(R.id.btn_action_sowing))
+				.setOnLongClickListener(this);
+		((ImageButton) findViewById(R.id.btn_action_sowing))
+				.setOnTouchListener(this);
+		
+		((ImageButton) findViewById(R.id.btn_action_fertilize))
+		.setOnClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_fertilize))
+		.setOnLongClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_fertilize))
+		.setOnTouchListener(this);
+
+((ImageButton) findViewById(R.id.btn_action_irrigate))
+.setOnClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_irrigate))
+.setOnLongClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_irrigate))
+.setOnTouchListener(this);
+
+((ImageButton) findViewById(R.id.btn_action_problem))
+.setOnClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_problem))
+.setOnLongClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_problem))
+.setOnTouchListener(this);
+
+((ImageButton) findViewById(R.id.btn_action_spray))
+.setOnClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_spray))
+.setOnLongClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_spray))
+.setOnTouchListener(this);
+
+((ImageButton) findViewById(R.id.btn_action_harvesting))
+.setOnClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_harvesting))
+.setOnLongClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_harvesting))
+.setOnTouchListener(this);
+
+((ImageButton) findViewById(R.id.btn_action_selling))
+.setOnClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_selling))
+.setOnLongClickListener(this);
+((ImageButton) findViewById(R.id.btn_action_selling))
+.setOnTouchListener(this);
+		
 	/*	((Button) findViewById(R.id.home_btn_PlotInfo))
 				.setOnClickListener(this);
 		((Button) findViewById(R.id.home_btn_PlotInfo))
@@ -340,7 +389,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			dlg.setCanceledOnTouchOutside(true);
 			//dlg.setContentView(R.layout.home_action_buttons);
 			dlg.setContentView(R.layout.action_selector);
-			 final Button sow_btn = (Button) dlg.findViewById(R.id.btn_action_sow);// Action buttons	
+			 final Button sow_btn = (Button) dlg.findViewById(R.id.btn_action_sowing);// Action buttons	
 			
 			 final Button fert_btn = (Button) dlg.findViewById(R.id.btn_action_fertilize);// Action buttons
 			
@@ -350,13 +399,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			
 			 final Button irr_btn = (Button) dlg.findViewById(R.id.btn_action_irrigate);// Action buttons 
 			
-			 final Button harv_btn = (Button) dlg.findViewById(R.id.btn_action_harvest);// Action buttons 
+			 final Button harv_btn = (Button) dlg.findViewById(R.id.btn_action_harvesting);// Action buttons 
 			
 			 final Button sell_btn = (Button) dlg.findViewById(R.id.btn_action_selling);// Action buttons
 				
 
-	        ((Button) dlg.findViewById(R.id.btn_action_sow)).setOnLongClickListener(mParentReference);
-	        ((Button) dlg.findViewById(R.id.btn_action_sow)).setOnTouchListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_sowing)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_sowing)).setOnTouchListener(mParentReference);
 
 	        ((Button) dlg.findViewById(R.id.btn_action_fertilize)).setOnLongClickListener(mParentReference);
 	        ((Button) dlg.findViewById(R.id.btn_action_fertilize)).setOnTouchListener(mParentReference);
@@ -370,8 +419,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	        ((Button) dlg.findViewById(R.id.btn_action_irrigate)).setOnLongClickListener(mParentReference);
 	        ((Button) dlg.findViewById(R.id.btn_action_irrigate)).setOnTouchListener(mParentReference);
 
-	        ((Button) dlg.findViewById(R.id.btn_action_harvest)).setOnLongClickListener(mParentReference);
-	        ((Button) dlg.findViewById(R.id.btn_action_harvest)).setOnTouchListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_harvesting)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_harvesting)).setOnTouchListener(mParentReference);
 
 	        ((Button) dlg.findViewById(R.id.btn_action_selling)).setOnLongClickListener(mParentReference);
 	        ((Button) dlg.findViewById(R.id.btn_action_selling)).setOnTouchListener(mParentReference);

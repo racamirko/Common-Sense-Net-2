@@ -285,8 +285,8 @@ public class action_spraying extends HelpEnabledActivity {
 						Log.d("var 1 picked ", "in dialog");
 						// img_1.setMaxWidth(300);
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Pesticide 1");
-						pest_sel_spray = "Pesticide 1";
+						var_text.setText("Monocrotophos");
+						pest_sel_spray = "Monocrotophos";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -311,8 +311,8 @@ public class action_spraying extends HelpEnabledActivity {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Pesticide 2");
-						pest_sel_spray = "Pesticide 2";
+						var_text.setText("Dimethoate");
+						pest_sel_spray = "Dimethoate";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -336,8 +336,8 @@ public class action_spraying extends HelpEnabledActivity {
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Pesticide 3");
-						pest_sel_spray = "Pesticide 3";
+						var_text.setText("Dithane M-45");
+						pest_sel_spray = "Dithane M-45";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -387,8 +387,7 @@ public class action_spraying extends HelpEnabledActivity {
 				final Button unit2;
 				final Button unit3;
 
-				// final ImageView img_1 = (ImageView)
-				// findViewById(R.id.dlg_unit_sow);
+				 final ImageView img_1 = (ImageView) findViewById(R.id.img_bg_units_spray);
 
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_units_spray);
 				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
@@ -405,9 +404,9 @@ public class action_spraying extends HelpEnabledActivity {
 
 				unit1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
+						Log.d("var 1 pickedkg ", "in dialog");
 						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						 img_1.setImageResource(R.drawable.kg10);
 						var_text.setText("10 Kgs");
 						unit_sel_spray = "Bag of 10 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
@@ -433,7 +432,7 @@ public class action_spraying extends HelpEnabledActivity {
 				unit2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						 img_1.setImageResource(R.drawable.kg20);
 						var_text.setText("20 Kgs");
 						unit_sel_spray = "Bag of 20 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
@@ -458,7 +457,7 @@ public class action_spraying extends HelpEnabledActivity {
 				unit3.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						 img_1.setImageResource(R.drawable.kg50);
 						var_text.setText("50 Kgs");
 						unit_sel_spray = "Bag of 50 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);

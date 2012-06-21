@@ -41,7 +41,7 @@
                         />
 
                   <Button
-                      android:id="@+id/btn_action_sow"
+                      android:id="@+id/btn_action_sowing"
                       android:layout_width="50dp"
                       android:layout_height="45dp"
                       android:layout_alignParentLeft="true"
@@ -241,7 +241,7 @@
                         />
 
                   <Button
-                      android:id="@+id/btn_action_harvest"
+                      android:id="@+id/btn_action_harvesting"
                       android:layout_width="50dp"
                       android:layout_height="45dp"
                       android:layout_alignParentLeft="true"

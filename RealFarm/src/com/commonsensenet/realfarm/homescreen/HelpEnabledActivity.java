@@ -173,51 +173,51 @@ public abstract class HelpEnabledActivity extends Activity implements
 	}
 
 	public void showHelp(View v) {
-		Toast.makeText(getApplicationContext(),
-				"Showing help for " + v.getId(), Toast.LENGTH_SHORT).show();
+	
 
 		/*
 		 * if(mp != null) //Integration { mp.stop(); mp.release(); mp = null; }
 		 * mp = MediaPlayer.create(this, R.raw.audio1); mp.start();
 		 */
 
-	/*	if (v.getId() == R.id.btn_info_actions
+		if (v.getId() == R.id.hmscrn_btn_actions
 				|| v.getId() == R.id.home_btn_actions) { // Integration
 
 			playAudio(R.raw.audio1);
 
 		}
-		if (v.getId() == R.id.btn_info_advice
+		if (v.getId() == R.id.hmscrn_btn_advice
 				|| v.getId() == R.id.home_btn_advice) {
 
 			playAudio(R.raw.audio2);
 		}
-		if (v.getId() == R.id.btn_info_warn || v.getId() == R.id.home_btn_warn) {
+		if (v.getId() == R.id.hmscrn_btn_sound || v.getId() == R.id.hmscrn_btn_sound) {
 
 			playAudio(R.raw.audio3);
 		}
-		if (v.getId() == R.id.btn_info_yield
-				|| v.getId() == R.id.home_btn_yield) {
+		
+		if (v.getId() == R.id.hmscrn_help_button || v.getId() == R.id.hmscrn_help_button) {
+
+			playAudio(R.raw.audio3);
+		}
+		if (v.getId() == R.id.hmscrn_btn_yield
+				|| v.getId() == R.id.hmscrn_btn_yield) {
 
 			playAudio(R.raw.audio4);
 		}
 
-		if (v.getId() == R.id.btn_info_yield || v.getId() == R.id.home_btn_wf) {
+		if (v.getId() == R.id.hmscrn_btn_weather || v.getId() == R.id.hmscrn_btn_weather) {
 
 			playAudio(R.raw.weatherforecast);
 		}
+// End of big icons
 
-		if (v.getId() == R.id.btn_info_yield || v.getId() == R.id.home_btn_wf) {
-
-			playAudio(R.raw.weatherforecast);
-		} // End of big icons
-
-		if (v.getId() == R.id.btn_action_plant) {
+		if (v.getId() == R.id.btn_action_sowing) {
 			playAudio(R.raw.sowing);
 
 		}
 
-		if (v.getId() == R.id.btn_action_yield) {
+		if (v.getId() == R.id.btn_action_harvesting) {
 			playAudio(R.raw.harvesting);
 		}
 
@@ -233,18 +233,18 @@ public abstract class HelpEnabledActivity extends Activity implements
 			playAudio(R.raw.spraying);
 		}
 
-		if (v.getId() == R.id.home_btn_PlotInfo) {
+		if (v.getId() == R.id.hmscrn_btn_plots) {
 			playAudio(R.raw.mysettings);
 		}
 
 		if (v.getId() == R.id.btn_action_irrigate) {
 			playAudio(R.raw.irrigate);
 		}
-		if (v.getId() == R.id.home_btn_marketprice) {
+		if (v.getId() == R.id.hmscrn_btn_market) {
 			playAudio(R.raw.marketprice);
 		}
 
-		if (v.getId() == R.id.btn_action_videos) {
+		if (v.getId() == R.id.hmscrn_btn_video) {
 			playAudio(R.raw.video);
 		}
 
@@ -252,10 +252,10 @@ public abstract class HelpEnabledActivity extends Activity implements
 			playAudio(R.raw.problems);
 		}
 
-		if (v.getId() == R.id.btn_action_diary) { // changes
+		if (v.getId() == R.id.hmscrn_btn_diary) { // changes
 			playAudio(R.raw.dairy);
 		}
-*/
+
 		// TODO: make a table mapping IDs to sound files
 	}
 

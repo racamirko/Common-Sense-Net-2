@@ -52,7 +52,7 @@
                     android:layout_marginLeft="62dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="Pesticide 1"
+                    android:text="Monocrotophos"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
@@ -92,7 +92,7 @@
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="Pesticide 2"
+                    android:text="Dimethoate"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
@@ -132,7 +132,7 @@
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="Pesticide 3"
+                    android:text="Dithane M-45"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
         </LinearLayout>
