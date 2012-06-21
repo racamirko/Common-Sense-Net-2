@@ -1056,7 +1056,7 @@ public class RealFarmProvider {
 				plotList.add(new Plot(c.getInt(0), userId, c.getInt(1), c
 						.getInt(2), c.getInt(3), c.getString(4),
 						c.getString(5), delete, c.getInt(6)));
-
+/*
 				String log = "PlotId: " + c.getInt(0) + " ,PlotUserId: "
 						+ userId + " ,PlotSeedTypeId: " + c.getInt(1)
 						+ " ,point X: " + c.getInt(2) + " ,point Y: "
@@ -1065,7 +1065,7 @@ public class RealFarmProvider {
 
 						+ " ,deleteFlag: " + delete + " ,AdminFlag: "
 						+ c.getInt(6) + "\r\n";
-				Log.d("plot values: ", log);
+				Log.d("plot values: ", log);*/
 			} while (c.moveToNext());
 		}
 

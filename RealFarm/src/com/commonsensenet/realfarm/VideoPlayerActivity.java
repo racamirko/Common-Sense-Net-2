@@ -1,5 +1,8 @@
 package com.commonsensenet.realfarm;
 
+import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -21,6 +24,14 @@ public class VideoPlayerActivity extends Activity {
 	/** View that is able to play a video. */
 	private VideoView mVideoView;
 
+	public void onBackPressed() {
+		SoundQueue.getInstance().stop();
+
+		Intent adminintent123 = new Intent(VideoPlayerActivity.this, VideoActivity.class);
+		startActivity(adminintent123);
+		VideoPlayerActivity.this.finish();
+	}
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// sets the Bundle
@@ -72,6 +83,7 @@ public class VideoPlayerActivity extends Activity {
 
 				startActivity(new Intent(VideoPlayerActivity.this,
 						VideoActivity.class));
+				VideoPlayerActivity.this.finish();
 			}
 		});
 	}

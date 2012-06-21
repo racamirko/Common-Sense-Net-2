@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
@@ -68,89 +69,93 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private final Context mContext = this;
 	private RealFarmProvider mDataProvider;
 	private String mSelectedLanguage;
-
+	private final Homescreen mParentReference = this;
+	int soundflag = 0;
+	
 	private void initActionListener() {
-		((Button) findViewById(R.id.home_btn_advice)).setOnClickListener(this);
-		((Button) findViewById(R.id.home_btn_advice))
+		/** Capturing of all the buttons on the homescreen */
+		
+	/*	((Button) findViewById(R.id.hmscrn_btn_notifs)).setOnClickListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_notifs))
 				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.home_btn_advice)).setOnTouchListener(this);
-
-		((Button) findViewById(R.id.home_btn_actions)).setOnClickListener(this);
-		((Button) findViewById(R.id.home_btn_actions))
+		((Button) findViewById(R.id.hmscrn_btn_notifs)).setOnTouchListener(this);
+*/
+/*		((Button) findViewById(R.id.hmscrn_btn_warnings)).setOnClickListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_warnings))
 				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.home_btn_actions)).setOnTouchListener(this);
-
-		((Button) findViewById(R.id.home_btn_warn)).setOnClickListener(this);
-		((Button) findViewById(R.id.home_btn_warn))
+		((Button) findViewById(R.id.hmscrn_btn_warnings)).setOnTouchListener(this);
+*/
+		((Button) findViewById(R.id.hmscrn_btn_weather)).setOnClickListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_weather))
 				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.home_btn_warn)).setOnTouchListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_weather)).setOnTouchListener(this);
 
-		((Button) findViewById(R.id.home_btn_yield)).setOnClickListener(this);
-		((Button) findViewById(R.id.home_btn_yield))
+		((Button) findViewById(R.id.hmscrn_btn_advice)).setOnClickListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_advice))
 				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.home_btn_yield)).setOnTouchListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_advice)).setOnTouchListener(this);
 
-		((Button) findViewById(R.id.home_btn_wf)).setOnClickListener(this);
-		((Button) findViewById(R.id.home_btn_wf)).setOnLongClickListener(this);
-		((Button) findViewById(R.id.home_btn_wf)).setOnTouchListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_video)).setOnClickListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_video)).setOnLongClickListener(this);
+		((Button) findViewById(R.id.hmscrn_btn_video)).setOnTouchListener(this);
 
-		((Button) findViewById(R.id.home_btn_marketprice))
+		((Button) findViewById(R.id.hmscrn_btn_yield))
 				.setOnClickListener(this);
-		((Button) findViewById(R.id.home_btn_marketprice))
+		((Button) findViewById(R.id.hmscrn_btn_yield))
 				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.home_btn_marketprice))
+		((Button) findViewById(R.id.hmscrn_btn_yield))
 				.setOnTouchListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_diary))
+		((Button) findViewById(R.id.hmscrn_btn_market))
 				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_diary))
+		((Button) findViewById(R.id.hmscrn_btn_market))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_diary))
+		((Button) findViewById(R.id.hmscrn_btn_market))
 				.setOnTouchListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_fertilize))
+		((Button) findViewById(R.id.hmscrn_btn_actions))
 				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_fertilize))
+		((Button) findViewById(R.id.hmscrn_btn_actions))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_fertilize))
+		((Button) findViewById(R.id.hmscrn_btn_actions))
 				.setOnTouchListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_irrigate))
+		((Button) findViewById(R.id.hmscrn_btn_diary))
 				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_irrigate))
+		((Button) findViewById(R.id.hmscrn_btn_diary))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_irrigate))
+		((Button) findViewById(R.id.hmscrn_btn_diary))
 				.setOnTouchListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_plant))
+		((Button) findViewById(R.id.hmscrn_btn_plots))
 				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_plant))
+		((Button) findViewById(R.id.hmscrn_btn_plots))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_plant))
+		((Button) findViewById(R.id.hmscrn_btn_plots))
 				.setOnTouchListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_problem))
+		((ImageButton) findViewById(R.id.hmscrn_btn_sound))
 				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_problem))
+		((ImageButton) findViewById(R.id.hmscrn_btn_sound))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_problem))
+		((ImageButton) findViewById(R.id.hmscrn_btn_sound))
 				.setOnTouchListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_spray))
+		((ImageButton) findViewById(R.id.hmscrn_help_button))
 				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_spray))
+		((ImageButton) findViewById(R.id.hmscrn_help_button))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_spray))
+		((ImageButton) findViewById(R.id.hmscrn_help_button))
 				.setOnTouchListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_yield))
+		((ImageButton) findViewById(R.id.hmscrn_usr_icon))
 				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_yield))
+		((ImageButton) findViewById(R.id.hmscrn_usr_icon))
 				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_yield))
+		((ImageButton) findViewById(R.id.hmscrn_usr_icon))
 				.setOnTouchListener(this);
 
-		((Button) findViewById(R.id.home_btn_PlotInfo))
+	/*	((Button) findViewById(R.id.home_btn_PlotInfo))
 				.setOnClickListener(this);
 		((Button) findViewById(R.id.home_btn_PlotInfo))
 				.setOnLongClickListener(this);
@@ -169,7 +174,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		((ImageButton) findViewById(R.id.btn_action_selling))
 				.setOnLongClickListener(this);
 		((ImageButton) findViewById(R.id.btn_action_selling))
-				.setOnTouchListener(this);
+				.setOnTouchListener(this);*/
 
 	}
 
@@ -194,6 +199,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				.setNegativeButton("No", new DialogInterface.OnClickListener() {
 					public void onClick(DialogInterface dialog, int id) {
 						Global.enableAudio = false;
+						ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
+						snd.setImageResource(R.drawable.soundoff);
 					}
 				});
 
@@ -258,42 +265,28 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		String txt = "";
 		Intent inte = null;
 
-		int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0).size(); // added with audio integration
+		final int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0).size(); // added with audio integration		
 
-		if (v.getId() == R.id.btn_info_actions
-				|| v.getId() == R.id.home_btn_actions) {
-			Log.d(LOG_TAG, "Starting actions info");
+	/*	if (v.getId() == R.id.hmscrn_btn_notifs
+				|| v.getId() == R.id.hmscrn_btn_notifs) {
+			Log.d(LOG_TAG, "Starting notifications info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "actions");
 			this.startActivity(inte);
 			return;
 		}
-		if (v.getId() == R.id.btn_info_advice
-				|| v.getId() == R.id.home_btn_advice) {
-			Log.d(LOG_TAG, "Starting advice info");
+	*/	
+	/*	if (v.getId() == R.id.hmscrn_btn_warnings
+				|| v.getId() == R.id.hmscrn_btn_warnings) {
+			Log.d(LOG_TAG, "Starting Warnings info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "advice");
 			this.startActivity(inte);
 			return;
 		}
-		if (v.getId() == R.id.btn_info_warn || v.getId() == R.id.home_btn_warn) {
-			Log.d(LOG_TAG, "Starting warn info");
-			inte = new Intent(this, AggregateView.class);
-			inte.putExtra("type", "warn");
-			this.startActivity(inte);
-			return;
-		}
-		if (v.getId() == R.id.btn_info_yield
-				|| v.getId() == R.id.home_btn_yield) {
-			Log.d(LOG_TAG, "Starting yield info");
-			inte = new Intent(this, AggregateView.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			return;
-		}
-
-		if (v.getId() == R.id.btn_info_yield || v.getId() == R.id.home_btn_wf) {
+	*/	
+		if (v.getId() == R.id.hmscrn_btn_weather || v.getId() == R.id.hmscrn_btn_weather) {
 			System.out.println("WF details clicked");
 			inte = new Intent(this, WF_details.class);
 			// inte.putExtra("type", "yield");
@@ -301,8 +294,35 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			this.finish();
 			return;
 		}
+		
+		
+		if (v.getId() == R.id.hmscrn_btn_advice || v.getId() == R.id.hmscrn_btn_advice) {
+			Log.d(LOG_TAG, "Starting warn info");
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "warn");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if (v.getId() == R.id.hmscrn_btn_video) {
+			startActivity(new Intent(this, VideoActivity.class));
+			return;
+		}
+		
+		
+		
+		if (v.getId() == R.id.hmscrn_btn_yield
+				|| v.getId() == R.id.hmscrn_btn_yield) {
+			Log.d(LOG_TAG, "Starting yield info");
+			inte = new Intent(this, AggregateView.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
 
-		if (v.getId() == R.id.home_btn_marketprice) {
+	
+
+		if (v.getId() == R.id.hmscrn_btn_market) {
 			System.out.println("Market Price details clicked");
 			inte = new Intent(this, Marketprice_details.class);
 			// inte.putExtra("type", "yield");
@@ -311,7 +331,166 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		// Action pages
+		
+		if( v.getId() == R.id.hmscrn_btn_actions ){
+		//	Log.d(logTag, "Starting home actions dlg");
+			Dialog dlg = new Dialog(this);
+			//dlg.setOnDismissListener(this);
+			dlg.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
+			dlg.setCanceledOnTouchOutside(true);
+			//dlg.setContentView(R.layout.home_action_buttons);
+			dlg.setContentView(R.layout.action_selector);
+			 final Button sow_btn = (Button) dlg.findViewById(R.id.btn_action_sow);// Action buttons	
+			
+			 final Button fert_btn = (Button) dlg.findViewById(R.id.btn_action_fertilize);// Action buttons
+			
+			 final Button spray_btn = (Button) dlg.findViewById(R.id.btn_action_spray);// Action buttons	
+			
+			 final Button prob_btn = (Button) dlg.findViewById(R.id.btn_action_problem);// Action buttons	
+			
+			 final Button irr_btn = (Button) dlg.findViewById(R.id.btn_action_irrigate);// Action buttons 
+			
+			 final Button harv_btn = (Button) dlg.findViewById(R.id.btn_action_harvest);// Action buttons 
+			
+			 final Button sell_btn = (Button) dlg.findViewById(R.id.btn_action_selling);// Action buttons
+				
+
+	        ((Button) dlg.findViewById(R.id.btn_action_sow)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_sow)).setOnTouchListener(mParentReference);
+
+	        ((Button) dlg.findViewById(R.id.btn_action_fertilize)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_fertilize)).setOnTouchListener(mParentReference);
+      
+	        ((Button) dlg.findViewById(R.id.btn_action_spray)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_spray)).setOnTouchListener(mParentReference);
+	        
+	        ((Button) dlg.findViewById(R.id.btn_action_problem)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_problem)).setOnTouchListener(mParentReference);
+	        
+	        ((Button) dlg.findViewById(R.id.btn_action_irrigate)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_irrigate)).setOnTouchListener(mParentReference);
+
+	        ((Button) dlg.findViewById(R.id.btn_action_harvest)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_harvest)).setOnTouchListener(mParentReference);
+
+	        ((Button) dlg.findViewById(R.id.btn_action_selling)).setOnLongClickListener(mParentReference);
+	        ((Button) dlg.findViewById(R.id.btn_action_selling)).setOnTouchListener(mParentReference);
+      
+	        
+	       setHelpIcon(dlg.findViewById(R.id.dlg_help_indicator));
+	        
+			dlg.setCancelable(true);
+			dlg.setOwnerActivity(this);
+			dlg.show();
+			
+			sow_btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					System.out.println("Action Sowing clicked");
+					Global.selectedAction = action_sowing.class;
+					launchactionintent();
+				}
+			});
+				
+			fert_btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					System.out.println("Action Fertilizer clicked");
+					Global.selectedAction = action_fertilizing.class;
+					launchactionintent();
+				}
+			});
+				
+			spray_btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					System.out.println("Action Spraying clicked");
+					Global.selectedAction = action_spraying.class;
+					launchactionintent();
+				}
+			});
+				
+			prob_btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					System.out.println("Action Problem clicked");
+					Global.selectedAction = action_problem.class;
+					launchactionintent();
+				}
+			});
+				
+			irr_btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					System.out.println("Action Irrigation clicked");
+					Global.selectedAction = action_irrigate.class;
+					launchactionintent();
+				}
+			});
+				
+			harv_btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					System.out.println("Action Harvest clicked");
+					Global.selectedAction = action_harvest.class;
+					launchactionintent();
+				}
+			});
+				
+			
+			sell_btn.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					System.out.println("Action Selling clicked");
+					Global.selectedAction = action_selling.class;
+					launchactionintent();
+				}
+			});
+				
+					
+			return;
+		}
+		
+		if (v.getId() == R.id.hmscrn_btn_diary) {
+			startActivity(new Intent(this, DiaryActivity.class));
+			return;
+		}
+		
+		
+		if (v.getId() == R.id.hmscrn_btn_plots) {
+			System.out.println("My settings clicked");
+
+			System.out.println("Displaying plot information list");
+			// TODO: why you are not saving the result?
+			mDataProvider.getPlots();
+			inte = new Intent(this, Addplot_sm.class);
+			this.startActivity(inte);
+			this.finish();
+		}
+		
+		if (v.getId() == R.id.hmscrn_btn_sound) {
+			System.out.println("My settings clicked");
+		
+			
+			if(soundflag ==0)
+			{
+			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
+			snd.setImageResource(R.drawable.ic_71px_sound_on);
+			Global.enableAudio = true;
+			soundflag =1;
+			}
+			else
+			{
+				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
+				snd.setImageResource(R.drawable.soundoff);
+				Global.enableAudio = false;
+				soundflag =0;
+			}
+			//initAudio();
+			
+		}
+		
+		//help
+		
+		//usericon
+		
+	
+		
+		
+/*		// Action pages
 
 		if (v.getId() == R.id.btn_action_plant) {
 			System.out.println("Action Sowing clicked");
@@ -442,7 +621,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		// opens the video activity
-		if (v.getId() == R.id.btn_action_videos) {
+		if (v.getId() == R.id.hmscrn_btn_video) {
 			startActivity(new Intent(this, VideoActivity.class));
 			return;
 		}
@@ -456,7 +635,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			this.startActivity(inte);
 			this.finish();
 			return;
-
+*/
 			/*
 			 * if (no_of_plots > 1) {
 			 * 
@@ -473,10 +652,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			 * 
 			 * }
 			 */
+	//	}
 
-		}
-
-		if (v.getId() == R.id.btn_action_problem) {
+	/*	if (v.getId() == R.id.btn_action_problem) {
 
 			System.out.println("Action Problem clicked");
 			// Global.actionno = 8; // for problem
@@ -541,7 +719,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			 * mDataProvider.getAllPlotList(); inte = new Intent(this,
 			 * Plot_Image.class); this.startActivity(inte);
 			 */
-		}
+		//}
 
 		// other buttons
 		// case R.id.btn_action_diary:
@@ -560,16 +738,46 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 	}
 
+	protected void launchactionintent() {
+		Intent inte1 = null;
+		final int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0).size(); // added with audio integration	
+		if (no_of_plots > 1) {
+
+			inte1 = new Intent(this, ChoosePlotActivity.class);
+			this.startActivity(inte1);
+			this.finish();
+			return;
+		}
+		if (no_of_plots == 1) {
+
+			inte1 = new Intent(this, Global.selectedAction);
+			this.startActivity(inte1);
+			this.finish();
+			return;
+		}
+
+		if (no_of_plots == 0) {
+			inte1 = new Intent(this, My_setting_plot_info.class);
+			this.startActivity(inte1);
+			this.finish();
+			return;
+
+		}
+	}
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		if (Global.langFlag == 0) {
-			selectlang();
+			/** To select the language for the application */
+	//		selectlang();
 		}
 
-		// super.onCreate(savedInstanceState, R.layout.india_homescreen);
-		super.onCreate(savedInstanceState, R.layout.homescreen);
+	    super.onCreate(savedInstanceState, R.layout.india_homescreen);
+	//	super.onCreate(savedInstanceState, R.layout.homescreen);
 		mDataProvider = RealFarmProvider.getInstance(mContext);
-		ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);
+		/** To enable Audio On or Off */
+	//	ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);
 		Log.i(LOG_TAG, "App started");
 		Log.i(LOG_TAG, "scheduler activated");
 		SchedulerManager.getInstance().saveTask(this.getApplicationContext(),
@@ -578,22 +786,24 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		SchedulerManager.getInstance().restart(this.getApplicationContext(),
 				ReminderTask.class);
 
+			
+		
 		// setup listener to all buttons
 		// initDb(); //Clears the database
 		/** Uncomment the below to work with Homescreen */
 
-		initActionListener();
-		initTiles();
+			initActionListener();
+	//	initTiles();
 		initSoundSys();
 		setHelpIcon(findViewById(R.id.helpIndicator));
-
-		btnSound.setOnClickListener(new View.OnClickListener() {
+/** Listner to enable audio or not */
+	/*	btnSound.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				initAudio();
 			}
 		});
-
-		TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
+*/
+	/*	TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
 		tmpText.setText(getString(R.string.k_solved));
 
 		tmpText = (TextView) findViewById(R.id.home_lbl_advice);
@@ -603,7 +813,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		tmpText.setText(getString(R.string.k_farmers));
 
 		tmpText = (TextView) findViewById(R.id.home_lbl_yield);
-		tmpText.setText(getString(R.string.k_harvest));
+		tmpText.setText(getString(R.string.k_harvest));*/
 
 		// WriteDataBaseToSDcard();
 	}

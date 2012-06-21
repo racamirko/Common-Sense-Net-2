@@ -340,6 +340,11 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
+
+				/** To change the default increments on the number picker */
+				((NumberPicker) dlg.findViewById(R.id.numberpick))
+						.setIncrementValue(1);
+
 				dlg.setCancelable(true);
 				dlg.setTitle("Choose the Date");
 				Log.d("in variety sowing dialog", "in dialog");
@@ -353,6 +358,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 
 						NumberPicker mynpd = (NumberPicker) dlg
 								.findViewById(R.id.numberpick);
+
 						day_fert_int = mynpd.getValue();
 						day_fert_sel_1 = String.valueOf(day_fert_int);
 						day_fert.setText(day_fert_sel_1);

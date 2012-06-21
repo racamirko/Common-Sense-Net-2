@@ -1,5 +1,8 @@
 package com.commonsensenet.realfarm;
 
+import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.utils.SoundQueue;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -11,6 +14,14 @@ public class VideoActivity extends HelpEnabledActivity implements
 	/** Intent that is capable of playing the selected video. */
 	private Intent mTargetIntent;
 
+	public void onBackPressed() {
+		SoundQueue.getInstance().stop();
+
+		Intent adminintent123 = new Intent(VideoActivity.this, Homescreen.class);
+		startActivity(adminintent123);
+		VideoActivity.this.finish();
+	}
+	
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -30,6 +41,7 @@ public class VideoActivity extends HelpEnabledActivity implements
 			public void onClick(View v) {
 				Global.videosel = 1;
 				startActivity(mTargetIntent);
+				VideoActivity.this.finish();
 			}
 		});
 
@@ -38,6 +50,7 @@ public class VideoActivity extends HelpEnabledActivity implements
 			public void onClick(View v) {
 				Global.videosel = 2;
 				startActivity(mTargetIntent);
+				VideoActivity.this.finish();
 			}
 		});
 	}

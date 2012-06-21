@@ -181,7 +181,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 		 * mp = MediaPlayer.create(this, R.raw.audio1); mp.start();
 		 */
 
-		if (v.getId() == R.id.btn_info_actions
+	/*	if (v.getId() == R.id.btn_info_actions
 				|| v.getId() == R.id.home_btn_actions) { // Integration
 
 			playAudio(R.raw.audio1);
@@ -255,7 +255,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 		if (v.getId() == R.id.btn_action_diary) { // changes
 			playAudio(R.raw.dairy);
 		}
-
+*/
 		// TODO: make a table mapping IDs to sound files
 	}
 

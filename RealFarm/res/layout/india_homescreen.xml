@@ -40,7 +40,7 @@
 
     <RelativeLayout
         android:id="@+id/hmscrn_row2"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="150dp"
         android:background="@android:color/white" >
 
@@ -148,7 +148,7 @@
             		 android:layout_marginRight="10dp"/>
         
         <RelativeLayout android:id="@+id/hmscrn_lay_menu_btns"
-            android:background="@drawable/bar_238px_menu"
+             android:background="@drawable/allactions"
             android:layout_width="248px"
             android:layout_height="49px"
             android:layout_marginLeft="5px"
@@ -157,7 +157,10 @@
             android:layout_toRightOf="@id/hmscrn_usr_icon"
             android:layout_below="@id/hmscrn_lay_btn_diary">
             
-            <ImageView android:id="@+id/hmscrn_btn_action_plant"
+        
+            
+       <!--   
+          <ImageView android:id="@+id/hmscrn_btn_action_plant"
                 	android:background="@drawable/square_btn_transp"
                 	android:layout_width="27px"
                 	android:layout_height="36px"
@@ -217,7 +220,7 @@
                 	android:layout_marginLeft="2px"
                 	android:layout_toRightOf="@id/hmscrn_btn_action_yield"
                 	/>
-            
+            -->
             <Button 
 	                android:id="@+id/hmscrn_btn_actions"
 	                android:layout_width="fill_parent"
@@ -229,13 +232,13 @@
     
     
     <LinearLayout android:orientation="horizontal" android:id="@+id/hmscrn_lowerpart"
-        		   android:layout_height="fill_parent"
+        		   android:layout_height="110dp"
         		   android:background="#cccccc"
         		   android:layout_width="match_parent">
     	<!-- first column -->    
         <RelativeLayout android:id="@+id/hmscrn_layout_notifs"
-            android:layout_height="230dp"
-            android:layout_width="105dp"
+            android:layout_height="110dp"
+            android:layout_width="match_parent"
             android:background="#f5eb5f"
             android:padding="2px"
             android:layout_margin="1px"
@@ -244,11 +247,101 @@
             <ImageButton android:id="@+id/hmscrn_imgbtn_notifs"
                 		 android:background="@android:color/transparent"
             			 android:src="@drawable/ic_65px_news"
-            			 android:layout_width="75px"
+            			 android:layout_width="40dp"
             			 android:scaleType="fitXY"
-            			 android:layout_height="60px"
-            			 android:layout_marginLeft="22px"
+            			 android:layout_height="40dp"
+            			 android:layout_marginLeft="10dp"
             			 />
+            
+                <TableRow
+	            android:id="@+id/tableRow1"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginBottom="5dp">
+	            
+	            <LinearLayout android:orientation="horizontal" 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content">
+
+	                <ImageButton
+	                    android:id="@+id/btn_action_sow"
+	                    android:layout_width="45dp"
+	                    android:layout_height="45dp"
+	                    android:background="@drawable/circular_btn"
+	                    android:src="@drawable/ic_72px_sowing"
+	                    android:layout_marginLeft="20dp"
+	                    android:layout_marginTop="50dp"
+	                	android:layout_marginRight="35dp"/> 
+	                	
+	                <ImageButton
+	                    android:id="@+id/btn_action_fertilize"
+	                    android:layout_width="45dp"
+	                    android:layout_height="45dp"
+	                    android:background="@drawable/circular_btn"
+	                    android:src="@drawable/ic_72px_fertilizing1"
+	                    android:layout_marginTop="50dp"
+	                    android:layout_marginRight="35dp"/>
+	                
+	                       <ImageButton
+	                    android:id="@+id/btn_action_selling"
+	                    android:layout_width="45dp"
+	                    android:layout_height="45dp"
+	                    android:background="@drawable/circular_btn"
+	                    android:src="@drawable/selling"
+	                    android:layout_marginTop="50dp"
+	                    android:layout_marginRight="35dp"/>
+	                
+	                
+				    <ImageButton
+				        android:id="@+id/btn_action_spray"
+				        android:layout_width="45dp"
+				        android:layout_height="45dp"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_spraying3"
+				        android:layout_marginTop="50dp"
+				        android:layout_marginRight="40dp"/>
+			    </LinearLayout>
+
+	        </TableRow>
+            
+               <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="wrap_content"
+	            android:layout_marginBottom="15dp">
+	            
+	            <LinearLayout android:orientation="horizontal" 
+	                android:layout_width="wrap_content"
+	                android:layout_height="wrap_content" >
+
+				    <ImageButton
+				        android:id="@+id/btn_action_problem"
+				        android:layout_width="45dp"
+				        android:layout_height="45dp"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_reporting"
+				        android:layout_marginLeft="80dp"
+				        android:layout_marginRight="35dp"/>
+			
+				    <ImageButton
+				        android:id="@+id/btn_action_irrigate"
+				        android:layout_width="45dp"
+				        android:layout_height="45dp"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_irrigation1"
+				        android:layout_marginRight="35dp"/>
+			
+				        
+				    <ImageButton
+				        android:id="@+id/btn_action_harvest"
+				        android:layout_width="45dp"
+				        android:layout_height="45dp"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_harvesting1"
+				        android:layout_marginRight="40dp"/>
+			    </LinearLayout>
+	            
+	        </TableRow>
             
      <!--   		<com.commonsensenet.realfarm.utils.FlowLayout
                 android:id="@+id/hmscrn_linlay_notifs"
@@ -259,17 +352,17 @@
 			    android:horizontalSpacing="10px"
 			    android:verticalSpacing="10px" />  -->
       		
-			<Button 
+			<!-- <Button 
                 android:id="@+id/hmscrn_btn_notifs"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:background="@drawable/square_btn_transp"/>
-      		
+      		-->
 
         </RelativeLayout>
 
         <!-- 2nd column -->
-		<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col2"
+	<!-- 	<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col2"
             android:layout_height="230dp"
             android:layout_width="105dp"
             android:background="#cccccc"
@@ -298,7 +391,7 @@
 				        android:layout_below="@id/hmscrn_img_warn_sign"
 				        android:layout_height="70px"
 				        >
-				        <!-- THIS GETS FILLED FROM CODE -->
+				      
 				    </LinearLayout>
 				    
 		            <Button 
@@ -348,9 +441,9 @@
 				</RelativeLayout>
         
         </LinearLayout>
-        
+         -->
 	    <!-- 3rd column -->
-		<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col3"
+	<!--  	<LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col3"
 	          android:layout_height="240dp"
 	          android:layout_width="105dp"
 	          android:background="#cccccc"
@@ -529,9 +622,263 @@
 
 
 		    </RelativeLayout>
-	    </LinearLayout>
+	    </LinearLayout>-->
 		
 	</LinearLayout>
+    
+      <LinearLayout
+        android:id="@+id/hmscrn_layout_col2"
+        android:layout_width="match_parent"
+        android:layout_height="130dp"
+        android:background="#cccccc"
+        android:orientation="vertical" >
+             <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="match_parent"
+	            android:layout_height="130dp"
+	            android:layout_marginBottom="10dp">
+			
+    <LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col3"
+	          android:layout_height="130dp"
+	          android:layout_width="107dp"
+	          android:background="#cccccc"
+	          android:gravity="center_horizontal">
+				
+		    <RelativeLayout
+		        android:id="@+id/cell1"
+		        android:layout_width="fill_parent"
+		        android:layout_height="55dp"
+		        android:background="#96d2a9"
+		        android:layout_margin="1px">
+				    <ImageView android:src="@drawable/ic_75px_advice"
+				        	   android:id="@+id/hmscrn_img_advice"
+				        	   android:scaleType="fitXY"
+				        	   android:layout_height="50dp"
+				        	   android:layout_width="50dp"
+				        	   android:layout_marginLeft="15dp"
+				        	   />
+				    
+		            <TextView android:id="@+id/hmscrn_lbl_advice_number"
+		                	  android:layout_width="20px"
+		                	  android:layout_height="20px"
+		                	  android:paddingLeft="1px"
+		                	  android:paddingTop="0px"
+		                	  android:text="15"
+                	  		  android:gravity="center"
+		                	  android:textSize="15px"
+		                	  android:textColor="@android:color/black"
+		                	  android:background="@drawable/ic_24px_number_border"
+		                	  android:layout_alignParentRight="true"
+		                	  android:layout_alignParentTop="true"
+		                	  android:layout_marginRight="5px"
+		                	  android:layout_marginTop="5px" />
+		            
+		            <Button 
+		                android:id="@+id/hmscrn_btn_advice"
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:background="@drawable/square_btn_transp"/>
+
+		        
+		    </RelativeLayout>
+		    
+		    <RelativeLayout
+		        android:id="@+id/cell2"
+		        android:layout_width="fill_parent"
+		        android:layout_height="55dp"
+		        android:background="#96d2a9"
+		        android:layout_margin="1px">
+				    <ImageView android:src="@drawable/ic_71px_video"
+				        	   android:id="@+id/hmscrn_img_video"
+				        	   android:layout_height="70dp"
+				        	   android:layout_width="70dp"
+				        	   android:layout_marginLeft="10dp"
+				        	   />
+				    
+		            <TextView android:id="@+id/hmscrn_lbl_video_number"
+		                	  android:layout_width="20px"
+		                	  android:layout_height="20px"
+		                	  android:paddingLeft="1px"
+		                	  android:paddingTop="0px"
+		                	  android:text="15"
+                	  	      android:gravity="center"
+		                	  android:textSize="15px"
+		                	  android:textColor="@android:color/black"
+		                	  android:background="@drawable/ic_24px_number_border"
+		                	  android:layout_alignParentRight="true"
+		                	  android:layout_alignParentTop="true"
+		                	  android:layout_marginRight="5px"
+		                	  android:layout_marginTop="5px"/>
+		        
+		            <Button 
+		                android:id="@+id/hmscrn_btn_video"
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:background="@drawable/square_btn_transp"/>
+
+		    </RelativeLayout>
+	
+	    </LinearLayout>
+            
+     <LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col3"
+	          android:layout_height="130dp"
+	          android:layout_width="107dp"
+	          android:background="#cccccc"
+	          android:gravity="center_horizontal">
+				
+		    	    <RelativeLayout
+		        android:id="@+id/cell3"
+		        android:layout_width="fill_parent"
+		        android:layout_height="55dp"
+		        android:background="#99cdea"
+		        android:layout_margin="1px">
+				    <ImageView android:src="@drawable/ic_44px_yield_bags"
+				        	   android:id="@+id/hmscrn_img_yield"
+				        	   android:layout_height="40dp"
+				        	   android:layout_width="40dp"
+				        	   android:layout_marginLeft="5dp"
+				        	   android:layout_marginTop="10dp"
+				        	   />
+
+		            <TextView
+		                android:id="@+id/hmscrn_lbl_yield_number"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="10dp"
+		                android:paddingTop="1px"
+		                android:layout_marginTop="2dp"
+		                android:text="30"
+		                android:textColor="@android:color/black"
+		                android:textSize="18sp"
+		                android:layout_toRightOf="@id/hmscrn_img_yield"
+		                />
+
+					<TextView
+		                android:id="@+id/hmscrn_lbl_yield_unit"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="10dp"
+		                android:paddingTop="1px"
+		                android:text="qt/acre"
+		                android:textColor="@android:color/black"
+		                android:textSize="12sp"
+		                android:layout_below="@id/hmscrn_lbl_yield_number"
+		                android:layout_toRightOf="@id/hmscrn_img_yield"
+		                />
+
+	            <Button 
+	                android:id="@+id/hmscrn_btn_yield"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
+		    </RelativeLayout>
+
+	  		<RelativeLayout
+		        android:id="@+id/cell4"
+		        android:layout_width="fill_parent"
+		        android:layout_height="55dp"
+		        android:background="#99cdea"
+		        android:layout_margin="1px">
+				    
+				    <ImageView android:src="@drawable/ic_35px_sell"
+				        	   android:id="@+id/hmscrn_img_market"
+				        	   android:layout_height="50px"
+				        	   android:layout_width="20px"
+				        	   android:layout_marginLeft="10px"
+				        	   android:layout_marginRight="10px"
+				        	   android:layout_marginTop="2px"
+				        	   />
+
+		            <TextView
+		                android:id="@+id/hmscrn_lbl_market_number"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="1px"
+		                android:paddingTop="1px"
+		                android:paddingBottom="0px"
+		                android:layout_marginTop="2px"
+		                android:layout_marginBottom="0px"
+		                android:text="3000"
+		                android:textColor="@android:color/black"
+		                android:textSize="18sp"
+		                android:layout_toRightOf="@id/hmscrn_img_market"
+		                />
+
+					<TextView
+		                android:id="@+id/hmscrn_lbl_market_unit"
+		                android:layout_width="wrap_content"
+		                android:layout_height="wrap_content"
+		                android:paddingLeft="1px"
+		                android:text="Rs"
+		                android:textColor="@android:color/black"
+		                android:textSize="15sp"
+		                android:layout_below="@id/hmscrn_lbl_market_number"
+		                android:layout_toRightOf="@id/hmscrn_img_market"
+		                />
+					
+	            <Button 
+	                android:id="@+id/hmscrn_btn_market"
+	                android:layout_width="fill_parent"
+	                android:layout_height="fill_parent"
+	                android:background="@drawable/square_btn_transp"/>
+
+
+		    </RelativeLayout>
+	
+	    </LinearLayout>
+    
+		     <LinearLayout android:orientation="vertical" android:id="@+id/hmscrn_layout_col3"
+	          android:layout_height="110dp"
+	          android:layout_width="107dp"
+	          android:background="#cccccc"
+	          android:gravity="center_horizontal">
+				
+		    			<RelativeLayout android:id="@+id/hmscrn_layout_warnings"
+		            android:layout_height="120dp"
+		            android:layout_width="100dp"
+		            android:layout_margin="1px"
+		            android:background="#bb9ac4"
+		            android:padding="2px"
+		            android:gravity="center_horizontal">
+				    
+				    <ImageView android:src="@drawable/ic_64px_cloudy"
+				        android:id="@+id/hmscrn_img_weather"
+				        android:scaleType="fitXY"
+				        android:paddingLeft="10dp"
+				        android:paddingRight="10dp"
+				        android:paddingTop="5dp"
+				        android:paddingBottom="0dp"
+				        android:layout_marginLeft="20dp"
+				        android:layout_height="70dp"
+				        android:layout_width="80dp"/>
+				    
+				    <TextView android:id="@+id/hmscrn_lbl_weather"
+				        android:textSize="25sp"
+				        android:layout_below="@id/hmscrn_img_weather"
+				        android:layout_width="wrap_content"
+				        android:layout_height="wrap_content"
+				        android:textColor="@android:color/black"
+				        android:layout_marginLeft="18sp"
+				        
+				        android:text="18°C"/>
+				    
+		            <Button 
+		                android:id="@+id/hmscrn_btn_weather"
+		                android:layout_width="fill_parent"
+		                android:layout_height="fill_parent"
+		                android:background="@drawable/square_btn_transp"/>
+
+				</RelativeLayout>
+	
+	    </LinearLayout>
+		
+	   </TableRow>
+          
+       
+    
+  </LinearLayout>  
+    
     
 </LinearLayout>
 

@@ -90,6 +90,14 @@ public class NumberPicker extends LinearLayout {
 	 * pressed.
 	 */
 	private int mIncrementValue = 1;
+	
+	public int getIncrementValue() {
+		return mIncrementValue;
+	}
+	
+	public void setIncrementValue(int value) {
+		mIncrementValue = value;
+	}
 
 	public void increment() {
 		if (mValue < MAXIMUM) {
