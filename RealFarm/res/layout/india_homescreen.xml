@@ -148,7 +148,7 @@
             		 android:layout_marginRight="10dp"/>
         
         <RelativeLayout android:id="@+id/hmscrn_lay_menu_btns"
-             android:background="@drawable/allactions"
+             android:background="@drawable/allactions_test1"
             android:layout_width="248px"
             android:layout_height="49px"
             android:layout_marginLeft="5px"
@@ -295,8 +295,8 @@
 	                    android:id="@+id/btn_action_selling"
 	                    android:layout_width="45dp"
 	                    android:layout_height="45dp"
-	                    android:background="@drawable/circular_btn"
-	                    android:src="@drawable/selling"
+	                    android:src="@drawable/circular_btn"
+	                    android:background="@drawable/selling"
 	                    android:layout_marginTop="50dp"
 	                    android:layout_marginRight="35dp"/>
 	                

@@ -95,4 +95,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity {
 			return super.onOptionsItemSelected(item);
 		}
 	}
+
+	
 }

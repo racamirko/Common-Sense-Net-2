@@ -3,15 +3,20 @@ package com.commonsensenet.realfarm.actions;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
@@ -30,7 +35,9 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 	private RealFarmProvider mDataProvider;
 	private final action_harvest parentReference = this; // audio integration
 	private String final_day_harvest;
-
+	String mSelectedMonth ;
+	
+	
 	protected void cancelaudio() {
 		playAudio(R.raw.cancel);
 
@@ -73,8 +80,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		final Button smiley1;
 		final Button smiley2;
 		final Button smiley3;
-
-		final ImageView bg_month_harvest = (ImageView) findViewById(R.id.img_bg_month_harvest);
+		
+		
 		final ImageView bg_day_harvest = (ImageView) findViewById(R.id.img_bg_day_harvest);
 		final ImageView bg_units_no_harvest = (ImageView) findViewById(R.id.img_bg_units_no_harvest);
 		final ImageView bg_units_harvest = (ImageView) findViewById(R.id.img_bg_units_harvest);
@@ -404,7 +411,9 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 			item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				Log.d("in variety sowing dialog", "in dialog");
+			
+				
+			/*	Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.months_dialog);
 				dlg.setCancelable(true);
@@ -644,7 +653,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 						dlg.cancel();
 					}
 				});
-
+*/
+				callmonthlist();
 			}
 
 		});
@@ -891,6 +901,123 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 			}
 		});
+	}
+
+	protected void callmonthlist() {
+		// TODO Auto-generated method stub
+		Log.d("in Lang selection", "in dialog");
+		final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_harvest);
+		final ImageView bg_month_harvest = (ImageView) findViewById(R.id.img_bg_month_harvest);
+		
+		// dialog used to request the information
+		final Dialog dialog = new Dialog(this);
+
+		// gets the language list from the resources.
+		Resources res = getResources();
+		String[] languages = res.getStringArray(R.array.array_months);
+
+		ListView monthList = new ListView(this);
+		ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,
+				android.R.layout.simple_list_item_1, android.R.id.text1,
+				languages);
+		// sets the adapter.
+		monthList.setAdapter(languageAdapter);
+
+		// adds the event listener to detect the language selection.
+		monthList.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+
+				// marks the language as selected.
+				Global.langFlag = 1;
+
+				// stores the selected language.
+				mSelectedMonth = (String) parent.getAdapter().getItem(
+						position);
+			
+			
+				TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
+
+				tr_feedback.setBackgroundResource(R.drawable.def_img);
+				bg_month_harvest.setImageResource(R.drawable.empty_not);
+				
+				if(mSelectedMonth.toString().equalsIgnoreCase("January"))
+				{
+					var_text.setText("01");
+					months_harvest ="01";
+				}
+				
+				if(mSelectedMonth.toString().equalsIgnoreCase("February"))
+				{
+					var_text.setText("02");
+					months_harvest ="02";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("March"))
+				{
+					var_text.setText("03");
+					months_harvest ="03";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("April"))
+				{
+					var_text.setText("04");
+					months_harvest ="04";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("May"))
+				{
+					var_text.setText("05");
+					months_harvest ="05";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("June"))
+				{
+					var_text.setText("06");
+					months_harvest ="06";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("July"))
+				{
+					var_text.setText("07");
+					months_harvest ="07";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("August"))
+				{
+					var_text.setText("08");
+					months_harvest ="08";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("September"))
+				{
+					var_text.setText("09");
+					months_harvest ="09";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("October"))
+				{
+					var_text.setText("10");
+					months_harvest ="10";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("November"))
+				{
+					var_text.setText("11");
+					months_harvest ="11";
+				}
+				if(mSelectedMonth.toString().equalsIgnoreCase("December"))
+				{
+					var_text.setText("12");
+					months_harvest ="12";
+				}
+				
+				// closes the dialog.
+				dialog.dismiss();
+			}
+
+		});
+
+		// sets the view
+		dialog.setContentView(monthList);
+		// sets the properties of the dialog.
+		dialog.setTitle("Please select the month");
+		dialog.setCancelable(true);
+
+		// displays the dialog.
+		dialog.show();
 	}
 
 	@Override
