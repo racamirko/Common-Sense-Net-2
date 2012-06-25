@@ -41,15 +41,34 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		//super.onCreate(savedInstanceState);
 		// sets the layout
-		setContentView(R.layout.my_settings_plot_details);
+	//	setContentView(R.layout.my_settings_plot_details);
 		// gets the database provided
+		super.onCreate(savedInstanceState, R.layout.my_settings_plot_details);           //25-06-2012
+		setHelpIcon(findViewById(R.id.helpIndicator));
+		
 		mDataProvider = RealFarmProvider.getInstance(mContext);
 
 		ImageButton home1 = (ImageButton) findViewById(R.id.aggr_img_home1);
 		ImageButton help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
 		help1.setOnLongClickListener(this);
+		
+		
+		final Button plotImage;                                                                  //20-06-2012
+		final Button soilType;
+		final Button mainCrop;
+	
+		
+		plotImage = (Button) findViewById(R.id.image_plot_txt_btn);                            //20-06-2012
+		soilType = (Button) findViewById(R.id.soiltype_plot_txt_btn);
+		mainCrop = (Button) findViewById(R.id.maincrop_plot_txt_btn);
+		
+		
+		plotImage.setOnLongClickListener(this);                                                 //20-06-2012
+		soilType.setOnLongClickListener(this);
+		mainCrop.setOnLongClickListener(this);
+		
 
 		home1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -75,7 +94,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 		Button plotcrop = (Button) findViewById(R.id.home_btn_crop_plot);
 		Button plotsoil = (Button) findViewById(R.id.home_btn_soil_plot);
 		Button plotok = (Button) findViewById(R.id.button_ok);
-		// Button plotcancel = (Button) findViewById(R.id.button_cancel);
+	    Button plotcancel = (Button) findViewById(R.id.button_cancel);    //25-06-2012
 
 		((Button) findViewById(R.id.home_btn_list_plot))
 				.setOnLongClickListener(parentReference); // Audio integration
@@ -85,7 +104,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 				.setOnLongClickListener(parentReference);
 		((Button) findViewById(R.id.button_ok))
 				.setOnLongClickListener(parentReference);
-		((Button) findViewById(R.id.button_cancel))
+		((Button) findViewById(R.id.button_cancel))                //25-06-2012
 				.setOnLongClickListener(parentReference);
 
 		// PlotImage =(EditText) findViewById(R.id.plotimage);
@@ -371,6 +390,20 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 
 			}
 		});
+		
+		
+		plotcancel.setOnClickListener(new View.OnClickListener() {    //25-06-2012
+			public void onClick(View v) {
+				
+				SoundQueue.getInstance().stop();
+
+				Intent adminintent123 = new Intent(My_settings_plot_details.this,
+						Homescreen.class);
+				startActivity(adminintent123);
+				My_settings_plot_details.this.finish();
+				
+			}
+		});
 		/*
 		 * PlotImage.setOnClickListener(new View.OnClickListener() { public void
 		 * onClick(View v) { System.out.println("in PlotImage"); //
@@ -434,76 +467,112 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 	@Override
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.aggr_img_help1) {
+		if (v.getId() == R.id.aggr_img_help1) {          //showhelp added 25-06-2012
 			playAudio(R.raw.help);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_list_plot) { // added
 			playAudio(R.raw.plotimage);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.plot_img_1) { // added
 			playAudio(R.raw.audio1);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.plot_img_2) { // added
 			playAudio(R.raw.audio2);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.plot_img_3) { // added
 			playAudio(R.raw.audio3);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_soil_plot) { // added
 			playAudio(R.raw.soiltype);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.plot_soil_1) { // added
 			playAudio(R.raw.loamy);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.plot_soil_2) { // added
 			playAudio(R.raw.sandy);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.plot_soil_3) { // added
 			playAudio(R.raw.clay);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_crop_plot) { // added
 			playAudio(R.raw.yieldinfo);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_1) { // added
 			playAudio(R.raw.bajra);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_2) { // added
 			playAudio(R.raw.castor);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_3) { // added
 			playAudio(R.raw.cowpea);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_4) { // added
 			playAudio(R.raw.greengram);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_5) { // added
 			playAudio(R.raw.groundnuts);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_plot_crop_6) { // added
 			playAudio(R.raw.horsegram);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.button_ok) { // added
 			playAudio(R.raw.ok);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.button_cancel) { // added
 			playAudio(R.raw.cancel);
+			ShowHelpIcon(v); 
+		}
+		
+		if (v.getId() == R.id.image_plot_txt_btn) { // added
+
+			playAudio(R.raw.plotimage);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.soiltype_plot_txt_btn) { // added
+
+			playAudio(R.raw.soiltype);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.maincrop_plot_txt_btn) { // added
+
+			playAudio(R.raw.maincrop);
+			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		return true;

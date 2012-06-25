@@ -78,6 +78,8 @@ public class action_problem extends HelpEnabledActivity {
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
 		item1.setOnLongClickListener(this); // Integration
+		item2.setOnLongClickListener(this); // Integration
+		item3.setOnLongClickListener(this); // Integration
 
 		help.setOnLongClickListener(this);
 		

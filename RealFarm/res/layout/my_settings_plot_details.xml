@@ -1,4 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
@@ -70,14 +71,7 @@
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
-                    <Button
-                        android:id="@+id/variety_sow_txt_btn"
-                        android:layout_width="120dp"
-                        android:layout_height="170dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
+                   
 
                     <TextView
                         android:id="@+id/variety_sow_txt"
@@ -95,6 +89,15 @@
                         android:text="Plot Image"
                         android:textColor="#000000"
                         android:textSize="22sp" />
+                    
+                     <Button
+                        android:id="@+id/image_plot_txt_btn"
+                        android:layout_width="120dp"
+                        android:layout_height="170dp"
+                        android:layout_alignBottom="@+id/dlg_var_sow"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignTop="@+id/dlg_var_sow"
+                        android:background="@drawable/square_btn_transp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -161,14 +164,7 @@
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
-                    <Button
-                        android:id="@+id/variety_sow_txt_btn"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
+                   
 
                     <TextView
                         android:id="@+id/variety_sow_txt"
@@ -182,6 +178,15 @@
                         android:text="Soil type"
                         android:textColor="#000000"
                         android:textSize="22sp" />
+                    
+                     <Button
+                        android:id="@+id/soiltype_plot_txt_btn"
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_alignBottom="@+id/dlg_var_sow"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignTop="@+id/dlg_var_sow"
+                        android:background="@drawable/square_btn_transp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -258,14 +263,7 @@
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
-                    <Button
-                        android:id="@+id/variety_sow_txt_btn"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
+                    
 
                     <TextView
                         android:id="@+id/variety_sow_txt"
@@ -281,6 +279,14 @@
                         android:text="Main Crop"
                         android:textColor="#000000"
                         android:textSize="22sp" />
+                    <Button
+                        android:id="@+id/maincrop_plot_txt_btn"
+                        android:layout_width="120dp"
+                        android:layout_height="60dp"
+                        android:layout_alignBottom="@+id/dlg_var_sow"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignTop="@+id/dlg_var_sow"
+                        android:background="@drawable/square_btn_transp" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -362,3 +368,12 @@
     </LinearLayout>
 
 </RelativeLayout>
+
+   <ImageView
+        android:id="@+id/helpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_76px_sound"
+        android:visibility="invisible" />
+
+</merge>

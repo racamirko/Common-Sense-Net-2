@@ -1168,14 +1168,14 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 		if (v.getId() == R.id.home_btn_day_harvest) { // added
 
-			playAudio(R.raw.choosethemonthwhenharvested);
+			playAudio(R.raw.selectthedate);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_btn_month_harvest) { // added
 
-			playAudio(R.raw.selectthedate);
+			playAudio(R.raw.choosethemonthwhenharvested);
 			ShowHelpIcon(v); 
 
 		}

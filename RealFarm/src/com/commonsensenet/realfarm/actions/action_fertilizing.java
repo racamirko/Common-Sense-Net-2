@@ -1072,7 +1072,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 
 		
 		if (v.getId() == R.id.home_btn_month_fert) {                        //20-06-2012
-			playAudio(R.raw.fertilizername);
+			playAudio(R.raw.choosethemonth);
 			ShowHelpIcon(v);                                      
 		}
 		

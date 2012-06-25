@@ -117,6 +117,7 @@ public class action_sowing extends HelpEnabledActivity {
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 		item5.setOnLongClickListener(this);
+		item6.setOnLongClickListener(this);                  //25-06-2012
 		help.setOnLongClickListener(this);
 		
 		final Button variety;                                                                  //20-06-2012
@@ -1529,6 +1530,12 @@ public class action_sowing extends HelpEnabledActivity {
 		if (v.getId() == R.id.number_cancel) { // added
 
 			playAudio(R.raw.cancel);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.date_sow_txt_btn) { // added
+
+			playAudio(R.raw.date);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 		
