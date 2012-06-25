@@ -47,6 +47,7 @@ import com.commonsensenet.realfarm.actions.action_problem;
 import com.commonsensenet.realfarm.actions.action_selling;
 import com.commonsensenet.realfarm.actions.action_sowing;
 import com.commonsensenet.realfarm.actions.action_spraying;
+import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
@@ -358,6 +359,17 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 		
+		
+		
+		
+		if (v.getId() == R.id.btn_action_fertilize
+		|| v.getId() == R.id.btn_action_fertilize) {
+	Log.d(LOG_TAG, "Starting Fertilize aggregate info");
+	inte = new Intent(this, fertilize_aggregate.class);
+	inte.putExtra("type", "yield");
+	this.startActivity(inte);
+	return;
+}
 		
 		
 		if (v.getId() == R.id.hmscrn_btn_yield

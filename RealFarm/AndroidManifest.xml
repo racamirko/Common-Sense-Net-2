@@ -157,6 +157,12 @@
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar" >
         </activity>
+        
+         <activity
+            android:name=".aggregates.fertilize_aggregate"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+        
         <activity
             android:name=".ownCamera.ViewPictureActivity"
             android:label="@string/app_name"

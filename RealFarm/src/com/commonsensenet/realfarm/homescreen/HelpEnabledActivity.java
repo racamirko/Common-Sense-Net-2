@@ -157,7 +157,8 @@ public abstract class HelpEnabledActivity extends Activity implements
 		mHelpMode = active;
 	}
 
-	public void playAudio(int resid) // audio integration
+
+	protected void playAudio(int resid) // audio integration
 	{
 		if (Global.enableAudio) // checking for audio enable
 		{
@@ -172,6 +173,26 @@ public abstract class HelpEnabledActivity extends Activity implements
 		}
 	}
 
+	
+	public void ShowHelpIcon(View v)              //added witth audio integration //20-06-2012
+	{
+		
+		int loc[] = new int[2];
+		v.getLocationOnScreen(loc);
+		int iconWidth = mHelpIcon.getWidth() - mHelpIcon.getPaddingLeft();
+		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
+		mHelpIcon.setPadding(loc[0] + v.getWidth() / 2 - iconWidth / 2, loc[1]
+				- iconHeight - 20, 0, 0);
+		Log.d(LOG_TAG, "Showing help at: " + loc[0] + " , " + loc[1]);
+
+		mAnimFadeIn.setViewAssociated(v);
+		mAnimFadeIn.setDuration(500);
+		mHelpIcon.setVisibility(View.VISIBLE);
+		mHelpIcon.startAnimation(mAnimFadeIn);
+		setHelpMode(true);
+	
+	}
+	
 	public void showHelp(View v) {
 	
 
@@ -258,5 +279,26 @@ public abstract class HelpEnabledActivity extends Activity implements
 
 		// TODO: make a table mapping IDs to sound files
 	}
+	
+	public void onBackPressed() {
+		// stops any currently playing sound.
+		stopAudio();
+
+		super.onBackPressed();
+	}
+
+	protected String getCurrentTime() {
+		Calendar ctaq = Calendar.getInstance();
+		SimpleDateFormat dfaq = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String crntdt = dfaq.format(ctaq.getTime());
+		Log.i("strtdat", crntdt);
+		return crntdt;
+	}
+
+	protected void stopAudio() {
+		SoundQueue.getInstance().stop();
+	}
+
+
 
 }

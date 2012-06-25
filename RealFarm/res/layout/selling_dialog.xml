@@ -1,4 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -331,7 +333,7 @@
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/amount_sow_txt_btn"
+                    android:id="@+id/quantity_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
@@ -565,7 +567,7 @@
                     android:textSize="20sp" />
 
                 <Button
-                    android:id="@+id/amount_sow_txt_btn"
+                    android:id="@+id/remain_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
@@ -696,3 +698,13 @@
     </LinearLayout>
     
 </RelativeLayout>
+
+
+   <ImageView
+        android:id="@+id/helpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_76px_sound"
+        android:visibility="invisible" />
+
+</merge>

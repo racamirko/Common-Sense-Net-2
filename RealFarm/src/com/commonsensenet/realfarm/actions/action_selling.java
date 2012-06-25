@@ -62,8 +62,13 @@ public class action_selling extends HelpEnabledActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		System.out.println("selling details entered");
 		mDataProvider = RealFarmProvider.getInstance(context);
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.selling_dialog);
+	//	super.onCreate(savedInstanceState);
+	//	setContentView(R.layout.selling_dialog);
+		
+		super.onCreate(savedInstanceState, R.layout.selling_dialog);           //Needed to add help icon
+		setHelpIcon(findViewById(R.id.helpIndicator)); 
+		
+		
 		System.out.println("selling done");
 
 		playAudio(R.raw.clickingselling);
@@ -104,6 +109,25 @@ public class action_selling extends HelpEnabledActivity {
 		item7.setOnLongClickListener(this);
 		item8.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
+		
+		final Button crop;                                                                  //20-06-2012
+		final Button date;
+		final Button quantity;
+		final Button priceperquint;
+		final Button remain;
+		
+		crop = (Button) findViewById(R.id.crop_sell_txt_btn);                            //20-06-2012
+		date = (Button) findViewById(R.id.amount_sow_txt_btn);
+		
+		quantity = (Button) findViewById(R.id.quantity_sow_txt_btn);
+		priceperquint = (Button) findViewById(R.id.treat_sow_txt_btn);
+		remain = (Button) findViewById(R.id.remain_sow_txt_btn);
+		
+		crop.setOnLongClickListener(this);                                                 //20-06-2012
+		date.setOnLongClickListener(this);
+		quantity.setOnLongClickListener(this);
+		priceperquint.setOnLongClickListener(this);
+		remain.setOnLongClickListener(this);
 		
 		
 		item1.setOnClickListener(new View.OnClickListener() {
@@ -322,10 +346,18 @@ public class action_selling extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Date");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
+				
+				playAudio(R.raw.dateinfo);                  //20-06-2012
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
+				
+				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
+				.setOnLongClickListener(parentReference);
+		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
+		
+		
 				no_ok.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 
@@ -632,11 +664,16 @@ public class action_selling extends HelpEnabledActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				
+				playAudio(R.raw.noofbags);                  //20-06-2012
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
+				
+				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
+				.setOnLongClickListener(parentReference);
+		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
+		
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
@@ -1189,6 +1226,261 @@ public class action_selling extends HelpEnabledActivity {
 	@Override
 	public boolean onLongClick(View v) { // latest
 
+		if (v.getId() == R.id.home_month_1) { // added
+
+			playAudio(R.raw.jan);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		if (v.getId() == R.id.home_month_2) { // added
+
+			playAudio(R.raw.feb);
+			ShowHelpIcon(v);                                      //added for help icon
+
+		}
+
+		if (v.getId() == R.id.home_month_3) { // added
+
+			playAudio(R.raw.mar);
+			ShowHelpIcon(v);                                      //added for help icon
+
+		}
+
+		if (v.getId() == R.id.home_month_4) { // added
+
+			playAudio(R.raw.apr);
+			ShowHelpIcon(v);                                      //added for help icon
+
+		}
+
+		if (v.getId() == R.id.home_month_5) { // added
+
+			playAudio(R.raw.may);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_6) { // added
+
+			playAudio(R.raw.jun);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_7) { // added
+
+			playAudio(R.raw.jul);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_8) { // added
+
+			playAudio(R.raw.aug);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_9) { // added
+
+			playAudio(R.raw.sep);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_10) { // added
+
+			playAudio(R.raw.oct);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_11) { // added
+
+			playAudio(R.raw.nov);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_12) { // added
+
+			playAudio(R.raw.dec);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		
+		if (v.getId() == R.id.home_btn_month_sell) { // added
+
+			playAudio(R.raw.choosethemonth);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.number_ok) { // added
+
+			playAudio(R.raw.ok);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.number_cancel) { // added
+
+			playAudio(R.raw.cancel);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		
+		
+		if (v.getId() == R.id.quantity_sow_txt_btn) { // added
+
+			playAudio(R.raw.quantity);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.crop_sell_txt_btn) { // added
+
+			playAudio(R.raw.crop);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.amount_sow_txt_btn) { // added
+
+			playAudio(R.raw.date);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.treat_sow_txt_btn) { // added
+
+			playAudio(R.raw.priceperquintal);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.remain_sow_txt_btn) { // added
+
+			playAudio(R.raw.remaining);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_var_sow_1) {                 //20-06-2012
+
+			System.out.println("variety sow1 called");
+			playAudio(R.raw.bajra);
+			ShowHelpIcon(v); 
+
+		}
+
+		if (v.getId() == R.id.home_btn_var_sow_2) {
+
+			playAudio(R.raw.castor);
+			ShowHelpIcon(v); 
+
+		}
+
+		if (v.getId() == R.id.home_btn_var_sow_3) {
+
+			playAudio(R.raw.cowpea);
+			ShowHelpIcon(v); 
+
+		}
+
+		if (v.getId() == R.id.home_btn_var_sow_4) {
+
+			playAudio(R.raw.greengram);
+			ShowHelpIcon(v); 
+
+		}
+
+		if (v.getId() == R.id.home_btn_var_sow_5) {
+
+			playAudio(R.raw.groundnut1);
+			ShowHelpIcon(v); 
+
+		}
+
+		if (v.getId() == R.id.home_btn_var_sow_6) {
+
+			playAudio(R.raw.horsegram);
+			ShowHelpIcon(v); 
+
+		}
+		
+		if (v.getId() == R.id.home_btn_units_1) {
+
+			playAudio(R.raw.bagof10kg);
+			ShowHelpIcon(v); 
+
+		}
+
+		if (v.getId() == R.id.home_btn_units_2) {
+
+			playAudio(R.raw.bagof20kg);
+			ShowHelpIcon(v); 
+
+		}
+
+		if (v.getId() == R.id.home_btn_units_3) {
+
+			playAudio(R.raw.bagof50kg);
+			ShowHelpIcon(v); 
+
+		}
+		
+		if (v.getId() == R.id.home_btn_crop_sell) { // added
+
+			playAudio(R.raw.crop);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_date_sell) { // added
+
+			playAudio(R.raw.date);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_month_sell) { // added
+
+			playAudio(R.raw.choosethemonth);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_units_no_sell) { // added
+
+			playAudio(R.raw.noofbags);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_units_sell) { // added
+
+			playAudio(R.raw.keygis);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_price_sell) { // added
+
+			playAudio(R.raw.value);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_units_no_rem_sell) { // added
+
+			playAudio(R.raw.noofbags);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_units_rem_sell) { // added
+
+			playAudio(R.raw.keygis);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.aggr_img_help) { // added
+
+			playAudio(R.raw.help);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.sell_ok) {
+
+			playAudio(R.raw.ok);
+			ShowHelpIcon(v); 
+
+		}
+		if (v.getId() == R.id.sell_cancel) {
+
+			playAudio(R.raw.cancel);
+			ShowHelpIcon(v); 
+
+		}
 		
 		return true;
 	}

@@ -6,8 +6,10 @@ import java.util.Calendar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -64,6 +66,11 @@ public abstract class HelpEnabledActivity extends SherlockActivity {
 
 		// enables the home button arrow.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+		
+		 ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.array_languages, R.layout.sherlock_spinner_item);
+	        listAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+	        getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
+	        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {

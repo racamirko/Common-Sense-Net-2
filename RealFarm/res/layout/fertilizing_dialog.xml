@@ -1,4 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+    <LinearLayout
+        android:id="@+id/linearLayout19"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/header" >
+
+        <ImageView
+            android:id="@+id/aggr_img_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/circular_btn_normal"
+            android:src="@drawable/ic_72px_harvesting1" />
+
+        <ImageView
+            android:id="@+id/aggr_img_icon"
+            android:layout_width="60dip"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/plot" />
+
+        <Button
+            android:id="@+id/button123"
+            android:layout_width="75dip"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/aggr_img_home"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/home"
+            android:src="@drawable/square_btn_transp" />
+
+        <ImageButton
+            android:id="@+id/aggr_img_help"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/help"
+            android:src="@drawable/square_btn_transp" />
+    </LinearLayout>
+    
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -396,3 +447,12 @@
     <include layout="@layout/layout_bottom_bar" />
 
 </RelativeLayout>
+    </LinearLayout>
+   <ImageView
+        android:id="@+id/helpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_76px_sound"
+        android:visibility="invisible" />
+
+</merge>

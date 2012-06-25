@@ -66,8 +66,13 @@ public class action_spraying extends HelpEnabledActivity {
 		System.out.println("Plant details entered");
 		mDataProvider = RealFarmProvider.getInstance(context);
 		Log.d("in spray dialog", "in dialog");
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.spraying_dialog);
+		
+	//	super.onCreate(savedInstanceState);
+	//	setContentView(R.layout.spraying_dialog);
+		
+		super.onCreate(savedInstanceState, R.layout.spraying_dialog);           //Needed to add help icon
+		setHelpIcon(findViewById(R.id.helpIndicator));
+		
 		final TextView day_spray = (TextView) findViewById(R.id.dlg_lbl_day_spray);
 		
 
@@ -113,6 +118,23 @@ public class action_spraying extends HelpEnabledActivity {
 		item5.setOnLongClickListener(this);
 		item6.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
+		
+		final Button Problems;                                                                  //20-06-2012
+		final Button Amount;
+		final Button Date;
+		final Button PestName;
+		
+		
+		Problems = (Button) findViewById(R.id.variety_sow_txt_btn);                            //20-06-2012
+		PestName = (Button) findViewById(R.id.variety_pest_txt_btn);
+		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
+		Date = (Button) findViewById(R.id.date_sow_txt_btn);
+		
+	
+		Problems.setOnLongClickListener(this);                                                 //20-06-2012
+		PestName.setOnLongClickListener(this);
+		Amount.setOnLongClickListener(this);
+		Date.setOnLongClickListener(this);
 
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -492,10 +514,16 @@ public class action_spraying extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Date");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
+				playAudio(R.raw.dateinfo);                  //20-06-2012
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
+				
+				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
+				.setOnLongClickListener(parentReference);
+		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
+		
 				no_ok.setOnClickListener(new View.OnClickListener() {
 				public void onClick(View v) {
 
@@ -547,6 +575,10 @@ public class action_spraying extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Number of bags");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
+				
+				playAudio(R.raw.noofbags);                  //20-06-2012
+				
+				
 				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
@@ -561,6 +593,10 @@ public class action_spraying extends HelpEnabledActivity {
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
+				
+				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
+				.setOnLongClickListener(parentReference);
+		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
@@ -1085,6 +1121,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 		if (v.getId() == R.id.home_btn_prob_spray) {
 			playAudio(R.raw.selecttheproblem);
+			ShowHelpIcon(v); 
 
 			if (Global.writeToSD == true) {
 
@@ -1099,6 +1136,7 @@ public class action_spraying extends HelpEnabledActivity {
 
 		if (v.getId() == R.id.home_btn_pest_spray) {
 			playAudio(R.raw.selectthepesticide);
+			ShowHelpIcon(v); 
 
 			if (Global.writeToSD == true) {
 
@@ -1114,6 +1152,7 @@ public class action_spraying extends HelpEnabledActivity {
 		if (v.getId() == R.id.home_btn_units_spray
 				|| v.getId() == R.id.home_btn_units_no_spray) {
 			playAudio(R.raw.selecttheunits);
+			ShowHelpIcon(v); 
 
 			if (Global.writeToSD == true) {
 
@@ -1129,6 +1168,7 @@ public class action_spraying extends HelpEnabledActivity {
 		if (v.getId() == R.id.home_btn_day_spray) {
 
 			playAudio(R.raw.selectthedate);
+			ShowHelpIcon(v); 
 
 			if (Global.writeToSD == true) {
 
@@ -1143,15 +1183,18 @@ public class action_spraying extends HelpEnabledActivity {
 
 		if (v.getId() == R.id.spray_ok) {
 			playAudio(R.raw.ok);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.spray_cancel) {
 			playAudio(R.raw.cancel);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.aggr_img_help) {
 
 			playAudio(R.raw.help);
+			ShowHelpIcon(v); 
 
 			if (Global.writeToSD == true) {
 
@@ -1166,61 +1209,189 @@ public class action_spraying extends HelpEnabledActivity {
 
 		if (v.getId() == R.id.home_prob_spray_1) { // added audio integration
 			playAudio(R.raw.problem1);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_prob_spray_2) { // added
 			playAudio(R.raw.problem2);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_prob_spray_3) { // added
 			playAudio(R.raw.problem3);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_pest_spray_1) { // added
 			playAudio(R.raw.pesticide1);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_pest_spray_2) { // added
 			playAudio(R.raw.pesticide2);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_pest_spray_3) { // added
 			playAudio(R.raw.pesticide3);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_units_1) { // added
 
 			playAudio(R.raw.bagof10kg);
+			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_btn_units_2) { // added
 			playAudio(R.raw.bagof20kg);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_btn_units_3) { // added
 			playAudio(R.raw.bagof50kg);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_day_1) { // added
 			playAudio(R.raw.twoweeksbefore);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_day_2) { // added
 			playAudio(R.raw.oneweekbefore);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_day_3) { // added
 			playAudio(R.raw.yesterday);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_day_4) { // added
 			playAudio(R.raw.todayonly);
+			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_day_5) { // added
 			playAudio(R.raw.tomorrows);
+			ShowHelpIcon(v); 
 		}
+		
+		if (v.getId() == R.id.home_month_1) { // added
+
+			playAudio(R.raw.jan);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		if (v.getId() == R.id.home_month_2) { // added
+
+			playAudio(R.raw.feb);
+			ShowHelpIcon(v);                                      //added for help icon
+
+		}
+
+		if (v.getId() == R.id.home_month_3) { // added
+
+			playAudio(R.raw.mar);
+			ShowHelpIcon(v);                                      //added for help icon
+
+		}
+
+		if (v.getId() == R.id.home_month_4) { // added
+
+			playAudio(R.raw.apr);
+			ShowHelpIcon(v);                                      //added for help icon
+
+		}
+
+		if (v.getId() == R.id.home_month_5) { // added
+
+			playAudio(R.raw.may);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_6) { // added
+
+			playAudio(R.raw.jun);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_7) { // added
+
+			playAudio(R.raw.jul);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_8) { // added
+
+			playAudio(R.raw.aug);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_9) { // added
+
+			playAudio(R.raw.sep);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_10) { // added
+
+			playAudio(R.raw.oct);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_11) { // added
+
+			playAudio(R.raw.nov);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+		if (v.getId() == R.id.home_month_12) { // added
+
+			playAudio(R.raw.dec);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.home_btn_month_spray) { // added
+
+			playAudio(R.raw.choosethemonth);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.variety_sow_txt_btn) {                        //20-06-2012
+			playAudio(R.raw.problems);
+			ShowHelpIcon(v);                                     
+		}
+		
+		if (v.getId() == R.id.date_sow_txt_btn) {                        //20-06-2012
+			playAudio(R.raw.date);
+			ShowHelpIcon(v);                                      
+		}
+		
+		
+		if (v.getId() == R.id.amount_sow_txt_btn) {                        //20-06-2012
+			playAudio(R.raw.amount);
+			ShowHelpIcon(v);                                      
+		}
+		if (v.getId() == R.id.variety_pest_txt_btn) {                        //20-06-2012
+			playAudio(R.raw.pesticidename);
+			ShowHelpIcon(v);                                     
+		}
+		
+		if (v.getId() == R.id.number_ok) { // added
+
+			playAudio(R.raw.ok);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+		
+		if (v.getId() == R.id.number_cancel) { // added
+
+			playAudio(R.raw.cancel);
+			ShowHelpIcon(v);                                      //added for help icon
+		}
+
+
 
 		return true;
 	}
