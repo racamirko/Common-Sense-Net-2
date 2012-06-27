@@ -28,13 +28,13 @@ import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
 
-public class fertilize_aggregate extends HelpEnabledActivity implements
+public class sowing_aggregate extends HelpEnabledActivity implements
 		OnLongClickListener {
 	/** Database provider used to persist the data. */
 	private RealFarmProvider mDataProvider;
 	private AggregateRecommendation aggrRec;
 	/** Reference to the current instance. */
-	private final fertilize_aggregate mParentReference = this;
+	private final sowing_aggregate mParentReference = this;
 	private String units_fert = "0", fert_var_sel = "0", day_fert_sel = "0",
 			day_fert_sel_1;
 	private int fert_no, day_fert_int;
@@ -52,32 +52,32 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 					+ " Softkey " + " click " + " Back_button " + " null "
 					+ " \r\n");
 		}
-		Intent adminintent = new Intent(fertilize_aggregate.this,
+		Intent adminintent = new Intent(sowing_aggregate.this,
 				Homescreen.class);
 
 		startActivity(adminintent);
-		fertilize_aggregate.this.finish();
+		sowing_aggregate.this.finish();
 
 	}
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("Fertilizer Aggregate entered");
+		System.out.println("Sowing Aggregate entered");
 		mDataProvider = RealFarmProvider.getInstance(this);
 	
 	//	super.onCreate(savedInstanceState);
 	//	setContentView(R.layout.fertilizing_dialog);
 		
-		super.onCreate(savedInstanceState, R.layout.fertilize_aggregate);    
-		System.out.println("Fertilizer Aggregate entered");  
+		super.onCreate(savedInstanceState, R.layout.sowing_aggregate);    
+	 
 		setHelpIcon(findViewById(R.id.helpIndicator));   
-		ImageButton btnLike = (ImageButton) findViewById(R.id.aggr_item_fert_like1);
-		System.out.println("Fertilizer Aggregate entered");
+		ImageButton btnLike = (ImageButton) findViewById(R.id.aggr_item_sow_like1);
+
 		btnLike.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 		
-		if (v.getId() == R.id.aggr_item_fert_like1) {
+		if (v.getId() == R.id.aggr_item_sow_like1) {
 			
 			// for the like button
 			if (!liked) {
@@ -91,12 +91,12 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 			}
 		});
 		
-		ImageButton btnLike2 = (ImageButton) findViewById(R.id.aggr_item_fert_like2);
+		ImageButton btnLike2 = (ImageButton) findViewById(R.id.aggr_item_sow_like2);
 		System.out.println("Fertilizer Aggregate entered");
 		btnLike2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 		
-		if (v.getId() == R.id.aggr_item_fert_like2) {
+		if (v.getId() == R.id.aggr_item_sow_like2) {
 			
 			// for the like button
 			if (!liked) {
@@ -128,8 +128,8 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
 		
 		
-		final Button userslist = (Button) findViewById(R.id.txt_btn_1);
-		final Button userslist_2 = (Button) findViewById(R.id.txt_btn_2);
+		final Button userslist = (Button) findViewById(R.id.txt_btn_sow_1);
+		final Button userslist_2 = (Button) findViewById(R.id.txt_btn_sow_2);
 	    /*  Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 
 	        Integer[] image = { R.drawable.ic_72px_fertilizing2, R.drawable.ic_72px_fertilizing2, R.drawable.ic_72px_fertilizing2 };
@@ -437,11 +437,11 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 
 	protected void cancelAudio() {
 		playAudio(R.raw.cancel);
-		Intent adminintent = new Intent(fertilize_aggregate.this,
+		Intent adminintent = new Intent(sowing_aggregate.this,
 				Homescreen.class);
 
 		startActivity(adminintent);
-		fertilize_aggregate.this.finish();
+		sowing_aggregate.this.finish();
 	}
 
 	protected void okAudio() {

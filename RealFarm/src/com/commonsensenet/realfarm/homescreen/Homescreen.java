@@ -48,6 +48,11 @@ import com.commonsensenet.realfarm.actions.action_selling;
 import com.commonsensenet.realfarm.actions.action_sowing;
 import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
+import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
+import com.commonsensenet.realfarm.aggregates.irrigate_aggregate;
+import com.commonsensenet.realfarm.aggregates.problem_aggregate;
+import com.commonsensenet.realfarm.aggregates.selling_aggregate;
+import com.commonsensenet.realfarm.aggregates.sowing_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
@@ -359,7 +364,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 		
-		
+	/** aggregate action descriptions */
 		
 		
 		if (v.getId() == R.id.btn_action_fertilize
@@ -371,6 +376,52 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	return;
 }
 		
+		
+		if (v.getId() == R.id.btn_action_selling
+		|| v.getId() == R.id.btn_action_selling) {
+	Log.d(LOG_TAG, "Starting Selling aggregate info");
+	inte = new Intent(this, selling_aggregate.class);
+	inte.putExtra("type", "yield");
+	this.startActivity(inte);
+	return;
+}
+		
+		if (v.getId() == R.id.btn_action_problem
+				|| v.getId() == R.id.btn_action_problem) {
+			Log.d(LOG_TAG, "Starting Problem aggregate info");
+			inte = new Intent(this, problem_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if (v.getId() == R.id.btn_action_irrigate
+				|| v.getId() == R.id.btn_action_irrigate) {
+			Log.d(LOG_TAG, "Starting irrigate aggregate info");
+			inte = new Intent(this, irrigate_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if (v.getId() == R.id.btn_action_harvesting
+				|| v.getId() == R.id.btn_action_harvesting) {
+			Log.d(LOG_TAG, "Starting harvest aggregate info");
+			inte = new Intent(this, harvest_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+		
+		if (v.getId() == R.id.btn_action_sowing
+				|| v.getId() == R.id.btn_action_sowing) {
+			Log.d(LOG_TAG, "Starting Sowing aggregate info");
+			inte = new Intent(this, sowing_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			return;
+		}
+	
 		
 		if (v.getId() == R.id.hmscrn_btn_yield
 				|| v.getId() == R.id.hmscrn_btn_yield) {

@@ -14,10 +14,10 @@
         <ImageView
             android:id="@+id/aggr_img_icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_72px_harvesting1" />
+            android:src="@drawable/ic_fertilize" />
 
         <ImageView
             android:id="@+id/aggr_img_icon"
@@ -122,7 +122,7 @@
                         android:layout_alignParentTop="true"
                         android:background="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/ic_48px_fertilizing2" />
+                        android:src="@drawable/ic_fertilize2" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -221,7 +221,7 @@
                         android:layout_alignParentTop="true"
                         android:background="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/ic_48px_pest" />
+                        android:src="@drawable/amount" />
                 </RelativeLayout>
 
                 <RelativeLayout

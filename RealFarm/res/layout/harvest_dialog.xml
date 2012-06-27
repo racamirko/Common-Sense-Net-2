@@ -23,7 +23,7 @@
             android:layout_height="wrap_content"
             android:layout_margin="5dp"
             android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_72px_harvesting1" />
+            android:src="@drawable/ic_harvest" />
 
         <ImageView
             android:id="@+id/aggr_img_icon"
@@ -118,7 +118,7 @@
                     android:layout_marginTop="10dp"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/month" />
+                    android:src="@drawable/date" />
             </RelativeLayout>
 
          <RelativeLayout
@@ -261,7 +261,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/ic_48px_pest" />
+                    android:src="@drawable/amount" />
             </RelativeLayout>
 
       <RelativeLayout

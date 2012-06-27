@@ -17,7 +17,7 @@
             android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@drawable/circular_btn"
-            android:src="@drawable/ic_fertilize" />
+            android:src="@drawable/ic_harvest" />
         
     <Spinner
         android:id="@+id/spinner1"
@@ -95,7 +95,7 @@
                     android:id="@+id/dlg_lbl_var_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="18dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="50"
@@ -104,7 +104,7 @@
                     android:textSize="22sp" />
   				   
   				   <Button
-  				       android:id="@+id/txt_btn_1"
+  				       android:id="@+id/txt_btn_harvest_1"
   				       android:layout_width="wrap_content"
   				       android:layout_height="wrap_content"
   				       android:layout_alignParentBottom="true"
@@ -131,7 +131,7 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/pic_90px_bajra_tiled" />
+                        android:src="@drawable/pic_90px_groundnut_tiled" />
 
                     <TextView
                         android:id="@+id/dlg_lbl_var_fert"
@@ -140,7 +140,7 @@
                         android:layout_centerHorizontal="true"
                         android:layout_centerVertical="true"
                         android:layout_weight="1"
-                        android:text="Fertilizer 1"
+                        android:text="TMV 2"
                         android:textAppearance="?android:attr/textAppearanceMedium"
                         android:textSize="23sp" />
                 </RelativeLayout>
@@ -152,12 +152,17 @@
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
-                    <ImageView
-                        android:id="@+id/img_bg_var_fert"
+                    <TextView
+                        android:id="@+id/dlg_lbl_var_fert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:src="@drawable/kg10" />
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:text="3.5 qt/acre"
+                        android:textColor="#000000"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="16sp" />
                    
                 </RelativeLayout>
                   <RelativeLayout
@@ -168,7 +173,7 @@
                     android:gravity="right" >
                 
                 <ImageButton
-        android:id="@+id/aggr_item_fert_like1"
+        android:id="@+id/aggr_item_harvest_like1"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_alignParentRight="true"
@@ -216,7 +221,7 @@
                     android:id="@+id/dlg_lbl_var_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="12dp"
+                    android:layout_marginLeft="18dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="50"
@@ -225,7 +230,7 @@
                     android:textSize="22sp" />
   				   
   				   <Button
-  				       android:id="@+id/txt_btn_2"
+  				       android:id="@+id/txt_btn_harvest_2"
   				       android:layout_width="wrap_content"
   				       android:layout_height="wrap_content"
   				       android:layout_alignParentBottom="true"
@@ -252,20 +257,18 @@
                         android:layout_height="match_parent"
                         android:background="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/pic_90px_bajra_tiled" />
+                        android:src="@drawable/pic_90px_groundnut_tiled" />
+
                      <TextView
-                    android:id="@+id/dlg_lbl_var_fert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:layout_marginTop="15dp"
-                    android:layout_weight="1"
-                    android:text="Fertilizer 2"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                  
-                    android:textSize="23sp" />
-                    
-                     
+                         android:id="@+id/dlg_lbl_var_fert"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_centerHorizontal="true"
+                         android:layout_centerVertical="true"
+                         android:layout_weight="1"
+                         android:text="Samrat"
+                         android:textAppearance="?android:attr/textAppearanceMedium"
+                         android:textSize="23sp" />
                    
                 </RelativeLayout>
 
@@ -276,12 +279,17 @@
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
-                    <ImageView
-                        android:id="@+id/img_bg_var_fert"
+                               <TextView
+                        android:id="@+id/dlg_lbl_var_fert"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:src="@drawable/kg50" />
+                        android:layout_centerHorizontal="true"
+                        android:layout_centerVertical="true"
+                        android:layout_weight="1"
+                        android:text="3.5 qt/acre"
+                        android:textColor="#000000"
+                        android:textAppearance="?android:attr/textAppearanceMedium"
+                        android:textSize="16sp" />
                    
                 </RelativeLayout>
                   <RelativeLayout
@@ -292,7 +300,7 @@
                     android:gravity="right" >
                 
                 <ImageButton
-        android:id="@+id/aggr_item_fert_like2"
+        android:id="@+id/aggr_item_harvest_like2"
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:layout_alignParentRight="true"

@@ -20,10 +20,10 @@
         <ImageView
             android:id="@+id/aggr_img_icon"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:layout_margin="5dp"
             android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/selling" />
+            android:src="@drawable/ic_sell" />
 
         <ImageView
             android:id="@+id/aggr_img_icon"
@@ -358,7 +358,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/ic_48px_pest" />
+                    android:src="@drawable/amount" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -474,7 +474,7 @@
 
                 <Button
                     android:id="@+id/treat_sow_txt_btn"
-                    android:layout_width="100dp"
+                    android:layout_width="80dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
@@ -484,20 +484,20 @@
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="40dp"
+                android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
                 <ImageButton
                     android:id="@+id/treat_sow_img_btn"
-                    android:layout_width="40dip"
+                    android:layout_width="wrap_content"
                     android:layout_height="60dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/sell" />
+                    android:src="@drawable/sellprice" />
 
             </RelativeLayout>
 
@@ -591,7 +591,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/ic_48px_pest" />
+                    android:src="@drawable/amount" />
 
             </RelativeLayout>
 

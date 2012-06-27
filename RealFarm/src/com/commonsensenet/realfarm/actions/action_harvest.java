@@ -90,6 +90,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		final ImageView bg_day_harvest = (ImageView) findViewById(R.id.img_bg_day_harvest);
 		final ImageView bg_units_no_harvest = (ImageView) findViewById(R.id.img_bg_units_no_harvest);
 		final ImageView bg_units_harvest = (ImageView) findViewById(R.id.img_bg_units_harvest);
+		final ImageView bg_month_harvest = (ImageView) findViewById(R.id.img_bg_month_harvest);
 
 		smiley1 = (Button) findViewById(R.id.home_btn_har_1);
 		smiley2 = (Button) findViewById(R.id.home_btn_har_2);
@@ -439,7 +440,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				stopaudio();
 			
 				
-			/*	Log.d("in variety sowing dialog", "in dialog");
+				Log.d("in variety sowing dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.months_dialog);
 				dlg.setCancelable(true);
@@ -679,8 +680,8 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 						dlg.cancel();
 					}
 				});
-*/
-				callmonthlist();
+
+			//	callmonthlist();
 			}
 
 		});
