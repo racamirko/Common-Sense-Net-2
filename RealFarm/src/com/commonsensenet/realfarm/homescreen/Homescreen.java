@@ -373,6 +373,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	inte = new Intent(this, fertilize_aggregate.class);
 	inte.putExtra("type", "yield");
 	this.startActivity(inte);
+	this.finish();
 	return;
 }
 		
@@ -383,6 +384,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	inte = new Intent(this, selling_aggregate.class);
 	inte.putExtra("type", "yield");
 	this.startActivity(inte);
+	this.finish();
 	return;
 }
 		
@@ -392,6 +394,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			inte = new Intent(this, problem_aggregate.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
+			this.finish();
 			return;
 		}
 		
@@ -401,6 +404,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			inte = new Intent(this, irrigate_aggregate.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
+			this.finish();
 			return;
 		}
 		
@@ -410,6 +414,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			inte = new Intent(this, harvest_aggregate.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
+			this.finish();
 			return;
 		}
 		
@@ -419,6 +424,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			inte = new Intent(this, sowing_aggregate.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
+			this.finish();
 			return;
 		}
 	
@@ -429,6 +435,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
+			this.finish();
 			return;
 		}
 

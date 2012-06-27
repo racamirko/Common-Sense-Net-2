@@ -13,18 +13,17 @@
 
         <RelativeLayout
             android:id="@+id/RelativeLayoutwf_2"
-            android:layout_width="60dp"
+            android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_margin="5dip"
             android:gravity="left" >
 
-            <ImageView
+      <ImageView
                 android:id="@+id/aggr_action_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="5dp"
+                android:layout_margin="2dp"
                 android:layout_marginLeft="15dp"
-           
                 android:src="@drawable/ic_sell" />
 
             <ImageView
@@ -33,9 +32,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_margin="5dp"
-               
-                android:src="@drawable/dropdown" />
+                android:layout_margin="1dp"
+               android:src="@drawable/dropdown" />
 
               <Button
                   android:id="@+id/aggr_action"
@@ -71,8 +69,7 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="1dp"
-               
-                android:src="@drawable/dropdown" />
+               android:src="@drawable/dropdown" />
 
               <Button
                   android:id="@+id/aggr_crop"
@@ -94,7 +91,7 @@
 -->
         <Button
             android:id="@+id/button123"
-            android:layout_width="45dip"
+            android:layout_width="25dip"
             android:layout_height="wrap_content"
             android:text="Button"
             android:visibility="invisible" />

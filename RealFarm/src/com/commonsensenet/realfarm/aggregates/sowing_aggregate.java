@@ -40,6 +40,7 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 	private int fert_no, day_fert_int;
 	private String fert_no_sel, months_fert = "0";
 	boolean liked;
+	int aggr_action_no;
 	public void onBackPressed() {
 
 		// stops all active audio.
@@ -111,21 +112,236 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 		});
 		
 
-		final ImageButton img_action = (ImageButton) findViewById(R.id.aggr_img_action);
-		
 
-		Spinner spinner1 = (Spinner) findViewById(R.id.spinner1);
+		final Button action = (Button) findViewById(R.id.aggr_action);
+		final Button crop = (Button) findViewById(R.id.aggr_crop);
 		
-		List<String> list = new ArrayList<String>();
-		list.add("list 1");
-		list.add("list 2");
-		list.add("list 3");
-		ArrayAdapter<String> dataAdapter = new ArrayAdapter<String>(this,
-			android.R.layout.simple_spinner_item, list);
-		dataAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		spinner1.setAdapter(dataAdapter);  
+		action.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+			
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.action_aggr_sel_dialog);
+				dlg.setCancelable(true);
+			//	dlg.setTitle("Choose the Number of bags");
+			//	Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
+				
 
-		spinner1.setOnItemSelectedListener(new CustomOnItemSelectedListener());
+				final Button aggr_sow;
+				final Button aggr_fert;
+				final Button aggr_irr;
+				final Button aggr_prob;
+				final Button aggr_spray;
+				final Button aggr_harvest;
+				final Button aggr_sell;
+				// final Button variety7;
+				final ImageView img_1;
+				img_1 = (ImageView) findViewById(R.id.aggr_action_img);
+
+		
+				aggr_sow = (Button) dlg.findViewById(R.id.action_aggr_icon_btn_sow);
+				aggr_fert = (Button) dlg.findViewById(R.id.action_aggr_icon_btn_fert);
+				aggr_irr = (Button) dlg.findViewById(R.id.action_aggr_icon_btn_irr);
+				aggr_prob = (Button) dlg.findViewById(R.id.action_aggr_icon_btn_prob);
+				aggr_spray = (Button) dlg.findViewById(R.id.action_aggr_icon_btn_spray);
+				aggr_harvest = (Button) dlg.findViewById(R.id.action_aggr_icon_btn_harvest);
+				aggr_sell = (Button) dlg.findViewById(R.id.action_aggr_icon_btn_sell);
+				
+				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_sow))
+						.setOnLongClickListener(mParentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_fert))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_irr))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_prob))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_spray))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_harvest))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_sell))
+				.setOnLongClickListener(mParentReference);
+				
+				
+				aggr_sow.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+					
+						// img_1.setMaxWidth(300);
+						img_1.setImageResource(R.drawable.ic_sow);
+						aggr_action_no= 1;
+						changeaction_aggr();
+						dlg.cancel();
+					}
+				});
+
+				aggr_fert.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+				
+						img_1.setImageResource(R.drawable.ic_fertilize);
+						aggr_action_no= 2;
+						changeaction_aggr();
+						dlg.cancel();
+					}
+
+				
+					
+				});
+
+				aggr_irr.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+					
+						img_1.setImageResource(R.drawable.ic_irrigate);
+						aggr_action_no= 3;
+						changeaction_aggr();
+						dlg.cancel();
+					}
+				});
+
+				aggr_prob.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+				
+						img_1.setImageResource(R.drawable.ic_problem);
+						aggr_action_no= 4;
+						changeaction_aggr();
+						dlg.cancel();
+					}
+				});
+				aggr_spray.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						
+						img_1.setImageResource(R.drawable.ic_spray);
+						aggr_action_no= 5;
+						changeaction_aggr();
+						dlg.cancel();
+					}
+				});
+				aggr_harvest.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+					
+						img_1.setImageResource(R.drawable.ic_harvest);
+						aggr_action_no= 6;
+						changeaction_aggr();
+						dlg.cancel();
+					}
+				});
+				
+				aggr_sell.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+					
+						img_1.setImageResource(R.drawable.ic_sell);
+						aggr_action_no= 7;
+						changeaction_aggr();
+						dlg.cancel();
+					}
+				});
+				
+				
+			}
+		});
+		
+		crop.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+			
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.variety_sowing_dialog);
+				dlg.setCancelable(true);
+			//	dlg.setTitle("Choose the Number of bags");
+			//	Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
+				
+				
+				final Button variety1;
+				final Button variety2;
+				final Button variety3;
+				final Button variety4;
+				final Button variety5;
+				final Button variety6;
+				// final Button variety7;
+				final ImageView img_1;
+				img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_var_text_sow);
+				variety1 = (Button) dlg.findViewById(R.id.home_btn_var_sow_1);
+				variety2 = (Button) dlg.findViewById(R.id.home_btn_var_sow_2);
+				variety3 = (Button) dlg.findViewById(R.id.home_btn_var_sow_3);
+				variety4 = (Button) dlg.findViewById(R.id.home_btn_var_sow_4);
+				variety5 = (Button) dlg.findViewById(R.id.home_btn_var_sow_5);
+				variety6 = (Button) dlg.findViewById(R.id.home_btn_var_sow_6);
+
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_1))
+						.setOnLongClickListener(mParentReference); // audio
+																	// integration
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_2))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_3))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_4))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_5))
+						.setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.home_btn_var_sow_6))
+						.setOnLongClickListener(mParentReference);
+
+				variety1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						img_1.setImageResource(R.drawable.pic_72px_bajra);
+						
+						
+						dlg.cancel();
+					}
+				});
+
+				variety2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_72px_castor);
+						
+						dlg.cancel();
+					}
+				});
+
+				variety3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_72px_cowpea);
+						dlg.cancel();
+					}
+				});
+
+				variety4.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_72px_greengram);
+						
+						dlg.cancel();
+					}
+				});
+				variety5.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_72px_groundnut);
+						
+						dlg.cancel();
+					}
+				});
+				variety6.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						img_1.setImageResource(R.drawable.pic_72px_horsegram);
+					
+						dlg.cancel();
+					}
+				});
+				
+				
+				
+				
+			}
+		});
+		
 		
 		
 		final Button userslist = (Button) findViewById(R.id.txt_btn_sow_1);
@@ -173,6 +389,68 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 	
 	}
+	
+	private void changeaction_aggr() {
+		// TODO Auto-generated method stub
+		
+		if(aggr_action_no == 1)
+		{
+		Intent inte = new Intent(mParentReference, sowing_aggregate.class);
+		inte.putExtra("type", "yield");
+		this.startActivity(inte);
+		this.finish();
+		}
+		
+		if(aggr_action_no == 2)
+		{
+		Intent inte = new Intent(mParentReference, fertilize_aggregate.class);
+		inte.putExtra("type", "yield");
+		this.startActivity(inte);
+		this.finish();
+		}
+		
+		if(aggr_action_no == 3)
+		{
+		Intent inte = new Intent(mParentReference, irrigate_aggregate.class);
+		inte.putExtra("type", "yield");
+		this.startActivity(inte);
+		this.finish();
+		}
+		
+		if(aggr_action_no == 4)
+		{
+		Intent inte = new Intent(mParentReference, problem_aggregate.class);
+		inte.putExtra("type", "yield");
+		this.startActivity(inte);
+		this.finish();
+		}
+		
+	/*	if(aggr_action_no == 2)
+		{
+		Intent inte = new Intent(mParentReference, spraying_aggregate.class);
+		inte.putExtra("type", "yield");
+		this.startActivity(inte);
+		this.finish();
+		}
+		*/
+		if(aggr_action_no == 6)
+		{
+		Intent inte = new Intent(mParentReference, harvest_aggregate.class);
+		inte.putExtra("type", "yield");
+		this.startActivity(inte);
+		this.finish();
+		}
+	
+		if(aggr_action_no == 7)
+		{
+		Intent inte = new Intent(mParentReference, selling_aggregate.class);
+		inte.putExtra("type", "yield");
+		this.startActivity(inte);
+		this.finish();
+		}
+		
+	}
+	
 
 	protected void initmissingval() {
 		playAudio(R.raw.missinginfo);
