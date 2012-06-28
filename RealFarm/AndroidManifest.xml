@@ -187,7 +187,11 @@
             android:name=".aggregates.sowing_aggregate"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-            
+                
+               <activity
+            android:name=".yielddetails"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".ownCamera.ViewPictureActivity"
             android:label="@string/app_name"

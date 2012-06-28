@@ -40,6 +40,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.VideoActivity;
 import com.commonsensenet.realfarm.WF_details;
 import com.commonsensenet.realfarm.admin;
+import com.commonsensenet.realfarm.yielddetails;
 import com.commonsensenet.realfarm.actions.action_fertilizing;
 import com.commonsensenet.realfarm.actions.action_harvest;
 import com.commonsensenet.realfarm.actions.action_irrigate;
@@ -76,7 +77,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private RealFarmProvider mDataProvider;
 	private String mSelectedLanguage;
 	private final Homescreen mParentReference = this;
-	int soundflag = 0;
+
 	
 	private void initActionListener() {
 		/** Capturing of all the buttons on the homescreen */
@@ -432,14 +433,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.hmscrn_btn_yield
 				|| v.getId() == R.id.hmscrn_btn_yield) {
 			Log.d(LOG_TAG, "Starting yield info");
-			inte = new Intent(this, AggregateView.class);
+			inte = new Intent(this, yielddetails.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			this.finish();
 			return;
 		}
-
-	
 
 		if (v.getId() == R.id.hmscrn_btn_market) {
 			System.out.println("Market Price details clicked");
@@ -582,22 +581,20 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		
 		if (v.getId() == R.id.hmscrn_btn_sound) {
 			System.out.println("My settings clicked");
-		
-			
-			if(soundflag ==0)
-			{
-			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
-			snd.setImageResource(R.drawable.ic_71px_sound_on);
-			Global.enableAudio = true;
-			soundflag =1;
-			}
-			else
-			{
+				
+			if (!Global.soundflag) {
+				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
+				snd.setImageResource(R.drawable.ic_71px_sound_on);
+				Global.enableAudio = true;
+				Global.soundflag =true;
+			} else {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
 				snd.setImageResource(R.drawable.soundoff);
 				Global.enableAudio = false;
-				soundflag =0;
+				Global.soundflag =false;
 			}
+			//Global.soundflag = !Global.soundflag;
+			
 			//initAudio();
 			
 		}
@@ -894,6 +891,23 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	    super.onCreate(savedInstanceState, R.layout.india_homescreen);
 	//	super.onCreate(savedInstanceState, R.layout.homescreen);
+	    
+	    //check audio
+	    
+		if (Global.soundflag) {
+			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
+			snd.setImageResource(R.drawable.ic_71px_sound_on);
+			Global.enableAudio = true;
+		
+		} else {
+			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound); 
+			snd.setImageResource(R.drawable.soundoff);
+			Global.enableAudio = false;
+			
+		}
+	    
+	    
+	    
 		mDataProvider = RealFarmProvider.getInstance(mContext);
 		/** To enable Audio On or Off */
 	//	ImageButton btnSound = (ImageButton) findViewById(R.id.dlg_btn_audio_play);

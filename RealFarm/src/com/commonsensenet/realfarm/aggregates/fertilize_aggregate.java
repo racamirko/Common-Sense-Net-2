@@ -22,6 +22,7 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.actions.action_harvest;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
@@ -75,6 +76,32 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 		setHelpIcon(findViewById(R.id.helpIndicator));   
 		ImageButton btnLike = (ImageButton) findViewById(R.id.aggr_item_fert_like1);
 		System.out.println("Fertilizer Aggregate entered");
+		
+		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
+		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
+		help.setOnLongClickListener(this);
+		
+		home.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				Intent adminintent = new Intent(fertilize_aggregate.this,
+						Homescreen.class);
+
+				startActivity(adminintent);
+				fertilize_aggregate.this.finish();
+				if (Global.writeToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** user has clicked on home btn  in harvest*********** \r\n");
+
+				}
+
+			}
+		});
+		
 		btnLike.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 		
@@ -387,9 +414,39 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 		});
 		
 
+
+		Button back = (Button) findViewById(R.id.back);
+	    back.setOnLongClickListener(this);
+	
+		back.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				cancelaudio();
+
+				if (Global.writeToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** user selected cancel in harvest*********** \r\n");
+
+				}
+			}
+
+		});
+		
 	
 	}
 	
+	protected void cancelaudio() {
+		
+
+		Intent adminintent = new Intent(fertilize_aggregate.this, Homescreen.class);
+
+		startActivity(adminintent);
+		fertilize_aggregate.this.finish();
+	}
 
 	private void changeaction_aggr() {
 		// TODO Auto-generated method stub
@@ -452,10 +509,7 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 		
 	}
 
-	protected void initmissingval() {
-		playAudio(R.raw.missinginfo);
-		//ShowHelpIcon(v);  
-	}
+
 
 	public boolean onLongClick(View v) {
 
@@ -528,7 +582,7 @@ public class fertilize_aggregate extends HelpEnabledActivity implements
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.fert_cancel) {
+		if (v.getId() == R.id.back) {
 
 			playAudio(R.raw.cancel);
 			ShowHelpIcon(v);  

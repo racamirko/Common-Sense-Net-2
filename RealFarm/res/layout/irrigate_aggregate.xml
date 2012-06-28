@@ -379,7 +379,7 @@
         
     </LinearLayout>
 
-    <include layout="@layout/layout_bottom_bar" />
+    <include layout="@layout/layout_back_bar" />
 
 </RelativeLayout>
     </LinearLayout>

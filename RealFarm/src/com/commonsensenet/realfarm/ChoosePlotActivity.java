@@ -13,6 +13,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
+import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.PlotItemAdapter;
 
@@ -39,7 +40,7 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 		ChoosePlotActivity.this.finish();
 	}
 
-	@Override
+/*	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// enables to add a new plot
@@ -49,7 +50,7 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 
 		return super.onCreateOptionsMenu(menu);
 	}
-
+*/
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 

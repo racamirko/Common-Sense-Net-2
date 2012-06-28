@@ -8,6 +8,8 @@ import android.widget.ListView;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.view.ActionItemAdapter;
+import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
+
 
 /**
  * Activity that displays the diary of activities of the current user.

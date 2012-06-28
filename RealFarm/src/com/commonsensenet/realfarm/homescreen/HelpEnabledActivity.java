@@ -72,8 +72,12 @@ public abstract class HelpEnabledActivity extends Activity implements
 		SoundQueue.getInstance().stop();
 	}
 
+
 	protected void initmissingval() {
+	
 		playAudio(R.raw.missinginfo);
+	
+		//ShowHelpIcon(v);  
 	}
 
 	protected void okaudio() {
@@ -171,8 +175,22 @@ public abstract class HelpEnabledActivity extends Activity implements
 			// plays the sound
 			sq.play();
 		}
+	
 	}
-
+	
+	
+	protected void playAudioalways(int resid) // audio integration
+	{
+			// gets the singleton queue
+			SoundQueue sq = SoundQueue.getInstance();
+			// cleans any possibly playing sound
+			sq.clean();
+			// adds the sound to the queue
+			sq.addToQueue(resid);
+			// plays the sound
+			sq.play();
+		
+	}
 	
 	public void ShowHelpIcon(View v)              //added witth audio integration //20-06-2012
 	{

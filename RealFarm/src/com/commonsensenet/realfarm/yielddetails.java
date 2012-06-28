@@ -15,7 +15,7 @@ import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class Marketprice_details extends HelpEnabledActivity implements
+public class yielddetails extends HelpEnabledActivity implements
 		OnDataChangeListener {
 
 	private int[] arr = new int[2];
@@ -29,14 +29,14 @@ public class Marketprice_details extends HelpEnabledActivity implements
 	private TextView text_4;
 	private TextView text_5;
 	private String unit = "Rs";
-
+	 boolean sel_1, sel_2, sel_3, sel_4, sel_5, sel_6 ;
 	public void onBackPressed() {
 
-		Intent adminintent = new Intent(Marketprice_details.this,
+		Intent adminintent = new Intent(yielddetails.this,
 				Homescreen.class);
 
 		startActivity(adminintent);
-		Marketprice_details.this.finish();
+		yielddetails.this.finish();
 
 		// eliminates the listener.
 		mDataProvider.setWFDataChangeListener(null);
@@ -58,7 +58,100 @@ public class Marketprice_details extends HelpEnabledActivity implements
 
 		super.onCreate(savedInstanceState);
 
-		setContentView(R.layout.marketdetails);
+		setContentView(R.layout.yielddetails);
+		
+		final Button smiley1 = (Button) findViewById(R.id.home_btn_yield_sel_1);
+		final	Button smiley2 = (Button) findViewById(R.id.home_btn_yield_sel_2);
+		final	Button smiley3 = (Button) findViewById(R.id.home_btn_yield_sel_3);
+		final	Button smiley4 = (Button) findViewById(R.id.home_btn_yield_sel_4);
+		final	Button smiley5 = (Button) findViewById(R.id.home_btn_yield_sel_5);
+		final	Button smiley6 = (Button) findViewById(R.id.home_btn_yield_sel_6);
+		smiley1.setBackgroundResource(R.drawable.smiley_good_not);
+		smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
+		smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
+		smiley4.setBackgroundResource(R.drawable.smiley_good_not);
+		smiley5.setBackgroundResource(R.drawable.smiley_medium_not);
+		smiley6.setBackgroundResource(R.drawable.smiley_bad_not);
+		
+		
+		smiley1.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+		if (!sel_1) {
+			smiley1.setBackgroundResource(R.drawable.smiley_good);
+			sel_1 =true;
+		} else {
+			smiley1.setBackgroundResource(R.drawable.smiley_good_not);
+			sel_1 =false;
+		}
+			}
+		});
+		
+		
+		smiley2.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+		if (!sel_2) {
+			smiley2.setBackgroundResource(R.drawable.smiley_good);
+			sel_2 =true;
+		} else {
+			smiley2.setBackgroundResource(R.drawable.smiley_good_not);
+			sel_2 =false;
+		}
+			}
+		});
+		
+		smiley3.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+		if (!sel_3) {
+			smiley3.setBackgroundResource(R.drawable.smiley_good);
+			sel_3 =true;
+		} else {
+			smiley3.setBackgroundResource(R.drawable.smiley_good_not);
+			sel_3 =false;
+		}
+			}
+		});
+		
+		
+		smiley4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+		if (!sel_4) {
+			smiley4.setBackgroundResource(R.drawable.smiley_good);
+			sel_4 =true;
+		} else {
+			smiley4.setBackgroundResource(R.drawable.smiley_good_not);
+			sel_4 =false;
+		}
+			}
+		});
+		
+		smiley5.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+		if (!sel_5) {
+			smiley5.setBackgroundResource(R.drawable.smiley_good);
+			sel_5 =true;
+		} else {
+			smiley5.setBackgroundResource(R.drawable.smiley_good_not);
+			sel_5 =false;
+		}
+			}
+		});
+		
+		smiley6.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+		if (!sel_6) {
+			smiley6.setBackgroundResource(R.drawable.smiley_good);
+			sel_6 =true;
+		} else {
+			smiley6.setBackgroundResource(R.drawable.smiley_good_not);
+			sel_6 =false;
+		}
+			}
+		});
+		
+		
+		
+		
+		
 /*
 		// home_btn_gn_good_mp
 

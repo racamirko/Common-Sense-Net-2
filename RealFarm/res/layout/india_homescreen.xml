@@ -296,7 +296,7 @@
 	                    android:layout_width="45dp"
 	                    android:layout_height="45dp"
 	                    android:src="@drawable/circular_btn"
-	                    android:background="@drawable/selling"
+	                    android:background="@drawable/ic_bg_sell"
 	                    android:layout_marginTop="50dp"
 	                    android:layout_marginRight="35dp"/>
 	                

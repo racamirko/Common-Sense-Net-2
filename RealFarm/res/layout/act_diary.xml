@@ -29,7 +29,7 @@
             android:layout_toRightOf="@id/icon_diary"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:text="Description"
+            android:text="List of actions performed"
             android:textSize="@dimen/font_medium" />
 
         <TextView

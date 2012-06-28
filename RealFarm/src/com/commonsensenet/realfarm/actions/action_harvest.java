@@ -39,6 +39,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 	
 	
 	protected void cancelaudio() {
+		
 		playAudio(R.raw.cancel);
 
 		Intent adminintent = new Intent(action_harvest.this, Homescreen.class);
@@ -98,9 +99,9 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		smiley1.setBackgroundResource(R.drawable.smiley_good_not);
 		smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
 		smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
-
+	
 		playAudio(R.raw.clickingharvest);
-
+	
 		if (Global.writeToSD == true) {
 
 			String logtime = getcurrenttime();
@@ -233,7 +234,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				dlg.show();
 				
 				playAudio(R.raw.noofbags);                  //20-06-2012
-				
+			
 				
 				if (Global.writeToSD == true) {
 
@@ -700,7 +701,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 				dlg.show();
 				
 				playAudio(R.raw.dateinfo);                  //20-06-2012
-				
+		
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
@@ -1061,7 +1062,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 		if (v.getId() == R.id.home_btn_har_1) {
 
-			playAudio(R.raw.feedbackgood);
+			playAudioalways(R.raw.feedbackgood);
 			ShowHelpIcon(v); 
 			if (Global.writeToSD == true) {
 
@@ -1076,7 +1077,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 		if (v.getId() == R.id.home_btn_har_2) {
 
-			playAudio(R.raw.feedbackmoderate);
+			playAudioalways(R.raw.feedbackmoderate);
 			ShowHelpIcon(v); 
 			if (Global.writeToSD == true) {
 
@@ -1090,7 +1091,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		}
 		if (v.getId() == R.id.home_btn_har_3) {
 
-			playAudio(R.raw.feedbackbad);
+			playAudioalways(R.raw.feedbackbad);
 			ShowHelpIcon(v); 
 
 			if (Global.writeToSD == true) {
@@ -1106,19 +1107,19 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		}
 		if (v.getId() == R.id.harvest_ok) {
 
-			playAudio(R.raw.ok);
+			playAudioalways(R.raw.ok);
 			ShowHelpIcon(v); 
 
 		}
 		if (v.getId() == R.id.harvest_cancel) {
 
-			playAudio(R.raw.cancel);
+			playAudioalways(R.raw.cancel);
 			ShowHelpIcon(v); 
 
 		}
 		if (v.getId() == R.id.aggr_img_help) {
 
-			playAudio(R.raw.help);
+			playAudioalways(R.raw.help);
 			if (Global.writeToSD == true) {
 
 				String logtime = getcurrenttime();
@@ -1133,7 +1134,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		if (v.getId() == R.id.home_btn_units_no_harvest
 				|| v.getId() == R.id.home_btn_units_harvest) {
 
-			playAudio(R.raw.selecttheunits);
+			playAudioalways(R.raw.selecttheunits);
 			ShowHelpIcon(v); 
 			if (Global.writeToSD == true) {
 
@@ -1148,188 +1149,188 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 		if (v.getId() == R.id.home_btn_units_1) { // audio integration
 
-			playAudio(R.raw.bagof10kg);
+			playAudioalways(R.raw.bagof10kg);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_btn_units_2) { // added
 
-			playAudio(R.raw.bagof20kg);
+			playAudioalways(R.raw.bagof20kg);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_btn_units_3) { // added
 
-			playAudio(R.raw.bagof50kg);
+			playAudioalways(R.raw.bagof50kg);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_btn_day_harvest) { // added
 
-			playAudio(R.raw.selectthedate);
+			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_btn_month_harvest) { // added
 
-			playAudio(R.raw.choosethemonthwhenharvested);
+			playAudioalways(R.raw.choosethemonthwhenharvested);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_month_1) { // added
 
-			playAudio(R.raw.jan);
+			playAudioalways(R.raw.jan);
 			ShowHelpIcon(v); 
 
 		}
 		if (v.getId() == R.id.home_month_2) { // added
 
-			playAudio(R.raw.feb);
+			playAudioalways(R.raw.feb);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_month_3) { // added
 
-			playAudio(R.raw.mar);
+			playAudioalways(R.raw.mar);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_month_4) { // added
 
-			playAudio(R.raw.apr);
+			playAudioalways(R.raw.apr);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_month_5) { // added
 
-			playAudio(R.raw.may);
+			playAudioalways(R.raw.may);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_month_6) { // added
 
-			playAudio(R.raw.jun);
+			playAudioalways(R.raw.jun);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_month_7) { // added
 
-			playAudio(R.raw.jul);
+			playAudioalways(R.raw.jul);
 			ShowHelpIcon(v); 
 
 		}
 
 		if (v.getId() == R.id.home_month_8) { // added
 
-			playAudio(R.raw.aug);
+			playAudioalways(R.raw.aug);
 			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_month_9) { // added
 
-			playAudio(R.raw.sep);
+			playAudioalways(R.raw.sep);
 			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_month_10) { // added
 
-			playAudio(R.raw.oct);
+			playAudioalways(R.raw.oct);
 			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_month_11) { // added
 
-			playAudio(R.raw.nov);
+			playAudioalways(R.raw.nov);
 			ShowHelpIcon(v); 
 		}
 
 		if (v.getId() == R.id.home_month_12) { // added
 
-			playAudio(R.raw.dec);
+			playAudioalways(R.raw.dec);
 			ShowHelpIcon(v); 
 		}
 		
 		if (v.getId() == R.id.home_month_1) { // added
 
-			playAudio(R.raw.jan);
+			playAudioalways(R.raw.jan);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 		if (v.getId() == R.id.home_month_2) { // added
 
-			playAudio(R.raw.feb);
+			playAudioalways(R.raw.feb);
 			ShowHelpIcon(v);                                      //added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_3) { // added
 
-			playAudio(R.raw.mar);
+			playAudioalways(R.raw.mar);
 			ShowHelpIcon(v);                                      //added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_4) { // added
 
-			playAudio(R.raw.apr);
+			playAudioalways(R.raw.apr);
 			ShowHelpIcon(v);                                      //added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_5) { // added
 
-			playAudio(R.raw.may);
+			playAudioalways(R.raw.may);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_6) { // added
 
-			playAudio(R.raw.jun);
+			playAudioalways(R.raw.jun);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_7) { // added
 
-			playAudio(R.raw.jul);
+			playAudioalways(R.raw.jul);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_8) { // added
 
-			playAudio(R.raw.aug);
+			playAudioalways(R.raw.aug);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_9) { // added
 
-			playAudio(R.raw.sep);
+			playAudioalways(R.raw.sep);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_10) { // added
 
-			playAudio(R.raw.oct);
+			playAudioalways(R.raw.oct);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_11) { // added
 
-			playAudio(R.raw.nov);
+			playAudioalways(R.raw.nov);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_12) { // added
 
-			playAudio(R.raw.dec);
+			playAudioalways(R.raw.dec);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 
@@ -1338,24 +1339,24 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 		
 		if (v.getId() == R.id.number_ok) { // added
 
-			playAudio(R.raw.ok);
+			playAudioalways(R.raw.ok);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 		
 		if (v.getId() == R.id.number_cancel) { // added
 
-			playAudio(R.raw.cancel);
+			playAudioalways(R.raw.cancel);
 			ShowHelpIcon(v);                                      //added for help icon
 		}
 		
 		if (v.getId() == R.id.variety_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.harvestyear);
+			playAudioalways(R.raw.harvestyear);
 			ShowHelpIcon(v);                                      
 		}
 		
 		
 		if (v.getId() == R.id.amount_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.amount);
+			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);                                     
 		}
 
