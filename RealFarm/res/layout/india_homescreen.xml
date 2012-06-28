@@ -264,11 +264,11 @@
 	                android:layout_height="wrap_content">
 
 	                <ImageButton
-	                    android:id="@+id/btn_action_problems"
+	                    android:id="@+id/btn_action_problem"
 	                    android:layout_width="45dp"
 	                    android:layout_height="45dp"
-	                    android:src="@drawable/circular_btn"
-	                    android:background="@drawable/ic_bg_problems"
+	                    android:background="@drawable/circular_btn"
+	                    android:src="@drawable/ic_72px_reporting"
 	                    android:layout_marginLeft="20dp"
 	                    android:layout_marginTop="50dp"
 	                	android:layout_marginRight="35dp"/> 
@@ -277,8 +277,8 @@
 				        android:id="@+id/btn_action_spray"
 				        android:layout_width="45dp"
 				        android:layout_height="45dp"
-				        android:src="@drawable/circular_btn"
-	                    android:background="@drawable/ic_bg_spray"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_spraying3"
 				        android:layout_marginTop="50dp"
 				        android:layout_marginRight="40dp"/>	
 	                
@@ -286,8 +286,8 @@
 	                    android:id="@+id/btn_action_harvesting"
 	                    android:layout_width="45dp"
 	                    android:layout_height="45dp"
-	                     android:src="@drawable/circular_btn"
-	                    android:background="@drawable/ic_bg_harvest"
+	                    android:background="@drawable/circular_btn"
+	                    android:src="@drawable/ic_72px_harvesting1"
 	                    android:layout_marginTop="50dp"
 	                    android:layout_marginRight="35dp"/>
 	                
@@ -296,7 +296,7 @@
 	                    android:layout_width="45dp"
 	                    android:layout_height="45dp"
 	                    android:src="@drawable/circular_btn"
-	                    android:background="@drawable/ic_bg_sell"
+	                    android:background="@drawable/selling"
 	                    android:layout_marginTop="50dp"
 	                    android:layout_marginRight="35dp"/>
 	                
@@ -320,17 +320,17 @@
 				        android:id="@+id/btn_action_sowing"
 				        android:layout_width="45dp"
 				        android:layout_height="45dp"
-				         android:src="@drawable/circular_btn"
-	                    android:background="@drawable/ic_bg_sow"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_sowing"
 				        android:layout_marginLeft="80dp"
 				        android:layout_marginRight="35dp"/>
 			
 				    <ImageButton
-				        android:id="@+id/btn_action_fert"
+				        android:id="@+id/btn_action_fertilize"
 				        android:layout_width="45dp"
 				        android:layout_height="45dp"
-				      android:src="@drawable/circular_btn"
-	                    android:background="@drawable/ic_bg_fert"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_fertilizing1"
 				        android:layout_marginRight="35dp"/>
 			
 				        
@@ -338,8 +338,8 @@
 				        android:id="@+id/btn_action_irrigate"
 				        android:layout_width="45dp"
 				        android:layout_height="45dp"
-				         android:src="@drawable/circular_btn"
-	                    android:background="@drawable/ic_bg_irrigate"
+				        android:background="@drawable/circular_btn"
+				        android:src="@drawable/ic_72px_irrigation1"
 				        android:layout_marginRight="40dp"/>
 			    </LinearLayout>
 	            
