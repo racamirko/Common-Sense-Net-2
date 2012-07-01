@@ -160,7 +160,7 @@
                     android:id="@+id/dlg_lbl_var_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="50"
@@ -191,12 +191,12 @@
                     android:gravity="right" >
 
                     <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
+                        android:id="@+id/aggr_har1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/square_btn_transp"
+                        android:src="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/pic_90px_groundnut_tiled" />
+                        android:background="@drawable/pic_90px_groundnut_tiled" />
 
                     <TextView
                         android:id="@+id/dlg_lbl_var_fert"
@@ -286,7 +286,7 @@
                     android:id="@+id/dlg_lbl_var_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="50"
@@ -317,7 +317,7 @@
                     android:gravity="right" >
 
                    <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
+                        android:id="@+id/aggr_har2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/square_btn_transp"

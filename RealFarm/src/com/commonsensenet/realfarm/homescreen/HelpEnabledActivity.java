@@ -222,79 +222,84 @@ public abstract class HelpEnabledActivity extends Activity implements
 		if (v.getId() == R.id.hmscrn_btn_actions
 				|| v.getId() == R.id.home_btn_actions) { // Integration
 
-			playAudio(R.raw.audio1);
+			playAudioalways(R.raw.audio1);
 
 		}
 		if (v.getId() == R.id.hmscrn_btn_advice
 				|| v.getId() == R.id.home_btn_advice) {
 
-			playAudio(R.raw.audio2);
+			playAudioalways(R.raw.audio2);
 		}
 		if (v.getId() == R.id.hmscrn_btn_sound || v.getId() == R.id.hmscrn_btn_sound) {
 
-			playAudio(R.raw.audio3);
+			playAudioalways(R.raw.audio3);
 		}
 		
 		if (v.getId() == R.id.hmscrn_help_button || v.getId() == R.id.hmscrn_help_button) {
 
-			playAudio(R.raw.audio3);
+			playAudioalways(R.raw.audio3);
 		}
 		if (v.getId() == R.id.hmscrn_btn_yield
 				|| v.getId() == R.id.hmscrn_btn_yield) {
 
-			playAudio(R.raw.audio4);
+			playAudioalways(R.raw.audio4);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_weather || v.getId() == R.id.hmscrn_btn_weather) {
 
-			playAudio(R.raw.weatherforecast);
+			playAudioalways(R.raw.weatherforecast);
 		}
 // End of big icons
 
 		if (v.getId() == R.id.btn_action_sowing) {
-			playAudio(R.raw.sowing);
+			playAudioalways(R.raw.sowing);
 
 		}
 
 		if (v.getId() == R.id.btn_action_harvesting) {
-			playAudio(R.raw.harvesting);
+			playAudioalways(R.raw.harvesting);
 		}
 
 		if (v.getId() == R.id.btn_action_selling) {
-			playAudio(R.raw.selling);
+			playAudioalways(R.raw.selling);
 		}
 
 		if (v.getId() == R.id.btn_action_fertilize) {
-			playAudio(R.raw.fertilizing);
+			playAudioalways(R.raw.fertilizing);
 		}
 
 		if (v.getId() == R.id.btn_action_spray) {
-			playAudio(R.raw.spraying);
+			playAudioalways(R.raw.spraying);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_plots) {
-			playAudio(R.raw.mysettings);
+			playAudioalways(R.raw.mysettings);
 		}
 
 		if (v.getId() == R.id.btn_action_irrigate) {
-			playAudio(R.raw.irrigate);
+			playAudioalways(R.raw.irrigate);
 		}
 		if (v.getId() == R.id.hmscrn_btn_market) {
-			playAudio(R.raw.marketprice);
+			playAudioalways(R.raw.marketprice);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudio(R.raw.video);
+			playAudioalways(R.raw.video);
 		}
 
 		if (v.getId() == R.id.btn_action_problem) {
-			playAudio(R.raw.problems);
+			playAudioalways(R.raw.problems);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_diary) { // changes
-			playAudio(R.raw.dairy);
+			playAudioalways(R.raw.dairy);
 		}
 
+		if (v.getId() == R.id.hmscrn_imgbtn_notifs) { // changes
+			playAudioalways(R.raw.dairy);
+		}
+		
+		
 		// TODO: make a table mapping IDs to sound files
 	}
 	

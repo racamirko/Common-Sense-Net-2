@@ -190,12 +190,12 @@
                     android:gravity="right" >
 
                     <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
+                        android:id="@+id/variety_fert1_aggr_btn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/square_btn_transp"
+                        android:src="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/pic_90px_bajra_tiled" />
+                        android:background="@drawable/pic_90px_bajra_tiled" />
 
                     <TextView
                         android:id="@+id/dlg_lbl_var_fert"
@@ -311,12 +311,12 @@
                     android:gravity="right" >
 
                    <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
+                        android:id="@+id/variety_fert2_aggr_btn"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:background="@drawable/square_btn_transp"
+                        android:src="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/pic_90px_bajra_tiled" />
+                        android:background="@drawable/pic_90px_bajra_tiled" />
                      <TextView
                     android:id="@+id/dlg_lbl_var_fert"
                     android:layout_width="wrap_content"

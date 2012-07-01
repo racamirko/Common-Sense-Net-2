@@ -9,6 +9,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListener;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
@@ -146,6 +147,27 @@ public class yielddetails extends HelpEnabledActivity implements
 			sel_6 =false;
 		}
 			}
+		});
+		
+		Button back = (Button) findViewById(R.id.back);
+	    back.setOnLongClickListener(this);
+	
+		back.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				cancelaudio();
+
+				if (Global.writeToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** user selected cancel in harvest*********** \r\n");
+
+				}
+			}
+
 		});
 		
 		
@@ -433,6 +455,15 @@ public class yielddetails extends HelpEnabledActivity implements
 	}
 	}*/
 }
+	
+protected void cancelaudio() {
+		
+
+		Intent adminintent = new Intent(yielddetails.this, Homescreen.class);
+
+		startActivity(adminintent);
+		yielddetails.this.finish();
+	}
 
 	public void onDataChanged(int WF_Size, String WF_Date, int WF_Value,
 			String WF_Type, String WF_Date1, int WF_Value1, String WF_Type1,

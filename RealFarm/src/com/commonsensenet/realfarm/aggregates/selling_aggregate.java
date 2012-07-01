@@ -77,6 +77,11 @@ public class selling_aggregate extends HelpEnabledActivity implements
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 		help.setOnLongClickListener(this);
 		
+		Button sellprice1 = (Button) findViewById(R.id.aggr_sellprice_1);
+		Button sellprice2 = (Button) findViewById(R.id.aggr_sellprice_2);
+		sellprice1.setOnLongClickListener(this);
+		sellprice2.setOnLongClickListener(this);
+		
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent adminintent = new Intent(selling_aggregate.this,
@@ -106,10 +111,7 @@ public class selling_aggregate extends HelpEnabledActivity implements
 			// for the like button
 			if (!liked) {
 				v.setBackgroundResource(R.drawable.circular_btn_green);
-			} else {
-				v.setBackgroundResource(R.drawable.circular_btn_normal);
-			}
-			liked = !liked;
+			} 
 		}
 		
 			}
@@ -125,10 +127,7 @@ public class selling_aggregate extends HelpEnabledActivity implements
 			// for the like button
 			if (!liked) {
 				v.setBackgroundResource(R.drawable.circular_btn_green);
-			} else {
-				v.setBackgroundResource(R.drawable.circular_btn_normal);
-			}
-			liked = !liked;
+			} 
 		}
 		
 			}
@@ -383,6 +382,8 @@ public class selling_aggregate extends HelpEnabledActivity implements
 		*/
 		final Button userslist = (Button) findViewById(R.id.txt_btn_sell_1);
 		final Button userslist_2 = (Button) findViewById(R.id.txt_btn_sell_2);
+		userslist.setOnLongClickListener(this);
+		userslist_2.setOnLongClickListener(this);
 	    /*  Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 
 	        Integer[] image = { R.drawable.ic_72px_fertilizing2, R.drawable.ic_72px_fertilizing2, R.drawable.ic_72px_fertilizing2 };
@@ -401,7 +402,17 @@ public class selling_aggregate extends HelpEnabledActivity implements
 			//	dlg.setTitle("Choose the Number of bags");
 			//	Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				
+				Button user1 = (Button) dlg.findViewById(R.id.user_1);
+				Button user2 = (Button) dlg.findViewById(R.id.user_2);
+				Button user3 = (Button) dlg.findViewById(R.id.user_3);
+				Button user4 = (Button) dlg.findViewById(R.id.user_4);
+				Button user5 = (Button) dlg.findViewById(R.id.user_5);
+
+				((Button) dlg.findViewById(R.id.user_1)).setOnLongClickListener(mParentReference); 
+				((Button) dlg.findViewById(R.id.user_2)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_3)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_4)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_5)).setOnLongClickListener(mParentReference);
 				
 				
 			}
@@ -418,7 +429,17 @@ public class selling_aggregate extends HelpEnabledActivity implements
 			//	Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 				
-				
+				Button user1 = (Button) dlg.findViewById(R.id.user_1);
+				Button user2 = (Button) dlg.findViewById(R.id.user_2);
+				Button user3 = (Button) dlg.findViewById(R.id.user_3);
+				Button user4 = (Button) dlg.findViewById(R.id.user_4);
+				Button user5 = (Button) dlg.findViewById(R.id.user_5);
+
+				((Button) dlg.findViewById(R.id.user_1)).setOnLongClickListener(mParentReference); 
+				((Button) dlg.findViewById(R.id.user_2)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_3)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_4)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_5)).setOnLongClickListener(mParentReference);
 				
 			}
 		});
@@ -519,256 +540,53 @@ public class selling_aggregate extends HelpEnabledActivity implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.home_btn_var_fert) {
-
-			playAudio(R.raw.selecttypeoffertilizer);
-			ShowHelpIcon(v);  
-
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " type_fertilizer "
-						+ "Audio_played" + " \r\n");
-			}
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_fert) {
-
-			playAudio(R.raw.selecttheunits);
-			ShowHelpIcon(v);  
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " units_fertilizer "
-						+ "Audio_played" + " \r\n");
-
-			}
-		}
-
-		if (v.getId() == R.id.home_btn_units_no_fert) {
-
-			playAudio(R.raw.selecttheunits);
-			ShowHelpIcon(v);  
-
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " units_fertilizer "
-						+ "Audio_played" + " \r\n");
-
-			}
-		}
-
-		if (v.getId() == R.id.home_btn_day_fert) {
-
-			playAudio(R.raw.selectthedate);
-			ShowHelpIcon(v);  
-			
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " day_fertilizer "
-						+ "Audio_played" + " \r\n");
-
-			}
-		}
-
-		if (v.getId() == R.id.fert_ok) {
-
-			playAudio(R.raw.ok);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.fert_cancel) {
-
-			playAudio(R.raw.cancel);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.aggr_img_help) {
-
-			playAudio(R.raw.help);
-			ShowHelpIcon(v);  
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " help_fertilizer "
-						+ "Audio_played" + " \r\n");
-			}
-		}
-
-		if (v.getId() == R.id.home_var_fert_1) { // audio integration
-			playAudio(R.raw.fertilizer1);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_var_fert_2) {
-			playAudio(R.raw.fertilizer2);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_var_fert_3) {
-			playAudio(R.raw.fertilizer3);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_btn_units_1) {
-			playAudio(R.raw.bagof10kg);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_btn_units_2) {
-			playAudio(R.raw.bagof20kg);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_btn_units_3) {
-			playAudio(R.raw.bagof50kg);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_1) {
-			playAudio(R.raw.twoweeksbefore);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_2) {
-			playAudio(R.raw.oneweekbefore);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_3) {
-			playAudio(R.raw.yesterday);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_4) {
-			playAudio(R.raw.todayonly);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_5) {
-			playAudio(R.raw.tomorrows);
+		
+		
+		if (v.getId() == R.id.aggr_sellprice_1) { // audio integration
+			playAudioalways(R.raw.fertilizer1);
 			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.amount_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.amount);
-			ShowHelpIcon(v);                                     
+		if (v.getId() == R.id.aggr_sellprice_2) { // audio integration
+			playAudioalways(R.raw.fertilizer1);
+			ShowHelpIcon(v);  
+		}
+				
+		if (v.getId() == R.id.txt_btn_sell_1) { // audio integration
+			playAudioalways(R.raw.fertilizer1);
+			ShowHelpIcon(v);  
+		}
+
+		if (v.getId() == R.id.txt_btn_sell_2) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
+		}
+
+		if (v.getId() == R.id.user_1) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.date_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.date);
-			ShowHelpIcon(v);                                      
+		if (v.getId() == R.id.user_2) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.variety_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.fertilizername);
-			ShowHelpIcon(v);                                      
-		}
-
-		
-		if (v.getId() == R.id.home_btn_month_fert) {                        //20-06-2012
-			playAudio(R.raw.fertilizername);
-			ShowHelpIcon(v);                                      
+		if (v.getId() == R.id.user_3) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.home_month_1) { // added
-
-			playAudio(R.raw.jan);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-		if (v.getId() == R.id.home_month_2) { // added
-
-			playAudio(R.raw.feb);
-			ShowHelpIcon(v);                                      //added for help icon
-
-		}
-
-		if (v.getId() == R.id.home_month_3) { // added
-
-			playAudio(R.raw.mar);
-			ShowHelpIcon(v);                                      //added for help icon
-
-		}
-
-		if (v.getId() == R.id.home_month_4) { // added
-
-			playAudio(R.raw.apr);
-			ShowHelpIcon(v);                                      //added for help icon
-
-		}
-
-		if (v.getId() == R.id.home_month_5) { // added
-
-			playAudio(R.raw.may);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_6) { // added
-
-			playAudio(R.raw.jun);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_7) { // added
-
-			playAudio(R.raw.jul);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_8) { // added
-
-			playAudio(R.raw.aug);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_9) { // added
-
-			playAudio(R.raw.sep);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_10) { // added
-
-			playAudio(R.raw.oct);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_11) { // added
-
-			playAudio(R.raw.nov);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_12) { // added
-
-			playAudio(R.raw.dec);
-			ShowHelpIcon(v);                                      //added for help icon
+		if (v.getId() == R.id.user_4) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.number_ok) { // added
-
-			playAudio(R.raw.ok);
-			ShowHelpIcon(v);                                      //added for help icon
+		if (v.getId() == R.id.user_5) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
-		
-		if (v.getId() == R.id.number_cancel) { // added
 
-			playAudio(R.raw.cancel);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
 
 		return true;
 	}

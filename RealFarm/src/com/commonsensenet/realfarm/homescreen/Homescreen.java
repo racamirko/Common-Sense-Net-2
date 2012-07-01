@@ -210,6 +210,16 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 .setOnLongClickListener(this);
 ((ImageButton) findViewById(R.id.btn_action_selling))
 .setOnTouchListener(this);
+
+
+((ImageButton) findViewById(R.id.hmscrn_imgbtn_notifs))
+.setOnClickListener(this);
+((ImageButton) findViewById(R.id.hmscrn_imgbtn_notifs))
+.setOnLongClickListener(this);
+((ImageButton) findViewById(R.id.hmscrn_imgbtn_notifs))
+.setOnTouchListener(this);
+
+
 		
 	/*	((Button) findViewById(R.id.home_btn_PlotInfo))
 				.setOnClickListener(this);
@@ -557,7 +567,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					launchactionintent();
 				}
 			});
-				
 					
 			return;
 		}
@@ -566,7 +575,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			startActivity(new Intent(this, DiaryActivity.class));
 			return;
 		}
-		
 		
 		if (v.getId() == R.id.hmscrn_btn_plots) {
 			System.out.println("My settings clicked");
@@ -594,7 +602,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				Global.soundflag =false;
 			}
 			//Global.soundflag = !Global.soundflag;
-			
 			//initAudio();
 			
 		}

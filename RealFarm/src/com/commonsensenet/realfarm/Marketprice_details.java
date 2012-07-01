@@ -57,9 +57,31 @@ public class Marketprice_details extends HelpEnabledActivity implements
 		mDataProvider.setWFDataChangeListener(this);
 
 		super.onCreate(savedInstanceState);
-
 		setContentView(R.layout.marketdetails);
-/*
+
+		Button back = (Button) findViewById(R.id.back);
+	    back.setOnLongClickListener(this);
+	
+		back.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				cancelaudio();
+
+				if (Global.writeToSD == true) {
+
+					String logtime = getcurrenttime();
+					mDataProvider
+							.File_Log_Create("UIlog.txt", logtime + " -> ");
+					mDataProvider
+							.File_Log_Create("UIlog.txt",
+									"***** user selected cancel in harvest*********** \r\n");
+
+				}
+			}
+
+		});
+		
+		
+		/*
 		// home_btn_gn_good_mp
 
 		final Button GN_good;
@@ -340,6 +362,16 @@ public class Marketprice_details extends HelpEnabledActivity implements
 	}
 	}*/
 }
+
+	
+protected void cancelaudio() {
+		
+
+		Intent adminintent = new Intent(Marketprice_details.this, Homescreen.class);
+
+		startActivity(adminintent);
+		Marketprice_details.this.finish();
+	}
 
 	public void onDataChanged(int WF_Size, String WF_Date, int WF_Value,
 			String WF_Type, String WF_Date1, int WF_Value1, String WF_Type1,

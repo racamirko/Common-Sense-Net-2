@@ -160,7 +160,7 @@
                     android:id="@+id/dlg_lbl_var_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="08"
@@ -190,11 +190,12 @@
                     android:layout_margin="5dip"
                     android:gravity="right" >
 
-                    <ImageView
-                        android:id="@+id/variety_sow_img_btn"
+                    <ImageButton
+                        android:id="@+id/aggr_irrigate_1"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
+                        android:src="@drawable/square_btn_transp"
                         android:background="@drawable/plot" />
 
                     <TextView
@@ -285,7 +286,7 @@
                     android:id="@+id/dlg_lbl_var_fert"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="18dp"
+                    android:layout_marginLeft="12dp"
                     android:layout_marginTop="30dp"
                     android:layout_weight="1"
                     android:text="15"
@@ -316,10 +317,11 @@
                     android:gravity="right" >
 
                    <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
+                        android:id="@+id/aggr_irrigate_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:background="@drawable/plot"
+                        android:src="@drawable/square_btn_transp"
                         android:gravity="center"
                          />
 

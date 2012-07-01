@@ -70,11 +70,22 @@ int aggr_action_no;
 		System.out.println("Fertilizer Aggregate entered");  
 		setHelpIcon(findViewById(R.id.helpIndicator));   
 		ImageButton btnLike = (ImageButton) findViewById(R.id.aggr_item_prob_like1);
+
 		System.out.println("Fertilizer Aggregate entered");
 		
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 		help.setOnLongClickListener(this);
+		
+		final ImageButton prob1_aggr = (ImageButton) findViewById(R.id.aggr_problem1);
+		final ImageButton prob2_aggr = (ImageButton) findViewById(R.id.aggr_problem2);
+		final ImageButton prob3_aggr = (ImageButton) findViewById(R.id.aggr_problem3);
+		final ImageButton prob4_aggr = (ImageButton) findViewById(R.id.aggr_problem4);
+		prob1_aggr.setOnLongClickListener(this);
+		prob2_aggr.setOnLongClickListener(this);
+		prob3_aggr.setOnLongClickListener(this);
+		prob4_aggr.setOnLongClickListener(this);
+		
 		
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -105,14 +116,15 @@ int aggr_action_no;
 			// for the like button
 			if (!liked) {
 				v.setBackgroundResource(R.drawable.circular_btn_green);
-			} else {
-				v.setBackgroundResource(R.drawable.circular_btn_normal);
-			}
-			liked = !liked;
+			} 
 		}
 		
 			}
 		});
+		
+		
+
+		
 		
 		ImageButton btnLike2 = (ImageButton) findViewById(R.id.aggr_item_prob_like2);
 		System.out.println("Fertilizer Aggregate entered");
@@ -124,10 +136,7 @@ int aggr_action_no;
 			// for the like button
 			if (!liked) {
 				v.setBackgroundResource(R.drawable.circular_btn_green);
-			} else {
-				v.setBackgroundResource(R.drawable.circular_btn_normal);
-			}
-			liked = !liked;
+			} 
 		}
 		
 			}
@@ -135,7 +144,7 @@ int aggr_action_no;
 		
 		ImageButton btnLike3 = (ImageButton) findViewById(R.id.aggr_item_prob_like3);
 		System.out.println("Fertilizer Aggregate entered");
-		btnLike2.setOnClickListener(new View.OnClickListener() {
+		btnLike3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 		
 		if (v.getId() == R.id.aggr_item_prob_like3) {
@@ -143,10 +152,7 @@ int aggr_action_no;
 			// for the like button
 			if (!liked) {
 				v.setBackgroundResource(R.drawable.circular_btn_green);
-			} else {
-				v.setBackgroundResource(R.drawable.circular_btn_normal);
-			}
-			liked = !liked;
+			} 
 		}
 		
 			}
@@ -154,7 +160,7 @@ int aggr_action_no;
 		
 		ImageButton btnLike4 = (ImageButton) findViewById(R.id.aggr_item_prob_like4);
 		System.out.println("Fertilizer Aggregate entered");
-		btnLike2.setOnClickListener(new View.OnClickListener() {
+		btnLike4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 		
 		if (v.getId() == R.id.aggr_item_prob_like4) {
@@ -162,10 +168,7 @@ int aggr_action_no;
 			// for the like button
 			if (!liked) {
 				v.setBackgroundResource(R.drawable.circular_btn_green);
-			} else {
-				v.setBackgroundResource(R.drawable.circular_btn_normal);
-			}
-			liked = !liked;
+			} 
 		}
 		
 			}
@@ -409,6 +412,12 @@ int aggr_action_no;
 		final Button userslist_2 = (Button) findViewById(R.id.txt_btn_prob_2);
 		final Button userslist_3 = (Button) findViewById(R.id.txt_btn_prob_3);
 		final Button userslist_4 = (Button) findViewById(R.id.txt_btn_prob_4);
+		
+		userslist.setOnLongClickListener(this);
+		userslist_2.setOnLongClickListener(this);
+		userslist_3.setOnLongClickListener(this);
+		userslist_4.setOnLongClickListener(this);
+
 	    /*  Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 
 	        Integer[] image = { R.drawable.ic_72px_fertilizing2, R.drawable.ic_72px_fertilizing2, R.drawable.ic_72px_fertilizing2 };
@@ -427,6 +436,18 @@ int aggr_action_no;
 			//	dlg.setTitle("Choose the Number of bags");
 			//	Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
+
+				Button user1 = (Button) dlg.findViewById(R.id.user_1);
+				Button user2 = (Button) dlg.findViewById(R.id.user_2);
+				Button user3 = (Button) dlg.findViewById(R.id.user_3);
+				Button user4 = (Button) dlg.findViewById(R.id.user_4);
+				Button user5 = (Button) dlg.findViewById(R.id.user_5);
+
+				((Button) dlg.findViewById(R.id.user_1)).setOnLongClickListener(mParentReference); 
+				((Button) dlg.findViewById(R.id.user_2)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_3)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_4)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_5)).setOnLongClickListener(mParentReference);
 				
 				
 				
@@ -443,6 +464,19 @@ int aggr_action_no;
 			//	dlg.setTitle("Choose the Number of bags");
 			//	Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
+				
+
+				Button user1 = (Button) dlg.findViewById(R.id.user_1);
+				Button user2 = (Button) dlg.findViewById(R.id.user_2);
+				Button user3 = (Button) dlg.findViewById(R.id.user_3);
+				Button user4 = (Button) dlg.findViewById(R.id.user_4);
+				Button user5 = (Button) dlg.findViewById(R.id.user_5);
+
+				((Button) dlg.findViewById(R.id.user_1)).setOnLongClickListener(mParentReference); 
+				((Button) dlg.findViewById(R.id.user_2)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_3)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_4)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_5)).setOnLongClickListener(mParentReference);
 				
 				
 				
@@ -461,6 +495,19 @@ int aggr_action_no;
 			//	Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 				
+
+				Button user1 = (Button) dlg.findViewById(R.id.user_1);
+				Button user2 = (Button) dlg.findViewById(R.id.user_2);
+				Button user3 = (Button) dlg.findViewById(R.id.user_3);
+				Button user4 = (Button) dlg.findViewById(R.id.user_4);
+				Button user5 = (Button) dlg.findViewById(R.id.user_5);
+
+				((Button) dlg.findViewById(R.id.user_1)).setOnLongClickListener(mParentReference); 
+				((Button) dlg.findViewById(R.id.user_2)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_3)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_4)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_5)).setOnLongClickListener(mParentReference);
+				
 				
 				
 			}
@@ -477,6 +524,18 @@ int aggr_action_no;
 			//	Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 				
+
+				Button user1 = (Button) dlg.findViewById(R.id.user_1);
+				Button user2 = (Button) dlg.findViewById(R.id.user_2);
+				Button user3 = (Button) dlg.findViewById(R.id.user_3);
+				Button user4 = (Button) dlg.findViewById(R.id.user_4);
+				Button user5 = (Button) dlg.findViewById(R.id.user_5);
+
+				((Button) dlg.findViewById(R.id.user_1)).setOnLongClickListener(mParentReference); 
+				((Button) dlg.findViewById(R.id.user_2)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_3)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_4)).setOnLongClickListener(mParentReference);
+				((Button) dlg.findViewById(R.id.user_5)).setOnLongClickListener(mParentReference);
 				
 				
 			}
@@ -580,256 +639,72 @@ int aggr_action_no;
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.home_btn_var_fert) {
 
-			playAudio(R.raw.selecttypeoffertilizer);
-			ShowHelpIcon(v);  
-
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " type_fertilizer "
-						+ "Audio_played" + " \r\n");
-			}
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_fert) {
-
-			playAudio(R.raw.selecttheunits);
-			ShowHelpIcon(v);  
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " units_fertilizer "
-						+ "Audio_played" + " \r\n");
-
-			}
-		}
-
-		if (v.getId() == R.id.home_btn_units_no_fert) {
-
-			playAudio(R.raw.selecttheunits);
-			ShowHelpIcon(v);  
-
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " units_fertilizer "
-						+ "Audio_played" + " \r\n");
-
-			}
-		}
-
-		if (v.getId() == R.id.home_btn_day_fert) {
-
-			playAudio(R.raw.selectthedate);
-			ShowHelpIcon(v);  
-			
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " day_fertilizer "
-						+ "Audio_played" + " \r\n");
-
-			}
-		}
-
-		if (v.getId() == R.id.fert_ok) {
-
-			playAudio(R.raw.ok);
+		if (v.getId() == R.id.aggr_problem1) { // audio integration
+			playAudioalways(R.raw.fertilizer1);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.fert_cancel) {
-
-			playAudio(R.raw.cancel);
+		if (v.getId() == R.id.aggr_problem2) {
+			playAudioalways(R.raw.fertilizer2);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.aggr_img_help) {
-
-			playAudio(R.raw.help);
-			ShowHelpIcon(v);  
-			if (Global.writeToSD == true) {
-
-				String logtime = getCurrentTime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-						+ " audio " + " longtap " + " help_fertilizer "
-						+ "Audio_played" + " \r\n");
-			}
-		}
-
-		if (v.getId() == R.id.home_var_fert_1) { // audio integration
-			playAudio(R.raw.fertilizer1);
+		if (v.getId() == R.id.aggr_problem3) {
+			playAudioalways(R.raw.fertilizer3);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.home_var_fert_2) {
-			playAudio(R.raw.fertilizer2);
+		if (v.getId() == R.id.aggr_problem4) {
+			playAudioalways(R.raw.bagof10kg);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.home_var_fert_3) {
-			playAudio(R.raw.fertilizer3);
+		if (v.getId() == R.id.txt_btn_prob_1) {
+			playAudioalways(R.raw.bagof20kg);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.home_btn_units_1) {
-			playAudio(R.raw.bagof10kg);
+		if (v.getId() == R.id.txt_btn_prob_2) {
+			playAudioalways(R.raw.bagof50kg);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.home_btn_units_2) {
-			playAudio(R.raw.bagof20kg);
+		if (v.getId() == R.id.txt_btn_prob_3) {
+			playAudioalways(R.raw.bagof20kg);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.home_btn_units_3) {
-			playAudio(R.raw.bagof50kg);
+		if (v.getId() == R.id.txt_btn_prob_4) {
+			playAudioalways(R.raw.bagof50kg);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.home_day_1) {
-			playAudio(R.raw.twoweeksbefore);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_2) {
-			playAudio(R.raw.oneweekbefore);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_3) {
-			playAudio(R.raw.yesterday);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_4) {
-			playAudio(R.raw.todayonly);
-			ShowHelpIcon(v);  
-		}
-
-		if (v.getId() == R.id.home_day_5) {
-			playAudio(R.raw.tomorrows);
+		if (v.getId() == R.id.user_1) {
+			playAudioalways(R.raw.fertilizer2);
 			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.amount_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.amount);
-			ShowHelpIcon(v);                                     
+		if (v.getId() == R.id.user_2) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.date_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.date);
-			ShowHelpIcon(v);                                      
+		if (v.getId() == R.id.user_3) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.variety_sow_txt_btn) {                        //20-06-2012
-			playAudio(R.raw.fertilizername);
-			ShowHelpIcon(v);                                      
-		}
-
-		
-		if (v.getId() == R.id.home_btn_month_fert) {                        //20-06-2012
-			playAudio(R.raw.fertilizername);
-			ShowHelpIcon(v);                                      
+		if (v.getId() == R.id.user_4) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
 		
-		if (v.getId() == R.id.home_month_1) { // added
-
-			playAudio(R.raw.jan);
-			ShowHelpIcon(v);                                      //added for help icon
+		if (v.getId() == R.id.user_5) {
+			playAudioalways(R.raw.fertilizer2);
+			ShowHelpIcon(v);  
 		}
-		if (v.getId() == R.id.home_month_2) { // added
-
-			playAudio(R.raw.feb);
-			ShowHelpIcon(v);                                      //added for help icon
-
-		}
-
-		if (v.getId() == R.id.home_month_3) { // added
-
-			playAudio(R.raw.mar);
-			ShowHelpIcon(v);                                      //added for help icon
-
-		}
-
-		if (v.getId() == R.id.home_month_4) { // added
-
-			playAudio(R.raw.apr);
-			ShowHelpIcon(v);                                      //added for help icon
-
-		}
-
-		if (v.getId() == R.id.home_month_5) { // added
-
-			playAudio(R.raw.may);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_6) { // added
-
-			playAudio(R.raw.jun);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_7) { // added
-
-			playAudio(R.raw.jul);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_8) { // added
-
-			playAudio(R.raw.aug);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_9) { // added
-
-			playAudio(R.raw.sep);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_10) { // added
-
-			playAudio(R.raw.oct);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_11) { // added
-
-			playAudio(R.raw.nov);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-
-		if (v.getId() == R.id.home_month_12) { // added
-
-			playAudio(R.raw.dec);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-		
-		if (v.getId() == R.id.number_ok) { // added
-
-			playAudio(R.raw.ok);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
-		
-		if (v.getId() == R.id.number_cancel) { // added
-
-			playAudio(R.raw.cancel);
-			ShowHelpIcon(v);                                      //added for help icon
-		}
+	
 
 		return true;
 	}
