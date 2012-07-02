@@ -1,0 +1,461 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/linearLayout1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dlg_img_seed"
+        android:layout_marginTop="10dip" >
+
+        <LinearLayout
+            android:id="@+id/dlg_linlay_userDataDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+
+            <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_1"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_1"
+                        android:layout_alignBottom="@+id/home_month_1"
+                        android:layout_alignParentLeft="true"
+                      
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 1. January"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                 
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 2. February"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:paddingRight="10dip" >
+
+                    <Button
+                        android:id="@+id/home_month_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_alignParentRight="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_3"
+                        android:layout_alignBottom="@+id/home_month_3"
+                        android:layout_alignParentLeft="true"
+                    
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 3. March"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_4"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_4"
+                        android:layout_alignBottom="@+id/home_month_4"
+                        android:layout_alignParentLeft="true"
+          
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 4. April"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_5"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_5"
+                        android:layout_alignBottom="@+id/home_month_5"
+                        android:layout_alignParentLeft="true"
+                
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 5. May"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+
+                 <RelativeLayout
+                     android:id="@+id/RelativeLayoutwf_2"
+                     android:layout_width="match_parent"
+                     android:layout_height="50dp"
+                     android:layout_margin="5dip"
+                     android:paddingRight="10dip" >
+
+                     <Button
+                         android:id="@+id/home_month_6"
+                         android:layout_width="match_parent"
+                         android:layout_height="match_parent"
+                         android:background="@drawable/square_btn_transp" />
+
+                     <TextView
+                         android:id="@+id/dlg_lbl_details"
+                         android:layout_width="wrap_content"
+                         android:layout_height="wrap_content"
+                         android:layout_alignBaseline="@+id/home_month_6"
+                         android:layout_alignBottom="@+id/home_month_6"
+                         android:layout_alignParentLeft="true"
+                      
+                         android:paddingBottom="5dip"
+                         android:paddingTop="5dip"
+                         android:text=" 6. June"
+                         android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                 </RelativeLayout>
+
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_7"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_7"
+                        android:layout_alignBottom="@+id/home_month_7"
+                        android:layout_alignParentLeft="true"
+                    
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 7. July"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_8"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_8"
+                        android:layout_alignBottom="@+id/home_month_8"
+                        android:layout_alignParentLeft="true"
+                      
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 8. August"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:paddingRight="10dip" >
+
+                    <Button
+                        android:id="@+id/home_month_9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_9"
+                        android:layout_alignBottom="@+id/home_month_9"
+                        android:layout_alignParentLeft="true"
+                       
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text=" 9. September"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_10"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentLeft="true"
+                        android:layout_centerVertical="true"
+                     
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text="10. October"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:gravity="right" >
+
+                    <Button
+                        android:id="@+id/home_month_11"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentTop="true"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_11"
+                        android:layout_alignBottom="@+id/home_month_11"
+                        android:layout_alignParentLeft="true"
+                     
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text="11. November"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+   </TableRow>
+             <TableRow
+                android:id="@+id/harvest_date_tr"
+                android:layout_width="fill_parent"
+                android:layout_height="50dp"
+                android:paddingBottom="5dip"
+                android:paddingTop="4dip" >
+                <RelativeLayout
+                    android:id="@+id/RelativeLayoutwf_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:layout_margin="5dip"
+                    android:paddingRight="10dip" >
+
+                    <Button
+                        android:id="@+id/home_month_12"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:background="@drawable/square_btn_transp" />
+
+                    <TextView
+                        android:id="@+id/dlg_lbl_details"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignBaseline="@+id/home_month_12"
+                        android:layout_alignBottom="@+id/home_month_12"
+                        android:layout_alignParentLeft="true"
+                       
+                        android:paddingBottom="5dip"
+                        android:paddingTop="5dip"
+                        android:text="12. December"
+                        android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                </RelativeLayout>
+            </TableRow>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

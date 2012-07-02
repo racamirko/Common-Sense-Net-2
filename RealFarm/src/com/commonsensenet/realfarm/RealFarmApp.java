@@ -9,27 +9,20 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
  * across activities such as the database
  * 
  * @author Julien Freudiger
+ * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
 public class RealFarmApp extends Application {
-
-	private RealFarmDatabase db;
-	private int mId = 0;
+	/** Defines the theme that will be used. */
+	public static int THEME = R.style.Theme_Sherlock_Light_DarkActionBar;
+	/** Database used by the application. */
+	private RealFarmDatabase mDatabase;
 
 	public RealFarmDatabase getDatabase() {
-		return db;
+		return mDatabase;
 	}
 
-	public int getUserId() {
-		return mId;
-	}
-
-	public RealFarmDatabase setDatabase() {
-		db = new RealFarmDatabase(getApplicationContext());
-		return db;
-	}
-
-	public void setUserId(int userId) {
-		mId = userId;
+	public void setDatabase(RealFarmDatabase db) {
+		mDatabase = db;
 	}
 }

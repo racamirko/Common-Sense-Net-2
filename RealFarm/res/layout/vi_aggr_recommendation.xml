@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_gravity="center_vertical"
+    android:orientation="horizontal" >
+
+    <ImageView
+        android:id="@+id/img_plant"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerVertical="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/pic_90px_bajra_tiled" />
+
+    <ImageView
+        android:id="@+id/img_action"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="10dip"
+        android:background="@drawable/circular_icon_bg"
+        android:src="@drawable/ic_90px_sowing" />
+
+    <TextView
+        android:id="@+id/lbl_count_people"
+        android:layout_width="60px"
+        android:layout_height="60px"
+        android:layout_centerVertical="true"
+        android:layout_toRightOf="@+id/img_action"
+        android:background="@drawable/ic_90px_user"
+        android:gravity="bottom|center_horizontal"
+        android:paddingLeft="10dip"
+        android:text="10"
+        android:textColor="@android:color/black"
+        android:textSize="16dp"
+        android:textStyle="bold" />
+
+    <ImageButton
+        android:id="@+id/aggr_item_btn_like"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="5dp"
+        android:background="@drawable/circular_btn"
+        android:src="@drawable/ic_48px_thumbs_up" />
+
+    <Button
+        android:id="@+id/btn_main_click"
+        android:layout_width="fill_parent"
+        android:layout_height="90dp"
+        android:layout_marginRight="50dp"
+        android:background="@drawable/square_btn_transp" />
+
+</RelativeLayout>

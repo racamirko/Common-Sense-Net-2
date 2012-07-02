@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/l1"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:orientation="vertical" >
+
+    <FrameLayout
+        android:id="@+id/camera_preview"
+        android:layout_width="match_parent"
+        android:layout_height="300dip"
+        android:layout_marginTop="7dip"
+        android:focusable="true" >
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/button_capture"
+        android:layout_width="50dip"
+        android:layout_height="50dip"
+        android:layout_below="@id/camera_preview"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="10dip"
+        android:background="@drawable/camera"
+        android:padding="12dip" />
+
+</LinearLayout>

@@ -42,7 +42,7 @@ public class DateHelper {
 	 * @param date
 	 *            the date to format.
 	 * @param context
-	 *            application context used for locatization.
+	 *            application context used for localization.
 	 * 
 	 * @return a string with the formatted date.
 	 */
