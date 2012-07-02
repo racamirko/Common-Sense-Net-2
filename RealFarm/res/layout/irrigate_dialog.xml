@@ -1,0 +1,438 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merge xmlns:android="http://schemas.android.com/apk/res/android" >
+    
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/def_img">
+
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <LinearLayout
+        android:id="@+id/linearLayout19"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:background="@drawable/header" >
+
+        <ImageView
+            android:id="@+id/aggr_img_icon"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="5dp"
+            android:background="@drawable/circular_btn_normal"
+            android:src="@drawable/ic_irrigate" />
+
+        <ImageView
+            android:id="@+id/aggr_img_icon"
+            android:layout_width="60dip"
+            android:layout_height="match_parent"
+            android:layout_margin="5dp"
+            android:src="@drawable/plot" />
+
+        <Button
+            android:id="@+id/button123"
+            android:layout_width="90dip"
+            android:layout_height="wrap_content"
+            android:text="Button"
+            android:visibility="invisible" />
+
+        <ImageButton
+            android:id="@+id/aggr_img_home"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/home"
+            android:src="@drawable/square_btn_transp" />
+
+        <ImageButton
+            android:id="@+id/aggr_img_help"
+            android:layout_width="50dip"
+            android:layout_height="match_parent"
+            android:layout_margin="3dp"
+            android:background="@drawable/help"
+            android:src="@drawable/square_btn_transp" />
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal" >
+
+        <TableRow
+            android:id="@+id/method_irr_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/def_img"
+            android:paddingBottom="10dip"
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <Button
+                    android:id="@+id/variety_sow_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+
+                <TextView
+                    android:id="@+id/amount_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Method"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/variety_sow_img_btn"
+                    android:layout_width="40dip"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center"
+                    android:src="@drawable/irr_method" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageView
+                    android:id="@+id/img_bg_method_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_method_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="5dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Method"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="22sp" />
+
+                <Button
+                    android:id="@+id/home_btn_method_irr"
+                    android:layout_width="120dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal" >
+
+        <TableRow
+            android:id="@+id/units_irr_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/def_img"
+            android:paddingBottom="10dip"
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/amount_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Duartion"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/amount_sow_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/amount_sow_img_btn"
+                    android:layout_width="50dip"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:src="@drawable/time" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="5dp"
+                android:layout_marginRight="15dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+
+                <ImageView
+                    android:id="@+id/img_bg_hrs_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_unit_no_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:paddingBottom="5dip"
+                    android:paddingTop="5dip"
+                    android:text="Hours"
+                    android:textAppearance="?android:attr/textAppearanceMedium"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/home_btn_units_no_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_hrs_irr"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
+    </LinearLayout>
+
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="fill_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal" >
+
+        <TableRow
+            android:id="@+id/day_irr_tr"
+            android:layout_width="fill_parent"
+            android:layout_height="70dp"
+            android:background="@drawable/def_img"
+            android:paddingBottom="10dip"
+            android:paddingTop="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <TextView
+                    android:id="@+id/date_sow_txt"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="1"
+                    android:gravity="right"
+                    android:text="Date"
+                    android:textColor="#000000"
+                    android:textSize="20sp" />
+
+                <Button
+                    android:id="@+id/date_sow_txt_btn"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
+                    android:layout_alignBottom="@+id/dlg_var_sow"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignTop="@+id/dlg_var_sow"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="40dp"
+                android:layout_height="60dp"
+                android:layout_margin="5dip"
+                android:gravity="right" >
+
+                <ImageButton
+                    android:id="@+id/date_sow_img_btn"
+                    android:layout_width="40dip"
+                    android:layout_height="60dp"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentTop="true"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center"
+                    android:src="@drawable/date" />
+
+            </RelativeLayout>
+
+          <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+
+                <ImageView
+                    android:id="@+id/img_bg_day_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_day_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignRight="@+id/dlg_unit_sow"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="5dp"
+                    android:paddingTop="5dip"
+                    android:text="Date"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Button
+                    android:id="@+id/home_btn_day_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_day_irr"
+                    android:background="@drawable/square_btn_transp" />
+
+            </RelativeLayout>
+
+         <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09"
+                android:paddingLeft="10dp"
+                android:paddingRight="12dp" >
+
+                <ImageView
+                    android:id="@+id/img_bg_month_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/empty" />
+
+                <TextView
+                    android:id="@+id/dlg_lbl_month_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingBottom="5dip"
+                    android:paddingLeft="10dp"
+                    android:paddingTop="5dip"
+                    android:text="Month"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+
+                <Button
+                    android:id="@+id/home_btn_month_irr"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:layout_alignRight="@+id/img_bg_month_irr"
+                    android:background="@drawable/square_btn_transp" />
+            </RelativeLayout>
+        </TableRow>
+    </LinearLayout>
+
+    
+</LinearLayout>
+
+ <LinearLayout
+        style="@android:style/ButtonBar"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/irr_ok"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_ok"
+            android:text="@string/button_ok" />
+
+        <Button
+            android:id="@+id/irr_cancel"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:drawableLeft="@drawable/ic_48px_cancel"
+            android:text="@string/button_cancel" />
+    </LinearLayout>
+    
+ </RelativeLayout>
+ 
+
+   <ImageView
+        android:id="@+id/helpIndicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/ic_76px_sound"
+        android:visibility="invisible" />
+
+</merge>

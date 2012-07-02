@@ -3,78 +3,146 @@ package com.commonsensenet.realfarm.model;
 public class Action {
 
 	private int mActionNameId;
-	private String mDate;
+	private String mActionPerformedDate;
+	private String mActionType;
+	private String mDay;
 	private int mGrowingId;
+	private String mHarvFeedback;
 	private int mId;
-	private int mQuantity;
+	private int mIsAdmin;
+	private String mPestcideType;
+	private int mPlotId;
+	private String mProbType;
+	private String mQualityOfSeed;
+	private int mQuantity1;
 	private int mQuantity2;
-	private int mUnitId;
+	private String mSeedVariety;
+	private int mSellingPrice;
+	private String mSellType;
+	private int mSend;
+	private String mTreatment;
+	private String mTypeOfFert;
+	private String mUnits;
+	private int mUserId;
 
-	public Action(int id, int growingId, int actionNameId, int quantity,
-			int unitId, int quantity2, String date) {
+	public Action(int actionid, int actionnameid, int GrowingId,
+			String actiontype, String seedvariety, int Quantity1,
+			int Quantity2, String Units, String day, int userid, int plotid,
+			String TypeofFert, String probType, String harvFeedback,
+			int SellingPrice, String Quaofseed, String selltype, int send,
+			int Isadmin, String ActionPerformedDate, String Treatment,
+			String PestcideType) {
 
-		mId = id;
-		mGrowingId = growingId;
-		mActionNameId = actionNameId;
-		mQuantity = quantity;
-		mUnitId = unitId;
-		mQuantity2 = quantity2;
-		mDate = date;
+		mId = actionid;
+		mActionNameId = actionnameid;
+		mGrowingId = GrowingId;
+		mActionType = actiontype;
+		mSeedVariety = seedvariety;
+		mQuantity1 = Quantity1;
+		mQuantity2 = Quantity2;
+		mUnits = Units;
+		mDay = day;
+		mUserId = userid;
+		mPlotId = plotid;
+		mTypeOfFert = TypeofFert;
+		mProbType = probType;
+
+		mHarvFeedback = harvFeedback;
+		mSellingPrice = SellingPrice;
+		mQualityOfSeed = Quaofseed;
+		mSellType = selltype;
+		mSend = send;
+		mIsAdmin = Isadmin;
+		mActionPerformedDate = ActionPerformedDate;
+		mTreatment = Treatment;
+		mPestcideType = PestcideType;
 	}
 
 	public int getActionNameId() {
 		return mActionNameId;
 	}
 
-	public String getDate() {
-		return mDate;
+	public String getActionPerfDate() {
+		return mActionPerformedDate;
+	}
+
+	public String getActionType() {
+		return mActionType;
+	}
+
+	public String getDay() {
+		return mDay;
 	}
 
 	public int getGrowingId() {
 		return mGrowingId;
 	}
 
+	public String getHarvestFeedback() {
+		return mHarvFeedback;
+	}
+
 	public int getId() {
 		return mId;
 	}
 
-	public int getQuantity() {
-		return mQuantity;
+	public int getIsAdmin() {
+		return mIsAdmin;
+	}
+
+	public String getPesticidType() {
+		return mPestcideType;
+	}
+
+	public int getPlotId() {
+		return mPlotId;
+	}
+
+	public String getProbType() {
+		return mProbType;
+	}
+
+	public String getQualityOfSeed() {
+		return mQualityOfSeed;
+	}
+
+	public int getQuantity1() {
+		return mQuantity1;
 	}
 
 	public int getQuantity2() {
 		return mQuantity2;
 	}
 
-	public int getUnitId() {
-		return mUnitId;
+	public String getSeedVariery() {
+		return mSeedVariety;
 	}
 
-	public void setActionNameId(int actionNameId) {
-		mActionNameId = actionNameId;
+	public int getSellingPrice() {
+		return mSellingPrice;
 	}
 
-	public void setDate(String date) {
-		mDate = date;
+	public String getSellType() {
+		return mSellType;
 	}
 
-	public void setGrowingId(int growingId) {
-		mGrowingId = growingId;
+	public int getSend() {
+		return mSend;
 	}
 
-	public void setId(int id) {
-		mId = id;
+	public String getTreatment() {
+		return mTreatment;
 	}
 
-	public void setQuantity(int quantity) {
-		mQuantity = quantity;
+	public String getTypeFert() {
+		return mTypeOfFert;
 	}
 
-	public void setQuantity2(int quantity2) {
-		mQuantity2 = quantity2;
+	public String getUnits() {
+		return mUnits;
 	}
 
-	public void setUnitId(int unitId) {
-		mUnitId = unitId;
+	public int getUserId() {
+		return mUserId;
 	}
 }

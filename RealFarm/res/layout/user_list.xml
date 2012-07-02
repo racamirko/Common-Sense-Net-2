@@ -1,0 +1,415 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginBottom="5dip"
+    android:orientation="horizontal" 
+    android:background="@drawable/def_img" >"
+
+ <ScrollView 
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dlg_img_seed"
+        android:layout_marginTop="10dp" >
+        
+    <LinearLayout
+            android:id="@+id/dlg_linlay_userDataDetails"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
+     
+	   <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="65dp"
+	            android:layout_marginBottom="5dp"  >
+    
+    <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="200dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+                
+        <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="15dp"
+        android:text="29.8."
+          android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:text="User 1"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/img_farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/lbl_farmername"
+        android:paddingLeft="5dip"
+        android:src="@drawable/farmer_90px_adam_jones" />
+
+<Button
+    android:id="@+id/user_1"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/square_btn_transp" />
+
+      </RelativeLayout>
+   <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+    <ImageButton
+        android:id="@+id/img_farmer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dip"
+        android:layout_marginRight="10dip"
+        android:src="@drawable/square_btn_transp"
+        android:background="@drawable/call" />
+
+     </RelativeLayout>
+
+     </TableRow>
+
+	 
+	   <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="65dp"
+	            android:layout_marginBottom="5dp"  >
+    
+    <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="200dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+                
+        <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="15dp"
+        android:text="27.8."
+          android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:text="User 2"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/img_farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/lbl_farmername"
+        android:paddingLeft="5dip"
+        android:src="@drawable/farmer_90px_adam_jones" />
+
+<Button
+    android:id="@+id/user_2"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/square_btn_transp" />
+
+      </RelativeLayout>
+   <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+    <ImageButton
+        android:id="@+id/img_farmer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dip"
+         android:layout_marginRight="10dip"
+        android:src="@drawable/square_btn_transp"
+        android:background="@drawable/call" />
+
+     </RelativeLayout>
+
+     </TableRow>
+	   
+	   
+	   <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="65dp"
+	            android:layout_marginBottom="5dp"  >
+    
+    <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="200dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+                
+        <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="15dp"
+        android:text="24.8."
+          android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:text="User 3"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/img_farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/lbl_farmername"
+        android:paddingLeft="5dip"
+        android:src="@drawable/farmer_90px_adam_jones" />
+
+<Button
+    android:id="@+id/user_3"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/square_btn_transp" />
+
+      </RelativeLayout>
+   <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+    <ImageButton
+        android:id="@+id/img_farmer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dip"
+         android:layout_marginRight="10dip"
+        android:src="@drawable/square_btn_transp"
+        android:background="@drawable/call" />
+
+     </RelativeLayout>
+
+     </TableRow>
+	   
+	   
+	   <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="65dp"
+	            android:layout_marginBottom="5dp"  >
+    
+    <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="200dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+                
+        <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="15dp"
+        android:text="22.8."
+          android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:text="User 4"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/img_farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/lbl_farmername"
+        android:paddingLeft="5dip"
+        android:src="@drawable/farmer_90px_adam_jones" />
+
+<Button
+    android:id="@+id/user_4"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/square_btn_transp" />
+
+      </RelativeLayout>
+   <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+    <ImageButton
+        android:id="@+id/img_farmer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dip"
+         android:layout_marginRight="10dip"
+        android:src="@drawable/square_btn_transp"
+        android:background="@drawable/call" />
+
+     </RelativeLayout>
+
+     </TableRow>
+	   
+	   
+	   <TableRow
+	            android:id="@+id/tableRow2"
+	            android:layout_width="wrap_content"
+	            android:layout_height="65dp"
+	            android:layout_marginBottom="5dp"  >
+    
+    <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="200dp"
+                android:layout_height="65dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+                
+        <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="10dip"
+        android:layout_marginTop="15dp"
+        android:text="20.8."
+          android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lbl_farmername"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_alignParentRight="true"
+        android:text="User 5"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:textColor="#000000" />
+
+    <ImageView
+        android:id="@+id/img_farmer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/lbl_farmername"
+        android:paddingLeft="5dip"
+        android:src="@drawable/farmer_90px_adam_jones" />
+
+<Button
+    android:id="@+id/user_5"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentRight="true"
+    android:layout_alignParentTop="true"
+    android:background="@drawable/square_btn_transp" />
+
+      </RelativeLayout>
+   <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_weight="0.09" >
+    <ImageButton
+        android:id="@+id/img_farmer"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:layout_marginLeft="20dip"
+         android:layout_marginRight="10dip"
+        android:src="@drawable/square_btn_transp"
+        android:background="@drawable/call" />
+
+     </RelativeLayout>
+
+     </TableRow>
+	   
+     
+	   	  
+     
+
+</LinearLayout>   
+
+    </ScrollView>
+
+
+</LinearLayout>

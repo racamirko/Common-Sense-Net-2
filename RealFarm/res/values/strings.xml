@@ -1,49 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="hello">Hello World, realFarm!</string>
-	<string name="app_name">RealFarm</string>
-	<string name="menu_settings">Settings</string>
-	<string name="menu_help">Help</string>
-	<string name="you">You</string>
-	<string name="firstname">Firstname</string>
-	<string name="lastname">Lastname</string>
-	<string name="map">Map</string>
-	<string name="txtMapDownloaderTitle">Map Downloader</string>
-	<string name="txtCenter">Center</string>
-	<string name="txtMapType">Map Type</string>
-	<string name="txtRadius">Radius (in m)</string>
-	<string name="txtInitialZoom">Initial Zoom</string>
-	<string-array name="arrayMapTypes">
-		<item>Satellite</item>
-		<item>Roadmap</item>
-		<item>Hybrid</item>
-		<item>Terrain</item>
-	</string-array>
-	<string name="ckPuraLocation">14.054162,77.16711</string>
-	<string name="txtDefaultCenter">14.054162,77.16711</string>
-	<string name="txtDefaultRadius">50</string>
-	<string name="txtDefaultZoom">19</string>
-	<string name="txtPreviewButton">Preview</string>
-	<string name="txtDownloadButton">Download</string>
+
+    <string name="app_name">RealFarm</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_help">Help</string>
+    <string name="firstname">Firstname</string>
+    <string name="lastname">Lastname</string>
+    <string name="map">Map</string>
     <string name="plot">Plot</string>
     <string name="news">News</string>
     <string name="friends">Friends</string>
-    <string name="mylocation">Find me</string>
-    <string name="village">Village</string>
     <string name="menu">Menu</string>
-	<string name="recommendation">Recommendations</string>
-    <string name="ok">ok</string>
-    <string name="cancel">Cancel</string>
+    <string name="recommendation">Recommendations</string>
     <string name="exitMsg">Sure you want to quit?</string>
     <string name="exitTitle">Exit</string>
-    <string name="diary">Diary</string>
     <string name="editPoint">Edit lat/lon</string>
     <string name="editAction">Edit Action</string>
     <string name="seed">Seed</string>
-    <string name="valuemicro">Values in microdegrees</string>
     <string name="actions">Actions</string>
-    <string name="dateToday">today</string>
-    <string name="dateYesterday">yesterday</string>
-    <string name="dateLastWeek">%d days ago</string>
-    <string name="dateMoreThanAWeek">%d weeks ago</string>
+    <string name="lblPassword">Enter Administrator Password </string>
+    <string name="btn_submit">Submit</string>
+    <string name="mobilenumber">Mobile Number</string>
+
+    <!-- orbolanos: new version. -->
+    <string name="button_ok">Done</string>
+    <string name="button_back_to_videos"> Back to Videos</string>
+    <string name="button_cancel">Cancel</string>
+    <string name="button_add_plot">Add Plot</string>
+    <string name="label_arrow">></string>
+    <string name="date_today">today</string>
+    <string name="date_yesterday">yesterday</string>
+    <string name="date_last_week">%d days ago</string>
+    <string name="date_more_than_a_week">%d weeks ago</string>
+
+    <string-array name="array_languages">
+        <item>Kannada</item>
+        <item>Telugu</item>
+        <item>Hindi</item>
+        <item>Tamil</item>
+        <item>Malayalam</item>
+    </string-array>
+    
+      <string-array name="array_months">
+        <item>January</item>
+        <item>February</item>
+        <item>March</item>
+        <item>April</item>
+        <item>May</item>
+        <item>June</item>
+        <item>July</item>
+        <item>August</item>
+        <item>September</item>
+        <item>October</item>
+        <item>November</item>
+        <item>December</item>
+         </string-array>
+    
+
 </resources>

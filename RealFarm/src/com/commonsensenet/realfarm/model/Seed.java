@@ -8,11 +8,14 @@ public class Seed {
 	private String mName;
 	private String mNameKannada;
 	private int mRes;
+	private int mResBg;
 	private String mVariety;
 	private String mVarietyKannada;
+	private int mAdmin;
 
 	public Seed(int id, String name, String nameKannada, int res, int audioRes,
-			int daysToHarvest, String variety, String varietyKannada) {
+			int daysToHarvest, String variety, String varietyKannada,
+			int resBg, int admin) { // admin added
 		mId = id;
 		mName = name;
 		mNameKannada = nameKannada;
@@ -21,10 +24,11 @@ public class Seed {
 		mDaysToHarvest = daysToHarvest;
 		mVariety = variety;
 		mVarietyKannada = varietyKannada;
-
+		mResBg = resBg;
+		mAdmin = admin;
 	}
 
-	public int getAudiores() {
+	public int getAudioRes() {
 		return mAudioRes;
 	}
 
@@ -70,13 +74,15 @@ public class Seed {
 		return mVarietyKannada;
 	}
 
-	// + COLUMN_NAME_SEEDTYPE_ID + " integer primary key, "
-	// + COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
-	// + COLUMN_NAME_SEEDTYPE_NAMEKANNADA + " text, "
-	// + COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
-	// + COLUMN_NAME_SEEDTYPE_AUDIO + " integer, "
-	// + COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST + " integer, "
-	// + COLUMN_NAME_SEEDTYPE_VARIETY + " text, "
-	// + COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text "
+	public int getResBg() {
+		return mResBg;
+	}
 
+	public void setResBg(int mResBg) {
+		this.mResBg = mResBg;
+	}
+
+	public int setAdmin(int admin) {
+		return mAdmin;
+	}
 }
