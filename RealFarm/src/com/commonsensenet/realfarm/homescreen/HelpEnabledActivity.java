@@ -12,7 +12,6 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;

@@ -1,8 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.utils.SoundQueue;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -11,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.MediaController;
 import android.widget.VideoView;
+
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
  * Activity that is able to play a given, showing required Playback controls.

@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -23,7 +22,7 @@ public class Marketprice_details extends HelpEnabledActivity implements
 	private ImageView img_1;
 	private ImageView img_2;
 	private RealFarmProvider mDataProvider;
-	private int mpvalue, wfvalue;
+	private int wfvalue;
 	private TextView text_1;
 	private TextView text_2;
 	private TextView text_4;
