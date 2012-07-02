@@ -5,11 +5,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListener;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
@@ -24,7 +22,7 @@ public class yielddetails extends HelpEnabledActivity implements
 	private ImageView img_1;
 	private ImageView img_2;
 	private RealFarmProvider mDataProvider;
-	private int mpvalue, wfvalue;
+	private int wfvalue;
 	private TextView text_1;
 	private TextView text_2;
 	private TextView text_4;
