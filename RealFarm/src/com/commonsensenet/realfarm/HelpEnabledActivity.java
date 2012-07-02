@@ -6,6 +6,8 @@ import java.util.Calendar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
@@ -23,14 +25,8 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
  * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
-public abstract class HelpEnabledActivity extends SherlockActivity {
-	@Override
-	public void onBackPressed() {
-		// stops any currently playing sound.
-		stopAudio();
-
-		super.onBackPressed();
-	}
+public abstract class HelpEnabledActivity extends SherlockActivity implements
+		OnLongClickListener {
 
 	protected String getCurrentTime() {
 		Calendar ctaq = Calendar.getInstance();
@@ -40,25 +36,15 @@ public abstract class HelpEnabledActivity extends SherlockActivity {
 		return crntdt;
 	}
 
-	protected void stopAudio() {
-		SoundQueue.getInstance().stop();
+	@Override
+	public void onBackPressed() {
+		// stops any currently playing sound.
+		stopAudio();
+
+		super.onBackPressed();
 	}
 
-	protected void playAudio(int resid) // audio integration
-	{
-		if (Global.enableAudio) // checking for audio enable
-		{
-			// gets the singleton queue
-			SoundQueue sq = SoundQueue.getInstance();
-			// cleans any possibly playing sound
-			sq.clean();
-			// adds the sound to the queue
-			sq.addToQueue(resid);
-			// plays the sound
-			sq.play();
-		}
-	}
-
+	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// sets the global style of the application.
 		setTheme(RealFarmApp.THEME);
@@ -66,19 +52,26 @@ public abstract class HelpEnabledActivity extends SherlockActivity {
 
 		// enables the home button arrow.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		
-		 ArrayAdapter<CharSequence> listAdapter = ArrayAdapter.createFromResource(this, R.array.array_languages, R.layout.sherlock_spinner_item);
-	        listAdapter.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-	        getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
-	        getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+
+		ArrayAdapter<CharSequence> listAdapter = ArrayAdapter
+				.createFromResource(this, R.array.array_languages,
+						R.layout.sherlock_spinner_item);
+		listAdapter
+				.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+		getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
+		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	}
 
+	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-
 		// adds the help button.
 		menu.add("Help").setIcon(R.drawable.help)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
+		return true;
+	}
+
+	public boolean onLongClick(View v) {
 		return true;
 	}
 
@@ -103,5 +96,28 @@ public abstract class HelpEnabledActivity extends SherlockActivity {
 		}
 	}
 
-	
+	/**
+	 * Plays the given resourceId. The sound is only played if
+	 * Global.enabledAudio is true, otherwise it is not played.
+	 * 
+	 * @param resid
+	 *            id of the audio.
+	 */
+	protected void playAudio(int resid) {
+		if (Global.enableAudio) // checking for audio enable
+		{
+			// gets the singleton queue
+			SoundQueue sq = SoundQueue.getInstance();
+			// cleans any possibly playing sound
+			sq.clean();
+			// adds the sound to the queue
+			sq.addToQueue(resid);
+			// plays the sound
+			sq.play();
+		}
+	}
+
+	protected void stopAudio() {
+		SoundQueue.getInstance().stop();
+	}
 }

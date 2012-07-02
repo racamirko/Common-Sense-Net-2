@@ -1,39 +1,39 @@
 package com.commonsensenet.realfarm;
 
-import com.commonsensenet.realfarm.homescreen.Homescreen;
-import com.commonsensenet.realfarm.utils.SoundQueue;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.view.View.OnLongClickListener;
 import android.widget.Button;
 
-public class VideoActivity extends HelpEnabledActivity implements
-		OnLongClickListener {
+import com.commonsensenet.realfarm.homescreen.Homescreen;
+
+public class VideoActivity extends HelpEnabledActivity {
 	/** Intent that is capable of playing the selected video. */
 	private Intent mTargetIntent;
 
 	public void onBackPressed() {
-		SoundQueue.getInstance().stop();
 
-		Intent adminintent123 = new Intent(VideoActivity.this, Homescreen.class);
-		startActivity(adminintent123);
+		startActivity(new Intent(VideoActivity.this, Homescreen.class));
 		VideoActivity.this.finish();
+
+		super.onBackPressed();
 	}
-	
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		// sets the layout of the activity.
 		setContentView(R.layout.act_video);
 
+		// obtains the buttons from the form
 		Button video1 = (Button) findViewById(R.id.button_video1);
 		Button video2 = (Button) findViewById(R.id.button_video2);
 
+		// adds the button listeners
 		video1.setOnLongClickListener(this);
 		video2.setOnLongClickListener(this);
 
+		// common targetIntent
 		mTargetIntent = new Intent(this, VideoPlayerActivity.class);
 
 		// add the event listeners
@@ -59,12 +59,10 @@ public class VideoActivity extends HelpEnabledActivity implements
 
 		if (v.getId() == R.id.button_video1) {
 			playAudio(R.raw.video);
-		}
-
-		if (v.getId() == R.id.button_video2) {
+		} else if (v.getId() == R.id.button_video2) {
 			playAudio(R.raw.video);
 		}
 
-		return true;
+		return super.onLongClick(v);
 	}
 }
