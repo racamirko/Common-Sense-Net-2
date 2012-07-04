@@ -71,12 +71,11 @@ public abstract class HelpEnabledActivity extends Activity implements
 		SoundQueue.getInstance().stop();
 	}
 
-
 	protected void initmissingval() {
-	
+
 		playAudio(R.raw.missinginfo);
-	
-		//ShowHelpIcon(v);  
+
+		// ShowHelpIcon(v);
 	}
 
 	protected void okaudio() {
@@ -160,7 +159,6 @@ public abstract class HelpEnabledActivity extends Activity implements
 		mHelpMode = active;
 	}
 
-
 	protected void playAudio(int resid) // audio integration
 	{
 		if (Global.enableAudio) // checking for audio enable
@@ -174,26 +172,26 @@ public abstract class HelpEnabledActivity extends Activity implements
 			// plays the sound
 			sq.play();
 		}
-	
+
 	}
-	
-	
+
 	protected void playAudioalways(int resid) // audio integration
 	{
-			// gets the singleton queue
-			SoundQueue sq = SoundQueue.getInstance();
-			// cleans any possibly playing sound
-			sq.clean();
-			// adds the sound to the queue
-			sq.addToQueue(resid);
-			// plays the sound
-			sq.play();
-		
+		// gets the singleton queue
+		SoundQueue sq = SoundQueue.getInstance();
+		// cleans any possibly playing sound
+		sq.clean();
+		// adds the sound to the queue
+		sq.addToQueue(resid);
+		// plays the sound
+		sq.play();
+
 	}
-	
-	public void ShowHelpIcon(View v)              //added witth audio integration //20-06-2012
+
+	public void ShowHelpIcon(View v) // added witth audio integration
+										// //20-06-2012
 	{
-		
+
 		int loc[] = new int[2];
 		v.getLocationOnScreen(loc);
 		int iconWidth = mHelpIcon.getWidth() - mHelpIcon.getPaddingLeft();
@@ -207,11 +205,10 @@ public abstract class HelpEnabledActivity extends Activity implements
 		mHelpIcon.setVisibility(View.VISIBLE);
 		mHelpIcon.startAnimation(mAnimFadeIn);
 		setHelpMode(true);
-	
+
 	}
-	
+
 	public void showHelp(View v) {
-	
 
 		/*
 		 * if(mp != null) //Integration { mp.stop(); mp.release(); mp = null; }
@@ -229,26 +226,29 @@ public abstract class HelpEnabledActivity extends Activity implements
 
 			playAudioalways(R.raw.audio2);
 		}
-		if (v.getId() == R.id.hmscrn_btn_sound || v.getId() == R.id.hmscrn_btn_sound) {
+		if (v.getId() == R.id.hmscrn_btn_sound
+				|| v.getId() == R.id.hmscrn_btn_sound) {
 
 			playAudioalways(R.raw.audio3);
 		}
-		
-		if (v.getId() == R.id.hmscrn_help_button || v.getId() == R.id.hmscrn_help_button) {
 
-			playAudioalways(R.raw.audio3);
-		}
+		// if (v.getId() == R.id.hmscrn_help_button || v.getId() ==
+		// R.id.hmscrn_help_button) {
+		//
+		// playAudioalways(R.raw.audio3);
+		// }
 		if (v.getId() == R.id.hmscrn_btn_yield
 				|| v.getId() == R.id.hmscrn_btn_yield) {
 
 			playAudioalways(R.raw.audio4);
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_weather || v.getId() == R.id.hmscrn_btn_weather) {
+		if (v.getId() == R.id.hmscrn_btn_weather
+				|| v.getId() == R.id.hmscrn_btn_weather) {
 
 			playAudioalways(R.raw.weatherforecast);
 		}
-// End of big icons
+		// End of big icons
 
 		if (v.getId() == R.id.btn_action_sowing) {
 			playAudioalways(R.raw.sowing);
@@ -297,11 +297,10 @@ public abstract class HelpEnabledActivity extends Activity implements
 		if (v.getId() == R.id.hmscrn_imgbtn_notifs) { // changes
 			playAudioalways(R.raw.dairy);
 		}
-		
-		
+
 		// TODO: make a table mapping IDs to sound files
 	}
-	
+
 	public void onBackPressed() {
 		// stops any currently playing sound.
 		stopAudio();
@@ -320,7 +319,5 @@ public abstract class HelpEnabledActivity extends Activity implements
 	protected void stopAudio() {
 		SoundQueue.getInstance().stop();
 	}
-
-
 
 }

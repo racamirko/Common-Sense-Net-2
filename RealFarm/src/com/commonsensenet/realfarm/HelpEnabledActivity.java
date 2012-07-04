@@ -8,10 +8,9 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.widget.ArrayAdapter;
+import android.view.WindowManager;
 import android.widget.Toast;
 
-import com.actionbarsherlock.app.ActionBar;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
@@ -50,16 +49,20 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		setTheme(RealFarmApp.THEME);
 		super.onCreate(savedInstanceState);
 
+		// enables fullscreen.
+		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
+				WindowManager.LayoutParams.FLAG_FULLSCREEN);
+
 		// enables the home button arrow.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		ArrayAdapter<CharSequence> listAdapter = ArrayAdapter
-				.createFromResource(this, R.array.array_languages,
-						R.layout.sherlock_spinner_item);
-		listAdapter
-				.setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
-		getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
-		getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
+		// ArrayAdapter<CharSequence> listAdapter = ArrayAdapter
+		// .createFromResource(this, R.array.array_languages,
+		// R.layout.sherlock_spinner_item);
+		// listAdapter
+		// .setDropDownViewResource(R.layout.sherlock_spinner_dropdown_item);
+		// getSupportActionBar().setListNavigationCallbacks(listAdapter, null);
+		// getSupportActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_LIST);
 	}
 
 	@Override
@@ -67,7 +70,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		// adds the help button.
 		menu.add("Help").setIcon(R.drawable.help)
 				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
 		return true;
 	}
 

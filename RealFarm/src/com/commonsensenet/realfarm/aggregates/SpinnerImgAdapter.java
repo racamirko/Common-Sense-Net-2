@@ -1,15 +1,13 @@
 package com.commonsensenet.realfarm.aggregates;
 
-import com.commonsensenet.realfarm.R;
-
 import android.app.Activity;
-import android.database.DataSetObserver;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
-import android.widget.SpinnerAdapter;
+
+import com.commonsensenet.realfarm.R;
 
 public class SpinnerImgAdapter extends ArrayAdapter<Integer>
 	{

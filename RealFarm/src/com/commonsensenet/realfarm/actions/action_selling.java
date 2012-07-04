@@ -24,22 +24,22 @@ public class action_selling extends HelpEnabledActivity {
 	private Context context = this;
 	private RealFarmProvider mDataProvider;
 	private final action_selling parentReference = this;
-	private String quality_sell = "0", selling_pickcheck = "0";
-	private int sellprice_no, sell_no;
-	private String sellprice_no_sel, sell_no_sel, units_sell = "0";
-	String crop_sell="0";
+	private int sell_no;
+	private String sell_no_sel, units_sell = "0";
+	String crop_sell = "0";
 	int date_sel;
-	String date_sel_str="0";
-	String months_harvest="0";
-    int sell_price;
-	String sell_price_sel="0";
-	 int sell_no_rem;
-	 String units_rem_sell="0";
- String sell_no_sel_rem="0";
+	String date_sel_str = "0";
+	String months_harvest = "0";
+	int sell_price;
+	String sell_price_sel = "0";
+	int sell_no_rem;
+	String units_rem_sell = "0";
+	String sell_no_sel_rem = "0";
+
 	protected void cancelaudio() {
-	
+
 		playAudio(R.raw.cancel);
-	
+
 		Intent adminintent = new Intent(action_selling.this, Homescreen.class);
 
 		startActivity(adminintent);
@@ -62,18 +62,22 @@ public class action_selling extends HelpEnabledActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		System.out.println("selling details entered");
 		mDataProvider = RealFarmProvider.getInstance(context);
-	//	super.onCreate(savedInstanceState);
-	//	setContentView(R.layout.selling_dialog);
-		
-		super.onCreate(savedInstanceState, R.layout.selling_dialog);           //Needed to add help icon
-		setHelpIcon(findViewById(R.id.helpIndicator)); 
-		
-		
+		// super.onCreate(savedInstanceState);
+		// setContentView(R.layout.selling_dialog);
+
+		super.onCreate(savedInstanceState, R.layout.selling_dialog); // Needed
+																		// to
+																		// add
+																		// help
+																		// icon
+		setHelpIcon(findViewById(R.id.helpIndicator));
+
 		System.out.println("selling done");
-		
+
 		playAudio(R.raw.clickingselling);
 
-		final ImageView bg_crop_sell = (ImageView) findViewById(R.id.img_bg_units_no_sow);
+		// final ImageView bg_crop_sell = (ImageView)
+		// findViewById(R.id.img_bg_units_no_sow);
 		final ImageView bg_date_sell = (ImageView) findViewById(R.id.img_bg_date_sell);
 		final ImageView bg_month_sell = (ImageView) findViewById(R.id.img_bg_month_sell);
 		final ImageView bg_units_sell = (ImageView) findViewById(R.id.img_bg_units_sell);
@@ -81,10 +85,8 @@ public class action_selling extends HelpEnabledActivity {
 		final ImageView bg_price_sell = (ImageView) findViewById(R.id.img_bg_price_sell);
 		final ImageView bg_units_no_rem_sell = (ImageView) findViewById(R.id.img_bg_units_no_rem_sell);
 		final ImageView bg_units_rem_sell = (ImageView) findViewById(R.id.img_bg_units_rem_sell);
-		
-		//bg_day_sow.setImageResource(R.drawable.empty_not);
-		
-		
+
+		// bg_day_sow.setImageResource(R.drawable.empty_not);
 
 		final Button item1 = (Button) findViewById(R.id.home_btn_crop_sell);
 		final Button item2 = (Button) findViewById(R.id.home_btn_date_sell);
@@ -94,13 +96,11 @@ public class action_selling extends HelpEnabledActivity {
 		final Button item6 = (Button) findViewById(R.id.home_btn_price_sell);
 		final Button item7 = (Button) findViewById(R.id.home_btn_units_no_rem_sell);
 		final Button item8 = (Button) findViewById(R.id.home_btn_units_rem_sell);
-		
-				
+
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 
-		
-		item1.setOnLongClickListener(this); 
+		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
@@ -109,36 +109,35 @@ public class action_selling extends HelpEnabledActivity {
 		item7.setOnLongClickListener(this);
 		item8.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
-		
-		final Button crop;                                                                  //20-06-2012
+
+		final Button crop; // 20-06-2012
 		final Button date;
 		final Button quantity;
 		final Button priceperquint;
 		final Button remain;
-		
-		crop = (Button) findViewById(R.id.crop_sell_txt_btn);                            //20-06-2012
+
+		crop = (Button) findViewById(R.id.crop_sell_txt_btn); // 20-06-2012
 		date = (Button) findViewById(R.id.amount_sow_txt_btn);
-		
+
 		quantity = (Button) findViewById(R.id.quantity_sow_txt_btn);
 		priceperquint = (Button) findViewById(R.id.treat_sow_txt_btn);
 		remain = (Button) findViewById(R.id.remain_sow_txt_btn);
-		
-		crop.setOnLongClickListener(this);                                                 //20-06-2012
+
+		crop.setOnLongClickListener(this); // 20-06-2012
 		date.setOnLongClickListener(this);
 		quantity.setOnLongClickListener(this);
 		priceperquint.setOnLongClickListener(this);
 		remain.setOnLongClickListener(this);
-		
-		
+
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				
+
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.variety_sowing_dialog);
 				dlg.setCancelable(true);
 				dlg.setTitle("Choose the crop ");
-				
+
 				dlg.show();
 				if (Global.writeToSD == true) {
 
@@ -183,7 +182,6 @@ public class action_selling extends HelpEnabledActivity {
 						.setOnLongClickListener(parentReference);
 
 				variety1.setOnClickListener(new View.OnClickListener() {
-					
 
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
@@ -332,8 +330,6 @@ public class action_selling extends HelpEnabledActivity {
 			}
 		});
 
-		
-		
 		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_date_sell);
 
 		item2.setOnClickListener(new View.OnClickListener() {
@@ -346,22 +342,23 @@ public class action_selling extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Date");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				
-				playAudio(R.raw.dateinfo);                  //20-06-2012
-			
+
+				playAudio(R.raw.dateinfo); // 20-06-2012
+
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
-				
-				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
-				.setOnLongClickListener(parentReference);
-		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
-		
-		
-				no_ok.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
 
-						NumberPicker mynpd = (NumberPicker) dlg.findViewById(R.id.numberpick);
+				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.number_cancel))
+						.setOnLongClickListener(parentReference);
+
+				no_ok.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+
+						NumberPicker mynpd = (NumberPicker) dlg
+								.findViewById(R.id.numberpick);
 						date_sel = mynpd.getValue();
 						date_sel_str = String.valueOf(date_sel);
 						no_text.setText(date_sel_str);
@@ -369,9 +366,10 @@ public class action_selling extends HelpEnabledActivity {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
 
-							tr_feedback.setBackgroundResource(R.drawable.def_img);
+							tr_feedback
+									.setBackgroundResource(R.drawable.def_img);
 							bg_date_sell.setImageResource(R.drawable.empty_not);
-							
+
 						}
 
 						dlg.cancel();
@@ -396,9 +394,7 @@ public class action_selling extends HelpEnabledActivity {
 
 			}
 		});
-		
-		
-		
+
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -465,7 +461,6 @@ public class action_selling extends HelpEnabledActivity {
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_sell);
 
 				month1.setOnClickListener(new View.OnClickListener() {
-			
 
 					public void onClick(View v) {
 
@@ -648,9 +643,7 @@ public class action_selling extends HelpEnabledActivity {
 			}
 
 		});
-		
-		
-		
+
 		final TextView no_text1 = (TextView) findViewById(R.id.dlg_lbl_unit_no_sell);
 
 		item4.setOnClickListener(new View.OnClickListener() {
@@ -663,17 +656,18 @@ public class action_selling extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Number of bags");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-			
-				playAudio(R.raw.noofbags);                  //20-06-2012
-			
+
+				playAudio(R.raw.noofbags); // 20-06-2012
+
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
-				
-				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
-				.setOnLongClickListener(parentReference);
-		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
-		
+
+				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.number_cancel))
+						.setOnLongClickListener(parentReference);
+
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
@@ -686,9 +680,11 @@ public class action_selling extends HelpEnabledActivity {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
-							tr_feedback.setBackgroundResource(R.drawable.def_img);
-							bg_units_no_sell.setImageResource(R.drawable.empty_not);
-							
+							tr_feedback
+									.setBackgroundResource(R.drawable.def_img);
+							bg_units_no_sell
+									.setImageResource(R.drawable.empty_not);
+
 						}
 
 						dlg.cancel();
@@ -697,19 +693,13 @@ public class action_selling extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-					
+
 					}
 				});
 
 			}
 		});
-		
-		
-		
-		
-		
-		
-		
+
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -833,29 +823,24 @@ public class action_selling extends HelpEnabledActivity {
 
 			}
 		});
-		
-		
-		
+
 		final TextView no_text2 = (TextView) findViewById(R.id.dlg_lbl_price_sell);
 
 		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-			
+
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
 				dlg.setTitle("Enter the Price");
-				
-				dlg.show();
 
-				
+				dlg.show();
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 				no_ok.setOnClickListener(new View.OnClickListener() {
-					
 
 					public void onClick(View v) {
 
@@ -868,9 +853,11 @@ public class action_selling extends HelpEnabledActivity {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
 
-							tr_feedback.setBackgroundResource(R.drawable.def_img);
-							bg_price_sell.setImageResource(R.drawable.empty_not);
-							
+							tr_feedback
+									.setBackgroundResource(R.drawable.def_img);
+							bg_price_sell
+									.setImageResource(R.drawable.empty_not);
+
 						}
 
 						dlg.cancel();
@@ -879,14 +866,13 @@ public class action_selling extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-					
+
 					}
 				});
 
 			}
 		});
-		
-		
+
 		final TextView no_text3 = (TextView) findViewById(R.id.dlg_lbl_unit_no_rem_sell);
 
 		item7.setOnClickListener(new View.OnClickListener() {
@@ -900,13 +886,10 @@ public class action_selling extends HelpEnabledActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				
-
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 				no_ok.setOnClickListener(new View.OnClickListener() {
-					
 
 					public void onClick(View v) {
 
@@ -919,9 +902,11 @@ public class action_selling extends HelpEnabledActivity {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
 
-							tr_feedback.setBackgroundResource(R.drawable.def_img);
-							bg_units_no_rem_sell.setImageResource(R.drawable.empty_not);
-							
+							tr_feedback
+									.setBackgroundResource(R.drawable.def_img);
+							bg_units_no_rem_sell
+									.setImageResource(R.drawable.empty_not);
+
 						}
 
 						dlg.cancel();
@@ -930,15 +915,13 @@ public class action_selling extends HelpEnabledActivity {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-					
+
 					}
 				});
 
 			}
 		});
-		
-		
-		
+
 		item8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -991,7 +974,8 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
+						bg_units_rem_sell
+								.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						if (Global.writeToSD == true) {
 
@@ -1009,7 +993,6 @@ public class action_selling extends HelpEnabledActivity {
 				});
 
 				unit2.setOnClickListener(new View.OnClickListener() {
-					
 
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
@@ -1019,7 +1002,8 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
+						bg_units_rem_sell
+								.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						if (Global.writeToSD == true) {
 
@@ -1045,7 +1029,8 @@ public class action_selling extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_units_rem_sell.setImageResource(R.drawable.empty_not);
+						bg_units_rem_sell
+								.setImageResource(R.drawable.empty_not);
 						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						if (Global.writeToSD == true) {
 
@@ -1064,10 +1049,7 @@ public class action_selling extends HelpEnabledActivity {
 
 			}
 		});
-		
-		
-		
-		
+
 		Button btnNext = (Button) findViewById(R.id.sell_ok);
 		Button cancel = (Button) findViewById(R.id.sell_cancel);
 
@@ -1081,15 +1063,13 @@ public class action_selling extends HelpEnabledActivity {
 
 		});
 
-		
-		
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
 				int flag1, flag2, flag3, flag4, flag5;
-			
+
 				if (crop_sell.toString().equalsIgnoreCase("0")) {
 
 					flag1 = 1;
@@ -1107,7 +1087,8 @@ public class action_selling extends HelpEnabledActivity {
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
-				if (months_harvest.toString().equalsIgnoreCase("0") || date_sel == 0) {
+				if (months_harvest.toString().equalsIgnoreCase("0")
+						|| date_sel == 0) {
 
 					flag2 = 1;
 
@@ -1123,8 +1104,7 @@ public class action_selling extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				
+
 				if (units_sell.toString().equalsIgnoreCase("0") || sell_no == 0) {
 
 					flag3 = 1;
@@ -1141,9 +1121,7 @@ public class action_selling extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				
-				
+
 				if (sell_price == 0) {
 					flag4 = 1;
 
@@ -1158,9 +1136,9 @@ public class action_selling extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				
-				if (units_rem_sell.toString().equalsIgnoreCase("0") || sell_no_rem == 0) {
+
+				if (units_rem_sell.toString().equalsIgnoreCase("0")
+						|| sell_no_rem == 0) {
 
 					flag5 = 1;
 
@@ -1176,20 +1154,16 @@ public class action_selling extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				
-				
-				
-				
-				
-				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0 && flag5 == 0) {
-					
-			//		System.out.println("Irrigting Writing");
-			//		mDataProvider.setIrrigation(hrs_irrigate, "hours",
-		//					irr_day_sel, 0, 0, irr_method_sel);
 
-			//		System.out.println("Irrigting reading");
-			//		mDataProvider.getharvesting();
+				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0
+						&& flag5 == 0) {
+
+					// System.out.println("Irrigting Writing");
+					// mDataProvider.setIrrigation(hrs_irrigate, "hours",
+					// irr_day_sel, 0, 0, irr_method_sel);
+
+					// System.out.println("Irrigting reading");
+					// mDataProvider.getharvesting();
 
 					Intent adminintent = new Intent(action_selling.this,
 							Homescreen.class);
@@ -1214,12 +1188,6 @@ public class action_selling extends HelpEnabledActivity {
 
 			}
 		});
-		
-		
-		
-		
-		
-		
 
 	}
 
@@ -1229,259 +1197,256 @@ public class action_selling extends HelpEnabledActivity {
 		if (v.getId() == R.id.home_month_1) { // added
 
 			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 		if (v.getId() == R.id.home_month_2) { // added
 
 			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_3) { // added
 
 			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_4) { // added
 
 			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_5) { // added
 
 			playAudioalways(R.raw.may);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_6) { // added
 
 			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_7) { // added
 
 			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_8) { // added
 
 			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_9) { // added
 
 			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_10) { // added
 
 			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_11) { // added
 
 			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_12) { // added
 
 			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
-		
 		if (v.getId() == R.id.home_btn_month_sell) { // added
 
 			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.number_ok) { // added
 
 			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.number_cancel) { // added
 
 			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
-		
-		
+
 		if (v.getId() == R.id.quantity_sow_txt_btn) { // added
 
 			playAudioalways(R.raw.quantity);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.crop_sell_txt_btn) { // added
 
 			playAudioalways(R.raw.crop);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.amount_sow_txt_btn) { // added
 
 			playAudioalways(R.raw.date);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.treat_sow_txt_btn) { // added
 
 			playAudioalways(R.raw.priceperquintal);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.remain_sow_txt_btn) { // added
 
 			playAudioalways(R.raw.remaining);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
-		if (v.getId() == R.id.home_btn_var_sow_1) {                 //20-06-2012
+
+		if (v.getId() == R.id.home_btn_var_sow_1) { // 20-06-2012
 
 			System.out.println("variety sow1 called");
 			playAudioalways(R.raw.bajra);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_btn_var_sow_2) {
 
 			playAudioalways(R.raw.castor);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_btn_var_sow_3) {
 
 			playAudioalways(R.raw.cowpea);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_btn_var_sow_4) {
 
 			playAudioalways(R.raw.greengram);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_btn_var_sow_5) {
 
 			playAudioalways(R.raw.groundnut1);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_btn_var_sow_6) {
 
 			playAudioalways(R.raw.horsegram);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
-		
+
 		if (v.getId() == R.id.home_btn_units_1) {
 
 			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_btn_units_2) {
 
 			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_btn_units_3) {
 
 			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
-		
+
 		if (v.getId() == R.id.home_btn_crop_sell) { // added
 
 			playAudioalways(R.raw.crop);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_date_sell) { // added
 
 			playAudioalways(R.raw.date);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_month_sell) { // added
 
 			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_units_no_sell) { // added
 
 			playAudioalways(R.raw.noofbags);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_units_sell) { // added
 
 			playAudioalways(R.raw.keygis);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_price_sell) { // added
 
 			playAudioalways(R.raw.value);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_units_no_rem_sell) { // added
 
 			playAudioalways(R.raw.noofbags);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_units_rem_sell) { // added
 
 			playAudioalways(R.raw.keygis);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.aggr_img_help) { // added
 
 			playAudioalways(R.raw.help);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.sell_ok) {
 
 			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
 		if (v.getId() == R.id.sell_cancel) {
 
 			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 
 		}
-		
+
 		return true;
 	}
 }

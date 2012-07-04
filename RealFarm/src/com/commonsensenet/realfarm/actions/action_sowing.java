@@ -74,7 +74,7 @@ public class action_sowing extends HelpEnabledActivity {
 		
 		System.out.println("plant done");
 		final TextView day_sow = (TextView) findViewById(R.id.dlg_lbl_day_sow);
-		final TextView month_sow = (TextView) findViewById(R.id.dlg_lbl_month_sow);
+		// final TextView month_sow = (TextView) findViewById(R.id.dlg_lbl_month_sow);
 	
 		playAudio(R.raw.thankyouclickingactionsowing);
 

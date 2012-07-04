@@ -24,12 +24,14 @@ public class action_problem extends HelpEnabledActivity {
 	private Context context = this;
 	private RealFarmProvider mDataProvider;
 	private final action_problem parentReference = this;
-	private String prob_var_sel = "0", prob_day_sel, months_prob="0", prob_day_str;
+	private String prob_var_sel = "0", prob_day_sel, months_prob = "0",
+			prob_day_str;
 	int prob_day_int;
+
 	protected void cancelaudio() {
-		
+
 		playAudio(R.raw.cancel);
-	
+
 		Intent adminintent = new Intent(action_problem.this, Homescreen.class);
 
 		startActivity(adminintent);
@@ -52,20 +54,25 @@ public class action_problem extends HelpEnabledActivity {
 		System.out.println("Plant details entered");
 		mDataProvider = RealFarmProvider.getInstance(context);
 		super.onCreate(savedInstanceState);
-	//	setContentView(R.layout.problem_dialog);
-	//	System.out.println("problem done");
-		super.onCreate(savedInstanceState, R.layout.problem_dialog);           //Needed to add help icon
+		// setContentView(R.layout.problem_dialog);
+		// System.out.println("problem done");
+		super.onCreate(savedInstanceState, R.layout.problem_dialog); // Needed
+																		// to
+																		// add
+																		// help
+																		// icon
 		setHelpIcon(findViewById(R.id.helpIndicator));
-		
+
 		final TextView day_prob = (TextView) findViewById(R.id.dlg_lbl_day_prob);
-		final TextView month_prob = (TextView) findViewById(R.id.dlg_lbl_month_prob);
-	
+		// final TextView month_prob = (TextView)
+		// findViewById(R.id.dlg_lbl_month_prob);
+
 		playAudio(R.raw.clickingfertilising);
-	
+
 		final ImageView bg_type_problem = (ImageView) findViewById(R.id.img_bg_type_prob);
 		final ImageView bg_date_problem = (ImageView) findViewById(R.id.img_bg_day_prob);
 		final ImageView bg_month_prob = (ImageView) findViewById(R.id.img_bg_month_prob);
-	//	bg_date_problem.setImageResource(R.drawable.empty_not);
+		// bg_date_problem.setImageResource(R.drawable.empty_not);
 
 		final Button item1;
 
@@ -82,16 +89,14 @@ public class action_problem extends HelpEnabledActivity {
 		item3.setOnLongClickListener(this); // Integration
 
 		help.setOnLongClickListener(this);
-		
-		final Button problem;                                                                  //20-06-2012
+
+		final Button problem; // 20-06-2012
 		final Button Date;
-		
-				
-		problem = (Button) findViewById(R.id.variety_sow_txt_btn);                            //20-06-2012
+
+		problem = (Button) findViewById(R.id.variety_sow_txt_btn); // 20-06-2012
 		Date = (Button) findViewById(R.id.date_sow_txt_btn);
-	
-		
-		problem.setOnLongClickListener(this);                                                 //20-06-2012
+
+		problem.setOnLongClickListener(this); // 20-06-2012
 		Date.setOnLongClickListener(this);
 
 		item1.setOnClickListener(new View.OnClickListener() {
@@ -179,24 +184,27 @@ public class action_problem extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Date");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				
-				playAudio(R.raw.dateinfo);                  //20-06-2012
-				
+
+				playAudio(R.raw.dateinfo); // 20-06-2012
+
 				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " no_units_fertilizer " + " null " + " \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+							+ " selection " + " click "
+							+ " no_units_fertilizer " + " null " + " \r\n");
 				}
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
-				
-				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
-				.setOnLongClickListener(parentReference);
-		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
-		
+
+				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.number_cancel))
+						.setOnLongClickListener(parentReference);
+
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
@@ -215,7 +223,6 @@ public class action_problem extends HelpEnabledActivity {
 							bg_date_problem
 									.setImageResource(R.drawable.empty_not);
 
-							
 						}
 
 						dlg.cancel();
@@ -228,7 +235,10 @@ public class action_problem extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " number_picker "+ " click " + " cancel_no_units " + "cancelnumberentry" + " \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " number_picker "
+											+ " click " + " cancel_no_units "
+											+ "cancelnumberentry" + " \r\n");
 
 						}
 						dlg.cancel();
@@ -237,9 +247,7 @@ public class action_problem extends HelpEnabledActivity {
 
 			}
 		});
-		
-		
-		
+
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -306,7 +314,6 @@ public class action_problem extends HelpEnabledActivity {
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_prob);
 
 				month1.setOnClickListener(new View.OnClickListener() {
-			
 
 					public void onClick(View v) {
 
@@ -489,13 +496,6 @@ public class action_problem extends HelpEnabledActivity {
 			}
 
 		});
-		
-		
-		
-		
-		
-		
-		
 
 		Button btnNext = (Button) findViewById(R.id.prob_ok);
 		Button cancel = (Button) findViewById(R.id.prob_cancel);
@@ -515,7 +515,7 @@ public class action_problem extends HelpEnabledActivity {
 
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
-				int flag1, flag2;
+				int flag1;
 				if (prob_var_sel.toString().equalsIgnoreCase("0")) {
 					flag1 = 1;
 
@@ -530,23 +530,21 @@ public class action_problem extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				if (months_prob.toString().equalsIgnoreCase("0") || prob_day_int ==0) {
-					flag2 = 1;
+
+				if (months_prob.toString().equalsIgnoreCase("0")
+						|| prob_day_int == 0) {
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
-					flag2 = 0;
 
 					prob_day_sel = prob_day_int + "." + months_prob;
 					TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
 
 				if (flag1 == 0) {
 
@@ -590,171 +588,170 @@ public class action_problem extends HelpEnabledActivity {
 
 		if (v.getId() == R.id.home_btn_var_prob) {
 			playAudioalways(R.raw.problems);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_btn_day_prob) {
 			playAudioalways(R.raw.selectthedate);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.prob_ok) {
 			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.prob_cancel) {
 			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.aggr_img_help) {
 			playAudioalways(R.raw.help);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_prob_spray_1) { // audio integration
 			playAudioalways(R.raw.problem1);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_prob_spray_2) { // added
 			playAudioalways(R.raw.problem2);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_prob_spray_3) { // added
 			playAudioalways(R.raw.problem3);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_1) { // added
 			playAudioalways(R.raw.twoweeksbefore);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_2) { // added
 			playAudioalways(R.raw.oneweekbefore);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_3) { // added
 			playAudioalways(R.raw.yesterday);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_4) { // added
 			playAudioalways(R.raw.today);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_5) { // added
 			playAudioalways(R.raw.tomorrows);
-			ShowHelpIcon(v); 
+			ShowHelpIcon(v);
 		}
-		
+
 		if (v.getId() == R.id.home_month_1) { // added
 
 			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 		if (v.getId() == R.id.home_month_2) { // added
 
 			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_3) { // added
 
 			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_4) { // added
 
 			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_5) { // added
 
 			playAudioalways(R.raw.may);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_6) { // added
 
 			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_7) { // added
 
 			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_8) { // added
 
 			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_9) { // added
 
 			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_10) { // added
 
 			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_11) { // added
 
 			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_12) { // added
 
 			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.home_btn_month_prob) { // added
 
 			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.number_ok) { // added
 
 			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.number_cancel) { // added
 
 			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
-		if (v.getId() == R.id.variety_sow_txt_btn) {                        //20-06-2012
+
+		if (v.getId() == R.id.variety_sow_txt_btn) { // 20-06-2012
 			playAudioalways(R.raw.problems);
-			ShowHelpIcon(v);                                     
+			ShowHelpIcon(v);
 		}
-		
-		if (v.getId() == R.id.date_sow_txt_btn) {                        //20-06-2012
+
+		if (v.getId() == R.id.date_sow_txt_btn) { // 20-06-2012
 			playAudioalways(R.raw.date);
-			ShowHelpIcon(v);                                      
+			ShowHelpIcon(v);
 		}
-		
 
 		return true;
 	}
