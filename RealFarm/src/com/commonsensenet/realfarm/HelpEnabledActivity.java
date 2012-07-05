@@ -43,7 +43,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	}
 
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState) {
 		// sets the global style of the application.
 		setTheme(RealFarmApp.THEME);
 		super.onCreate(savedInstanceState);

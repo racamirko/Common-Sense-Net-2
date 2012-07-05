@@ -74,4 +74,13 @@ public class DateHelper {
 			return date;
 		}
 	}
+
+	public static String formatWithDay(String date) {
+
+		try {
+			return new SimpleDateFormat("EEEE").parse(date).toString();
+		} catch (ParseException e) {
+			return date;
+		}
+	}
 }

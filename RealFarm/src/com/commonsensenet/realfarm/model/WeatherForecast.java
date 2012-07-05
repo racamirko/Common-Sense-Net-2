@@ -2,53 +2,51 @@ package com.commonsensenet.realfarm.model;
 
 public class WeatherForecast {
 
-	// private int mId;
-	private String mdate;
-	private int mvalue;
-	private String mtype;
-	private String mdate1;
-	private int mvalue1;
-	private String mtype1;
-	private int madminflag;
+	private int mAdminFlag;
+	private String mDate;
+	private String mDate1;
+	private String mType;
+	private String mType1;
+	private int mValue;
+	private int mValue1;
 
 	public WeatherForecast(String date, int value, String type, String date1,
 			int value1, String type1, int adminflag) {
-		// mId = id;
-		mdate = date;
-		mvalue = value;
-		mtype = type;
-		mdate1 = date1;
-		mvalue1 = value1;
-		mtype1 = type1;
-		madminflag = adminflag;
+		mDate = date;
+		mValue = value;
+		mType = type;
+		mDate1 = date1;
+		mValue1 = value1;
+		mType1 = type1;
+		mAdminFlag = adminflag;
+	}
+
+	public int getAdminFlag() {
+		return mAdminFlag;
 	}
 
 	public String getDate() {
-		return mdate;
+		return mDate;
 	}
 
-	public int getvalue() {
-		return mvalue;
+	public String getDate1() {
+		return mDate1;
 	}
 
-	public String gettype() {
-		return mtype;
+	public String getType() {
+		return mType;
 	}
 
-	public String getdate1() {
-		return mdate1;
+	public String getType1() {
+		return mType1;
 	}
 
-	public int getvalue1() {
-		return mvalue1;
+	public int getValue() {
+		return mValue;
 	}
 
-	public String gettype1() {
-		return mtype1;
-	}
-
-	public int getadminflag() {
-		return madminflag;
+	public int getValue1() {
+		return mValue1;
 	}
 
 }

@@ -40,8 +40,7 @@
         <item>Tamil</item>
         <item>Malayalam</item>
     </string-array>
-    
-      <string-array name="array_months">
+    <string-array name="array_months">
         <item>January</item>
         <item>February</item>
         <item>March</item>
@@ -54,7 +53,6 @@
         <item>October</item>
         <item>November</item>
         <item>December</item>
-         </string-array>
-    
+    </string-array>
 
 </resources>

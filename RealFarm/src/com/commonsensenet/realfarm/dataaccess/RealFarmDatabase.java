@@ -84,8 +84,7 @@ public class RealFarmDatabase {
 
 			// actionsNames
 			db.execSQL("create table " + TABLE_NAME_ACTIONNAME + " ( "
-					+ COLUMN_NAME_ACTIONNAME_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_ACTIONNAME_ID + " integer primary key, "
 					+ COLUMN_NAME_ACTIONNAME_RESOURCE + " integer, "
 					+ COLUMN_NAME_ACTIONNAME_AUDIO + " integer, "
 					+ COLUMN_NAME_ACTIONNAME_NAME + " text not null, "
@@ -107,8 +106,7 @@ public class RealFarmDatabase {
 
 			// fertilizers
 			db.execSQL("create table " + TABLE_NAME_FERTILIZER + " ( "
-					+ COLUMN_NAME_FERTILIZER_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_FERTILIZER_ID + " integer primary key, "
 					+ COLUMN_NAME_FERTILIZER_NAME + " text, "
 					+ COLUMN_NAME_FERTILIZER_AUDIO + " integer, "
 					+ COLUMN_NAME_FERTILIZER_STAGEID
@@ -140,8 +138,7 @@ public class RealFarmDatabase {
 			// pesticides
 
 			db.execSQL("create table " + TABLE_NAME_PESTICIDE + " ( "
-					+ COLUMN_NAME_PESTICIDE_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_PESTICIDE_ID + " integer primary key, "
 					+ COLUMN_NAME_PESTICIDE_NAME + " text, "
 					+ COLUMN_NAME_PESTICIDE_AUDIO + " integer, "
 					+ COLUMN_NAME_PESTICIDE_ADMINFLAG + " boolean " + " ); ");
@@ -164,8 +161,7 @@ public class RealFarmDatabase {
 
 			// problemtype
 			db.execSQL("create table " + TABLE_NAME_PROBLEMTYPE + " ( "
-					+ COLUMN_NAME_PROBLEMTYPE_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_PROBLEMTYPE_ID + " integer primary key, "
 					+ COLUMN_NAME_PROBLEMTYPE_NAME + " text, "
 					+ COLUMN_NAME_PROBLEMTYPE_AUDIO + " integer, "
 					+ COLUMN_NAME_PROBLEMTYPE_RESOURCE + " integer, "
@@ -196,8 +192,7 @@ public class RealFarmDatabase {
 
 			// seedTypes
 			db.execSQL("create table " + TABLE_NAME_SEEDTYPE + " ( "
-					+ COLUMN_NAME_SEEDTYPE_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_SEEDTYPE_ID + " integer primary key, "
 					+ COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
 					+ COLUMN_NAME_SEEDTYPE_NAMEKANNADA + " text, "
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
@@ -211,8 +206,7 @@ public class RealFarmDatabase {
 
 			// seedTypeStages
 			db.execSQL("create table " + TABLE_NAME_SEEDTYPESTAGE + " ( "
-					+ COLUMN_NAME_SEEDTYPESTAGE_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_SEEDTYPESTAGE_ID + " integer primary key, "
 					+ COLUMN_NAME_SEEDTYPESTAGE_STAGEID + " integer, "
 					+ COLUMN_NAME_SEEDTYPESTAGE_SEEDTYPEID + " integer, "
 					+ COLUMN_NAME_SEEDTYPESTAGE_FROMCOUNTDAYS + " integer, "
@@ -223,8 +217,7 @@ public class RealFarmDatabase {
 
 			// stages
 			db.execSQL("create table " + TABLE_NAME_STAGE + " ( "
-					+ COLUMN_NAME_STAGE_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_STAGE_ID + " integer primary key, "
 					+ COLUMN_NAME_STAGE_NAME + " text,"
 					+ COLUMN_NAME_STAGE_ADMINFLAG + " booelan " + " ); ");
 			Log.d(LOG_TAG, "Created stage table");
@@ -243,8 +236,7 @@ public class RealFarmDatabase {
 
 			// units
 			db.execSQL("create table " + TABLE_NAME_UNIT + " ( "
-					+ COLUMN_NAME_UNIT_ID
-					+ " integer primary key, "
+					+ COLUMN_NAME_UNIT_ID + " integer primary key, "
 					+ COLUMN_NAME_UNIT_NAME + " text not null, "
 					+ COLUMN_NAME_UNIT_AUDIO + " integer, "
 					+ COLUMN_NAME_UNIT_ADMINFLAG + " boolean " + " ); ");

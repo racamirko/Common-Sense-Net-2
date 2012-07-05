@@ -82,8 +82,9 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".WeatherForecastActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:icon="@drawable/cloudy"
+            android:label="Weather"
+            android:screenOrientation="portrait" />
         <activity
             android:name="Marketprice_details"
             android:screenOrientation="portrait"

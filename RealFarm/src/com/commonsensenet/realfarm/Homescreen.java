@@ -326,7 +326,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		Log.i(LOG_TAG, "Button clicked!");
 		String txt = "";
 		Intent inte = null;
-		
+
 		if (v.getId() == R.id.hmscrn_btn_weather) {
 			this.startActivity(new Intent(this, WeatherForecastActivity.class));
 			return;
@@ -820,7 +820,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		}
 
 		mDataProvider = RealFarmProvider.getInstance(mContext);
-		/** To enable Audio On or Off */
+
 		// ImageButton btnSound = (ImageButton)
 		// findViewById(R.id.dlg_btn_audio_play);
 		Log.i(LOG_TAG, "App started");

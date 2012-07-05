@@ -317,5 +317,4 @@ public abstract class HelpEnabledActivity extends Activity implements
 	protected void stopAudio() {
 		SoundQueue.getInstance().stop();
 	}
-
 }
