@@ -11,7 +11,6 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListener;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class yielddetails extends HelpEnabledActivity implements

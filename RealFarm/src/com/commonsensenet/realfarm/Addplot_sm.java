@@ -7,7 +7,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Addplot_sm extends HelpEnabledActivity {

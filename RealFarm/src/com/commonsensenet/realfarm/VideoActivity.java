@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class VideoActivity extends HelpEnabledActivity {
 	/** Intent that is capable of playing the selected video. */

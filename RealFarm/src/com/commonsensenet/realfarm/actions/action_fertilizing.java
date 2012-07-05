@@ -13,11 +13,11 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class action_fertilizing extends HelpEnabledActivity implements
 		OnLongClickListener {

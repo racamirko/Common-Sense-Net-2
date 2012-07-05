@@ -27,7 +27,7 @@
         android:icon="@drawable/app_social"
         android:label="@string/app_name" >
         <activity
-            android:name=".homescreen.Homescreen"
+            android:name=".Homescreen"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
@@ -81,7 +81,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name="WF_details"
+            android:name=".WeatherForecastActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity

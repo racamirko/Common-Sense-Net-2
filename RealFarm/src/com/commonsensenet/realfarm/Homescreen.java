@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm.homescreen;
+package com.commonsensenet.realfarm;
 
 import java.util.Iterator;
 import java.util.Random;
@@ -28,17 +28,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
-import com.commonsensenet.realfarm.Addplot_sm;
-import com.commonsensenet.realfarm.ChoosePlotActivity;
-import com.commonsensenet.realfarm.DiaryActivity;
-import com.commonsensenet.realfarm.Global;
-import com.commonsensenet.realfarm.HelpEnabledActivity;
-import com.commonsensenet.realfarm.Marketprice_details;
-import com.commonsensenet.realfarm.My_setting_plot_info;
-import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.VideoActivity;
-import com.commonsensenet.realfarm.WF_details;
-import com.commonsensenet.realfarm.yielddetails;
 import com.commonsensenet.realfarm.actions.action_fertilizing;
 import com.commonsensenet.realfarm.actions.action_harvest;
 import com.commonsensenet.realfarm.actions.action_irrigate;
@@ -55,6 +44,7 @@ import com.commonsensenet.realfarm.aggregates.sowing_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
+import com.commonsensenet.realfarm.homescreen.ReminderTask;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.utils.SoundQueue;
@@ -315,8 +305,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	@Override
 	public void onBackPressed() {
 
-		super.onBackPressed();
-
 		// Production code, commented out for quicker development
 		new AlertDialog.Builder(this)
 				.setIcon(android.R.drawable.ic_dialog_alert)
@@ -331,36 +319,16 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 								Homescreen.this.finish();
 							}
 						}).show();
+		super.onBackPressed();
 	}
 
 	public void onClick(View v) {
 		Log.i(LOG_TAG, "Button clicked!");
 		String txt = "";
 		Intent inte = null;
-
-		// final int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-		// Global.userId, 0).size();
-
-		/*
-		 * if (v.getId() == R.id.hmscrn_btn_notifs || v.getId() ==
-		 * R.id.hmscrn_btn_notifs) { Log.d(LOG_TAG,
-		 * "Starting notifications info"); inte = new Intent(this,
-		 * AggregateView.class); inte.putExtra("type", "actions");
-		 * this.startActivity(inte); return; }
-		 */
-		/*
-		 * if (v.getId() == R.id.hmscrn_btn_warnings || v.getId() ==
-		 * R.id.hmscrn_btn_warnings) { Log.d(LOG_TAG, "Starting Warnings info");
-		 * inte = new Intent(this, AggregateView.class); inte.putExtra("type",
-		 * "advice"); this.startActivity(inte); return; }
-		 */
-		if (v.getId() == R.id.hmscrn_btn_weather
-				|| v.getId() == R.id.hmscrn_btn_weather) {
-			System.out.println("WF details clicked");
-			inte = new Intent(this, WF_details.class);
-			// inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
+		
+		if (v.getId() == R.id.hmscrn_btn_weather) {
+			this.startActivity(new Intent(this, WeatherForecastActivity.class));
 			return;
 		}
 
@@ -837,9 +805,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 		// disables the back button since this is the home screen
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+		getSupportActionBar().setTitle("My name");
 
 		// sets the layout of the activity.
-		setContentView(R.layout.india_homescreen);
+		setContentView(R.layout.act_homescreen);
 
 		// sets the audio icon based on the audio preferences.
 		if (Global.enableAudio) {

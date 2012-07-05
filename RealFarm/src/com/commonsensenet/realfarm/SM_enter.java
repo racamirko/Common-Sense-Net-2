@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
-import com.commonsensenet.realfarm.homescreen.Homescreen;
 
 public class SM_enter extends HelpEnabledActivity {
 

@@ -215,14 +215,12 @@ public abstract class HelpEnabledActivity extends Activity implements
 		 * mp = MediaPlayer.create(this, R.raw.audio1); mp.start();
 		 */
 
-		if (v.getId() == R.id.hmscrn_btn_actions
-				|| v.getId() == R.id.home_btn_actions) { // Integration
+		if (v.getId() == R.id.hmscrn_btn_actions) { // Integration
 
 			playAudioalways(R.raw.audio1);
 
 		}
-		if (v.getId() == R.id.hmscrn_btn_advice
-				|| v.getId() == R.id.home_btn_advice) {
+		if (v.getId() == R.id.hmscrn_btn_advice) {
 
 			playAudioalways(R.raw.audio2);
 		}
