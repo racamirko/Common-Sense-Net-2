@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm.view;
 
-import android.content.Context;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -70,7 +69,7 @@ public class WeatherForecastItemWrapper {
 		return (mForecast);
 	}
 
-	public void populateFrom(WeatherForecast weatherForecast, Context context) {
+	public void populateFrom(WeatherForecast weatherForecast) {
 
 		String type = weatherForecast.getType();
 		int typeIconId = 0;
