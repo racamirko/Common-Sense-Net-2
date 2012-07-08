@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.dataaccess;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -997,10 +998,12 @@ public class RealFarmDatabase {
 		seedtypestage.clear();
 		Log.d(LOG_TAG, "seed type stages works");
 
-		// weather forecast
+		// inserts the current date in the database.
+		Date now = new Date();
+		SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
 
 		ContentValues wf = new ContentValues();
-		wf.put(COLUMN_NAME_WEATHERFORECAST_DATE, "22-05-2012");
+		wf.put(COLUMN_NAME_WEATHERFORECAST_DATE, df.format(now));
 		wf.put(COLUMN_NAME_WEATHERFORECAST_VALUE, 28);
 		wf.put(COLUMN_NAME_WEATHERFORECAST_TYPE, "Sunny");
 		wf.put(COLUMN_NAME_WEATHERFORECAST_DATE1, 1);

@@ -78,7 +78,14 @@ public class DateHelper {
 	public static String formatWithDay(String date) {
 
 		try {
-			return new SimpleDateFormat("EEEE").parse(date).toString();
+
+			// parses the giving date using the unified
+			// date format.
+			Date newDate = new SimpleDateFormat(RealFarmDatabase.DATE_FORMAT)
+					.parse(date);
+			// reformats the date only to extract the day of the week.
+			return new SimpleDateFormat("EEEE").format(newDate);
+
 		} catch (ParseException e) {
 			return date;
 		}

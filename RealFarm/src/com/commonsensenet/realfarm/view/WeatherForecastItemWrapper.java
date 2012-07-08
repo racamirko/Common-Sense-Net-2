@@ -84,7 +84,9 @@ public class WeatherForecastItemWrapper {
 		getTemperature().setText(
 				weatherForecast.getValue() + WeatherForecastActivity.CELSIUS);
 		getIcon().setImageResource(typeIconId);
-		getDay().setText(DateHelper.formatWithDay(weatherForecast.getDate()).toUpperCase());
+		getDay().setText(
+				DateHelper.formatWithDay(weatherForecast.getDate())
+						.toUpperCase());
 		getForecast().setText(type);
 	}
 }

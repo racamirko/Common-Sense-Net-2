@@ -13,7 +13,8 @@
         android:layout_alignParentTop="true"
         android:text="TUESDAY"
         android:textColor="@android:color/black"
-        android:textSize="@dimen/font_medium" />
+        android:textSize="@dimen/font_medium"
+        android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/icon_weather_forecast"
@@ -42,9 +43,9 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/label_weather_forecast_temperature"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-4dip"
+        android:layout_marginBottom="-2dip"
         android:text="Chance of rain"
         android:textColor="#D1D2D4"
-        android:textSize="@dimen/font_small" />
+        android:textSize="@dimen/font_weather_forecast" />
 
 </RelativeLayout>

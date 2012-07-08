@@ -732,9 +732,10 @@ containing a value of this type.
         public static final int font_large=0x7f09000d;
         public static final int font_medium=0x7f09000e;
         public static final int font_small=0x7f09000f;
+        public static final int font_weather_forecast=0x7f090010;
         public static final int font_xlarge=0x7f09000c;
-        public static final int icon_size=0x7f090011;
-        public static final int margin=0x7f090010;
+        public static final int icon_size=0x7f090012;
+        public static final int margin=0x7f090011;
     }
     public static final class drawable {
         public static final int abs__ab_bottom_solid_dark_holo=0x7f020000;
