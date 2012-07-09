@@ -12,10 +12,8 @@ import android.content.Intent;
 import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnTouchListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -55,8 +53,7 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
  * @author Oscar Bolaños <@oscarbolanos>
  * 
  */
-public class Homescreen extends HelpEnabledActivity implements OnClickListener,
-		OnTouchListener {
+public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Tag used to log the App activity. */
 	public static String LOG_TAG = "Homescreen";
@@ -69,177 +66,59 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	/** Reference to the current activity. */
 	private final Homescreen mParentReference = this;
 
-	// TODO determine if this is used
-	public boolean onTouch(View v, MotionEvent event) {
-		// if (event.getAction() == MotionEvent.ACTION_UP && getHelpMode()) {
-		// Animation a = new AlphaAnimation(1.0f, 0.0f);
-		// a.setDuration(500);
-		// mHelpIcon.startAnimation(a);
-		// mHelpIcon.setVisibility(View.INVISIBLE);
-		// setHelpMode(false);
-		// return true;
-		// }
-		// // In case we weren't in the help mode let the rest of the stack
-		// process
-		// // the event
-		return false;
-	}
-
 	private void initActionListener() {
-		/** Capturing of all the buttons on the Homescreen */
 
-		/*
-		 * ((Button)
-		 * findViewById(R.id.hmscrn_btn_notifs)).setOnClickListener(this);
-		 * ((Button) findViewById(R.id.hmscrn_btn_notifs))
-		 * .setOnLongClickListener(this); ((Button)
-		 * findViewById(R.id.hmscrn_btn_notifs)).setOnTouchListener(this);
-		 */
-		/*
-		 * ((Button)
-		 * findViewById(R.id.hmscrn_btn_warnings)).setOnClickListener(this);
-		 * ((Button) findViewById(R.id.hmscrn_btn_warnings))
-		 * .setOnLongClickListener(this); ((Button)
-		 * findViewById(R.id.hmscrn_btn_warnings)).setOnTouchListener(this);
-		 */
-		((Button) findViewById(R.id.hmscrn_btn_weather))
-				.setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_weather))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_weather))
-				.setOnTouchListener(this);
+		// sets up the listeners in the home screen.
+		findViewById(R.id.hmscrn_btn_weather).setOnClickListener(this);
+		findViewById(R.id.hmscrn_btn_weather).setOnLongClickListener(this);
 
-		((Button) findViewById(R.id.hmscrn_btn_advice))
-				.setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_advice))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_advice))
-				.setOnTouchListener(this);
+		findViewById(R.id.hmscrn_btn_advice).setOnClickListener(this);
+		findViewById(R.id.hmscrn_btn_advice).setOnLongClickListener(this);
 
-		((Button) findViewById(R.id.hmscrn_btn_video)).setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_video))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_video)).setOnTouchListener(this);
+		findViewById(R.id.hmscrn_btn_video).setOnClickListener(this);
+		findViewById(R.id.hmscrn_btn_video).setOnLongClickListener(this);
 
-		((Button) findViewById(R.id.hmscrn_btn_yield)).setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_yield))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_yield)).setOnTouchListener(this);
+		findViewById(R.id.hmscrn_btn_yield).setOnClickListener(this);
+		findViewById(R.id.hmscrn_btn_yield).setOnLongClickListener(this);
 
-		((Button) findViewById(R.id.hmscrn_btn_market))
-				.setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_market))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_market))
-				.setOnTouchListener(this);
+		findViewById(R.id.hmscrn_btn_market).setOnClickListener(this);
+		findViewById(R.id.hmscrn_btn_market).setOnLongClickListener(this);
 
-		((Button) findViewById(R.id.hmscrn_btn_actions))
-				.setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_actions))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_actions))
-				.setOnTouchListener(this);
+		findViewById(R.id.hmscrn_btn_actions).setOnClickListener(this);
+		findViewById(R.id.hmscrn_btn_actions).setOnLongClickListener(this);
 
-		((Button) findViewById(R.id.hmscrn_btn_diary)).setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_diary))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_diary)).setOnTouchListener(this);
+		findViewById(R.id.hmscrn_lay_btn_diary).setOnClickListener(this);
+		findViewById(R.id.hmscrn_lay_btn_diary).setOnLongClickListener(this);
 
-		((Button) findViewById(R.id.hmscrn_btn_plots)).setOnClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_plots))
-				.setOnLongClickListener(this);
-		((Button) findViewById(R.id.hmscrn_btn_plots)).setOnTouchListener(this);
+		findViewById(R.id.hmscrn_lay_btn_plots).setOnClickListener(this);
+		findViewById(R.id.hmscrn_lay_btn_plots).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.hmscrn_btn_sound))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.hmscrn_btn_sound))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.hmscrn_btn_sound))
-				.setOnTouchListener(this);
+		findViewById(R.id.hmscrn_btn_sound).setOnClickListener(this);
+		findViewById(R.id.hmscrn_btn_sound).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.hmscrn_usr_icon))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.hmscrn_usr_icon))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.hmscrn_usr_icon))
-				.setOnTouchListener(this);
+		findViewById(R.id.hmscrn_usr_icon).setOnClickListener(this);
+		findViewById(R.id.hmscrn_usr_icon).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_sowing))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_sowing))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_sowing))
-				.setOnTouchListener(this);
+		findViewById(R.id.btn_action_sow).setOnClickListener(this);
+		findViewById(R.id.btn_action_sow).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_fertilize))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_fertilize))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_fertilize))
-				.setOnTouchListener(this);
+		findViewById(R.id.btn_action_fertilize).setOnClickListener(this);
+		findViewById(R.id.btn_action_fertilize).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_irrigate))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_irrigate))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_irrigate))
-				.setOnTouchListener(this);
+		findViewById(R.id.btn_action_irrigate).setOnClickListener(this);
+		findViewById(R.id.btn_action_irrigate).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_problem))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_problem))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_problem))
-				.setOnTouchListener(this);
+		findViewById(R.id.btn_action_report).setOnClickListener(this);
+		findViewById(R.id.btn_action_report).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_spray))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_spray))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_spray))
-				.setOnTouchListener(this);
+		findViewById(R.id.btn_action_spray).setOnClickListener(this);
+		findViewById(R.id.btn_action_spray).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_harvesting))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_harvesting))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_harvesting))
-				.setOnTouchListener(this);
+		findViewById(R.id.btn_action_harvest).setOnClickListener(this);
+		findViewById(R.id.btn_action_harvest).setOnLongClickListener(this);
 
-		((ImageButton) findViewById(R.id.btn_action_selling))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_selling))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.btn_action_selling))
-				.setOnTouchListener(this);
-
-		((ImageButton) findViewById(R.id.hmscrn_imgbtn_notifs))
-				.setOnClickListener(this);
-		((ImageButton) findViewById(R.id.hmscrn_imgbtn_notifs))
-				.setOnLongClickListener(this);
-		((ImageButton) findViewById(R.id.hmscrn_imgbtn_notifs))
-				.setOnTouchListener(this);
-
-		/*
-		 * ((Button) findViewById(R.id.home_btn_PlotInfo))
-		 * .setOnClickListener(this); ((Button)
-		 * findViewById(R.id.home_btn_PlotInfo)) .setOnLongClickListener(this);
-		 * ((Button) findViewById(R.id.home_btn_PlotInfo))
-		 * .setOnTouchListener(this);
-		 * 
-		 * ((ImageButton) findViewById(R.id.btn_action_videos))
-		 * .setOnClickListener(this); ((ImageButton)
-		 * findViewById(R.id.btn_action_videos)) .setOnLongClickListener(this);
-		 * ((ImageButton) findViewById(R.id.btn_action_videos))
-		 * .setOnTouchListener(this);
-		 * 
-		 * ((ImageButton) findViewById(R.id.btn_action_selling))
-		 * .setOnClickListener(this); ((ImageButton)
-		 * findViewById(R.id.btn_action_selling)) .setOnLongClickListener(this);
-		 * ((ImageButton) findViewById(R.id.btn_action_selling))
-		 * .setOnTouchListener(this);
-		 */
-
+		findViewById(R.id.btn_action_sell).setOnClickListener(this);
+		findViewById(R.id.btn_action_sell).setOnLongClickListener(this);
 	}
 
 	public void initAudio() {
@@ -273,7 +152,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 		// show it
 		alertDialog.show();
-
 	}
 
 	protected void initDb() {
@@ -289,22 +167,27 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 	protected void initTiles() {
 		Log.i(LOG_TAG, "Initializing tiles");
-		LinearLayout layAdvice = (LinearLayout) findViewById(R.id.home_lay_advice);
-		LinearLayout layActions = (LinearLayout) findViewById(R.id.home_lay_actions);
-		LinearLayout layWarn = (LinearLayout) findViewById(R.id.home_lay_warn);
-		LinearLayout layYield = (LinearLayout) findViewById(R.id.home_lay_yield);
-		LinearLayout layWf = (LinearLayout) findViewById(R.id.home_lay_wf);
-
-		populateTiles(layAdvice);
-		populateTiles(layActions);
-		populateTiles(layWarn);
-		populateTiles(layYield);
-		populateTiles(layWf);
+		// LinearLayout layAdvice = (LinearLayout)
+		// findViewById(R.id.home_lay_advice);
+		// LinearLayout layActions = (LinearLayout)
+		// findViewById(R.id.home_lay_actions);
+		// LinearLayout layWarn = (LinearLayout)
+		// findViewById(R.id.home_lay_warn);
+		// LinearLayout layYield = (LinearLayout)
+		// findViewById(R.id.home_lay_yield);
+		// LinearLayout layWf = (LinearLayout) findViewById(R.id.home_lay_wf);
+		//
+		// populateTiles(layAdvice);
+		// populateTiles(layActions);
+		// populateTiles(layWarn);
+		// populateTiles(layYield);
+		// populateTiles(layWf);
 	}
 
 	@Override
 	public void onBackPressed() {
 
+		this.stopAudio();
 		// Production code, commented out for quicker development
 		new AlertDialog.Builder(this)
 				.setIcon(android.R.drawable.ic_dialog_alert)
@@ -319,7 +202,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 								Homescreen.this.finish();
 							}
 						}).show();
-		super.onBackPressed();
+
+		// super.onBackPressed();
 	}
 
 	public void onClick(View v) {
@@ -458,38 +342,24 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 			((Button) dlg.findViewById(R.id.btn_action_sowing))
 					.setOnLongClickListener(mParentReference);
-			((Button) dlg.findViewById(R.id.btn_action_sowing))
-					.setOnTouchListener(mParentReference);
 
 			((Button) dlg.findViewById(R.id.btn_action_fertilize))
 					.setOnLongClickListener(mParentReference);
-			((Button) dlg.findViewById(R.id.btn_action_fertilize))
-					.setOnTouchListener(mParentReference);
 
 			((Button) dlg.findViewById(R.id.btn_action_spray))
 					.setOnLongClickListener(mParentReference);
-			((Button) dlg.findViewById(R.id.btn_action_spray))
-					.setOnTouchListener(mParentReference);
 
 			((Button) dlg.findViewById(R.id.btn_action_problem))
 					.setOnLongClickListener(mParentReference);
-			((Button) dlg.findViewById(R.id.btn_action_problem))
-					.setOnTouchListener(mParentReference);
 
 			((Button) dlg.findViewById(R.id.btn_action_irrigate))
 					.setOnLongClickListener(mParentReference);
-			((Button) dlg.findViewById(R.id.btn_action_irrigate))
-					.setOnTouchListener(mParentReference);
 
 			((Button) dlg.findViewById(R.id.btn_action_harvesting))
 					.setOnLongClickListener(mParentReference);
-			((Button) dlg.findViewById(R.id.btn_action_harvesting))
-					.setOnTouchListener(mParentReference);
 
 			((Button) dlg.findViewById(R.id.btn_action_selling))
 					.setOnLongClickListener(mParentReference);
-			((Button) dlg.findViewById(R.id.btn_action_selling))
-					.setOnTouchListener(mParentReference);
 
 			// setHelpIcon(dlg.findViewById(R.id.dlg_help_indicator));
 
@@ -556,34 +426,31 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_diary) {
+		if (v.getId() == R.id.hmscrn_lay_btn_diary) {
 			startActivity(new Intent(this, DiaryActivity.class));
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_plots) {
-			System.out.println("My settings clicked");
-
-			System.out.println("Displaying plot information list");
-			// TODO: why you are not saving the result?
-			mDataProvider.getPlots();
-			inte = new Intent(this, Addplot_sm.class);
-			this.startActivity(inte);
-			this.finish();
+		if (v.getId() == R.id.hmscrn_lay_btn_plots) {
+			this.startActivity(new Intent(this, Addplot_sm.class));
+			return;
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_sound) {
-			System.out.println("My settings clicked");
 
 			if (!Global.enableAudio) {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.ic_71px_sound_on);
+				// enables the sound.
+				Global.enableAudio = true;
 			} else {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.soundoff);
+				// disables the audio.
+				Global.enableAudio = false;
 			}
-			// initAudio();
 
+			return;
 		}
 
 		// help

@@ -15,7 +15,7 @@
 
 	Pressed
 	<item android:state_pressed="true" android:drawable="@drawable/circular_btn_pressed" />
-</selector>
+</selector>
 -->
 
 <selector xmlns:android="http://schemas.android.com/apk/res/android" android:dither="true">

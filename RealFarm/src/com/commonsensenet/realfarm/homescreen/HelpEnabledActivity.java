@@ -269,10 +269,6 @@ public abstract class HelpEnabledActivity extends Activity implements
 			playAudioalways(R.raw.spraying);
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_plots) {
-			playAudioalways(R.raw.mysettings);
-		}
-
 		if (v.getId() == R.id.btn_action_irrigate) {
 			playAudioalways(R.raw.irrigate);
 		}
@@ -288,13 +284,13 @@ public abstract class HelpEnabledActivity extends Activity implements
 			playAudioalways(R.raw.problems);
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_diary) { // changes
-			playAudioalways(R.raw.dairy);
-		}
+		// if (v.getId() == R.id.hmscrn_btn_diary) { // changes
+		// playAudioalways(R.raw.dairy);
+		// }
 
-		if (v.getId() == R.id.hmscrn_imgbtn_notifs) { // changes
-			playAudioalways(R.raw.dairy);
-		}
+		// if (v.getId() == R.id.hmscrn_imgbtn_notifs) { // changes
+		// playAudioalways(R.raw.dairy);
+		// }
 
 		// TODO: make a table mapping IDs to sound files
 	}

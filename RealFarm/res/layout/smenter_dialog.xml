@@ -50,7 +50,7 @@
             android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="@drawable/help"
+            android:background="@drawable/ic_54px_help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
 
@@ -135,7 +135,7 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_margin="5dp"
-            android:src="@drawable/help" />
+            android:src="@drawable/ic_54px_help" />
     </LinearLayout>
 
 </LinearLayout>

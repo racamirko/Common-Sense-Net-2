@@ -12,7 +12,7 @@
         android:layout_marginRight="@dimen/margin"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
-        android:src="@drawable/farm_bg_sized" />
+        android:src="@drawable/pic_72px_bajra" />
 
     <ImageView
         android:id="@+id/icon_plot_crop"
