@@ -17,7 +17,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.Seed;
+import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.aggregate.AggregateRecommendation;
 import com.commonsensenet.realfarm.utils.SoundQueue;
@@ -98,7 +98,7 @@ public class VIAggrRecommendation extends VisualItemBase {
 				int resID = dlg
 						.getContext()
 						.getResources()
-						.getIdentifier(usr.getUserImgName(), "drawable",
+						.getIdentifier(usr.getImage(), "drawable",
 								"com.commonsensenet.realfarm");
 				imgFarmer.setImageResource(resID);
 				lblName.setText(usr.getFirstName() + " " + usr.getLastName());
@@ -171,7 +171,7 @@ public class VIAggrRecommendation extends VisualItemBase {
 				.findViewById(R.id.aggr_item_btn_like);
 		Button btnMain = (Button) element.findViewById(R.id.btn_main_click);
 
-		Seed seed = dataProvider.getSeedById(aggrRec.getSeed());
+		SeedType seed = dataProvider.getSeedById(aggrRec.getSeed());
 
 		lblCountPeople.setText(String.valueOf(aggrRec.getUserIds().size())
 				+ "  ");

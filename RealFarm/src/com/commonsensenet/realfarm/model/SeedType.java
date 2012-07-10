@@ -1,9 +1,8 @@
 package com.commonsensenet.realfarm.model;
 
-public class Seed {
+public class SeedType {
 
 	private int mAudioRes;
-	private int mDaysToHarvest;
 	private int mId;
 	private String mName;
 	private String mNameKannada;
@@ -11,29 +10,21 @@ public class Seed {
 	private int mResBg;
 	private String mVariety;
 	private String mVarietyKannada;
-	private int mAdmin;
 
-	public Seed(int id, String name, String nameKannada, int res, int audioRes,
-			int daysToHarvest, String variety, String varietyKannada,
-			int resBg, int admin) { // admin added
+	public SeedType(int id, String name, String nameKannada, int res,
+			int audioRes, String variety, String varietyKannada, int resBg) {
 		mId = id;
 		mName = name;
 		mNameKannada = nameKannada;
 		mRes = res;
 		mAudioRes = audioRes;
-		mDaysToHarvest = daysToHarvest;
 		mVariety = variety;
 		mVarietyKannada = varietyKannada;
 		mResBg = resBg;
-		mAdmin = admin;
 	}
 
 	public int getAudioRes() {
 		return mAudioRes;
-	}
-
-	public int getDaysToHarvest() {
-		return mDaysToHarvest;
 	}
 
 	public String getFullName() {
@@ -82,7 +73,4 @@ public class Seed {
 		this.mResBg = mResBg;
 	}
 
-	public int setAdmin(int admin) {
-		return mAdmin;
-	}
 }

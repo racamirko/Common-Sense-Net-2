@@ -16,7 +16,7 @@ import android.widget.Toast;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Recommendation;
-import com.commonsensenet.realfarm.model.Seed;
+import com.commonsensenet.realfarm.model.SeedType;
 
 public class VIRecommendation extends VisualItemBase {
 	private static final int layoutTag = 1;
@@ -120,7 +120,7 @@ public class VIRecommendation extends VisualItemBase {
 				.findViewById(R.id.aggr_item_btn_like);
 		Button btnMain = (Button) element.findViewById(R.id.btn_main_click);
 
-		Seed seed = dataProvider.getSeedById(recommendation.getSeed());
+		SeedType seed = dataProvider.getSeedById(recommendation.getSeed());
 
 		lblDesc.setText(dataProvider.getActionNameById(
 				recommendation.getAction()).getName());

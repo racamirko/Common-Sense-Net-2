@@ -2,24 +2,24 @@ package com.commonsensenet.realfarm.model;
 
 public class WeatherForecast {
 
-	private int mAdminFlag;
 	/** String that represents a parseable Date of the forecast. */
 	private String mDate;
 	/** Temperature in Celcius. */
 	private int mTemperature;
 	/** Type of weather. It can be Sunny, Cloudy, etc. */
 	private String mType;
+	/** Identifier of the Weather forecast. */
+	private int mId;
 
-	public WeatherForecast(String date, int temperature, String type,
-			int adminflag) {
+	public WeatherForecast(int id, String date, int temperature, String type) {
+		mId = id;
 		mDate = date;
 		mTemperature = temperature;
 		mType = type;
-		mAdminFlag = adminflag;
 	}
 
-	public int getAdminFlag() {
-		return mAdminFlag;
+	public int getId() {
+		return mId;
 	}
 
 	public String getDate() {

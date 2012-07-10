@@ -363,7 +363,7 @@ public class Settings extends Activity {
 		container2.addView(tvHeader);
 
 		userId = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
-				.getUserId();
+				.getId();
 
 		// get plot list from db
 		List<Plot> poly = mDataProvider.getPlotsByUserId(userId);

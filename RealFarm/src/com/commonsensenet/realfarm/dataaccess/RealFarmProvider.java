@@ -25,7 +25,7 @@ import com.commonsensenet.realfarm.model.Irrigation;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Problem;
-import com.commonsensenet.realfarm.model.Seed;
+import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.Selling;
 import com.commonsensenet.realfarm.model.Sowing;
 import com.commonsensenet.realfarm.model.Spraying;
@@ -44,6 +44,7 @@ public class RealFarmProvider {
 	/** Name of the folder where the log is located. */
 	public static final String LOG_FOLDER = "/csn_app_logs";
 	private static Map<Context, RealFarmProvider> sMapProviders = new HashMap<Context, RealFarmProvider>();
+	/** Listener used to detect changes in the weather forecast. */
 	private static OnDataChangeListener sWeatherForecastDataListener;
 
 	public static RealFarmProvider getInstance(Context ctx) {
@@ -56,7 +57,7 @@ public class RealFarmProvider {
 	/** Cached ActionNames to improve performance. */
 	private List<ActionName> mAllActionNames;
 	/** Cached seeds to improve performance. */
-	private List<Seed> mAllSeeds;
+	private List<SeedType> mAllSeeds;
 	private Calendar mCalendar = Calendar.getInstance();
 	/** Real farm database access. */
 	private RealFarmDatabase mDatabase;
@@ -147,8 +148,7 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
 								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME_KANNADA,
 								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
-								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO,
-								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ADMINFLAG },
+								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
 						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "="
 								+ actionNameId, null, null, null, null);
 
@@ -156,7 +156,7 @@ public class RealFarmProvider {
 			c0.moveToFirst();
 
 			tmpAction = new ActionName(actionNameId, c0.getString(0),
-					c0.getString(1), c0.getInt(2), c0.getInt(3), c0.getInt(4));
+					c0.getString(1), c0.getInt(2), c0.getInt(3));
 		}
 		c0.close();
 		mDatabase.close();
@@ -179,8 +179,7 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME,
 									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_NAME_KANNADA,
 									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
-									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO,
-									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ADMINFLAG },
+									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
 							null, null, null, null, null);
 			c.moveToFirst();
 
@@ -190,7 +189,7 @@ public class RealFarmProvider {
 				do {
 					mAllActionNames.add(new ActionName(c.getInt(0), c
 							.getString(1), c.getString(2), c.getInt(3), c
-							.getInt(4), c.getInt(5)));
+							.getInt(4)));
 
 					String log = "ACTIONNAME_ID: " + c.getInt(0) + " ,NAME "
 							+ c.getString(1) + " ,NAME_KANNADA: "
@@ -1147,28 +1146,26 @@ public class RealFarmProvider {
 		return c;
 	}
 
-	public Seed getSeedById(int seedId) {
+	public SeedType getSeedById(int seedId) {
 
-		Seed res = null;
+		SeedType res = null;
 		mDatabase.open();
 		Cursor c0 = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
 				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ADMINFLAG },
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG },
 				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
 				null, null, null);
 
 		if (c0.getCount() > 0) {
 			c0.moveToFirst();
-			res = new Seed(seedId, c0.getString(0), c0.getString(1),
-					c0.getInt(2), c0.getInt(3), c0.getInt(4), c0.getString(5),
-					c0.getString(6), c0.getInt(7), c0.getInt(8)); // modified
+			res = new SeedType(seedId, c0.getString(0), c0.getString(1),
+					c0.getInt(2), c0.getInt(3), c0.getString(4),
+					c0.getString(5), c0.getInt(6));
 		}
 		c0.close();
 		mDatabase.close();
@@ -1176,12 +1173,12 @@ public class RealFarmProvider {
 
 	}
 
-	public List<Seed> getSeeds() { // modified
+	public List<SeedType> getSeeds() {
 
 		// seeds are not in cache
 		if (mAllSeeds == null) {
 
-			mAllSeeds = new ArrayList<Seed>();
+			mAllSeeds = new ArrayList<SeedType>();
 			mDatabase.open();
 
 			Cursor c0 = mDatabase
@@ -1193,19 +1190,16 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
-									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
-									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ADMINFLAG });
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG });
 
 			if (c0.getCount() > 0) {
 				c0.moveToFirst();
 				do {
-					Seed s = new Seed(c0.getInt(0), c0.getString(1),
+					SeedType s = new SeedType(c0.getInt(0), c0.getString(1),
 							c0.getString(2), c0.getInt(3), c0.getInt(4),
-							c0.getInt(5), c0.getString(6), c0.getString(7),
-							c0.getInt(8), c0.getInt(9));
+							c0.getString(5), c0.getString(6), c0.getInt(7));
 					mAllSeeds.add(s);
 
 					String log = "id: " + c0.getInt(0) + " ,name: "
@@ -1433,8 +1427,7 @@ public class RealFarmProvider {
 		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_UNIT,
 				new String[] { RealFarmDatabase.COLUMN_NAME_UNIT_ID,
 						RealFarmDatabase.COLUMN_NAME_UNIT_NAME,
-						RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_UNIT_ADMINFLAG });
+						RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO });
 
 		// user exists in database
 		if (c.getCount() > 0) {
@@ -1444,7 +1437,7 @@ public class RealFarmProvider {
 
 				String log = "UNIT_ID: " + c.getInt(0) + " ,UNIT_NAME: "
 						+ c.getString(1) + " ,UNIT_AUDIO: " + c.getInt(2)
-						+ " ,UNIT_ADMIN FLAG: " + c.getInt(3) + "\r\n";
+						+ "\r\n";
 
 				Log.d("Unit: ", log);
 
@@ -1470,7 +1463,7 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMG,
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
 						RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG,
 						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG },
 				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId, null,
@@ -1511,7 +1504,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_ID,
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_IMG,
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
 						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG },
 
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
@@ -1561,7 +1554,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMG,
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
 						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG },
 				RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG + "=" + delete,
 				null, null, null, null);
@@ -1608,7 +1601,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMG,
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
 						RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG,
 						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG }, null,
 				null, null, null, null);
@@ -1654,8 +1647,7 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE,
-								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ADMINFLAG },
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE },
 						null, null, null, null, null);
 		c.moveToFirst();
 
@@ -1663,8 +1655,8 @@ public class RealFarmProvider {
 
 		if (c.getCount() > 0) {
 			do {
-				tmpList.add(new WeatherForecast(c.getString(1), c.getInt(2), c
-						.getString(3), c.getInt(4)));
+				tmpList.add(new WeatherForecast(c.getInt(0), c.getString(1), c
+						.getInt(2), c.getString(3)));
 
 				String log = "WF_ID: " + c.getInt(0) + " , WF_date "
 						+ c.getString(1) + " , WF_temperature: " + c.getInt(2)
@@ -2203,8 +2195,6 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
 				WF_Value);
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE, WF_Type);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ADMINFLAG,
-				WF_adminflag);
 		mDatabase.open();
 
 		long result = mDatabase.insertEntries(

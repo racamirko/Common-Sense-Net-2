@@ -1,9 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.util.Iterator;
-import java.util.Random;
-import java.util.Vector;
-
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -20,7 +16,6 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -40,10 +35,8 @@ import com.commonsensenet.realfarm.aggregates.selling_aggregate;
 import com.commonsensenet.realfarm.aggregates.sowing_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.ReminderTask;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
-import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
@@ -659,9 +652,17 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// gets the current user object.
 		User user = mDataProvider.getUserById(Global.userId);
+
+		// sets the name of the user.
 		getSupportActionBar().setTitle(
 				user.getFirstName() + ' ' + user.getLastName());
 		getSupportActionBar().setSubtitle("CK Pura");
+
+		// gets the image from the resources.
+		int resID = this.getResources().getIdentifier(user.getImage(),
+				"drawable", "com.commonsensenet.realfarm");
+		((ImageView) findViewById(R.id.hmscrn_usr_icon))
+				.setImageResource(resID);
 
 		Log.i(LOG_TAG, "scheduler activated");
 		SchedulerManager.getInstance().saveTask(this.getApplicationContext(),
@@ -695,30 +696,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	// // default:
 	// return super.onOptionsItemSelected(item);
 	// }
-
-	protected void populateTiles(LinearLayout layout) {
-		Vector<Recommendation> info = new Vector<Recommendation>();
-
-		/* dummy implementation */
-		DummyHomescreenData dummyData = new DummyHomescreenData(this, this, 5);
-		Random rn = new Random();
-		dummyData.generateDummyItems(rn.nextInt(5), info);
-		RealFarmProvider dataProv = dummyData.getDataProvider();
-		/* end dummy impl */
-
-		Iterator<Recommendation> iter = info.iterator();
-		while (iter.hasNext()) {
-			Recommendation tmpRec = iter.next();
-			ImageView tmpView = new ImageView(this);
-			tmpView.setImageResource(dataProv.getActionNameById(
-					tmpRec.getAction()).getRes());
-			tmpView.setBackgroundResource(R.drawable.circular_icon_bg);
-			layout.addView(tmpView);
-			tmpView.getLayoutParams().height = 45;
-			tmpView.getLayoutParams().width = 45;
-		}
-		info.clear();
-	}
 
 	protected void selectlang() {
 		Log.d("in Lang selection", "in dialog");

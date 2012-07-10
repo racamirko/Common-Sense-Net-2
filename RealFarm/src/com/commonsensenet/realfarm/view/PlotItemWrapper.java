@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
-import com.commonsensenet.realfarm.model.Seed;
+import com.commonsensenet.realfarm.model.SeedType;
 
 /**
  * Class that wraps up the contents of a Plot, which is presented on a list
@@ -73,7 +73,7 @@ public class PlotItemWrapper {
 	public void populateFrom(Plot plot, RealFarmProvider provider) {
 
 		// TODO: this shouldn't be done here due to performance issues!!!
-		Seed seed = provider.getSeedById(plot.getSeedTypeId());
+		SeedType seed = provider.getSeedById(plot.getSeedTypeId());
 
 		System.out.print("Plot image name" + plot.getImageName());
 

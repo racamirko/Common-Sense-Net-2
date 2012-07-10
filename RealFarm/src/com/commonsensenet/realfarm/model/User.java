@@ -9,21 +9,21 @@ public class User {
 	/** First name of the User. */
 	protected String mFirstName;
 	/** Image file of the user. */
-	protected String mImgName;
+	protected String mImage;
 	/** Last name of the User. */
 	protected String mLastName;
 	/** Mobile Number of the user. */
 	protected String mMobileNumber;
 	/** Unique identifier. */
-	protected int mUserId;
+	protected int mId;
 
 	public User(int userId, String firstName, String lastName,
-			String mobileNumber, String imgName, int delete, int admin) {
-		mUserId = userId;
+			String mobileNumber, String image, int delete, int admin) {
+		mId = userId;
 		mFirstName = firstName;
 		mLastName = lastName;
 		mMobileNumber = mobileNumber;
-		mImgName = imgName;
+		mImage = image;
 		mDelete = delete;
 		mAdmin = admin;
 	}
@@ -40,6 +40,10 @@ public class User {
 		return mFirstName;
 	}
 
+	public String getImage() {
+		return mImage;
+	}
+
 	public String getLastName() {
 		return mLastName;
 	}
@@ -48,12 +52,8 @@ public class User {
 		return mMobileNumber;
 	}
 
-	public int getUserId() {
-		return mUserId;
-	}
-
-	public String getUserImgName() {
-		return mImgName;
+	public int getId() {
+		return mId;
 	}
 
 }

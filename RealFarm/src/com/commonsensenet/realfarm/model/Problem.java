@@ -1,10 +1,9 @@
-
 package com.commonsensenet.realfarm.model;
 
 public class Problem {
 
 	private int mactionid;
-	
+
 	private String mactionType;
 	private String mday;
 	private int muserid;
@@ -14,22 +13,20 @@ public class Problem {
 	private int mIsadmin;
 	private String mActionPerformedDate;
 
-	
-
-	public Problem(int actionid, String actionType,String day, int userid,
-			int plotid, String probType, int send, int Isadmin, String ActionPerformedDate) {  //Quantity1 mapped to no of hours
+	public Problem(int actionid, String actionType, String day, int userid,
+			int plotid, String probType, int send, int Isadmin,
+			String ActionPerformedDate) { // Quantity1 mapped to no of hours
 
 		mactionid = actionid;
-		
+
 		mactionType = actionType;
-	    mday = day;
+		mday = day;
 		muserid = userid;
 		mplotid = plotid;
 		mProbType = probType;
 		msend = send;
 		mIsadmin = Isadmin;
 		mActionPerformedDate = ActionPerformedDate;
-		
 
 	}
 
@@ -41,7 +38,6 @@ public class Problem {
 		return mactionType;
 	}
 
-	
 	public String getday() {
 		return mday;
 	}
@@ -53,6 +49,7 @@ public class Problem {
 	public int getplotid() {
 		return mplotid;
 	}
+
 	public String getProbType() {
 		return mProbType;
 	}
@@ -65,10 +62,8 @@ public class Problem {
 		return mIsadmin;
 	}
 
-		
 	public String getactionPerfDate() {
 		return mActionPerformedDate;
 	}
-	
 
 }

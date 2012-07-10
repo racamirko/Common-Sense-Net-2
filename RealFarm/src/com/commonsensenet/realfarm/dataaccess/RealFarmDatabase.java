@@ -20,7 +20,6 @@ import com.commonsensenet.realfarm.R;
  * @author Julien Freudiger
  * @author Hendrik Knoche
  * @author Oscar Bolanos <@oscarbolanos>
- * @author Mirko Raca <mirko.raca@epfl.ch>
  * 
  */
 public class RealFarmDatabase {
@@ -88,8 +87,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTIONNAME_RESOURCE + " integer, "
 					+ COLUMN_NAME_ACTIONNAME_AUDIO + " integer, "
 					+ COLUMN_NAME_ACTIONNAME_NAME + " text not null, "
-					+ COLUMN_NAME_ACTIONNAME_NAME_KANNADA + " text not null, "
-					+ COLUMN_NAME_ACTIONNAME_ADMINFLAG + " boolean " + " ); ");
+					+ COLUMN_NAME_ACTIONNAME_NAME_KANNADA + " text not null "
+					+ " ); ");
 			Log.d(LOG_TAG, "Created actionName table");
 
 			// fertilizers
@@ -104,7 +103,6 @@ public class RealFarmDatabase {
 			Log.d(LOG_TAG, "Created fertilizer table");
 
 			// pesticides
-
 			db.execSQL("create table " + TABLE_NAME_PESTICIDE + " ( "
 					+ COLUMN_NAME_PESTICIDE_ID + " integer primary key, "
 					+ COLUMN_NAME_PESTICIDE_NAME + " text, "
@@ -113,7 +111,6 @@ public class RealFarmDatabase {
 			Log.d(LOG_TAG, "Created pesticide table");
 
 			// plots
-			// plots
 			db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
 					+ COLUMN_NAME_PLOT_ID
 					+ " integer primary key autoincrement, "
@@ -121,13 +118,14 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_PLOT_PLOT_SEEDTYPEID + " integer, "
 					+ COLUMN_NAME_PLOT_CENTERX + " integer, "
 					+ COLUMN_NAME_PLOT_CENTERY + " integer, "
+					+ COLUMN_NAME_PLOT_DATE + " date, "
 					+ COLUMN_NAME_PLOT_IMAGENAME + " text, "
 					+ COLUMN_NAME_PLOT_SOILTYPE + " text, "
 					+ COLUMN_NAME_PLOT_DELETEFLAG + " int, "
 					+ COLUMN_NAME_PLOT_ADMINFLAG + " int " + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
 
-			// problemtype
+			// problem type
 			db.execSQL("create table " + TABLE_NAME_PROBLEMTYPE + " ( "
 					+ COLUMN_NAME_PROBLEMTYPE_ID + " integer primary key, "
 					+ COLUMN_NAME_PROBLEMTYPE_NAME + " text, "
@@ -155,10 +153,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE_BG + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_AUDIO + " integer, "
-					+ COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETY + " text, "
-					+ COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text, "
-					+ COLUMN_NAME_SEEDTYPE_ADMINFLAG + " boolean " + " ); ");
+					+ COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text" + " ); ");
 			Log.d(LOG_TAG, "Created seed type table");
 
 			// users
@@ -168,7 +164,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, "
 					+ COLUMN_NAME_USER_LASTNAME + " text, "
 					+ COLUMN_NAME_USER_MOBILE + " text, "
-					+ COLUMN_NAME_USER_IMG + " text, "
+					+ COLUMN_NAME_USER_IMAGE + " text, "
 					+ COLUMN_NAME_USER_DELETEFLAG + " boolean, "
 					+ COLUMN_NAME_USER_ADMINFLAG + " boolean " + " ); ");
 			Log.d(LOG_TAG, "Created user table");
@@ -177,8 +173,7 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_UNIT + " ( "
 					+ COLUMN_NAME_UNIT_ID + " integer primary key, "
 					+ COLUMN_NAME_UNIT_NAME + " text not null, "
-					+ COLUMN_NAME_UNIT_AUDIO + " integer, "
-					+ COLUMN_NAME_UNIT_ADMINFLAG + " boolean " + " ); ");
+					+ COLUMN_NAME_UNIT_AUDIO + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created unit table");
 
 			// soil moisture
@@ -196,11 +191,9 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_WEATHERFORECAST + " ( "
 					+ COLUMN_NAME_WEATHERFORECAST_ID
 					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_WEATHERFORECAST_DATE + " text, "
+					+ COLUMN_NAME_WEATHERFORECAST_DATE + " date, "
 					+ COLUMN_NAME_WEATHERFORECAST_TEMPERATURE + " integer, "
-					+ COLUMN_NAME_WEATHERFORECAST_TYPE + " text, "
-					+ COLUMN_NAME_WEATHERFORECAST_ADMINFLAG + " boolean "
-					+ " ); ");
+					+ COLUMN_NAME_WEATHERFORECAST_TYPE + " text " + " ); ");
 			Log.d(LOG_TAG, "Created weather forecast table");
 
 			// Market price
@@ -255,7 +248,6 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME_KANNADA = "nameKannada";
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
-	public static final String COLUMN_NAME_ACTIONNAME_ADMINFLAG = "adminFlag";
 
 	public static final String COLUMN_NAME_FERTILIZER_AUDIO = "audio";
 	public static final String COLUMN_NAME_FERTILIZER_ID = "id";
@@ -276,9 +268,9 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_CENTERY = "centerY";
 	public static final String COLUMN_NAME_PLOT_IMAGENAME = "imageName";
 	public static final String COLUMN_NAME_PLOT_SOILTYPE = "soilType";
-	public static final String COLUMN_NAME_PLOT_MAINCROP = "mainCrop";
 	public static final String COLUMN_NAME_PLOT_DELETEFLAG = "deleteFlag";
 	public static final String COLUMN_NAME_PLOT_ADMINFLAG = "adminFlag";
+	public static final String COLUMN_NAME_PLOT_DATE = "date";
 
 	public static final String COLUMN_NAME_PROBLEM_AUDIO = "audio";
 	public static final String COLUMN_NAME_PROBLEM_ID = "id";
@@ -293,13 +285,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PROBLEMTYPE_RESOURCE = "res";
 	public static final String COLUMN_NAME_PROBLEMTYPE_ADMINFLAG = "adminFlag";
 
-	public static final String COLUMN_NAME_SEED_AUDIO = "seedAudio";
-	public static final String COLUMN_NAME_SEED_ID = "id";
-	public static final String COLUMN_NAME_SEED_SEEDID = "seedId";
-	public static final String COLUMN_NAME_SEED_ADMINFLAG = "adminFlag";
-
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
-	public static final String COLUMN_NAME_SEEDTYPE_DAYSTOHARVEST = "daysToHarvest";
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_NAMEKANNADA = "nameKannada";
@@ -307,18 +293,16 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE_BG = "resBg";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETYKANNADA = "varietyKannada";
-	public static final String COLUMN_NAME_SEEDTYPE_ADMINFLAG = "adminFlag";
 
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_NAME = "name";
-	public static final String COLUMN_NAME_UNIT_ADMINFLAG = "adminFlag";
 
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
 	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
-	public static final String COLUMN_NAME_USER_IMG = "img";
+	public static final String COLUMN_NAME_USER_IMAGE = "image";
 	public static final String COLUMN_NAME_USER_DELETEFLAG = "deleteFlag";
 	public static final String COLUMN_NAME_USER_ADMINFLAG = "adminFlag";
 
@@ -333,7 +317,6 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_WEATHERFORECAST_DATE = "date";
 	public static final String COLUMN_NAME_WEATHERFORECAST_TEMPERATURE = "temperature";
 	public static final String COLUMN_NAME_WEATHERFORECAST_TYPE = "type";
-	public static final String COLUMN_NAME_WEATHERFORECAST_ADMINFLAG = "adminFlag";
 
 	public static final String COLUMN_NAME_MARKETPRICE_ID = "id";
 	public static final String COLUMN_NAME_MARKETPRICE_DATE = "date";
@@ -501,7 +484,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "John");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Doe");
 		users.put(COLUMN_NAME_USER_MOBILE, mobileNumber);
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_kiran_kumar_g");
+		users.put(COLUMN_NAME_USER_IMAGE, "farmer_90px_kiran_kumar_g");
 		users.put(COLUMN_NAME_USER_DELETEFLAG, 0);
 		insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 		users.clear();
@@ -511,7 +494,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "Hendrik");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Knoche");
 		users.put(COLUMN_NAME_USER_MOBILE, "788844672");
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_adam_jones");
+		users.put(COLUMN_NAME_USER_IMAGE, "farmer_90px_adam_jones");
 		users.put(COLUMN_NAME_USER_DELETEFLAG, 0);
 		insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 		users.clear();
@@ -521,7 +504,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "Chris");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Bishop");
 		users.put(COLUMN_NAME_USER_MOBILE, "788244421");
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_neil_palmer");
+		users.put(COLUMN_NAME_USER_IMAGE, "farmer_90px_neil_palmer");
 		users.put(COLUMN_NAME_USER_DELETEFLAG, 0);
 		insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 		users.clear();
@@ -531,7 +514,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "Chris");
 		users.put(COLUMN_NAME_USER_LASTNAME, "McDougall");
 		users.put(COLUMN_NAME_USER_MOBILE, "781122672");
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_neil_palmer2");
+		users.put(COLUMN_NAME_USER_IMAGE, "farmer_90px_neil_palmer2");
 		users.put(COLUMN_NAME_USER_DELETEFLAG, 0);
 		insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 		users.clear();
@@ -541,7 +524,7 @@ public class RealFarmDatabase {
 		users.put(COLUMN_NAME_USER_FIRSTNAME, "Frank");
 		users.put(COLUMN_NAME_USER_LASTNAME, "Herbert");
 		users.put(COLUMN_NAME_USER_MOBILE, "788111172");
-		users.put(COLUMN_NAME_USER_IMG, "farmer_90px_walmart_stores");
+		users.put(COLUMN_NAME_USER_IMAGE, "farmer_90px_walmart_stores");
 		users.put(COLUMN_NAME_USER_DELETEFLAG, 0);
 		insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 		users.clear();
@@ -673,7 +656,6 @@ public class RealFarmDatabase {
 		wf.put(COLUMN_NAME_WEATHERFORECAST_DATE, df.format(now));
 		wf.put(COLUMN_NAME_WEATHERFORECAST_TEMPERATURE, 28);
 		wf.put(COLUMN_NAME_WEATHERFORECAST_TYPE, "Sunny");
-		wf.put(COLUMN_NAME_WEATHERFORECAST_ADMINFLAG, 1);
 
 		insertEntriesIntoDatabase(TABLE_NAME_WEATHERFORECAST, wf, db);
 		Log.d(LOG_TAG, "WF inserted works");

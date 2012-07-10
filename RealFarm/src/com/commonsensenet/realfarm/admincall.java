@@ -81,10 +81,17 @@ public class admincall extends Activity {
 								.getUserDelete(0); // Get the users whose delete
 													// flag=0
 
-						Global.userId = userListNoDelete.get(position)
-								.getUserId(); // Set the user id corresponding
-												// to the position who is
-												// selected
+						Global.userId = userListNoDelete.get(position).getId(); // Set
+																				// the
+																				// user
+																				// id
+																				// corresponding
+																				// to
+																				// the
+																				// position
+																				// who
+																				// is
+																				// selected
 
 						System.out.println("Global userId in admincall");
 						System.out.println(Global.userId);
@@ -108,8 +115,8 @@ public class admincall extends Activity {
 
 		mainListView
 				.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
-					public boolean onItemLongClick(AdapterView<?> parent, View v,
-							int position, long id) {
+					public boolean onItemLongClick(AdapterView<?> parent,
+							View v, int position, long id) {
 						// Start your Activity according to the item just
 						// clicked.
 
@@ -121,10 +128,9 @@ public class admincall extends Activity {
 								.getUserDelete(0); // Get the users whose delete
 													// flag=0
 
-						Global.userId = userListNoDelete.get(position)
-								.getUserId(); // Set the user id corresponding
-												// to the position who is
-												// selected
+						// sets the user id corresponding to the position that
+						// is selected.
+						Global.userId = userListNoDelete.get(position).getId();
 
 						System.out.println("Global userId in admincall");
 						System.out.println(Global.userId);
