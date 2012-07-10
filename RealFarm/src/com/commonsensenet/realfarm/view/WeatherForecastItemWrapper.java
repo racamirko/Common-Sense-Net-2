@@ -77,9 +77,18 @@ public class WeatherForecastItemWrapper {
 		// gets the icon based on the text.
 		if (type.toString().equalsIgnoreCase("Sunny")) {
 			typeIconId = R.drawable.sunny;
-		} else if (type.toString().equalsIgnoreCase("Light Showers")) {
+		} else if (type.toString().equalsIgnoreCase("Light Rain")) {
 			typeIconId = R.drawable.lightrain;
+		} else if (type.toString().equalsIgnoreCase("Cloudy")) {
+			typeIconId = R.drawable.cloudy;
+		} else if (type.toString().equalsIgnoreCase("Chance of Rain")) {
+			typeIconId = R.drawable.chance_of_rain;
+		} else if (type.toString().equalsIgnoreCase("Rain")) {
+			typeIconId = R.drawable.rain;
+		} else if (type.toString().equalsIgnoreCase("Storm")) {
+			typeIconId = R.drawable.storm;
 		}
+
 		getTemperature().setText(
 				weatherForecast.getTemperature()
 						+ WeatherForecastActivity.CELSIUS);

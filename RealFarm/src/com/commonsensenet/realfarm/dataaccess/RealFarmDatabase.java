@@ -1,7 +1,9 @@
 package com.commonsensenet.realfarm.dataaccess;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -461,12 +463,12 @@ public class RealFarmDatabase {
 	 */
 	public void initValues(SQLiteDatabase db) {
 
-		Log.d(LOG_TAG, "Try to fill up tables with content" + db.getVersion());
+		Log.d(LOG_TAG, "Try to fill up tables with content " + db.getVersion());
 
 		// users
 		ContentValues users = new ContentValues();
-		// 1
 
+		// 1
 		TelephonyManager telephonyManager = (TelephonyManager) mContext
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceID = telephonyManager.getLine1Number();
@@ -474,10 +476,11 @@ public class RealFarmDatabase {
 		DEVICE_ID = deviceID;
 
 		String mobileNumber;
-		if (deviceID == null)
+		if (deviceID == null) {
 			mobileNumber = DEFAULT_NUMBER;
-		else
+		} else {
 			mobileNumber = deviceID;
+		}
 
 		// users 1 rest
 		users.put(COLUMN_NAME_USER_ID, 1);
@@ -586,7 +589,6 @@ public class RealFarmDatabase {
 				R.drawable.ic_90px_reporting);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio6);
 		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
-
 		actionNames.clear();
 		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 9);
 		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Diary");
@@ -604,10 +606,8 @@ public class RealFarmDatabase {
 		unit.put(COLUMN_NAME_UNIT_ID, 1);
 		unit.put(COLUMN_NAME_UNIT_NAME, "unknown");
 		unit.put(COLUMN_NAME_UNIT_AUDIO, R.raw.audio1);
-
 		insertEntriesIntoDatabase(TABLE_NAME_UNIT, unit, db);
 		unit.clear();
-
 		unit.put(COLUMN_NAME_UNIT_ID, 2);
 		unit.put(COLUMN_NAME_UNIT_NAME, "none");
 		unit.put(COLUMN_NAME_UNIT_AUDIO, R.raw.audio1);
@@ -642,24 +642,32 @@ public class RealFarmDatabase {
 		unit.put(COLUMN_NAME_UNIT_NAME,
 				"number of main crop rows between each row");
 		unit.put(COLUMN_NAME_UNIT_AUDIO, R.raw.audio1);
-
 		insertEntriesIntoDatabase(TABLE_NAME_UNIT, unit, db);
 		unit.clear();
 
 		Log.d(LOG_TAG, "unit works");
 
 		// inserts the current date in the database.
-		Date now = new Date();
 		SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
+		Date now = new Date();
+		Calendar calendar = new GregorianCalendar();
+		calendar.setTime(now);
 
 		ContentValues wf = new ContentValues();
-		wf.put(COLUMN_NAME_WEATHERFORECAST_DATE, df.format(now));
-		wf.put(COLUMN_NAME_WEATHERFORECAST_TEMPERATURE, 28);
-		wf.put(COLUMN_NAME_WEATHERFORECAST_TYPE, "Sunny");
+		int[] tempForecast = { 28, 30, 27, 29, 35 };
+		String[] typeForecast = { "Sunny", "Cloudy", "Chance of Rain",
+				"Light Rain", "Rain" };
 
-		insertEntriesIntoDatabase(TABLE_NAME_WEATHERFORECAST, wf, db);
+		for (int x = 0; x < 5; x++, calendar.add(Calendar.DAY_OF_MONTH, 1)) {
+			wf.put(COLUMN_NAME_WEATHERFORECAST_DATE,
+					df.format(calendar.getTime()));
+			wf.put(COLUMN_NAME_WEATHERFORECAST_TEMPERATURE, tempForecast[x]);
+			wf.put(COLUMN_NAME_WEATHERFORECAST_TYPE, typeForecast[x]);
+			insertEntriesIntoDatabase(TABLE_NAME_WEATHERFORECAST, wf, db);
+			wf.clear();
+		}
+
 		Log.d(LOG_TAG, "WF inserted works");
-		wf.clear();
 
 		// //problem types
 		//
@@ -686,8 +694,6 @@ public class RealFarmDatabase {
 		// insertEntries(TABLE_NAME_PROBLEM, problems, db);
 		//
 		// seedtypestage.clear();
-
-		Log.d(LOG_TAG, "points works");
 
 		ContentValues seedtype = new ContentValues();
 		// seedtype.put(COLUMN_NAME_SEEDTYPE_ID, 2);

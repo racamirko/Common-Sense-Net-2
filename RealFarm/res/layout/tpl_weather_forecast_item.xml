@@ -27,10 +27,10 @@
         android:id="@+id/label_weather_forecast_temperature"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="15dp"
-        android:layout_marginTop="-9dip"
-        android:layout_toLeftOf="@+id/icon_weather_forecast"
+        android:layout_marginRight="60dp"
+        android:layout_marginTop="-11dp"
         android:text="23°"
         android:textColor="#A7A9AC"
         android:textSize="50sp" />

@@ -110,69 +110,27 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		findViewById(R.id.btn_action_sell).setOnLongClickListener(this);
 	}
 
-	public void initAudio() {
-
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
-
-		// set title
-		alertDialogBuilder.setTitle("Enable audio");
-
-		// set dialog message
-		alertDialogBuilder
-				.setMessage("Click Yes to enable audio !")
-				.setCancelable(false)
-				.setPositiveButton("Yes",
-						new DialogInterface.OnClickListener() {
-							public void onClick(DialogInterface dialog, int id) {
-								Global.enableAudio = true;
-							}
-						})
-				.setNegativeButton("No", new DialogInterface.OnClickListener() {
-					public void onClick(DialogInterface dialog, int id) {
-						Global.enableAudio = false;
-						ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
-						snd.setImageResource(R.drawable.soundoff);
-					}
-				});
-
-		// create alert dialog
-		AlertDialog alertDialog = alertDialogBuilder.create();
-
-		// show it
-		alertDialog.show();
-	}
-
 	protected void initDb() {
 		Log.i(LOG_TAG, "Resetting database");
 		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
 	}
 
-	protected void launchactionintent() {
-		Intent inte1 = null;
-		final int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0).size(); // added with audio integration
-		if (no_of_plots > 1) {
+	protected void launchActionIntent() {
+		Intent intent = null;
+		int plotCount = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0).size();
 
-			inte1 = new Intent(this, ChoosePlotActivity.class);
-			this.startActivity(inte1);
-			this.finish();
-			return;
-		}
-		if (no_of_plots == 1) {
-
-			inte1 = new Intent(this, Global.selectedAction);
-			this.startActivity(inte1);
-			this.finish();
-			return;
+		// selects the next activity based on the amount of plots.
+		if (plotCount == 1) {
+			intent = new Intent(this, Global.selectedAction);
+		} else if (plotCount == 0) {
+			intent = new Intent(this, My_setting_plot_info.class);
+		} else {
+			intent = new Intent(this, ChoosePlotActivity.class);
 		}
 
-		if (no_of_plots == 0) {
-			inte1 = new Intent(this, My_setting_plot_info.class);
-			this.startActivity(inte1);
-			this.finish();
-			return;
-
-		}
+		// starts the new activity
+		this.startActivity(intent);
 	}
 
 	@Override
@@ -354,7 +312,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				public void onClick(View v) {
 					System.out.println("Action Sowing clicked");
 					Global.selectedAction = action_sowing.class;
-					launchactionintent();
+					launchActionIntent();
 				}
 			});
 
@@ -362,7 +320,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				public void onClick(View v) {
 					System.out.println("Action Fertilizer clicked");
 					Global.selectedAction = action_fertilizing.class;
-					launchactionintent();
+					launchActionIntent();
 				}
 			});
 
@@ -370,7 +328,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				public void onClick(View v) {
 					System.out.println("Action Spraying clicked");
 					Global.selectedAction = action_spraying.class;
-					launchactionintent();
+					launchActionIntent();
 				}
 			});
 
@@ -378,7 +336,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				public void onClick(View v) {
 					System.out.println("Action Problem clicked");
 					Global.selectedAction = action_problem.class;
-					launchactionintent();
+					launchActionIntent();
 				}
 			});
 
@@ -386,7 +344,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				public void onClick(View v) {
 					System.out.println("Action Irrigation clicked");
 					Global.selectedAction = action_irrigate.class;
-					launchactionintent();
+					launchActionIntent();
 				}
 			});
 
@@ -394,7 +352,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				public void onClick(View v) {
 					System.out.println("Action Harvest clicked");
 					Global.selectedAction = action_harvest.class;
-					launchactionintent();
+					launchActionIntent();
 				}
 			});
 
@@ -402,7 +360,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				public void onClick(View v) {
 					System.out.println("Action Selling clicked");
 					Global.selectedAction = action_selling.class;
-					launchactionintent();
+					launchActionIntent();
 				}
 			});
 
