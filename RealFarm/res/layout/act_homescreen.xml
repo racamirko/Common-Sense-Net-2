@@ -94,12 +94,14 @@
     </RelativeLayout>
 
     <!-- Actions part -->
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
 
         <!-- First Block -->
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -207,7 +209,7 @@
                     android:id="@+id/hmscrn_btn_advice"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/margin"
+                    android:layout_marginBottom="2.5dp"
                     android:layout_weight="0.5"
                     android:background="#96d2a9" >
 
@@ -218,25 +220,13 @@
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_75px_advice" />
 
-                    <TextView
-                        android:id="@+id/hmscrn_lbl_advice_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="@dimen/margin"
-                        android:layout_marginTop="@dimen/margin"
-                        android:background="@drawable/circular_border"
-                        android:gravity="center"
-                        android:text="15"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_medium" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/hmscrn_btn_video"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:layout_marginTop="2.5dp"
                     android:layout_weight="0.5"
                     android:background="#96d2a9" >
 
@@ -246,19 +236,6 @@
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_71px_video" />
-
-                    <TextView
-                        android:id="@+id/hmscrn_lbl_video_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginRight="@dimen/margin"
-                        android:layout_marginTop="@dimen/margin"
-                        android:background="@drawable/circular_border"
-                        android:text="15"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_medium" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -266,7 +243,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_marginRight="@dimen/margin"
                 android:layout_weight="1"
                 android:orientation="vertical" >
@@ -275,26 +252,25 @@
                     android:id="@+id/hmscrn_btn_yield"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/margin"
-                    android:layout_weight="0.5"
+                    android:layout_marginBottom="2.5dp"
+                    android:layout_weight="1"
                     android:background="#99CDEA" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_yield"
                         android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
+                        android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin"
+                        android:layout_margin="@dimen/margin"
                         android:src="@drawable/ic_44px_yield_bags" />
 
                     <TextView
                         android:id="@+id/hmscrn_lbl_yield_number"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
+                        android:layout_alignTop="@+id/hmscrn_img_yield"
+                        android:layout_marginLeft="@dimen/margin"
                         android:layout_toRightOf="@id/hmscrn_img_yield"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="1px"
                         android:text="30"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font_medium" />
@@ -303,28 +279,27 @@
                         android:id="@+id/hmscrn_lbl_yield_unit"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_alignLeft="@+id/hmscrn_lbl_yield_number"
                         android:layout_below="@id/hmscrn_lbl_yield_number"
                         android:layout_toRightOf="@id/hmscrn_img_yield"
-                        android:paddingLeft="10dp"
-                        android:paddingTop="1px"
                         android:text="qt/acre"
                         android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_medium" />
+                        android:textSize="@dimen/font_small" />
                 </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/hmscrn_btn_market"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="0.5"
-                    android:background="#99cdea" >
+                    android:layout_weight="1"
+                    android:layout_marginTop="2.5dp"
+                    android:padding="@dimen/margin"
+                    android:background="#99CDEA" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_market"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="@dimen/margin"
                         android:src="@drawable/ic_35px_sell" />
 
                     <TextView
@@ -333,43 +308,42 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:layout_marginRight="@dimen/margin"
-                        android:text="3000"
+                        android:text="3150"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font_large" />
                 </RelativeLayout>
+
             </LinearLayout>
 
             <!-- Third Column: Weather -->
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:layout_weight="1"
                 android:orientation="vertical" >
 
                 <RelativeLayout
                     android:id="@+id/hmscrn_btn_weather"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="match_parent"
                     android:background="#bb9ac4"
                     android:padding="@dimen/margin" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_weather"
-                        android:layout_width="70dp"
-                        android:layout_height="70dp"
-                        android:layout_centerVertical="true"
+                        android:layout_width="80dp"
+                        android:layout_height="80dp"
                         android:scaleType="fitXY"
-                        android:src="@drawable/ic_64px_cloudy" />
+                        android:src="@drawable/sun" />
 
                     <TextView
                         android:id="@+id/hmscrn_lbl_weather"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
                         android:layout_alignParentBottom="true"
-                        android:text="18°"
+                        android:layout_alignParentRight="true"
+                        android:text="26°"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font_xlarge" />
                 </RelativeLayout>

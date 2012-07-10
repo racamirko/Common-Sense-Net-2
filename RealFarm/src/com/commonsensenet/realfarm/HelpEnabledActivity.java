@@ -15,6 +15,7 @@ import android.widget.Toast;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
@@ -29,7 +30,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 	protected String getCurrentTime() {
 		Calendar ctaq = Calendar.getInstance();
-		SimpleDateFormat dfaq = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		SimpleDateFormat dfaq = new SimpleDateFormat(
+				RealFarmDatabase.DATE_FORMAT);
 		String crntdt = dfaq.format(ctaq.getTime());
 		Log.i("strtdat", crntdt);
 		return crntdt;
