@@ -128,7 +128,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_48px_sowing" />
+                    android:src="@drawable/ic_bg_sow" />
 
                 <ImageButton
                     android:id="@+id/btn_action_fertilize"
@@ -136,7 +136,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_48px_fertilizing2" />
+                    android:src="@drawable/ic_bg_fert" />
 
                 <ImageButton
                     android:id="@+id/btn_action_irrigate"
@@ -144,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_48px_irrigation2" />
+                    android:src="@drawable/ic_bg_irrigate" />
             </LinearLayout>
             <!-- second row -->
 
@@ -160,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_48px_reporting" />
+                    android:src="@drawable/ic_bg_problems" />
 
                 <ImageButton
                     android:id="@+id/btn_action_spray"
@@ -168,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_48px_spraying1" />
+                    android:src="@drawable/ic_bg_spray" />
 
                 <ImageButton
                     android:id="@+id/btn_action_harvest"
@@ -176,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_48px_harvesting1" />
+                    android:src="@drawable/ic_bg_harvest" />
 
                 <ImageButton
                     android:id="@+id/btn_action_sell"
@@ -184,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_48px_irrigation2" />
+                    android:src="@drawable/ic_bg_sell" />
             </LinearLayout>
         </LinearLayout>
 
@@ -219,7 +219,6 @@
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_75px_advice" />
-
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -291,10 +290,10 @@
                     android:id="@+id/hmscrn_btn_market"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_weight="1"
                     android:layout_marginTop="2.5dp"
-                    android:padding="@dimen/margin"
-                    android:background="#99CDEA" >
+                    android:layout_weight="1"
+                    android:background="#99CDEA"
+                    android:padding="@dimen/margin" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_market"
@@ -312,7 +311,6 @@
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font_large" />
                 </RelativeLayout>
-
             </LinearLayout>
 
             <!-- Third Column: Weather -->
