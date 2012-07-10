@@ -5,7 +5,6 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -21,13 +20,11 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.Fertilizing;
-import com.commonsensenet.realfarm.model.Growing;
 import com.commonsensenet.realfarm.model.Harvesting;
 import com.commonsensenet.realfarm.model.Irrigation;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Problem;
-import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Seed;
 import com.commonsensenet.realfarm.model.Selling;
 import com.commonsensenet.realfarm.model.Sowing;
@@ -555,83 +552,6 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public List<Growing> getGrowings() {
-		mDatabase.open();
-
-		List<Growing> growing = new ArrayList<Growing>();
-
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_GROWING,
-				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_SOWINGDATE,
-						RealFarmDatabase.COLUMN_NAME_GROWING_ADMINFLAG }, null,
-				null, null, null, null);
-
-		if (c.getCount() > 0) {
-			c.moveToFirst();
-			do {
-				growing.add(new Growing(c.getInt(0), c.getInt(1), c.getInt(2)));
-
-				String log = "Growing id: " + c.getInt(0) + " ,Plot id: "
-						+ c.getInt(1) + " ,seed id: " + c.getInt(2)
-						+ " ,SOWINGDATE: " + c.getInt(3) + " ,adminFlag: "
-						+ c.getInt(4) + "\r\n";
-				Log.d("growings: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Growing table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
-			} while (c.moveToNext());
-		}
-		c.close();
-		mDatabase.close();
-		return growing;
-
-	}
-
-	public List<Growing> getGrowingsByPlotId(int plotId) {
-		mDatabase.open();
-
-		List<Growing> growing = new ArrayList<Growing>();
-
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_GROWING,
-				new String[] { RealFarmDatabase.COLUMN_NAME_GROWING_ID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID },
-				RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID + "=" + plotId,
-				null, null, null, null);
-
-		if (c.getCount() > 0) {
-			c.moveToFirst();
-			do {
-				growing.add(new Growing(c.getInt(0), c.getInt(1), c.getInt(2)));
-			} while (c.moveToNext());
-		}
-		c.close();
-		mDatabase.close();
-		return growing;
-
-	}
-
-	public List<Growing> getGrowingsByUserId(int userId) {
-
-		// gets all the plots of the current user.
-		List<Plot> tmpPlots = getPlotsByUserId(userId);
-
-		List<Growing> growing = new ArrayList<Growing>();
-
-		// obtains the growing information of all the available plots.
-		for (int x = 0; x < tmpPlots.size(); x++) {
-			// adds all the growing information from the given plot
-			growing.addAll(getGrowingsByPlotId(tmpPlots.get(x).getId()));
-		}
-
-		return growing;
-	}
-
 	public List<Harvesting> getharvesting() {
 
 		mDatabase.open();
@@ -756,43 +676,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return tmpList;
-	}
-
-	// TODO: this name is incorrect
-	public void getLog() {
-
-		mDatabase.open();
-		// User tmpUser = null;
-
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_LOG,
-				new String[] { RealFarmDatabase.COLUMN_NAME_LOG_ID,
-						RealFarmDatabase.COLUMN_NAME_LOG_NAME,
-						RealFarmDatabase.COLUMN_NAME_LOG_VALUE,
-						RealFarmDatabase.COLUMN_NAME_LOG_ADMINFLAG });
-
-		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
-			do {
-				// adds the users into the list.
-
-				String log = "LOG_ID: " + c.getInt(0) + " ,LOG_NAME: "
-						+ c.getString(1) + " ,LOG_VALUE: " + c.getInt(2)
-						+ " ,LOG_ADMINFLAG: " + c.getInt(3) + "\r\n";
-				Log.d("values: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Log table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		c.close();
-		mDatabase.close();
-
 	}
 
 	public List<MarketPrice> getMarketPrices() {
@@ -1264,36 +1147,6 @@ public class RealFarmProvider {
 		return c;
 	}
 
-	public List<Recommendation> getRecommendations() {
-
-		mDatabase.open();
-
-		List<Recommendation> result = new ArrayList<Recommendation>();
-
-		Cursor c = mDatabase.getEntries(
-				RealFarmDatabase.TABLE_NAME_RECOMMENDATION, new String[] {
-						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID,
-						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_SEEDID,
-						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ACTIONID,
-						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_DATE },
-				null, null, null, null, null);
-
-		if (c.getCount() > 0) {
-			c.moveToFirst();
-
-			do {
-				result.add(new Recommendation(c.getInt(0), c.getInt(1), c
-						.getInt(2), c.getString(3)));
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return result;
-
-	}
-
 	public Seed getSeedById(int seedId) {
 
 		Seed res = null;
@@ -1378,51 +1231,6 @@ public class RealFarmProvider {
 		}
 
 		return mAllSeeds;
-	}
-
-	// TODO: incorrect name!
-	public void getSeedTypeStages() {
-
-		// List<User> tmpUsers = new ArrayList<User>();
-		mDatabase.open();
-		// User tmpUser = null;
-
-		Cursor c = mDatabase
-				.getAllEntries(
-						RealFarmDatabase.TABLE_NAME_SEEDTYPESTAGE,
-						new String[] {
-								RealFarmDatabase.COLUMN_NAME_SEEDTYPESTAGE_STAGEID,
-								RealFarmDatabase.COLUMN_NAME_SEEDTYPESTAGE_SEEDTYPEID,
-								RealFarmDatabase.COLUMN_NAME_SEEDTYPESTAGE_FROMCOUNTDAYS,
-								RealFarmDatabase.COLUMN_NAME_SEEDTYPESTAGE_TOCOUNTDAYS,
-								RealFarmDatabase.COLUMN_NAME_SEEDTYPESTAGE_ADMINFLAG });
-
-		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
-			do {
-				// adds the users into the list.
-				// tmpUsers.add(new User(c.getInt(0), c.getInt(1), c
-				// .getInt(2), c.getInt(3)));
-
-				String log = "STAGEID: " + c.getInt(0) + " ,SEEDTYPEID: "
-						+ c.getInt(1) + " ,FROMCOUNTDAYS: " + c.getInt(2)
-						+ ",TOCOUNTDAYS: " + c.getInt(3) + ",ADMINFLAG: "
-						+ c.getInt(4) + "\r\n";
-				Log.d("seed type stages: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Seed type stages table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		c.close();
-		mDatabase.close();
-
 	}
 
 	public List<Selling> getselling() {
@@ -1615,40 +1423,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return tmpList;
-	}
-
-	public Cursor getStages() {
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_STAGE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_STAGE_ID,
-						RealFarmDatabase.COLUMN_NAME_STAGE_NAME,
-						RealFarmDatabase.COLUMN_NAME_STAGE_ADMINFLAG });
-
-		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
-			do {
-				// adds the users into the list.
-
-				String log = "ID: " + c.getInt(0) + " NAME: " + c.getString(1)
-						+ "  ADMINFLAG: " + c.getInt(2) + "\r\n";
-				Log.d("values: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Stages table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		// c.close();
-		mDatabase.close();
-
-		return c;
 	}
 
 	// TODO: incorrect name!
@@ -1918,27 +1692,6 @@ public class RealFarmProvider {
 				"/******************************************************/");
 	}
 
-	public long logAction(String name, String value) {
-		SimpleDateFormat formatter = new SimpleDateFormat(
-				RealFarmDatabase.DATE_FORMAT);
-
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_NAME, name);
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_VALUE, value);
-		args.put(RealFarmDatabase.COLUMN_NAME_LOG_DATE,
-				formatter.format(new Date()));
-
-		mDatabase.open();
-
-		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_LOG,
-				args);
-
-		mDatabase.close();
-
-		return result;
-
-	}
-
 	public long removeAction(int id) {
 		mDatabase.open();
 
@@ -2098,20 +1851,6 @@ public class RealFarmProvider {
 
 		mDatabase.close();
 
-		return result;
-	}
-
-	public long setGrowing(int plotId, int seedId) {
-		mDatabase.open();
-
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_PLOTID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_GROWING_SEEDID, seedId);
-
-		long result = mDatabase.insertEntries(
-				RealFarmDatabase.TABLE_NAME_GROWING, args);
-
-		mDatabase.close();
 		return result;
 	}
 

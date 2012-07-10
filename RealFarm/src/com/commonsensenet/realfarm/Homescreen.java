@@ -659,7 +659,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// gets the current user object.
 		User user = mDataProvider.getUserById(Global.userId);
-		getSupportActionBar().setTitle(user.getFirstName() + ' ' + user.getLastName());
+		getSupportActionBar().setTitle(
+				user.getFirstName() + ' ' + user.getLastName());
 		getSupportActionBar().setSubtitle("CK Pura");
 
 		Log.i(LOG_TAG, "scheduler activated");
@@ -670,7 +671,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				ReminderTask.class);
 
 		// clears the database
-		// initDb(); 
+		// initDb();
 
 		initActionListener();
 
@@ -864,9 +865,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		System.out.println("New plot writing");
 		mDataProvider.setPlotNew(1, 123, 456, "plot image1", "Loamy", 0, 0);
-
 		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
-
 		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
 
 		System.out.println("newplot  reading");
@@ -895,16 +894,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getPlots(); // New plot list
 		mDataProvider.getSeeds(); // Seed type
 		mDataProvider.getActionNames(); // Action names
-		mDataProvider.getSeedTypeStages(); // Seedtype stages
 		mDataProvider.getUnit(); // units
-		mDataProvider.getLog(); // Log
-		mDataProvider.getGrowings(); // growings
 		mDataProvider.getFertilizer(); // Fertilizer
 		mDataProvider.getPesticides(); // Pesticides
-		mDataProvider.getStages(); // stages
 		mDataProvider.getProblems(); // problems
 		mDataProvider.getProblemType(); // problem type
-
 	}
-
 }
