@@ -1056,16 +1056,15 @@ public class RealFarmProvider {
 				plotList.add(new Plot(c.getInt(0), userId, c.getInt(1), c
 						.getInt(2), c.getInt(3), c.getString(4),
 						c.getString(5), delete, c.getInt(6)));
-/*
-				String log = "PlotId: " + c.getInt(0) + " ,PlotUserId: "
-						+ userId + " ,PlotSeedTypeId: " + c.getInt(1)
-						+ " ,point X: " + c.getInt(2) + " ,point Y: "
-						+ c.getInt(3) + "PlotImage: " + c.getString(4)
-						+ " ,SoilType: " + c.getString(5)
-
-						+ " ,deleteFlag: " + delete + " ,AdminFlag: "
-						+ c.getInt(6) + "\r\n";
-				Log.d("plot values: ", log);*/
+				/*
+				 * String log = "PlotId: " + c.getInt(0) + " ,PlotUserId: " +
+				 * userId + " ,PlotSeedTypeId: " + c.getInt(1) + " ,point X: " +
+				 * c.getInt(2) + " ,point Y: " + c.getInt(3) + "PlotImage: " +
+				 * c.getString(4) + " ,SoilType: " + c.getString(5)
+				 * 
+				 * + " ,deleteFlag: " + delete + " ,AdminFlag: " + c.getInt(6) +
+				 * "\r\n"; Log.d("plot values: ", log);
+				 */
 			} while (c.moveToNext());
 		}
 
@@ -1874,17 +1873,16 @@ public class RealFarmProvider {
 		mDatabase.open();
 		Log.d("done: ", "in Wf getdata");
 		// query all actions
-		Cursor c = mDatabase.getEntries(
-				RealFarmDatabase.TABLE_NAME_WEATHERFORECAST, new String[] {
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_VALUE,
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE,
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE1,
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_VALUE1,
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE1,
-						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ADMINFLAG },
-				null, null, null, null, null);
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_WEATHERFORECAST,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE,
+								RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ADMINFLAG },
+						null, null, null, null, null);
 		c.moveToFirst();
 
 		tmpList = new LinkedList<WeatherForecast>();
@@ -1892,14 +1890,11 @@ public class RealFarmProvider {
 		if (c.getCount() > 0) {
 			do {
 				tmpList.add(new WeatherForecast(c.getString(1), c.getInt(2), c
-						.getString(3), c.getString(4), c.getInt(5), c
-						.getString(6), c.getInt(7)));
+						.getString(3), c.getInt(4)));
 
-				String log = "WF_ID: " + c.getInt(0) + " ,WF_date "
-						+ c.getString(1) + " ,WF_values: " + c.getInt(2)
-						+ " ,WF_type" + c.getString(3) + "WF_date1 "
-						+ c.getString(4) + " WF_value1 " + c.getInt(5)
-						+ " WF_type11 " + c.getString(6);
+				String log = "WF_ID: " + c.getInt(0) + " , WF_date "
+						+ c.getString(1) + " , WF_temperature: " + c.getInt(2)
+						+ " , WF_type" + c.getString(3);
 				Log.d("WF values: ", log);
 
 			} while (c.moveToNext());
@@ -1935,8 +1930,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		long result = mDatabase.insertEntries(
-				RealFarmDatabase.TABLE_NAME_LOG, args);
+		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_LOG,
+				args);
 
 		mDatabase.close();
 
@@ -2225,8 +2220,8 @@ public class RealFarmProvider {
 		mDatabase.open();
 
 		// add to plot list
-		long result = mDatabase.insertEntries(
-				RealFarmDatabase.TABLE_NAME_PLOT, args);
+		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				args);
 
 		mDatabase.close();
 		return result;
@@ -2255,8 +2250,8 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		long result = mDatabase.insertEntries(
-				RealFarmDatabase.TABLE_NAME_PLOT, args);
+		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				args);
 
 		// sets the current plotid based on the result of the insert operation.
 		// TODO: shouldn't cast the result plotId should be a long.
@@ -2440,8 +2435,8 @@ public class RealFarmProvider {
 					RealFarmDatabase.COLUMN_NAME_USER_MOBILE + " = '"
 							+ deviceId + "'", null);
 		} else { // user must be created
-			result = mDatabase.insertEntries(
-					RealFarmDatabase.TABLE_NAME_USER, args);
+			result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_USER,
+					args);
 		}
 
 		// if main id is undefined and result is good
@@ -2466,11 +2461,9 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
 				mMaxWeatherForecasts);
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE, WF_Date);
-		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_VALUE, WF_Value);
+		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
+				WF_Value);
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE, WF_Type);
-		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE1, WF_Date1);
-		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_VALUE1, WF_Value1);
-		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE1, WF_Type1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ADMINFLAG,
 				WF_adminflag);
 		mDatabase.open();

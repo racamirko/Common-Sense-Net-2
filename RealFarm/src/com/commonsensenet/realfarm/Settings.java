@@ -25,6 +25,7 @@ import android.widget.Toast;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.User;
 
 public class Settings extends Activity {
 
@@ -298,29 +299,30 @@ public class Settings extends Activity {
 
 		if (deviceID != null) { // sim card exists
 
-			String[] name = mDataProvider.getUserByMobile(
-					RealFarmDatabase.DEVICE_ID).getName();
+			User user = mDataProvider
+					.getUserByMobile(RealFarmDatabase.DEVICE_ID);
 
 			RealFarmDatabase.DEVICE_ID = deviceID; // update main device ID
 
-			if (name[0] == null) { // if no information, try to fetch default
-									// number in case user configured phone
-									// without sim card
-				name = mDataProvider
-						.getUserByMobile(RealFarmDatabase.DEVICE_ID).getName();
+			// if no information, try to fetch the default.
+			if (user == null || user.getFirstName() == null) {
+				// number in case user configured phone
+				// without sim card
+				user = mDataProvider
+						.getUserByMobile(RealFarmDatabase.DEVICE_ID);
 				flagNewSim = true;
 			}
 
-			firstname.setText(name[0]);
-			lastname.setText(name[1]);
+			firstname.setText(user.getFirstName());
+			lastname.setText(user.getLastName());
 		} else { // user must insert a sim card, use default user mode
 			Toast.makeText(getApplicationContext(), "Insert SIM card",
 					Toast.LENGTH_SHORT).show();
-			String[] name = mDataProvider.getUserByMobile(
-					RealFarmDatabase.DEVICE_ID).getName();
+			User user = mDataProvider
+					.getUserByMobile(RealFarmDatabase.DEVICE_ID);
 
-			firstname.setText(name[0]);
-			lastname.setText(name[1]);
+			firstname.setText(user.getFirstName());
+			lastname.setText(user.getLastName());
 		}
 
 		origFirstname = firstname.getText().toString();

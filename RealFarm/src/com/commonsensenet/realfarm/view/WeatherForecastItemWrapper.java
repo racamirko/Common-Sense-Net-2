@@ -81,7 +81,8 @@ public class WeatherForecastItemWrapper {
 			typeIconId = R.drawable.lightrain;
 		}
 		getTemperature().setText(
-				weatherForecast.getValue() + WeatherForecastActivity.CELSIUS);
+				weatherForecast.getTemperature()
+						+ WeatherForecastActivity.CELSIUS);
 		getIcon().setImageResource(typeIconId);
 		getDay().setText(
 				DateHelper.formatWithDay(weatherForecast.getDate())

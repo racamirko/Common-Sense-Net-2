@@ -259,11 +259,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_WEATHERFORECAST_ID
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_WEATHERFORECAST_DATE + " text, "
-					+ COLUMN_NAME_WEATHERFORECAST_VALUE + " integer, "
+					+ COLUMN_NAME_WEATHERFORECAST_TEMPERATURE + " integer, "
 					+ COLUMN_NAME_WEATHERFORECAST_TYPE + " text, "
-					+ COLUMN_NAME_WEATHERFORECAST_DATE1 + " text, "
-					+ COLUMN_NAME_WEATHERFORECAST_VALUE1 + " integer, "
-					+ COLUMN_NAME_WEATHERFORECAST_TYPE1 + " text, "
 					+ COLUMN_NAME_WEATHERFORECAST_ADMINFLAG + " boolean "
 					+ " ); ");
 			Log.d(LOG_TAG, "Created weather forecast table");
@@ -432,11 +429,8 @@ public class RealFarmDatabase {
 
 	public static final String COLUMN_NAME_WEATHERFORECAST_ID = "id";
 	public static final String COLUMN_NAME_WEATHERFORECAST_DATE = "date";
-	public static final String COLUMN_NAME_WEATHERFORECAST_VALUE = "value";
+	public static final String COLUMN_NAME_WEATHERFORECAST_TEMPERATURE = "temperature";
 	public static final String COLUMN_NAME_WEATHERFORECAST_TYPE = "type";
-	public static final String COLUMN_NAME_WEATHERFORECAST_DATE1 = "date1";
-	public static final String COLUMN_NAME_WEATHERFORECAST_VALUE1 = "value1";
-	public static final String COLUMN_NAME_WEATHERFORECAST_TYPE1 = "type1";
 	public static final String COLUMN_NAME_WEATHERFORECAST_ADMINFLAG = "adminFlag";
 
 	public static final String COLUMN_NAME_MARKETPRICE_ID = "id";
@@ -1004,11 +998,8 @@ public class RealFarmDatabase {
 
 		ContentValues wf = new ContentValues();
 		wf.put(COLUMN_NAME_WEATHERFORECAST_DATE, df.format(now));
-		wf.put(COLUMN_NAME_WEATHERFORECAST_VALUE, 28);
+		wf.put(COLUMN_NAME_WEATHERFORECAST_TEMPERATURE, 28);
 		wf.put(COLUMN_NAME_WEATHERFORECAST_TYPE, "Sunny");
-		wf.put(COLUMN_NAME_WEATHERFORECAST_DATE1, 1);
-		wf.put(COLUMN_NAME_WEATHERFORECAST_VALUE1, 22);
-		wf.put(COLUMN_NAME_WEATHERFORECAST_TYPE1, "Light Showers");
 		wf.put(COLUMN_NAME_WEATHERFORECAST_ADMINFLAG, 1);
 
 		insertEntriesIntoDatabase(TABLE_NAME_WEATHERFORECAST, wf, db);

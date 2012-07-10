@@ -5,7 +5,6 @@ import java.util.Calendar;
 
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
-import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -56,15 +55,9 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		// enables the home button arrow.
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-		// This is a workaround for http://b.android.com/15340 from
-		// http://stackoverflow.com/a/5852198/132047
-		if (Build.VERSION.SDK_INT < Build.VERSION_CODES.ICE_CREAM_SANDWICH) {
-			BitmapDrawable bg = (BitmapDrawable) getResources().getDrawable(
-					R.drawable.bg_curved);
-			// bg.setTileModeXY(TileMode.CLAMP, TileMode.CLAMP);
-			// bg.setTileModeXY(TileMode.REPEAT, TileMode.REPEAT);
-			getSupportActionBar().setBackgroundDrawable(bg);
-		}
+		BitmapDrawable bg = (BitmapDrawable) getResources().getDrawable(
+				R.drawable.bg_curved);
+		getSupportActionBar().setBackgroundDrawable(bg);
 
 		// ArrayAdapter<CharSequence> listAdapter = ArrayAdapter
 		// .createFromResource(this, R.array.array_languages,

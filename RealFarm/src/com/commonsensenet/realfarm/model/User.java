@@ -2,16 +2,23 @@ package com.commonsensenet.realfarm.model;
 
 public class User {
 
-	protected String mFirstName;
-	protected String mLastName;
-	protected String mMobileNumber;
-	protected int mUserId;
-	protected String mImgName;
-	protected int mDelete;
+	/** Flag that indicates whether the user was inserted by an admin or not. */
 	protected int mAdmin;
+	/** Flag that indicates whether the user is enabled or not. */
+	protected int mDelete;
+	/** First name of the User. */
+	protected String mFirstName;
+	/** Image file of the user. */
+	protected String mImgName;
+	/** Last name of the User. */
+	protected String mLastName;
+	/** Mobile Number of the user. */
+	protected String mMobileNumber;
+	/** Unique identifier. */
+	protected int mUserId;
 
 	public User(int userId, String firstName, String lastName,
-			String mobileNumber, String imgName, int delete, int admin) { // added
+			String mobileNumber, String imgName, int delete, int admin) {
 		mUserId = userId;
 		mFirstName = firstName;
 		mLastName = lastName;
@@ -19,6 +26,14 @@ public class User {
 		mImgName = imgName;
 		mDelete = delete;
 		mAdmin = admin;
+	}
+
+	public int getAdmin() {
+		return mAdmin;
+	}
+
+	public int getDelete() {
+		return mDelete;
 	}
 
 	public String getFirstName() {
@@ -33,24 +48,12 @@ public class User {
 		return mMobileNumber;
 	}
 
-	public String[] getName() {
-		return new String[] { mFirstName, mLastName };
-	}
-
 	public int getUserId() {
 		return mUserId;
 	}
 
 	public String getUserImgName() {
 		return mImgName;
-	}
-
-	public int getDelete() {
-		return mDelete;
-	}
-
-	public int getAdmin() {
-		return mAdmin;
 	}
 
 }

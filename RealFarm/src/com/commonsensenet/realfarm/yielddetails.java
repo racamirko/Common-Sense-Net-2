@@ -26,7 +26,7 @@ public class yielddetails extends HelpEnabledActivity {
 		// eliminates the listener.
 		mDataProvider.setWFDataChangeListener(null);
 
-		SoundQueue sq = SoundQueue.getInstance(); // audio integration
+		SoundQueue sq = SoundQueue.getInstance();
 		sq.stop();
 	}
 

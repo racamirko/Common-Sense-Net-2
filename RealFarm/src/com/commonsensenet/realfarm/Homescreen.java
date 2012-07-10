@@ -6,7 +6,6 @@ import java.util.Vector;
 
 import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.res.Resources;
@@ -45,6 +44,7 @@ import com.commonsensenet.realfarm.dataaccess.aggregateview.DummyHomescreenData;
 import com.commonsensenet.realfarm.homescreen.ReminderTask;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.Recommendation;
+import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
@@ -57,14 +57,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Tag used to log the App activity. */
 	public static String LOG_TAG = "Homescreen";
-	/** Current context of the application. */
-	private final Context mContext = this;
 	/** Database provider. */
 	private RealFarmProvider mDataProvider;
 	/** Currently selected language. */
 	private String mSelectedLanguage;
-	/** Reference to the current activity. */
-	private final Homescreen mParentReference = this;
 
 	private void initActionListener() {
 
@@ -123,8 +119,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	public void initAudio() {
 
-		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-				mContext);
+		AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(this);
 
 		// set title
 		alertDialogBuilder.setTitle("Enable audio");
@@ -159,29 +154,32 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
 	}
 
-	protected void initSoundSys() {
-		Log.i(LOG_TAG, "Init sound sys");
-		// gets and initializes the SoundQueue.
-		SoundQueue.getInstance().init(this);
-	}
+	protected void launchactionintent() {
+		Intent inte1 = null;
+		final int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0).size(); // added with audio integration
+		if (no_of_plots > 1) {
 
-	protected void initTiles() {
-		Log.i(LOG_TAG, "Initializing tiles");
-		// LinearLayout layAdvice = (LinearLayout)
-		// findViewById(R.id.home_lay_advice);
-		// LinearLayout layActions = (LinearLayout)
-		// findViewById(R.id.home_lay_actions);
-		// LinearLayout layWarn = (LinearLayout)
-		// findViewById(R.id.home_lay_warn);
-		// LinearLayout layYield = (LinearLayout)
-		// findViewById(R.id.home_lay_yield);
-		// LinearLayout layWf = (LinearLayout) findViewById(R.id.home_lay_wf);
-		//
-		// populateTiles(layAdvice);
-		// populateTiles(layActions);
-		// populateTiles(layWarn);
-		// populateTiles(layYield);
-		// populateTiles(layWf);
+			inte1 = new Intent(this, ChoosePlotActivity.class);
+			this.startActivity(inte1);
+			this.finish();
+			return;
+		}
+		if (no_of_plots == 1) {
+
+			inte1 = new Intent(this, Global.selectedAction);
+			this.startActivity(inte1);
+			this.finish();
+			return;
+		}
+
+		if (no_of_plots == 0) {
+			inte1 = new Intent(this, My_setting_plot_info.class);
+			this.startActivity(inte1);
+			this.finish();
+			return;
+
+		}
 	}
 
 	@Override
@@ -216,8 +214,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_advice
-				|| v.getId() == R.id.hmscrn_btn_advice) {
+		if (v.getId() == R.id.hmscrn_btn_advice) {
 			Log.d(LOG_TAG, "Starting warn info");
 			inte = new Intent(this, AggregateView.class);
 			inte.putExtra("type", "warn");
@@ -231,9 +228,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		/** aggregate action descriptions */
-
-		if (v.getId() == R.id.btn_action_fertilize
-				|| v.getId() == R.id.btn_action_fertilize) {
+		if (v.getId() == R.id.btn_action_fertilize) {
 			Log.d(LOG_TAG, "Starting Fertilize aggregate info");
 			inte = new Intent(this, fertilize_aggregate.class);
 			inte.putExtra("type", "yield");
@@ -242,8 +237,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.btn_action_selling
-				|| v.getId() == R.id.btn_action_selling) {
+		if (v.getId() == R.id.btn_action_sell) {
 			Log.d(LOG_TAG, "Starting Selling aggregate info");
 			inte = new Intent(this, selling_aggregate.class);
 			inte.putExtra("type", "yield");
@@ -252,8 +246,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.btn_action_problem
-				|| v.getId() == R.id.btn_action_problem) {
+		if (v.getId() == R.id.btn_action_report) {
 			Log.d(LOG_TAG, "Starting Problem aggregate info");
 			inte = new Intent(this, problem_aggregate.class);
 			inte.putExtra("type", "yield");
@@ -262,8 +255,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.btn_action_irrigate
-				|| v.getId() == R.id.btn_action_irrigate) {
+		if (v.getId() == R.id.btn_action_irrigate) {
 			Log.d(LOG_TAG, "Starting irrigate aggregate info");
 			inte = new Intent(this, irrigate_aggregate.class);
 			inte.putExtra("type", "yield");
@@ -272,8 +264,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.btn_action_harvesting
-				|| v.getId() == R.id.btn_action_harvesting) {
+		if (v.getId() == R.id.btn_action_harvest) {
 			Log.d(LOG_TAG, "Starting harvest aggregate info");
 			inte = new Intent(this, harvest_aggregate.class);
 			inte.putExtra("type", "yield");
@@ -282,8 +273,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.btn_action_sowing
-				|| v.getId() == R.id.btn_action_sowing) {
+		if (v.getId() == R.id.btn_action_sow) {
 			Log.d(LOG_TAG, "Starting Sowing aggregate info");
 			inte = new Intent(this, sowing_aggregate.class);
 			inte.putExtra("type", "yield");
@@ -340,26 +330,26 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			final Button sell_btn = (Button) dlg
 					.findViewById(R.id.btn_action_selling);// Action buttons
 
-			((Button) dlg.findViewById(R.id.btn_action_sowing))
-					.setOnLongClickListener(mParentReference);
+			dlg.findViewById(R.id.btn_action_sowing).setOnLongClickListener(
+					this);
 
-			((Button) dlg.findViewById(R.id.btn_action_fertilize))
-					.setOnLongClickListener(mParentReference);
+			dlg.findViewById(R.id.btn_action_fertilize).setOnLongClickListener(
+					this);
 
-			((Button) dlg.findViewById(R.id.btn_action_spray))
-					.setOnLongClickListener(mParentReference);
+			dlg.findViewById(R.id.btn_action_spray)
+					.setOnLongClickListener(this);
 
-			((Button) dlg.findViewById(R.id.btn_action_problem))
-					.setOnLongClickListener(mParentReference);
+			dlg.findViewById(R.id.btn_action_problem).setOnLongClickListener(
+					this);
 
-			((Button) dlg.findViewById(R.id.btn_action_irrigate))
-					.setOnLongClickListener(mParentReference);
+			dlg.findViewById(R.id.btn_action_irrigate).setOnLongClickListener(
+					this);
 
-			((Button) dlg.findViewById(R.id.btn_action_harvesting))
-					.setOnLongClickListener(mParentReference);
+			dlg.findViewById(R.id.btn_action_harvesting)
+					.setOnLongClickListener(this);
 
-			((Button) dlg.findViewById(R.id.btn_action_selling))
-					.setOnLongClickListener(mParentReference);
+			dlg.findViewById(R.id.btn_action_selling).setOnLongClickListener(
+					this);
 
 			// setHelpIcon(dlg.findViewById(R.id.dlg_help_indicator));
 
@@ -631,37 +621,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// this.startActivity(new Intent(this, OfflineMapDemo.class));
 
-		if (txt != "") {
+		if (!txt.equals("")) {
 			Toast.makeText(this.getApplicationContext(), txt,
 					Toast.LENGTH_SHORT).show();
-		}
-	}
-
-	protected void launchactionintent() {
-		Intent inte1 = null;
-		final int no_of_plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0).size(); // added with audio integration
-		if (no_of_plots > 1) {
-
-			inte1 = new Intent(this, ChoosePlotActivity.class);
-			this.startActivity(inte1);
-			this.finish();
-			return;
-		}
-		if (no_of_plots == 1) {
-
-			inte1 = new Intent(this, Global.selectedAction);
-			this.startActivity(inte1);
-			this.finish();
-			return;
-		}
-
-		if (no_of_plots == 0) {
-			inte1 = new Intent(this, My_setting_plot_info.class);
-			this.startActivity(inte1);
-			this.finish();
-			return;
-
 		}
 	}
 
@@ -670,12 +632,18 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		super.onCreate(savedInstanceState);
 
+		Log.i(LOG_TAG, "App started");
+
 		// disables the back button since this is the home screen
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);
-		getSupportActionBar().setTitle("My name");
+		// disables the home button in the home screen.
+		getSupportActionBar().setDisplayShowHomeEnabled(false);
 
 		// sets the layout of the activity.
 		setContentView(R.layout.act_homescreen);
+
+		// starts the audio manager.
+		SoundQueue.getInstance().init(this);
 
 		// sets the audio icon based on the audio preferences.
 		if (Global.enableAudio) {
@@ -686,11 +654,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			snd.setImageResource(R.drawable.soundoff);
 		}
 
-		mDataProvider = RealFarmProvider.getInstance(mContext);
+		// gets the data provider.
+		mDataProvider = RealFarmProvider.getInstance(this);
 
-		// ImageButton btnSound = (ImageButton)
-		// findViewById(R.id.dlg_btn_audio_play);
-		Log.i(LOG_TAG, "App started");
+		// gets the current user object.
+		User user = mDataProvider.getUserById(Global.userId);
+		getSupportActionBar().setTitle(user.getFirstName() + ' ' + user.getLastName());
+		getSupportActionBar().setSubtitle("CK Pura");
+
 		Log.i(LOG_TAG, "scheduler activated");
 		SchedulerManager.getInstance().saveTask(this.getApplicationContext(),
 				"*/1 * * * *", // a cron string
@@ -698,32 +669,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		SchedulerManager.getInstance().restart(this.getApplicationContext(),
 				ReminderTask.class);
 
-		// setup listener to all buttons
-		// initDb(); //Clears the database
-		/** Uncomment the below to work with Homescreen */
+		// clears the database
+		// initDb(); 
 
 		initActionListener();
-		// initTiles();
-		initSoundSys();
-		// setHelpIcon(findViewById(R.id.helpIndicator));
-		/** Listner to enable audio or not */
-		/*
-		 * btnSound.setOnClickListener(new View.OnClickListener() { public void
-		 * onClick(View v) { initAudio(); } });
-		 */
-		/*
-		 * TextView tmpText = (TextView) findViewById(R.id.home_lbl_actions);
-		 * tmpText.setText(getString(R.string.k_solved));
-		 * 
-		 * tmpText = (TextView) findViewById(R.id.home_lbl_advice);
-		 * tmpText.setText(getString(R.string.k_news));
-		 * 
-		 * tmpText = (TextView) findViewById(R.id.home_lbl_warnings);
-		 * tmpText.setText(getString(R.string.k_farmers));
-		 * 
-		 * tmpText = (TextView) findViewById(R.id.home_lbl_yield);
-		 * tmpText.setText(getString(R.string.k_harvest));
-		 */
 
 		// WriteDataBaseToSDcard();
 	}
@@ -951,7 +900,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getLog(); // Log
 		mDataProvider.getGrowings(); // growings
 		mDataProvider.getFertilizer(); // Fertilizer
-		// mDataProvider.getActionTranslation(); // Action translation
 		mDataProvider.getPesticides(); // Pesticides
 		mDataProvider.getStages(); // stages
 		mDataProvider.getProblems(); // problems
