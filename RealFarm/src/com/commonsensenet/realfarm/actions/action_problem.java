@@ -549,7 +549,7 @@ public class action_problem extends HelpEnabledActivity {
 				if (flag1 == 0) {
 
 					System.out.println("Problem writing");
-					mDataProvider.setProblem(prob_day_sel, prob_var_sel, 0, 0);
+					mDataProvider.setProblem(Global.userId, Global.plotId, prob_day_sel, prob_var_sel, 0, 0);
 
 					// mDataProvider.setProblem(String day,String probType, int
 					// sent, int admin);

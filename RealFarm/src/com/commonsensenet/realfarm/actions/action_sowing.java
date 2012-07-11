@@ -1133,11 +1133,9 @@ public class action_sowing extends HelpEnabledActivity {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
 					System.out.println("sowing writing");
-					mDataProvider.setSowing(sow_no, seed_sow, units_sow,
-							days_sel_sow, treatment_sow, 0, 0);
-
-					System.out.println("sowing reading");
-					mDataProvider.getsowing();
+					mDataProvider.setSowing(Global.userId, Global.plotId,
+							sow_no, seed_sow, units_sow, days_sel_sow,
+							treatment_sow, 0, 0);
 
 					if (Global.writeToSD == true) {
 

@@ -739,18 +739,21 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// System.out.println("Reading getuser delete");
 		System.out.println("Irrigation writing");
-		mDataProvider.setIrrigation(2, "hours", // qua1 mapped to no of hours
+		// qua1 mapped to no of hours
+		mDataProvider.setIrrigation(Global.userId, Global.plotId, 2, "hours",
 				"today", 0, 0, "Fertilizer1");
-
-		mDataProvider.setIrrigation(4, "hours", // qua1 mapped to no of hours
+		// qua1 mapped to no of hours
+		mDataProvider.setIrrigation(Global.userId, Global.plotId, 4, "hours",
 				"tomorrow", 0, 0, "Fertilizer2");
 
 		System.out.println("Irrigation reading");
 		mDataProvider.getirrigate();
 
 		System.out.println("Problem writing");
-		mDataProvider.setProblem("today", "Problem1", 0, 0);
-		mDataProvider.setProblem("tomorrow", "Problem2", 0, 0);
+		mDataProvider.setProblem(Global.userId, Global.plotId, "today",
+				"Problem1", 0, 0);
+		mDataProvider.setProblem(Global.userId, Global.plotId, "tomorrow",
+				"Problem2", 0, 0);
 		// mDataProvider.setProblem(String day,String probType, int sent, int
 		// admin);
 
@@ -758,9 +761,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getProblem();
 
 		System.out.println("New plot writing");
-		mDataProvider.setPlotNew(1, 123, 456, "plot image1", "Loamy", 0, 0);
-		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
-		mDataProvider.setPlotNew(2, 468, 356, "plot image2", "Sandy", 0, 0);
+		mDataProvider.insertPlot(Global.userId, 1, 123, 456, "plot image1",
+				"Loamy", 0, 0);
+		mDataProvider.insertPlot(Global.userId, 2, 468, 356, "plot image2",
+				"Sandy", 0, 0);
+		Global.plotId = mDataProvider.insertPlot(Global.userId, 2, 468, 356,
+				"plot image2", "Sandy", 0, 0);
 
 		System.out.println("newplot  reading");
 		mDataProvider.getPlots();

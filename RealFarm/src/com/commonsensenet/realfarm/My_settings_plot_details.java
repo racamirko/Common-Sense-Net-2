@@ -550,16 +550,16 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.soiltype_plot_txt_btn) { // added
+		if (v.getId() == R.id.soiltype_plot_txt_btn) {
 
 			playAudio(R.raw.soiltype);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.maincrop_plot_txt_btn) { // added
+		if (v.getId() == R.id.maincrop_plot_txt_btn) {
 
 			playAudio(R.raw.maincrop);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
 		return true;
@@ -567,8 +567,8 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 
 	private void addPlotToDatabase() {
 
-		mDataProvider.setPlotNew(mSeedTypeId, 111, 222, mPlotImage, mSoilType,
-				0, 0);
+		Global.plotId = mDataProvider.insertPlot(Global.userId, mSeedTypeId,
+				111, 222, mPlotImage, mSoilType, 0, 0);
 
 		Toast.makeText(
 				getBaseContext(),

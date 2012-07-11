@@ -23,15 +23,17 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 public class action_irrigate extends HelpEnabledActivity {
 	private Context context = this;
 	private int hrs_irrigate = 0;
-	private String hrs_irrigate_sel = "0", irr_method_sel = "0", irr_day_sel; String months_irr="0", irr_day_str;
+	private String hrs_irrigate_sel = "0", irr_method_sel = "0", irr_day_sel;
+	String months_irr = "0", irr_day_str;
 	private RealFarmProvider mDataProvider;
 	private final action_irrigate parentReference = this;
 	private int irr_day_int;
 	private String fert_no_sel;
+
 	protected void cancelaudio() {
-	
+
 		playAudio(R.raw.cancel);
-	
+
 		Intent adminintent = new Intent(action_irrigate.this, Homescreen.class);
 
 		startActivity(adminintent);
@@ -53,27 +55,27 @@ public class action_irrigate extends HelpEnabledActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		System.out.println("Plant details entered");
 		mDataProvider = RealFarmProvider.getInstance(context);
-	//	super.onCreate(savedInstanceState);
-	//	setContentView(R.layout.irrigate_dialog);
-		
-		super.onCreate(savedInstanceState, R.layout.irrigate_dialog);           //Needed to add help icon
-		setHelpIcon(findViewById(R.id.helpIndicator));  
-		
-		
-		
-		
+		// super.onCreate(savedInstanceState);
+		// setContentView(R.layout.irrigate_dialog);
+
+		super.onCreate(savedInstanceState, R.layout.irrigate_dialog); // Needed
+																		// to
+																		// add
+																		// help
+																		// icon
+		setHelpIcon(findViewById(R.id.helpIndicator));
+
 		System.out.println("plant done");
 		final TextView day_irr = (TextView) findViewById(R.id.dlg_lbl_day_irr);
-		
-	
+
 		playAudio(R.raw.clickingfertilising);
-	
+
 		final ImageView bg_method_irr = (ImageView) findViewById(R.id.img_bg_method_irr);
 		final ImageView bg_hrs_irr = (ImageView) findViewById(R.id.img_bg_hrs_irr);
 		final ImageView bg_day_irr = (ImageView) findViewById(R.id.img_bg_day_irr);
 		final ImageView bg_month_irr = (ImageView) findViewById(R.id.img_bg_month_irr);
 
-		//bg_day_irr.setImageResource(R.drawable.empty_not);
+		// bg_day_irr.setImageResource(R.drawable.empty_not);
 		final Button item1;
 		final Button item2;
 		final Button item3;
@@ -94,18 +96,16 @@ public class action_irrigate extends HelpEnabledActivity {
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
-		
-		final Button method;                                                                  //20-06-2012
+
+		final Button method; // 20-06-2012
 		final Button duration;
 		final Button Date;
-		
-		
-		method = (Button) findViewById(R.id.variety_sow_txt_btn);                            //20-06-2012
+
+		method = (Button) findViewById(R.id.variety_sow_txt_btn); // 20-06-2012
 		duration = (Button) findViewById(R.id.amount_sow_txt_btn);
 		Date = (Button) findViewById(R.id.date_sow_txt_btn);
-		
-		
-		method.setOnLongClickListener(this);                                                 //20-06-2012
+
+		method.setOnLongClickListener(this); // 20-06-2012
 		duration.setOnLongClickListener(this);
 		Date.setOnLongClickListener(this);
 
@@ -200,28 +200,28 @@ public class action_irrigate extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Date");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-		
-				playAudio(R.raw.dateinfo);                  //20-06-2012
-		
-				
+
+				playAudio(R.raw.dateinfo); // 20-06-2012
+
 				if (Global.writeToSD == true) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
 							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " selection "+ " click " + " no_units_fertilizer " + " null " + " \r\n");
+					mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
+							+ " selection " + " click "
+							+ " no_units_fertilizer " + " null " + " \r\n");
 				}
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
-				
-				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
-				.setOnLongClickListener(parentReference);
-		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
-		
-		
+
+				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.number_cancel))
+						.setOnLongClickListener(parentReference);
+
 				no_ok.setOnClickListener(new View.OnClickListener() {
-					
 
 					public void onClick(View v) {
 
@@ -244,7 +244,11 @@ public class action_irrigate extends HelpEnabledActivity {
 								String logtime = getcurrenttime();
 								mDataProvider.File_Log_Create("UIlog.txt",
 										logtime + " -> ");
-			    				mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " number_picker "+ " click " + " no_units_fertilizer " + fert_no_sel + " \r\n");
+								mDataProvider.File_Log_Create("UIlog.txt",
+										" Fertilizing " + " number_picker "
+												+ " click "
+												+ " no_units_fertilizer "
+												+ fert_no_sel + " \r\n");
 
 							}
 						}
@@ -259,7 +263,10 @@ public class action_irrigate extends HelpEnabledActivity {
 							String logtime = getcurrenttime();
 							mDataProvider.File_Log_Create("UIlog.txt", logtime
 									+ " -> ");
-							mDataProvider.File_Log_Create("UIlog.txt"," Fertilizing "+ " number_picker "+ " click " + " cancel_no_units " + "cancelnumberentry" + " \r\n");
+							mDataProvider.File_Log_Create("UIlog.txt",
+									" Fertilizing " + " number_picker "
+											+ " click " + " cancel_no_units "
+											+ "cancelnumberentry" + " \r\n");
 
 						}
 						dlg.cancel();
@@ -280,20 +287,18 @@ public class action_irrigate extends HelpEnabledActivity {
 				dlg.setTitle("Choose the Number of bags");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				
-				playAudio(R.raw.noofbags);                  //20-06-2012
-			
-				
+
+				playAudio(R.raw.noofbags); // 20-06-2012
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
-				
-				((Button) dlg.findViewById(R.id.number_ok))                              //20-06-2012
-				.setOnLongClickListener(parentReference);
-		((Button) dlg.findViewById(R.id.number_cancel)).setOnLongClickListener(parentReference);
-		
-		
+
+				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.number_cancel))
+						.setOnLongClickListener(parentReference);
+
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
@@ -324,8 +329,7 @@ public class action_irrigate extends HelpEnabledActivity {
 
 			}
 		});
-		
-		
+
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -392,7 +396,6 @@ public class action_irrigate extends HelpEnabledActivity {
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_irr);
 
 				month1.setOnClickListener(new View.OnClickListener() {
-			
 
 					public void onClick(View v) {
 
@@ -567,7 +570,7 @@ public class action_irrigate extends HelpEnabledActivity {
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_irr_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-					
+
 						bg_month_irr.setImageResource(R.drawable.empty_not);
 						dlg.cancel();
 					}
@@ -576,20 +579,6 @@ public class action_irrigate extends HelpEnabledActivity {
 			}
 
 		});
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
 
 		Button btnNext = (Button) findViewById(R.id.irr_ok);
 		Button cancel = (Button) findViewById(R.id.irr_cancel);
@@ -641,8 +630,9 @@ public class action_irrigate extends HelpEnabledActivity {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				if (months_irr.toString().equalsIgnoreCase("0") || irr_day_int == 0) {
+
+				if (months_irr.toString().equalsIgnoreCase("0")
+						|| irr_day_int == 0) {
 
 					flag3 = 1;
 
@@ -654,18 +644,17 @@ public class action_irrigate extends HelpEnabledActivity {
 
 					flag3 = 0;
 
-					irr_day_sel = irr_day_int+ "." +months_irr;
+					irr_day_sel = irr_day_int + "." + months_irr;
 					TableRow tr_feedback = (TableRow) findViewById(R.id.day_irr_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
-				
-				
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 					System.out.println("Irrigting Writing");
-					mDataProvider.setIrrigation(hrs_irrigate, "hours",
-							irr_day_sel, 0, 0, irr_method_sel);
+					mDataProvider.setIrrigation(Global.userId, Global.plotId,
+							hrs_irrigate, "hours", irr_day_sel, 0, 0,
+							irr_method_sel);
 
 					System.out.println("Irrigting reading");
 					mDataProvider.getharvesting();
@@ -683,7 +672,6 @@ public class action_irrigate extends HelpEnabledActivity {
 			}
 		});
 
-	
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Intent adminintent = new Intent(action_irrigate.this,
@@ -702,182 +690,180 @@ public class action_irrigate extends HelpEnabledActivity {
 
 		if (v.getId() == R.id.home_btn_method_irr) {
 			playAudioalways(R.raw.method);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_btn_units_no_irr) {
 			playAudioalways(R.raw.noofhours);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_btn_day_irr) {
 			playAudioalways(R.raw.selectthedate);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.irr_ok) {
 			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.irr_cancel) {
 			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.aggr_img_help) {
 			playAudioalways(R.raw.help);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_var_fert_1) { // audio integration
 			playAudioalways(R.raw.method1);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_var_fert_2) { // added
 			playAudioalways(R.raw.method2);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 
 		}
 
 		if (v.getId() == R.id.home_var_fert_3) { // added
 			playAudioalways(R.raw.method3);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_1) { // added
 			playAudioalways(R.raw.twoweeksbefore);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_2) { // added
 			playAudioalways(R.raw.oneweekbefore);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_3) { // added
 			playAudioalways(R.raw.yesterday);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_4) { // added
 			playAudioalways(R.raw.todayonly);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_day_5) { // added
 			playAudioalways(R.raw.tomorrows);
-			ShowHelpIcon(v);  
+			ShowHelpIcon(v);
 		}
-		
+
 		if (v.getId() == R.id.home_month_1) { // added
 
 			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 		if (v.getId() == R.id.home_month_2) { // added
 
 			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_3) { // added
 
 			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_4) { // added
 
 			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 
 		}
 
 		if (v.getId() == R.id.home_month_5) { // added
 
 			playAudioalways(R.raw.may);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_6) { // added
 
 			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_7) { // added
 
 			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_8) { // added
 
 			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_9) { // added
 
 			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_10) { // added
 
 			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_11) { // added
 
 			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
 		if (v.getId() == R.id.home_month_12) { // added
 
 			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
 
-		
 		if (v.getId() == R.id.home_btn_month_irr) { // added
 
 			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.number_ok) { // added
 
 			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
+
 		if (v.getId() == R.id.number_cancel) { // added
 
 			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v);                                      //added for help icon
+			ShowHelpIcon(v); // added for help icon
 		}
-		
-		if (v.getId() == R.id.variety_sow_txt_btn) {                        //20-06-2012
+
+		if (v.getId() == R.id.variety_sow_txt_btn) { // 20-06-2012
 			playAudioalways(R.raw.method);
-			ShowHelpIcon(v);                                      
+			ShowHelpIcon(v);
 		}
-		
-		
-		if (v.getId() == R.id.amount_sow_txt_btn) {                        //20-06-2012
+
+		if (v.getId() == R.id.amount_sow_txt_btn) { // 20-06-2012
 			playAudioalways(R.raw.duration);
-			ShowHelpIcon(v);                                      
+			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.date_sow_txt_btn) {                        //20-06-2012
+		if (v.getId() == R.id.date_sow_txt_btn) { // 20-06-2012
 			playAudioalways(R.raw.date);
-			ShowHelpIcon(v);                                     
+			ShowHelpIcon(v);
 		}
 
 		return true;

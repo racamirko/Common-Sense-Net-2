@@ -690,6 +690,8 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "plot works");
+
+		Log.d(LOG_TAG, "actions works");
 	}
 
 	/**

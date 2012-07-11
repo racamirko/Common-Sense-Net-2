@@ -884,13 +884,14 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 					System.out.println("harvesting writing");
-					mDataProvider.setHarvest(harvest_no, 0, units_harvest,
-							final_day_harvest, feedback_txt, 1, 0);
+					mDataProvider.setHarvest(Global.userId, Global.plotId,
+							harvest_no, 0, units_harvest, final_day_harvest,
+							feedback_txt, 1, 0);
 
 					System.out.println("harvesting reading");
 					mDataProvider.getharvesting();
 
-					if (Global.writeToSD == true) {
+					if (Global.writeToSD) {
 
 						String logtime = getcurrenttime();
 						mDataProvider.File_Log_Create("UIlog.txt", logtime
@@ -920,7 +921,7 @@ public class action_harvest extends HelpEnabledActivity { // Integration
 
 				startActivity(adminintent);
 				action_harvest.this.finish();
-				if (Global.writeToSD == true) {
+				if (Global.writeToSD) {
 
 					String logtime = getcurrenttime();
 					mDataProvider
