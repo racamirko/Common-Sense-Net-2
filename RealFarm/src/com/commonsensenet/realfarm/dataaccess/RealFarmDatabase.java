@@ -484,7 +484,6 @@ public class RealFarmDatabase {
 		// users
 		ContentValues users = new ContentValues();
 		for (int x = 0; x < userData.length; x++) {
-			// users 1 rest
 			users.put(COLUMN_NAME_USER_ID, (x + 1));
 			users.put(COLUMN_NAME_USER_FIRSTNAME, userData[x][0]);
 			users.put(COLUMN_NAME_USER_LASTNAME, userData[x][1]);
@@ -575,11 +574,12 @@ public class RealFarmDatabase {
 				{ "number of main crop rows between each row", R.raw.audio1 }
 
 		};
+
 		ContentValues unit = new ContentValues();
 		for (int x = 0; x < unitData.length; x++) {
 			unit.put(COLUMN_NAME_UNIT_ID, (x + 1));
-			unit.put(COLUMN_NAME_UNIT_NAME, ((String) unitData[x][0]));
-			unit.put(COLUMN_NAME_UNIT_AUDIO, ((Integer) unitData[x][0]));
+			unit.put(COLUMN_NAME_UNIT_NAME, (String) unitData[x][0]);
+			unit.put(COLUMN_NAME_UNIT_AUDIO, (Integer) unitData[x][1]);
 			insertEntriesIntoDatabase(TABLE_NAME_UNIT, unit, db);
 			unit.clear();
 		}
@@ -670,6 +670,26 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "seedtype works");
+
+		// inserts test plot data.
+		ContentValues plots = new ContentValues();
+		Object[][] plotData = { { 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
+				{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
+				{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
+				{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
+
+		for (int x = 0; x < plotData.length; x++) {
+			plots.put(COLUMN_NAME_PLOT_USERID, (Integer) plotData[x][0]);
+			plots.put(COLUMN_NAME_PLOT_SEEDTYPEID, (Integer) plotData[x][1]);
+			plots.put(COLUMN_NAME_PLOT_IMAGEPATH, (String) plotData[x][2]);
+			plots.put(COLUMN_NAME_PLOT_SOILTYPE, (String) plotData[x][3]);
+			plots.put(COLUMN_NAME_USER_DELETEFLAG, 0);
+			plots.put(COLUMN_NAME_PLOT_ADMINFLAG, 0);
+			insertEntriesIntoDatabase(TABLE_NAME_PLOT, plots, db);
+			plots.clear();
+		}
+
+		Log.d(LOG_TAG, "plot works");
 	}
 
 	/**

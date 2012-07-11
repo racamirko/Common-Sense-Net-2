@@ -128,29 +128,27 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 				dlg.setTitle("Select the defualt image of the plot");
 				dlg.show();
 
-				final Button unit1;
-				final Button unit2;
-				final Button unit3;
+				final View unit1;
+				final View unit2;
+				final View unit3;
 
 				final ImageView img_1;
 				img_1 = (ImageView) findViewById(R.id.dlg_img_soil_plot);
 
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_soil_plot);
-				unit1 = (Button) dlg.findViewById(R.id.plot_soil_1);
-				unit2 = (Button) dlg.findViewById(R.id.plot_soil_2);
-				unit3 = (Button) dlg.findViewById(R.id.plot_soil_3);
+				unit1 = dlg.findViewById(R.id.button_soil_1);
+				unit2 = dlg.findViewById(R.id.button_soil_2);
+				unit3 = dlg.findViewById(R.id.button_soil_3);
 
-				((Button) dlg.findViewById(R.id.plot_soil_1))
-						.setOnLongClickListener(parentReference); // added
-				((Button) dlg.findViewById(R.id.plot_soil_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.plot_soil_3))
-						.setOnLongClickListener(parentReference);
+				// adds the long click listener to enable the help feature.
+				unit1.setOnLongClickListener(parentReference);
+				unit2.setOnLongClickListener(parentReference);
+				unit3.setOnLongClickListener(parentReference);
 
 				unit1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
+
 						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Loamy");
 						mSoilType = "Loamy";
@@ -486,17 +484,17 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.plot_soil_1) {
+		if (v.getId() == R.id.button_soil_1) {
 			playAudio(R.raw.loamy);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.plot_soil_2) {
+		if (v.getId() == R.id.button_soil_2) {
 			playAudio(R.raw.sandy);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.plot_soil_3) {
+		if (v.getId() == R.id.button_soil_3) {
 			playAudio(R.raw.clay);
 			ShowHelpIcon(v);
 		}

@@ -1161,6 +1161,9 @@ containing a value of this type.
         public static final int button_ok=0x7f0600eb;
         public static final int button_retake=0x7f06012b;
         public static final int button_save=0x7f06012c;
+        public static final int button_soil_1=0x7f060126;
+        public static final int button_soil_2=0x7f060127;
+        public static final int button_soil_3=0x7f060128;
         public static final int button_soil_moisture=0x7f06005a;
         public static final int button_variety_1=0x7f060085;
         public static final int button_variety_2=0x7f060086;
@@ -1459,9 +1462,6 @@ containing a value of this type.
         public static final int plot_img_1=0x7f060122;
         public static final int plot_img_2=0x7f060123;
         public static final int plot_img_3=0x7f060124;
-        public static final int plot_soil_1=0x7f060126;
-        public static final int plot_soil_2=0x7f060127;
-        public static final int plot_soil_3=0x7f060128;
         public static final int plot_tr=0x7f060106;
         public static final int price_sell_tr=0x7f060167;
         public static final int prob_cancel=0x7f060148;
