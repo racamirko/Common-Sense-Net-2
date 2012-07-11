@@ -175,8 +175,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 
 	}
 
-	protected void playAudioalways(int resid)
-	{
+	protected void playAudioalways(int resid) {
 		// gets the singleton queue
 		SoundQueue sq = SoundQueue.getInstance();
 		// cleans any possibly playing sound
@@ -246,28 +245,28 @@ public abstract class HelpEnabledActivity extends Activity implements
 		}
 		// End of big icons
 
-		if (v.getId() == R.id.btn_action_sowing) {
+		if (v.getId() == R.id.button_action_sow) {
 			playAudioalways(R.raw.sowing);
 
 		}
 
-		if (v.getId() == R.id.btn_action_harvesting) {
+		if (v.getId() == R.id.button_action_harvest) {
 			playAudioalways(R.raw.harvesting);
 		}
 
-		if (v.getId() == R.id.btn_action_selling) {
+		if (v.getId() == R.id.button_action_sell) {
 			playAudioalways(R.raw.selling);
 		}
 
-		if (v.getId() == R.id.btn_action_fertilize) {
+		if (v.getId() == R.id.button_action_fertilize) {
 			playAudioalways(R.raw.fertilizing);
 		}
 
-		if (v.getId() == R.id.btn_action_spray) {
+		if (v.getId() == R.id.button_action_spray) {
 			playAudioalways(R.raw.spraying);
 		}
 
-		if (v.getId() == R.id.btn_action_irrigate) {
+		if (v.getId() == R.id.button_action_irrigate) {
 			playAudioalways(R.raw.irrigate);
 		}
 		if (v.getId() == R.id.hmscrn_btn_market) {
@@ -278,7 +277,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 			playAudioalways(R.raw.video);
 		}
 
-		if (v.getId() == R.id.btn_action_problem) {
+		if (v.getId() == R.id.button_action_report) {
 			playAudioalways(R.raw.problems);
 		}
 

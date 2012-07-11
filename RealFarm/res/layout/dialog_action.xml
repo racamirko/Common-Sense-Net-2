@@ -14,128 +14,149 @@
             android:orientation="vertical" >
 
             <RelativeLayout
-                android:id="@+id/button_variety_1"
+                android:id="@+id/button_action_sow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/square_btn_transp"
                 android:padding="@dimen/margin" >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_bajra_tiled" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_sowing" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="62dp"
-                    android:text="Bajra"
+                    android:text="Sow"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/button_variety_2"
+                android:id="@+id/button_action_fertilize"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/square_btn_transp"
                 android:padding="@dimen/margin" >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_castor_tiled" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_fertilizing1" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="62dp"
-                    android:text="Castor"
+                    android:text="Fertilize"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/button_variety_3"
+                android:id="@+id/button_action_spray"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/square_btn_transp"
                 android:padding="@dimen/margin" >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_cowpea_tiled" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_spraying3" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="62dp"
-                    android:text="Cowpea"
+                    android:text="Spray"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/button_variety_4"
+                android:id="@+id/button_action_report"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/square_btn_transp"
                 android:padding="@dimen/margin" >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_greengram_tiled" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_reporting" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="62dp"
-                    android:text="Greengram"
+                    android:text="Problems"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/button_variety_5"
+                android:id="@+id/button_action_irrigate"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/square_btn_transp"
                 android:padding="@dimen/margin" >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_groundnut_tiled" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_irrigation1" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="62dp"
-                    android:text="Groundnut"
+                    android:text="Irrigate"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/button_variety_6"
+                android:id="@+id/button_action_harvest"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/square_btn_transp"
                 android:padding="@dimen/margin" >
 
                 <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_horsegram_tiled" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_harvesting2" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="62dp"
-                    android:text="Horsegram"
+                    android:text="Harvest"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/button_action_sell"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/selling" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Sell"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
         </LinearLayout>

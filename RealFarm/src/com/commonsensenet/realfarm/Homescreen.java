@@ -13,7 +13,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -252,56 +251,28 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_actions) {
-			// Log.d(logTag, "Starting home actions dlg");
+
 			Dialog dlg = new Dialog(this);
-			// dlg.setOnDismissListener(this);
 			dlg.getWindow().requestFeature(Window.FEATURE_NO_TITLE);
 			dlg.setCanceledOnTouchOutside(true);
-			// dlg.setContentView(R.layout.home_action_buttons);
-			dlg.setContentView(R.layout.action_selector);
-			final Button sow_btn = (Button) dlg
-					.findViewById(R.id.btn_action_sowing);// Action buttons
+			dlg.setContentView(R.layout.dialog_action);
 
-			final Button fert_btn = (Button) dlg
-					.findViewById(R.id.btn_action_fertilize);// Action buttons
+			final View sow_btn = dlg.findViewById(R.id.button_action_sow);
+			final View fert_btn = dlg
+					.findViewById(R.id.button_action_fertilize);
+			final View spray_btn = dlg.findViewById(R.id.button_action_spray);
+			final View prob_btn = dlg.findViewById(R.id.button_action_report);
+			final View irr_btn = dlg.findViewById(R.id.button_action_irrigate);
+			final View harv_btn = dlg.findViewById(R.id.button_action_harvest);
+			final View sell_btn = dlg.findViewById(R.id.button_action_sell);
 
-			final Button spray_btn = (Button) dlg
-					.findViewById(R.id.btn_action_spray);// Action buttons
-
-			final Button prob_btn = (Button) dlg
-					.findViewById(R.id.btn_action_problem);// Action buttons
-
-			final Button irr_btn = (Button) dlg
-					.findViewById(R.id.btn_action_irrigate);// Action buttons
-
-			final Button harv_btn = (Button) dlg
-					.findViewById(R.id.btn_action_harvesting);// Action buttons
-
-			final Button sell_btn = (Button) dlg
-					.findViewById(R.id.btn_action_selling);// Action buttons
-
-			dlg.findViewById(R.id.btn_action_sowing).setOnLongClickListener(
-					this);
-
-			dlg.findViewById(R.id.btn_action_fertilize).setOnLongClickListener(
-					this);
-
-			dlg.findViewById(R.id.btn_action_spray)
-					.setOnLongClickListener(this);
-
-			dlg.findViewById(R.id.btn_action_problem).setOnLongClickListener(
-					this);
-
-			dlg.findViewById(R.id.btn_action_irrigate).setOnLongClickListener(
-					this);
-
-			dlg.findViewById(R.id.btn_action_harvesting)
-					.setOnLongClickListener(this);
-
-			dlg.findViewById(R.id.btn_action_selling).setOnLongClickListener(
-					this);
-
-			// setHelpIcon(dlg.findViewById(R.id.dlg_help_indicator));
+			sow_btn.setOnLongClickListener(this);
+			fert_btn.setOnLongClickListener(this);
+			spray_btn.setOnLongClickListener(this);
+			prob_btn.setOnLongClickListener(this);
+			irr_btn.setOnLongClickListener(this);
+			harv_btn.setOnLongClickListener(this);
+			sell_btn.setOnLongClickListener(this);
 
 			dlg.setCancelable(true);
 			dlg.setOwnerActivity(this);
@@ -559,17 +530,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		 * Plot_Image.class); this.startActivity(inte);
 		 */
 		// }
-
-		// other buttons
-		// case R.id.btn_action_diary:
-		// case R.id.btn_action_fertilize:
-		// case R.id.btn_action_irrigate:
-		// case R.id.btn_action_plant:
-		// case R.id.btn_action_problem:
-		// case R.id.btn_action_spray:
-		// case R.id.btn_action_yield:
-
-		// this.startActivity(new Intent(this, OfflineMapDemo.class));
 
 		if (!txt.equals("")) {
 			Toast.makeText(this.getApplicationContext(), txt,
