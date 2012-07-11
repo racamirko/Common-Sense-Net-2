@@ -35,7 +35,7 @@ public class ActionItemAdapter extends ArrayAdapter<Action> {
 
 			LayoutInflater li = (LayoutInflater) getContext().getSystemService(
 					Context.LAYOUT_INFLATER_SERVICE);
-			row = li.inflate(R.layout.tpl_diary_item, null);
+			row = li.inflate(R.layout.tpl_diary_item, parent, false);
 			wrapper = new ActionItemWrapper(row);
 			row.setTag(wrapper);
 		} else {

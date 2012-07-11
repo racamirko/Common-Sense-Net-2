@@ -12,14 +12,14 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
 
-public class PlotItemAdapter extends ArrayAdapter<Plot> {
+public class AggregateItemAdapter extends ArrayAdapter<Plot> {
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
 
 	/**
 	 * Creates a new PlotItemAdapter instance.
 	 */
-	public PlotItemAdapter(Context context, List<Plot> plots,
+	public AggregateItemAdapter(Context context, List<Plot> plots,
 			RealFarmProvider dataProvider) {
 		super(context, android.R.layout.simple_list_item_1, plots);
 

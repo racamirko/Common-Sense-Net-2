@@ -1,24 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<merge xmlns:android="http://schemas.android.com/apk/res/android" >
-    
-    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-<LinearLayout
-        android:id="@+id/linearLayout19"
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/header" >
 
         <RelativeLayout
-            android:id="@+id/RelativeLayoutwf_2"
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_margin="5dip"
             android:gravity="left" >
 
-      <ImageView
+            <ImageView
                 android:id="@+id/aggr_action_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -33,22 +30,20 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="1dp"
-               android:src="@drawable/dropdown" />
+                android:src="@drawable/dropdown" />
 
-              <Button
-                  android:id="@+id/aggr_action"
-                  android:layout_width="30dp"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentBottom="true"
-                  android:layout_alignParentLeft="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_alignParentTop="true"
-                  android:background="@drawable/square_btn_transp" />
-
+            <Button
+                android:id="@+id/aggr_action"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/square_btn_transp" />
         </RelativeLayout>
-        
-             <RelativeLayout
-            android:id="@+id/RelativeLayoutwf_2"
+
+        <RelativeLayout
             android:layout_width="80dp"
             android:layout_height="60dp"
             android:layout_margin="5dip"
@@ -69,26 +64,19 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 android:layout_margin="1dp"
-               android:src="@drawable/dropdown" />
+                android:src="@drawable/dropdown" />
 
-              <Button
-                  android:id="@+id/aggr_crop"
-                  android:layout_width="30dp"
-                  android:layout_height="wrap_content"
-                  android:layout_alignParentBottom="true"
-                  android:layout_alignParentLeft="true"
-                  android:layout_alignParentRight="true"
-                  android:layout_alignParentTop="true"
-                  android:background="@drawable/square_btn_transp" />
-
+            <Button
+                android:id="@+id/aggr_crop"
+                android:layout_width="30dp"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:background="@drawable/square_btn_transp" />
         </RelativeLayout>
 
-   <!--  <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-       />
--->
         <Button
             android:id="@+id/button123"
             android:layout_width="25dip"
@@ -100,8 +88,8 @@
             android:id="@+id/aggr_img_home"
             android:layout_width="50dip"
             android:layout_height="match_parent"
-            android:layout_marginLeft="50dp"
             android:layout_margin="3dp"
+            android:layout_marginLeft="50dp"
             android:background="@drawable/home"
             android:src="@drawable/square_btn_transp" />
 
@@ -113,274 +101,19 @@
             android:background="@drawable/ic_54px_help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
-    
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/def_img" >
 
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
+        android:layout_height="match_parent" >
 
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+        <ListView
+            android:id="@+id/list_aggregates"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:layout_alignParentTop="true" >
+        </ListView>
 
-            <TableRow
-                android:id="@+id/var_fert_tr"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@drawable/def_img"
-                android:paddingBottom="10dip"
-                android:paddingTop="4dip" >
+        <include layout="@layout/layout_back_bar" />
+    </RelativeLayout>
 
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-                    
-                                           
-  				   <ImageView
-                        android:id="@+id/variety_sow_txt_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="80dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/ic_90px_user"
-                        android:src="@drawable/square_btn_transp" />
-  				      <TextView
-                    android:id="@+id/dlg_lbl_var_fert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:text="12"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#000000"
-                    android:textSize="22sp" />
-  				   
-  				   <Button
-  				       android:id="@+id/txt_btn_sow_1"
-  				       android:layout_width="wrap_content"
-  				       android:layout_height="wrap_content"
-  				       android:layout_alignParentBottom="true"
-  				       android:layout_alignParentLeft="true"
-  				       android:layout_alignParentTop="true"
-  				       android:layout_alignRight="@+id/variety_sow_txt_btn"
-  				       android:background="@drawable/square_btn_transp"
-  				     />
-                             
-                </RelativeLayout>
-
-           
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                    <ImageButton
-                        android:id="@+id/aggr_sow1"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                       android:src ="@drawable/square_btn_transp"
-                        android:gravity="center"
-                        android:background="@drawable/pic_90px_groundnut_tiled" />
-
-                    <TextView
-                        android:id="@+id/dlg_lbl_var_fert"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerHorizontal="true"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:text="TMV 2"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="23sp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                       <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/square_btn_transp"
-                        android:gravity="center"
-                        android:src="@drawable/treatment" />
-                   
-                </RelativeLayout>
-                  <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-                
-                <ImageButton
-        android:id="@+id/aggr_item_sow_like1"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="5dp"
-        android:background="@drawable/circular_btn"
-        android:src="@drawable/ic_48px_thumbs_up" />
-                 </RelativeLayout>
-            </TableRow>
-        </LinearLayout>
-
-        
-         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal" >
-
-            <TableRow
-                android:id="@+id/var_fert_tr"
-                android:layout_width="match_parent"
-                android:layout_height="80dp"
-                android:background="@drawable/def_img"
-                android:paddingBottom="10dip"
-                android:paddingTop="4dip" >
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-                    
-                                           
-  				   <ImageView
-                        android:id="@+id/variety_sow_txt_btn"
-                        android:layout_width="wrap_content"
-                        android:layout_height="80dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/ic_90px_user"
-                        android:src="@drawable/square_btn_transp" />
-  				      <TextView
-                    android:id="@+id/dlg_lbl_var_fert"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginTop="30dp"
-                    android:layout_weight="1"
-                    android:text="22"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textColor="#000000"
-                    android:textSize="22sp" />
-  				   
-  				   <Button
-  				       android:id="@+id/txt_btn_sow_2"
-  				       android:layout_width="wrap_content"
-  				       android:layout_height="wrap_content"
-  				       android:layout_alignParentBottom="true"
-  				       android:layout_alignParentLeft="true"
-  				       android:layout_alignParentTop="true"
-  				       android:layout_alignRight="@+id/variety_sow_txt_btn"
-  				       android:background="@drawable/square_btn_transp"
-  				     />
-                             
-                </RelativeLayout>
-
-           
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                   <ImageButton
-                        android:id="@+id/aggr_sow2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:src="@drawable/square_btn_transp"
-                        android:gravity="center"
-                        android:background="@drawable/pic_90px_groundnut_tiled" />
-
-                     <TextView
-                         android:id="@+id/dlg_lbl_var_fert"
-                         android:layout_width="wrap_content"
-                         android:layout_height="wrap_content"
-                         android:layout_centerHorizontal="true"
-                         android:layout_centerVertical="true"
-                         android:layout_weight="1"
-                         android:text="Samrat"
-                         android:textAppearance="?android:attr/textAppearanceMedium"
-                         android:textSize="23sp" />
-                   
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="50dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                                <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/square_btn_transp"
-                        android:gravity="center"
-                        android:src="@drawable/treatment" />
-                   
-                </RelativeLayout>
-                  <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-                
-                <ImageButton
-        android:id="@+id/aggr_item_sow_like2"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_margin="5dp"
-        android:background="@drawable/circular_btn"
-        android:src="@drawable/ic_48px_thumbs_up" />
-                 </RelativeLayout>
-            </TableRow>
-        </LinearLayout>
-        
-        
-    </LinearLayout>
-
-    <include layout="@layout/layout_back_bar" />
-
-</RelativeLayout>
-    </LinearLayout>
-   <ImageView
-        android:id="@+id/helpIndicator"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_76px_sound"
-        android:visibility="invisible" />
-
-</merge>
+</LinearLayout>

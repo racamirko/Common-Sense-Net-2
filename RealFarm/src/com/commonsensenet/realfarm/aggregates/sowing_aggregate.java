@@ -1,5 +1,7 @@
 package com.commonsensenet.realfarm.aggregates;
 
+import java.util.List;
+
 import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,12 +11,16 @@ import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
+import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.view.AggregateItemAdapter;
+import com.commonsensenet.realfarm.view.PlotItemAdapter;
 
 public class sowing_aggregate extends HelpEnabledActivity implements
 		OnLongClickListener {
@@ -44,28 +50,81 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 	}
 
+	/** ListAdapter used to handle the aggregates. */
+	private AggregateItemAdapter mAggregateItemAdapter;
+	/** ListView where the aggregate elements are shown. */
+	private ListView mAggregatesListView;
+
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("Sowing Aggregate entered");
-		mDataProvider = RealFarmProvider.getInstance(this);
-
-		// super.onCreate(savedInstanceState);
-		// setContentView(R.layout.fertilizing_dialog);
 
 		super.onCreate(savedInstanceState, R.layout.sowing_aggregate);
 
-		setHelpIcon(findViewById(R.id.helpIndicator));
-		ImageButton btnLike = (ImageButton) findViewById(R.id.aggr_item_sow_like1);
+		// gets the data provider
+		mDataProvider = RealFarmProvider.getInstance(this);
+
+		// gets the users from the database.
+		List<Plot> plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
+				Global.userId, 0);
+
+		mAggregateItemAdapter = new AggregateItemAdapter(this, plots,
+				mDataProvider);
+
+		// gets the list from the UI.
+		mAggregatesListView = (ListView) findViewById(R.id.list_aggregates);
+		// enables the focus on the items.
+		mAggregatesListView.setItemsCanFocus(true);
+		// sets the custom adapter.
+		mAggregatesListView.setAdapter(mAggregateItemAdapter);
+		// sets the listener
+		// mAggregatesListView.setOnItemClickListener(this);
+
+		// ImageButton btnLike = (ImageButton)
+		// findViewById(R.id.aggr_item_sow_like1);
+
+		// btnLike.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		//
+		// if (v.getId() == R.id.aggr_item_sow_like1) {
+		//
+		// // for the like button
+		// if (!liked) {
+		// v.setBackgroundResource(R.drawable.circular_btn_green);
+		// }
+		// }
+		//
+		// }
+		// });
+
+		// final Button userslist = (Button) findViewById(R.id.txt_btn_sow_1);
+		// userslist.setOnLongClickListener(mParentReference);
+		//
+		// userslist.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		//
+		// final Dialog dlg = new Dialog(v.getContext());
+		// dlg.setContentView(R.layout.user_list);
+		// dlg.setCancelable(true);
+		// dlg.show();
+		//
+		// dlg.findViewById(R.id.user_1).setOnLongClickListener(
+		// mParentReference);
+		// dlg.findViewById(R.id.user_2).setOnLongClickListener(
+		// mParentReference);
+		// dlg.findViewById(R.id.user_3).setOnLongClickListener(
+		// mParentReference);
+		// dlg.findViewById(R.id.user_4).setOnLongClickListener(
+		// mParentReference);
+		// dlg.findViewById(R.id.user_5).setOnLongClickListener(
+		// mParentReference);
+		//
+		// }
+		// });
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 		help.setOnLongClickListener(this);
-
-		final ImageButton sow1_aggr = (ImageButton) findViewById(R.id.aggr_sow1);
-		final ImageButton sow2_aggr = (ImageButton) findViewById(R.id.aggr_sow2);
-		sow1_aggr.setOnLongClickListener(this);
-		sow2_aggr.setOnLongClickListener(this);
 
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -88,36 +147,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 			}
 		});
 
-		btnLike.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				if (v.getId() == R.id.aggr_item_sow_like1) {
-
-					// for the like button
-					if (!liked) {
-						v.setBackgroundResource(R.drawable.circular_btn_green);
-					}
-				}
-
-			}
-		});
-
-		ImageButton btnLike2 = (ImageButton) findViewById(R.id.aggr_item_sow_like2);
-		System.out.println("Fertilizer Aggregate entered");
-		btnLike2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				if (v.getId() == R.id.aggr_item_sow_like2) {
-
-					// for the like button
-					if (!liked) {
-						v.setBackgroundResource(R.drawable.circular_btn_green);
-					}
-				}
-
-			}
-		});
-
 		final Button action = (Button) findViewById(R.id.aggr_action);
 		final Button crop = (Button) findViewById(R.id.aggr_crop);
 
@@ -127,56 +156,39 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.action_aggr_sel_dialog);
 				dlg.setCancelable(true);
-				// dlg.setTitle("Choose the Number of bags");
-				// Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				final Button aggr_sow;
-				final Button aggr_fert;
-				final Button aggr_irr;
-				final Button aggr_prob;
-				final Button aggr_spray;
-				final Button aggr_harvest;
-				final Button aggr_sell;
-				// final Button variety7;
-				final ImageView img_1;
-				img_1 = (ImageView) findViewById(R.id.aggr_action_img);
+				final View aggr_sow;
+				final View aggr_fert;
+				final View aggr_irr;
+				final View aggr_prob;
+				final View aggr_spray;
+				final View aggr_harvest;
+				final View aggr_sell;
 
-				aggr_sow = (Button) dlg
-						.findViewById(R.id.action_aggr_icon_btn_sow);
-				aggr_fert = (Button) dlg
-						.findViewById(R.id.action_aggr_icon_btn_fert);
-				aggr_irr = (Button) dlg
-						.findViewById(R.id.action_aggr_icon_btn_irr);
-				aggr_prob = (Button) dlg
-						.findViewById(R.id.action_aggr_icon_btn_prob);
-				aggr_spray = (Button) dlg
-						.findViewById(R.id.action_aggr_icon_btn_spray);
-				aggr_harvest = (Button) dlg
+				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_action_img);
+
+				aggr_sow = dlg.findViewById(R.id.action_aggr_icon_btn_sow);
+				aggr_fert = dlg.findViewById(R.id.action_aggr_icon_btn_fert);
+				aggr_irr = dlg.findViewById(R.id.action_aggr_icon_btn_irr);
+				aggr_prob = dlg.findViewById(R.id.action_aggr_icon_btn_prob);
+				aggr_spray = dlg.findViewById(R.id.action_aggr_icon_btn_spray);
+				aggr_harvest = dlg
 						.findViewById(R.id.action_aggr_icon_btn_harvest);
-				aggr_sell = (Button) dlg
-						.findViewById(R.id.action_aggr_icon_btn_sell);
+				aggr_sell = dlg.findViewById(R.id.action_aggr_icon_btn_sell);
 
-				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_sow))
-						.setOnLongClickListener(mParentReference); // audio
-																	// integration
-				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_fert))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_irr))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_prob))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_spray))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_harvest))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.action_aggr_icon_btn_sell))
-						.setOnLongClickListener(mParentReference);
+				// adds the long click event to provide help support.
+				aggr_sow.setOnLongClickListener(mParentReference);
+				aggr_fert.setOnLongClickListener(mParentReference);
+				aggr_irr.setOnLongClickListener(mParentReference);
+				aggr_prob.setOnLongClickListener(mParentReference);
+				aggr_spray.setOnLongClickListener(mParentReference);
+				aggr_harvest.setOnLongClickListener(mParentReference);
+				aggr_sell.setOnLongClickListener(mParentReference);
 
 				aggr_sow.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setMaxWidth(300);
 						img_1.setImageResource(R.drawable.ic_sow);
 						aggr_action_no = 1;
 						changeaction_aggr();
@@ -252,8 +264,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.dialog_variety);
 				dlg.setCancelable(true);
-				// dlg.setTitle("Choose the Number of bags");
-				// Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
 				final Button variety1;
@@ -265,9 +275,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 
-				// home_btn_var_sow_3
-				// final TextView var_text = (TextView)
-				// findViewById(R.id.dlg_var_text_sow);
 				variety1 = (Button) dlg.findViewById(R.id.button_variety_1);
 				variety2 = (Button) dlg.findViewById(R.id.button_variety_2);
 				variety3 = (Button) dlg.findViewById(R.id.button_variety_3);
@@ -285,7 +292,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 				variety1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
 						img_1.setImageResource(R.drawable.pic_72px_bajra);
 
 						dlg.cancel();
@@ -337,68 +343,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 			}
 		});
 
-		final Button userslist = (Button) findViewById(R.id.txt_btn_sow_1);
-		final Button userslist_2 = (Button) findViewById(R.id.txt_btn_sow_2);
-		userslist.setOnLongClickListener(mParentReference);
-		userslist_2.setOnLongClickListener(mParentReference);
-		/*
-		 * Spinner spinner = (Spinner) findViewById(R.id.spinner1);
-		 * 
-		 * Integer[] image = { R.drawable.ic_72px_fertilizing2,
-		 * R.drawable.ic_72px_fertilizing2, R.drawable.ic_72px_fertilizing2 };
-		 * spinner.getLayoutParams().width = 3;
-		 * 
-		 * // Customise ArrayAdapter spinner.setAdapter(new
-		 * SpinnerImgAdapter(this, R.layout.spinner_op, image));
-		 */
-
-		userslist.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.user_list);
-				dlg.setCancelable(true);
-				// dlg.setTitle("Choose the Number of bags");
-				// Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				((Button) dlg.findViewById(R.id.user_1))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_2))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_3))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_4))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_5))
-						.setOnLongClickListener(mParentReference);
-
-			}
-		});
-
-		userslist_2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.user_list);
-				dlg.setCancelable(true);
-				// dlg.setTitle("Choose the Number of bags");
-				// Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				((Button) dlg.findViewById(R.id.user_1))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_2))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_3))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_4))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_5))
-						.setOnLongClickListener(mParentReference);
-
-			}
-		});
 		Button back = (Button) findViewById(R.id.button_back);
 		back.setOnLongClickListener(this);
 
@@ -431,7 +375,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 	}
 
 	private void changeaction_aggr() {
-		// TODO Auto-generated method stub
 
 		if (aggr_action_no == 1) {
 			Intent inte = new Intent(mParentReference, sowing_aggregate.class);
@@ -485,25 +428,25 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.aggr_sow1) { // audio integration
+		if (v.getId() == R.id.aggr_sow1) {
 			playAudioalways(R.raw.fertilizer1);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.aggr_sow2) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
+		// if (v.getId() == R.id.aggr_sow2) {
+		// playAudioalways(R.raw.fertilizer2);
+		// ShowHelpIcon(v);
+		// }
 
 		if (v.getId() == R.id.txt_btn_sow_1) {
 			playAudioalways(R.raw.fertilizer3);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.txt_btn_sow_2) {
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-		}
+		// if (v.getId() == R.id.txt_btn_sow_2) {
+		// playAudioalways(R.raw.bagof10kg);
+		// ShowHelpIcon(v);
+		// }
 
 		if (v.getId() == R.id.user_1) {
 			playAudioalways(R.raw.fertilizer2);

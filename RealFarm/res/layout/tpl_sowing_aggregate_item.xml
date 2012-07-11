@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@android:color/white"
+    android:padding="@dimen/margin" >
+
+    <RelativeLayout
+        android:id="@+id/txt_btn_sow_1"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/margin"
+        android:background="@drawable/square_btn_transp" >
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:background="@drawable/square_btn_transp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_90px_user" />
+
+        <TextView
+            android:id="@+id/dlg_lbl_var_fert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:text="12"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/button_aggregate_type"
+        android:layout_width="120dp"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/margin"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_toRightOf="@+id/txt_btn_sow_1" >
+
+        <ImageButton
+            android:id="@+id/aggr_sow1"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/square_btn_transp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/pic_90px_groundnut_tiled" />
+
+        <TextView
+            android:id="@+id/dlg_lbl_var_fert"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:text="TMV 2"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RelativeLayout>
+
+    <ImageButton
+        android:id="@+id/variety_sow_img_btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin"
+        android:layout_toRightOf="@+id/button_aggregate_type"
+        android:background="@drawable/square_btn_transp"
+        android:src="@drawable/treatment" />
+
+    <ImageButton
+        android:id="@+id/aggr_item_sow_like1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/circular_btn"
+        android:src="@drawable/ic_48px_thumbs_up" />
+
+</RelativeLayout>
