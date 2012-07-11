@@ -24,7 +24,7 @@ public class Marketprice_details extends HelpEnabledActivity {
 		Marketprice_details.this.finish();
 
 		// eliminates the listener.
-		mDataProvider.setWFDataChangeListener(null);
+		mDataProvider.setWeatherForecastDataChangeListener(null);
 
 		SoundQueue sq = SoundQueue.getInstance(); // audio integration
 		sq.stop();

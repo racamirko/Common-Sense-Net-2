@@ -23,12 +23,80 @@ import com.commonsensenet.realfarm.view.AggregateItemAdapter;
 
 public class sowing_aggregate extends HelpEnabledActivity implements
 		OnLongClickListener {
+	private int aggr_action_no;
+
+	/** ListAdapter used to handle the aggregates. */
+	private AggregateItemAdapter mAggregateItemAdapter;
+	/** ListView where the aggregate elements are shown. */
+	private ListView mAggregatesListView;
 	/** Database provider used to persist the data. */
 	private RealFarmProvider mDataProvider;
 	/** Reference to the current instance. */
 	private final sowing_aggregate mParentReference = this;
-	boolean liked;
-	int aggr_action_no;
+
+	protected void cancelaudio() {
+
+		Intent adminintent = new Intent(sowing_aggregate.this, Homescreen.class);
+
+		startActivity(adminintent);
+		sowing_aggregate.this.finish();
+	}
+
+	private void changeaction_aggr() {
+
+		if (aggr_action_no == 1) {
+			Intent inte = new Intent(mParentReference, sowing_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
+		if (aggr_action_no == 2) {
+			Intent inte = new Intent(mParentReference,
+					fertilize_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
+		if (aggr_action_no == 3) {
+			Intent inte = new Intent(mParentReference, irrigate_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
+		if (aggr_action_no == 4) {
+			Intent inte = new Intent(mParentReference, problem_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
+		/*
+		 * if(aggr_action_no == 2) { Intent inte = new Intent(mParentReference,
+		 * spraying_aggregate.class); inte.putExtra("type", "yield");
+		 * this.startActivity(inte); this.finish(); }
+		 */
+		if (aggr_action_no == 6) {
+			Intent inte = new Intent(mParentReference, harvest_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
+		if (aggr_action_no == 7) {
+			Intent inte = new Intent(mParentReference, selling_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
+	}
+
+	protected void okAudio() {
+		playAudio(R.raw.ok);
+	}
 
 	public void onBackPressed() {
 
@@ -46,13 +114,7 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 		startActivity(adminintent);
 		sowing_aggregate.this.finish();
-
 	}
-
-	/** ListAdapter used to handle the aggregates. */
-	private AggregateItemAdapter mAggregateItemAdapter;
-	/** ListView where the aggregate elements are shown. */
-	private ListView mAggregatesListView;
 
 	/** Called when the activity is first created. */
 	@Override
@@ -363,66 +425,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 	}
 
-	protected void cancelaudio() {
-
-		Intent adminintent = new Intent(sowing_aggregate.this, Homescreen.class);
-
-		startActivity(adminintent);
-		sowing_aggregate.this.finish();
-	}
-
-	private void changeaction_aggr() {
-
-		if (aggr_action_no == 1) {
-			Intent inte = new Intent(mParentReference, sowing_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 2) {
-			Intent inte = new Intent(mParentReference,
-					fertilize_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 3) {
-			Intent inte = new Intent(mParentReference, irrigate_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 4) {
-			Intent inte = new Intent(mParentReference, problem_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		/*
-		 * if(aggr_action_no == 2) { Intent inte = new Intent(mParentReference,
-		 * spraying_aggregate.class); inte.putExtra("type", "yield");
-		 * this.startActivity(inte); this.finish(); }
-		 */
-		if (aggr_action_no == 6) {
-			Intent inte = new Intent(mParentReference, harvest_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 7) {
-			Intent inte = new Intent(mParentReference, selling_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-	}
-
 	public boolean onLongClick(View v) {
 
 		// if (v.getId() == R.id.aggr_sow1) {
@@ -471,17 +473,5 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 		}
 
 		return true;
-	}
-
-	protected void cancelAudio() {
-		playAudio(R.raw.cancel);
-		Intent adminintent = new Intent(sowing_aggregate.this, Homescreen.class);
-
-		startActivity(adminintent);
-		sowing_aggregate.this.finish();
-	}
-
-	protected void okAudio() {
-		playAudio(R.raw.ok);
 	}
 }

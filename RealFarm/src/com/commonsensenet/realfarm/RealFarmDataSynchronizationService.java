@@ -174,34 +174,11 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 
 					mDataProvider = RealFarmProvider.getInstance(context);
 
-					String wfval = separated[3];
-					int wf_val = new Integer(wfval);
+					int temperature = new Integer(separated[3]);
+					int adminFlag = new Integer(separated[8]);
 
-					String wfval1 = separated[6];
-					int wf_val1 = new Integer(wfval1);
-
-					String adminflag = separated[8];
-					int admin_flag = new Integer(adminflag);
-
-					mDataProvider.getWeatherForecasts();
-					int wf_size = mDataProvider.getWeatherForecasts().size() + 1;
-					mDataProvider.setWFData(wf_size, separated[2], wf_val,
-							type1, separated[5], wf_val1, type2, admin_flag); // int
-																				// WF_ID,
-																				// String
-																				// WF_Date,
-																				// int
-																				// WF_Value,
-																				// int
-																				// WF_Type,
-																				// int
-																				// WF_Date1,
-																				// int
-																				// WF_Value1,
-																				// int
-																				// WF_Type1,
-																				// int
-																				// WF_adminflag)
+					mDataProvider.addWeatherForecast(separated[2], temperature,
+							type1, adminFlag);
 
 					Log.d("inserted to DB ", "inserrted data");
 					mDataProvider.getWeatherForecasts();

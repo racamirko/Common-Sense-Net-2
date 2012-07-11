@@ -33,7 +33,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		mDataProvider = RealFarmProvider.getInstance(this);
 		// sets the data change listener in case the weather information is
 		// updated.
-		mDataProvider.setWFDataChangeListener(this);
+		mDataProvider.setWeatherForecastDataChangeListener(this);
 
 		// gets the forecast from the database.
 		List<WeatherForecast> wf = mDataProvider.getWeatherForecasts();
@@ -53,9 +53,9 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	}
 
-	public void onDataChanged(int WF_Size, String WF_Date, int WF_Value,
-			String WF_Type, String WF_Date1, int WF_Value1, String WF_Type1,
-			int WF_adminflag) {
+	// TODO: this is not implemented.
+	public void onDataChanged(String date, int temperature, String type,
+			int adminflag) {
 
 		System.out.println("WF details updating");
 		// text_2 = (TextView) findViewById(R.id.wf_text2);
@@ -127,7 +127,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	protected void onDestroy() {
 		// removes the listener
-		mDataProvider.setWFDataChangeListener(null);
+		mDataProvider.setWeatherForecastDataChangeListener(null);
 		mDataProvider = null;
 		super.onDestroy();
 	}

@@ -24,7 +24,7 @@ public class yielddetails extends HelpEnabledActivity {
 		yielddetails.this.finish();
 
 		// eliminates the listener.
-		mDataProvider.setWFDataChangeListener(null);
+		mDataProvider.setWeatherForecastDataChangeListener(null);
 
 		SoundQueue sq = SoundQueue.getInstance();
 		sq.stop();
