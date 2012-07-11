@@ -129,7 +129,7 @@ public class yielddetails extends HelpEnabledActivity {
 			}
 		});
 
-		Button back = (Button) findViewById(R.id.back);
+		Button back = (Button) findViewById(R.id.button_back);
 		back.setOnLongClickListener(this);
 
 		back.setOnClickListener(new View.OnClickListener() {

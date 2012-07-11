@@ -761,8 +761,8 @@ public class action_fertilizing extends HelpEnabledActivity implements
 
 		});
 
-		Button btnNext = (Button) findViewById(R.id.fert_ok);
-		Button cancel = (Button) findViewById(R.id.fert_cancel);
+		Button btnNext = (Button) findViewById(R.id.button_ok);
+		Button cancel = (Button) findViewById(R.id.button_cancel);
 
 		btnNext.setOnLongClickListener(this);
 		cancel.setOnLongClickListener(this);
@@ -999,13 +999,13 @@ public class action_fertilizing extends HelpEnabledActivity implements
 			}
 		}
 
-		if (v.getId() == R.id.fert_ok) {
+		if (v.getId() == R.id.button_ok) {
 
 			playAudioalways(R.raw.ok);
 			ShowHelpIcon(v);  
 		}
 
-		if (v.getId() == R.id.fert_cancel) {
+		if (v.getId() == R.id.button_cancel) {
 
 			playAudioalways(R.raw.cancel);
 			ShowHelpIcon(v);  

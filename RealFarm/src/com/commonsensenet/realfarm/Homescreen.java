@@ -233,8 +233,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_yield
-				|| v.getId() == R.id.hmscrn_btn_yield) {
+		if (v.getId() == R.id.hmscrn_btn_yield) {
 			Log.d(LOG_TAG, "Starting yield info");
 			inte = new Intent(this, yielddetails.class);
 			inte.putExtra("type", "yield");

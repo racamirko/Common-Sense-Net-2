@@ -175,7 +175,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 
 	}
 
-	protected void playAudioalways(int resid) // audio integration
+	protected void playAudioalways(int resid)
 	{
 		// gets the singleton queue
 		SoundQueue sq = SoundQueue.getInstance();
@@ -188,9 +188,7 @@ public abstract class HelpEnabledActivity extends Activity implements
 
 	}
 
-	public void ShowHelpIcon(View v) // added witth audio integration
-										// //20-06-2012
-	{
+	public void ShowHelpIcon(View v) {
 
 		int loc[] = new int[2];
 		v.getLocationOnScreen(loc);

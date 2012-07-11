@@ -26,6 +26,8 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState);
+		// sets the layout
+		setContentView(R.layout.act_weather_forecast);
 
 		// gets the Database
 		mDataProvider = RealFarmProvider.getInstance(this);
@@ -33,15 +35,10 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		// updated.
 		mDataProvider.setWFDataChangeListener(this);
 
-		// sets the layout
-		setContentView(R.layout.act_weather_forecast);
-
-		// gets the data provider
-		mDataProvider = RealFarmProvider.getInstance(this);
-
 		// gets the forecast from the database.
 		List<WeatherForecast> wf = mDataProvider.getWeatherForecasts();
 
+		// creates the adapter used to manage the data.
 		mWeatherForecastItemAdapter = new WeatherForecastItemAdapter(this, wf,
 				mDataProvider);
 

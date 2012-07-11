@@ -1,375 +1,369 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android" >
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
 
-    <LinearLayout
+    <RelativeLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical" >
-
-        <LinearLayout
-            android:id="@+id/linearLayout19"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/header" >
-
-            <ImageView
-                android:id="@+id/aggr_img_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/circular_btn_normal"
-                android:src="@drawable/addnewplot" />
-
-           
-
-            <Button
-                android:id="@+id/button123"
-                android:layout_width="140dip"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                android:visibility="invisible" />
-
-            <ImageButton
-                android:id="@+id/aggr_img_home1"
-                android:layout_width="50dip"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:background="@drawable/home"
-                android:src="@drawable/square_btn_transp" />
-
-            <ImageButton
-                android:id="@+id/aggr_img_help1"
-                android:layout_width="50dip"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:background="@drawable/ic_54px_help"
-                android:src="@drawable/square_btn_transp" />
-        </LinearLayout>
+        android:layout_height="match_parent" >
 
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
-            android:layout_height="170dp"
-            android:orientation="horizontal" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-            <TableRow
-                android:id="@+id/plot_tr"
+            <LinearLayout
+                android:id="@+id/linearLayout19"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/header" >
+
+                <ImageView
+                    android:id="@+id/aggr_img_icon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="5dp"
+                    android:background="@drawable/circular_btn_normal"
+                    android:src="@drawable/addnewplot" />
+
+                <Button
+                    android:id="@+id/button123"
+                    android:layout_width="140dip"
+                    android:layout_height="wrap_content"
+                    android:text="Button"
+                    android:visibility="invisible" />
+
+                <ImageButton
+                    android:id="@+id/aggr_img_home1"
+                    android:layout_width="50dip"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/home"
+                    android:src="@drawable/square_btn_transp" />
+
+                <ImageButton
+                    android:id="@+id/aggr_img_help1"
+                    android:layout_width="50dip"
+                    android:layout_height="match_parent"
+                    android:layout_margin="3dp"
+                    android:background="@drawable/ic_54px_help"
+                    android:src="@drawable/square_btn_transp" />
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="170dp"
-                android:background="@drawable/def_img"
-                android:paddingBottom="10dip"
-                android:paddingTop="4dip" >
+                android:orientation="horizontal" >
 
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
+                <TableRow
+                    android:id="@+id/plot_tr"
+                    android:layout_width="match_parent"
                     android:layout_height="170dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
+                    android:background="@drawable/def_img"
+                    android:paddingBottom="10dip"
+                    android:paddingTop="4dip" >
 
-                   
-
-                    <TextView
-                        android:id="@+id/variety_sow_txt"
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignRight="@+id/variety_sow_txt_btn"
-                        android:layout_centerVertical="true"
-                        android:layout_marginLeft="10dp"
-                        android:layout_marginTop="55dp"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="Plot Image"
-                        android:textColor="#000000"
-                        android:textSize="22sp" />
-                    
-                     <Button
-                        android:id="@+id/image_plot_txt_btn"
-                        android:layout_width="120dp"
                         android:layout_height="170dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
-                </RelativeLayout>
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
 
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="40dp"
-                    android:layout_height="170dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
+                        <TextView
+                            android:id="@+id/variety_sow_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignRight="@+id/variety_sow_txt_btn"
+                            android:layout_centerVertical="true"
+                            android:layout_marginLeft="10dp"
+                            android:layout_marginTop="55dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="Plot Image"
+                            android:textColor="#000000"
+                            android:textSize="22sp" />
 
-                    <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
-                        android:layout_width="40dip"
+                        <Button
+                            android:id="@+id/image_plot_txt_btn"
+                            android:layout_width="120dp"
+                            android:layout_height="170dp"
+                            android:layout_alignBottom="@+id/dlg_var_sow"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignTop="@+id/dlg_var_sow"
+                            android:background="@drawable/square_btn_transp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="40dp"
+                        android:layout_height="170dp"
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
+
+                        <ImageButton
+                            android:id="@+id/variety_sow_img_btn"
+                            android:layout_width="40dip"
+                            android:layout_height="60dp"
+                            android:layout_centerVertical="true"
+                            android:layout_marginTop="0dp"
+                            android:background="@drawable/square_btn_transp"
+                            android:gravity="center"
+                            android:src="@drawable/date" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="170dp"
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
+
+                        <ImageView
+                            android:id="@+id/dlg_plot_img_test"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:background="@drawable/empty" />
+
+                        <Button
+                            android:id="@+id/home_btn_list_plot"
+                            android:layout_width="120dp"
+                            android:layout_height="170dp"
+                            android:layout_alignBottom="@+id/dlg_var_sow"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignTop="@+id/dlg_var_sow"
+                            android:background="@drawable/square_btn_transp" />
+                    </RelativeLayout>
+                </TableRow>
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal" >
+
+                <TableRow
+                    android:id="@+id/soiltype_tr"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/def_img"
+                    android:paddingBottom="10dip"
+                    android:paddingTop="4dip" >
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="wrap_content"
                         android:layout_height="60dp"
-                        android:layout_centerVertical="true"
-                        android:layout_marginTop="0dp"
-                        android:background="@drawable/square_btn_transp"
-                        android:gravity="center"
-                        android:src="@drawable/date" />
-                </RelativeLayout>
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
 
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="170dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
+                        <TextView
+                            android:id="@+id/variety_sow_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignBaseline="@+id/variety_sow_txt_btn"
+                            android:layout_alignBottom="@+id/variety_sow_txt_btn"
+                            android:layout_centerHorizontal="true"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="Soil type"
+                            android:textColor="#000000"
+                            android:textSize="22sp" />
 
-                    <ImageView
-                        android:id="@+id/dlg_plot_img_test"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="@drawable/empty" />
+                        <Button
+                            android:id="@+id/soiltype_plot_txt_btn"
+                            android:layout_width="120dp"
+                            android:layout_height="60dp"
+                            android:layout_alignBottom="@+id/dlg_var_sow"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignTop="@+id/dlg_var_sow"
+                            android:background="@drawable/square_btn_transp" />
+                    </RelativeLayout>
 
-                    <Button
-                        android:id="@+id/home_btn_list_plot"
-                        android:layout_width="120dp"
-                        android:layout_height="170dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
-                </RelativeLayout>
-            </TableRow>
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="40dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
+
+                        <ImageButton
+                            android:id="@+id/variety_sow_img_btn"
+                            android:layout_width="40dip"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/square_btn_transp"
+                            android:gravity="center"
+                            android:src="@drawable/date" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
+
+                        <ImageView
+                            android:id="@+id/dlg_img_soil_plot"
+                            android:layout_width="120dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/empty" />
+
+                        <TextView
+                            android:id="@+id/dlg_lbl_soil_plot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="Soil Type"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="22sp" />
+
+                        <Button
+                            android:id="@+id/home_btn_soil_plot"
+                            android:layout_width="120dp"
+                            android:layout_height="60dp"
+                            android:layout_alignBottom="@+id/dlg_var_sow"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignTop="@+id/dlg_var_sow"
+                            android:background="@drawable/square_btn_transp" />
+                    </RelativeLayout>
+                </TableRow>
+            </LinearLayout>
+
+            <LinearLayout
+                xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="70dp"
+                android:orientation="horizontal" >
+
+                <TableRow
+                    android:id="@+id/maincrop_tr"
+                    android:layout_width="match_parent"
+                    android:layout_height="70dp"
+                    android:background="@drawable/def_img"
+                    android:paddingBottom="10dip"
+                    android:paddingTop="4dip" >
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
+
+                        <TextView
+                            android:id="@+id/variety_sow_txt"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentBottom="true"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_alignRight="@+id/variety_sow_txt_btn"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="1"
+                            android:gravity="left"
+                            android:text="Main Crop"
+                            android:textColor="#000000"
+                            android:textSize="22sp" />
+
+                        <Button
+                            android:id="@+id/maincrop_plot_txt_btn"
+                            android:layout_width="120dp"
+                            android:layout_height="60dp"
+                            android:layout_alignBottom="@+id/dlg_var_sow"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignTop="@+id/dlg_var_sow"
+                            android:background="@drawable/square_btn_transp" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="40dp"
+                        android:layout_height="60dp"
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
+
+                        <ImageButton
+                            android:id="@+id/variety_sow_img_btn"
+                            android:layout_width="40dip"
+                            android:layout_height="60dp"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/square_btn_transp"
+                            android:gravity="center"
+                            android:src="@drawable/maincrop" />
+                    </RelativeLayout>
+
+                    <RelativeLayout
+                        android:id="@+id/RelativeLayoutwf_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:layout_margin="5dip"
+                        android:gravity="right" >
+
+                        <ImageView
+                            android:id="@+id/dlg_img_crop_plot"
+                            android:layout_width="120dp"
+                            android:layout_height="60dp"
+                            android:src="@drawable/empty" />
+
+                        <TextView
+                            android:id="@+id/dlg_lbl_crop_plot"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:layout_weight="1"
+                            android:gravity="right"
+                            android:text="Main Crop"
+                            android:textAppearance="?android:attr/textAppearanceMedium"
+                            android:textSize="22sp" />
+
+                        <Button
+                            android:id="@+id/home_btn_crop_plot"
+                            android:layout_width="120dp"
+                            android:layout_height="60dp"
+                            android:layout_alignBottom="@+id/dlg_var_sow"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignTop="@+id/dlg_var_sow"
+                            android:background="@drawable/square_btn_transp" />
+                    </RelativeLayout>
+                </TableRow>
+            </LinearLayout>
         </LinearLayout>
 
         <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
+            style="@android:style/ButtonBar"
             android:layout_width="match_parent"
-            android:layout_height="70dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:orientation="horizontal" >
 
-            <TableRow
-                android:id="@+id/soiltype_tr"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/def_img"
-                android:paddingBottom="10dip"
-                android:paddingTop="4dip" >
+            <Button
+                android:id="@+id/button_ok"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_48px_ok"
+                android:text="@string/button_ok" />
 
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                   
-
-                    <TextView
-                        android:id="@+id/variety_sow_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignBaseline="@+id/variety_sow_txt_btn"
-                        android:layout_alignBottom="@+id/variety_sow_txt_btn"
-                        android:layout_centerHorizontal="true"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="Soil type"
-                        android:textColor="#000000"
-                        android:textSize="22sp" />
-                    
-                     <Button
-                        android:id="@+id/soiltype_plot_txt_btn"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="40dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                    <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
-                        android:layout_width="40dip"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/square_btn_transp"
-                        android:gravity="center"
-                        android:src="@drawable/date" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                    <ImageView
-                        android:id="@+id/dlg_img_soil_plot"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/empty" />
-
-                    <TextView
-                        android:id="@+id/dlg_lbl_soil_plot"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="Soil Type"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="22sp" />
-
-                    <Button
-                        android:id="@+id/home_btn_soil_plot"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
-                </RelativeLayout>
-            </TableRow>
+            <Button
+                android:id="@+id/button_cancel"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:drawableLeft="@drawable/ic_48px_cancel"
+                android:text="@string/button_cancel" />
         </LinearLayout>
+    </RelativeLayout>
 
-        <LinearLayout
-            xmlns:android="http://schemas.android.com/apk/res/android"
-            android:layout_width="match_parent"
-            android:layout_height="70dp"
-            android:orientation="horizontal" >
-
-            <TableRow
-                android:id="@+id/maincrop_tr"
-                android:layout_width="match_parent"
-                android:layout_height="70dp"
-                android:background="@drawable/def_img"
-                android:paddingBottom="10dip"
-                android:paddingTop="4dip" >
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                    
-
-                    <TextView
-                        android:id="@+id/variety_sow_txt"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_alignRight="@+id/variety_sow_txt_btn"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="1"
-                        android:gravity="left"
-                        android:text="Main Crop"
-                        android:textColor="#000000"
-                        android:textSize="22sp" />
-                    <Button
-                        android:id="@+id/maincrop_plot_txt_btn"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="40dp"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                    <ImageButton
-                        android:id="@+id/variety_sow_img_btn"
-                        android:layout_width="40dip"
-                        android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/square_btn_transp"
-                        android:gravity="center"
-                        android:src="@drawable/maincrop" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/RelativeLayoutwf_2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_margin="5dip"
-                    android:gravity="right" >
-
-                    <ImageView
-                        android:id="@+id/dlg_img_crop_plot"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:src="@drawable/empty" />
-
-                    <TextView
-                        android:id="@+id/dlg_lbl_crop_plot"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_weight="1"
-                        android:gravity="right"
-                        android:text="Main Crop"
-                        android:textAppearance="?android:attr/textAppearanceMedium"
-                        android:textSize="22sp" />
-
-                    <Button
-                        android:id="@+id/home_btn_crop_plot"
-                        android:layout_width="120dp"
-                        android:layout_height="60dp"
-                        android:layout_alignBottom="@+id/dlg_var_sow"
-                        android:layout_alignParentLeft="true"
-                        android:layout_alignTop="@+id/dlg_var_sow"
-                        android:background="@drawable/square_btn_transp" />
-                </RelativeLayout>
-            </TableRow>
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
-        style="@android:style/ButtonBar"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/button_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_48px_ok"
-            android:text="@string/button_ok" />
-
-        <Button
-            android:id="@+id/button_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_48px_cancel"
-            android:text="@string/button_cancel" />
-    </LinearLayout>
-
-</RelativeLayout>
-
-   <ImageView
+    <ImageView
         android:id="@+id/helpIndicator"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

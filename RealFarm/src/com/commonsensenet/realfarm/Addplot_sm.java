@@ -37,7 +37,6 @@ public class Addplot_sm extends HelpEnabledActivity {
 		btnAddPlot.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				Global.callToPlotInfo = 1;
 				Intent adminintent123 = new Intent(Addplot_sm.this,
 						My_settings_plot_details.class); // My_settings_plot_info
 				startActivity(adminintent123);

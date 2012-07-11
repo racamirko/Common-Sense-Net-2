@@ -252,7 +252,7 @@ public class harvest_aggregate extends HelpEnabledActivity implements
 			public void onClick(View v) {
 
 				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.variety_sowing_dialog);
+				dlg.setContentView(R.layout.dialog_variety);
 				dlg.setCancelable(true);
 				// dlg.setTitle("Choose the Number of bags");
 				// Log.d("in variety sowing dialog", "in dialog");
@@ -270,26 +270,19 @@ public class harvest_aggregate extends HelpEnabledActivity implements
 
 				// final TextView var_text = (TextView)
 				// findViewById(R.id.dlg_var_text_sow);
-				variety1 = (Button) dlg.findViewById(R.id.home_btn_var_sow_1);
-				variety2 = (Button) dlg.findViewById(R.id.home_btn_var_sow_2);
-				variety3 = (Button) dlg.findViewById(R.id.home_btn_var_sow_3);
-				variety4 = (Button) dlg.findViewById(R.id.home_btn_var_sow_4);
-				variety5 = (Button) dlg.findViewById(R.id.home_btn_var_sow_5);
-				variety6 = (Button) dlg.findViewById(R.id.home_btn_var_sow_6);
+				variety1 = (Button) dlg.findViewById(R.id.button_variety_1);
+				variety2 = (Button) dlg.findViewById(R.id.button_variety_2);
+				variety3 = (Button) dlg.findViewById(R.id.button_variety_3);
+				variety4 = (Button) dlg.findViewById(R.id.button_variety_4);
+				variety5 = (Button) dlg.findViewById(R.id.button_variety_5);
+				variety6 = (Button) dlg.findViewById(R.id.button_variety_6);
 
-				((Button) dlg.findViewById(R.id.home_btn_var_sow_1))
-						.setOnLongClickListener(mParentReference); // audio
-																	// integration
-				((Button) dlg.findViewById(R.id.home_btn_var_sow_2))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.home_btn_var_sow_3))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.home_btn_var_sow_4))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.home_btn_var_sow_5))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.home_btn_var_sow_6))
-						.setOnLongClickListener(mParentReference);
+				variety1.setOnLongClickListener(mParentReference);
+				variety2.setOnLongClickListener(mParentReference);
+				variety3.setOnLongClickListener(mParentReference);
+				variety4.setOnLongClickListener(mParentReference);
+				variety5.setOnLongClickListener(mParentReference);
+				variety6.setOnLongClickListener(mParentReference);
 
 				variety1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -409,7 +402,7 @@ public class harvest_aggregate extends HelpEnabledActivity implements
 			}
 		});
 
-		Button back = (Button) findViewById(R.id.back);
+		Button back = (Button) findViewById(R.id.button_back);
 		back.setOnLongClickListener(this);
 
 		back.setOnClickListener(new View.OnClickListener() {

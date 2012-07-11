@@ -127,8 +127,9 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".My_settings_plot_details"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:icon="@drawable/addnewplot"
+            android:label="Add New Plot"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ChoosePlotActivity"
             android:label="Plots"
