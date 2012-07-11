@@ -20,7 +20,6 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.AggregateItemAdapter;
-import com.commonsensenet.realfarm.view.PlotItemAdapter;
 
 public class sowing_aggregate extends HelpEnabledActivity implements
 		OnLongClickListener {
@@ -141,9 +140,7 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 					mDataProvider
 							.File_Log_Create("UIlog.txt",
 									"***** user has clicked on home btn  in harvest*********** \r\n");
-
 				}
-
 			}
 		});
 
@@ -428,10 +425,10 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.aggr_sow1) {
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
-		}
+		// if (v.getId() == R.id.aggr_sow1) {
+		// playAudioalways(R.raw.fertilizer1);
+		// ShowHelpIcon(v);
+		// }
 
 		// if (v.getId() == R.id.aggr_sow2) {
 		// playAudioalways(R.raw.fertilizer2);

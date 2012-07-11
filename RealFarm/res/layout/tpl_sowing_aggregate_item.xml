@@ -20,7 +20,7 @@
             android:src="@drawable/ic_90px_user" />
 
         <TextView
-            android:id="@+id/dlg_lbl_var_fert"
+            android:id="@+id/label_aggregate_user_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -39,7 +39,7 @@
         android:layout_toRightOf="@+id/txt_btn_sow_1" >
 
         <ImageButton
-            android:id="@+id/aggr_sow1"
+            android:id="@+id/icon_aggregate_crop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:background="@drawable/square_btn_transp"
@@ -47,7 +47,7 @@
             android:src="@drawable/pic_90px_groundnut_tiled" />
 
         <TextView
-            android:id="@+id/dlg_lbl_var_fert"
+            android:id="@+id/label_aggregate_type"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
@@ -57,7 +57,7 @@
     </RelativeLayout>
 
     <ImageButton
-        android:id="@+id/variety_sow_img_btn"
+        android:id="@+id/icon_aggregate_variety"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
@@ -67,7 +67,7 @@
         android:src="@drawable/treatment" />
 
     <ImageButton
-        android:id="@+id/aggr_item_sow_like1"
+        android:id="@+id/icon_aggregate_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"

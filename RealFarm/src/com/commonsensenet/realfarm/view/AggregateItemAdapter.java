@@ -29,16 +29,16 @@ public class AggregateItemAdapter extends ArrayAdapter<Plot> {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View row = convertView;
-		PlotItemWrapper wrapper = null;
+		AggregateItemWrapper wrapper = null;
 		if (row == null) {
 
 			LayoutInflater li = (LayoutInflater) getContext().getSystemService(
 					Context.LAYOUT_INFLATER_SERVICE);
-			row = li.inflate(R.layout.tpl_plot_item, parent, false);
-			wrapper = new PlotItemWrapper(row);
+			row = li.inflate(R.layout.tpl_sowing_aggregate_item, null);
+			wrapper = new AggregateItemWrapper(row);
 			row.setTag(wrapper);
 		} else {
-			wrapper = (PlotItemWrapper) row.getTag();
+			wrapper = (AggregateItemWrapper) row.getTag();
 		}
 
 		wrapper.populateFrom(this.getItem(position), mDataProvider);

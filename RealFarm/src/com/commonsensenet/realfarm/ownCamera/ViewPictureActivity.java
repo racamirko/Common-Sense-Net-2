@@ -152,16 +152,16 @@ public class ViewPictureActivity extends Activity {
 				ViewPictureActivity.this.finish();
 			}
 		});
-		
+
 		// Camera cancel button
-		Button cancelbutton = (Button) findViewById(R.id.button_retake);     //25-06-2012
+		Button cancelbutton = (Button) findViewById(R.id.button_retake); // 25-06-2012
 		cancelbutton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				
+
 				Intent kintent = new Intent(ViewPictureActivity.this,
 						My_settings_plot_details.class);
-				
+
 				startActivity(kintent);
 				ViewPictureActivity.this.finish();
 			}
