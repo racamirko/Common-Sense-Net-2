@@ -1,5 +1,9 @@
 package com.commonsensenet.realfarm.model;
 
+/**
+ * 
+ * @author Oscar Bola–os <@oscarbolanos>
+ */
 public class Plot {
 
 	protected int mAdminFlag;
@@ -61,7 +65,7 @@ public class Plot {
 		return String
 				.format("[Plot id='%s', userId='%d', seedTypeId='%d', imagePath='%s', soilType='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
 						mId, mUserId, mSeedTypeId, mImagePath, mSoilType,
-						mDeleteFlag, mAdminFlag);
+						mDeleteFlag, mAdminFlag, mTimestamp);
 
 	}
 }

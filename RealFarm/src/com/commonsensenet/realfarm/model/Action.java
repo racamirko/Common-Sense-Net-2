@@ -1,5 +1,9 @@
 package com.commonsensenet.realfarm.model;
 
+/**
+ * 
+ * @author Oscar Bola–os <@oscarbolanos>
+ */
 public class Action {
 
 	private int mActionNameId;
@@ -20,6 +24,7 @@ public class Action {
 	private int mSellingPrice;
 	private String mSellType;
 	private int mSend;
+	private int mTimestamp;
 	private String mTreatment;
 	private String mTypeOfFert;
 	private String mUnits;
@@ -31,7 +36,7 @@ public class Action {
 			String TypeofFert, String probType, String harvFeedback,
 			int SellingPrice, String Quaofseed, String selltype, int send,
 			int Isadmin, String ActionPerformedDate, String Treatment,
-			String PestcideType) {
+			String PestcideType, int timestamp) {
 
 		mId = actionid;
 		mActionNameId = actionnameid;
@@ -56,6 +61,8 @@ public class Action {
 		mActionPerformedDate = ActionPerformedDate;
 		mTreatment = Treatment;
 		mPestcideType = PestcideType;
+
+		mTimestamp = timestamp;
 	}
 
 	public int getActionNameId() {
@@ -128,6 +135,10 @@ public class Action {
 
 	public int getSend() {
 		return mSend;
+	}
+
+	public int getTimestamp() {
+		return mTimestamp;
 	}
 
 	public String getTreatment() {

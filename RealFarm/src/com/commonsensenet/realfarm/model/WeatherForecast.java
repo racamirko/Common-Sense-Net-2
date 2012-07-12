@@ -1,5 +1,9 @@
 package com.commonsensenet.realfarm.model;
 
+/**
+ * 
+ * @author Oscar Bola–os <@oscarbolanos>
+ */
 public class WeatherForecast {
 
 	/** String that represents a parseable Date of the forecast. */

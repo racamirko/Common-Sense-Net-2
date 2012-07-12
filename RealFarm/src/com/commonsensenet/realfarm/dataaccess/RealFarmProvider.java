@@ -5,6 +5,7 @@ import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -269,7 +270,8 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
 								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE,
 								RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
-								RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE });
+								RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
+								RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP });
 
 		if (c.getCount() > 0) {
 			c.moveToFirst();
@@ -281,7 +283,7 @@ public class RealFarmProvider {
 						c.getString(12), c.getString(13), c.getInt(14),
 						c.getString(15), c.getString(16), c.getInt(17),
 						c.getInt(18), c.getString(19), c.getString(20),
-						c.getString(21));
+						c.getString(21), c.getInt(22));
 				tmpActions.add(aa);
 
 				String log = "ACTION_ID: " + c.getInt(0) + " ,ACTIONNAMEID: "
@@ -347,7 +349,8 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
 								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE,
 								RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
-								RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE },
+								RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
+								RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID + "= "
 								+ userId, null, null, null, null);
 
@@ -361,7 +364,7 @@ public class RealFarmProvider {
 						c.getString(12), c.getString(13), c.getInt(14),
 						c.getString(15), c.getString(16), c.getInt(17),
 						c.getInt(18), c.getString(19), c.getString(20),
-						c.getString(21));
+						c.getString(21), c.getInt(22));
 				tmpActions.add(aa);
 
 				String log = "ACTION_ID: " + c.getInt(0) + " ,ACTIONNAMEID: "
@@ -422,7 +425,8 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
 								RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE,
 								RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
-								RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE },
+								RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
+								RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID + "= "
 								+ userId + " AND "
 								+ RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID
@@ -438,7 +442,7 @@ public class RealFarmProvider {
 						c.getString(12), c.getString(13), c.getInt(14),
 						c.getString(15), c.getString(16), c.getInt(17),
 						c.getInt(18), c.getString(19), c.getString(20),
-						c.getString(21));
+						c.getString(21), c.getInt(22));
 				tmpActions.add(aa);
 
 				String log = "ACTION_ID: " + c.getInt(0) + " ,ACTIONNAMEID: "
@@ -1429,9 +1433,10 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG },
+						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
 				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId, null,
 				null, null, null);
 
@@ -1443,7 +1448,8 @@ public class RealFarmProvider {
 			// c.getString(2), c.getString(3));
 
 			tmpUser = new User(userId, c.getString(0), c.getString(1),
-					c.getString(2), c.getString(3), c.getInt(4), c.getInt(5));
+					c.getString(2), c.getString(3), c.getInt(4), c.getInt(5),
+					c.getInt(6));
 		}
 
 		c.close();
@@ -1470,8 +1476,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_ID,
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG },
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
+						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
 
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
 								+ mobile + "'", null, null, null, null);
@@ -1483,7 +1490,8 @@ public class RealFarmProvider {
 			// mobile, c.getString(3));
 
 			tmpUser = new User(c.getInt(0), c.getString(1), c.getString(2),
-					mobile, c.getString(3), c.getInt(4), c.getInt(5));
+					mobile, c.getString(3), c.getInt(4), c.getInt(5),
+					c.getInt(6));
 		}
 		c.close();
 		mDatabase.close();
@@ -1520,8 +1528,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG },
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
+						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
 				RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG + "=" + delete,
 				null, null, null, null);
 
@@ -1530,18 +1539,15 @@ public class RealFarmProvider {
 		tmpList = new LinkedList<User>();
 		System.out.println(c.getCount());
 
+		User u = null;
 		if (c.getCount() > 0) {
 			do {
-				tmpList.add(new User(c.getInt(0), c.getString(1), c
-						.getString(2), c.getString(3), c.getString(4), delete,
-						c.getInt(5)));
+				u = new User(c.getInt(0), c.getString(1), c.getString(2),
+						c.getString(3), c.getString(4), delete, c.getInt(5),
+						c.getInt(6));
+				tmpList.add(u);
 
-				String log = "user id: " + c.getInt(0) + " ,First name: "
-						+ c.getString(1) + " ,Last name: " + c.getString(2)
-						+ " ,Mobile: " + c.getString(3) + " ,Image"
-						+ c.getString(4) + " delete flag " + delete
-						+ "Admin flag " + c.getInt(5) + "\r\n";
-				Log.d("sowing values: ", log);
+				Log.d("sowing values: ", u.toString());
 
 			} while (c.moveToNext());
 
@@ -1565,29 +1571,27 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
-						RealFarmDatabase.COLUMN_NAME_USER_IMAGE,
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG }, null,
+						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP }, null,
 				null, null, null, null);
 		c.moveToFirst();
 
+		User u = null;
 		if (c.getCount() > 0) {
 			do {
-				userList.add(new User(c.getInt(0), c.getString(1), c
-						.getString(2), c.getString(3), c.getString(4), c
-						.getInt(5), c.getInt(6)));
+				u = new User(c.getInt(0), c.getString(1), c.getString(2),
+						c.getString(3), c.getString(4), c.getInt(5),
+						c.getInt(6), c.getInt(7));
+				userList.add(u);
 
-				String log = "Id: " + c.getString(0) + " ,FirstName: "
-						+ c.getString(1) + " ,LastName: " + c.getString(2)
-						+ "Mobile: " + c.getString(3) + " ,Img: "
-						+ c.getString(4) + " ,DeleteFlag: " + c.getInt(5)
-						+ " ,AdminFlag: " + c.getInt(6) + "\r\n";
-				Log.d("user: ", log);
+				Log.d("user: ", u.toString());
 
 				if (Global.writeToSD == true) {
 
 					File_Log_Create("value.txt", "User table \r\n");
-					File_Log_Create("value.txt", log);
+					File_Log_Create("value.txt", u.toString());
 				}
 			} while (c.moveToNext());
 		}
@@ -1650,7 +1654,8 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, soilType);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG, delete);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG, admin);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
+				new Date().getTime());
 
 		// public static final String COLUMN_NAME_PLOT_CENTERX = "centerX";
 		// public static final String COLUMN_NAME_PLOT_CENTERY = "centerY";

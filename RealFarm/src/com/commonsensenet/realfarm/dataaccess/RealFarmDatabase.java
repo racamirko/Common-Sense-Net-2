@@ -80,7 +80,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE + " text, "
 					+ COLUMN_NAME_ACTION_TREATMENT + " text, "
 					+ COLUMN_NAME_ACTION_PESTICIDETYPE + " text, "
-					+ COLUMN_NAME_ACTION_IRRIGATE_METHOD + " text " + " ); ");
+					+ COLUMN_NAME_ACTION_IRRIGATE_METHOD + " text "
+					+ COLUMN_NAME_ACTION_TIMESTAMP + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created action table");
 
 			// actionsNames
@@ -115,11 +116,11 @@ public class RealFarmDatabase {
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_PLOT_USERID + " integer, "
 					+ COLUMN_NAME_PLOT_SEEDTYPEID + " integer, "
-					+ COLUMN_NAME_PLOT_TIMESTAMP + " date, "
 					+ COLUMN_NAME_PLOT_IMAGEPATH + " text, "
 					+ COLUMN_NAME_PLOT_SOILTYPE + " text, "
 					+ COLUMN_NAME_PLOT_DELETEFLAG + " integer, "
-					+ COLUMN_NAME_PLOT_ADMINFLAG + " boolean " + " ); ");
+					+ COLUMN_NAME_PLOT_ADMINFLAG + " boolean, "
+					+ COLUMN_NAME_PLOT_TIMESTAMP + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
 
 			// problem type
@@ -161,9 +162,10 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, "
 					+ COLUMN_NAME_USER_LASTNAME + " text, "
 					+ COLUMN_NAME_USER_MOBILE + " text not null, "
-					+ COLUMN_NAME_USER_IMAGE + " text, "
+					+ COLUMN_NAME_USER_IMAGEPATH + " text, "
 					+ COLUMN_NAME_USER_DELETEFLAG + " boolean, "
-					+ COLUMN_NAME_USER_ADMINFLAG + " boolean " + " ); ");
+					+ COLUMN_NAME_USER_ADMINFLAG + " boolean, "
+					+ COLUMN_NAME_USER_TIMESTAMP + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created user table");
 
 			// units
@@ -309,7 +311,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_USER_DELETEFLAG = "deleteFlag";
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstName";
 	public static final String COLUMN_NAME_USER_ID = "id";
-	public static final String COLUMN_NAME_USER_IMAGE = "image";
+	public static final String COLUMN_NAME_USER_IMAGEPATH = "imagePath";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
 	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
@@ -486,7 +488,7 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_FIRSTNAME, userData[x][0]);
 			users.put(COLUMN_NAME_USER_LASTNAME, userData[x][1]);
 			users.put(COLUMN_NAME_USER_MOBILE, userData[x][2]);
-			users.put(COLUMN_NAME_USER_IMAGE, userData[x][3]);
+			users.put(COLUMN_NAME_USER_IMAGEPATH, userData[x][3]);
 			users.put(COLUMN_NAME_USER_DELETEFLAG, 0);
 			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 			users.clear();
