@@ -10,7 +10,6 @@ public class Action {
 	private String mActionPerformedDate;
 	private String mActionType;
 	private String mDay;
-	private int mGrowingId;
 	private String mHarvFeedback;
 	private int mId;
 	private int mIsAdmin;
@@ -30,17 +29,16 @@ public class Action {
 	private String mUnits;
 	private int mUserId;
 
-	public Action(int actionid, int actionnameid, int GrowingId,
-			String actiontype, String seedvariety, int Quantity1,
-			int Quantity2, String Units, String day, int userid, int plotid,
-			String TypeofFert, String probType, String harvFeedback,
-			int SellingPrice, String Quaofseed, String selltype, int send,
-			int Isadmin, String ActionPerformedDate, String Treatment,
-			String PestcideType, int timestamp) {
+	public Action(int actionid, int actionnameid, String actiontype,
+			String seedvariety, int Quantity1, int Quantity2, String Units,
+			String day, int userid, int plotid, String TypeofFert,
+			String probType, String harvFeedback, int SellingPrice,
+			String Quaofseed, String selltype, int send, int Isadmin,
+			String ActionPerformedDate, String Treatment, String PestcideType,
+			int timestamp) {
 
 		mId = actionid;
 		mActionNameId = actionnameid;
-		mGrowingId = GrowingId;
 		mActionType = actiontype;
 		mSeedVariety = seedvariety;
 		mQuantity1 = Quantity1;
@@ -79,10 +77,6 @@ public class Action {
 
 	public String getDay() {
 		return mDay;
-	}
-
-	public int getGrowingId() {
-		return mGrowingId;
 	}
 
 	public String getHarvestFeedback() {

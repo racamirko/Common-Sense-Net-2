@@ -60,7 +60,6 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_ID
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_ACTION_ACTIONNAMEID + " integer, "
-					+ COLUMN_NAME_ACTION_GROWINGID + " integer, "
 					+ COLUMN_NAME_ACTION_ACTIONTYPE + " text, "
 					+ COLUMN_NAME_ACTION_SEEDVARIETY + " text, "
 					+ COLUMN_NAME_ACTION_QUANTITY1 + " integer, "
@@ -218,18 +217,22 @@ public class RealFarmDatabase {
 		}
 	}
 
+	public static final String COLUMN_NAME_ACTION_ID = "id";
+	public static final String COLUMN_NAME_ACTION_SENT = "isSent";
+	public static final String COLUMN_NAME_ACTION_TIMESTAMP = "timestamp";
+	public static final String COLUMN_NAME_ACTION_PLOTID = "plotId";
+	// can be obtained from the plot.
+	public static final String COLUMN_NAME_ACTION_USERID = "userId";
 	public static final String COLUMN_NAME_ACTION_ACTIONNAMEID = "actionNameId";
+	public static final String COLUMN_NAME_ACTION_ISADMIN = "IsAdmin";
+
 	public static final String COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE = "ActionPerformedDate";
 	public static final String COLUMN_NAME_ACTION_ACTIONTYPE = "actionType";
 	public static final String COLUMN_NAME_ACTION_DATE = "date";
 	public static final String COLUMN_NAME_ACTION_DAY = "day";
-	public static final String COLUMN_NAME_ACTION_GROWINGID = "growingId";
 	public static final String COLUMN_NAME_ACTION_HARVESTFEEDBACK = "feedback";
-	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTION_IRRIGATE_METHOD = "irrigateMethod";
-	public static final String COLUMN_NAME_ACTION_ISADMIN = "IsAdmin";
 	public static final String COLUMN_NAME_ACTION_PESTICIDETYPE = "pesticidetype";
-	public static final String COLUMN_NAME_ACTION_PLOTID = "plotId";
 	public static final String COLUMN_NAME_ACTION_PROBLEMTYPE = "problems";
 	public static final String COLUMN_NAME_ACTION_QUALITYOFSEED = "qualityofSeed";
 	public static final String COLUMN_NAME_ACTION_QUANTITY1 = "quantity1";
@@ -237,12 +240,9 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_SEEDVARIETY = "seedVariety";
 	public static final String COLUMN_NAME_ACTION_SELLINGPRICE = "sellingPrice";
 	public static final String COLUMN_NAME_ACTION_SELLTYPE = "selltype";
-	public static final String COLUMN_NAME_ACTION_SENT = "sent";
 	public static final String COLUMN_NAME_ACTION_TREATMENT = "treatment";
 	public static final String COLUMN_NAME_ACTION_TYPEOFFERTILIZER = "typeOfFertilizer";
 	public static final String COLUMN_NAME_ACTION_UNITS = "units";
-	public static final String COLUMN_NAME_ACTION_USERID = "userId";
-	public static final String COLUMN_NAME_ACTION_TIMESTAMP = "timestamp";
 
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
@@ -266,12 +266,12 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PESTICIDE_NAME = "name";
 
 	public static final String COLUMN_NAME_PLOT_ADMINFLAG = "adminFlag";
-	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_PLOT_DELETEFLAG = "deleteFlag";
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_IMAGEPATH = "imagePath";
 	public static final String COLUMN_NAME_PLOT_SEEDTYPEID = "seedtypeId";
 	public static final String COLUMN_NAME_PLOT_SOILTYPE = "soilType";
+	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 
 	public static final String COLUMN_NAME_PROBLEM_ADMINFLAG = "adminFlag";
