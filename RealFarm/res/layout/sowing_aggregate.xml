@@ -13,8 +13,7 @@
             android:id="@+id/aggr_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dip"
-            android:gravity="left" >
+            android:layout_margin="@dimen/margin" >
 
             <ImageView
                 android:id="@+id/aggr_action_img"
@@ -29,20 +28,20 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentTop="true"
                 android:layout_toRightOf="@+id/aggr_action_img"
+                android:scaleType="fitXY"
                 android:src="@drawable/dropdown" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:layout_width="80dp"
-            android:layout_height="60dp"
-            android:layout_margin="5dip"
-            android:gravity="left" >
+            android:id="@+id/aggr_crop"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin" >
 
             <ImageView
                 android:id="@+id/aggr_crop_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_margin="2dp"
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/pic_72px_groundnut" />
 
@@ -50,20 +49,10 @@
                 android:id="@+id/aggr_crop_dropdwn"
                 android:layout_width="20dp"
                 android:layout_height="match_parent"
-                android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
-                android:layout_margin="1dp"
+                android:layout_toRightOf="@+id/aggr_crop_img"
+                android:scaleType="fitXY"
                 android:src="@drawable/dropdown" />
-
-            <Button
-                android:id="@+id/aggr_crop"
-                android:layout_width="30dp"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentRight="true"
-                android:layout_alignParentTop="true"
-                android:background="@drawable/square_btn_transp" />
         </RelativeLayout>
 
         <Button
