@@ -17,7 +17,7 @@ public class AggregateItemAdapter extends ArrayAdapter<Plot> {
 	private RealFarmProvider mDataProvider;
 
 	/**
-	 * Creates a new PlotItemAdapter instance.
+	 * Creates a new AggregateItemAdapter instance.
 	 */
 	public AggregateItemAdapter(Context context, List<Plot> plots,
 			RealFarmProvider dataProvider) {

@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -86,52 +85,50 @@ public class action_sowing extends HelpEnabledActivity {
 
 		}
 
-		// final ImageView bg_var_sow = (ImageView)
-		// findViewById(R.id.img_bg_var_sow);
 		final ImageView bg_units_no_sow = (ImageView) findViewById(R.id.img_bg_units_no_sow);
 		final ImageView bg_units_sow = (ImageView) findViewById(R.id.img_bg_units_sow);
 		final ImageView bg_treatment_sow = (ImageView) findViewById(R.id.img_bg_treatment_sow);
 		final ImageView bg_day_sow = (ImageView) findViewById(R.id.img_bg_day_sow);
 		final ImageView bg_month_sow = (ImageView) findViewById(R.id.img_bg_month_sow);
 
-		final Button item1;
-		final Button item2;
-		final Button item3;
-		final Button item4;
-		final Button item5;
-		ImageButton home;
-		ImageButton help;
-		item1 = (Button) findViewById(R.id.home_btn_var_sow);
-		item2 = (Button) findViewById(R.id.home_btn_units_sow);
-		item3 = (Button) findViewById(R.id.home_btn_day_sow);
-		item4 = (Button) findViewById(R.id.home_btn_treat_sow);
-		item5 = (Button) findViewById(R.id.home_btn_units_no_sow);
+		final View item1;
+		final View item2;
+		final View item3;
+		final View item4;
+		final View item5;
+		View home;
+		View help;
+		item1 = findViewById(R.id.home_btn_var_sow);
+		item2 = findViewById(R.id.home_btn_units_sow);
+		item3 = findViewById(R.id.home_btn_day_sow);
+		item4 = findViewById(R.id.home_btn_treat_sow);
+		item5 = findViewById(R.id.home_btn_units_no_sow);
+
 		final Button item6 = (Button) findViewById(R.id.home_btn_month_sow);
+		home = findViewById(R.id.aggr_img_home);
+		help = findViewById(R.id.aggr_img_help);
 
-		home = (ImageButton) findViewById(R.id.aggr_img_home);
-		help = (ImageButton) findViewById(R.id.aggr_img_help);
-
-		item1.setOnLongClickListener(this); // Integration
+		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 		item5.setOnLongClickListener(this);
-		item6.setOnLongClickListener(this); // 25-06-2012
+		item6.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final Button variety; // 20-06-2012
+		final Button variety;
 		final Button Amount;
 		final Button Date;
 		final Button Treatment;
 		final Button Intercrop;
 
-		variety = (Button) findViewById(R.id.variety_sow_txt_btn); // 20-06-2012
+		variety = (Button) findViewById(R.id.variety_sow_txt_btn);
 		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
 		Date = (Button) findViewById(R.id.date_sow_txt_btn);
 		Treatment = (Button) findViewById(R.id.treat_sow_txt_btn);
 		Intercrop = (Button) findViewById(R.id.intercrop_sow_txt_btn);
 
-		variety.setOnLongClickListener(this); // 20-06-2012
+		variety.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
 		Date.setOnLongClickListener(this);
 		Treatment.setOnLongClickListener(this);

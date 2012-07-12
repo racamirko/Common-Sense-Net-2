@@ -3,38 +3,28 @@ package com.commonsensenet.realfarm.model;
 public class Plot {
 
 	protected int mAdminFlag;
-	protected int mCenterX;
-	protected int mCenterY;
 	protected int mDeleteFlag;
 	protected int mId;
-	protected String mImageName;
+	protected String mImagePath;
 	protected int mSeedTypeId;
 	protected String mSoilType;
+	protected int mTimestamp;
 	protected int mUserId;
 
-	public Plot(int id, int userId, int seedTypeId, int centerX, int centerY,
-			String imageName, String soilType, int deleteFlag, int adminFlag) {
+	public Plot(int id, int userId, int seedTypeId, String imagePath,
+			String soilType, int deleteFlag, int adminFlag, int timestamp) {
 		mId = id;
 		mUserId = userId;
 		mSeedTypeId = seedTypeId;
-		mCenterX = centerX;
-		mCenterY = centerY;
-		mImageName = imageName;
+		mImagePath = imagePath;
 		mSoilType = soilType;
 		mDeleteFlag = deleteFlag;
 		mAdminFlag = adminFlag;
+		mTimestamp = timestamp;
 	}
 
 	public int getAdminFlag() {
 		return mAdminFlag;
-	}
-
-	public int getCenterX() {
-		return mCenterX;
-	}
-
-	public int getCenterY() {
-		return mCenterY;
 	}
 
 	public int getDeleteFlag() {
@@ -45,8 +35,8 @@ public class Plot {
 		return mId;
 	}
 
-	public String getImageName() {
-		return mImageName;
+	public String getImagePath() {
+		return mImagePath;
 	}
 
 	public int getSeedTypeId() {
@@ -57,7 +47,21 @@ public class Plot {
 		return mSoilType;
 	}
 
+	public int getTimestamp() {
+		return mTimestamp;
+	}
+
 	public int getUserId() {
 		return mUserId;
+	}
+
+	@Override
+	public String toString() {
+
+		return String
+				.format("[Plot id='%s', userId='%d', seedTypeId='%d', imagePath='%s', soilType='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
+						mId, mUserId, mSeedTypeId, mImagePath, mSoilType,
+						mDeleteFlag, mAdminFlag);
+
 	}
 }

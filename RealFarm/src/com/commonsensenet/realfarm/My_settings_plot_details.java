@@ -568,7 +568,7 @@ public class My_settings_plot_details extends HelpEnabledActivity {
 	private void addPlotToDatabase() {
 
 		Global.plotId = mDataProvider.insertPlot(Global.userId, mSeedTypeId,
-				111, 222, mPlotImage, mSoilType, 0, 0);
+				mPlotImage, mSoilType, 0, 0);
 
 		Toast.makeText(
 				getBaseContext(),

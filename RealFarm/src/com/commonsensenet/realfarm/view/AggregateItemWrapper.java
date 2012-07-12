@@ -16,21 +16,28 @@ import com.commonsensenet.realfarm.model.Plot;
  * 
  */
 public class AggregateItemWrapper {
+	private TextView mCount;
+	private ImageView mCropImage;
 	/** The View object that represents a single row inside the ListView. */
 	private View mRow;
-
 	private TextView mType;
-	private ImageView mCropImage;
-	private TextView mCount;
 
 	/**
-	 * Creates a new PlotItemWrapper instance.
+	 * Creates a new AggregateItemWrapper instance.
 	 * 
 	 * @param row
 	 *            the View where the info will be presented.
 	 */
 	public AggregateItemWrapper(View row) {
 		this.mRow = row;
+	}
+
+	public TextView getCount() {
+
+		if (mCount == null) {
+			mCount = (TextView) mRow.findViewById(R.id.label_plot_title);
+		}
+		return (mCount);
 	}
 
 	public ImageView getCropImage() {
@@ -46,14 +53,6 @@ public class AggregateItemWrapper {
 			mType = (TextView) mRow.findViewById(R.id.label_plot_title);
 		}
 		return (mType);
-	}
-
-	public TextView getCount() {
-
-		if (mCount == null) {
-			mCount = (TextView) mRow.findViewById(R.id.label_plot_title);
-		}
-		return (mCount);
 	}
 
 	public void populateFrom(Plot plot, RealFarmProvider provider) {

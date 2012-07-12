@@ -115,13 +115,11 @@ public class RealFarmDatabase {
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_PLOT_USERID + " integer, "
 					+ COLUMN_NAME_PLOT_SEEDTYPEID + " integer, "
-					+ COLUMN_NAME_PLOT_CENTERX + " integer, "
-					+ COLUMN_NAME_PLOT_CENTERY + " integer, "
-					+ COLUMN_NAME_PLOT_DATE + " date, "
+					+ COLUMN_NAME_PLOT_TIMESTAMP + " date, "
 					+ COLUMN_NAME_PLOT_IMAGEPATH + " text, "
 					+ COLUMN_NAME_PLOT_SOILTYPE + " text, "
-					+ COLUMN_NAME_PLOT_DELETEFLAG + " int, "
-					+ COLUMN_NAME_PLOT_ADMINFLAG + " int " + " ); ");
+					+ COLUMN_NAME_PLOT_DELETEFLAG + " integer, "
+					+ COLUMN_NAME_PLOT_ADMINFLAG + " boolean " + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
 
 			// problem type
@@ -242,6 +240,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_TYPEOFFERTILIZER = "typeOfFertilizer";
 	public static final String COLUMN_NAME_ACTION_UNITS = "units";
 	public static final String COLUMN_NAME_ACTION_USERID = "userId";
+	public static final String COLUMN_NAME_ACTION_TIMESTAMP = "timestamp";
 
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
@@ -265,9 +264,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PESTICIDE_NAME = "name";
 
 	public static final String COLUMN_NAME_PLOT_ADMINFLAG = "adminFlag";
-	public static final String COLUMN_NAME_PLOT_CENTERX = "centerX";
-	public static final String COLUMN_NAME_PLOT_CENTERY = "centerY";
-	public static final String COLUMN_NAME_PLOT_DATE = "date";
+	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_PLOT_DELETEFLAG = "deleteFlag";
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_IMAGEPATH = "imagePath";
@@ -315,6 +312,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_USER_IMAGE = "image";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastName";
 	public static final String COLUMN_NAME_USER_MOBILE = "mobileNumber";
+	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
 
 	public static final String COLUMN_NAME_WEATHERFORECAST_DATE = "date";
 	public static final String COLUMN_NAME_WEATHERFORECAST_ID = "id";
@@ -671,27 +669,6 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "seedtype works");
 
-		// inserts test plot data.
-		ContentValues plots = new ContentValues();
-		Object[][] plotData = { { 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
-				{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
-				{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
-				{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
-
-		for (int x = 0; x < plotData.length; x++) {
-			plots.put(COLUMN_NAME_PLOT_USERID, (Integer) plotData[x][0]);
-			plots.put(COLUMN_NAME_PLOT_SEEDTYPEID, (Integer) plotData[x][1]);
-			plots.put(COLUMN_NAME_PLOT_IMAGEPATH, (String) plotData[x][2]);
-			plots.put(COLUMN_NAME_PLOT_SOILTYPE, (String) plotData[x][3]);
-			plots.put(COLUMN_NAME_USER_DELETEFLAG, 0);
-			plots.put(COLUMN_NAME_PLOT_ADMINFLAG, 0);
-			insertEntriesIntoDatabase(TABLE_NAME_PLOT, plots, db);
-			plots.clear();
-		}
-
-		Log.d(LOG_TAG, "plot works");
-
-		Log.d(LOG_TAG, "actions works");
 	}
 
 	/**

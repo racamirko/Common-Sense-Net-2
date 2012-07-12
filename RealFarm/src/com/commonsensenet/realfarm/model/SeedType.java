@@ -57,6 +57,10 @@ public class SeedType {
 		return mRes;
 	}
 
+	public int getResBg() {
+		return mResBg;
+	}
+
 	public String getVariety() {
 		return mVariety;
 	}
@@ -65,12 +69,18 @@ public class SeedType {
 		return mVarietyKannada;
 	}
 
-	public int getResBg() {
-		return mResBg;
-	}
-
 	public void setResBg(int mResBg) {
 		this.mResBg = mResBg;
+	}
+
+	@Override
+	public String toString() {
+
+		return String
+				.format("[SeedType id='%s', name='%s', nameKannada='%s', res='%d', audio='%d', variety='%s', varietyKannada='%s', resBG='%d']",
+						mId, mName, mNameKannada, mRes, mAudioRes, mVariety,
+						mVarietyKannada, mResBg);
+
 	}
 
 }

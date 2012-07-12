@@ -1,5 +1,7 @@
 package com.commonsensenet.realfarm;
 
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -36,6 +38,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.ReminderTask;
 import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
+import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
@@ -590,10 +593,40 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// clears the database
 		// initDb();
+		insertDemoData();
 
 		initActionListener();
 
 		// WriteDataBaseToSDcard();
+	}
+
+	public static boolean IS_INITIALIZED = false;
+
+	private void insertDemoData() {
+		if (!IS_INITIALIZED) {
+			Object[][] plotData = {
+					{ 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
+					{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
+					{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
+					{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
+
+			List<SeedType> seeds = mDataProvider.getSeeds();
+
+			for (int x = 0; x < plotData.length; x++) {
+				Global.plotId = mDataProvider.insertPlot(
+						(Integer) plotData[x][0], seeds.get(x).getId(),
+						(String) plotData[x][2], (String) plotData[x][3], 0, 0);
+			}
+
+			Log.d(LOG_TAG, "plot works");
+
+			mDataProvider.setSowing(Global.userId, Global.plotId, 1, "Bajra",
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(Global.userId, Global.plotId, 1, "Castor",
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			IS_INITIALIZED = true;
+		}
+
 	}
 
 	// public boolean onCreateOptionsMenu(Menu menu) {
@@ -761,11 +794,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getProblem();
 
 		System.out.println("New plot writing");
-		mDataProvider.insertPlot(Global.userId, 1, 123, 456, "plot image1",
-				"Loamy", 0, 0);
-		mDataProvider.insertPlot(Global.userId, 2, 468, 356, "plot image2",
-				"Sandy", 0, 0);
-		Global.plotId = mDataProvider.insertPlot(Global.userId, 2, 468, 356,
+		mDataProvider
+				.insertPlot(Global.userId, 1, "plot image1", "Loamy", 0, 0);
+		mDataProvider
+				.insertPlot(Global.userId, 2, "plot image2", "Sandy", 0, 0);
+		Global.plotId = mDataProvider.insertPlot(Global.userId, 2,
 				"plot image2", "Sandy", 0, 0);
 
 		System.out.println("newplot  reading");
