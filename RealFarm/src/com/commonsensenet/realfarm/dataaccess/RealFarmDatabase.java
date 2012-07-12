@@ -232,7 +232,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_QUALITYOFSEED = "qualityofSeed";
 	public static final String COLUMN_NAME_ACTION_QUANTITY1 = "quantity1";
 	public static final String COLUMN_NAME_ACTION_QUANTITY2 = "quantity2";
-	public static final String COLUMN_NAME_ACTION_SEEDTYPEID = "seedType";
+	public static final String COLUMN_NAME_ACTION_SEEDTYPEID = "seedTypeId";
 	public static final String COLUMN_NAME_ACTION_SELLINGPRICE = "sellingPrice";
 	public static final String COLUMN_NAME_ACTION_SELLTYPE = "selltype";
 	public static final String COLUMN_NAME_ACTION_TREATMENT = "treatment";

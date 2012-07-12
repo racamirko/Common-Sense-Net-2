@@ -19,6 +19,7 @@ import android.util.Log;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
+import com.commonsensenet.realfarm.model.AggregateItem;
 import com.commonsensenet.realfarm.model.Fertilizing;
 import com.commonsensenet.realfarm.model.Harvesting;
 import com.commonsensenet.realfarm.model.Irrigation;
@@ -175,8 +176,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTIONNAME_ID + "="
 								+ actionNameId, null, null, null, null);
 
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 
 			tmpAction = new ActionName(actionNameId, c.getString(0),
 					c.getString(1), c.getInt(2), c.getInt(3));
@@ -204,11 +204,10 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_RESOURCE,
 									RealFarmDatabase.COLUMN_NAME_ACTIONNAME_AUDIO },
 							null, null, null, null, null);
-			c.moveToFirst();
 
 			mAllActionNames = new ArrayList<ActionName>();
 
-			if (c.getCount() > 0) {
+			if (c.moveToFirst()) {
 				do {
 					mAllActionNames.add(new ActionName(c.getInt(0), c
 							.getString(1), c.getString(2), c.getInt(3), c
@@ -265,8 +264,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP });
 
 		Action a = null;
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
 						c.getInt(3), c.getInt(4), c.getString(5), c.getInt(6),
@@ -329,8 +327,7 @@ public class RealFarmProvider {
 		// RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP };
 
 		Action a = null;
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
 						c.getInt(3), c.getInt(4), c.getString(5), c.getInt(6),
@@ -380,8 +377,7 @@ public class RealFarmProvider {
 						+ "", null, null, null, null);
 
 		Action a = null;
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
 						c.getInt(3), c.getInt(4), c.getString(5), c.getInt(6),
@@ -417,11 +413,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_FERTILIZER_UNITID });
 
 		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
 				// adds the users into the list.
-
 				String log = "ID: " + c.getInt(0) + " ,NAME: " + c.getString(1)
 						+ " AUDIO: " + c.getInt(2) + " UNITID: " + c.getInt(3)
 						+ "\r\n";
@@ -462,12 +456,9 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + fert,
 				null, null, null, null);
 
-		//
-		c.moveToFirst();
 		tmpList = new ArrayList<Fertilizing>();
-		System.out.println(c.getCount());
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new Fertilizing(c.getInt(0), c.getString(1), c
 						.getInt(2), c.getString(3), c.getString(4), c
@@ -518,12 +509,9 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + harv,
 				null, null, null, null);
 
-		//
-		c.moveToFirst();
 		tmpList = new ArrayList<Harvesting>();
-		System.out.println(c.getCount());
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new Harvesting(c.getInt(0), c.getString(1), c
 						.getInt(2), c.getInt(3), c.getString(4),
@@ -577,11 +565,9 @@ public class RealFarmProvider {
 						+ irrigate, null, null, null, null);
 
 		//
-		c.moveToFirst();
 		tmpList = new ArrayList<Irrigation>();
-		System.out.println(c.getCount());
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new Irrigation(c.getInt(0), c.getString(1), c
 						.getInt(2), c.getString(3), c.getString(4),
@@ -628,11 +614,10 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE,
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ADMINFLAG },
 				null, null, null, null, null);
-		c.moveToFirst();
 
 		tmpList = new ArrayList<MarketPrice>();
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new MarketPrice(c.getInt(0), c.getString(1), c
 						.getString(2), c.getInt(3), c.getInt(4)));
@@ -668,8 +653,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PESTICIDE_AUDIO });
 
 		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
 				// adds the users into the list.
 
@@ -709,11 +693,9 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "=" + delete,
 				null, null, null, null);
 
-		c.moveToFirst();
 		tmpList = new ArrayList<Plot>();
-		System.out.println(c.getCount());
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 
 				tmpList.add(new Plot(c.getInt(0), c.getInt(1), c.getInt(2), c
@@ -741,7 +723,7 @@ public class RealFarmProvider {
 	public List<Plot> getPlots() {
 
 		// opens the database.
-		List<Plot> plotList = new ArrayList<Plot>();
+		List<Plot> tmpList = new ArrayList<Plot>();
 
 		mDatabase.open();
 
@@ -756,15 +738,14 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP }, null,
 				null, null, null, null);
-		c.moveToFirst();
 
 		Plot p = null;
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
 						c.getString(3), c.getString(4), c.getInt(5),
 						c.getInt(6), c.getInt(7));
-				plotList.add(p);
+				tmpList.add(p);
 
 				Log.d("plot values: ", p.toString());
 
@@ -777,13 +758,13 @@ public class RealFarmProvider {
 
 		c.close();
 		mDatabase.close();
-		return plotList;
+		return tmpList;
 	}
 
 	public List<Plot> getPlotsByUserId(int userId) {
 
 		// opens the database.
-		List<Plot> plotList = new ArrayList<Plot>();
+		List<Plot> tmpList = new ArrayList<Plot>();
 
 		mDatabase.open();
 
@@ -800,15 +781,13 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId, null,
 				null, null, null);
 
-		c.moveToFirst();
-
 		Plot p = null;
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
 						c.getString(3), c.getString(4), c.getInt(5),
 						c.getInt(6), c.getInt(7));
-				plotList.add(p);
+				tmpList.add(p);
 
 				Log.d("plot values: ", p.toString());
 			} while (c.moveToNext());
@@ -816,24 +795,38 @@ public class RealFarmProvider {
 
 		c.close();
 		mDatabase.close();
-		return plotList;
+		return tmpList;
 	}
 
-	public List<Object> getAggregateItems(String action) {
-		final String MY_QUERY = "SELECT COUNT(u.id) as users, a.  * FROM table_a a INNER JOIN table_b b ON a.id=b.other_id WHERE b.property_id=?";
+	public List<AggregateItem> getAggregateItems(int actionNameId) {
+		final String MY_QUERY = "SELECT COUNT(p.userId) as users, a.actionNameId, a.seedTypeId FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId=3 GROUP BY a.actionNameId, a.seedTypeId ORDER BY a.seedTypeId ASC";
 
-		List<Object> aggregateList = new ArrayList<Object>();
+		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
-		mDatabase.rawQuery(MY_QUERY, new String[] { "" });
+		mDatabase.open();
 
-		return aggregateList;
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		AggregateItem a = null;
+		if (c.moveToFirst()) {
+			do {
+				a = new AggregateItem(c.getInt(0), c.getInt(1), c.getInt(2));
+				tmpList.add(a);
+
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
 	}
 
 	// modified(You can take seedtypyId corresponding to the userId and plotId)
 	public List<Plot> getPlotsByUserIdAndDeleteFlag(int userId, int delete) {
 
 		// opens the database.
-		List<Plot> plotList = new ArrayList<Plot>();
+		List<Plot> tmpList = new ArrayList<Plot>();
 
 		mDatabase.open();
 
@@ -852,21 +845,19 @@ public class RealFarmProvider {
 						+ RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "="
 						+ delete + "", null, null, null, null);
 
-		c.moveToFirst();
-
 		Plot p = null;
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
 						c.getString(3), c.getString(4), c.getInt(5),
 						c.getInt(6), c.getInt(7));
-				plotList.add(p);
+				tmpList.add(p);
 			} while (c.moveToNext());
 		}
 
 		c.close();
 		mDatabase.close();
-		return plotList;
+		return tmpList;
 	}
 
 	// Get WF data
@@ -874,7 +865,7 @@ public class RealFarmProvider {
 	// modified(You can take seedtypyId corresponding to the userId and plotId)
 	public List<Plot> getPlotsByUserIdAndPlotId(int userId, int plotId) {
 		// opens the database.
-		List<Plot> plotList = new ArrayList<Plot>();
+		List<Plot> tmpList = new ArrayList<Plot>();
 
 		mDatabase.open();
 
@@ -892,15 +883,13 @@ public class RealFarmProvider {
 						+ " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_ID + "="
 						+ plotId + "", null, null, null, null);
 
-		c.moveToFirst();
-
 		Plot p = null;
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
 						c.getString(3), c.getString(4), c.getInt(5),
 						c.getInt(6), c.getInt(7));
-				plotList.add(p);
+				tmpList.add(p);
 
 				Log.d("plot values: ", p.toString());
 			} while (c.moveToNext());
@@ -908,7 +897,7 @@ public class RealFarmProvider {
 
 		c.close();
 		mDatabase.close();
-		return plotList;
+		return tmpList;
 	}
 
 	public List<Problem> getProblem() {
@@ -929,11 +918,9 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "="
 						+ problem, null, null, null, null);
 
-		c.moveToFirst();
 		tmpList = new ArrayList<Problem>();
-		System.out.println(c.getCount());
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new Problem(c.getInt(0), c.getString(1), c
 						.getString(2), c.getInt(3), c.getInt(4),
@@ -977,8 +964,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PROBLEM_ADMINFLAG });
 
 		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
 				// adds the users into the list.
 
@@ -1019,8 +1005,7 @@ public class RealFarmProvider {
 				});
 
 		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
 				// adds the users into the list.
 
@@ -1060,8 +1045,7 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
 				null, null, null);
 
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			res = new SeedType(seedId, c.getString(0), c.getString(1),
 					c.getInt(2), c.getInt(3), c.getString(4), c.getString(5),
 					c.getInt(6));
@@ -1093,8 +1077,7 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG });
 
-			if (c.getCount() > 0) {
-				c.moveToFirst();
+			if (c.moveToFirst()) {
 				do {
 					SeedType s = new SeedType(c.getInt(0), c.getString(1),
 							c.getString(2), c.getInt(3), c.getInt(4),
@@ -1140,12 +1123,9 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + sell,
 				null, null, null, null);
 
-		//
-		c.moveToFirst();
 		tmpList = new ArrayList<Selling>();
-		System.out.println(c.getCount());
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new Selling(c.getInt(0), c.getString(1), c
 						.getInt(2), c.getInt(3), c.getString(4),
@@ -1200,11 +1180,9 @@ public class RealFarmProvider {
 				null, null, null, null);
 
 		//
-		c.moveToFirst();
 		tmpList = new ArrayList<Spraying>();
-		System.out.println(c.getCount());
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new Spraying(c.getInt(0), c.getString(1), c
 						.getInt(2), c.getString(3), c.getString(4),
@@ -1247,11 +1225,10 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO });
 
 		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 			do {
-				// adds the users into the list.
 
+				// adds the users into the list.
 				String log = "UNIT_ID: " + c.getInt(0) + " ,UNIT_NAME: "
 						+ c.getString(1) + " ,UNIT_AUDIO: " + c.getInt(2)
 						+ "\r\n";
@@ -1288,8 +1265,7 @@ public class RealFarmProvider {
 				null, null, null);
 
 		// user exists in database
-		if (c.getCount() > 0) {
-			c.moveToFirst();
+		if (c.moveToFirst()) {
 
 			// tmpUser = new User(userId, c.getString(0), c.getString(1),
 			// c.getString(2), c.getString(3));
@@ -1330,8 +1306,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
 								+ mobile + "'", null, null, null, null);
 
-		if (c.getCount() > 0) { // user exists in database
-			c.moveToFirst();
+		if (c.moveToFirst()) { // user exists in database
 
 			// tmpUser = new User(c.getInt(0), c.getString(1), c.getString(2),
 			// mobile, c.getString(3));
@@ -1381,13 +1356,10 @@ public class RealFarmProvider {
 				RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG + "=" + delete,
 				null, null, null, null);
 
-		//
-		c.moveToFirst();
 		tmpList = new ArrayList<User>();
-		System.out.println(c.getCount());
 
 		User u = null;
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				u = new User(c.getInt(0), c.getString(1), c.getString(2),
 						c.getString(3), c.getString(4), delete, c.getInt(5),
@@ -1408,7 +1380,7 @@ public class RealFarmProvider {
 	public List<User> getUsers() {
 
 		// opens the database.
-		List<User> userList = new ArrayList<User>();
+		List<User> tmpList = new ArrayList<User>();
 
 		mDatabase.open();
 
@@ -1423,15 +1395,14 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_ADMINFLAG,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP }, null,
 				null, null, null, null);
-		c.moveToFirst();
 
 		User u = null;
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				u = new User(c.getInt(0), c.getString(1), c.getString(2),
 						c.getString(3), c.getString(4), c.getInt(5),
 						c.getInt(6), c.getInt(7));
-				userList.add(u);
+				tmpList.add(u);
 
 				Log.d("user: ", u.toString());
 
@@ -1445,7 +1416,7 @@ public class RealFarmProvider {
 
 		c.close();
 		mDatabase.close();
-		return userList;
+		return tmpList;
 	}
 
 	public List<WeatherForecast> getWeatherForecasts() {
@@ -1464,11 +1435,10 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE },
 						null, null, null, null, null);
-		c.moveToFirst();
 
 		tmpList = new ArrayList<WeatherForecast>();
 
-		if (c.getCount() > 0) {
+		if (c.moveToFirst()) {
 			do {
 				tmpList.add(new WeatherForecast(c.getInt(0), c.getString(1), c
 						.getInt(2), c.getString(3)));

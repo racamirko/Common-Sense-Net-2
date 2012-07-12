@@ -10,18 +10,18 @@ import android.widget.ArrayAdapter;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.AggregateItem;
 
-public class AggregateItemAdapter extends ArrayAdapter<Plot> {
+public class AggregateItemAdapter extends ArrayAdapter<AggregateItem> {
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
 
 	/**
 	 * Creates a new AggregateItemAdapter instance.
 	 */
-	public AggregateItemAdapter(Context context, List<Plot> plots,
+	public AggregateItemAdapter(Context context, List<AggregateItem> aggregates,
 			RealFarmProvider dataProvider) {
-		super(context, android.R.layout.simple_list_item_1, plots);
+		super(context, android.R.layout.simple_list_item_1, aggregates);
 
 		// TODO: this shouldn't be done!!
 		mDataProvider = dataProvider;

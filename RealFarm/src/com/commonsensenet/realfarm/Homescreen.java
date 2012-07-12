@@ -628,6 +628,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
 			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(Global.plotId, 1, seeds.get(1).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(Global.plotId, 1, seeds.get(3).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
 			IS_INITIALIZED = true;
 		}
 

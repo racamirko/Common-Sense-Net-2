@@ -6,7 +6,8 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.AggregateItem;
+import com.commonsensenet.realfarm.model.SeedType;
 
 /**
  * Class that wraps up the contents of a Plot, which is presented on a list
@@ -16,11 +17,11 @@ import com.commonsensenet.realfarm.model.Plot;
  * 
  */
 public class AggregateItemWrapper {
-	private TextView mCount;
+	private TextView mUserCount;
 	private ImageView mCropImage;
 	/** The View object that represents a single row inside the ListView. */
 	private View mRow;
-	private TextView mType;
+	private TextView mSeedType;
 
 	/**
 	 * Creates a new AggregateItemWrapper instance.
@@ -32,33 +33,40 @@ public class AggregateItemWrapper {
 		this.mRow = row;
 	}
 
-	public TextView getCount() {
+	public TextView getUserCount() {
 
-		if (mCount == null) {
-			mCount = (TextView) mRow.findViewById(R.id.label_plot_title);
+		if (mUserCount == null) {
+			mUserCount = (TextView) mRow
+					.findViewById(R.id.label_aggregate_user_count);
 		}
-		return (mCount);
+		return (mUserCount);
 	}
 
 	public ImageView getCropImage() {
 		if (mCropImage == null) {
-			mCropImage = (ImageView) mRow.findViewById(R.id.icon_plot_crop);
+			mCropImage = (ImageView) mRow
+					.findViewById(R.id.icon_aggregate_crop);
 		}
 		return (mCropImage);
 	}
 
-	public TextView getType() {
+	public TextView getSeedType() {
 
-		if (mType == null) {
-			mType = (TextView) mRow.findViewById(R.id.label_plot_title);
+		if (mSeedType == null) {
+			mSeedType = (TextView) mRow.findViewById(R.id.label_aggregate_type);
 		}
-		return (mType);
+		return (mSeedType);
 	}
 
-	public void populateFrom(Plot plot, RealFarmProvider provider) {
+	public void populateFrom(AggregateItem aggregate, RealFarmProvider provider) {
 
-		// getType().setText(plot.getSoilType());
-		// getCount().setText("12");
-		// getCropImage().setImageResource(seed.getRes());
+		SeedType seed = provider.getSeedById(aggregate.getSeedTypeId());
+		getUserCount().setText(String.valueOf(aggregate.getUserCount()));
+		getSeedType()
+				.setText(
+						(seed.getVariety() != null && !seed.getVariety()
+								.equals("")) ? seed.getVariety() : seed
+								.getName());
+		getCropImage().setImageResource(seed.getResBg());
 	}
 }

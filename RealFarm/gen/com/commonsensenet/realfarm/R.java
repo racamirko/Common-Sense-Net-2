@@ -1155,6 +1155,7 @@ containing a value of this type.
         public static final int button_action_spray=0x7f060080;
         public static final int button_add_plot=0x7f060059;
         public static final int button_aggregate_type=0x7f0601c2;
+        public static final int button_aggregate_users=0x7f0601c0;
         public static final int button_back=0x7f0600ea;
         public static final int button_cancel=0x7f0600ec;
         public static final int button_capture=0x7f060119;
@@ -1362,7 +1363,7 @@ containing a value of this type.
         public static final int icon=0x7f060120;
         public static final int icon_aggregate_crop=0x7f0601c3;
         public static final int icon_aggregate_like=0x7f0601c6;
-        public static final int icon_aggregate_variety=0x7f0601c5;
+        public static final int icon_aggregate_treated=0x7f0601c5;
         public static final int icon_diary=0x7f060029;
         public static final int icon_diary_action=0x7f0601b9;
         public static final int icon_diary_crop=0x7f0601ba;
@@ -1519,7 +1520,6 @@ containing a value of this type.
         public static final int txt_btn_prob_4=0x7f060139;
         public static final int txt_btn_sell_1=0x7f06014d;
         public static final int txt_btn_sell_2=0x7f060150;
-        public static final int txt_btn_sow_1=0x7f0601c0;
         public static final int units_fert_tr=0x7f0600a4;
         public static final int units_harvest_tr=0x7f0600c6;
         public static final int units_irr_tr=0x7f0600dd;

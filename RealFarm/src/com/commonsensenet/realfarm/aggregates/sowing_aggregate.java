@@ -18,6 +18,7 @@ import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
+import com.commonsensenet.realfarm.model.AggregateItem;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.AggregateItemAdapter;
 
@@ -121,11 +122,10 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 		// gets the data provider
 		mDataProvider = RealFarmProvider.getInstance(this);
 
-		// gets the users from the database.
-		List<Plot> plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0);
+		// gets the aggregates from the database.
+		List<AggregateItem> aggregates = mDataProvider.getAggregateItems(3);
 
-		mAggregateItemAdapter = new AggregateItemAdapter(this, plots,
+		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates,
 				mDataProvider);
 
 		// gets the list from the UI.
@@ -433,10 +433,10 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 		// ShowHelpIcon(v);
 		// }
 
-		if (v.getId() == R.id.txt_btn_sow_1) {
-			playAudioalways(R.raw.fertilizer3);
-			ShowHelpIcon(v);
-		}
+		// if (v.getId() == R.id.txt_btn_sow_1) {
+		// playAudioalways(R.raw.fertilizer3);
+		// ShowHelpIcon(v);
+		// }
 
 		// if (v.getId() == R.id.txt_btn_sow_2) {
 		// playAudioalways(R.raw.bagof10kg);
