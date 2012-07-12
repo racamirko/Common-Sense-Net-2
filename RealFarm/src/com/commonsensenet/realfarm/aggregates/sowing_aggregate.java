@@ -94,10 +94,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 	}
 
-	protected void okAudio() {
-		playAudio(R.raw.ok);
-	}
-
 	public void onBackPressed() {
 
 		// stops all active audio.
@@ -325,21 +321,21 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 				dlg.setCancelable(true);
 				dlg.show();
 
-				final Button variety1;
-				final Button variety2;
-				final Button variety3;
-				final Button variety4;
-				final Button variety5;
-				final Button variety6;
+				final View variety1;
+				final View variety2;
+				final View variety3;
+				final View variety4;
+				final View variety5;
+				final View variety6;
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 
-				variety1 = (Button) dlg.findViewById(R.id.button_variety_1);
-				variety2 = (Button) dlg.findViewById(R.id.button_variety_2);
-				variety3 = (Button) dlg.findViewById(R.id.button_variety_3);
-				variety4 = (Button) dlg.findViewById(R.id.button_variety_4);
-				variety5 = (Button) dlg.findViewById(R.id.button_variety_5);
-				variety6 = (Button) dlg.findViewById(R.id.button_variety_6);
+				variety1 = dlg.findViewById(R.id.button_variety_1);
+				variety2 = dlg.findViewById(R.id.button_variety_2);
+				variety3 = dlg.findViewById(R.id.button_variety_3);
+				variety4 = dlg.findViewById(R.id.button_variety_4);
+				variety5 = dlg.findViewById(R.id.button_variety_5);
+				variety6 = dlg.findViewById(R.id.button_variety_6);
 
 				variety1.setOnLongClickListener(mParentReference);
 				variety2.setOnLongClickListener(mParentReference);

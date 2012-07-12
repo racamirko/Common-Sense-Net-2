@@ -24,11 +24,16 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 public class action_sowing extends HelpEnabledActivity {
 	private Context context = this;
 	private RealFarmProvider mDataProvider;
-	private final action_sowing parentReference = this; // audio integration
-	private int sow_no, day_sow_int;
-	private String sow_no_sel, day_sow_str, months_sow = "0";
-	private String treatment_sow = "0", days_sel_sow = "0", units_sow = "0",
-			seed_sow = "0";
+	private final action_sowing parentReference = this;
+	private int sow_no;
+	private int day_sow_int;
+	private String sow_no_sel;
+	private String day_sow_str;
+	private String months_sow = "0";
+	private String treatment_sow = "0";
+	private String days_sel_sow = "0";
+	private String units_sow = "0";
+	private int seed_sow = 0;
 
 	protected void cancelaudio() {
 
@@ -186,7 +191,7 @@ public class action_sowing extends HelpEnabledActivity {
 						// img_1.setMaxWidth(300);
 						img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 						var_text.setText("Bajra");
-						seed_sow = "Bajra";
+						seed_sow = 1;
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -211,7 +216,7 @@ public class action_sowing extends HelpEnabledActivity {
 						Log.d("var 2 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Castor");
-						seed_sow = "Castor";
+						seed_sow = 2;
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -235,7 +240,7 @@ public class action_sowing extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("Cowpea");
-						seed_sow = "Cowpea";
+						seed_sow = 3;
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -248,7 +253,6 @@ public class action_sowing extends HelpEnabledActivity {
 							mDataProvider.File_Log_Create("UIlog.txt",
 									"***** user selected" + seed_sow
 											+ " for Sowing*********** \r\n");
-
 						}
 
 						dlg.cancel();
@@ -260,7 +264,7 @@ public class action_sowing extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_greengram_tiled);
 						var_text.setText("Greengram");
-						seed_sow = "Greengram";
+						seed_sow = 4;
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -283,7 +287,7 @@ public class action_sowing extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_groundnut_tiled);
 						var_text.setText("Groundnut");
-						seed_sow = "Groundnut";
+						seed_sow = 5;
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -306,7 +310,7 @@ public class action_sowing extends HelpEnabledActivity {
 						Log.d("var 3 picked ", "in dialog");
 						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
 						var_text.setText("Horsegram");
-						seed_sow = "Horsegram";
+						seed_sow = 6;
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -1013,7 +1017,7 @@ public class action_sowing extends HelpEnabledActivity {
 				// Toast.makeText(action_sowing.this, "User enetred " +
 				// sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
 				int flag1, flag2, flag3, flag4;
-				if (seed_sow.toString().equalsIgnoreCase("0")) {
+				if (seed_sow == 0) {
 					flag1 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
@@ -1130,9 +1134,8 @@ public class action_sowing extends HelpEnabledActivity {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
 					System.out.println("sowing writing");
-					mDataProvider.setSowing(Global.userId, Global.plotId,
-							sow_no, seed_sow, units_sow, days_sel_sow,
-							treatment_sow, 0, 0);
+					mDataProvider.setSowing(Global.plotId, sow_no, seed_sow,
+							units_sow, days_sel_sow, treatment_sow, 0, 0);
 
 					if (Global.writeToSD == true) {
 

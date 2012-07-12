@@ -59,15 +59,14 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_ACTION + " ( "
 					+ COLUMN_NAME_ACTION_ID
 					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_ACTION_ACTIONNAMEID + " integer, "
-					+ COLUMN_NAME_ACTION_ACTIONTYPE + " text, "
-					+ COLUMN_NAME_ACTION_SEEDVARIETY + " text, "
+					+ COLUMN_NAME_ACTION_ACTIONNAMEID
+					+ " references actionName(id), "
+					+ COLUMN_NAME_ACTION_SEEDTYPEID
+					+ " references seedType(id), "
 					+ COLUMN_NAME_ACTION_QUANTITY1 + " integer, "
 					+ COLUMN_NAME_ACTION_QUANTITY2 + " integer, "
 					+ COLUMN_NAME_ACTION_UNITS + " text, "
-					+ COLUMN_NAME_ACTION_DAY + " text, "
-					+ COLUMN_NAME_ACTION_USERID + " integer, "
-					+ COLUMN_NAME_ACTION_PLOTID + " integer, "
+					+ COLUMN_NAME_ACTION_PLOTID + " references plot(id), "
 					+ COLUMN_NAME_ACTION_TYPEOFFERTILIZER + " text, "
 					+ COLUMN_NAME_ACTION_PROBLEMTYPE + " text, "
 					+ COLUMN_NAME_ACTION_HARVESTFEEDBACK + " text, "
@@ -76,10 +75,10 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_SELLTYPE + " text, "
 					+ COLUMN_NAME_ACTION_SENT + " integer, "
 					+ COLUMN_NAME_ACTION_ISADMIN + " integer, "
-					+ COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE + " text, "
+					+ COLUMN_NAME_ACTION_DATE + " text, "
 					+ COLUMN_NAME_ACTION_TREATMENT + " text, "
 					+ COLUMN_NAME_ACTION_PESTICIDETYPE + " text, "
-					+ COLUMN_NAME_ACTION_IRRIGATE_METHOD + " text "
+					+ COLUMN_NAME_ACTION_IRRIGATE_METHOD + " text, "
 					+ COLUMN_NAME_ACTION_TIMESTAMP + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created action table");
 
@@ -113,10 +112,10 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
 					+ COLUMN_NAME_PLOT_ID
 					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_PLOT_USERID + " integer, "
-					+ COLUMN_NAME_PLOT_SEEDTYPEID + " integer, "
-					+ COLUMN_NAME_PLOT_IMAGEPATH + " text, "
-					+ COLUMN_NAME_PLOT_SOILTYPE + " text, "
+					+ COLUMN_NAME_PLOT_USERID + " references user(id), "
+					+ COLUMN_NAME_PLOT_SEEDTYPEID
+					+ " references seedType(id), " + COLUMN_NAME_PLOT_IMAGEPATH
+					+ " text, " + COLUMN_NAME_PLOT_SOILTYPE + " text, "
 					+ COLUMN_NAME_PLOT_DELETEFLAG + " integer, "
 					+ COLUMN_NAME_PLOT_ADMINFLAG + " boolean, "
 					+ COLUMN_NAME_PLOT_TIMESTAMP + " integer " + " ); ");
@@ -138,7 +137,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_PROBLEM_NAME + " text, "
 					+ COLUMN_NAME_PROBLEM_AUDIO + " integer, "
 					+ COLUMN_NAME_PROBLEM_RESOURCE + " integer, "
-					+ COLUMN_NAME_PROBLEM_PROBLEMTYPEID + " integer, "
+					+ COLUMN_NAME_PROBLEM_PROBLEMTYPEID
+					+ " references problemType(id), "
 					+ COLUMN_NAME_PROBLEM_ADMINFLAG + " boolean " + " ); ");
 			Log.d(LOG_TAG, "Created problem table");
 
@@ -221,15 +221,10 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_SENT = "isSent";
 	public static final String COLUMN_NAME_ACTION_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_ACTION_PLOTID = "plotId";
-	// can be obtained from the plot.
-	public static final String COLUMN_NAME_ACTION_USERID = "userId";
 	public static final String COLUMN_NAME_ACTION_ACTIONNAMEID = "actionNameId";
 	public static final String COLUMN_NAME_ACTION_ISADMIN = "IsAdmin";
 
-	public static final String COLUMN_NAME_ACTION_ACTIONPERFORMEDDATE = "ActionPerformedDate";
-	public static final String COLUMN_NAME_ACTION_ACTIONTYPE = "actionType";
 	public static final String COLUMN_NAME_ACTION_DATE = "date";
-	public static final String COLUMN_NAME_ACTION_DAY = "day";
 	public static final String COLUMN_NAME_ACTION_HARVESTFEEDBACK = "feedback";
 	public static final String COLUMN_NAME_ACTION_IRRIGATE_METHOD = "irrigateMethod";
 	public static final String COLUMN_NAME_ACTION_PESTICIDETYPE = "pesticidetype";
@@ -237,7 +232,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_QUALITYOFSEED = "qualityofSeed";
 	public static final String COLUMN_NAME_ACTION_QUANTITY1 = "quantity1";
 	public static final String COLUMN_NAME_ACTION_QUANTITY2 = "quantity2";
-	public static final String COLUMN_NAME_ACTION_SEEDVARIETY = "seedVariety";
+	public static final String COLUMN_NAME_ACTION_SEEDTYPEID = "seedType";
 	public static final String COLUMN_NAME_ACTION_SELLINGPRICE = "sellingPrice";
 	public static final String COLUMN_NAME_ACTION_SELLTYPE = "selltype";
 	public static final String COLUMN_NAME_ACTION_TREATMENT = "treatment";
@@ -729,5 +724,9 @@ public class RealFarmDatabase {
 	public int update(String tableName, ContentValues args, String whereClause,
 			String[] whereArgs) {
 		return mDb.update(tableName, args, whereClause, whereArgs);
+	}
+
+	protected Cursor rawQuery(String sql, String[] selectionArgs) {
+		return mDb.rawQuery(sql, selectionArgs);
 	}
 }

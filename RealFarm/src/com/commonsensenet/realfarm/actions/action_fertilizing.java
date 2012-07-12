@@ -880,7 +880,7 @@ public class action_fertilizing extends HelpEnabledActivity implements
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 
 					System.out.println("fertilizing writing");
-					mDataProvider.setFertilizing(Global.userId, Global.plotId, fert_no, fert_var_sel,
+					mDataProvider.setFertilizing(Global.plotId, fert_no, fert_var_sel,
 							units_fert, day_fert_sel, 1, 0);
 
 					System.out.println("fertilizing reading");

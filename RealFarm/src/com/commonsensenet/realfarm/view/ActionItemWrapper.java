@@ -8,6 +8,8 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.ActionName;
+import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.utils.DateHelper;
 
 /**
@@ -68,37 +70,20 @@ public class ActionItemWrapper {
 		return (mTitle);
 	}
 
+	// TODO: this should be checked.
 	public void populateFrom(Action action, RealFarmProvider provider,
 			Context context) {
 
-		String actionType = action.getActionType();
-		int actionIconId = 0;
-
-		// gets the icon based on the text.
-		if (actionType.toString().equalsIgnoreCase("Sowing")) {
-			actionIconId = R.drawable.ic_72px_sowing;
-		} else if (actionType.toString().equalsIgnoreCase("Selling")) {
-			actionIconId = R.drawable.ic_72px_irrigation1;
-		} else if (actionType.toString().equalsIgnoreCase("Spraying")) {
-			actionIconId = R.drawable.ic_72px_spraying3;
-		} else if (actionType.toString().equalsIgnoreCase("Fertilizing")) {
-			actionIconId = R.drawable.ic_72px_fertilizing1;
-		} else if (actionType.toString().equalsIgnoreCase("Harvesting")) {
-			actionIconId = R.drawable.ic_72px_harvesting1;
-		} else if (actionType.toString().equalsIgnoreCase("Problem")) {
-			actionIconId = R.drawable.ic_72px_reporting;
-		} else if (actionType.toString().equalsIgnoreCase("Irrigate")) {
-			actionIconId = R.drawable.ic_72px_irrigation2;
-		}
-		// Growing g = findGrowingById(actionList.get(i).getGrowingId());
-		// Seed s = mSeeds.get(g.getSeedId());
-
-		// String seedVariety = actionList.get(i).getSeedVariery();
+		// gets the actionName
+		ActionName actionName = provider.getActionNameById(action
+				.getActionNameId());
+		// gets the seed
+		SeedType seedType = provider.getSeedById(action.getSeedTypeId());
 
 		// sets the parts of the view.
-		getActionIcon().setImageResource(actionIconId);
-		getTitle().setText(actionType);
-		getDate().setText(DateHelper.formatDate(action.getDay(), context));
-		getCropIcon().setImageResource(R.drawable.pic_72px_castor);
+		getActionIcon().setImageResource(actionName.getRes());
+		getTitle().setText(actionName.getName());
+		getDate().setText(DateHelper.formatDate(action.getDate(), context));
+		getCropIcon().setImageResource(seedType.getRes());
 	}
 }

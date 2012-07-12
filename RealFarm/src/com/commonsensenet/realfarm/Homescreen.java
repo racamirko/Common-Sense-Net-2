@@ -607,22 +607,26 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Object[][] plotData = {
 					{ 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
 					{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
-					{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
+					{ 3, 2, "farmer_90px_adam_jones", "Sandy" },
 					{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
 
 			List<SeedType> seeds = mDataProvider.getSeeds();
 
 			for (int x = 0; x < plotData.length; x++) {
-				Global.plotId = mDataProvider.insertPlot(
+				long plotId = mDataProvider.insertPlot(
 						(Integer) plotData[x][0], seeds.get(x).getId(),
 						(String) plotData[x][2], (String) plotData[x][3], 0, 0);
+				// updates the id if I am the owner
+				if ((Integer) plotData[x][0] == Global.userId) {
+					Global.plotId = plotId;
+				}
 			}
 
 			Log.d(LOG_TAG, "plot works");
 
-			mDataProvider.setSowing(Global.userId, Global.plotId, 1, "Bajra",
+			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(Global.userId, Global.plotId, 1, "Castor",
+			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
 			IS_INITIALIZED = true;
 		}
@@ -783,10 +787,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getirrigate();
 
 		System.out.println("Problem writing");
-		mDataProvider.setProblem(Global.userId, Global.plotId, "today",
-				"Problem1", 0, 0);
-		mDataProvider.setProblem(Global.userId, Global.plotId, "tomorrow",
-				"Problem2", 0, 0);
+		mDataProvider.setProblem(Global.plotId, "today", "Problem1", 0, 0);
+		mDataProvider.setProblem(Global.plotId, "tomorrow", "Problem2", 0, 0);
 		// mDataProvider.setProblem(String day,String probType, int sent, int
 		// admin);
 
@@ -813,12 +815,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	}
 
+	// TODO: this should be modified since it will make the DB slower.
 	public void writeDatabaseToSDcard() {
 		Global.writeToSD = true;
 		mDataProvider.Log_Database_backupdate();
 		mDataProvider.getUsers(); // User
 		mDataProvider.getActions(); // New action table
-		mDataProvider.getsowing(); // Sowing
 		mDataProvider.getfertizing(); // Fertilizing action
 		mDataProvider.getspraying(); // Spraying action
 		mDataProvider.getharvesting(); // Harvesting acion

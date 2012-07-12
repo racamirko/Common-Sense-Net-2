@@ -9,7 +9,6 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.view.ActionItemAdapter;
 
-
 /**
  * Activity that displays the diary of activities of the current user.
  * 
@@ -34,7 +33,7 @@ public class DiaryActivity extends HelpEnabledActivity {
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// gets the actions from the database
-		List<Action> actions = mDataProvider.getActionsByUserId(Global.userId);
+		List<Action> actions = mDataProvider.getActionsByPlotId(Global.plotId);
 
 		// creates the custom adapter.
 		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);

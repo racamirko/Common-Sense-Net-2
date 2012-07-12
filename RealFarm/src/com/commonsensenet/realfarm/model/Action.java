@@ -7,58 +7,50 @@ package com.commonsensenet.realfarm.model;
 public class Action {
 
 	private int mActionNameId;
-	private String mActionPerformedDate;
-	private String mActionType;
-	private String mDay;
-	private String mHarvFeedback;
+	private String mDate;
+	private String mHarvestFeedback;
 	private int mId;
 	private int mIsAdmin;
 	private String mPestcideType;
 	private int mPlotId;
-	private String mProbType;
+	private String mProblemType;
 	private String mQualityOfSeed;
 	private int mQuantity1;
 	private int mQuantity2;
-	private String mSeedVariety;
+	private int mSeedTypeId;
 	private int mSellingPrice;
 	private String mSellType;
-	private int mSend;
+	private int mSent;
 	private int mTimestamp;
 	private String mTreatment;
 	private String mTypeOfFert;
 	private String mUnits;
-	private int mUserId;
 
-	public Action(int actionid, int actionnameid, String actiontype,
-			String seedvariety, int Quantity1, int Quantity2, String Units,
-			String day, int userid, int plotid, String TypeofFert,
-			String probType, String harvFeedback, int SellingPrice,
-			String Quaofseed, String selltype, int send, int Isadmin,
-			String ActionPerformedDate, String Treatment, String PestcideType,
-			int timestamp) {
+	public Action(int id, int actionNameId, int seedTypeId, int quantity1,
+			int quantity2, String units, int plotId, String typeOfFertilizer,
+			String problemType, String harvestFeedback, int sellingPrice,
+			String qualityOfSeed, String selltype, int sent, int isAdmin,
+			String date, String treatment, String pesticideType, int timestamp) {
 
-		mId = actionid;
-		mActionNameId = actionnameid;
-		mActionType = actiontype;
-		mSeedVariety = seedvariety;
-		mQuantity1 = Quantity1;
-		mQuantity2 = Quantity2;
-		mUnits = Units;
-		mDay = day;
-		mUserId = userid;
-		mPlotId = plotid;
-		mTypeOfFert = TypeofFert;
-		mProbType = probType;
+		mId = id;
+		mActionNameId = actionNameId;
+		mSeedTypeId = seedTypeId;
+		mQuantity1 = quantity1;
+		mQuantity2 = quantity2;
+		mUnits = units;
+		mPlotId = plotId;
+		mTypeOfFert = typeOfFertilizer;
+		mProblemType = problemType;
 
-		mHarvFeedback = harvFeedback;
-		mSellingPrice = SellingPrice;
-		mQualityOfSeed = Quaofseed;
+		mHarvestFeedback = harvestFeedback;
+		mSellingPrice = sellingPrice;
+		mQualityOfSeed = qualityOfSeed;
 		mSellType = selltype;
-		mSend = send;
-		mIsAdmin = Isadmin;
-		mActionPerformedDate = ActionPerformedDate;
-		mTreatment = Treatment;
-		mPestcideType = PestcideType;
+		mSent = sent;
+		mIsAdmin = isAdmin;
+		mDate = date;
+		mTreatment = treatment;
+		mPestcideType = pesticideType;
 
 		mTimestamp = timestamp;
 	}
@@ -67,20 +59,12 @@ public class Action {
 		return mActionNameId;
 	}
 
-	public String getActionPerfDate() {
-		return mActionPerformedDate;
-	}
-
-	public String getActionType() {
-		return mActionType;
-	}
-
-	public String getDay() {
-		return mDay;
+	public String getDate() {
+		return mDate;
 	}
 
 	public String getHarvestFeedback() {
-		return mHarvFeedback;
+		return mHarvestFeedback;
 	}
 
 	public int getId() {
@@ -91,7 +75,7 @@ public class Action {
 		return mIsAdmin;
 	}
 
-	public String getPesticidType() {
+	public String getPesticideType() {
 		return mPestcideType;
 	}
 
@@ -99,8 +83,8 @@ public class Action {
 		return mPlotId;
 	}
 
-	public String getProbType() {
-		return mProbType;
+	public String getProblemType() {
+		return mProblemType;
 	}
 
 	public String getQualityOfSeed() {
@@ -115,8 +99,8 @@ public class Action {
 		return mQuantity2;
 	}
 
-	public String getSeedVariery() {
-		return mSeedVariety;
+	public int getSeedTypeId() {
+		return mSeedTypeId;
 	}
 
 	public int getSellingPrice() {
@@ -127,8 +111,8 @@ public class Action {
 		return mSellType;
 	}
 
-	public int getSend() {
-		return mSend;
+	public int getSent() {
+		return mSent;
 	}
 
 	public int getTimestamp() {
@@ -145,9 +129,5 @@ public class Action {
 
 	public String getUnits() {
 		return mUnits;
-	}
-
-	public int getUserId() {
-		return mUserId;
 	}
 }
