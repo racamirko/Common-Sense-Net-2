@@ -9,9 +9,8 @@ import android.widget.TableRow;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 
-public class SM_enter extends HelpEnabledActivity {
+public class SM_enter extends HelpEnabledActivityOld {
 
 	public void onBackPressed() {
 

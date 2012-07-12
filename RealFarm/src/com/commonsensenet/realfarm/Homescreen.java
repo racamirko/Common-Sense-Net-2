@@ -36,10 +36,9 @@ import com.commonsensenet.realfarm.aggregates.selling_aggregate;
 import com.commonsensenet.realfarm.aggregates.sowing_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.ReminderTask;
-import com.commonsensenet.realfarm.homescreen.aggregateview.AggregateView;
 import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.utils.ReminderTask;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
@@ -169,7 +168,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.hmscrn_btn_advice) {
 			Log.d(LOG_TAG, "Starting warn info");
-			inte = new Intent(this, AggregateView.class);
+			inte = new Intent(this, fertilize_aggregate.class);
 			inte.putExtra("type", "warn");
 			this.startActivity(inte);
 			return;
@@ -607,7 +606,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Object[][] plotData = {
 					{ 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
 					{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
-					{ 3, 2, "farmer_90px_adam_jones", "Sandy" },
+					{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
 					{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
 
 			List<SeedType> seeds = mDataProvider.getSeeds();
@@ -630,7 +629,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
 			mDataProvider.setSowing(Global.plotId, 1, seeds.get(1).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(Global.plotId, 1, seeds.get(3).getId(),
+			mDataProvider.setSowing(2, 1, seeds.get(3).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
 			IS_INITIALIZED = true;
 		}

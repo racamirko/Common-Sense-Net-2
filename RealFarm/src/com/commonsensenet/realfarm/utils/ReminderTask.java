@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm.homescreen;
+package com.commonsensenet.realfarm.utils;
 
 import android.app.PendingIntent;
 import android.content.ContextWrapper;

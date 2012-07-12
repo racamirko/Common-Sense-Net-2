@@ -11,6 +11,10 @@ import com.commonsensenet.realfarm.R;
 
 public class SpinnerImgAdapter extends ArrayAdapter<Integer> {
 
+	static class ViewHolder {
+		public ImageView imageView;
+	}
+
 	private final Activity context;
 
 	private final Integer[] names;
@@ -22,16 +26,7 @@ public class SpinnerImgAdapter extends ArrayAdapter<Integer> {
 		this.names = objects;
 	}
 
-	static class ViewHolder {
-		public ImageView imageView;
-	}
-
 	public View getDropDownView(int position, View convertView, ViewGroup parent) {
-		return getImageView(position, convertView, parent);
-	}
-
-	public View getView(int position, View convertView, ViewGroup parent) {
-
 		return getImageView(position, convertView, parent);
 	}
 
@@ -55,5 +50,10 @@ public class SpinnerImgAdapter extends ArrayAdapter<Integer> {
 		holder.imageView.setImageResource(integer);
 
 		return rowView;
+	}
+
+	public View getView(int position, View convertView, ViewGroup parent) {
+
+		return getImageView(position, convertView, parent);
 	}
 }

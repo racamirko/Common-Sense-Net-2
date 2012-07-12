@@ -13,14 +13,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class action_irrigate extends HelpEnabledActivity {
+public class action_irrigate extends HelpEnabledActivityOld {
 	private Context context = this;
 	private int hrs_irrigate = 0;
 	private String hrs_irrigate_sel = "0", irr_method_sel = "0", irr_day_sel;

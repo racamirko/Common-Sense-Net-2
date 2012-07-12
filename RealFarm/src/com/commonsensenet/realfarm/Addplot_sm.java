@@ -6,10 +6,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class Addplot_sm extends HelpEnabledActivity {
+public class Addplot_sm extends HelpEnabledActivityOld {
 
 	public void onBackPressed() {
 		SoundQueue.getInstance().stop();

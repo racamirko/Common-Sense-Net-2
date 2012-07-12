@@ -14,11 +14,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class My_settings_plot_details extends HelpEnabledActivity {
+public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 	private final Context mContext = this;
 

@@ -13,14 +13,14 @@ import android.widget.TableRow;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class action_spraying extends HelpEnabledActivity {
+public class action_spraying extends HelpEnabledActivityOld {
 
 	private Context context = this;
 	private RealFarmProvider mDataProvider;

@@ -38,11 +38,10 @@
         android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@+id/button_aggregate_users" >
 
-        <ImageButton
+        <ImageView
             android:id="@+id/icon_aggregate_crop"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/square_btn_transp"
             android:scaleType="centerCrop"
             android:src="@drawable/pic_90px_groundnut_tiled" />
 
@@ -56,7 +55,7 @@
             android:textAppearance="?android:attr/textAppearanceLarge" />
     </RelativeLayout>
 
-    <ImageButton
+    <ImageView
         android:id="@+id/icon_aggregate_treated"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -66,7 +65,8 @@
         android:background="@drawable/square_btn_transp"
         android:src="@drawable/treatment" />
 
-    <ImageButton
+    <!--
+         <ImageButton
         android:id="@+id/icon_aggregate_like"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -74,5 +74,6 @@
         android:layout_centerVertical="true"
         android:background="@drawable/circular_btn"
         android:src="@drawable/ic_48px_thumbs_up" />
+    -->
 
 </RelativeLayout>

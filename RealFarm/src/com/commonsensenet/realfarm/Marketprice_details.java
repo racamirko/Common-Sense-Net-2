@@ -7,10 +7,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class Marketprice_details extends HelpEnabledActivity {
+public class Marketprice_details extends HelpEnabledActivityOld {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;

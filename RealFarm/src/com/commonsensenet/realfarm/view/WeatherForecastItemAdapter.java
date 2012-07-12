@@ -30,7 +30,7 @@ public class WeatherForecastItemAdapter extends ArrayAdapter<WeatherForecast> {
 
 			LayoutInflater li = (LayoutInflater) getContext().getSystemService(
 					Context.LAYOUT_INFLATER_SERVICE);
-			row = li.inflate(R.layout.tpl_weather_forecast_item, null);
+			row = li.inflate(R.layout.tpl_weather_forecast_item, parent, false);
 			wrapper = new WeatherForecastItemWrapper(row);
 			row.setTag(wrapper);
 		} else {

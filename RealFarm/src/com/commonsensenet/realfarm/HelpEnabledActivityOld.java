@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm.homescreen;
+package com.commonsensenet.realfarm;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -13,11 +13,10 @@ import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public abstract class HelpEnabledActivity extends Activity implements
+public abstract class HelpEnabledActivityOld extends Activity implements
 		OnLongClickListener, OnTouchListener {
 	public class HelpAnimation extends AlphaAnimation {
 		protected View mViewAnimated; // animation icon
@@ -31,10 +30,10 @@ public abstract class HelpEnabledActivity extends Activity implements
 
 				// @Override
 				public void onAnimationEnd(Animation animation) {
-					HelpEnabledActivity.this.showHelp(HelpAnimation.this
+					HelpEnabledActivityOld.this.showHelp(HelpAnimation.this
 							.getViewAssociated());
-					HelpEnabledActivity.this.setHelpMode(false);
-					HelpEnabledActivity.this.mHelpIcon
+					HelpEnabledActivityOld.this.setHelpMode(false);
+					HelpEnabledActivityOld.this.mHelpIcon
 							.setVisibility(View.INVISIBLE);
 				}
 

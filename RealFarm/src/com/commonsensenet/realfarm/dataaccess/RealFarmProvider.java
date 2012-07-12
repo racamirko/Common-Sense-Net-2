@@ -30,6 +30,7 @@ import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.Selling;
 import com.commonsensenet.realfarm.model.Spraying;
 import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.model.UserAggregateItem;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 
 public class RealFarmProvider {
@@ -822,6 +823,36 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public List<UserAggregateItem> getUserAggregateItem(int actionNameId,
+			int seedTypeId) {
+		final String MY_QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %d AND a.seedTypeId = %d ORDER BY a.date DESC";
+
+		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
+		mDatabase.open();
+
+		Cursor c = mDatabase.rawQuery(
+				String.format(MY_QUERY, actionNameId, seedTypeId),
+				new String[] {});
+
+		UserAggregateItem ua = null;
+		User u = null;
+		if (c.moveToFirst()) {
+			do {
+				u = new User(c.getInt(0), c.getString(1), c.getString(2),
+						c.getString(3), c.getString(4), c.getInt(5),
+						c.getInt(6), c.getInt(7));
+
+				ua = new UserAggregateItem(u, c.getString(8));
+				tmpList.add(ua);
+
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+		return tmpList;
+	}
+
 	// modified(You can take seedtypyId corresponding to the userId and plotId)
 	public List<Plot> getPlotsByUserIdAndDeleteFlag(int userId, int delete) {
 
@@ -859,8 +890,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 		return tmpList;
 	}
-
-	// Get WF data
 
 	// modified(You can take seedtypyId corresponding to the userId and plotId)
 	public List<Plot> getPlotsByUserIdAndPlotId(int userId, int plotId) {

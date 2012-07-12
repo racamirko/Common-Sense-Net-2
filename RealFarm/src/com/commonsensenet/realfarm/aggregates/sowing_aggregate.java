@@ -8,22 +8,25 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
 import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 import com.commonsensenet.realfarm.model.AggregateItem;
-import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.UserAggregateItem;
 import com.commonsensenet.realfarm.view.AggregateItemAdapter;
+import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
-public class sowing_aggregate extends HelpEnabledActivity implements
-		OnLongClickListener {
+public class sowing_aggregate extends HelpEnabledActivityOld implements
+		OnLongClickListener, OnItemClickListener {
 	private int aggr_action_no;
 
 	/** ListAdapter used to handle the aggregates. */
@@ -131,11 +134,11 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 		// gets the list from the UI.
 		mAggregatesListView = (ListView) findViewById(R.id.list_aggregates);
 		// enables the focus on the items.
-		mAggregatesListView.setItemsCanFocus(true);
+		mAggregatesListView.setItemsCanFocus(false);
 		// sets the custom adapter.
 		mAggregatesListView.setAdapter(mAggregateItemAdapter);
 		// sets the listener
-		// mAggregatesListView.setOnItemClickListener(this);
+		mAggregatesListView.setOnItemClickListener(this);
 
 		// ImageButton btnLike = (ImageButton)
 		// findViewById(R.id.aggr_item_sow_like1);
@@ -150,31 +153,6 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 		// v.setBackgroundResource(R.drawable.circular_btn_green);
 		// }
 		// }
-		//
-		// }
-		// });
-
-		// final Button userslist = (Button) findViewById(R.id.txt_btn_sow_1);
-		// userslist.setOnLongClickListener(mParentReference);
-		//
-		// userslist.setOnClickListener(new View.OnClickListener() {
-		// public void onClick(View v) {
-		//
-		// final Dialog dlg = new Dialog(v.getContext());
-		// dlg.setContentView(R.layout.user_list);
-		// dlg.setCancelable(true);
-		// dlg.show();
-		//
-		// dlg.findViewById(R.id.user_1).setOnLongClickListener(
-		// mParentReference);
-		// dlg.findViewById(R.id.user_2).setOnLongClickListener(
-		// mParentReference);
-		// dlg.findViewById(R.id.user_3).setOnLongClickListener(
-		// mParentReference);
-		// dlg.findViewById(R.id.user_4).setOnLongClickListener(
-		// mParentReference);
-		// dlg.findViewById(R.id.user_5).setOnLongClickListener(
-		// mParentReference);
 		//
 		// }
 		// });
@@ -423,51 +401,52 @@ public class sowing_aggregate extends HelpEnabledActivity implements
 
 	public boolean onLongClick(View v) {
 
-		// if (v.getId() == R.id.aggr_sow1) {
-		// playAudioalways(R.raw.fertilizer1);
-		// ShowHelpIcon(v);
-		// }
+		return super.onLongClick(v);
+	}
 
-		// if (v.getId() == R.id.aggr_sow2) {
-		// playAudioalways(R.raw.fertilizer2);
-		// ShowHelpIcon(v);
-		// }
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// gets the selected view using the position
+		AggregateItem selectedItem = mAggregateItemAdapter.getItem(position);
 
-		// if (v.getId() == R.id.txt_btn_sow_1) {
-		// playAudioalways(R.raw.fertilizer3);
-		// ShowHelpIcon(v);
-		// }
+		// dialog used to request the information
+		final Dialog dialog = new Dialog(this);
 
-		// if (v.getId() == R.id.txt_btn_sow_2) {
-		// playAudioalways(R.raw.bagof10kg);
-		// ShowHelpIcon(v);
-		// }
+		ListView userListView = new ListView(this);
+		List<UserAggregateItem> list = mDataProvider.getUserAggregateItem(
+				selectedItem.getActionNameId(), selectedItem.getSeedTypeId());
+		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
+				this, list, mDataProvider);
+		// sets the adapter.
+		userListView.setAdapter(userAdapter);
 
-		if (v.getId() == R.id.user_1) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
+		// adds the event listener to detect the language selection.
+		userListView.setOnItemClickListener(new OnItemClickListener() {
 
-		if (v.getId() == R.id.user_2) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 
-		if (v.getId() == R.id.user_3) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
+				// stores the selected language.
+				// mSelectedLanguage = (String) parent.getAdapter().getItem(
+				// position);
 
-		if (v.getId() == R.id.user_4) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
+				// Toast.makeText(sowi.this,
+				// "The Language selected is " + mSelectedLanguage,
+				// Toast.LENGTH_SHORT).show();
 
-		if (v.getId() == R.id.user_5) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
+				// closes the dialog.
+				dialog.dismiss();
+			}
 
-		return true;
+		});
+
+		// sets the view
+		dialog.setContentView(userListView);
+		// sets the properties of the dialog.
+		dialog.setTitle("%MISSING TITTLE%");
+		dialog.setCancelable(true);
+
+		// displays the dialog.
+		dialog.show();
 	}
 }

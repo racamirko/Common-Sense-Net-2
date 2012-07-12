@@ -11,12 +11,12 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 
 import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.homescreen.HelpEnabledActivity;
 
-public class harvest_aggregate extends HelpEnabledActivity implements
+public class harvest_aggregate extends HelpEnabledActivityOld implements
 		OnLongClickListener {
 	/** Database provider used to persist the data. */
 	private RealFarmProvider mDataProvider;
@@ -340,9 +340,7 @@ public class harvest_aggregate extends HelpEnabledActivity implements
 		});
 
 		final Button userslist = (Button) findViewById(R.id.txt_btn_harvest_1);
-		final Button userslist_2 = (Button) findViewById(R.id.txt_btn_harvest_2);
 		userslist.setOnLongClickListener(this);
-		userslist_2.setOnLongClickListener(this);
 		/*
 		 * Spinner spinner = (Spinner) findViewById(R.id.spinner1);
 		 * 
@@ -354,53 +352,29 @@ public class harvest_aggregate extends HelpEnabledActivity implements
 		 * SpinnerImgAdapter(this, R.layout.spinner_op, image));
 		 */
 
-		userslist.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.user_list);
-				dlg.setCancelable(true);
-				// dlg.setTitle("Choose the Number of bags");
-				// Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				((Button) dlg.findViewById(R.id.user_1))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_2))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_3))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_4))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_5))
-						.setOnLongClickListener(mParentReference);
-
-			}
-		});
-
-		userslist_2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.user_list);
-				dlg.setCancelable(true);
-				// dlg.setTitle("Choose the Number of bags");
-				// Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				((Button) dlg.findViewById(R.id.user_1))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_2))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_3))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_4))
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.user_5))
-						.setOnLongClickListener(mParentReference);
-
-			}
-		});
+		// userslist.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		//
+		// final Dialog dlg = new Dialog(v.getContext());
+		// dlg.setContentView(R.layout.user_list);
+		// dlg.setCancelable(true);
+		// // dlg.setTitle("Choose the Number of bags");
+		// // Log.d("in variety sowing dialog", "in dialog");
+		// dlg.show();
+		//
+		// ((Button) dlg.findViewById(R.id.user_1))
+		// .setOnLongClickListener(mParentReference);
+		// ((Button) dlg.findViewById(R.id.user_2))
+		// .setOnLongClickListener(mParentReference);
+		// ((Button) dlg.findViewById(R.id.user_3))
+		// .setOnLongClickListener(mParentReference);
+		// ((Button) dlg.findViewById(R.id.user_4))
+		// .setOnLongClickListener(mParentReference);
+		// ((Button) dlg.findViewById(R.id.user_5))
+		// .setOnLongClickListener(mParentReference);
+		//
+		// }
+		// });
 
 		Button back = (Button) findViewById(R.id.button_back);
 		back.setOnLongClickListener(this);
@@ -506,31 +480,6 @@ public class harvest_aggregate extends HelpEnabledActivity implements
 
 		if (v.getId() == R.id.aggr_har2) {
 			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.user_1) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.user_2) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.user_3) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.user_4) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.user_5) {
-			playAudioalways(R.raw.fertilizer2);
 			ShowHelpIcon(v);
 		}
 
