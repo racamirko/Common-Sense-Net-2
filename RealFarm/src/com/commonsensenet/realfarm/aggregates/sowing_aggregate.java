@@ -180,8 +180,8 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 			}
 		});
 
-		final Button action = (Button) findViewById(R.id.aggr_action);
-		final Button crop = (Button) findViewById(R.id.aggr_crop);
+		final View action = findViewById(R.id.aggr_action);
+		final View crop = findViewById(R.id.aggr_crop);
 
 		action.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {

@@ -29,12 +29,13 @@
     <string name="btn_submit">Submit</string>
     <string name="mobilenumber">Mobile Number</string>
 
-    <!-- orbolanos: new version. -->
+    <!-- orbolanos: correctly formatted names: <type>_<name> -->
     <string name="button_ok">Done</string>
     <string name="button_back_to_videos"> Back to Videos</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_add_plot">Add Plot</string>
     <string name="label_arrow">></string>
+    <string name="dialog_select_language_title">Please select your language</string>
     <string name="date_today">today</string>
     <string name="date_yesterday">yesterday</string>
     <string name="date_last_week">%d days ago</string>

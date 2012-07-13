@@ -1948,7 +1948,7 @@ containing a value of this type.
         public static final int button_add_plot=0x7f0b00d4;
         public static final int button_back_to_videos=0x7f0b00d2;
         public static final int button_cancel=0x7f0b00d3;
-        /**  orbolanos: new version. 
+        /**  orbolanos: correctly formatted names: <type>_<name> 
          */
         public static final int button_ok=0x7f0b00d1;
         public static final int dateLastWeek=0x7f0b00b9;
@@ -1957,10 +1957,11 @@ containing a value of this type.
         public static final int dateMoreThanAWeek=0x7f0b00b8;
         public static final int dateToday=0x7f0b00bb;
         public static final int dateYesterday=0x7f0b00ba;
-        public static final int date_last_week=0x7f0b00d8;
-        public static final int date_more_than_a_week=0x7f0b00d9;
-        public static final int date_today=0x7f0b00d6;
-        public static final int date_yesterday=0x7f0b00d7;
+        public static final int date_last_week=0x7f0b00d9;
+        public static final int date_more_than_a_week=0x7f0b00da;
+        public static final int date_today=0x7f0b00d7;
+        public static final int date_yesterday=0x7f0b00d8;
+        public static final int dialog_select_language_title=0x7f0b00d6;
         public static final int editAction=0x7f0b00cb;
         public static final int editPoint=0x7f0b00ca;
         public static final int exitMsg=0x7f0b00c8;

@@ -49,10 +49,12 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
  */
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
+	public static boolean IS_INITIALIZED = false;
 	/** Tag used to log the App activity. */
 	public static String LOG_TAG = "Homescreen";
 	/** Database provider. */
 	private RealFarmProvider mDataProvider;
+
 	/** Currently selected language. */
 	private String mSelectedLanguage;
 
@@ -116,6 +118,43 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
 	}
 
+	private void insertDemoData() {
+		if (!IS_INITIALIZED) {
+			Object[][] plotData = {
+					{ 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
+					{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
+					{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
+					{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
+
+			List<SeedType> seeds = mDataProvider.getSeeds();
+
+			for (int x = 0; x < plotData.length; x++) {
+				long plotId = mDataProvider.insertPlot(
+						(Integer) plotData[x][0], seeds.get(x).getId(),
+						(String) plotData[x][2], (String) plotData[x][3], 0, 0);
+				// updates the id if I am the owner
+				if ((Integer) plotData[x][0] == Global.userId) {
+					Global.plotId = plotId;
+				}
+			}
+
+			Log.d(LOG_TAG, "plot works");
+
+			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(Global.plotId, 1, seeds.get(1).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(2, 1, seeds.get(3).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			IS_INITIALIZED = true;
+		}
+
+	}
+
 	protected void launchActionIntent() {
 		Intent intent = null;
 		int plotCount = mDataProvider.getPlotsByUserIdAndDeleteFlag(
@@ -167,10 +206,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_advice) {
-			Log.d(LOG_TAG, "Starting warn info");
-			inte = new Intent(this, fertilize_aggregate.class);
-			inte.putExtra("type", "warn");
-			this.startActivity(inte);
+			// Log.d(LOG_TAG, "Starting warn info");
+			// inte = new Intent(this, fertilize_aggregate.class);
+			// inte.putExtra("type", "warn");
+			// this.startActivity(inte);
 			return;
 		}
 
@@ -591,50 +630,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				ReminderTask.class);
 
 		// clears the database
-		// initDb();
+		initDb();
 		insertDemoData();
 
 		initActionListener();
-
-		// WriteDataBaseToSDcard();
-	}
-
-	public static boolean IS_INITIALIZED = false;
-
-	private void insertDemoData() {
-		if (!IS_INITIALIZED) {
-			Object[][] plotData = {
-					{ 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
-					{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
-					{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
-					{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
-
-			List<SeedType> seeds = mDataProvider.getSeeds();
-
-			for (int x = 0; x < plotData.length; x++) {
-				long plotId = mDataProvider.insertPlot(
-						(Integer) plotData[x][0], seeds.get(x).getId(),
-						(String) plotData[x][2], (String) plotData[x][3], 0, 0);
-				// updates the id if I am the owner
-				if ((Integer) plotData[x][0] == Global.userId) {
-					Global.plotId = plotId;
-				}
-			}
-
-			Log.d(LOG_TAG, "plot works");
-
-			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(Global.plotId, 1, seeds.get(1).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(2, 1, seeds.get(3).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			IS_INITIALIZED = true;
-		}
 
 	}
 
@@ -696,132 +695,15 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// sets the view
 		dialog.setContentView(languageList);
 		// sets the properties of the dialog.
-		dialog.setTitle("Please select your language");
+		dialog.setTitle(R.string.dialog_select_language_title);
 		dialog.setCancelable(true);
 
 		// displays the dialog.
 		dialog.show();
 	};
 
-	public void writeActionToDatabase() {
-
-		/*
-		 * System.out.println("action writing"); mDataProvider .setActionNew(1,
-		 * 3, 2, "Sowing", "groundnut", 1000, 2000, "kg", "monday", 4, 5,
-		 * "fertilizer 1", "problem 1", "good", 10000, "medium", "pickup", 1, 0,
-		 * "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(1, 4, 5, "fertilizing", "tmv-2", 2000,
-		 * 3000, "kg", "monday", 4, 5, "fertilizer 1", "problem 3", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(1, 5, 3, "spraying", "groundnut", 1000,
-		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(1, 8, 3, "harvest", "groundnut", 1000,
-		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * mDataProvider .setActionNew(8, 12, 3, "selling", "groundnut", 1000,
-		 * 2000, "kg", "monday", 4, 5, "fertilizer 1", "problem 1", "good",
-		 * 10000, "medium", "pickup", 1, 0, "treated", "pest1");
-		 * 
-		 * /* mDataProvider.setActionNew(1, 4, 5, "fertilizing", "tmv-1",2000,
-		 * 3000, "kg","monday", 4, 5,"fertilizer 1", "problem 3","good", 10000,
-		 * "medium", "pickup",1, 0 , "treated", "pest1");
-		 */
-
-		/*
-		 * System.out.println("action reading");
-		 * mDataProvider.getNewActionsList();
-		 * 
-		 * System.out.println("sowing writing"); mDataProvider.setSowing(500,
-		 * "castor", "kgs", "today", "treated", 0, 0);
-		 * 
-		 * System.out.println("sowing reading"); mDataProvider.getsowing();
-		 * 
-		 * System.out.println("fertilizing writing");
-		 * mDataProvider.setFertilizing(200, "fert 1", "kgs", "today", 1, 0);
-		 * 
-		 * System.out.println("fertilizing reading");
-		 * mDataProvider.getfertizing();
-		 * 
-		 * System.out.println("spraying writing");
-		 * mDataProvider.setspraying(100, "quint", "today", "prob 1", 1, 0,
-		 * "pest1");
-		 * 
-		 * System.out.println("spraying reading"); mDataProvider.getspraying();
-		 * 
-		 * System.out.println("harvesting writing");
-		 * mDataProvider.setHarvest(100, 200, "quintals", "tomorrow", "good", 1,
-		 * 0);
-		 * 
-		 * System.out.println("harvesting reading");
-		 * mDataProvider.getharvesting();
-		 * 
-		 * System.out.println("selling writing"); mDataProvider.setselling(300,
-		 * 400, "kgs", "today", 5000, "medium", "pickup", 1, 0);
-		 * 
-		 * System.out.println("selling reading"); mDataProvider.getselling();
-		 * 
-		 * 
-		 * System.out.println("market price writing");
-		 * mDataProvider.setMarketPrice(1,"22-05-2012","groundnut", 2000, 0);
-		 * 
-		 * System.out.println("market price reading");
-		 * mDataProvider.getMarketPrice();
-		 */
-		/*
-		 * mSoundQueue = new SoundQueue(this);
-		 * mSoundQueue.addToQueue(R.raw.audio1);
-		 * mSoundQueue.addToQueue(R.raw.audio2);
-		 * mSoundQueue.addToQueue(R.raw.audio3); mSoundQueue.play();
-		 */
-
-		// System.out.println("Reading getuser delete");
-		System.out.println("Irrigation writing");
-		// qua1 mapped to no of hours
-		mDataProvider.setIrrigation(Global.userId, Global.plotId, 2, "hours",
-				"today", 0, 0, "Fertilizer1");
-		// qua1 mapped to no of hours
-		mDataProvider.setIrrigation(Global.userId, Global.plotId, 4, "hours",
-				"tomorrow", 0, 0, "Fertilizer2");
-
-		System.out.println("Irrigation reading");
-		mDataProvider.getirrigate();
-
-		System.out.println("Problem writing");
-		mDataProvider.setProblem(Global.plotId, "today", "Problem1", 0, 0);
-		mDataProvider.setProblem(Global.plotId, "tomorrow", "Problem2", 0, 0);
-		// mDataProvider.setProblem(String day,String probType, int sent, int
-		// admin);
-
-		System.out.println("Problem reading");
-		mDataProvider.getProblem();
-
-		System.out.println("New plot writing");
-		mDataProvider
-				.insertPlot(Global.userId, 1, "plot image1", "Loamy", 0, 0);
-		mDataProvider
-				.insertPlot(Global.userId, 2, "plot image2", "Sandy", 0, 0);
-		Global.plotId = mDataProvider.insertPlot(Global.userId, 2,
-				"plot image2", "Sandy", 0, 0);
-
-		System.out.println("newplot  reading");
-		mDataProvider.getPlots();
-		mDataProvider.getPlotDelete(0);
-
-		System.out.println("newplot  reading based on userid");
-		mDataProvider.getPlotsByUserId(1);
-
-		System.out.println("newplot reading based on userid and plotid");
-		mDataProvider.getPlotsByUserIdAndPlotId(1, 1);
-
-	}
-
 	// TODO: this should be modified since it will make the DB slower.
-	public void writeDatabaseToSDcard() {
+	protected void writeDatabaseToSDcard() {
 		Global.writeToSD = true;
 		mDataProvider.Log_Database_backupdate();
 		mDataProvider.getUsers(); // User

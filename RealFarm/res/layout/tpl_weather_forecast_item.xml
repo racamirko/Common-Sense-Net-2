@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:background="@android:color/white"
+    android:background="@drawable/square_btn_transp"
     android:padding="@dimen/margin" >
 
     <TextView
@@ -29,11 +29,11 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="60dp"
-        android:layout_marginTop="-11dp"
+        android:layout_marginRight="65dp"
+        android:layout_marginTop="-13dp"
         android:text="23°"
         android:textColor="#A7A9AC"
-        android:textSize="50sp" />
+        android:textSize="48sp" />
 
     <TextView
         android:id="@+id/label_weather_forecast_forecast"
@@ -41,7 +41,7 @@
         android:layout_height="wrap_content"
         android:layout_alignLeft="@+id/label_weather_forecast_temperature"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="-2dip"
+        android:layout_marginBottom="-4dp"
         android:text="Chance of rain"
         android:textColor="#D1D2D4"
         android:textSize="@dimen/font_weather_forecast" />
