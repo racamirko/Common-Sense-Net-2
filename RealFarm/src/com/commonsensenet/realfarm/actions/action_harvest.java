@@ -23,16 +23,18 @@ import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
-public class action_harvest extends HelpEnabledActivityOld { // Integration
+public class action_harvest extends HelpEnabledActivityOld {
 	private Context context = this;
 	private int feedback_sel;
 	private int harvest_no, day_harvest_int;
 	private String harvest_no_sel, units_harvest = "0", feedback_txt,
 			months_harvest = "0", day_harvest_sel_1 = "0";
 	private RealFarmProvider mDataProvider;
-	private final action_harvest parentReference = this; // audio integration
+	private final action_harvest parentReference = this;
 	private String final_day_harvest;
 	String mSelectedMonth;
 
@@ -46,26 +48,18 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 		action_harvest.this.finish();
 	}
 
-	// MediaPlayer mp = null; //integration
+	public static final String LOG_TAG = "action_harvest";
+
 	public void onBackPressed() {
 
 		SoundQueue.getInstance().stop();
-		if (Global.writeToSD == true) {
 
-			String logtime = getcurrenttime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider
-					.File_Log_Create("UIlog.txt",
-							"***** user has clicked back button in harvest*********** \r\n");
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+				"back");
 
-		}
-		Intent adminintent = new Intent(action_harvest.this, Homescreen.class);
-
-		startActivity(adminintent);
+		startActivity(new Intent(action_harvest.this, Homescreen.class));
 		action_harvest.this.finish();
-
-		SoundQueue sq = SoundQueue.getInstance(); // audio integration
-		sq.stop();
 	}
 
 	/** Called when the activity is first created. */
@@ -74,17 +68,9 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 		System.out.println("Plant details entered");
 		mDataProvider = RealFarmProvider.getInstance(context);
 
-		// super.onCreate(savedInstanceState);
-		// setContentView(R.layout.harvest_dialog);
-
-		super.onCreate(savedInstanceState, R.layout.harvest_dialog); // Needed
-																		// to
-																		// add
-																		// help
-																		// icon
+		super.onCreate(savedInstanceState, R.layout.harvest_dialog);
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
-		System.out.println("plant done");
 		final Button smiley1;
 		final Button smiley2;
 		final Button smiley3;
@@ -103,14 +89,8 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 
 		playAudio(R.raw.clickingharvest);
 
-		if (Global.writeToSD == true) {
-
-			String logtime = getcurrenttime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt",
-					"***** In Action harvest*********** \r\n");
-
-		}
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
 
 		System.out.println("Plant details entered1");
 		final Button item1;
@@ -133,19 +113,19 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 
-		smiley1.setOnLongClickListener(this); // Integration
+		smiley1.setOnLongClickListener(this);
 		smiley2.setOnLongClickListener(this);
 		smiley3.setOnLongClickListener(this);
 
 		help.setOnLongClickListener(this);
 
-		final Button harvest_date; // 20-06-2012
+		final Button harvest_date;
 		final Button Amount;
 
-		harvest_date = (Button) findViewById(R.id.variety_sow_txt_btn); // 20-06-2012
+		harvest_date = (Button) findViewById(R.id.variety_sow_txt_btn);
 		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
 
-		harvest_date.setOnLongClickListener(this); // 20-06-2012
+		harvest_date.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
 		System.out.println("Plant details entered4");
 		smiley1.setOnClickListener(new View.OnClickListener() {
@@ -156,18 +136,13 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				smiley1.setBackgroundResource(R.drawable.smiley_good);
 				smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
 				smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
+
 				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
-
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt",
-							"***** user selected feeback good*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "feedback", "good");
 			}
 		});
 
@@ -179,19 +154,13 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				smiley1.setBackgroundResource(R.drawable.smiley_good_not);
 				smiley2.setBackgroundResource(R.drawable.smiley_medium);
 				smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
+
 				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
-
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user selected feeback medium*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "feedback", "medium");
 			}
 		});
 
@@ -206,15 +175,10 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
 
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider.File_Log_Create("UIlog.txt",
-							"***** user selected feeback bad*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "feedback", "bad");
 			}
 		});
 
@@ -231,23 +195,17 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				playAudio(R.raw.noofbags); // 20-06-2012
+				playAudio(R.raw.noofbags);
 
-				if (Global.writeToSD == true) {
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "no_of_bags");
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** in selection of no of bags in harvest *********** \r\n");
-
-				}
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+				((Button) dlg.findViewById(R.id.number_ok))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.number_cancel))
 						.setOnLongClickListener(parentReference);
@@ -269,19 +227,11 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 									.setBackgroundResource(R.drawable.def_img);
 							bg_units_no_harvest
 									.setImageResource(R.drawable.empty_not);
-							if (Global.writeToSD == true) {
 
-								String logtime = getcurrenttime();
-								mDataProvider.File_Log_Create("UIlog.txt",
-										logtime + " -> ");
-								mDataProvider
-										.File_Log_Create(
-												"UIlog.txt",
-												"***** user selected "
-														+ harvest_no_sel
-														+ "of bags in harvest*********** \r\n");
-
-							}
+							// tracks the application usage.
+							ApplicationTracker.getInstance().logEvent(
+									EventType.CLICK, LOG_TAG, "no_of_bags",
+									harvest_no_sel);
 						}
 
 						dlg.cancel();
@@ -290,16 +240,11 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** user selected cancel in no of bags in harvest*********** \r\n");
-
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "no_of_bags",
+								"cancel");
 					}
 				});
 
@@ -326,29 +271,20 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
 
-				((Button) dlg.findViewById(R.id.home_btn_units_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
-				((Button) dlg.findViewById(R.id.home_btn_units_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_btn_units_3))
-						.setOnLongClickListener(parentReference);
-				if (Global.writeToSD == true) {
+				dlg.findViewById(R.id.home_btn_units_1).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_btn_units_2).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_btn_units_3).setOnLongClickListener(
+						parentReference);
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of units in harvest*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "units");
 
 				unit1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 						var_text.setText("10 Kgs");
 						units_harvest = "Bag of 10 Kgs";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
@@ -356,20 +292,12 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 
 						bg_units_harvest.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-							mDataProvider
-									.File_Log_Create(
-											"UIlog.txt",
-											"***** user selected "
-													+ units_harvest
-													+ " units in harvest*********** \r\n");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units",
+								units_harvest);
 
-						}
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
 					}
 				});
@@ -385,19 +313,11 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_harvest.setImageResource(R.drawable.empty_not);
 
-						if (Global.writeToSD == true) {
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units",
+								units_harvest);
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-							mDataProvider
-									.File_Log_Create(
-											"UIlog.txt",
-											"***** user selected "
-													+ units_harvest
-													+ " units in harvest*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -413,23 +333,14 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_harvest.setImageResource(R.drawable.empty_not);
 
-						if (Global.writeToSD == true) {
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units",
+								units_harvest);
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-							mDataProvider
-									.File_Log_Create(
-											"UIlog.txt",
-											"***** user selected "
-													+ units_harvest
-													+ " units in harvest*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
-
 			}
 		});
 
@@ -471,8 +382,7 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 						.findViewById(R.id.home_month_12);
 
 				((Button) dlg.findViewById(R.id.home_month_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_2))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_3))
@@ -484,8 +394,7 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				((Button) dlg.findViewById(R.id.home_month_6))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_7))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_8))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_9))
@@ -502,7 +411,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("01");
 						months_harvest = "01";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -517,7 +425,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("02");
 						months_harvest = "02";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -532,7 +439,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month3.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("03");
 						months_harvest = "03";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -547,7 +453,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month4.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("04");
 						months_harvest = "04";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -562,7 +467,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month5.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("05");
 						months_harvest = "05";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -577,7 +481,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month6.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("06");
 						months_harvest = "06";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -592,7 +495,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month7.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("07");
 						months_harvest = "07";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -607,7 +509,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month8.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("08");
 						months_harvest = "08";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -622,7 +523,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month9.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("09");
 						months_harvest = "09";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -637,7 +537,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month10.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("10");
 						months_harvest = "10";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -652,7 +551,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month11.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("11");
 						months_harvest = "11";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -667,7 +565,6 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				month12.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("12");
 						months_harvest = "12";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
@@ -677,10 +574,7 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 						dlg.cancel();
 					}
 				});
-
-				// callmonthlist();
 			}
-
 		});
 
 		final TextView day_fert = (TextView) findViewById(R.id.dlg_lbl_day_harvest);
@@ -696,13 +590,13 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				playAudio(R.raw.dateinfo); // 20-06-2012
+				playAudio(R.raw.dateinfo);
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+				((Button) dlg.findViewById(R.id.number_ok))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.number_cancel))
 						.setOnLongClickListener(parentReference);
@@ -731,26 +625,18 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** user selected cancel on selction of bags for Sowing*********** \r\n");
-
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "no_bags_selection",
+								"cancel");
 					}
 				});
-
 			}
-
 		});
 
 		Button btnNext = (Button) findViewById(R.id.harvest_ok);
-		Button cancel = (Button) findViewById(R.id.harvest_cancel); // integration
+		Button cancel = (Button) findViewById(R.id.harvest_cancel);
 
 		btnNext.setOnLongClickListener(this);
 		cancel.setOnLongClickListener(this);
@@ -759,18 +645,10 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 			public void onClick(View v) {
 				cancelaudio();
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user selected cancel in harvest*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "cancel");
 			}
-
 		});
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
@@ -793,35 +671,19 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				// Toast.LENGTH_LONG).show();
 
 				// to obtain the + - values
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user clciked ok  in harvest*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "ok_button");
 
 				if (feedback_sel == 0) {
 					flag1 = 1;
-					// Toast.makeText(action_harvest.this,
-					// " Please enter the feedback", Toast.LENGTH_LONG).show();
-					TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
 
+					TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-					if (Global.writeToSD == true) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT filled feedback in harvest*********** \r\n");
-
-					}
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "feedback");
 				} else {
 					flag1 = 0;
 					TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
@@ -832,26 +694,16 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 				if (units_harvest.toString().equalsIgnoreCase("0")
 						|| harvest_no == 0) {
 					flag2 = 1;
-					// Toast.makeText(action_harvest.this,
-					// " Please enter the kgs", Toast.LENGTH_LONG).show();
 
 					TableRow tr_units = (TableRow) findViewById(R.id.units_harvest_tr);
-
 					tr_units.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT filled units in harvest*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "units");
 				} else {
 					flag2 = 0;
 					TableRow tr_units = (TableRow) findViewById(R.id.units_harvest_tr);
-
 					tr_units.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -862,23 +714,16 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 					TableRow tr_months = (TableRow) findViewById(R.id.harvest_date_tr);
 
 					tr_months.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT filled date in harvest*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "date");
 				} else {
 					flag3 = 0;
 
 					final_day_harvest = day_harvest_int + "." + months_harvest;
 
 					TableRow tr_units = (TableRow) findViewById(R.id.harvest_date_tr);
-
 					tr_units.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -891,47 +736,26 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 					System.out.println("harvesting reading");
 					mDataProvider.getharvesting();
 
-					if (Global.writeToSD) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has filled all details in harvest*********** \r\n");
-
-					}
-					Intent adminintent = new Intent(action_harvest.this,
-							Homescreen.class);
-
-					startActivity(adminintent);
+					startActivity(new Intent(action_harvest.this,
+							Homescreen.class));
 					action_harvest.this.finish();
 					okaudio();
 
-				} else
+				} else {
 					initmissingval();
-
+				}
 			}
 		});
 
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent adminintent = new Intent(action_harvest.this,
-						Homescreen.class);
 
-				startActivity(adminintent);
+				startActivity(new Intent(action_harvest.this, Homescreen.class));
 				action_harvest.this.finish();
-				if (Global.writeToSD) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user has clicked on home btn  in harvest*********** \r\n");
-
-				}
-
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "home");
 			}
 		});
 	}
@@ -1037,51 +861,35 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 	}
 
 	@Override
-	public boolean onLongClick(View v) { // latest
+	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.home_btn_har_1) {
 
 			playAudioalways(R.raw.feedbackgood);
 			ShowHelpIcon(v);
-			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to feeback good audio in harvest*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "feedback", "audio");
 		}
 
 		if (v.getId() == R.id.home_btn_har_2) {
 
 			playAudioalways(R.raw.feedbackmoderate);
 			ShowHelpIcon(v);
-			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to feeback medium audio in harvest*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "feedback", "medium");
 		}
 		if (v.getId() == R.id.home_btn_har_3) {
 
 			playAudioalways(R.raw.feedbackbad);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to feeback bad audio in harvest*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "feedback");
 
 		}
 		if (v.getId() == R.id.harvest_ok) {
@@ -1099,15 +907,10 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 		if (v.getId() == R.id.aggr_img_help) {
 
 			playAudioalways(R.raw.help);
-			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to help audio in harvest*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "help");
 		}
 
 		if (v.getId() == R.id.home_btn_units_no_harvest
@@ -1115,222 +918,216 @@ public class action_harvest extends HelpEnabledActivityOld { // Integration
 
 			playAudioalways(R.raw.selecttheunits);
 			ShowHelpIcon(v);
-			if (Global.writeToSD == true) {
 
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to units audio in harvest*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "units");
 		}
 
-		if (v.getId() == R.id.home_btn_units_1) { // audio integration
+		if (v.getId() == R.id.home_btn_units_1) {
 
 			playAudioalways(R.raw.bagof10kg);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_btn_units_2) { // added
+		if (v.getId() == R.id.home_btn_units_2) {
 
 			playAudioalways(R.raw.bagof20kg);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_btn_units_3) { // added
+		if (v.getId() == R.id.home_btn_units_3) {
 
 			playAudioalways(R.raw.bagof50kg);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_btn_day_harvest) { // added
+		if (v.getId() == R.id.home_btn_day_harvest) {
 
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_btn_month_harvest) { // added
+		if (v.getId() == R.id.home_btn_month_harvest) {
 
 			playAudioalways(R.raw.choosethemonthwhenharvested);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_1) { // added
+		if (v.getId() == R.id.home_month_1) {
 
 			playAudioalways(R.raw.jan);
 			ShowHelpIcon(v);
 
 		}
-		if (v.getId() == R.id.home_month_2) { // added
+		if (v.getId() == R.id.home_month_2) {
 
 			playAudioalways(R.raw.feb);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_3) { // added
+		if (v.getId() == R.id.home_month_3) {
 
 			playAudioalways(R.raw.mar);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_4) { // added
+		if (v.getId() == R.id.home_month_4) {
 
 			playAudioalways(R.raw.apr);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_5) { // added
+		if (v.getId() == R.id.home_month_5) {
 
 			playAudioalways(R.raw.may);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_6) { // added
+		if (v.getId() == R.id.home_month_6) {
 
 			playAudioalways(R.raw.jun);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_7) { // added
+		if (v.getId() == R.id.home_month_7) {
 
 			playAudioalways(R.raw.jul);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_8) { // added
+		if (v.getId() == R.id.home_month_8) {
 
 			playAudioalways(R.raw.aug);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_9) { // added
+		if (v.getId() == R.id.home_month_9) {
 
 			playAudioalways(R.raw.sep);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_10) { // added
+		if (v.getId() == R.id.home_month_10) {
 
 			playAudioalways(R.raw.oct);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_11) { // added
+		if (v.getId() == R.id.home_month_11) {
 
 			playAudioalways(R.raw.nov);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_12) { // added
+		if (v.getId() == R.id.home_month_12) {
 
 			playAudioalways(R.raw.dec);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_1) { // added
+		if (v.getId() == R.id.home_month_1) {
 
 			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.home_month_2) { // added
+		if (v.getId() == R.id.home_month_2) {
 
 			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_3) { // added
+		if (v.getId() == R.id.home_month_3) {
 
 			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_4) { // added
+		if (v.getId() == R.id.home_month_4) {
 
 			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v); // added for help icon
-
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_5) { // added
+		if (v.getId() == R.id.home_month_5) {
 
 			playAudioalways(R.raw.may);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_6) { // added
+		if (v.getId() == R.id.home_month_6) {
 
 			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_7) { // added
+		if (v.getId() == R.id.home_month_7) {
 
 			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_8) { // added
+		if (v.getId() == R.id.home_month_8) {
 
 			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_9) { // added
+		if (v.getId() == R.id.home_month_9) {
 
 			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_10) { // added
+		if (v.getId() == R.id.home_month_10) {
 
 			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_11) { // added
+		if (v.getId() == R.id.home_month_11) {
 
 			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_12) { // added
+		if (v.getId() == R.id.home_month_12) {
 
 			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.number_ok) { // added
+		if (v.getId() == R.id.number_ok) {
 
 			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.number_cancel) { // added
+		if (v.getId() == R.id.number_cancel) {
 
 			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.variety_sow_txt_btn) {
 			playAudioalways(R.raw.harvestyear);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.amount_sow_txt_btn) {
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
 		}

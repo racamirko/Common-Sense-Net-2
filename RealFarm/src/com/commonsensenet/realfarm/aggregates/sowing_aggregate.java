@@ -15,13 +15,14 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.AggregateItem;
 import com.commonsensenet.realfarm.model.UserAggregateItem;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.AggregateItemAdapter;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
@@ -38,7 +39,7 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 	/** Reference to the current instance. */
 	private final sowing_aggregate mParentReference = this;
 
-	protected void cancelaudio() {
+	protected void cancelAudio() {
 
 		Intent adminintent = new Intent(sowing_aggregate.this, Homescreen.class);
 
@@ -103,16 +104,11 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 		// stops all active audio.
 		stopAudio();
 
-		if (Global.writeToSD == true) {
-			String logtime = getCurrentTime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-					+ " Softkey " + " click " + " Back_button " + " null "
-					+ " \r\n");
-		}
-		Intent adminintent = new Intent(sowing_aggregate.this, Homescreen.class);
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+				"back");
 
-		startActivity(adminintent);
+		startActivity(new Intent(sowing_aggregate.this, Homescreen.class));
 		sowing_aggregate.this.finish();
 	}
 
@@ -168,15 +164,10 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 				startActivity(adminintent);
 				sowing_aggregate.this.finish();
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user has clicked on home btn  in harvest*********** \r\n");
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "home");
 			}
 		});
 
@@ -381,23 +372,17 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				cancelaudio();
+				cancelAudio();
 
-				if (Global.writeToSD == true) {
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "back");
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user selected cancel in harvest*********** \r\n");
-
-				}
 			}
-
 		});
-
 	}
+
+	public static final String LOG_TAG = "sowing_aggregate";
 
 	public boolean onLongClick(View v) {
 

@@ -18,9 +18,9 @@ import android.util.Log;
  */
 public class SoundQueue implements OnCompletionListener {
 	/** Identifier of the class used for logging. */
-	private static String LOG_TAG = "SoundQueue";
+	private static final String LOG_TAG = "SoundQueue";
 	/** Singleton instance of the SoundQueue. ` */
-	private static SoundQueue mInstance = null;
+	private static SoundQueue sInstance = null;
 
 	/**
 	 * Gets the singleton SoundQueue instance.
@@ -28,11 +28,11 @@ public class SoundQueue implements OnCompletionListener {
 	 * @return the SoundQueue instance.
 	 */
 	public static SoundQueue getInstance() {
-		if (mInstance == null) {
+		if (sInstance == null) {
 			Log.i(LOG_TAG, "Initializing sound system");
-			mInstance = new SoundQueue();
+			sInstance = new SoundQueue();
 		}
-		return mInstance;
+		return sInstance;
 	}
 
 	/** Context used to load the sounds using the resourceId. */

@@ -10,33 +10,30 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class harvest_aggregate extends HelpEnabledActivityOld implements
 		OnLongClickListener {
-	/** Database provider used to persist the data. */
-	private RealFarmProvider mDataProvider;
+
 	/** Reference to the current instance. */
 	private final harvest_aggregate mParentReference = this;
-	boolean liked;
-	int aggr_action_no;
+	private boolean liked;
+	private int aggr_action_no;
+
+	public static final String LOG_TAG = "harvest_aggregate";
 
 	public void onBackPressed() {
 
 		// stops all active audio.
 		stopAudio();
 
-		if (Global.writeToSD == true) {
-			String logtime = getCurrentTime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt", " Fertilizing "
-					+ " Softkey " + " click " + " Back_button " + " null "
-					+ " \r\n");
-		}
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+				"back");
 		Intent adminintent = new Intent(harvest_aggregate.this,
 				Homescreen.class);
 
@@ -48,11 +45,6 @@ public class harvest_aggregate extends HelpEnabledActivityOld implements
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("Fertilizer Aggregate entered");
-		mDataProvider = RealFarmProvider.getInstance(this);
-
-		// super.onCreate(savedInstanceState);
-		// setContentView(R.layout.fertilizing_dialog);
 
 		super.onCreate(savedInstanceState, R.layout.harvest_aggregate);
 		System.out.println("Fertilizer Aggregate entered");
@@ -76,16 +68,9 @@ public class harvest_aggregate extends HelpEnabledActivityOld implements
 
 				startActivity(adminintent);
 				harvest_aggregate.this.finish();
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user has clicked on home btn  in harvest*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "home");
 
 			}
 		});
@@ -383,20 +368,11 @@ public class harvest_aggregate extends HelpEnabledActivityOld implements
 			public void onClick(View v) {
 				cancelaudio();
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user selected cancel in harvest*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "cancel");
 			}
-
 		});
-
 	}
 
 	protected void cancelaudio() {

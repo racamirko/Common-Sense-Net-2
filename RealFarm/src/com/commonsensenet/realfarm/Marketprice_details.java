@@ -7,7 +7,9 @@ import android.view.View;
 import android.widget.Button;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class Marketprice_details extends HelpEnabledActivityOld {
 
@@ -25,7 +27,7 @@ public class Marketprice_details extends HelpEnabledActivityOld {
 		// eliminates the listener.
 		mDataProvider.setWeatherForecastDataChangeListener(null);
 
-		SoundQueue sq = SoundQueue.getInstance(); // audio integration
+		SoundQueue sq = SoundQueue.getInstance();
 		sq.stop();
 	}
 
@@ -49,16 +51,8 @@ public class Marketprice_details extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				cancelaudio();
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user selected cancel in harvest*********** \r\n");
-
-				}
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						"Marketprice_details", "back");
 			}
 
 		});

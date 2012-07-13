@@ -630,7 +630,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				ReminderTask.class);
 
 		// clears the database
-		initDb();
+		// initDb();
 		insertDemoData();
 
 		initActionListener();
@@ -705,7 +705,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	// TODO: this should be modified since it will make the DB slower.
 	protected void writeDatabaseToSDcard() {
 		Global.writeToSD = true;
-		mDataProvider.Log_Database_backupdate();
+
 		mDataProvider.getUsers(); // User
 		mDataProvider.getActions(); // New action table
 		mDataProvider.getfertizing(); // Fertilizing action
@@ -716,10 +716,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getPlots(); // New plot list
 		mDataProvider.getSeeds(); // Seed type
 		mDataProvider.getActionNames(); // Action names
-		mDataProvider.getUnit(); // units
 		mDataProvider.getFertilizer(); // Fertilizer
 		mDataProvider.getPesticides(); // Pesticides
-		mDataProvider.getProblems(); // problems
-		mDataProvider.getProblemType(); // problem type
 	}
 }

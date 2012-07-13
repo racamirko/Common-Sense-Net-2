@@ -1,7 +1,5 @@
 package com.commonsensenet.realfarm.dataaccess;
 
-import java.io.File;
-import java.io.FileWriter;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -13,10 +11,8 @@ import java.util.Map;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
-import android.os.Environment;
 import android.util.Log;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.AggregateItem;
@@ -41,8 +37,7 @@ public class RealFarmProvider {
 
 	/** Date format used throughout the application. */
 	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
-	/** Name of the folder where the log is located. */
-	public static final String LOG_FOLDER = "/csn_app_logs";
+	/** Map used to handle different instances depending on the context. */
 	private static Map<Context, RealFarmProvider> sMapProviders = new HashMap<Context, RealFarmProvider>();
 	/** Listener used to detect changes in the weather forecast. */
 	private static OnDataChangeListener sWeatherForecastDataListener;
@@ -58,17 +53,8 @@ public class RealFarmProvider {
 	private List<ActionName> mAllActionNames;
 	/** Cached seeds to improve performance. */
 	private List<SeedType> mAllSeeds;
-	/** Calendar instance used to log activities. */
-	private Calendar mCalendar = Calendar.getInstance();
 	/** Real farm database access. */
 	private RealFarmDatabase mDatabase;
-	private SimpleDateFormat mDateFormat = new SimpleDateFormat(DATE_FORMAT);
-	/** Path of the logging directory inside the SD card. */
-	private String mExternalDirectoryLog;
-	private File mFile;
-	private File mFile1;
-	private FileWriter mFileWriter;
-	private FileWriter mFileWriter1;
 
 	protected RealFarmProvider(RealFarmDatabase database) {
 
@@ -104,60 +90,6 @@ public class RealFarmProvider {
 		}
 		Log.d("done: ", "wf setdata");
 		return result;
-	}
-
-	public void File_Log_Create(String FileNameWrite, String Data) {
-
-		File folder = new File(Environment.getExternalStorageDirectory()
-				+ "/csn_app_logs");
-		if (!folder.exists()) {
-			folder.mkdir();
-		}
-
-		// File file = new File(mExternalDirectoryLog, "Test5.txt");
-		// //LoggedData is the file to which values will be written
-		if (FileNameWrite == "value.txt") {
-			mExternalDirectoryLog = Environment.getExternalStorageDirectory()
-					.toString() + LOG_FOLDER;
-			// mExternalDirectoryLog =
-			// Environment.getExternalStorageDirectory().toString();
-			mFile = new File(mExternalDirectoryLog, FileNameWrite);
-			// fWriter =new FileWriter(file);
-
-			try {
-				mFileWriter = new FileWriter(mFile, true);
-				mFileWriter.append(Data);
-				// fWriter.newLine();
-				mFileWriter.close();
-				// Toast.makeText(this,
-				// "Your text was written to SD Card successfully...",
-				// Toast.LENGTH_LONG).show();
-			} catch (Exception e) {
-				Log.e("WRITE TO SD", e.getMessage());
-			}
-
-		}
-		if (FileNameWrite == "UIlog.txt") {
-			mExternalDirectoryLog = Environment.getExternalStorageDirectory()
-					.toString() + LOG_FOLDER;
-			// mExternalDirectoryLog =
-			// Environment.getExternalStorageDirectory().toString();
-			mFile1 = new File(mExternalDirectoryLog, FileNameWrite);
-			// fWriter =new FileWriter(file);
-
-			try {
-				mFileWriter1 = new FileWriter(mFile1, true);
-				mFileWriter1.append(Data);
-				// fWriter.newLine();
-				mFileWriter1.close();
-				// Toast.makeText(this,
-				// "Your text was written to SD Card successfully...",
-				// Toast.LENGTH_LONG).show();
-			} catch (Exception e) {
-				Log.e("WRITE TO SD", e.getMessage());
-			}
-		}
-
 	}
 
 	public ActionName getActionNameById(int actionNameId) {
@@ -221,11 +153,6 @@ public class RealFarmProvider {
 							+ c.getInt(5) + "\r\n";
 					Log.d("action name values: ", log);
 
-					if (Global.writeToSD == true) {
-						File_Log_Create("value.txt", "Action names table \r\n");
-						File_Log_Create("value.txt", log);
-					}
-
 				} while (c.moveToNext());
 			}
 
@@ -277,10 +204,6 @@ public class RealFarmProvider {
 
 				Log.d("values: ", a.toString());
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "New Action table \r\n");
-					File_Log_Create("value.txt", a.toString());
-				}
 			} while (c.moveToNext());
 
 		}
@@ -422,11 +345,6 @@ public class RealFarmProvider {
 						+ "\r\n";
 				Log.d("fertilizer: ", log);
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Fertilizer table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
 			} while (c.moveToNext());
 		}
 
@@ -474,11 +392,6 @@ public class RealFarmProvider {
 						+ "sent  " + c.getInt(8) + " Is admin " + c.getInt(9)
 						+ " action performed date " + c.getString(10) + "\r\n";
 				Log.d("Fertilizing values: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "fertilizing action \r\n");
-					File_Log_Create("value.txt", log);
-				}
 
 			} while (c.moveToNext());
 
@@ -528,13 +441,8 @@ public class RealFarmProvider {
 						+ c.getInt(7) + " harvest feedback " + c.getString(8)
 						+ "sent  " + c.getInt(9) + " Is admin " + c.getInt(10)
 						+ " action performed date " + c.getString(11) + "\r\n";
-				;
-				Log.d("harvesting values: ", log);
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "harvesting action \r\n");
-					File_Log_Create("value.txt", log);
-				}
+				Log.d("harvesting values: ", log);
 
 			} while (c.moveToNext());
 
@@ -586,11 +494,6 @@ public class RealFarmProvider {
 						+ " method " + c.getString(10) + "\r\n";
 				Log.d("Irrigation values: ", log);
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Irrigation action \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
 			} while (c.moveToNext());
 
 		}
@@ -629,11 +532,6 @@ public class RealFarmProvider {
 						+ c.getInt(4) + "\r\n";
 				Log.d("MP values: ", log);
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "market price table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
 			} while (c.moveToNext());
 		}
 		Log.d("done: ", "finished MP getdata");
@@ -661,11 +559,6 @@ public class RealFarmProvider {
 				String log = "ID: " + c.getInt(0) + " ,NAME: " + c.getString(1)
 						+ " AUDIO: " + c.getInt(2) + "\r\n";
 				Log.d("pesticides: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Pesticides table \r\n");
-					File_Log_Create("value.txt", log);
-				}
 
 			} while (c.moveToNext());
 		}
@@ -750,10 +643,6 @@ public class RealFarmProvider {
 
 				Log.d("plot values: ", p.toString());
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "New plot  table \r\n");
-					File_Log_Create("value.txt", p.toString());
-				}
 			} while (c.moveToNext());
 		}
 
@@ -965,11 +854,6 @@ public class RealFarmProvider {
 						+ " action performed date " + c.getString(8) + "\r\n";
 				Log.d("Problem values: ", log);
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Problem action \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
 			} while (c.moveToNext());
 
 		}
@@ -977,85 +861,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return tmpList;
-	}
-
-	// TODO: should not return a cursor!
-	public Cursor getProblems() {
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_PROBLEM,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PROBLEM_ID,
-						RealFarmDatabase.COLUMN_NAME_PROBLEM_NAME,
-						RealFarmDatabase.COLUMN_NAME_PROBLEM_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_PROBLEM_RESOURCE,
-						RealFarmDatabase.COLUMN_NAME_PROBLEM_PROBLEMTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PROBLEM_ADMINFLAG });
-
-		// user exists in database
-		if (c.moveToFirst()) {
-			do {
-				// adds the users into the list.
-
-				String log = "ID: " + c.getInt(0) + " ,NAME: " + c.getString(1)
-						+ " AUDIO: " + c.getInt(2) + "RESOURCE: " + c.getInt(3)
-						+ " PROBLEMTYPEID: " + c.getInt(4) + " ADMINFLAG: "
-						+ c.getInt(5) + "\r\n";
-				Log.d("problems: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Problems table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		// c.close();
-		mDatabase.close();
-
-		return c;
-	}
-
-	// TODO: should not return a cursor!
-	public Cursor getProblemType() {
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.getAllEntries(
-				RealFarmDatabase.TABLE_NAME_PROBLEMTYPE, new String[] {
-						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_ID,
-						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_NAME,
-						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_RESOURCE,
-						RealFarmDatabase.COLUMN_NAME_PROBLEMTYPE_ADMINFLAG
-
-				});
-
-		// user exists in database
-		if (c.moveToFirst()) {
-			do {
-				// adds the users into the list.
-
-				String log = "ID: " + c.getInt(0) + " ,NAME: " + c.getString(1)
-						+ " AUDIO: " + c.getInt(2) + "RESOURCE: " + c.getInt(3)
-						+ " ADMINFLAG: " + c.getInt(4) + "\r\n";
-				Log.d("problems: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "ProblemType table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		// c.close();
-		mDatabase.close();
-
-		return c;
 	}
 
 	// TODO: implement optimization
@@ -1115,10 +920,6 @@ public class RealFarmProvider {
 
 					Log.d("seed type: ", s.toString());
 
-					if (Global.writeToSD == true) {
-						File_Log_Create("value.txt", "seed type table \r\n");
-						File_Log_Create("value.txt", s.toString());
-					}
 				} while (c.moveToNext());
 
 			}
@@ -1173,11 +974,6 @@ public class RealFarmProvider {
 						+ " action performed date " + c.getString(13) + "\r\n";
 				Log.d("selling values: ", log);
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "selling a \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
 			} while (c.moveToNext());
 
 		}
@@ -1229,11 +1025,6 @@ public class RealFarmProvider {
 						+ " Pesticide type " + c.getString(11) + "\r\n";
 				Log.d("spraying values: ", log);
 
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "spraying action \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
 			} while (c.moveToNext());
 
 		}
@@ -1241,41 +1032,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return tmpList;
-	}
-
-	// TODO: incorrect name!
-	public void getUnit() {
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_UNIT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_UNIT_ID,
-						RealFarmDatabase.COLUMN_NAME_UNIT_NAME,
-						RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO });
-
-		// user exists in database
-		if (c.moveToFirst()) {
-			do {
-
-				// adds the users into the list.
-				String log = "UNIT_ID: " + c.getInt(0) + " ,UNIT_NAME: "
-						+ c.getString(1) + " ,UNIT_AUDIO: " + c.getInt(2)
-						+ "\r\n";
-
-				Log.d("Unit: ", log);
-
-				if (Global.writeToSD == true) {
-					File_Log_Create("value.txt", "Unit table \r\n");
-					File_Log_Create("value.txt", log);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		c.close();
-		mDatabase.close();
-
 	}
 
 	public User getUserById(int userId) {
@@ -1434,12 +1190,6 @@ public class RealFarmProvider {
 				tmpList.add(u);
 
 				Log.d("user: ", u.toString());
-
-				if (Global.writeToSD == true) {
-
-					File_Log_Create("value.txt", "User table \r\n");
-					File_Log_Create("value.txt", u.toString());
-				}
 			} while (c.moveToNext());
 		}
 
@@ -1516,18 +1266,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return result;
-	}
-
-	public void Log_Database_backupdate() {
-		File_Log_Create("value.txt",
-				"/******************************************************/");
-		File_Log_Create("value.txt",
-				"Database backup date for the following tables: \r\n");
-
-		String dbEntryDate = mDateFormat.format(mCalendar.getTime());
-		File_Log_Create("value.txt", dbEntryDate);
-		File_Log_Create("value.txt",
-				"/******************************************************/");
 	}
 
 	public long removeAction(int id) {

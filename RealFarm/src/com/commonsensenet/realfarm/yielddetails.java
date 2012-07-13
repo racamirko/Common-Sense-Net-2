@@ -7,13 +7,17 @@ import android.view.View;
 import android.widget.Button;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class yielddetails extends HelpEnabledActivityOld {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;
 	boolean sel_1, sel_2, sel_3, sel_4, sel_5, sel_6;
+
+	public static final String LOG_TAG = "YieldDetailsActivity";
 
 	public void onBackPressed() {
 
@@ -135,16 +139,8 @@ public class yielddetails extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				cancelaudio();
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user selected cancel in harvest*********** \r\n");
-
-				}
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "back");
 			}
 
 		});

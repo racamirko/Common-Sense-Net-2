@@ -18,20 +18,26 @@ import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class action_spraying extends HelpEnabledActivityOld {
 
+	public static final String LOG_TAG = "action_spraying";
+
 	private Context context = this;
+	private String day_sel_spray = "0";
+	private int day_spray_int;
+	private String day_spray_str;
 	private RealFarmProvider mDataProvider;
-
-	private final action_spraying parentReference = this; // audio integration
-
-	private String prob_sel_spray = "0", pest_sel_spray = "0",
-			day_sel_spray = "0", unit_sel_spray = "0", day_spray_str,
-			months_spray = "0";
-	private int spray_no, day_spray_int;
+	private String months_spray = "0";
+	private final action_spraying parentReference = this;
+	private String pest_sel_spray = "0";
+	private String prob_sel_spray = "0";
+	private int spray_no;
 	private String spray_no_sel;
+	private String unit_sel_spray = "0";
 
 	protected void cancelaudio() {
 
@@ -47,57 +53,37 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 		SoundQueue.getInstance().stop();
 
-		Intent adminintent = new Intent(action_spraying.this, Homescreen.class);
-
-		startActivity(adminintent);
+		startActivity(new Intent(action_spraying.this, Homescreen.class));
 		action_spraying.this.finish();
-		if (Global.writeToSD == true) {
 
-			String logtime = getcurrenttime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider
-					.File_Log_Create("UIlog.txt",
-							"***** user has clicked soft key BACK in Spraying page*********** \r\n");
-
-		}
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+				"back");
 	}
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("Plant details entered");
+
 		mDataProvider = RealFarmProvider.getInstance(context);
 		Log.d("in spray dialog", "in dialog");
 
-		// super.onCreate(savedInstanceState);
-		// setContentView(R.layout.spraying_dialog);
-
-		super.onCreate(savedInstanceState, R.layout.spraying_dialog); // Needed
-																		// to
-																		// add
-																		// help
-																		// icon
+		super.onCreate(savedInstanceState, R.layout.spraying_dialog);
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
 		final TextView day_spray = (TextView) findViewById(R.id.dlg_lbl_day_spray);
 
 		playAudio(R.raw.clickingspraying);
 
-		if (Global.writeToSD == true) {
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
 
-			String logtime = getcurrenttime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt",
-					"***** In Action Spraying*********** \r\n");
-
-		}
 		final ImageView bg_prob_spray = (ImageView) findViewById(R.id.img_bg_prob_spray);
 		final ImageView bg_pest_spray = (ImageView) findViewById(R.id.img_bg_pest_spray);
 		final ImageView bg_units_no_spray = (ImageView) findViewById(R.id.img_bg_units_no_spray);
 		final ImageView bg_units_spray = (ImageView) findViewById(R.id.img_bg_units_spray);
 		final ImageView bg_day_spray = (ImageView) findViewById(R.id.img_bg_day_spray);
 		final ImageView bg_month_spray = (ImageView) findViewById(R.id.img_bg_month_spray);
-		// bg_day_spray.setImageResource(R.drawable.empty_not);
 
 		final Button item1;
 		final Button item2;
@@ -116,7 +102,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
-		item1.setOnLongClickListener(this); // Integration
+		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
@@ -124,17 +110,17 @@ public class action_spraying extends HelpEnabledActivityOld {
 		item6.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final Button Problems; // 20-06-2012
+		final Button Problems;
 		final Button Amount;
 		final Button Date;
 		final Button PestName;
 
-		Problems = (Button) findViewById(R.id.variety_sow_txt_btn); // 20-06-2012
+		Problems = (Button) findViewById(R.id.variety_sow_txt_btn);
 		PestName = (Button) findViewById(R.id.variety_pest_txt_btn);
 		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
 		Date = (Button) findViewById(R.id.date_sow_txt_btn);
 
-		Problems.setOnLongClickListener(this); // 20-06-2012
+		Problems.setOnLongClickListener(this);
 		PestName.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
 		Date.setOnLongClickListener(this);
@@ -149,16 +135,11 @@ public class action_spraying extends HelpEnabledActivityOld {
 				dlg.setTitle("Choose the problem for spraying");
 				Log.d("in problem spray dialog", "in dialog");
 				dlg.show();
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of problem for Spraying*********** \r\n");
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "problem");
 
-				}
 				final Button prob1;
 				final Button prob2;
 				final Button prob3;
@@ -172,37 +153,30 @@ public class action_spraying extends HelpEnabledActivityOld {
 				prob2 = (Button) dlg.findViewById(R.id.home_prob_spray_2);
 				prob3 = (Button) dlg.findViewById(R.id.home_prob_spray_3);
 
-				((Button) dlg.findViewById(R.id.home_prob_spray_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
-				((Button) dlg.findViewById(R.id.home_prob_spray_2))
+				dlg.findViewById(R.id.home_prob_spray_1)
 						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_prob_spray_3))
+				dlg.findViewById(R.id.home_prob_spray_2)
+						.setOnLongClickListener(parentReference);
+				dlg.findViewById(R.id.home_prob_spray_3)
 						.setOnLongClickListener(parentReference);
 
 				prob1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+
 						var_text.setText("Problem 1");
 						prob_sel_spray = "Problem 1";
+
 						TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
-
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
+
 						bg_prob_spray.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "problem",
+								prob_sel_spray);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + prob_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
 					}
 				});
@@ -210,25 +184,19 @@ public class action_spraying extends HelpEnabledActivityOld {
 				prob2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+
 						var_text.setText("Problem 2");
 						prob_sel_spray = "Problem 2";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_prob_spray.setImageResource(R.drawable.empty_not);
 
-						if (Global.writeToSD == true) {
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "problem",
+								prob_sel_spray);
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + prob_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -244,17 +212,11 @@ public class action_spraying extends HelpEnabledActivityOld {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_prob_spray.setImageResource(R.drawable.empty_not);
 
-						if (Global.writeToSD == true) {
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "problem",
+								prob_sel_spray);
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + prob_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -272,17 +234,10 @@ public class action_spraying extends HelpEnabledActivityOld {
 				dlg.setTitle("Choose the Pesticide");
 				Log.d("in units spray dialog", "in dialog");
 				dlg.show();
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of pesticide for Spraying*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "pesticide");
 
 				final Button pest1;
 				final Button pest2;
@@ -298,8 +253,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 				pest3 = (Button) dlg.findViewById(R.id.home_pest_spray_3);
 
 				((Button) dlg.findViewById(R.id.home_pest_spray_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_pest_spray_2))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_pest_spray_3))
@@ -308,26 +262,19 @@ public class action_spraying extends HelpEnabledActivityOld {
 				pest1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+
 						var_text.setText("Monocrotophos");
 						pest_sel_spray = "Monocrotophos";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_pest_spray.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "pesticide",
+								pest_sel_spray);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + pest_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
 					}
 				});
@@ -335,24 +282,19 @@ public class action_spraying extends HelpEnabledActivityOld {
 				pest2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+
 						var_text.setText("Dimethoate");
 						pest_sel_spray = "Dimethoate";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_pest_spray.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "pesticide",
+								pest_sel_spray);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + pest_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -360,28 +302,21 @@ public class action_spraying extends HelpEnabledActivityOld {
 				pest3.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("Dithane M-45");
 						pest_sel_spray = "Dithane M-45";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_pest_spray.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "pesticide",
+								pest_sel_spray);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + pest_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
-
 			}
 		});
 
@@ -396,36 +331,27 @@ public class action_spraying extends HelpEnabledActivityOld {
 				Log.d("in units fert dialog", "in dialog");
 				dlg.show();
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of units for Spraying*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "units");
 
 				final Button unit1;
 				final Button unit2;
 				final Button unit3;
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.img_bg_units_spray);
-
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_units_spray);
+
 				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
 
-				((Button) dlg.findViewById(R.id.home_btn_units_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integrtion
-				((Button) dlg.findViewById(R.id.home_btn_units_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_btn_units_3))
-						.setOnLongClickListener(parentReference);
+				dlg.findViewById(R.id.home_btn_units_1).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_btn_units_2).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_btn_units_3).setOnLongClickListener(
+						parentReference);
 
 				unit1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -434,22 +360,16 @@ public class action_spraying extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.kg10);
 						var_text.setText("10 Kgs");
 						unit_sel_spray = "Bag of 10 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_spray.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units",
+								unit_sel_spray);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + unit_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
 					}
 				});
@@ -460,21 +380,16 @@ public class action_spraying extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.kg20);
 						var_text.setText("20 Kgs");
 						unit_sel_spray = "Bag of 20 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_spray.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units",
+								unit_sel_spray);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + unit_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -485,21 +400,16 @@ public class action_spraying extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.kg50);
 						var_text.setText("50 Kgs");
 						unit_sel_spray = "Bag of 50 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_spray.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units",
+								unit_sel_spray);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + unit_sel_spray
-											+ " for Spraying*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -518,13 +428,13 @@ public class action_spraying extends HelpEnabledActivityOld {
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				playAudio(R.raw.dateinfo); // 20-06-2012
+				playAudio(R.raw.dateinfo);
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
+				((Button) dlg.findViewById(R.id.number_ok))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.number_cancel))
 						.setOnLongClickListener(parentReference);
@@ -553,17 +463,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.writeToSD == true) {
-
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** user selected cancel on selction of bags for Sowing*********** \r\n");
-
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units", "cancel");
 					}
 				});
 
@@ -583,19 +485,12 @@ public class action_spraying extends HelpEnabledActivityOld {
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				playAudio(R.raw.noofbags); // 20-06-2012
+				playAudio(R.raw.noofbags);
 
-				if (Global.writeToSD == true) {
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "bags");
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of no of bags for Spraying*********** \r\n");
-
-				}
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
@@ -620,20 +515,11 @@ public class action_spraying extends HelpEnabledActivityOld {
 									.setBackgroundResource(R.drawable.def_img);
 							bg_units_no_spray
 									.setImageResource(R.drawable.empty_not);
-							if (Global.writeToSD == true) {
 
-								String logtime = getcurrenttime();
-								mDataProvider.File_Log_Create("UIlog.txt",
-										logtime + " -> ");
-
-								mDataProvider
-										.File_Log_Create(
-												"UIlog.txt",
-												"***** user selected"
-														+ spray_no_sel
-														+ " bags for Spraying*********** \r\n");
-
-							}
+							// tracks the application usage.
+							ApplicationTracker.getInstance().logEvent(
+									EventType.CLICK, LOG_TAG, "bags",
+									spray_no_sel);
 						}
 
 						dlg.cancel();
@@ -642,18 +528,10 @@ public class action_spraying extends HelpEnabledActivityOld {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider
-									.File_Log_Create(
-											"UIlog.txt",
-											"***** user selected camncel on entering number of bags for Spraying*********** \r\n");
-
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "bags", "cancel");
 					}
 				});
 
@@ -697,8 +575,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 						.findViewById(R.id.home_month_12);
 
 				((Button) dlg.findViewById(R.id.home_month_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_2))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_3))
@@ -710,8 +587,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 				((Button) dlg.findViewById(R.id.home_month_6))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_7))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_8))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_9))
@@ -729,7 +605,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("01");
 						months_spray = "01";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -744,7 +619,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("02");
 						months_spray = "02";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -759,7 +633,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month3.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("03");
 						months_spray = "03";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -774,7 +647,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month4.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("04");
 						months_spray = "04";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -789,7 +661,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month5.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("05");
 						months_spray = "05";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -804,7 +675,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month6.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("06");
 						months_spray = "06";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -819,7 +689,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month7.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("07");
 						months_spray = "07";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -834,7 +703,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month8.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("08");
 						months_spray = "08";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -848,7 +716,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month9.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("09");
 						months_spray = "09";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -863,7 +730,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month10.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("10");
 						months_spray = "10";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -878,7 +744,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month11.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("11");
 						months_spray = "11";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -892,7 +757,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				month12.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("12");
 						months_spray = "12";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
@@ -908,7 +772,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 		});
 
 		Button btnNext = (Button) findViewById(R.id.spray_ok);
-		Button cancel = (Button) findViewById(R.id.spray_cancel); // Integration
+		Button cancel = (Button) findViewById(R.id.spray_cancel);
 
 		btnNext.setOnLongClickListener(this);
 		cancel.setOnLongClickListener(this);
@@ -916,35 +780,18 @@ public class action_spraying extends HelpEnabledActivityOld {
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				cancelaudio();
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** User clicked cancel on spraying page*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "cancel");
 			}
-
 		});
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** User clicked ok on fertilizer page*********** \r\n");
-
-				}
-
-				// Toast.makeText(action_spraying.this, "User enetred " +
-				// no_units_sprayed + " kgs", Toast.LENGTH_LONG).show();
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "ok");
 
 				int flag1, flag2, flag3, flag4;
 				if (unit_sel_spray.toString().equalsIgnoreCase("0")
@@ -954,16 +801,10 @@ public class action_spraying extends HelpEnabledActivityOld {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT Filled units in spraying page*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "units");
 
 				} else {
 					flag1 = 0;
@@ -980,22 +821,15 @@ public class action_spraying extends HelpEnabledActivityOld {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT Filled pesticide in spraying page*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "pesticide");
 				} else {
 
 					flag2 = 0;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -1006,22 +840,15 @@ public class action_spraying extends HelpEnabledActivityOld {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT Filled problems in spraying page*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "problems");
 				} else {
 
 					flag3 = 0;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -1033,16 +860,10 @@ public class action_spraying extends HelpEnabledActivityOld {
 					TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT Filled problems in spraying page*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "month");
 				} else {
 
 					flag4 = 0;
@@ -1050,7 +871,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 					day_sel_spray = day_spray_int + "." + months_spray;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -1062,17 +882,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 					System.out.println("spraying reading");
 					mDataProvider.getspraying();
-
-					if (Global.writeToSD == true) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has  Filled all details in spraying page*********** \r\n");
-
-					}
 
 					Intent adminintent = new Intent(action_spraying.this,
 							Homescreen.class);
@@ -1090,16 +899,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user has clicke on home btn in spraying page*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "home");
 
 				Intent adminintent = new Intent(action_spraying.this,
 						Homescreen.class);
@@ -1119,30 +921,18 @@ public class action_spraying extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.selecttheproblem);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to problem audio in spray*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "problem");
 		}
 
 		if (v.getId() == R.id.home_btn_pest_spray) {
 			playAudioalways(R.raw.selectthepesticide);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to pest audio in spray*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "pest");
 		}
 
 		if (v.getId() == R.id.home_btn_units_spray
@@ -1150,15 +940,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.selecttheunits);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to units audio in spray*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "units");
 		}
 
 		if (v.getId() == R.id.home_btn_day_spray) {
@@ -1166,15 +950,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to day audio in spray*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "day");
 		}
 
 		if (v.getId() == R.id.spray_ok) {
@@ -1192,134 +970,128 @@ public class action_spraying extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.help);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to help audio in spray*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "help");
 		}
 
-		if (v.getId() == R.id.home_prob_spray_1) { // added audio integration
+		if (v.getId() == R.id.home_prob_spray_1) {
 			playAudioalways(R.raw.problem1);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_prob_spray_2) { // added
+		if (v.getId() == R.id.home_prob_spray_2) {
 			playAudioalways(R.raw.problem2);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_prob_spray_3) { // added
+		if (v.getId() == R.id.home_prob_spray_3) {
 			playAudioalways(R.raw.problem3);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_pest_spray_1) { // added
+		if (v.getId() == R.id.home_pest_spray_1) {
 			playAudioalways(R.raw.pesticide1);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_pest_spray_2) { // added
+		if (v.getId() == R.id.home_pest_spray_2) {
 			playAudioalways(R.raw.pesticide2);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_pest_spray_3) { // added
+		if (v.getId() == R.id.home_pest_spray_3) {
 			playAudioalways(R.raw.pesticide3);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_units_1) { // added
+		if (v.getId() == R.id.home_btn_units_1) {
 
 			playAudioalways(R.raw.bagof10kg);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_btn_units_2) { // added
+		if (v.getId() == R.id.home_btn_units_2) {
 			playAudioalways(R.raw.bagof20kg);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_units_3) { // added
+		if (v.getId() == R.id.home_btn_units_3) {
 			playAudioalways(R.raw.bagof50kg);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_day_1) { // added
+		if (v.getId() == R.id.home_day_1) {
 			playAudioalways(R.raw.twoweeksbefore);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_day_2) { // added
+		if (v.getId() == R.id.home_day_2) {
 			playAudioalways(R.raw.oneweekbefore);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_day_3) { // added
+		if (v.getId() == R.id.home_day_3) {
 			playAudioalways(R.raw.yesterday);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_day_4) { // added
+		if (v.getId() == R.id.home_day_4) {
 			playAudioalways(R.raw.todayonly);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_day_5) { // added
+		if (v.getId() == R.id.home_day_5) {
 			playAudioalways(R.raw.tomorrows);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_1) { // added
+		if (v.getId() == R.id.home_month_1) {
 
 			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.home_month_2) { // added
+		if (v.getId() == R.id.home_month_2) {
 
 			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_3) { // added
+		if (v.getId() == R.id.home_month_3) {
 
 			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_4) { // added
+		if (v.getId() == R.id.home_month_4) {
 
 			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_5) { // added
+		if (v.getId() == R.id.home_month_5) {
 
 			playAudioalways(R.raw.may);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_6) { // added
+		if (v.getId() == R.id.home_month_6) {
 
 			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_7) { // added
+		if (v.getId() == R.id.home_month_7) {
 
 			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_8) { // added
+		if (v.getId() == R.id.home_month_8) {
 
 			playAudioalways(R.raw.aug);
 			ShowHelpIcon(v); // added for help icon
@@ -1355,21 +1127,21 @@ public class action_spraying extends HelpEnabledActivityOld {
 			ShowHelpIcon(v); // added for help icon
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.variety_sow_txt_btn) {
 			playAudioalways(R.raw.problems);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.date_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.date_sow_txt_btn) {
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.amount_sow_txt_btn) {
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.variety_pest_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.variety_pest_txt_btn) {
 			playAudioalways(R.raw.pesticidename);
 			ShowHelpIcon(v);
 		}

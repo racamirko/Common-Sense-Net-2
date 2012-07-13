@@ -19,6 +19,8 @@ import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class action_sowing extends HelpEnabledActivityOld {
@@ -35,6 +37,8 @@ public class action_sowing extends HelpEnabledActivityOld {
 	private String units_sow = "0";
 	private int seed_sow = 0;
 
+	public static final String LOG_TAG = "action_sowing";
+
 	protected void cancelaudio() {
 
 		playAudio(R.raw.cancel);
@@ -49,15 +53,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 		SoundQueue.getInstance().stop();
 
-		if (Global.writeToSD == true) {
-
-			String logtime = getcurrenttime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider
-					.File_Log_Create("UIlog.txt",
-							"***** user has clicked soft key BACK in Spraying page*********** \r\n");
-
-		}
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+				"back");
 
 		Intent adminintent = new Intent(action_sowing.this, Homescreen.class);
 
@@ -81,14 +79,8 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 		playAudio(R.raw.thankyouclickingactionsowing);
 
-		if (Global.writeToSD == true) {
-
-			String logtime = getcurrenttime();
-			mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-			mDataProvider.File_Log_Create("UIlog.txt",
-					"***** In Action Sowing*********** \r\n");
-
-		}
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
 
 		final ImageView bg_units_no_sow = (ImageView) findViewById(R.id.img_bg_units_no_sow);
 		final ImageView bg_units_sow = (ImageView) findViewById(R.id.img_bg_units_sow);
@@ -149,16 +141,11 @@ public class action_sowing extends HelpEnabledActivityOld {
 				dlg.setTitle("Choose the Variety of seed sowed");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of variety of seed sowed in  Sowing*********** \r\n");
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "variety");
 
-				}
 				final View variety1;
 				final View variety2;
 				final View variety3;
@@ -192,21 +179,14 @@ public class action_sowing extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 						var_text.setText("Bajra");
 						seed_sow = 1;
+
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "variety", seed_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + seed_sow
-											+ " for Sowing*********** \r\n");
-
-						}
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
 						dlg.cancel();
 					}
 				});
@@ -217,20 +197,14 @@ public class action_sowing extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("Castor");
 						seed_sow = 2;
+
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "variety", seed_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + seed_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -241,19 +215,13 @@ public class action_sowing extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("Cowpea");
 						seed_sow = 3;
+
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + seed_sow
-											+ " for Sowing*********** \r\n");
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "variety", seed_sow);
 
 						dlg.cancel();
 					}
@@ -265,20 +233,14 @@ public class action_sowing extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.pic_90px_greengram_tiled);
 						var_text.setText("Greengram");
 						seed_sow = 4;
+
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "variety", seed_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + seed_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -288,20 +250,14 @@ public class action_sowing extends HelpEnabledActivityOld {
 						img_1.setImageResource(R.drawable.pic_90px_groundnut_tiled);
 						var_text.setText("Groundnut");
 						seed_sow = 5;
+
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "variety", seed_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + seed_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -312,23 +268,14 @@ public class action_sowing extends HelpEnabledActivityOld {
 						var_text.setText("Horsegram");
 						seed_sow = 6;
 						TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + seed_sow
-											+ " for Sowing*********** \r\n");
-
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "variety", seed_sow);
 						dlg.cancel();
 					}
 				});
-
 			}
 		});
 
@@ -347,32 +294,21 @@ public class action_sowing extends HelpEnabledActivityOld {
 				final Button unit2;
 				final Button unit3;
 
-				// final ImageView img_1 = (ImageView)
-				// findViewById(R.id.dlg_unit_sow);
-
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_unit_sow);
 				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
 				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
 				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
 
-				((Button) dlg.findViewById(R.id.home_btn_units_1))
-						.setOnLongClickListener(parentReference); // Audio
-																	// integration
-				((Button) dlg.findViewById(R.id.home_btn_units_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_btn_units_3))
-						.setOnLongClickListener(parentReference);
-				if (Global.writeToSD == true) {
+				dlg.findViewById(R.id.home_btn_units_1).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_btn_units_2).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_btn_units_3).setOnLongClickListener(
+						parentReference);
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of units for Sowing*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "units");
 
 				unit1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -381,22 +317,15 @@ public class action_sowing extends HelpEnabledActivityOld {
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
 						var_text.setText("10 Kgs");
 						units_sow = "Bag of 10 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sow.setImageResource(R.drawable.empty_not);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units", units_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + units_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -407,21 +336,15 @@ public class action_sowing extends HelpEnabledActivityOld {
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
 						var_text.setText("20 Kgs");
 						units_sow = "Bag of 20 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sow.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units", units_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + units_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -432,21 +355,15 @@ public class action_sowing extends HelpEnabledActivityOld {
 						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
 						var_text.setText("50 Kgs");
 						units_sow = "Bag of 50 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 
+						TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_units_sow.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units", units_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + units_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -499,17 +416,10 @@ public class action_sowing extends HelpEnabledActivityOld {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** user selected cancel on selction of bags for Sowing*********** \r\n");
-
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "units", "cancel");
 					}
 				});
 			}
@@ -526,57 +436,38 @@ public class action_sowing extends HelpEnabledActivityOld {
 				Log.d("in treat sow dialog", "in dialog");
 				dlg.show();
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** In selection of treatment to seeds for Sowing*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "treatment");
 
 				final Button treat1;
 				final Button treat2;
-
-				// final ImageView img_ = (ImageView)
-				// findViewById(R.id.dlg_unit_sow);
 
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_treat_sow);
 				treat1 = (Button) dlg.findViewById(R.id.home_treat_sow_1);
 				treat2 = (Button) dlg.findViewById(R.id.home_treat_sow_2);
 
-				((Button) dlg.findViewById(R.id.home_treat_sow_1))
-						.setOnLongClickListener(parentReference); // Audio
-																	// integration
-				((Button) dlg.findViewById(R.id.home_treat_sow_2))
-						.setOnLongClickListener(parentReference);
+				dlg.findViewById(R.id.home_treat_sow_1).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_treat_sow_2).setOnLongClickListener(
+						parentReference);
 
 				treat1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+
 						var_text.setText("Treated");
 						treatment_sow = "treated";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_treatment_sow.setImageResource(R.drawable.empty_not);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "treatment",
+								treatment_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + treatment_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -584,24 +475,19 @@ public class action_sowing extends HelpEnabledActivityOld {
 				treat2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+
 						var_text.setText("May not Treat");
 						treatment_sow = "may not treat";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						bg_treatment_sow.setImageResource(R.drawable.empty_not);
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "treatment",
+								treatment_sow);
 
-							mDataProvider.File_Log_Create("UIlog.txt",
-									"***** user selected" + treatment_sow
-											+ " for Sowing*********** \r\n");
-
-						}
 						dlg.cancel();
 					}
 				});
@@ -622,28 +508,20 @@ public class action_sowing extends HelpEnabledActivityOld {
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				playAudio(R.raw.noofbags); // 20-06-2012
+				playAudio(R.raw.noofbags);
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** in selection of bags for Sowing*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "bags");
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
+				dlg.findViewById(R.id.number_ok).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.number_cancel).setOnLongClickListener(
+						parentReference);
 
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -661,20 +539,11 @@ public class action_sowing extends HelpEnabledActivityOld {
 									.setBackgroundResource(R.drawable.def_img);
 							bg_units_no_sow
 									.setImageResource(R.drawable.empty_not);
-							if (Global.writeToSD == true) {
 
-								String logtime = getcurrenttime();
-								mDataProvider.File_Log_Create("UIlog.txt",
-										logtime + " -> ");
-
-								mDataProvider
-										.File_Log_Create(
-												"UIlog.txt",
-												"***** user selected"
-														+ sow_no_sel
-														+ " of bags for Sowing*********** \r\n");
-
-							}
+							// tracks the application usage.
+							ApplicationTracker.getInstance().logEvent(
+									EventType.CLICK, LOG_TAG, "bags",
+									sow_no_sel);
 						}
 
 						dlg.cancel();
@@ -683,17 +552,10 @@ public class action_sowing extends HelpEnabledActivityOld {
 				no_cancel.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						dlg.cancel();
-						if (Global.writeToSD == true) {
 
-							String logtime = getcurrenttime();
-							mDataProvider.File_Log_Create("UIlog.txt", logtime
-									+ " -> ");
-
-							mDataProvider
-									.File_Log_Create("UIlog.txt",
-											"***** user selected cancel on selction of bags for Sowing*********** \r\n");
-
-						}
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "bags", "cancel");
 					}
 				});
 
@@ -959,17 +821,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 				// is chkIos checked?
 				if (((CheckBox) v).isChecked()) {
 
-					if (Global.writeToSD == true) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user selected intercrop for Sowing*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+							LOG_TAG, "intercrop");
 				}
 
 			}
@@ -985,34 +839,18 @@ public class action_sowing extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				cancelaudio();
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user clicked cancel in Sowing*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "cancel");
 			}
-
 		});
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				if (Global.writeToSD == true) {
-
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider.File_Log_Create("UIlog.txt",
-							"***** user clicked OK in Sowing*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "ok");
 
 				// Toast.makeText(action_sowing.this, "User enetred " +
 				// sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
@@ -1021,25 +859,16 @@ public class action_sowing extends HelpEnabledActivityOld {
 					flag1 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-					if (Global.writeToSD == true) {
 
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT filled seed variety for Sowing*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "variety");
 
 				} else {
 					flag1 = 0;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
@@ -1048,20 +877,11 @@ public class action_sowing extends HelpEnabledActivityOld {
 					flag2 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-					if (Global.writeToSD == true) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT filled units for Sowing*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "units");
 
 				} else {
 
@@ -1077,20 +897,11 @@ public class action_sowing extends HelpEnabledActivityOld {
 					flag3 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-					if (Global.writeToSD == true) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT filled treatment for Sowing*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "treatment");
 
 				} else {
 
@@ -1110,17 +921,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-					if (Global.writeToSD == true) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has NOT filled treatment for Sowing*********** \r\n");
-
-					}
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "day");
 
 				} else {
 
@@ -1136,18 +939,6 @@ public class action_sowing extends HelpEnabledActivityOld {
 					System.out.println("sowing writing");
 					mDataProvider.setSowing(Global.plotId, sow_no, seed_sow,
 							units_sow, days_sel_sow, treatment_sow, 0, 0);
-
-					if (Global.writeToSD == true) {
-
-						String logtime = getcurrenttime();
-						mDataProvider.File_Log_Create("UIlog.txt", logtime
-								+ " -> ");
-
-						mDataProvider
-								.File_Log_Create("UIlog.txt",
-										"***** user has filled all details for Sowing*********** \r\n");
-
-					}
 
 					Intent adminintent = new Intent(action_sowing.this,
 							Homescreen.class);
@@ -1168,17 +959,10 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 				startActivity(adminintent);
 				action_sowing.this.finish();
-				if (Global.writeToSD == true) {
 
-					String logtime = getcurrenttime();
-					mDataProvider
-							.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-					mDataProvider
-							.File_Log_Create("UIlog.txt",
-									"***** user has clicked home btn in Sowing*********** \r\n");
-
-				}
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "home");
 
 			}
 		});
@@ -1193,16 +977,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.varietyofseedssowd);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to variety of seed audio in Sowing*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "variety");
 		}
 
 		if (v.getId() == R.id.home_btn_units_sow
@@ -1211,15 +988,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.selecttheunits);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to units audio in Sowing*********** \r\n");
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "units");
 		}
 
 		if (v.getId() == R.id.home_btn_day_sow) {
@@ -1227,16 +998,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to day audio in Sowing*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "day");
 		}
 
 		if (v.getId() == R.id.home_btn_treat_sow) {
@@ -1244,16 +1008,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.treatmenttoseeds1);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to traetment audio in Sowing*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "treatment");
 		}
 
 		if (v.getId() == R.id.sow_ok) {
@@ -1270,19 +1027,12 @@ public class action_sowing extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.help);
 			ShowHelpIcon(v);
 
-			if (Global.writeToSD == true) {
-
-				String logtime = getcurrenttime();
-				mDataProvider.File_Log_Create("UIlog.txt", logtime + " -> ");
-
-				mDataProvider
-						.File_Log_Create("UIlog.txt",
-								"***** user has listened to help audio in Sowing*********** \r\n");
-
-			}
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+					LOG_TAG, "help");
 		}
 
-		if (v.getId() == R.id.button_variety_1) { // audio integration
+		if (v.getId() == R.id.button_variety_1) {
 
 			System.out.println("variety sow1 called");
 			playAudioalways(R.raw.bajra);
