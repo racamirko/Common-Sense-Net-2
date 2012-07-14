@@ -689,13 +689,14 @@ public class RealFarmProvider {
 	}
 
 	public List<AggregateItem> getAggregateItems(int actionNameId) {
-		final String MY_QUERY = "SELECT COUNT(p.userId) as users, a.actionNameId, a.seedTypeId FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId=3 GROUP BY a.actionNameId, a.seedTypeId ORDER BY a.seedTypeId ASC";
+		final String MY_QUERY = "SELECT COUNT(p.userId) as users, a.actionNameId, a.seedTypeId FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %d GROUP BY a.actionNameId, a.seedTypeId ORDER BY a.seedTypeId ASC";
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
 		mDatabase.open();
 
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		Cursor c = mDatabase.rawQuery(String.format(MY_QUERY, actionNameId),
+				new String[] {});
 
 		AggregateItem a = null;
 		if (c.moveToFirst()) {

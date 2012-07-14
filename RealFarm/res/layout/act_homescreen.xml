@@ -11,11 +11,10 @@
         android:layout_marginBottom="@dimen/margin"
         android:background="@android:color/white" >
 
-        <ImageButton
+        <ImageView
             android:id="@+id/hmscrn_usr_icon"
             android:layout_width="104dp"
             android:layout_height="130dp"
-            android:background="@android:color/transparent"
             android:scaleType="fitXY"
             android:src="@drawable/farmer_90px_adam_jones" />
 
@@ -33,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="plots"
+                android:text="@string/homescreen_label_plots"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/font_large" />
 
@@ -59,7 +58,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
-                android:text="diary"
+                android:text="@string/homescreen_label_diary"
                 android:textColor="@android:color/black"
                 android:textSize="@dimen/font_large" />
 
@@ -150,7 +149,7 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dip"
                 android:layout_weight="1"
                 android:padding="@dimen/margin" >
 
@@ -193,6 +192,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:baselineAligned="true"
             android:orientation="horizontal" >
 
             <!-- First Column -->
@@ -270,7 +270,7 @@
                         android:layout_alignTop="@+id/hmscrn_img_yield"
                         android:layout_marginLeft="@dimen/margin"
                         android:layout_toRightOf="@id/hmscrn_img_yield"
-                        android:text="30"
+                        android:text="@string/homescreen_label_yield_number"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font_medium" />
 
@@ -281,7 +281,7 @@
                         android:layout_alignLeft="@+id/hmscrn_lbl_yield_number"
                         android:layout_below="@id/hmscrn_lbl_yield_number"
                         android:layout_toRightOf="@id/hmscrn_img_yield"
-                        android:text="qt/acre"
+                        android:text="@string/homescreen_label_yield_unit"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font_small" />
                 </RelativeLayout>
@@ -302,12 +302,12 @@
                         android:src="@drawable/ic_35px_sell" />
 
                     <TextView
-                        android:id="@+id/hmscrn_lbl_market_number"
+                        android:id="@+id/hmscrn_lbl_market_price"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="3150"
+                        android:text="@string/homescreen_label_market_price"
                         android:textColor="@android:color/black"
                         android:textSize="@dimen/font_large" />
                 </RelativeLayout>
@@ -315,37 +315,31 @@
 
             <!-- Third Column: Weather -->
 
-            <LinearLayout
+            <RelativeLayout
+                android:id="@+id/hmscrn_btn_weather"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:orientation="vertical" >
+                android:background="#bb9ac4"
+                android:padding="@dimen/margin" >
 
-                <RelativeLayout
-                    android:id="@+id/hmscrn_btn_weather"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="#bb9ac4"
-                    android:padding="@dimen/margin" >
+                <ImageView
+                    android:id="@+id/hmscrn_img_weather"
+                    android:layout_width="80dp"
+                    android:layout_height="80dp"
+                    android:scaleType="fitXY"
+                    android:src="@drawable/sun" />
 
-                    <ImageView
-                        android:id="@+id/hmscrn_img_weather"
-                        android:layout_width="80dp"
-                        android:layout_height="80dp"
-                        android:scaleType="fitXY"
-                        android:src="@drawable/sun" />
-
-                    <TextView
-                        android:id="@+id/hmscrn_lbl_weather"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_alignParentRight="true"
-                        android:text="26°"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_xlarge" />
-                </RelativeLayout>
-            </LinearLayout>
+                <TextView
+                    android:id="@+id/hmscrn_lbl_weather"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:text="@string/homescreen_label_temperature"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_xlarge" />
+            </RelativeLayout>
         </LinearLayout>
     </LinearLayout>
 

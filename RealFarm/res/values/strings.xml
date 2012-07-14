@@ -29,6 +29,20 @@
     <string name="mobilenumber">Mobile Number</string>
 
     <!-- orbolanos: correctly formatted names: <type>_<name> -->
+    <!-- homescreen -->
+    <string name="homescreen_label_temperature">26°</string>
+    <string name="homescreen_label_plots">Plots</string>
+    <string name="homescreen_label_diary">Diary</string>
+    <string name="homescreen_label_market_price">3150</string>
+    <string name="homescreen_label_yield_unit">qt/acre</string>
+    <string name="homescreen_label_yield_number">30</string>
+    <!-- diary -->
+    <string name="diary_label_description">List of actions performed</string>
+    <string name="diary_label_title">Title</string>
+    <!-- user aggregate item -->
+    <string name="user_aggregate_label_date">27.8</string>
+    <string name="user_aggregate_label_user_name">John Doe</string>
+    <!-- buttons -->
     <string name="button_ok">Done</string>
     <string name="button_back_to_videos"> Back to Videos</string>
     <string name="button_cancel">Cancel</string>

@@ -5,21 +5,13 @@
     android:background="@android:color/white"
     android:padding="@dimen/margin" >
 
-    <TextView
-        android:id="@+id/label_user_aggregate_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:text="27.8"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black" />
-
     <ImageView
         android:id="@+id/icon_user_aggregate_user_avatar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/label_user_aggregate_date"
+        android:layout_alignParentLeft="true"
+        android:layout_marginRight="@dimen/margin"
+        android:scaleType="centerCrop"
         android:src="@drawable/farmer_90px_adam_jones" />
 
     <TextView
@@ -27,17 +19,31 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignTop="@+id/icon_user_aggregate_user_avatar"
+        android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@+id/icon_user_aggregate_user_avatar"
-        android:text="User Name"
+        android:text="@string/user_aggregate_label_user_name"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#000000" />
+        android:textColor="@android:color/black" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/label_user_aggregate_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/label_user_aggregate_user_name"
+        android:layout_marginBottom="1dp"
+        android:layout_toRightOf="@+id/label_user_aggregate_user_name"
+        android:gravity="center_vertical"
+        android:text="@string/user_aggregate_label_date"
+        android:textAppearance="?android:attr/textAppearanceSmall"
+        android:textColor="#9D9D9D" />
+
+    <ImageButton
         android:id="@+id/icon_user_aggregate_call"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_alignParentRight="true"
-        android:scaleType="centerInside"
+        android:layout_centerVertical="true"
+        android:background="@android:color/transparent"
         android:src="@drawable/call" />
 
 </RelativeLayout>

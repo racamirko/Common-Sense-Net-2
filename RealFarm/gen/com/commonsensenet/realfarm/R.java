@@ -1143,7 +1143,7 @@ containing a value of this type.
         public static final int btn_action_sell=0x7f060038;
         public static final int btn_action_sow=0x7f060032;
         public static final int btn_action_spray=0x7f060036;
-        public static final int btn_main_click=0x7f0601d3;
+        public static final int btn_main_click=0x7f0601d5;
         public static final int button123=0x7f060055;
         public static final int button_action_fertilize=0x7f06007f;
         public static final int button_action_harvest=0x7f060083;
@@ -1153,6 +1153,7 @@ containing a value of this type.
         public static final int button_action_sow=0x7f06007e;
         public static final int button_action_spray=0x7f060080;
         public static final int button_add_plot=0x7f060059;
+        public static final int button_aggregate_detail=0x7f0601c2;
         public static final int button_aggregate_type=0x7f0601bf;
         public static final int button_aggregate_users=0x7f0601bd;
         public static final int button_back=0x7f0600ea;
@@ -1191,8 +1192,8 @@ containing a value of this type.
         public static final int day_sow_tr=0x7f06018c;
         public static final int day_spray_tr=0x7f0601ad;
         public static final int disableHome=0x7f060009;
-        public static final int dlg_btn_audio_play=0x7f0601d4;
-        public static final int dlg_img_action=0x7f0601d5;
+        public static final int dlg_btn_audio_play=0x7f0601d6;
+        public static final int dlg_img_action=0x7f0601d7;
         public static final int dlg_img_crop_plot=0x7f060111;
         public static final int dlg_img_seed=0x7f060075;
         public static final int dlg_img_soil_plot=0x7f06010c;
@@ -1264,7 +1265,7 @@ containing a value of this type.
         public static final int hmscrn_img_yield=0x7f06003e;
         public static final int hmscrn_lay_btn_diary=0x7f06002f;
         public static final int hmscrn_lay_btn_plots=0x7f06002e;
-        public static final int hmscrn_lbl_market_number=0x7f060043;
+        public static final int hmscrn_lbl_market_price=0x7f060043;
         public static final int hmscrn_lbl_weather=0x7f060046;
         public static final int hmscrn_lbl_yield_number=0x7f06003f;
         public static final int hmscrn_lbl_yield_unit=0x7f060040;
@@ -1301,9 +1302,9 @@ containing a value of this type.
         public static final int home_btn_sell_1=0x7f060149;
         public static final int home_btn_soil_plot=0x7f06010e;
         public static final int home_btn_treat_sow=0x7f060196;
-        public static final int home_btn_units_1=0x7f0601cd;
-        public static final int home_btn_units_2=0x7f0601ce;
-        public static final int home_btn_units_3=0x7f0601cf;
+        public static final int home_btn_units_1=0x7f0601cf;
+        public static final int home_btn_units_2=0x7f0601d0;
+        public static final int home_btn_units_3=0x7f0601d1;
         public static final int home_btn_units_fert=0x7f0600ae;
         public static final int home_btn_units_harvest=0x7f0600cc;
         public static final int home_btn_units_no_fert=0x7f0600ab;
@@ -1320,12 +1321,12 @@ containing a value of this type.
         public static final int home_btn_var_fert=0x7f0600a3;
         public static final int home_btn_var_prob=0x7f06013f;
         public static final int home_btn_var_sow=0x7f060184;
-        public static final int home_btn_yield_sel_1=0x7f0601dc;
-        public static final int home_btn_yield_sel_2=0x7f0601de;
-        public static final int home_btn_yield_sel_3=0x7f0601e0;
-        public static final int home_btn_yield_sel_4=0x7f0601e2;
-        public static final int home_btn_yield_sel_5=0x7f0601e4;
-        public static final int home_btn_yield_sel_6=0x7f0601e6;
+        public static final int home_btn_yield_sel_1=0x7f0601de;
+        public static final int home_btn_yield_sel_2=0x7f0601e0;
+        public static final int home_btn_yield_sel_3=0x7f0601e2;
+        public static final int home_btn_yield_sel_4=0x7f0601e4;
+        public static final int home_btn_yield_sel_5=0x7f0601e6;
+        public static final int home_btn_yield_sel_6=0x7f0601e8;
         public static final int home_day_1=0x7f060077;
         public static final int home_day_2=0x7f06007a;
         public static final int home_day_3=0x7f06007b;
@@ -1352,27 +1353,27 @@ containing a value of this type.
         public static final int home_prob_spray_1=0x7f06012d;
         public static final int home_prob_spray_2=0x7f06012e;
         public static final int home_prob_spray_3=0x7f06012f;
-        public static final int home_treat_sow_1=0x7f0601cb;
-        public static final int home_treat_sow_2=0x7f0601cc;
+        public static final int home_treat_sow_1=0x7f0601cd;
+        public static final int home_treat_sow_2=0x7f0601ce;
         public static final int home_var_fert_1=0x7f0600ed;
         public static final int home_var_fert_2=0x7f0600ee;
         public static final int home_var_fert_3=0x7f0600ef;
-        public static final int home_year_1=0x7f0601d9;
-        public static final int home_year_2=0x7f0601da;
+        public static final int home_year_1=0x7f0601db;
+        public static final int home_year_2=0x7f0601dc;
         public static final int icon=0x7f060120;
         public static final int icon_aggregate_crop=0x7f0601c0;
-        public static final int icon_aggregate_treated=0x7f0601c2;
+        public static final int icon_aggregate_detail=0x7f0601c3;
         public static final int icon_diary=0x7f060029;
         public static final int icon_diary_action=0x7f0601b6;
         public static final int icon_diary_crop=0x7f0601b7;
         public static final int icon_plot=0x7f0601b9;
         public static final int icon_plot_crop=0x7f0601ba;
-        public static final int icon_user_aggregate_call=0x7f0601c6;
-        public static final int icon_user_aggregate_user_avatar=0x7f0601c4;
-        public static final int icon_weather_forecast=0x7f0601c8;
+        public static final int icon_user_aggregate_call=0x7f0601c8;
+        public static final int icon_user_aggregate_user_avatar=0x7f0601c5;
+        public static final int icon_weather_forecast=0x7f0601ca;
         public static final int imageView1=0x7f0600ce;
         public static final int image_plot_txt_btn=0x7f060107;
-        public static final int img_action=0x7f0601d1;
+        public static final int img_action=0x7f0601d3;
         public static final int img_bg_crop_sell=0x7f060155;
         public static final int img_bg_date_sell=0x7f060159;
         public static final int img_bg_day_fert=0x7f0600b3;
@@ -1408,15 +1409,15 @@ containing a value of this type.
         public static final int img_bg_units_sow=0x7f060189;
         public static final int img_bg_units_spray=0x7f0601aa;
         public static final int img_bg_var_fert=0x7f06009b;
-        public static final int img_desc=0x7f0601d6;
+        public static final int img_desc=0x7f0601d8;
         public static final int img_farmer=0x7f06008b;
-        public static final int img_plant=0x7f0601d0;
-        public static final int img_yield_sel_1=0x7f0601db;
-        public static final int img_yield_sel_2=0x7f0601dd;
-        public static final int img_yield_sel_3=0x7f0601df;
-        public static final int img_yield_sel_4=0x7f0601e1;
-        public static final int img_yield_sel_5=0x7f0601e3;
-        public static final int img_yield_sel_6=0x7f0601e5;
+        public static final int img_plant=0x7f0601d2;
+        public static final int img_yield_sel_1=0x7f0601dd;
+        public static final int img_yield_sel_2=0x7f0601df;
+        public static final int img_yield_sel_3=0x7f0601e1;
+        public static final int img_yield_sel_4=0x7f0601e3;
+        public static final int img_yield_sel_5=0x7f0601e5;
+        public static final int img_yield_sel_6=0x7f0601e7;
         public static final int intercrop_sow_tr=0x7f060197;
         public static final int intercrop_sow_txt=0x7f060198;
         public static final int intercrop_sow_txt_btn=0x7f060199;
@@ -1425,6 +1426,7 @@ containing a value of this type.
         public static final int itemsPanel=0x7f06005e;
         public static final int l1=0x7f060117;
         public static final int label=0x7f060121;
+        public static final int label_aggregate_detail_count=0x7f0601c4;
         public static final int label_aggregate_type=0x7f0601c1;
         public static final int label_aggregate_user_count=0x7f0601be;
         public static final int label_diary_date=0x7f0601b8;
@@ -1432,15 +1434,15 @@ containing a value of this type.
         public static final int label_diary_title=0x7f06002b;
         public static final int label_plot_description=0x7f0601bb;
         public static final int label_plot_title=0x7f0601bc;
-        public static final int label_user_aggregate_date=0x7f0601c3;
-        public static final int label_user_aggregate_user_name=0x7f0601c5;
-        public static final int label_weather_forecast_day=0x7f0601c7;
-        public static final int label_weather_forecast_forecast=0x7f0601ca;
-        public static final int label_weather_forecast_temperature=0x7f0601c9;
+        public static final int label_user_aggregate_date=0x7f0601c7;
+        public static final int label_user_aggregate_user_name=0x7f0601c6;
+        public static final int label_weather_forecast_day=0x7f0601c9;
+        public static final int label_weather_forecast_forecast=0x7f0601cc;
+        public static final int label_weather_forecast_temperature=0x7f0601cb;
         public static final int lblPassword=0x7f06005b;
-        public static final int lbl_count_people=0x7f0601d2;
-        public static final int lbl_desc=0x7f0601d7;
-        public static final int lbl_detail=0x7f0601d8;
+        public static final int lbl_count_people=0x7f0601d4;
+        public static final int lbl_desc=0x7f0601d9;
+        public static final int lbl_detail=0x7f0601da;
         public static final int lbl_farmername=0x7f06008c;
         public static final int linearLayout1=0x7f060064;
         public static final int linearLayout19=0x7f060053;
@@ -1485,7 +1487,7 @@ containing a value of this type.
         public static final int sellingprice_no_cancel=0x7f06017a;
         public static final int sellingprice_no_ok=0x7f060179;
         public static final int sellingpriceno=0x7f060178;
-        public static final int settings=0x7f0601e7;
+        public static final int settings=0x7f0601e9;
         public static final int showCustom=0x7f060008;
         public static final int showHome=0x7f060005;
         public static final int showTitle=0x7f060007;
@@ -1940,29 +1942,42 @@ containing a value of this type.
         public static final int actions=0x7f0b00cd;
         public static final int app_name=0x7f0b00bc;
         public static final int btn_submit=0x7f0b00cf;
-        public static final int button_add_plot=0x7f0b00d4;
-        public static final int button_back_to_videos=0x7f0b00d2;
-        public static final int button_cancel=0x7f0b00d3;
-        /**  orbolanos: correctly formatted names: <type>_<name> 
+        public static final int button_add_plot=0x7f0b00de;
+        public static final int button_back_to_videos=0x7f0b00dc;
+        public static final int button_cancel=0x7f0b00dd;
+        /**  buttons 
          */
-        public static final int button_ok=0x7f0b00d1;
+        public static final int button_ok=0x7f0b00db;
         public static final int dateLastWeek=0x7f0b00b9;
         /**  date strings 
          */
         public static final int dateMoreThanAWeek=0x7f0b00b8;
         public static final int dateToday=0x7f0b00bb;
         public static final int dateYesterday=0x7f0b00ba;
-        public static final int date_last_week=0x7f0b00d9;
-        public static final int date_more_than_a_week=0x7f0b00da;
-        public static final int date_today=0x7f0b00d7;
-        public static final int date_yesterday=0x7f0b00d8;
-        public static final int dialog_select_language_title=0x7f0b00d6;
+        public static final int date_last_week=0x7f0b00e3;
+        public static final int date_more_than_a_week=0x7f0b00e4;
+        public static final int date_today=0x7f0b00e1;
+        public static final int date_yesterday=0x7f0b00e2;
+        public static final int dialog_select_language_title=0x7f0b00e0;
+        /**  diary 
+         */
+        public static final int diary_label_description=0x7f0b00d7;
+        public static final int diary_label_title=0x7f0b00d8;
         public static final int editAction=0x7f0b00cb;
         public static final int editPoint=0x7f0b00ca;
         public static final int exitMsg=0x7f0b00c8;
         public static final int exitTitle=0x7f0b00c9;
         public static final int firstname=0x7f0b00bf;
         public static final int friends=0x7f0b00c4;
+        public static final int homescreen_label_diary=0x7f0b00d3;
+        public static final int homescreen_label_market_price=0x7f0b00d4;
+        public static final int homescreen_label_plots=0x7f0b00d2;
+        /**  orbolanos: correctly formatted names: <type>_<name> 
+ homescreen 
+         */
+        public static final int homescreen_label_temperature=0x7f0b00d1;
+        public static final int homescreen_label_yield_number=0x7f0b00d6;
+        public static final int homescreen_label_yield_unit=0x7f0b00d5;
         public static final int k_110=0x7f0b004c;
         public static final int k_130=0x7f0b004b;
         public static final int k_1_bag=0x7f0b009e;
@@ -2159,7 +2174,7 @@ containing a value of this type.
         public static final int k_yes=0x7f0b0081;
         public static final int k_yesterday=0x7f0b004e;
         public static final int k_your_crop=0x7f0b000b;
-        public static final int label_arrow=0x7f0b00d5;
+        public static final int label_arrow=0x7f0b00df;
         public static final int lastname=0x7f0b00c0;
         public static final int lblPassword=0x7f0b00ce;
         public static final int map=0x7f0b00c1;
@@ -2171,6 +2186,10 @@ containing a value of this type.
         public static final int plot=0x7f0b00c2;
         public static final int recommendation=0x7f0b00c7;
         public static final int seed=0x7f0b00cc;
+        /**  user aggregate item 
+         */
+        public static final int user_aggregate_label_date=0x7f0b00d9;
+        public static final int user_aggregate_label_user_name=0x7f0b00da;
         public static final int you=0x7f0b00c5;
     }
     public static final class style {

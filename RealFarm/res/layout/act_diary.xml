@@ -29,7 +29,7 @@
             android:layout_toRightOf="@id/icon_diary"
             android:ellipsize="marquee"
             android:singleLine="true"
-            android:text="List of actions performed"
+            android:text="@string/diary_label_description"
             android:textSize="@dimen/font_medium" />
 
         <TextView
@@ -42,7 +42,7 @@
             android:layout_alignWithParentIfMissing="true"
             android:layout_toRightOf="@id/icon_diary"
             android:gravity="center_vertical"
-            android:text="Title"
+            android:text="@string/diary_label_title"
             android:textColor="#fff"
             android:textSize="@dimen/font_xlarge" />
     </RelativeLayout>
@@ -50,8 +50,7 @@
     <ListView
         android:id="@+id/list_diary"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true" >
+        android:layout_height="match_parent" >
     </ListView>
 
 </LinearLayout>

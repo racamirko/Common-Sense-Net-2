@@ -135,23 +135,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 		// sets the listener
 		mAggregatesListView.setOnItemClickListener(this);
 
-		// ImageButton btnLike = (ImageButton)
-		// findViewById(R.id.aggr_item_sow_like1);
-
-		// btnLike.setOnClickListener(new View.OnClickListener() {
-		// public void onClick(View v) {
-		//
-		// if (v.getId() == R.id.aggr_item_sow_like1) {
-		//
-		// // for the like button
-		// if (!liked) {
-		// v.setBackgroundResource(R.drawable.circular_btn_green);
-		// }
-		// }
-		//
-		// }
-		// });
-
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 		help.setOnLongClickListener(this);
