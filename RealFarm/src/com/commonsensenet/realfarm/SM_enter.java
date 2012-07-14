@@ -43,7 +43,7 @@ public class SM_enter extends HelpEnabledActivityOld {
 			}
 		});
 
-		Button btnNext = (Button) findViewById(R.id.sm_enter_ok);
+		Button btnNext = (Button) findViewById(R.id.button_ok);
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -60,32 +60,25 @@ public class SM_enter extends HelpEnabledActivityOld {
 					flag1 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.sm_enter_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
 					flag1 = 0;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.sm_enter_tr);
-
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
 
 				if (flag1 == 0) {
-
-					Intent adminintent = new Intent(SM_enter.this,
-							Homescreen.class);
-
-					startActivity(adminintent);
+					startActivity(new Intent(SM_enter.this, Homescreen.class));
 					SM_enter.this.finish();
 
-				} else
+				} else {
 					initmissingval();
-
+				}
 			}
 		});
-
-	} // End of oncreate()
+	}
 
 	@Override
 	public boolean onLongClick(View v) {

@@ -2,167 +2,106 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/def_img">
-    
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
-
-    <LinearLayout
-        android:id="@+id/linearLayout19"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/header" >
-
-        <ImageView
-            android:id="@+id/aggr_img_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_72px_harvesting1" />
-
-        <ImageView
-            android:id="@+id/aggr_img_icon"
-            android:layout_width="60dip"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:src="@drawable/plot" />
-
-        <Button
-            android:id="@+id/button123"
-            android:layout_width="75dip"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            android:visibility="invisible" />
-
-        <ImageButton
-            android:id="@+id/aggr_img_home1"
-            android:layout_width="50dip"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:background="@drawable/home"
-            android:src="@drawable/square_btn_transp" />
-
-        <ImageButton
-            android:id="@+id/aggr_img_help1"
-            android:layout_width="50dip"
-            android:layout_height="match_parent"
-            android:layout_margin="3dp"
-            android:background="@drawable/ic_54px_help"
-            android:src="@drawable/square_btn_transp" />
-    </LinearLayout>
+    android:background="@drawable/def_img" >
 
     <LinearLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        android:id="@+id/MainLayout"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:background="@drawable/def_img"
-        android:gravity="center_vertical|center_horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="vertical" >
 
-        <TableRow
-            android:id="@+id/tableRow1"
+        <LinearLayout
+            android:id="@+id/linearLayout19"
             android:layout_width="match_parent"
-            android:layout_height="72dp"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/def_img" >
+            android:layout_height="60dp"
+            android:background="@drawable/header" >
 
-            <Button
-                android:id="@+id/button1"
-                android:layout_width="match_parent"
-                android:layout_height="72dp"
-                android:background="@drawable/square_btn_transp"
-                android:text="Enter the Soil Moisture Value"
-                android:textSize="25sp" />
-        </TableRow>
-
-        <TableRow
-            android:id="@+id/sm_enter_tr"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="0dp"
-            android:layout_marginTop="5dp"
-            android:background="@drawable/def_img" >
-
-            <com.commonsensenet.realfarm.control.NumberPicker
-                android:id="@+id/sm_enter_val"
+            <ImageView
+                android:id="@+id/aggr_img_icon"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="130dp"
+                android:layout_margin="5dp"
+                android:background="@drawable/circular_btn_normal"
+                android:src="@drawable/ic_72px_harvesting1" />
+
+            <ImageView
+                android:id="@+id/aggr_img_icon"
+                android:layout_width="60dip"
+                android:layout_height="match_parent"
+                android:layout_margin="5dp"
+                android:src="@drawable/plot" />
+
+            <Button
+                android:id="@+id/button123"
+                android:layout_width="75dip"
+                android:layout_height="wrap_content"
+                android:text="Button"
+                android:visibility="invisible" />
+
+            <ImageButton
+                android:id="@+id/aggr_img_home1"
+                android:layout_width="50dip"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:background="@drawable/home"
+                android:src="@drawable/square_btn_transp" />
+
+            <ImageButton
+                android:id="@+id/aggr_img_help1"
+                android:layout_width="50dip"
+                android:layout_height="match_parent"
+                android:layout_margin="3dp"
+                android:background="@drawable/ic_54px_help"
+                android:src="@drawable/square_btn_transp" />
+        </LinearLayout>
+
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            android:id="@+id/MainLayout"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/def_img"
+            android:gravity="center_vertical|center_horizontal"
+            android:orientation="vertical" >
+
+            <TableRow
+                android:id="@+id/tableRow1"
+                android:layout_width="match_parent"
+                android:layout_height="72dp"
+                android:layout_marginLeft="0dp"
                 android:layout_marginTop="10dp"
-                android:orientation="vertical" >
-            </com.commonsensenet.realfarm.control.NumberPicker>
-        </TableRow>
+                android:background="@drawable/def_img" >
 
-        
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/square_btn_transp"
+                    android:gravity="center_horizontal"
+                    android:text="Enter the Soil Moisture Value"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_xlarge" />
+            </TableRow>
+
+            <TableRow
+                android:id="@+id/sm_enter_tr"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="0dp"
+                android:layout_marginTop="5dp"
+                android:background="@drawable/def_img" >
+
+                <com.commonsensenet.realfarm.control.NumberPicker
+                    android:id="@+id/sm_enter_val"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="130dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="vertical" >
+                </com.commonsensenet.realfarm.control.NumberPicker>
+            </TableRow>
+        </LinearLayout>
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/linearLayout19"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:layout_gravity="center_vertical"
-        android:background="@drawable/square_btn" >
+    <include layout="@layout/layout_bottom_bar" />
 
-        <ImageView
-            android:id="@+id/aggr_img_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="5dp"
-            android:background="@drawable/circular_btn_normal"
-            android:src="@drawable/ic_72px_reporting" />
-
-        <ImageView
-            android:id="@+id/aggr_img_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:src="@drawable/plot" />
-
-        <ImageView
-            android:id="@+id/aggr_img_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:src="@drawable/home" />
-
-        <ImageView
-            android:id="@+id/aggr_img_icon"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:src="@drawable/ic_54px_help" />
-    </LinearLayout>
-
-</LinearLayout>
-
-
-    <LinearLayout
-        style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="horizontal" >
-
-        <Button
-            android:id="@+id/sm_enter_ok"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_48px_ok"
-            android:text="@string/button_ok" />
-
-        <Button
-            android:id="@+id/sm_enter_cancel"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/ic_48px_cancel"
-            android:text="@string/button_cancel" />
-    </LinearLayout>
-    
 </RelativeLayout>

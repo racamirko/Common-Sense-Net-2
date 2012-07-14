@@ -539,16 +539,11 @@ public class action_problem extends HelpEnabledActivityOld {
 					mDataProvider.setProblem(Global.plotId, prob_day_sel,
 							prob_var_sel, 0, 0);
 
-					// mDataProvider.setProblem(String day,String probType, int
-					// sent, int admin);
-
 					System.out.println("Problem reading");
 					mDataProvider.getProblem();
 
-					Intent adminintent = new Intent(action_problem.this,
-							Homescreen.class);
-
-					startActivity(adminintent);
+					startActivity(new Intent(action_problem.this,
+							Homescreen.class));
 					action_problem.this.finish();
 					okaudio();
 

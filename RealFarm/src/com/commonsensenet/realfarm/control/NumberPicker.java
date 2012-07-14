@@ -39,6 +39,11 @@ public class NumberPicker extends LinearLayout {
 	private boolean mAutoIncrement;
 	private Button mDecrement;
 	private Button mIncrement;
+	/**
+	 * Amount it will increment every time the plus or minus buttons are
+	 * pressed.
+	 */
+	private int mIncrementValue = 1;
 	private Handler mRepeatUpdateHandler;
 	private Integer mValue;
 	private EditText mValueText;
@@ -81,22 +86,12 @@ public class NumberPicker extends LinearLayout {
 		}
 	}
 
-	public int getValue() {
-		return mValue;
-	}
-
-	/**
-	 * Amount it will increment every time the plus or minus buttons are
-	 * pressed.
-	 */
-	private int mIncrementValue = 1;
-	
 	public int getIncrementValue() {
 		return mIncrementValue;
 	}
-	
-	public void setIncrementValue(int value) {
-		mIncrementValue = value;
+
+	public int getValue() {
+		return mValue;
 	}
 
 	public void increment() {
@@ -206,6 +201,10 @@ public class NumberPicker extends LinearLayout {
 		mValueText.setText(mValue.toString());
 		mValueText.setInputType(InputType.TYPE_CLASS_NUMBER);
 
+	}
+
+	public void setIncrementValue(int value) {
+		mIncrementValue = value;
 	}
 
 	public void setValue(int value) {

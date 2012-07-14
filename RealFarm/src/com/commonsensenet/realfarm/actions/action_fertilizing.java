@@ -300,7 +300,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
 
-				/** To change the default increments on the number picker */
+				// To change the default increments on the number picker.
 				((NumberPicker) dlg.findViewById(R.id.numberpick))
 						.setIncrementValue(1);
 
@@ -309,16 +309,16 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
-				playAudio(R.raw.dateinfo); // 20-06-2012
+				playAudio(R.raw.dateinfo);
 
 				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
 				Button no_cancel = (Button) dlg
 						.findViewById(R.id.number_cancel);
 
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
-						.setOnLongClickListener(mParentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(mParentReference);
+				dlg.findViewById(R.id.number_ok).setOnLongClickListener(
+						mParentReference);
+				dlg.findViewById(R.id.number_cancel).setOnLongClickListener(
+						mParentReference);
 
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
@@ -903,62 +903,62 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.amount_sow_txt_btn) {
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.date_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.date_sow_txt_btn) {
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.variety_sow_txt_btn) {
 			playAudioalways(R.raw.fertilizername);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_month_fert) { // 20-06-2012
+		if (v.getId() == R.id.home_btn_month_fert) {
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_1) { // added
+		if (v.getId() == R.id.home_month_1) {
 
 			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.home_month_2) { // added
+		if (v.getId() == R.id.home_month_2) {
 
 			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_3) { // added
+		if (v.getId() == R.id.home_month_3) {
 
 			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_4) { // added
+		if (v.getId() == R.id.home_month_4) {
 
 			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_month_5) { // added
+		if (v.getId() == R.id.home_month_5) {
 
 			playAudioalways(R.raw.may);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_month_6) { // added
 
 			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v); // added for help icon
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.home_month_7) { // added
