@@ -1,21 +1,15 @@
 package com.commonsensenet.realfarm;
 
-import java.text.SimpleDateFormat;
-import java.util.Calendar;
-
 import android.content.Intent;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.WindowManager;
-import android.widget.Toast;
 
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
@@ -27,15 +21,6 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
  */
 public abstract class HelpEnabledActivity extends SherlockActivity implements
 		OnLongClickListener {
-
-	protected String getCurrentTime() {
-		Calendar ctaq = Calendar.getInstance();
-		SimpleDateFormat dfaq = new SimpleDateFormat(
-				RealFarmDatabase.DATE_FORMAT);
-		String crntdt = dfaq.format(ctaq.getTime());
-		Log.i("strtdat", crntdt);
-		return crntdt;
-	}
 
 	@Override
 	public void onBackPressed() {
@@ -85,11 +70,9 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
-		// TODO: handle the help button click.
 
 		if (item.getTitle().toString().equals("Help")) {
 			playAudio(R.raw.help);
-			Toast.makeText(this, "Requested help!", Toast.LENGTH_SHORT).show();
 			return true;
 		}
 		switch (item.getItemId()) {
@@ -112,8 +95,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	 *            id of the audio.
 	 */
 	protected void playAudio(int resid) {
-		if (Global.enableAudio) // checking for audio enable
-		{
+		// checking for audio enable
+		if (Global.enableAudio) {
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();
 			// cleans any possibly playing sound

@@ -112,7 +112,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 		sowing_aggregate.this.finish();
 	}
 
-	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
