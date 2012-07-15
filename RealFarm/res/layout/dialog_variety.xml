@@ -1,144 +1,138 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical" >
+    android:layout_height="wrap_content" >
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <RelativeLayout
+            android:id="@+id/button_variety_1"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical" >
+            android:layout_height="wrap_content"
+            android:background="@drawable/square_btn_transp"
+            android:padding="@dimen/margin" >
 
-            <RelativeLayout
-                android:id="@+id/button_variety_1"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/square_btn_transp"
-                android:padding="@dimen/margin" >
+                android:src="@drawable/pic_90px_bajra_tiled" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_bajra_tiled" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:text="Bajra"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="62dp"
-                    android:text="Bajra"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/button_variety_2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/square_btn_transp"
+            android:padding="@dimen/margin" >
 
-            <RelativeLayout
-                android:id="@+id/button_variety_2"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/square_btn_transp"
-                android:padding="@dimen/margin" >
+                android:src="@drawable/pic_90px_castor_tiled" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_castor_tiled" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:text="Castor"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="62dp"
-                    android:text="Castor"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/button_variety_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/square_btn_transp"
+            android:padding="@dimen/margin" >
 
-            <RelativeLayout
-                android:id="@+id/button_variety_3"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/square_btn_transp"
-                android:padding="@dimen/margin" >
+                android:src="@drawable/pic_90px_cowpea_tiled" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_cowpea_tiled" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:text="Cowpea"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="62dp"
-                    android:text="Cowpea"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/button_variety_4"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/square_btn_transp"
+            android:padding="@dimen/margin" >
 
-            <RelativeLayout
-                android:id="@+id/button_variety_4"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/square_btn_transp"
-                android:padding="@dimen/margin" >
+                android:src="@drawable/pic_90px_greengram_tiled" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_greengram_tiled" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:text="Greengram"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="62dp"
-                    android:text="Greengram"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/button_variety_5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/square_btn_transp"
+            android:padding="@dimen/margin" >
 
-            <RelativeLayout
-                android:id="@+id/button_variety_5"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/square_btn_transp"
-                android:padding="@dimen/margin" >
+                android:src="@drawable/pic_90px_groundnut_tiled" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_groundnut_tiled" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:text="Groundnut"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="62dp"
-                    android:text="Groundnut"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RelativeLayout>
+        <RelativeLayout
+            android:id="@+id/button_variety_6"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/square_btn_transp"
+            android:padding="@dimen/margin" >
 
-            <RelativeLayout
-                android:id="@+id/button_variety_6"
+            <ImageView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/square_btn_transp"
-                android:padding="@dimen/margin" >
+                android:src="@drawable/pic_90px_horsegram_tiled" />
 
-                <ImageView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/pic_90px_horsegram_tiled" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="62dp"
+                android:text="Horsegram"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </RelativeLayout>
+    </LinearLayout>
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="62dp"
-                    android:text="Horsegram"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-            </RelativeLayout>
-        </LinearLayout>
-    </ScrollView>
-
-</LinearLayout>
+</ScrollView>

@@ -42,13 +42,14 @@
     <!-- user aggregate item -->
     <string name="user_aggregate_label_date">27.8</string>
     <string name="user_aggregate_label_user_name">John Doe</string>
+    <!-- dialog  select language -->
+    <string name="dialog_select_language_title">Please select your language</string>
     <!-- buttons -->
     <string name="button_ok">Done</string>
     <string name="button_back_to_videos"> Back to Videos</string>
     <string name="button_cancel">Cancel</string>
     <string name="button_add_plot">Add Plot</string>
     <string name="label_arrow">></string>
-    <string name="dialog_select_language_title">Please select your language</string>
     <string name="date_today">today</string>
     <string name="date_yesterday">yesterday</string>
     <string name="date_last_week">%d days ago</string>

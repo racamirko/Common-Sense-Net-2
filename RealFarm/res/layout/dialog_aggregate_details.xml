@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content" >
+
+    <RelativeLayout
+        android:id="@+id/dialog_aggregate_header"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/listPreferredItemHeight"
+        android:background="@android:color/white"
+        android:padding="@dimen/margin" >
+
+        <RelativeLayout
+            android:id="@+id/button_dialog_aggregate_type"
+            android:layout_width="120dp"
+            android:layout_height="match_parent" >
+
+            <ImageView
+                android:id="@+id/icon_dialog_aggregate_crop"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:scaleType="centerCrop"
+                android:src="@drawable/pic_90px_groundnut_tiled" />
+
+            <TextView
+                android:id="@+id/label_dialog_aggregate_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="TMV 2"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/button_dialog_aggregate_detail"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin"
+            android:layout_marginRight="@dimen/margin"
+            android:layout_toRightOf="@+id/button_dialog_aggregate_type" >
+
+            <ImageView
+                android:id="@+id/icon_dialog_aggregate_detail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_margin="@dimen/margin"
+                android:src="@drawable/treatment" />
+
+            <TextView
+                android:id="@+id/label_dialog_aggregate_detail_count"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:text="1"
+                android:textAppearance="?android:attr/textAppearanceLarge"
+                android:textColor="@android:color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <View
+        android:id="@+id/dialog_aggregate_header_divider"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_below="@+id/dialog_aggregate_header"
+        android:background="@android:color/black" />
+
+    <ListView
+        android:id="@+id/list_dialog_aggregate"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/dialog_aggregate_header_divider" >
+    </ListView>
+
+    <include layout="@layout/layout_back_bar" />
+
+</RelativeLayout>

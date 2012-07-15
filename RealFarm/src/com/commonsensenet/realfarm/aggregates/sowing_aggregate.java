@@ -6,14 +6,17 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
@@ -24,18 +27,23 @@ import com.commonsensenet.realfarm.model.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.AggregateItemAdapter;
+import com.commonsensenet.realfarm.view.AggregateItemWrapper;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
 public class sowing_aggregate extends HelpEnabledActivityOld implements
 		OnLongClickListener, OnItemClickListener {
-	private int aggr_action_no;
+	/** Name used to log the activity of the class. */
+	public static final String LOG_TAG = "sowing_aggregate";
 
+	private int aggr_action_no;
 	/** ListAdapter used to handle the aggregates. */
 	private AggregateItemAdapter mAggregateItemAdapter;
 	/** ListView where the aggregate elements are shown. */
 	private ListView mAggregatesListView;
 	/** Database provider used to persist the data. */
 	private RealFarmProvider mDataProvider;
+	/** LayoutInflater used to create the content of the details dialog. */
+	private LayoutInflater mLayoutInflater;
 	/** Reference to the current instance. */
 	private final sowing_aggregate mParentReference = this;
 
@@ -119,6 +127,8 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 		// gets the data provider
 		mDataProvider = RealFarmProvider.getInstance(this);
+		// gets the inflater used to populate the dialog.
+		mLayoutInflater = getLayoutInflater();
 
 		// gets the aggregates from the database.
 		List<AggregateItem> aggregates = mDataProvider.getAggregateItems(3);
@@ -364,22 +374,41 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 		});
 	}
 
-	public static final String LOG_TAG = "sowing_aggregate";
-
-	public boolean onLongClick(View v) {
-
-		return super.onLongClick(v);
-	}
-
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		// gets the selected view using the position
 		AggregateItem selectedItem = mAggregateItemAdapter.getItem(position);
+		AggregateItemWrapper selectedItemView = new AggregateItemWrapper(view);
 
 		// dialog used to request the information
 		final Dialog dialog = new Dialog(this);
 
-		ListView userListView = new ListView(this);
+		// loads the dialog layout
+		View layout = mLayoutInflater.inflate(
+				R.layout.dialog_aggregate_details, null);
+
+		// gets the ListView from the layout
+		ListView userListView = (ListView) layout
+				.findViewById(R.id.list_dialog_aggregate);
+
+		// adds the event to dismiss the dialog.
+		layout.findViewById(R.id.button_back).setOnClickListener(
+				new View.OnClickListener() {
+
+					public void onClick(View v) {
+						// closes the dialog.
+						dialog.dismiss();
+
+					}
+				});
+
+		// sets the data of the header using the old view.
+		((ImageView) layout.findViewById(R.id.icon_dialog_aggregate_crop))
+				.setImageDrawable(selectedItemView.getCropImage().getDrawable());
+		((TextView) layout.findViewById(R.id.label_dialog_aggregate_type))
+				.setText(selectedItemView.getSeedType().getText());
+
+		// gets the data and data adapter.
 		List<UserAggregateItem> list = mDataProvider.getUserAggregateItem(
 				selectedItem.getActionNameId(), selectedItem.getSeedTypeId());
 		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
@@ -387,33 +416,18 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 		// sets the adapter.
 		userListView.setAdapter(userAdapter);
 
-		// adds the event listener to detect the language selection.
-		userListView.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				// stores the selected language.
-				// mSelectedLanguage = (String) parent.getAdapter().getItem(
-				// position);
-
-				// Toast.makeText(sowi.this,
-				// "The Language selected is " + mSelectedLanguage,
-				// Toast.LENGTH_SHORT).show();
-
-				// closes the dialog.
-				dialog.dismiss();
-			}
-
-		});
-
+		// disables the title in the dialog
+		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
 		// sets the view
-		dialog.setContentView(userListView);
-		// sets the properties of the dialog.
-		dialog.setTitle("%MISSING TITTLE%");
+		dialog.setContentView(layout);
 		dialog.setCancelable(true);
 
 		// displays the dialog.
 		dialog.show();
+	}
+
+	public boolean onLongClick(View v) {
+
+		return super.onLongClick(v);
 	}
 }
