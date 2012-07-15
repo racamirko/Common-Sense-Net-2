@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm;
+package com.commonsensenet.realfarm.admin;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -8,6 +8,8 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.commonsensenet.realfarm.R;
 
 public class admin extends Activity {
 

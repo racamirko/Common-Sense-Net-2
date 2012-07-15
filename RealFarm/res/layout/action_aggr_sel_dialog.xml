@@ -75,7 +75,7 @@
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginRight="@dimen/margin"
-                    android:src="@drawable/ic_fertilize" />
+                    android:src="@drawable/ic_irrigate" />
 
                 <TextView
                     android:layout_width="wrap_content"

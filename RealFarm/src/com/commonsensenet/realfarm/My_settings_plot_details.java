@@ -28,6 +28,17 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 	private String mSoilType = "0";
 	private final My_settings_plot_details parentReference = this;
 
+	private void addPlotToDatabase() {
+
+		Global.plotId = mDataProvider.insertPlot(Global.userId, mSeedTypeId,
+				mPlotImage, mSoilType, 0, 0);
+
+		Toast.makeText(
+				getBaseContext(),
+				"Plot Details is put to Database " + mPlotImage + " "
+						+ mSoilType, Toast.LENGTH_SHORT).show();
+	}
+
 	public void onBackPressed() {
 
 		SoundQueue.getInstance().stop();
@@ -453,28 +464,13 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 	@Override
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.aggr_img_help1) { // showhelp added 25-06-2012
+		if (v.getId() == R.id.aggr_img_help1) {
 			playAudio(R.raw.help);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_list_plot) { // added
+		if (v.getId() == R.id.home_btn_list_plot) {
 			playAudio(R.raw.plotimage);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.plot_img_1) { // added
-			playAudio(R.raw.audio1);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.plot_img_2) { // added
-			playAudio(R.raw.audio2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.plot_img_3) {
-			playAudio(R.raw.audio3);
 			ShowHelpIcon(v);
 		}
 
@@ -562,16 +558,5 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		}
 
 		return true;
-	}
-
-	private void addPlotToDatabase() {
-
-		Global.plotId = mDataProvider.insertPlot(Global.userId, mSeedTypeId,
-				mPlotImage, mSoilType, 0, 0);
-
-		Toast.makeText(
-				getBaseContext(),
-				"Plot Details is put to Database " + mPlotImage + " "
-						+ mSoilType, Toast.LENGTH_SHORT).show();
 	}
 }

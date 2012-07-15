@@ -10,6 +10,7 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 
+import com.commonsensenet.realfarm.ActionAggregateActivity;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
@@ -388,7 +389,8 @@ public class harvest_aggregate extends HelpEnabledActivityOld implements
 		// TODO Auto-generated method stub
 
 		if (aggr_action_no == 1) {
-			Intent inte = new Intent(mParentReference, sowing_aggregate.class);
+			Intent inte = new Intent(mParentReference,
+					ActionAggregateActivity.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			this.finish();

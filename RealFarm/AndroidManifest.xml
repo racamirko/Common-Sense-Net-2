@@ -23,7 +23,6 @@
 
     <application
         android:name=".RealFarmApp"
-        android:debuggable="true"
         android:icon="@drawable/app_social"
         android:label="@string/app_name" >
         <activity
@@ -69,15 +68,15 @@
         <service android:name="com.buzzbox.mob.android.scheduler.ScheduledService" />
 
         <activity
-            android:name="admincall"
+            android:name=".admin.admincall"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name="admin"
+            android:name=".admin.admin"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name="adminenter"
+            android:name=".admin.adminenter"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
@@ -181,7 +180,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".aggregates.sowing_aggregate"
+            android:name=".ActionAggregateActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity

@@ -19,7 +19,6 @@
                 android:id="@+id/aggr_action_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
                 android:src="@drawable/ic_sow" />
 
             <ImageView
@@ -42,7 +41,6 @@
                 android:id="@+id/aggr_crop_img"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:layout_marginLeft="15dp"
                 android:src="@drawable/pic_72px_groundnut" />
 
             <ImageView
@@ -57,27 +55,26 @@
 
         <Button
             android:id="@+id/button123"
-            android:layout_width="25dip"
+            android:layout_width="60dip"
             android:layout_height="wrap_content"
             android:text="Button"
             android:visibility="invisible" />
 
         <ImageButton
             android:id="@+id/aggr_img_home"
-            android:layout_width="50dip"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:layout_marginLeft="50dp"
-            android:background="@drawable/home"
-            android:src="@drawable/square_btn_transp" />
+            android:background="@drawable/square_btn_transp"
+            android:src="@drawable/home" />
 
         <ImageButton
             android:id="@+id/aggr_img_help"
-            android:layout_width="50dip"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_margin="3dp"
-            android:background="@drawable/ic_54px_help"
-            android:src="@drawable/square_btn_transp" />
+            android:background="@drawable/circular_btn"
+            android:src="@drawable/ic_54px_help" />
     </LinearLayout>
 
     <RelativeLayout

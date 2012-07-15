@@ -33,7 +33,6 @@ import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
 import com.commonsensenet.realfarm.aggregates.irrigate_aggregate;
 import com.commonsensenet.realfarm.aggregates.problem_aggregate;
 import com.commonsensenet.realfarm.aggregates.selling_aggregate;
-import com.commonsensenet.realfarm.aggregates.sowing_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.SeedType;
@@ -265,7 +264,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_sow) {
 			Log.d(LOG_TAG, "Starting Sowing aggregate info");
-			inte = new Intent(this, sowing_aggregate.class);
+			inte = new Intent(this, ActionAggregateActivity.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			this.finish();
@@ -655,7 +654,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	// }
 
 	protected void selectlang() {
-		Log.d("in Lang selection", "in dialog");
 
 		// dialog used to request the information
 		final Dialog dialog = new Dialog(this);

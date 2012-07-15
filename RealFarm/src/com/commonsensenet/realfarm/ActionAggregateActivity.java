@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm.aggregates;
+package com.commonsensenet.realfarm;
 
 import java.util.List;
 
@@ -18,9 +18,6 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import com.commonsensenet.realfarm.HelpEnabledActivityOld;
-import com.commonsensenet.realfarm.Homescreen;
-import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.AggregateItem;
 import com.commonsensenet.realfarm.model.UserAggregateItem;
@@ -30,12 +27,12 @@ import com.commonsensenet.realfarm.view.AggregateItemAdapter;
 import com.commonsensenet.realfarm.view.AggregateItemWrapper;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
-public class sowing_aggregate extends HelpEnabledActivityOld implements
+public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		OnLongClickListener, OnItemClickListener {
 	/** Name used to log the activity of the class. */
 	public static final String LOG_TAG = "sowing_aggregate";
 
-	private int aggr_action_no;
+	protected int aggr_action_no;
 	/** ListAdapter used to handle the aggregates. */
 	private AggregateItemAdapter mAggregateItemAdapter;
 	/** ListView where the aggregate elements are shown. */
@@ -45,66 +42,14 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 	/** LayoutInflater used to create the content of the details dialog. */
 	private LayoutInflater mLayoutInflater;
 	/** Reference to the current instance. */
-	private final sowing_aggregate mParentReference = this;
+	private final ActionAggregateActivity mParentReference = this;
 
 	protected void cancelAudio() {
 
-		Intent adminintent = new Intent(sowing_aggregate.this, Homescreen.class);
+		Intent adminintent = new Intent(ActionAggregateActivity.this,
+				Homescreen.class);
 
 		startActivity(adminintent);
-		sowing_aggregate.this.finish();
-	}
-
-	private void changeaction_aggr() {
-
-		if (aggr_action_no == 1) {
-			Intent inte = new Intent(mParentReference, sowing_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 2) {
-			Intent inte = new Intent(mParentReference,
-					fertilize_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 3) {
-			Intent inte = new Intent(mParentReference, irrigate_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 4) {
-			Intent inte = new Intent(mParentReference, problem_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		/*
-		 * if(aggr_action_no == 2) { Intent inte = new Intent(mParentReference,
-		 * spraying_aggregate.class); inte.putExtra("type", "yield");
-		 * this.startActivity(inte); this.finish(); }
-		 */
-		if (aggr_action_no == 6) {
-			Intent inte = new Intent(mParentReference, harvest_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 7) {
-			Intent inte = new Intent(mParentReference, selling_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
 	}
 
 	public void onBackPressed() {
@@ -116,8 +61,8 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
 				"back");
 
-		startActivity(new Intent(sowing_aggregate.this, Homescreen.class));
-		sowing_aggregate.this.finish();
+		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
+
 	}
 
 	@Override
@@ -151,11 +96,9 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 		home.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Intent adminintent = new Intent(sowing_aggregate.this,
-						Homescreen.class);
 
-				startActivity(adminintent);
-				sowing_aggregate.this.finish();
+				startActivity(new Intent(ActionAggregateActivity.this,
+						Homescreen.class));
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
@@ -163,12 +106,29 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 			}
 		});
 
+		Button back = (Button) findViewById(R.id.button_back);
+		back.setOnLongClickListener(this);
+
+		back.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				cancelAudio();
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "back");
+
+			}
+		});
+
 		final View action = findViewById(R.id.aggr_action);
 		final View crop = findViewById(R.id.aggr_crop);
+
+		final ImageView img_1 = (ImageView) findViewById(R.id.aggr_action_img);
 
 		action.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
+				// creates the dialog.
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.action_aggr_sel_dialog);
 				dlg.setCancelable(true);
@@ -181,8 +141,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 				final View aggr_spray;
 				final View aggr_harvest;
 				final View aggr_sell;
-
-				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_action_img);
 
 				aggr_sow = dlg.findViewById(R.id.action_aggr_icon_btn_sow);
 				aggr_fert = dlg.findViewById(R.id.action_aggr_icon_btn_fert);
@@ -207,7 +165,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 						img_1.setImageResource(R.drawable.ic_sow);
 						aggr_action_no = 1;
-						changeaction_aggr();
 						dlg.cancel();
 					}
 				});
@@ -217,7 +174,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 						img_1.setImageResource(R.drawable.ic_fertilize);
 						aggr_action_no = 2;
-						changeaction_aggr();
 						dlg.cancel();
 					}
 
@@ -228,7 +184,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 						img_1.setImageResource(R.drawable.ic_irrigate);
 						aggr_action_no = 3;
-						changeaction_aggr();
 						dlg.cancel();
 					}
 				});
@@ -238,7 +193,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 						img_1.setImageResource(R.drawable.ic_problem);
 						aggr_action_no = 4;
-						changeaction_aggr();
 						dlg.cancel();
 					}
 				});
@@ -247,7 +201,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 						img_1.setImageResource(R.drawable.ic_spray);
 						aggr_action_no = 5;
-						changeaction_aggr();
 						dlg.cancel();
 					}
 				});
@@ -256,7 +209,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 						img_1.setImageResource(R.drawable.ic_harvest);
 						aggr_action_no = 6;
-						changeaction_aggr();
 						dlg.cancel();
 					}
 				});
@@ -266,7 +218,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 
 						img_1.setImageResource(R.drawable.ic_sell);
 						aggr_action_no = 7;
-						changeaction_aggr();
 						dlg.cancel();
 					}
 				});
@@ -355,20 +306,6 @@ public class sowing_aggregate extends HelpEnabledActivityOld implements
 						dlg.cancel();
 					}
 				});
-
-			}
-		});
-
-		Button back = (Button) findViewById(R.id.button_back);
-		back.setOnLongClickListener(this);
-
-		back.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				cancelAudio();
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "back");
 
 			}
 		});

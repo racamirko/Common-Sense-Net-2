@@ -1,4 +1,4 @@
-package com.commonsensenet.realfarm;
+package com.commonsensenet.realfarm.admin;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -16,6 +16,8 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.commonsensenet.realfarm.Global;
+import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.User;
 

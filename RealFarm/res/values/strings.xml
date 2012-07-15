@@ -44,6 +44,7 @@
     <string name="user_aggregate_label_user_name">John Doe</string>
     <!-- dialog  select language -->
     <string name="dialog_select_language_title">Please select your language</string>
+    <string name="dialog_select_action_title">Please select an action</string>
     <!-- buttons -->
     <string name="button_ok">Done</string>
     <string name="button_back_to_videos"> Back to Videos</string>

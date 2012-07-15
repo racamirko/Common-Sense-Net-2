@@ -491,70 +491,31 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "users works");
 
-		// actionNames
+		Object[][] actionNameData = {
+				{ "sow", "", R.drawable.ic_sow, R.raw.audio1 },
+				{ "fertilize", "", R.drawable.ic_fertilize, R.raw.audio2 },
+				{ "irrigate", "", R.drawable.ic_irrigate, R.raw.audio4 },
+				{ "spray", "", R.drawable.ic_spray, R.raw.audio3 },
+				{ "harvest", "", R.drawable.ic_harvest, R.raw.audio5 },
+				{ "report", "", R.drawable.ic_problem, R.raw.audio6 },
+				{ "sell", "", R.drawable.ic_sell, R.raw.audio7 }
+
+		};
+
 		ContentValues actionNames = new ContentValues();
-		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 3);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "sow");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
-				mContext.getString(R.string.k_sow));
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_90px_sowing);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio1);
-		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
-		actionNames.clear();
-		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 4);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "fertilize");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
-				mContext.getString(R.string.k_apply_fertilizer));
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_90px_fertilizing2);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio2);
-		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
-		actionNames.clear();
-		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 5);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "spray");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
-				mContext.getString(R.string.k_spraying));
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_90px_spraying3);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio3);
-		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
-		actionNames.clear();
-		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 7);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "irrigate");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
-				mContext.getString(R.string.k_irrigate));
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_90px_irrigation2);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio4);
-		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
-		actionNames.clear();
-		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 8);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "harvest");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
-				mContext.getString(R.string.k_harvest));
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_90px_harvesting1);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio5);
-		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
-		actionNames.clear();
-		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 6);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "report");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
-				mContext.getString(R.string.k_reporting_of_problems));
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_90px_reporting);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio6);
-		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
-		actionNames.clear();
-		actionNames.put(COLUMN_NAME_ACTIONNAME_ID, 9);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAME, "Diary");
-		actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
-				mContext.getString(R.string.k_diary));
-		actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
-				R.drawable.ic_90px_diary1);
-		actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO, R.raw.audio7);
-		insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
+		for (int x = 0; x < actionNameData.length; x++) {
+			actionNames.put(COLUMN_NAME_ACTIONNAME_ID, (x + 1));
+			actionNames.put(COLUMN_NAME_ACTIONNAME_NAME,
+					(String) actionNameData[x][0]);
+			actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
+					(String) actionNameData[x][1]);
+			actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
+					(Integer) actionNameData[x][3]);
+			actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,
+					(Integer) actionNameData[x][4]);
+			insertEntriesIntoDatabase(TABLE_NAME_ACTIONNAME, actionNames, db);
+			actionNames.clear();
+		}
 
 		Log.d(LOG_TAG, "actionName works");
 
