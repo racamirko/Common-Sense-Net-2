@@ -417,7 +417,8 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 		// TODO Auto-generated method stub
 
 		if (aggr_action_no == 1) {
-			Intent inte = new Intent(mParentReference, ActionAggregateActivity.class);
+			Intent inte = new Intent(mParentReference,
+					ActionAggregateActivity.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			this.finish();
@@ -426,13 +427,6 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 		if (aggr_action_no == 2) {
 			Intent inte = new Intent(mParentReference,
 					fertilize_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
-		if (aggr_action_no == 3) {
-			Intent inte = new Intent(mParentReference, irrigate_aggregate.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			this.finish();

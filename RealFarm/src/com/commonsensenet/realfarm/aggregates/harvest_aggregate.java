@@ -404,13 +404,6 @@ public class harvest_aggregate extends HelpEnabledActivityOld implements
 			this.finish();
 		}
 
-		if (aggr_action_no == 3) {
-			Intent inte = new Intent(mParentReference, irrigate_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
 		if (aggr_action_no == 4) {
 			Intent inte = new Intent(mParentReference, problem_aggregate.class);
 			inte.putExtra("type", "yield");
