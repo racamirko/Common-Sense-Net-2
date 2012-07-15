@@ -10,7 +10,7 @@ import android.widget.ArrayAdapter;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.UserAggregateItem;
+import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 
 public class UserAggregateItemAdapter extends ArrayAdapter<UserAggregateItem> {
 	/** Database provided that used to obtain the required data. */

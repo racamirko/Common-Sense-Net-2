@@ -4,7 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/header" >
@@ -13,6 +13,7 @@
             android:id="@+id/aggr_action"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
             android:layout_margin="@dimen/margin" >
 
             <ImageView
@@ -35,7 +36,8 @@
             android:id="@+id/aggr_crop"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin" >
+            android:layout_margin="@dimen/margin"
+            android:layout_toRightOf="@+id/aggr_action" >
 
             <ImageView
                 android:id="@+id/aggr_crop_img"
@@ -53,18 +55,12 @@
                 android:src="@drawable/dropdown" />
         </RelativeLayout>
 
-        <Button
-            android:id="@+id/button123"
-            android:layout_width="60dip"
-            android:layout_height="wrap_content"
-            android:text="Button"
-            android:visibility="invisible" />
-
         <ImageButton
             android:id="@+id/aggr_img_home"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="3dp"
+            android:layout_toLeftOf="@+id/aggr_img_help"
             android:background="@drawable/square_btn_transp"
             android:src="@drawable/home" />
 
@@ -72,10 +68,11 @@
             android:id="@+id/aggr_img_help"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
             android:layout_margin="3dp"
             android:background="@drawable/circular_btn"
             android:src="@drawable/ic_54px_help" />
-    </LinearLayout>
+    </RelativeLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -85,10 +82,13 @@
             android:id="@+id/list_aggregates"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_above="@+id/back_bar"
             android:layout_alignParentTop="true" >
         </ListView>
 
-        <include layout="@layout/layout_back_bar" />
+        <include
+            android:id="@+id/back_bar"
+            layout="@layout/layout_back_bar" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -6,7 +6,7 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.UserAggregateItem;
+import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 
 /**
  * Class that wraps up the contents of a Plot, which is presented on a list

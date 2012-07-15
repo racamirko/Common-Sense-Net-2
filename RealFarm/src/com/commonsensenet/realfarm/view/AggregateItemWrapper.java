@@ -6,8 +6,7 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.AggregateItem;
-import com.commonsensenet.realfarm.model.SeedType;
+import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 
 /**
  * Class that wraps up the contents of a Plot, which is presented on a list
@@ -16,12 +15,12 @@ import com.commonsensenet.realfarm.model.SeedType;
  * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
-public class AggregateItemWrapper {
-	private TextView mUserCount;
-	private ImageView mCropImage;
+public abstract class AggregateItemWrapper {
+	protected ImageView mTypeImage;
 	/** The View object that represents a single row inside the ListView. */
-	private View mRow;
-	private TextView mSeedType;
+	protected View mRow;
+	protected TextView mTypeText;
+	protected TextView mUserCount;
 
 	/**
 	 * Creates a new AggregateItemWrapper instance.
@@ -33,6 +32,26 @@ public class AggregateItemWrapper {
 		this.mRow = row;
 	}
 
+	public ImageView getTypeImage() {
+		if (mTypeImage == null) {
+			mTypeImage = (ImageView) mRow
+					.findViewById(R.id.icon_aggregate_crop);
+		}
+		return (mTypeImage);
+	}
+
+	public View getRow() {
+		return mRow;
+	}
+
+	public TextView getTypeText() {
+
+		if (mTypeText == null) {
+			mTypeText = (TextView) mRow.findViewById(R.id.label_aggregate_type);
+		}
+		return (mTypeText);
+	}
+
 	public TextView getUserCount() {
 
 		if (mUserCount == null) {
@@ -42,31 +61,6 @@ public class AggregateItemWrapper {
 		return (mUserCount);
 	}
 
-	public ImageView getCropImage() {
-		if (mCropImage == null) {
-			mCropImage = (ImageView) mRow
-					.findViewById(R.id.icon_aggregate_crop);
-		}
-		return (mCropImage);
-	}
-
-	public TextView getSeedType() {
-
-		if (mSeedType == null) {
-			mSeedType = (TextView) mRow.findViewById(R.id.label_aggregate_type);
-		}
-		return (mSeedType);
-	}
-
-	public void populateFrom(AggregateItem aggregate, RealFarmProvider provider) {
-
-		SeedType seed = provider.getSeedById(aggregate.getSeedTypeId());
-		getUserCount().setText(String.valueOf(aggregate.getUserCount()));
-		getSeedType()
-				.setText(
-						(seed.getVariety() != null && !seed.getVariety()
-								.equals("")) ? seed.getVariety() : seed
-								.getName());
-		getCropImage().setImageResource(seed.getResBg());
-	}
+	public abstract void populateFrom(AggregateItem aggregate,
+			RealFarmProvider provider);
 }

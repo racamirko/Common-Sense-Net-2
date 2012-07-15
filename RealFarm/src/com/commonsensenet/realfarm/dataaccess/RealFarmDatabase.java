@@ -442,6 +442,14 @@ public class RealFarmDatabase {
 				having, orderBy);
 	}
 
+	public static final int ACTION_NAME_SOW_ID = 1;
+	public static final int ACTION_NAME_FERTILIZE_ID = 2;
+	public static final int ACTION_NAME_IRRIGATE_ID = 3;
+	public static final int ACTION_NAME_SPRAY_ID = 4;
+	public static final int ACTION_NAME_HARVEST_ID = 5;
+	public static final int ACTION_NAME_SELL_ID = 6;
+	public static final int ACTION_NAME_REPORT_ID = 4;
+
 	/**
 	 * Defines hard-coded initial values for database. All base tables and user
 	 * data, the latter is for testing purposes only and should be replaced by
@@ -492,23 +500,31 @@ public class RealFarmDatabase {
 		Log.d(LOG_TAG, "users works");
 
 		Object[][] actionNameData = {
-				{ "sow", "", R.drawable.ic_sow, R.raw.audio1 },
-				{ "fertilize", "", R.drawable.ic_fertilize, R.raw.audio2 },
-				{ "irrigate", "", R.drawable.ic_irrigate, R.raw.audio4 },
-				{ "spray", "", R.drawable.ic_spray, R.raw.audio3 },
-				{ "harvest", "", R.drawable.ic_harvest, R.raw.audio5 },
-				{ "report", "", R.drawable.ic_problem, R.raw.audio6 },
-				{ "sell", "", R.drawable.ic_sell, R.raw.audio7 }
+				{ ACTION_NAME_SOW_ID, "sow", "", R.drawable.ic_sow,
+						R.raw.audio1 },
+				{ ACTION_NAME_FERTILIZE_ID, "fertilize", "",
+						R.drawable.ic_fertilize, R.raw.audio2 },
+				{ ACTION_NAME_IRRIGATE_ID, "irrigate", "",
+						R.drawable.ic_irrigate, R.raw.audio4 },
+				{ ACTION_NAME_SPRAY_ID, "spray", "", R.drawable.ic_spray,
+						R.raw.audio3 },
+				{ ACTION_NAME_HARVEST_ID, "harvest", "", R.drawable.ic_harvest,
+						R.raw.audio5 },
+				{ ACTION_NAME_SELL_ID, "sell", "", R.drawable.ic_sell,
+						R.raw.audio7 },
+				{ ACTION_NAME_REPORT_ID, "report", "", R.drawable.ic_problem,
+						R.raw.audio6 }
 
 		};
 
 		ContentValues actionNames = new ContentValues();
 		for (int x = 0; x < actionNameData.length; x++) {
-			actionNames.put(COLUMN_NAME_ACTIONNAME_ID, (x + 1));
+			actionNames.put(COLUMN_NAME_ACTIONNAME_ID,
+					(Integer) actionNameData[x][0]);
 			actionNames.put(COLUMN_NAME_ACTIONNAME_NAME,
-					(String) actionNameData[x][0]);
-			actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
 					(String) actionNameData[x][1]);
+			actionNames.put(COLUMN_NAME_ACTIONNAME_NAMEKANNADA,
+					(String) actionNameData[x][2]);
 			actionNames.put(COLUMN_NAME_ACTIONNAME_RESOURCE,
 					(Integer) actionNameData[x][3]);
 			actionNames.put(COLUMN_NAME_ACTIONNAME_AUDIO,

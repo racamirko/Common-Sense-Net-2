@@ -539,9 +539,6 @@ public class action_problem extends HelpEnabledActivityOld {
 					mDataProvider.setProblem(Global.plotId, prob_day_sel,
 							prob_var_sel, 0, 0);
 
-					System.out.println("Problem reading");
-					mDataProvider.getProblem();
-
 					startActivity(new Intent(action_problem.this,
 							Homescreen.class));
 					action_problem.this.finish();

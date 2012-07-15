@@ -30,7 +30,6 @@ import com.commonsensenet.realfarm.actions.action_sowing;
 import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
-import com.commonsensenet.realfarm.aggregates.irrigate_aggregate;
 import com.commonsensenet.realfarm.aggregates.problem_aggregate;
 import com.commonsensenet.realfarm.aggregates.selling_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -56,7 +55,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	/** Currently selected language. */
 	private String mSelectedLanguage;
 
-	private void initActionListener() {
+	protected void initActionListener() {
 
 		// sets up the listeners in the home screen.
 		findViewById(R.id.hmscrn_btn_weather).setOnClickListener(this);
@@ -122,7 +121,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					{ 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
 					{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
 					{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
-					{ 3, 1, "farmer_90px_adam_jones", "Loamy" } };
+					{ 3, 1, "farmer_90px_adam_jones", "Loamy" },
+					{ 4, 1, "farmer_90px_walmart_stores", "Loamy" } };
 
 			List<SeedType> seeds = mDataProvider.getSeeds();
 
@@ -138,16 +138,37 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			Log.d(LOG_TAG, "plot works");
 
-			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
+			// sowing
+			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(Global.plotId, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(Global.plotId, 1, seeds.get(1).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
-			mDataProvider.setSowing(2, 1, seeds.get(3).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
+					"Bag of 10 Kgs", "02.12", "treated", 0, 0);
+			mDataProvider.setSowing(2, 1, seeds.get(1).getId(),
+					"Bag of 10 Kgs", "03.12", "treated", 0, 0);
 			mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
+					"Bag of 10 Kgs", "04.12", "treated", 0, 0);
+			mDataProvider.setSowing(4, 1, seeds.get(3).getId(),
+					"Bag of 10 Kgs", "05.12", "treated", 0, 0);
+			mDataProvider.setSowing(5, 1, seeds.get(4).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(5, 1, seeds.get(2).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+			mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0);
+
+			// irrigating
+			mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Method 1", 0,
+					0);
+			mDataProvider.setIrrigation(2, 4, "hours", "01.12", "Method 3", 0,
+					0);
+			mDataProvider.setIrrigation(3, 5, "hours", "02.12", "Method 2", 0,
+					0);
+			mDataProvider.setIrrigation(4, 1, "hours", "04.12", "Method 2", 0,
+					0);
+			mDataProvider.setIrrigation(2, 1, "hours", "04.12", "Method 2", 0,
+					0);
+
+			// flags the data insertion as done.
 			IS_INITIALIZED = true;
 		}
 
@@ -245,11 +266,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_irrigate) {
-			Log.d(LOG_TAG, "Starting irrigate aggregate info");
-			inte = new Intent(this, irrigate_aggregate.class);
-			inte.putExtra("type", "yield");
+			inte = new Intent(this, ActionAggregateActivity.class);
+			inte.putExtra("actionName",
+					RealFarmDatabase.ACTION_NAME_IRRIGATE_ID);
 			this.startActivity(inte);
-			this.finish();
 			return;
 		}
 
@@ -263,11 +283,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_sow) {
-			Log.d(LOG_TAG, "Starting Sowing aggregate info");
 			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra("type", "yield");
+			inte.putExtra("actionName", RealFarmDatabase.ACTION_NAME_SOW_ID);
 			this.startActivity(inte);
-			this.finish();
 			return;
 		}
 

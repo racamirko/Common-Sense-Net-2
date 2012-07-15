@@ -15,7 +15,6 @@ import android.util.Log;
 
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
-import com.commonsensenet.realfarm.model.AggregateItem;
 import com.commonsensenet.realfarm.model.Fertilizing;
 import com.commonsensenet.realfarm.model.Harvesting;
 import com.commonsensenet.realfarm.model.Irrigation;
@@ -26,8 +25,9 @@ import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.Selling;
 import com.commonsensenet.realfarm.model.Spraying;
 import com.commonsensenet.realfarm.model.User;
-import com.commonsensenet.realfarm.model.UserAggregateItem;
 import com.commonsensenet.realfarm.model.WeatherForecast;
+import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
+import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 
 public class RealFarmProvider {
 	public abstract interface OnDataChangeListener {
@@ -213,21 +213,23 @@ public class RealFarmProvider {
 		return tmpActions;
 	}
 
+	// TODO: should order elements properly.
 	public List<Action> getActionsByUserId(int userId) {
 
 		List<Action> tmpActions = new ArrayList<Action>();
 
 		mDatabase.open();
 
-		final String RAW_QUERY = "SELECT a.* FROM %s a INNER JOIN %s p ON a.%s = p.%s WHERE p.%s = '?'";
+		final String RAW_QUERY = "SELECT a.* FROM %s a INNER JOIN %s p ON a.%s = p.%s WHERE p.%s = %d ORDER BY %s DESC";
 		String processedQuery = String.format(RAW_QUERY,
 				RealFarmDatabase.TABLE_NAME_ACTION,
 				RealFarmDatabase.TABLE_NAME_PLOT,
 				RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 				RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-				RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
+				RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId,
+				RealFarmDatabase.COLUMN_NAME_ACTION_DATE);
 
-		Cursor c = mDatabase.rawQuery(processedQuery, null);
+		Cursor c = mDatabase.rawQuery(processedQuery, new String[] {});
 
 		// String[] test = new String[] {
 		// RealFarmDatabase.COLUMN_NAME_ACTION_ID,
@@ -271,6 +273,7 @@ public class RealFarmProvider {
 		return tmpActions;
 	}
 
+	// TODO: sort by date
 	public List<Action> getActionsByPlotId(long plotId) {
 
 		List<Action> tmpActions = new ArrayList<Action>();
@@ -358,7 +361,7 @@ public class RealFarmProvider {
 	public List<Fertilizing> getfertizing() {
 
 		mDatabase.open();
-		int fert = 4;
+		int fert = RealFarmDatabase.ACTION_NAME_FERTILIZE_ID;
 
 		List<Fertilizing> tmpList;
 
@@ -405,7 +408,7 @@ public class RealFarmProvider {
 	public List<Harvesting> getharvesting() {
 
 		mDatabase.open();
-		int harv = 8;
+		int harv = RealFarmDatabase.ACTION_NAME_HARVEST_ID;
 
 		List<Harvesting> tmpList;
 
@@ -456,7 +459,7 @@ public class RealFarmProvider {
 	public List<Irrigation> getirrigate() {
 
 		mDatabase.open();
-		int irrigate = 7; // id 7 from actionname table
+		int irrigate = RealFarmDatabase.ACTION_NAME_IRRIGATE_ID;
 
 		List<Irrigation> tmpList;
 
@@ -688,20 +691,27 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public List<AggregateItem> getAggregateItems(int actionNameId) {
-		final String MY_QUERY = "SELECT COUNT(p.userId) as users, a.actionNameId, a.seedTypeId FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %d GROUP BY a.actionNameId, a.seedTypeId ORDER BY a.seedTypeId ASC";
+	public List<AggregateItem> getAggregateItems(int actionNameId,
+			String groupField) {
+		final String MY_QUERY = "SELECT a.actionNameId, COUNT(p.userId) as users, a.%2$s FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId, a.%2$s ORDER BY a.%2$s ASC";
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
 		mDatabase.open();
 
-		Cursor c = mDatabase.rawQuery(String.format(MY_QUERY, actionNameId),
+		Cursor c = mDatabase.rawQuery(
+				String.format(MY_QUERY, actionNameId, groupField),
 				new String[] {});
 
 		AggregateItem a = null;
 		if (c.moveToFirst()) {
 			do {
-				a = new AggregateItem(c.getInt(0), c.getInt(1), c.getInt(2));
+				a = new AggregateItem(c.getInt(0), c.getInt(1));
+				// adds any additionally found column into the aggregate item
+				// starts in 2 since actionNameId and users are ignored.
+				for (int x = 2; x < c.getColumnCount(); x++) {
+					a.addValue(c.getColumnName(x), c.getString(x));
+				}
 				tmpList.add(a);
 
 			} while (c.moveToNext());
@@ -714,15 +724,25 @@ public class RealFarmProvider {
 	}
 
 	public List<UserAggregateItem> getUserAggregateItem(int actionNameId,
-			int seedTypeId) {
-		final String MY_QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %d AND a.seedTypeId = %d ORDER BY a.date DESC";
+			String selector) {
+
+		final String QUERY;
+		switch (actionNameId) {
+		case RealFarmDatabase.ACTION_NAME_SOW_ID:
+			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.seedTypeId = %2$s ORDER BY a.date DESC";
+			break;
+		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
+			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.irrigateMethod = '%2$s' ORDER BY a.date DESC";
+			break;
+		default:
+			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.seedTypeId = %2$s ORDER BY a.date DESC";
+		}
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 		mDatabase.open();
 
 		Cursor c = mDatabase.rawQuery(
-				String.format(MY_QUERY, actionNameId, seedTypeId),
-				new String[] {});
+				String.format(QUERY, actionNameId, selector), new String[] {});
 
 		UserAggregateItem ua = null;
 		User u = null;
@@ -822,7 +842,7 @@ public class RealFarmProvider {
 	public List<Problem> getProblem() {
 
 		mDatabase.open();
-		int problem = 6; // id 7 from actionname table for reporting of problems
+		int problem = RealFarmDatabase.ACTION_NAME_REPORT_ID;
 
 		List<Problem> tmpList;
 
@@ -934,7 +954,7 @@ public class RealFarmProvider {
 	public List<Selling> getselling() {
 
 		mDatabase.open();
-		int sell = 12;
+		int sell = RealFarmDatabase.ACTION_NAME_SELL_ID;
 
 		List<Selling> tmpList;
 
@@ -987,7 +1007,7 @@ public class RealFarmProvider {
 	public List<Spraying> getspraying() {
 
 		mDatabase.open();
-		int spray = 5;
+		int spray = RealFarmDatabase.ACTION_NAME_SPRAY_ID;
 
 		List<Spraying> tmpList;
 
@@ -1379,7 +1399,8 @@ public class RealFarmProvider {
 		System.out.println("SET fertilizing");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 4);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.ACTION_NAME_FERTILIZE_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
 				typeOfFertilizer);
@@ -1408,7 +1429,8 @@ public class RealFarmProvider {
 		System.out.println("SET harvest");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 8);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.ACTION_NAME_HARVEST_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
@@ -1432,15 +1454,16 @@ public class RealFarmProvider {
 	}
 
 	// qua1 mapped to no of hours
-	public long setIrrigation(int userId, long plotId, int qua1, String Units,
-			String day, int sent, int admin, String method) {
+	public long setIrrigation(long plotId, int qua1, String units, String day,
+			String method, int sent, int admin) {
 
 		System.out.println("SET IRRIGATION");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 7);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.ACTION_NAME_IRRIGATE_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
@@ -1501,7 +1524,8 @@ public class RealFarmProvider {
 		System.out.println("SET PROBLEM");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 6);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.ACTION_NAME_REPORT_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE, probType);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
@@ -1528,7 +1552,8 @@ public class RealFarmProvider {
 		System.out.println("SET selling");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 12);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.ACTION_NAME_SELL_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
@@ -1558,7 +1583,8 @@ public class RealFarmProvider {
 		System.out.println("SET SOWING");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 3);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.ACTION_NAME_SOW_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
@@ -1587,7 +1613,8 @@ public class RealFarmProvider {
 		System.out.println("SET spraying");
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, 5);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
+				RealFarmDatabase.ACTION_NAME_SPRAY_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);

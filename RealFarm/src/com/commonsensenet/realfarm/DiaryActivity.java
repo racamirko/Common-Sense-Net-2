@@ -33,7 +33,7 @@ public class DiaryActivity extends HelpEnabledActivity {
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// gets the actions from the database
-		List<Action> actions = mDataProvider.getActionsByPlotId(Global.plotId);
+		List<Action> actions = mDataProvider.getActionsByUserId(Global.userId);
 
 		// creates the custom adapter.
 		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);

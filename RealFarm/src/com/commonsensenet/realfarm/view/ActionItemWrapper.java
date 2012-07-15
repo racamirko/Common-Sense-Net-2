@@ -84,6 +84,10 @@ public class ActionItemWrapper {
 		getActionIcon().setImageResource(actionName.getRes());
 		getTitle().setText(actionName.getName());
 		getDate().setText(DateHelper.formatDate(action.getDate(), context));
-		getCropIcon().setImageResource(seedType.getRes());
+		if (seedType != null) {
+			getCropIcon().setImageResource(seedType.getRes());
+		} else {
+			getCropIcon().setImageDrawable(null);
+		}
 	}
 }

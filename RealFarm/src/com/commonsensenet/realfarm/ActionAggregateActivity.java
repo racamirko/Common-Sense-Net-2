@@ -19,8 +19,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.AggregateItem;
-import com.commonsensenet.realfarm.model.UserAggregateItem;
+import com.commonsensenet.realfarm.model.ActionName;
+import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
+import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
+import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.AggregateItemAdapter;
@@ -32,7 +34,8 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	/** Name used to log the activity of the class. */
 	public static final String LOG_TAG = "sowing_aggregate";
 
-	protected int aggr_action_no;
+	/** Indicates the id of the activity that is being displayed. */
+	private int mActiveActionNameId;
 	/** ListAdapter used to handle the aggregates. */
 	private AggregateItemAdapter mAggregateItemAdapter;
 	/** ListView where the aggregate elements are shown. */
@@ -75,11 +78,24 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		// gets the inflater used to populate the dialog.
 		mLayoutInflater = getLayoutInflater();
 
-		// gets the aggregates from the database.
-		List<AggregateItem> aggregates = mDataProvider.getAggregateItems(3);
+		// extracts the passed parameters
+		Bundle extras = getIntent().getExtras();
+		if (extras != null && extras.containsKey("actionName")) {
+			// gets the action name id
+			mActiveActionNameId = extras.getInt("actionName");
 
+		}
+
+		// gets the action name object.
+		ActionName actionName = mDataProvider
+				.getActionNameById(mActiveActionNameId);
+
+		// gets the list of aggregate data.
+		List<AggregateItem> aggregates = ActionDataFactory.getAggregateData(
+				mActiveActionNameId, mDataProvider);
+		// creates the data adapter.
 		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates,
-				mDataProvider);
+				mActiveActionNameId, mDataProvider);
 
 		// gets the list from the UI.
 		mAggregatesListView = (ListView) findViewById(R.id.list_aggregates);
@@ -123,7 +139,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		final View action = findViewById(R.id.aggr_action);
 		final View crop = findViewById(R.id.aggr_crop);
 
-		final ImageView img_1 = (ImageView) findViewById(R.id.aggr_action_img);
+		final ImageView actionNameImage = (ImageView) findViewById(R.id.aggr_action_img);
+		// sets the icon based on the active action name
+		actionNameImage.setImageResource(actionName.getRes());
 
 		action.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -163,8 +181,8 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				aggr_sow.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						img_1.setImageResource(R.drawable.ic_sow);
-						aggr_action_no = 1;
+						actionNameImage.setImageResource(R.drawable.ic_sow);
+						mActiveActionNameId = 1;
 						dlg.cancel();
 					}
 				});
@@ -172,8 +190,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				aggr_fert.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						img_1.setImageResource(R.drawable.ic_fertilize);
-						aggr_action_no = 2;
+						actionNameImage
+								.setImageResource(R.drawable.ic_fertilize);
+						mActiveActionNameId = 2;
 						dlg.cancel();
 					}
 
@@ -182,8 +201,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				aggr_irr.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						img_1.setImageResource(R.drawable.ic_irrigate);
-						aggr_action_no = 3;
+						actionNameImage
+								.setImageResource(R.drawable.ic_irrigate);
+						mActiveActionNameId = 3;
 						dlg.cancel();
 					}
 				});
@@ -191,24 +211,24 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				aggr_prob.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						img_1.setImageResource(R.drawable.ic_problem);
-						aggr_action_no = 4;
+						actionNameImage.setImageResource(R.drawable.ic_problem);
+						mActiveActionNameId = 4;
 						dlg.cancel();
 					}
 				});
 				aggr_spray.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						img_1.setImageResource(R.drawable.ic_spray);
-						aggr_action_no = 5;
+						actionNameImage.setImageResource(R.drawable.ic_spray);
+						mActiveActionNameId = 5;
 						dlg.cancel();
 					}
 				});
 				aggr_harvest.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						img_1.setImageResource(R.drawable.ic_harvest);
-						aggr_action_no = 6;
+						actionNameImage.setImageResource(R.drawable.ic_harvest);
+						mActiveActionNameId = 6;
 						dlg.cancel();
 					}
 				});
@@ -216,8 +236,8 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				aggr_sell.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						img_1.setImageResource(R.drawable.ic_sell);
-						aggr_action_no = 7;
+						actionNameImage.setImageResource(R.drawable.ic_sell);
+						mActiveActionNameId = 7;
 						dlg.cancel();
 					}
 				});
@@ -315,7 +335,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 			long id) {
 		// gets the selected view using the position
 		AggregateItem selectedItem = mAggregateItemAdapter.getItem(position);
-		AggregateItemWrapper selectedItemView = new AggregateItemWrapper(view);
+		// gets the wrapper to extract data directly from it.
+		AggregateItemWrapper selectedItemView = ActionDataFactory
+				.getAggregateWrapper(view, mActiveActionNameId);
 
 		// dialog used to request the information
 		final Dialog dialog = new Dialog(this);
@@ -335,19 +357,20 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 					public void onClick(View v) {
 						// closes the dialog.
 						dialog.dismiss();
-
 					}
 				});
 
 		// sets the data of the header using the old view.
 		((ImageView) layout.findViewById(R.id.icon_dialog_aggregate_crop))
-				.setImageDrawable(selectedItemView.getCropImage().getDrawable());
+				.setImageDrawable(selectedItemView.getTypeImage().getDrawable());
 		((TextView) layout.findViewById(R.id.label_dialog_aggregate_type))
-				.setText(selectedItemView.getSeedType().getText());
+				.setText(selectedItemView.getTypeText().getText());
 
 		// gets the data and data adapter.
-		List<UserAggregateItem> list = mDataProvider.getUserAggregateItem(
-				selectedItem.getActionNameId(), selectedItem.getSeedTypeId());
+		List<UserAggregateItem> list = ActionDataFactory.getUserAggregateData(
+				selectedItem, mDataProvider);
+
+		// selectedItem.getSeedTypeId()
 		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
 				this, list, mDataProvider);
 		// sets the adapter.

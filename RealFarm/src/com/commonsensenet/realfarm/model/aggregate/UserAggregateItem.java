@@ -1,4 +1,6 @@
-package com.commonsensenet.realfarm.model;
+package com.commonsensenet.realfarm.model.aggregate;
+
+import com.commonsensenet.realfarm.model.User;
 
 /**
  * 

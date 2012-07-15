@@ -365,8 +365,7 @@ public class action_selling extends HelpEnabledActivityOld {
 						.findViewById(R.id.home_month_12);
 
 				((Button) dlg.findViewById(R.id.home_month_1))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_2))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_3))
@@ -378,8 +377,7 @@ public class action_selling extends HelpEnabledActivityOld {
 				((Button) dlg.findViewById(R.id.home_month_6))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_7))
-						.setOnLongClickListener(parentReference); // audio
-																	// integration
+						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_8))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_month_9))
@@ -1031,8 +1029,9 @@ public class action_selling extends HelpEnabledActivityOld {
 					action_selling.this.finish();
 					okaudio();
 
-				} else
+				} else {
 					initmissingval();
+				}
 
 			}
 		});
