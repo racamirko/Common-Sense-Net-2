@@ -729,9 +729,9 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 					System.out.println("harvesting writing");
-					mDataProvider.setHarvest(Global.userId, Global.plotId,
-							harvest_no, 0, units_harvest, final_day_harvest,
-							feedback_txt, 1, 0);
+					mDataProvider.setHarvest(Global.plotId, harvest_no,
+							units_harvest, final_day_harvest, feedback_txt, 0,
+							0);
 
 					System.out.println("harvesting reading");
 					mDataProvider.getharvesting();

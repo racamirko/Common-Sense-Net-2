@@ -29,7 +29,6 @@ import com.commonsensenet.realfarm.actions.action_selling;
 import com.commonsensenet.realfarm.actions.action_sowing;
 import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
-import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
 import com.commonsensenet.realfarm.aggregates.selling_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
@@ -166,6 +165,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			mDataProvider.setProblem(1, "2.12", "Problem 2", 0, 0);
 			mDataProvider.setProblem(5, "2.12", "Problem 1", 0, 0);
 
+			// harvest
+			mDataProvider.setHarvest(1, 2, "Bag of 20 Kgs", "06.12", "good", 0,
+					0);
+			mDataProvider.setHarvest(3, 2, "Bag of 10 Kgs", "07.12", "bad", 0,
+					0);
+
 			// flags the data insertion as done.
 			IS_INITIALIZED = true;
 		}
@@ -270,12 +275,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_harvest) {
-			Log.d(LOG_TAG, "Starting harvest aggregate info");
-			inte = new Intent(this, harvest_aggregate.class);
-			inte.putExtra("type", "yield");
+			inte = new Intent(this, ActionAggregateActivity.class);
+			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
+					RealFarmDatabase.ACTION_NAME_HARVEST_ID);
 			this.startActivity(inte);
-			this.finish();
-			return;
 		}
 
 		if (v.getId() == R.id.btn_action_sow) {

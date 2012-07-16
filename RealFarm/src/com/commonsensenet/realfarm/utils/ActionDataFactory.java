@@ -13,6 +13,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.view.AggregateItemWrapper;
+import com.commonsensenet.realfarm.view.HarvestAggregateItemWrapper;
 import com.commonsensenet.realfarm.view.IrrigateAggregateItemWrapper;
 import com.commonsensenet.realfarm.view.ProblemAggregateItemWrapper;
 import com.commonsensenet.realfarm.view.SowAggregateItemWrapper;
@@ -44,6 +45,10 @@ public final class ActionDataFactory {
 							aggregateItem
 									.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATEMETHOD));
 		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
+			return dataProvider.getUserAggregateItem(aggregateItem
+					.getActionNameId(), aggregateItem
+					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
+		case RealFarmDatabase.ACTION_NAME_HARVEST_ID:
 			return dataProvider.getUserAggregateItem(aggregateItem
 					.getActionNameId(), aggregateItem
 					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
@@ -80,6 +85,8 @@ public final class ActionDataFactory {
 			return new IrrigateAggregateItemWrapper(row);
 		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
 			return new ProblemAggregateItemWrapper(row);
+		case RealFarmDatabase.ACTION_NAME_HARVEST_ID:
+			return new HarvestAggregateItemWrapper(row);
 		default:
 			return null;
 		}

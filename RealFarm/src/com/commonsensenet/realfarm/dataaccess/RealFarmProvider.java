@@ -1383,8 +1383,8 @@ public class RealFarmProvider {
 	}
 
 	// day takes the date
-	public long setHarvest(int userId, long plotId, int qua1, int qua2,
-			String Units, String day, String harvfeedback, int sent, int admin) {
+	public long setHarvest(long plotId, int qua1, String Units, String day,
+			String harvfeedback, int sent, int admin) {
 
 		System.out.println("SET harvest");
 		ContentValues args = new ContentValues();
@@ -1392,7 +1392,6 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 				RealFarmDatabase.ACTION_NAME_HARVEST_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,

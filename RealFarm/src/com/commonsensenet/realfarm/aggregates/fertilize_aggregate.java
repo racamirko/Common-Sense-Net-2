@@ -432,13 +432,6 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 			this.finish();
 		}
 
-		if (aggr_action_no == 6) {
-			Intent inte = new Intent(mParentReference, harvest_aggregate.class);
-			inte.putExtra("type", "yield");
-			this.startActivity(inte);
-			this.finish();
-		}
-
 		if (aggr_action_no == 7) {
 			Intent inte = new Intent(mParentReference, selling_aggregate.class);
 			inte.putExtra("type", "yield");
