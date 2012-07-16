@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
@@ -47,14 +48,6 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	/** Reference to the current instance. */
 	private final ActionAggregateActivity mParentReference = this;
 
-	protected void cancelAudio() {
-
-		Intent adminintent = new Intent(ActionAggregateActivity.this,
-				Homescreen.class);
-
-		startActivity(adminintent);
-	}
-
 	public void onBackPressed() {
 
 		// stops all active audio.
@@ -80,9 +73,11 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		// extracts the passed parameters
 		Bundle extras = getIntent().getExtras();
-		if (extras != null && extras.containsKey("actionName")) {
+		if (extras != null
+				&& extras.containsKey(RealFarmDatabase.TABLE_NAME_ACTIONNAME)) {
 			// gets the action name id
-			mActiveActionNameId = extras.getInt("actionName");
+			mActiveActionNameId = extras
+					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONNAME);
 
 		}
 
@@ -124,15 +119,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		Button back = (Button) findViewById(R.id.button_back);
 		back.setOnLongClickListener(this);
-
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				cancelAudio();
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "back");
-
+				onBackPressed();
 			}
 		});
 
@@ -365,6 +354,23 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				.setImageDrawable(selectedItemView.getTypeImage().getDrawable());
 		((TextView) layout.findViewById(R.id.label_dialog_aggregate_type))
 				.setText(selectedItemView.getTypeText().getText());
+
+		// gets the detail container
+		View detailCount = selectedItemView.getRow().findViewById(
+				R.id.button_aggregate_detail);
+
+		if (detailCount != null && detailCount.getVisibility() == View.VISIBLE) {
+			// gets the TextView that contains the value.
+			detailCount = selectedItemView.getRow().findViewById(
+					R.id.label_aggregate_detail_count);
+			((TextView) layout
+					.findViewById(R.id.label_dialog_aggregate_detail_count))
+					.setText(((TextView) detailCount).getText());
+		} else { // hides the element.
+			layout.findViewById(R.id.button_dialog_aggregate_detail)
+					.setVisibility(View.INVISIBLE);
+
+		}
 
 		// gets the data and data adapter.
 		List<UserAggregateItem> list = ActionDataFactory.getUserAggregateData(

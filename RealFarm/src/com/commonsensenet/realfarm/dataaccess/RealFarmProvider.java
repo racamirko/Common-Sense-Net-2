@@ -176,13 +176,13 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
+						RealFarmDatabase.COLUMN_NAME_ACTION_FERTILIZERTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDQUALITY,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
@@ -286,13 +286,13 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
+						RealFarmDatabase.COLUMN_NAME_ACTION_FERTILIZERTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDQUALITY,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
@@ -328,36 +328,6 @@ public class RealFarmProvider {
 		return mDatabase;
 	}
 
-	public Cursor getFertilizer() {
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.getAllEntries(
-				RealFarmDatabase.TABLE_NAME_FERTILIZER, new String[] {
-						RealFarmDatabase.COLUMN_NAME_FERTILIZER_ID,
-						RealFarmDatabase.COLUMN_NAME_FERTILIZER_NAME,
-						RealFarmDatabase.COLUMN_NAME_FERTILIZER_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_FERTILIZER_UNITID });
-
-		// user exists in database
-		if (c.moveToFirst()) {
-			do {
-				// adds the users into the list.
-				String log = "ID: " + c.getInt(0) + " ,NAME: " + c.getString(1)
-						+ " AUDIO: " + c.getInt(2) + " UNITID: " + c.getInt(3)
-						+ "\r\n";
-				Log.d("fertilizer: ", log);
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		// c.close();
-		mDatabase.close();
-
-		return c;
-	}
-
 	public List<Fertilizing> getfertizing() {
 
 		mDatabase.open();
@@ -369,8 +339,8 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-						RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_FERTILIZERTYPE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
@@ -417,7 +387,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
@@ -467,12 +437,12 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD },
+						RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATEMETHOD },
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "="
 						+ irrigate, null, null, null, null);
 
@@ -542,35 +512,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return tmpList;
-	}
-
-	public Cursor getPesticides() {
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.getAllEntries(
-				RealFarmDatabase.TABLE_NAME_PESTICIDE, new String[] {
-						RealFarmDatabase.COLUMN_NAME_PESTICIDE_ID,
-						RealFarmDatabase.COLUMN_NAME_PESTICIDE_NAME,
-						RealFarmDatabase.COLUMN_NAME_PESTICIDE_AUDIO });
-
-		// user exists in database
-		if (c.moveToFirst()) {
-			do {
-				// adds the users into the list.
-
-				String log = "ID: " + c.getInt(0) + " ,NAME: " + c.getString(1)
-						+ " AUDIO: " + c.getInt(2) + "\r\n";
-				Log.d("pesticides: ", log);
-
-			} while (c.moveToNext());
-		}
-
-		// closes the DB and the cursor.
-		// c.close();
-		mDatabase.close();
-
-		return c;
 	}
 
 	public List<Plot> getPlotDelete(int delete) {
@@ -691,16 +632,29 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public List<AggregateItem> getAggregateItems(int actionNameId,
-			String groupField) {
-		final String MY_QUERY = "SELECT a.actionNameId, COUNT(p.userId) as users, a.%2$s FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId, a.%2$s ORDER BY a.%2$s ASC";
+	public List<AggregateItem> getAggregateItems(int actionNameId) {
+
+		final String QUERY;
+		switch (actionNameId) {
+		case RealFarmDatabase.ACTION_NAME_SOW_ID:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users, a.seedTypeId, SUM(case when a.treatment='treated' THEN 1 ELSE 0 END) AS treatment FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId, a.seedTypeId ORDER BY a.seedTypeId ASC";
+			break;
+		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users, a.irrigateMethod FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId, a.irrigateMethod ORDER BY a.irrigateMethod ASC";
+			break;
+		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users, a.problemType FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId, a.problemType ORDER BY a.problemType ASC";
+			break;
+		default:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId";
+			break;
+		}
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
 		mDatabase.open();
 
-		Cursor c = mDatabase.rawQuery(
-				String.format(MY_QUERY, actionNameId, groupField),
+		Cursor c = mDatabase.rawQuery(String.format(QUERY, actionNameId),
 				new String[] {});
 
 		AggregateItem a = null;
@@ -733,6 +687,9 @@ public class RealFarmProvider {
 			break;
 		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
 			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.irrigateMethod = '%2$s' ORDER BY a.date DESC";
+			break;
+		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
+			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.problemType = '%2$s' ORDER BY a.date DESC";
 			break;
 		default:
 			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.seedTypeId = %2$s ORDER BY a.date DESC";
@@ -889,16 +846,19 @@ public class RealFarmProvider {
 
 		SeedType res = null;
 		mDatabase.open();
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG },
-				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
-				null, null, null);
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_SEEDTYPE,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
+								RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
+								RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
+								RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
+								RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
+								RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
+								RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCEBACKGROUND },
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId,
+						null, null, null, null);
 
 		if (c.moveToFirst()) {
 			res = new SeedType(seedId, c.getString(0), c.getString(1),
@@ -930,7 +890,7 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
-									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG });
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCEBACKGROUND });
 
 			if (c.moveToFirst()) {
 				do {
@@ -963,10 +923,10 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDQUALITY,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
@@ -1015,7 +975,7 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
@@ -1317,13 +1277,13 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, Seedvariety);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, quantity2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotid);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER, TypeFert);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_FERTILIZERTYPE, TypeFert);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE, Prob);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK, feedback);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE, sp);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED, QuaSeed);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDQUALITY, QuaSeed);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE, type);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, isAdmin);
@@ -1402,9 +1362,9 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 				RealFarmDatabase.ACTION_NAME_FERTILIZE_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_FERTILIZERTYPE,
 				typeOfFertilizer);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
@@ -1433,7 +1393,7 @@ public class RealFarmProvider {
 				RealFarmDatabase.ACTION_NAME_HARVEST_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
 				harvfeedback);
@@ -1463,12 +1423,12 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 				RealFarmDatabase.ACTION_NAME_IRRIGATE_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD, method);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATEMETHOD, method);
 
 		long result;
 
@@ -1556,10 +1516,10 @@ public class RealFarmProvider {
 				RealFarmDatabase.ACTION_NAME_SELL_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE, sellingprice);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED, QuaOfSeed);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDQUALITY, QuaOfSeed);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE, selltype);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
@@ -1587,7 +1547,7 @@ public class RealFarmProvider {
 				RealFarmDatabase.ACTION_NAME_SOW_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, seedTypeId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
@@ -1616,7 +1576,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 				RealFarmDatabase.ACTION_NAME_SPRAY_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE, probtype);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);

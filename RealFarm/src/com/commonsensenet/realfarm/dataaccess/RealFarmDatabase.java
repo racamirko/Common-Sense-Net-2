@@ -65,20 +65,20 @@ public class RealFarmDatabase {
 					+ " references seedType(id), "
 					+ COLUMN_NAME_ACTION_QUANTITY1 + " integer, "
 					+ COLUMN_NAME_ACTION_QUANTITY2 + " integer, "
-					+ COLUMN_NAME_ACTION_UNITS + " text, "
+					+ COLUMN_NAME_ACTION_UNIT + " text, "
 					+ COLUMN_NAME_ACTION_PLOTID + " references plot(id), "
-					+ COLUMN_NAME_ACTION_TYPEOFFERTILIZER + " text, "
+					+ COLUMN_NAME_ACTION_FERTILIZERTYPE + " text, "
 					+ COLUMN_NAME_ACTION_PROBLEMTYPE + " text, "
 					+ COLUMN_NAME_ACTION_HARVESTFEEDBACK + " text, "
 					+ COLUMN_NAME_ACTION_SELLINGPRICE + " integer, "
-					+ COLUMN_NAME_ACTION_QUALITYOFSEED + " text, "
+					+ COLUMN_NAME_ACTION_SEEDQUALITY + " text, "
 					+ COLUMN_NAME_ACTION_SELLTYPE + " text, "
 					+ COLUMN_NAME_ACTION_SENT + " integer, "
 					+ COLUMN_NAME_ACTION_ISADMIN + " integer, "
 					+ COLUMN_NAME_ACTION_DATE + " text, "
 					+ COLUMN_NAME_ACTION_TREATMENT + " text, "
 					+ COLUMN_NAME_ACTION_PESTICIDETYPE + " text, "
-					+ COLUMN_NAME_ACTION_IRRIGATE_METHOD + " text, "
+					+ COLUMN_NAME_ACTION_IRRIGATEMETHOD + " text, "
 					+ COLUMN_NAME_ACTION_TIMESTAMP + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created action table");
 
@@ -93,20 +93,16 @@ public class RealFarmDatabase {
 			Log.d(LOG_TAG, "Created actionName table");
 
 			// fertilizers
-			db.execSQL("create table " + TABLE_NAME_FERTILIZER + " ( "
-					+ COLUMN_NAME_FERTILIZER_ID + " integer primary key, "
-					+ COLUMN_NAME_FERTILIZER_NAME + " text, "
-					+ COLUMN_NAME_FERTILIZER_AUDIO + " integer, "
-					+ COLUMN_NAME_FERTILIZER_UNITID + " references unit(id) "
+			db.execSQL("create table " + TABLE_NAME_RESOURCE + " ( "
+					+ COLUMN_NAME_RESOURCE_ID
+					+ " integer primary key autoincrement, "
+					+ COLUMN_NAME_RESOURCE_RESOURCE + " integer, "
+					+ COLUMN_NAME_RESOURCE_AUDIO + " integer, "
+					+ COLUMN_NAME_RESOURCE_TYPE + " text not null, "
+					+ COLUMN_NAME_RESOURCE_NAME + " text not null, "
+					+ COLUMN_NAME_RESOURCE_NAMEKANNADA + " text not null "
 					+ " ); ");
-			Log.d(LOG_TAG, "Created fertilizer table");
-
-			// pesticides
-			db.execSQL("create table " + TABLE_NAME_PESTICIDE + " ( "
-					+ COLUMN_NAME_PESTICIDE_ID + " integer primary key, "
-					+ COLUMN_NAME_PESTICIDE_NAME + " text, "
-					+ COLUMN_NAME_PESTICIDE_AUDIO + " integer " + " ); ");
-			Log.d(LOG_TAG, "Created pesticide table");
+			Log.d(LOG_TAG, "Created resource table");
 
 			// plots
 			db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
@@ -121,34 +117,13 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_PLOT_TIMESTAMP + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
 
-			// problem type
-			db.execSQL("create table " + TABLE_NAME_PROBLEMTYPE + " ( "
-					+ COLUMN_NAME_PROBLEMTYPE_ID + " integer primary key, "
-					+ COLUMN_NAME_PROBLEMTYPE_NAME + " text, "
-					+ COLUMN_NAME_PROBLEMTYPE_AUDIO + " integer, "
-					+ COLUMN_NAME_PROBLEMTYPE_RESOURCE + " integer, "
-					+ COLUMN_NAME_PROBLEMTYPE_ADMINFLAG + " boolean " + " ); ");
-			Log.d(LOG_TAG, "Created problem table");
-
-			// problems
-			db.execSQL("create table " + TABLE_NAME_PROBLEM + " ( "
-					+ COLUMN_NAME_PROBLEM_ID
-					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_PROBLEM_NAME + " text, "
-					+ COLUMN_NAME_PROBLEM_AUDIO + " integer, "
-					+ COLUMN_NAME_PROBLEM_RESOURCE + " integer, "
-					+ COLUMN_NAME_PROBLEM_PROBLEMTYPEID
-					+ " references problemType(id), "
-					+ COLUMN_NAME_PROBLEM_ADMINFLAG + " boolean " + " ); ");
-			Log.d(LOG_TAG, "Created problem table");
-
 			// seedTypes
 			db.execSQL("create table " + TABLE_NAME_SEEDTYPE + " ( "
 					+ COLUMN_NAME_SEEDTYPE_ID + " integer primary key, "
 					+ COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
 					+ COLUMN_NAME_SEEDTYPE_NAMEKANNADA + " text, "
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
-					+ COLUMN_NAME_SEEDTYPE_RESOURCE_BG + " integer, "
+					+ COLUMN_NAME_SEEDTYPE_RESOURCEBACKGROUND + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_AUDIO + " integer, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETY + " text, "
 					+ COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text" + " ); ");
@@ -217,27 +192,35 @@ public class RealFarmDatabase {
 		}
 	}
 
+	public static final int ACTION_NAME_FERTILIZE_ID = 2;
+	public static final int ACTION_NAME_HARVEST_ID = 5;
+	public static final int ACTION_NAME_IRRIGATE_ID = 3;
+	public static final int ACTION_NAME_REPORT_ID = 7;
+	public static final int ACTION_NAME_SELL_ID = 6;
+	public static final int ACTION_NAME_SOW_ID = 1;
+	public static final int ACTION_NAME_SPRAY_ID = 4;
+
+	public static final String COLUMN_NAME_ACTION_ACTIONNAMEID = "actionNameId";
+	public static final String COLUMN_NAME_ACTION_DATE = "date";
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTION_SENT = "isSent";
-	public static final String COLUMN_NAME_ACTION_TIMESTAMP = "timestamp";
+	public static final String COLUMN_NAME_ACTION_ISADMIN = "isAdmin";
 	public static final String COLUMN_NAME_ACTION_PLOTID = "plotId";
-	public static final String COLUMN_NAME_ACTION_ACTIONNAMEID = "actionNameId";
-	public static final String COLUMN_NAME_ACTION_ISADMIN = "IsAdmin";
+	public static final String COLUMN_NAME_ACTION_TIMESTAMP = "timestamp";
 
-	public static final String COLUMN_NAME_ACTION_DATE = "date";
-	public static final String COLUMN_NAME_ACTION_HARVESTFEEDBACK = "feedback";
-	public static final String COLUMN_NAME_ACTION_IRRIGATE_METHOD = "irrigateMethod";
+	public static final String COLUMN_NAME_ACTION_HARVESTFEEDBACK = "harvestFeedback";
+	public static final String COLUMN_NAME_ACTION_IRRIGATEMETHOD = "irrigateMethod";
 	public static final String COLUMN_NAME_ACTION_PESTICIDETYPE = "pesticidetype";
-	public static final String COLUMN_NAME_ACTION_PROBLEMTYPE = "problems";
-	public static final String COLUMN_NAME_ACTION_QUALITYOFSEED = "qualityofSeed";
+	public static final String COLUMN_NAME_ACTION_PROBLEMTYPE = "problemType";
+	public static final String COLUMN_NAME_ACTION_SEEDQUALITY = "seedQuality";
 	public static final String COLUMN_NAME_ACTION_QUANTITY1 = "quantity1";
 	public static final String COLUMN_NAME_ACTION_QUANTITY2 = "quantity2";
 	public static final String COLUMN_NAME_ACTION_SEEDTYPEID = "seedTypeId";
 	public static final String COLUMN_NAME_ACTION_SELLINGPRICE = "sellingPrice";
 	public static final String COLUMN_NAME_ACTION_SELLTYPE = "selltype";
 	public static final String COLUMN_NAME_ACTION_TREATMENT = "treatment";
-	public static final String COLUMN_NAME_ACTION_TYPEOFFERTILIZER = "typeOfFertilizer";
-	public static final String COLUMN_NAME_ACTION_UNITS = "units";
+	public static final String COLUMN_NAME_ACTION_FERTILIZERTYPE = "fertilizerType";
+	public static final String COLUMN_NAME_ACTION_UNIT = "unit";
 
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
@@ -245,20 +228,11 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONNAME_NAMEKANNADA = "nameKannada";
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
 
-	public static final String COLUMN_NAME_FERTILIZER_AUDIO = "audio";
-	public static final String COLUMN_NAME_FERTILIZER_ID = "id";
-	public static final String COLUMN_NAME_FERTILIZER_NAME = "name";
-	public static final String COLUMN_NAME_FERTILIZER_UNITID = "unitId";
-
 	public static final String COLUMN_NAME_MARKETPRICE_ADMINFLAG = "adminFlag";
 	public static final String COLUMN_NAME_MARKETPRICE_DATE = "date";
 	public static final String COLUMN_NAME_MARKETPRICE_ID = "id";
 	public static final String COLUMN_NAME_MARKETPRICE_TYPE = "type";
 	public static final String COLUMN_NAME_MARKETPRICE_VALUE = "value";
-
-	public static final String COLUMN_NAME_PESTICIDE_AUDIO = "audio";
-	public static final String COLUMN_NAME_PESTICIDE_ID = "id";
-	public static final String COLUMN_NAME_PESTICIDE_NAME = "name";
 
 	public static final String COLUMN_NAME_PLOT_ADMINFLAG = "adminFlag";
 	public static final String COLUMN_NAME_PLOT_DELETEFLAG = "deleteFlag";
@@ -269,25 +243,20 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 
-	public static final String COLUMN_NAME_PROBLEM_ADMINFLAG = "adminFlag";
-	public static final String COLUMN_NAME_PROBLEM_AUDIO = "audio";
-	public static final String COLUMN_NAME_PROBLEM_ID = "id";
-	public static final String COLUMN_NAME_PROBLEM_NAME = "name";
-	public static final String COLUMN_NAME_PROBLEM_PROBLEMTYPEID = "masterId";
-	public static final String COLUMN_NAME_PROBLEM_RESOURCE = "res";
-
-	public static final String COLUMN_NAME_PROBLEMTYPE_ADMINFLAG = "adminFlag";
-	public static final String COLUMN_NAME_PROBLEMTYPE_AUDIO = "audio";
-	public static final String COLUMN_NAME_PROBLEMTYPE_ID = "id";
-	public static final String COLUMN_NAME_PROBLEMTYPE_NAME = "name";
-	public static final String COLUMN_NAME_PROBLEMTYPE_RESOURCE = "res";
+	// orbolanos: types: problem, pesticide, fertilizer,
+	public static final String COLUMN_NAME_RESOURCE_AUDIO = "audio";
+	public static final String COLUMN_NAME_RESOURCE_ID = "id";
+	public static final String COLUMN_NAME_RESOURCE_NAME = "name";
+	public static final String COLUMN_NAME_RESOURCE_NAMEKANNADA = "nameKannada";
+	public static final String COLUMN_NAME_RESOURCE_RESOURCE = "res";
+	public static final String COLUMN_NAME_RESOURCE_TYPE = "type";
 
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_NAMEKANNADA = "nameKannada";
 	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE = "res";
-	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE_BG = "resBg";
+	public static final String COLUMN_NAME_SEEDTYPE_RESOURCEBACKGROUND = "resBackground";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETYKANNADA = "varietyKannada";
 
@@ -330,25 +299,28 @@ public class RealFarmDatabase {
 	public static final String LOG_TAG = "RealFarm";
 	/** Identifier of the current User. */
 	public static int MAIN_USER_ID = -1;
-
 	public static final String TABLE_NAME_ACTION = "action"; // ok
 	public static final String TABLE_NAME_ACTIONNAME = "actionName"; // ok
-	public static final String TABLE_NAME_FERTILIZER = "fertilizer";
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice"; // ok
-	public static final String TABLE_NAME_PESTICIDE = "pesticide";
+
 	public static final String TABLE_NAME_PLOT = "plot"; // ok
-	public static final String TABLE_NAME_PROBLEM = "problem";
-	public static final String TABLE_NAME_PROBLEMTYPE = "problemType";
+	public static final String TABLE_NAME_RESOURCE = "resource";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType"; // ok
+
 	public static final String TABLE_NAME_SOILMOISTURE = "soilMoisture"; // ok
+
 	public static final String TABLE_NAME_UNIT = "unit"; // ok
+
 	public static final String TABLE_NAME_USER = "user"; // ok
+
 	public static final String TABLE_NAME_WEATHERFORECAST = "weatherForecast"; // ok
 
 	/** Application context. */
 	private Context mContext;
+
 	/** Database where the statements are performed. */
 	private SQLiteDatabase mDb;
+
 	/** Helper used to access the database. */
 	private RealFarmDatabaseOpenHelper mOpenHelper;
 
@@ -367,10 +339,7 @@ public class RealFarmDatabase {
 		// Delete current elements in table
 		mDb.delete(TABLE_NAME_ACTIONNAME, null, null);
 		mDb.delete(TABLE_NAME_ACTION, null, null);
-		mDb.delete(TABLE_NAME_FERTILIZER, null, null);
-		mDb.delete(TABLE_NAME_PESTICIDE, null, null);
-		mDb.delete(TABLE_NAME_PROBLEM, null, null);
-		mDb.delete(TABLE_NAME_PROBLEMTYPE, null, null);
+		mDb.delete(TABLE_NAME_RESOURCE, null, null);
 		mDb.delete(TABLE_NAME_PLOT, null, null);
 		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
 		mDb.delete(TABLE_NAME_UNIT, null, null);
@@ -441,14 +410,6 @@ public class RealFarmDatabase {
 		return mDb.query(tableName, columns, selection, selectionArgs, groupBy,
 				having, orderBy);
 	}
-
-	public static final int ACTION_NAME_SOW_ID = 1;
-	public static final int ACTION_NAME_FERTILIZE_ID = 2;
-	public static final int ACTION_NAME_IRRIGATE_ID = 3;
-	public static final int ACTION_NAME_SPRAY_ID = 4;
-	public static final int ACTION_NAME_HARVEST_ID = 5;
-	public static final int ACTION_NAME_SELL_ID = 6;
-	public static final int ACTION_NAME_REPORT_ID = 4;
 
 	/**
 	 * Defines hard-coded initial values for database. All base tables and user
@@ -634,7 +595,7 @@ public class RealFarmDatabase {
 					(String) seedData[x][3]);
 			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
 					(Integer) seedData[x][4]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
+			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCEBACKGROUND,
 					(Integer) seedData[x][5]);
 			seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, (Integer) seedData[x][6]);
 			insertEntriesIntoDatabase(TABLE_NAME_SEEDTYPE, seedtype, db);
@@ -698,12 +659,12 @@ public class RealFarmDatabase {
 		}
 	}
 
+	protected Cursor rawQuery(String sql, String[] selectionArgs) {
+		return mDb.rawQuery(sql, selectionArgs);
+	}
+
 	public int update(String tableName, ContentValues args, String whereClause,
 			String[] whereArgs) {
 		return mDb.update(tableName, args, whereClause, whereArgs);
-	}
-
-	protected Cursor rawQuery(String sql, String[] selectionArgs) {
-		return mDb.rawQuery(sql, selectionArgs);
 	}
 }

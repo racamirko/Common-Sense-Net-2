@@ -1,7 +1,9 @@
 package com.commonsensenet.realfarm.view;
 
 import android.view.View;
+import android.widget.TextView;
 
+import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.SeedType;
@@ -20,6 +22,17 @@ public class SowAggregateItemWrapper extends AggregateItemWrapper {
 		super(row);
 	}
 
+	private TextView mTreatmentCount;
+
+	public TextView getTreatmentCount() {
+
+		if (mTreatmentCount == null) {
+			mTreatmentCount = (TextView) mRow
+					.findViewById(R.id.label_aggregate_detail_count);
+		}
+		return (mTreatmentCount);
+	}
+
 	public void populateFrom(AggregateItem aggregate, RealFarmProvider provider) {
 
 		SeedType seed = provider.getSeedById(Integer.valueOf(aggregate
@@ -31,5 +44,10 @@ public class SowAggregateItemWrapper extends AggregateItemWrapper {
 								.equals("")) ? seed.getVariety() : seed
 								.getName());
 		getTypeImage().setImageResource(seed.getResBg());
+
+		getTreatmentCount()
+				.setText(
+						aggregate
+								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT));
 	}
 }

@@ -72,9 +72,12 @@
         android:id="@+id/list_dialog_aggregate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/dialog_aggregate_back_bar"
         android:layout_below="@+id/dialog_aggregate_header_divider" >
     </ListView>
 
-    <include layout="@layout/layout_back_bar" />
+    <include
+        android:id="@+id/dialog_aggregate_back_bar"
+        layout="@layout/layout_back_bar" />
 
 </RelativeLayout>

@@ -14,9 +14,9 @@ import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
  * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
-public class IrrigateAggregateItemWrapper extends AggregateItemWrapper {
+public class ProblemAggregateItemWrapper extends AggregateItemWrapper {
 
-	public IrrigateAggregateItemWrapper(View row) {
+	public ProblemAggregateItemWrapper(View row) {
 		super(row);
 	}
 
@@ -26,7 +26,7 @@ public class IrrigateAggregateItemWrapper extends AggregateItemWrapper {
 		getTypeText()
 				.setText(
 						aggregate
-								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATEMETHOD));
+								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
 
 		// hides the aggregate detail
 		mRow.findViewById(R.id.button_aggregate_detail).setVisibility(
