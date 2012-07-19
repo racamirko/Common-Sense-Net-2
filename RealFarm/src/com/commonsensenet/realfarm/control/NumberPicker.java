@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.view.ViewGroup;
 
 public class NumberPicker extends LinearLayout {
 
@@ -29,11 +30,11 @@ public class NumberPicker extends LinearLayout {
 	}
 
 	private static final int ELEMENT_HEIGHT = 60;
-	private static final int ELEMENT_WIDTH = 40;
+	private static final int ELEMENT_WIDTH = 60;
 	private static final int MAXIMUM = 999;
 	private static final int MINIMUM = 0;
 	private static final long REPEAT_DELAY = 50;
-	private static final int TEXT_SIZE = 20;
+	private static final int TEXT_SIZE = 40;
 
 	private boolean mAutoDecrement;
 	private boolean mAutoIncrement;

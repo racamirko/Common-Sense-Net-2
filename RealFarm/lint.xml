@@ -1,9 +1,3 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
-    <issue id="ContentDescription">
-        <ignore path="res/layout/dialog_action.xml" />
-        <ignore path="res/layout/dialog_aggregate_details.xml" />
-        <ignore path="res/layout/dialog_variety.xml" />
-        <ignore path="res/layout/tpl_sowing_aggregate_item.xml" />
-    </issue>
 </lint>

@@ -418,6 +418,25 @@ public class selling_aggregate extends HelpEnabledActivityOld implements
 			this.finish();
 		}
 
+		if (aggr_action_no == 4) {
+			Intent inte = new Intent(mParentReference, problem_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
+		/*
+		 * if(aggr_action_no == 2) { Intent inte = new Intent(mParentReference,
+		 * spraying_aggregate.class); inte.putExtra("type", "yield");
+		 * this.startActivity(inte); this.finish(); }
+		 */
+		if (aggr_action_no == 6) {
+			Intent inte = new Intent(mParentReference, harvest_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+		}
+
 		if (aggr_action_no == 7) {
 			Intent inte = new Intent(mParentReference, selling_aggregate.class);
 			inte.putExtra("type", "yield");
@@ -429,23 +448,25 @@ public class selling_aggregate extends HelpEnabledActivityOld implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.aggr_sellprice_1) {
+		if (v.getId() == R.id.aggr_sellprice_1) { // audio integration
 			playAudioalways(R.raw.fertilizer1);
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.aggr_sellprice_2) {
+		if (v.getId() == R.id.aggr_sellprice_2) { // audio integration
 			playAudioalways(R.raw.fertilizer1);
+			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.txt_btn_sell_1) {
+		if (v.getId() == R.id.txt_btn_sell_1) { // audio integration
 			playAudioalways(R.raw.fertilizer1);
+			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.txt_btn_sell_2) {
 			playAudioalways(R.raw.fertilizer2);
-
+			ShowHelpIcon(v);
 		}
-		ShowHelpIcon(v);
 
 		return true;
 	}

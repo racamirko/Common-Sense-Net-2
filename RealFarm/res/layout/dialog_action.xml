@@ -1,160 +1,166 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:minWidth="230dp" >
+    android:layout_height="match_parent"
+    android:minWidth="230dp"
+    android:orientation="vertical" >
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
+        android:layout_height="wrap_content" >
 
-        <RelativeLayout
-            android:id="@+id/button_action_sow"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_btn_transp"
-            android:padding="@dimen/margin" >
+            android:layout_height="match_parent"
+            android:orientation="vertical" >
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_72px_sowing" />
-
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/button_action_sow"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:text="Sow"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
 
-        <RelativeLayout
-            android:id="@+id/button_action_fertilize"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_btn_transp"
-            android:padding="@dimen/margin" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_sowing" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_72px_fertilizing1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Sow"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/button_action_fertilize"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:text="Fertilize"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
 
-        <RelativeLayout
-            android:id="@+id/button_action_spray"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_btn_transp"
-            android:padding="@dimen/margin" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_fertilizing1" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_72px_spraying3" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Fertilize"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/button_action_spray"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:text="Spray"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
 
-        <RelativeLayout
-            android:id="@+id/button_action_report"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_btn_transp"
-            android:padding="@dimen/margin" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_spraying3" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_72px_reporting" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Spray"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/button_action_report"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:text="Problems"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
 
-        <RelativeLayout
-            android:id="@+id/button_action_irrigate"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_btn_transp"
-            android:padding="@dimen/margin" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_reporting" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_72px_irrigation1" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Problems"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/button_action_irrigate"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:text="Irrigate"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
 
-        <RelativeLayout
-            android:id="@+id/button_action_harvest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_btn_transp"
-            android:padding="@dimen/margin" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_irrigation1" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/ic_72px_harvesting2" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Irrigate"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/button_action_harvest"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:text="Harvest"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
 
-        <RelativeLayout
-            android:id="@+id/button_action_sell"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@drawable/square_btn_transp"
-            android:padding="@dimen/margin" >
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/ic_72px_harvesting2" />
 
-            <ImageView
-                android:layout_width="wrap_content"
-                android:layout_height="40dp"
-                android:src="@drawable/selling" />
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Harvest"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
+            <RelativeLayout
+                android:id="@+id/button_action_sell"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="62dp"
-                android:text="Sell"
-                android:textAppearance="?android:attr/textAppearanceMedium" />
-        </RelativeLayout>
-    </LinearLayout>
+                android:background="@drawable/square_btn_transp"
+                android:padding="@dimen/margin" >
 
-</ScrollView>
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="40dp"
+                    android:src="@drawable/selling" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
+                    android:text="Sell"
+                    android:textAppearance="?android:attr/textAppearanceMedium" />
+            </RelativeLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>

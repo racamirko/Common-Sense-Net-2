@@ -13,26 +13,34 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 	private final Context mContext = this;
+	public static final String LOG_TAG = "enter_size";
+	public static final String LOG_TAG2 = "add_plot_to_database";
 
 	private RealFarmProvider mDataProvider;
 	private String mMainCrop = "0";
 	private String mPlotImage = "0";
 	private int mSeedTypeId = 0;
 	private String mSoilType = "0";
+	private String mSize = "0";
 	private final My_settings_plot_details parentReference = this;
 
 	private void addPlotToDatabase() {
 
 		Global.plotId = mDataProvider.insertPlot(Global.userId, mSeedTypeId,
-				mPlotImage, mSoilType, 0, 0);
+				mPlotImage, mSoilType, 0, 0, Integer.parseInt(mSize));
 
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG2,"add plot to database");
+		
 		Toast.makeText(
 				getBaseContext(),
 				"Plot Details is put to Database " + mPlotImage + " "
@@ -66,10 +74,13 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		final Button plotImage; // 20-06-2012
 		final Button soilType;
 		final Button mainCrop;
+		final Button size;
 
 		plotImage = (Button) findViewById(R.id.image_plot_txt_btn); // 20-06-2012
 		soilType = (Button) findViewById(R.id.soiltype_plot_txt_btn);
 		mainCrop = (Button) findViewById(R.id.maincrop_plot_txt_btn);
+		size = (Button) findViewById(R.id.home_btn_units_no_harvest);
+
 
 		plotImage.setOnLongClickListener(this); // 20-06-2012
 		soilType.setOnLongClickListener(this);
@@ -115,6 +126,58 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		// PlotImage =(EditText) findViewById(R.id.plotimage);
 		// SoilType = (EditText)findViewById(R.id.soiltype);
 		// MainCrop = (EditText)findViewById(R.id.maincrop);
+		
+		size.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.numberentry_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the size");
+				dlg.show();
+				
+				// playAudio(R.raw.noofbags);
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "size");
+
+				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
+				Button no_cancel = (Button) dlg
+						.findViewById(R.id.number_cancel);
+
+				((Button) dlg.findViewById(R.id.number_ok))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.number_cancel))
+						.setOnLongClickListener(parentReference);
+
+				no_ok.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						TextView sizeTw = (TextView) findViewById(R.id.size_txt);
+
+						NumberPicker mynp1 = (NumberPicker) dlg.findViewById(R.id.numberpick);
+						mynp1.setIncrementValue(1); // TODO 0.1
+						mSize = String.valueOf(mynp1.getValue());
+						
+						if (mynp1.getValue() != 0) {
+							sizeTw.setText(mSize);
+						}
+
+						dlg.cancel();
+					}
+				});
+				no_cancel.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						dlg.cancel();
+
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "no_of_bags",
+								"cancel");
+					}
+				});
+
+			}
+		});
 
 		plotimage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -321,7 +384,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		plotok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				int flag1, flag2, flag3;
+				int flag1, flag2, flag3, flag4;
 				if (mPlotImage.toString().equalsIgnoreCase("0")) {
 					flag1 = 1;
 
@@ -371,8 +434,24 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
+				
+				if (mSize.toString().equalsIgnoreCase("0")) {
 
-				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
+					flag4 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.size_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+				} else {
+
+					flag4 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.size_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+
+				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
 
 					Intent adminintent = new Intent(
 							My_settings_plot_details.this, Homescreen.class);
@@ -554,6 +633,12 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		if (v.getId() == R.id.maincrop_plot_txt_btn) {
 
 			playAudio(R.raw.maincrop);
+			ShowHelpIcon(v);
+		}
+		
+		if (v.getId() == R.id.home_btn_units_no_harvest) {
+
+			// playAudio(R.raw.maincrop);
 			ShowHelpIcon(v);
 		}
 

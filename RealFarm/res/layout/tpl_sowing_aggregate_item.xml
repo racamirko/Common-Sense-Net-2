@@ -65,7 +65,6 @@
             android:id="@+id/icon_aggregate_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
             android:layout_margin="@dimen/margin"
             android:src="@drawable/treatment" />
 
@@ -73,11 +72,14 @@
             android:id="@+id/label_aggregate_detail_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:text="1"
+            android:layout_marginLeft="50dp"
+            android:text="0"
             android:textAppearance="?android:attr/textAppearanceLarge"
-            android:textColor="@android:color/white" />
+            android:textColor="#000000" />
+
     </RelativeLayout>
 
     <!--

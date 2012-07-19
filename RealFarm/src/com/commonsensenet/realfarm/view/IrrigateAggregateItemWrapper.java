@@ -26,7 +26,7 @@ public class IrrigateAggregateItemWrapper extends AggregateItemWrapper {
 		getTypeText()
 				.setText(
 						aggregate
-								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATEMETHOD));
+								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD));
 
 		// hides the aggregate detail
 		mRow.findViewById(R.id.button_aggregate_detail).setVisibility(

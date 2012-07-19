@@ -13,9 +13,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.view.AggregateItemWrapper;
-import com.commonsensenet.realfarm.view.HarvestAggregateItemWrapper;
 import com.commonsensenet.realfarm.view.IrrigateAggregateItemWrapper;
-import com.commonsensenet.realfarm.view.ProblemAggregateItemWrapper;
 import com.commonsensenet.realfarm.view.SowAggregateItemWrapper;
 
 /**
@@ -28,7 +26,17 @@ public final class ActionDataFactory {
 	public static List<AggregateItem> getAggregateData(int actionTypeId,
 			RealFarmProvider dataProvider) {
 
-		return dataProvider.getAggregateItems(actionTypeId);
+		switch (actionTypeId) {
+		case RealFarmDatabase.ACTION_NAME_SOW_ID:
+			return dataProvider.getAggregateItems(actionTypeId,
+					RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID);
+
+		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
+			return dataProvider.getAggregateItems(actionTypeId,
+					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
+		default:
+			return null;
+		}
 	}
 
 	public static List<UserAggregateItem> getUserAggregateData(
@@ -43,15 +51,7 @@ public final class ActionDataFactory {
 					.getUserAggregateItem(
 							aggregateItem.getActionNameId(),
 							aggregateItem
-									.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATEMETHOD));
-		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
-			return dataProvider.getUserAggregateItem(aggregateItem
-					.getActionNameId(), aggregateItem
-					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
-		case RealFarmDatabase.ACTION_NAME_HARVEST_ID:
-			return dataProvider.getUserAggregateItem(aggregateItem
-					.getActionNameId(), aggregateItem
-					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
+									.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD));
 		default:
 			return null;
 		}
@@ -83,10 +83,6 @@ public final class ActionDataFactory {
 			return new SowAggregateItemWrapper(row);
 		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
 			return new IrrigateAggregateItemWrapper(row);
-		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
-			return new ProblemAggregateItemWrapper(row);
-		case RealFarmDatabase.ACTION_NAME_HARVEST_ID:
-			return new HarvestAggregateItemWrapper(row);
 		default:
 			return null;
 		}

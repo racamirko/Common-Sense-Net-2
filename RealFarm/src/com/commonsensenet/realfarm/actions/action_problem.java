@@ -26,7 +26,7 @@ public class action_problem extends HelpEnabledActivityOld {
 	private Context context = this;
 	private RealFarmProvider mDataProvider;
 	private final action_problem parentReference = this;
-	private String prob_var_sel = "0", prob_day_sel, months_prob = "0",
+	private String prob_var_sel = "0", prob_crop_sel = "0", prob_day_sel, months_prob = "0",
 			prob_day_str;
 	private int prob_day_int;
 
@@ -75,10 +75,12 @@ public class action_problem extends HelpEnabledActivityOld {
 		// bg_date_problem.setImageResource(R.drawable.empty_not);
 
 		final Button item1;
+		final Button item4;
 
 		ImageButton home;
 		ImageButton help;
 		item1 = (Button) findViewById(R.id.home_btn_var_prob);
+		item4 = (Button) findViewById(R.id.home_btn_var_prob4);
 		final Button item2 = (Button) findViewById(R.id.home_btn_day_prob);
 		final Button item3 = (Button) findViewById(R.id.home_btn_month_prob);
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
@@ -87,16 +89,20 @@ public class action_problem extends HelpEnabledActivityOld {
 		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
+		item4.setOnLongClickListener(this);
 
 		help.setOnLongClickListener(this);
 
-		final Button problem;
-		final Button Date;
+		final TableRow problem;
+		final TableRow crop;
+		final TableRow Date;
 
-		problem = (Button) findViewById(R.id.variety_sow_txt_btn);
-		Date = (Button) findViewById(R.id.date_sow_txt_btn);
+		problem = (TableRow) findViewById(R.id.var_prob_tr);
+		crop = (TableRow) findViewById(R.id.var_prob_tr4);
+		Date = (TableRow) findViewById(R.id.day_prob_tr);
 
 		problem.setOnLongClickListener(this);
+		crop.setOnLongClickListener(this);
 		Date.setOnLongClickListener(this);
 
 		item1.setOnClickListener(new View.OnClickListener() {
@@ -180,10 +186,10 @@ public class action_problem extends HelpEnabledActivityOld {
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Date");
+				dlg.setTitle("Choose the day");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
-
+				
 				playAudio(R.raw.dateinfo);
 
 				// tracks the application usage.
@@ -198,12 +204,13 @@ public class action_problem extends HelpEnabledActivityOld {
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.number_cancel))
 						.setOnLongClickListener(parentReference);
-
+				
 				no_ok.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
 						NumberPicker mynp1 = (NumberPicker) dlg
 								.findViewById(R.id.numberpick);
+																		
 						prob_day_int = mynp1.getValue();
 						prob_day_str = String.valueOf(prob_day_int);
 						day_prob.setText(prob_day_str);
@@ -220,6 +227,7 @@ public class action_problem extends HelpEnabledActivityOld {
 						}
 
 						dlg.cancel();
+						
 					}
 				});
 				no_cancel.setOnClickListener(new View.OnClickListener() {
@@ -483,6 +491,80 @@ public class action_problem extends HelpEnabledActivityOld {
 			}
 
 		});
+		
+		item4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				Log.d("in variety sowing dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.prob_spraying_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Choose the Variety of seed sowed");
+				Log.d("in variety sowing dialog", "in dialog");
+				dlg.show();
+
+				final Button fert1;
+				final Button fert2;
+				final Button fert3;
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_var_prob4);
+				fert1 = (Button) dlg.findViewById(R.id.home_prob_spray_1);
+				fert2 = (Button) dlg.findViewById(R.id.home_prob_spray_2);
+				fert3 = (Button) dlg.findViewById(R.id.home_prob_spray_3);
+
+				((Button) dlg.findViewById(R.id.home_prob_spray_1))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_prob_spray_2))
+						.setOnLongClickListener(parentReference);
+				((Button) dlg.findViewById(R.id.home_prob_spray_3))
+						.setOnLongClickListener(parentReference);
+
+				fert1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+						// img_1.setMaxWidth(300);
+						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
+						var_text.setText("Problem 1");
+						prob_crop_sel = "Problem 1";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_type_problem.setImageResource(R.drawable.empty_not);
+						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
+						dlg.cancel();
+					}
+				});
+
+				fert2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
+						var_text.setText("Problem 2");
+						prob_crop_sel = "Problem 2";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_type_problem.setImageResource(R.drawable.empty_not);
+						dlg.cancel();
+					}
+				});
+
+				fert3.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 3 picked ", "in dialog");
+						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
+						var_text.setText("Problem 3");
+						prob_crop_sel = "Problem 3";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_type_problem.setImageResource(R.drawable.empty_not);
+						dlg.cancel();
+					}
+				});
+
+			}
+		});
 
 		Button btnNext = (Button) findViewById(R.id.prob_ok);
 		Button cancel = (Button) findViewById(R.id.prob_cancel);
@@ -502,7 +584,7 @@ public class action_problem extends HelpEnabledActivityOld {
 
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
-				int flag1;
+				int flag1, flag2, flag4;
 				if (prob_var_sel.toString().equalsIgnoreCase("0")) {
 					flag1 = 1;
 
@@ -520,24 +602,41 @@ public class action_problem extends HelpEnabledActivityOld {
 
 				if (months_prob.toString().equalsIgnoreCase("0")
 						|| prob_day_int == 0) {
+					flag2 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
+					flag2 = 0;
 
 					prob_day_sel = prob_day_int + "." + months_prob;
 					TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
+				
+				if (prob_crop_sel.toString().equalsIgnoreCase("0")) {
+					flag4 = 1;
 
-				if (flag1 == 0) {
+					TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr4);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+				} else {
+					flag4 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr4);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+
+				if (flag1 == 0 && flag2 == 0 && flag4 == 0) {
 
 					System.out.println("Problem writing");
 					mDataProvider.setProblem(Global.plotId, prob_day_sel,
-							prob_var_sel, 0, 0);
+							prob_var_sel, 0, 0, prob_crop_sel);
 
 					startActivity(new Intent(action_problem.this,
 							Homescreen.class));
@@ -564,10 +663,15 @@ public class action_problem extends HelpEnabledActivityOld {
 	}
 
 	@Override
-	public boolean onLongClick(View v) {
-
+	public boolean onLongClick(View v) { 
+		playAudioalways(R.raw.date);
 		if (v.getId() == R.id.home_btn_var_prob) {
 			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v);
+		}
+		
+		if (v.getId() == R.id.home_btn_var_prob4) {
+			// playAudioalways(R.raw.problems); // TODO: put the audio
 			ShowHelpIcon(v);
 		}
 
@@ -723,16 +827,22 @@ public class action_problem extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) {
+		if (v.getId() == R.id.var_prob_tr) {
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v);
+		}
+		
+		if (v.getId() == R.id.var_prob_tr4) {
 			playAudioalways(R.raw.problems);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.date_sow_txt_btn) {
+
+		if (v.getId() == R.id.day_prob_tr) {
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}
-
+		
 		return true;
 	}
 }

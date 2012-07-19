@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -33,6 +32,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 	private String day_sow_str;
 	private String months_sow = "0";
 	private String treatment_sow = "0";
+	private String cropType_sow = "0";
 	private String days_sel_sow = "0";
 	private String units_sow = "0";
 	private int seed_sow = 0;
@@ -93,6 +93,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 		final View item3;
 		final View item4;
 		final View item5;
+		final View item7;
 		View home;
 		View help;
 		item1 = findViewById(R.id.home_btn_var_sow);
@@ -100,6 +101,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 		item3 = findViewById(R.id.home_btn_day_sow);
 		item4 = findViewById(R.id.home_btn_treat_sow);
 		item5 = findViewById(R.id.home_btn_units_no_sow);
+		item7 = findViewById(R.id.home_btn_intercrop_sow);
 
 		final Button item6 = (Button) findViewById(R.id.home_btn_month_sow);
 		home = findViewById(R.id.aggr_img_home);
@@ -111,19 +113,20 @@ public class action_sowing extends HelpEnabledActivityOld {
 		item4.setOnLongClickListener(this);
 		item5.setOnLongClickListener(this);
 		item6.setOnLongClickListener(this);
+		item7.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final Button variety;
-		final Button Amount;
-		final Button Date;
-		final Button Treatment;
-		final Button Intercrop;
+		final TableRow variety;
+		final TableRow Amount;
+		final TableRow Date;
+		final TableRow Treatment;
+		final TableRow Intercrop;
 
-		variety = (Button) findViewById(R.id.variety_sow_txt_btn);
-		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
-		Date = (Button) findViewById(R.id.date_sow_txt_btn);
-		Treatment = (Button) findViewById(R.id.treat_sow_txt_btn);
-		Intercrop = (Button) findViewById(R.id.intercrop_sow_txt_btn);
+		variety = (TableRow) findViewById(R.id.seed_type_sow_tr);
+		Amount = (TableRow) findViewById(R.id.units_sow_tr);
+		Date = (TableRow) findViewById(R.id.day_sow_tr);
+		Treatment = (TableRow) findViewById(R.id.treatment_sow_tr);
+		Intercrop = (TableRow) findViewById(R.id.intercrop_sow_tr);
 
 		variety.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
@@ -378,7 +381,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Date");
+				dlg.setTitle("Choose the day");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
@@ -496,7 +499,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 		});
 
 		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_unit_no_sow);
-
+		
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -556,6 +559,83 @@ public class action_sowing extends HelpEnabledActivityOld {
 						// tracks the application usage.
 						ApplicationTracker.getInstance().logEvent(
 								EventType.CLICK, LOG_TAG, "bags", "cancel");
+					}
+				});
+
+			}
+		});
+
+		item7.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				Log.d("in intercrop sow dialog", "in dialog");
+				final Dialog dlg = new Dialog(v.getContext());
+				dlg.setContentView(R.layout.treat_sow_dialog);
+				dlg.setCancelable(true);
+				dlg.setTitle("Main crop or intercrop?");
+				Log.d("in intercrop sow dialog", "in dialog");
+				dlg.show();
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "intercrop");
+
+				final Button treat1;
+				final Button treat2;
+				final TextView mainC;
+				final TextView interC;
+
+				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_intercrop_sow);
+				treat1 = (Button) dlg.findViewById(R.id.home_treat_sow_1);
+				treat2 = (Button) dlg.findViewById(R.id.home_treat_sow_2);
+				mainC = (TextView) dlg.findViewById(R.id.dlg_lbl_details);
+				interC = (TextView) dlg.findViewById(R.id.dlg_lbl_details2);
+				
+				mainC.setText("Main crop");
+				interC.setText("Intercrop");
+
+				dlg.findViewById(R.id.home_treat_sow_1).setOnLongClickListener(
+						parentReference);
+				dlg.findViewById(R.id.home_treat_sow_2).setOnLongClickListener(
+						parentReference);
+
+				treat1.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 1 picked ", "in dialog");
+
+						var_text.setText("Main crop");
+						cropType_sow = "main crop";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_treatment_sow.setImageResource(R.drawable.empty_not);
+
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "intercrop",
+								cropType_sow);
+
+						dlg.cancel();
+					}
+				});
+
+				treat2.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						Log.d("var 2 picked ", "in dialog");
+
+						var_text.setText("Intercrop");
+						cropType_sow = "intercrop";
+						TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+
+						tr_feedback.setBackgroundResource(R.drawable.def_img);
+						bg_treatment_sow.setImageResource(R.drawable.empty_not);
+
+						// tracks the application usage.
+						ApplicationTracker.getInstance().logEvent(
+								EventType.CLICK, LOG_TAG, "intercrop",
+								cropType_sow);
+
+						dlg.cancel();
 					}
 				});
 
@@ -811,24 +891,6 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 		});
 
-		final CheckBox intercrop = (CheckBox) findViewById(R.id.chkintercrop);
-
-		intercrop.setOnLongClickListener(this); // audio integration
-
-		intercrop.setOnClickListener(new OnClickListener() {
-
-			public void onClick(View v) {
-				// is chkIos checked?
-				if (((CheckBox) v).isChecked()) {
-
-					// tracks the application usage.
-					ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-							LOG_TAG, "intercrop");
-				}
-
-			}
-		});
-
 		Button btnNext = (Button) findViewById(R.id.sow_ok);
 		Button cancel = (Button) findViewById(R.id.sow_cancel);
 
@@ -854,7 +916,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 				// Toast.makeText(action_sowing.this, "User enetred " +
 				// sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
-				int flag1, flag2, flag3, flag4;
+				int flag1, flag2, flag3, flag4, flag5;
 				if (seed_sow == 0) {
 					flag1 = 1;
 
@@ -934,11 +996,31 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 				}
+				
+				if (cropType_sow.toString().equalsIgnoreCase("0")) {
 
-				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
+					flag5 = 1;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.intercrop_sow_tr);
+					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "intercrop");
+
+				} else {
+
+					flag5 = 0;
+
+					TableRow tr_feedback = (TableRow) findViewById(R.id.intercrop_sow_tr);
+
+					tr_feedback.setBackgroundResource(R.drawable.def_img);
+				}
+
+				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0 && flag5 == 0) {
 					System.out.println("sowing writing");
 					mDataProvider.setSowing(Global.plotId, sow_no, seed_sow,
-							units_sow, days_sel_sow, treatment_sow, 0, 0);
+							units_sow, days_sel_sow, treatment_sow, 0, 0, cropType_sow);
 
 					Intent adminintent = new Intent(action_sowing.this,
 							Homescreen.class);
@@ -1137,17 +1219,12 @@ public class action_sowing extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.chkintercrop) {
-			playAudioalways(R.raw.yieldinfo);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.variety_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.seed_type_sow_tr) { // 20-06-2012
 			playAudioalways(R.raw.variety);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.units_sow_tr) { // 20-06-2012
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
 		}
@@ -1157,11 +1234,12 @@ public class action_sowing extends HelpEnabledActivityOld {
 		 * playAudio(R.raw.pesticidename); ShowHelpIcon(v); }
 		 */
 
-		if (v.getId() == R.id.treat_sow_txt_btn) { // 20-06-2012
+		if (v.getId() == R.id.treatment_sow_tr) { // 20-06-2012
 			playAudioalways(R.raw.treatment);
 			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.intercrop_sow_txt_btn) { // 20-06-2012
+		
+		if (v.getId() == R.id.intercrop_sow_tr || v.getId() == R.id.home_btn_intercrop_sow) { // 20-06-2012 + added
 			playAudioalways(R.raw.intercrop);
 			ShowHelpIcon(v);
 		}
@@ -1258,7 +1336,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 			ShowHelpIcon(v); // added for help icon
 		}
 
-		if (v.getId() == R.id.date_sow_txt_btn) { // added
+		if (v.getId() == R.id.day_sow_tr) { // added
 
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v); // added for help icon

@@ -71,7 +71,6 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
-
 		SoundQueue sq = SoundQueue.getInstance();
 		// stops any sound that could be playing.
 		sq.stop();

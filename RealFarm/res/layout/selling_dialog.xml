@@ -25,16 +25,9 @@
             android:background="@drawable/circular_btn_normal"
             android:src="@drawable/ic_sell" />
 
-        <ImageView
-            android:id="@+id/aggr_img_icon"
-            android:layout_width="60dip"
-            android:layout_height="match_parent"
-            android:layout_margin="5dp"
-            android:src="@drawable/plot" />
-
         <Button
             android:id="@+id/button123"
-            android:layout_width="95dip"
+            android:layout_width="160dip"
             android:layout_height="wrap_content"
             android:text="Button"
             android:visibility="invisible" />
@@ -78,25 +71,26 @@
 
                 <TextView
                     android:id="@+id/variety_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
+                    android:layout_centerInParent="true"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="Crop"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+                <!-- <Button
                     android:id="@+id/crop_sell_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" /> -->
             </RelativeLayout>
 
             <RelativeLayout
@@ -106,7 +100,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/variety_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="60dp"
@@ -120,25 +114,28 @@
 
            <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="60dp"
-                android:layout_margin="5dip"
+                android:layout_marginRight="10dip"
+                android:layout_marginLeft="5dp"
                 android:gravity="right" >
 
                 <ImageView
                     android:id="@+id/img_bg_crop_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_crop_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="3dp"
+                    android:layout_centerInParent="true"
+                    android:layout_marginLeft="0dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="Crop"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
@@ -165,9 +162,8 @@
         <TableRow
             android:id="@+id/date_sell_tr"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@drawable/def_img"
-         
              >
 
             <RelativeLayout
@@ -179,25 +175,26 @@
 
                 <TextView
                     android:id="@+id/amount_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="Date"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+               <!--  <Button
                     android:id="@+id/amount_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" /> -->
             </RelativeLayout>
 
             <RelativeLayout
@@ -207,7 +204,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/amount_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="60dp"
@@ -225,19 +222,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="5dp"
                 android:layout_weight="0.09" >
 
                 <ImageView
                     android:id="@+id/img_bg_date_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_date_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
+                    android:layout_centerInParent="true"
                     android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
@@ -270,13 +270,15 @@
                 <ImageView
                     android:id="@+id/img_bg_month_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_month_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
                     android:paddingLeft="10dp"
@@ -307,7 +309,7 @@
         <TableRow
             android:id="@+id/quant_sell_tr"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@drawable/def_img"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
@@ -321,25 +323,25 @@
 
                 <TextView
                     android:id="@+id/amount_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="Quantity"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+               <!--  <Button
                     android:id="@+id/quantity_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" />-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -349,7 +351,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/amount_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="60dp"
@@ -358,7 +360,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/amount" />
+                    android:src="@drawable/ic_bagssold" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -367,18 +369,22 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="0.09" >
+
 
                 <ImageView
                     android:id="@+id/img_bg_units_no_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
@@ -412,14 +418,16 @@
                 <ImageView
                     android:id="@+id/img_bg_units_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:paddingBottom="5dip"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dip"
@@ -448,7 +456,7 @@
         <TableRow
             android:id="@+id/price_sell_tr"
             android:layout_width="fill_parent"
-            android:layout_height="70dp"
+            android:layout_height="60dp"
             android:background="@drawable/def_img"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
@@ -462,24 +470,25 @@
 
                 <TextView
                     android:id="@+id/treat_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_alignRight="@+id/treat_sow_txt_btn"
+                    android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
                     android:layout_weight="1"
-                    android:text=" Price/ quintal"
+                    android:text=" Price/qt"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+                <!-- <Button
                     android:id="@+id/treat_sow_txt_btn"
                     android:layout_width="80dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" />-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -489,7 +498,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/treat_sow_img_btn"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
@@ -503,25 +512,26 @@
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
+                android:layout_width="fill_parent"
                 android:layout_height="60dp"
-                android:layout_margin="5dip"
+                android:layout_marginRight="10dip"
                 android:gravity="right" >
 
                 <ImageView
                     android:id="@+id/img_bg_price_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerVertical="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_price_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginLeft="3dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="Price"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
@@ -531,7 +541,6 @@
                     android:layout_width="120dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
                     android:background="@drawable/square_btn_transp" />
             </RelativeLayout>
@@ -555,8 +564,9 @@
 
                 <TextView
                     android:id="@+id/amount_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="5dp"
@@ -566,14 +576,14 @@
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+               <!-- <Button
                     android:id="@+id/remain_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" />-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -583,7 +593,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/amount_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="50dp"
@@ -591,7 +601,7 @@
                     android:layout_alignParentTop="true"
                     android:background="@drawable/square_btn_transp"
                     android:gravity="center"
-                    android:src="@drawable/amount" />
+                    android:src="@drawable/ic_remainingbags" />
 
             </RelativeLayout>
 
@@ -601,18 +611,21 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="5dp"
                 android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
                 android:layout_weight="0.09" >
 
                 <ImageView
                     android:id="@+id/img_bg_units_no_rem_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_rem_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
@@ -646,13 +659,15 @@
                 <ImageView
                     android:id="@+id/img_bg_units_rem_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_rem_sell"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
                     android:paddingLeft="10dp"

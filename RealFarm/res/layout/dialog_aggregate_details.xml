@@ -53,11 +53,14 @@
                 android:id="@+id/label_dialog_aggregate_detail_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
-                android:text="1"
+                android:layout_marginLeft="50dp"
+                android:text="0"
                 android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white" />
+                android:textColor="@android:color/black" />
+
         </RelativeLayout>
     </RelativeLayout>
 
@@ -72,12 +75,9 @@
         android:id="@+id/list_dialog_aggregate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/dialog_aggregate_back_bar"
         android:layout_below="@+id/dialog_aggregate_header_divider" >
     </ListView>
 
-    <include
-        android:id="@+id/dialog_aggregate_back_bar"
-        layout="@layout/layout_back_bar" />
+    <include layout="@layout/layout_back_bar" />
 
 </RelativeLayout>

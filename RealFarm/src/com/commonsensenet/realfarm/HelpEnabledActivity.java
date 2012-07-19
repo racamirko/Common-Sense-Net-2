@@ -107,6 +107,18 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 			sq.play();
 		}
 	}
+	
+	protected void playAudioAlways(int resid) {
+		// gets the singleton queue
+		SoundQueue sq = SoundQueue.getInstance();
+		// cleans any possibly playing sound
+		sq.clean();
+		// adds the sound to the queue
+		sq.addToQueue(resid);
+		// plays the sound
+		sq.play();
+
+	}
 
 	protected void stopAudio() {
 		SoundQueue.getInstance().stop();

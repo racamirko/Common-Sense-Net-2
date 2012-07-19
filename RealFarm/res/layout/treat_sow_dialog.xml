@@ -83,7 +83,7 @@
                     android:background="@drawable/square_btn_transp" />
 
                 <TextView
-                    android:id="@+id/dlg_lbl_details"
+                    android:id="@+id/dlg_lbl_details2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/home_btn_har_1"
@@ -91,7 +91,7 @@
                     android:layout_alignLeft="@+id/dlg_img_seed"
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
+                    android:paddingTop="30dip"
                     android:text="May not Treat"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>

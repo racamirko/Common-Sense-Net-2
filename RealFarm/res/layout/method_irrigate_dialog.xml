@@ -44,7 +44,7 @@
                     android:background="@drawable/square_btn_transp" />
 
                 <TextView
-                    android:id="@+id/dlg_lbl_details"
+                    android:id="@+id/dlg_lbl_details1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignLeft="@+id/dlg_img_seed"
@@ -52,10 +52,10 @@
                     android:layout_marginLeft="62dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="Method 1"
+                    android:text="Sprinkling"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
-
+            
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
                 android:layout_width="wrap_content"
@@ -83,7 +83,7 @@
                     android:background="@drawable/square_btn_transp" />
 
                 <TextView
-                    android:id="@+id/dlg_lbl_details"
+                    android:id="@+id/dlg_lbl_details2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignBaseline="@+id/home_var_fert_2"
@@ -92,48 +92,7 @@
                     android:layout_marginLeft="66dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
-                    android:text="Method 2"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="80dp"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.09" >
-
-                <ImageView
-                    android:id="@+id/dlg_img_seed"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_margin="10dip"
-                    android:src="@drawable/pic_90px_bajra_tiled" />
-
-                <Button
-                    android:id="@+id/home_var_fert_3"
-                    android:layout_width="80dp"
-                    android:layout_height="80dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_details"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/home_var_fert_3"
-                    android:layout_alignBottom="@+id/home_var_fert_3"
-                    android:layout_alignLeft="@+id/dlg_img_seed"
-                    android:layout_marginLeft="66dp"
-                    android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
-                    android:text="Method 3"
+                    android:text="Flooding"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
             </RelativeLayout>

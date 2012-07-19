@@ -6,6 +6,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 
 import com.commonsensenet.realfarm.R;
@@ -15,7 +16,7 @@ import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 public class UserAggregateItemAdapter extends ArrayAdapter<UserAggregateItem> {
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
-
+	
 	/**
 	 * Creates a new UserAggregateItemAdapter instance.
 	 */
@@ -43,6 +44,7 @@ public class UserAggregateItemAdapter extends ArrayAdapter<UserAggregateItem> {
 		}
 
 		wrapper.populateFrom(this.getItem(position), mDataProvider);
+		
 		return (row);
 	}
 }

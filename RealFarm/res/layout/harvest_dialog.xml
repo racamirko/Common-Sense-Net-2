@@ -77,12 +77,10 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-               
-
-                <TextView
+            <TextView
                     android:id="@+id/variety_sow_txt"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="100dp"
+                    android:layout_height="60dp"
                     android:layout_alignParentBottom="true"
                     android:layout_alignParentLeft="true"
                     android:layout_alignParentTop="true"
@@ -94,14 +92,14 @@
                     android:textColor="#000000"
                     android:textSize="20sp" />
                 
-                 <Button
+                 <!-- <Button
                     android:id="@+id/variety_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" />-->
             </RelativeLayout>
 
             <RelativeLayout
@@ -111,7 +109,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/variety_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="60dp"
@@ -132,13 +130,14 @@
                 <ImageView
                     android:id="@+id/img_bg_day_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_centerInParent="true"
+                    android:layout_height="40dp"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_day_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
@@ -173,13 +172,14 @@
                 <ImageView
                     android:id="@+id/img_bg_month_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_month_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_centerVertical="true"
                     android:paddingBottom="5dip"
                     android:paddingLeft="10dp"
@@ -224,25 +224,26 @@
 
                 <TextView
                     android:id="@+id/amount_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="Amount"
+                    android:layout_centerInParent="true"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+                <!-- <Button
                     android:id="@+id/amount_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" /> -->
             </RelativeLayout>
 
             <RelativeLayout
@@ -252,7 +253,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/amount_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="60dp"
@@ -275,13 +276,14 @@
                 <ImageView
                     android:id="@+id/img_bg_units_no_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
@@ -315,13 +317,14 @@
                 <ImageView
                     android:id="@+id/img_bg_units_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_units_harvest"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"

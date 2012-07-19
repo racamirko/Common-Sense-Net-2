@@ -92,17 +92,17 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 		item4.setOnLongClickListener(this);
 		item5.setOnLongClickListener(this);
 
-		final Button Fertilizer_name;
-		final Button Amount;
-		final Button Date;
+		final TableRow fertilizerName;
+		final TableRow amount;
+		final TableRow date;
 
-		Fertilizer_name = (Button) findViewById(R.id.variety_sow_txt_btn);
-		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
-		Date = (Button) findViewById(R.id.date_sow_txt_btn);
+		fertilizerName = (TableRow) findViewById(R.id.var_fert_tr);
+		amount = (TableRow) findViewById(R.id.units_fert_tr);
+		date = (TableRow) findViewById(R.id.day_fert_tr);
 
-		Amount.setOnLongClickListener(this);
-		Date.setOnLongClickListener(this);
-		Fertilizer_name.setOnLongClickListener(this);
+		amount.setOnLongClickListener(this);
+		date.setOnLongClickListener(this);
+		fertilizerName.setOnLongClickListener(this);
 
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -746,11 +746,11 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 
 					System.out.println("fertilizing writing");
-					mDataProvider.setFertilizing(Global.plotId, fert_no,
+					long result = mDataProvider.setFertilizing(Global.plotId, fert_no,
 							fert_var_sel, units_fert, day_fert_sel, 1, 0);
-
-					System.out.println("fertilizing reading");
-					mDataProvider.getfertizing();
+					
+					//System.out.println("fertilizing reading");
+					//mDataProvider.getfertizing();
 
 					// tracks the application usage.
 					ApplicationTracker.getInstance().logEvent(EventType.CLICK,
@@ -903,17 +903,17 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) {
+		if (v.getId() == R.id.var_fert_tr) {
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.date_sow_txt_btn) {
+		if (v.getId() == R.id.day_fert_tr) {
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) {
+		if (v.getId() == R.id.units_fert_tr) {
 			playAudioalways(R.raw.fertilizername);
 			ShowHelpIcon(v);
 		}

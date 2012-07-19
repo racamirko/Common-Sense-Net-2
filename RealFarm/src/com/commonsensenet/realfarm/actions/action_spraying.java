@@ -110,16 +110,16 @@ public class action_spraying extends HelpEnabledActivityOld {
 		item6.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final Button Problems;
-		final Button Amount;
-		final Button Date;
-		final Button PestName;
+		final TableRow Problems;
+		final TableRow Amount;
+		final TableRow Date;
+		final TableRow PestName;
 
-		Problems = (Button) findViewById(R.id.variety_sow_txt_btn);
-		PestName = (Button) findViewById(R.id.variety_pest_txt_btn);
-		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
-		Date = (Button) findViewById(R.id.date_sow_txt_btn);
-
+		Problems = (TableRow) findViewById(R.id.prob_spray_tr);
+		PestName = (TableRow) findViewById(R.id.pest_spray_tr);
+		Amount = (TableRow) findViewById(R.id.units_spray_tr);
+		Date = (TableRow) findViewById(R.id.day_spray_tr);
+		
 		Problems.setOnLongClickListener(this);
 		PestName.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
@@ -424,7 +424,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Date");
+				dlg.setTitle("Choose the day");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
@@ -880,9 +880,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 							spray_no, unit_sel_spray, day_sel_spray,
 							prob_sel_spray, 1, 0, pest_sel_spray);
 
-					System.out.println("spraying reading");
-					mDataProvider.getspraying();
-
+					//System.out.println("spraying reading");
+					//mDataProvider.getspraying();
+/* Crash */
 					Intent adminintent = new Intent(action_spraying.this,
 							Homescreen.class);
 
@@ -1127,21 +1127,21 @@ public class action_spraying extends HelpEnabledActivityOld {
 			ShowHelpIcon(v); // added for help icon
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) {
+		if (v.getId() == R.id.prob_spray_tr) {
 			playAudioalways(R.raw.problems);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.date_sow_txt_btn) {
+		if (v.getId() == R.id.day_spray_tr) {
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) {
+		if (v.getId() == R.id.units_spray_tr) {
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.variety_pest_txt_btn) {
+		if (v.getId() == R.id.pest_spray_tr) {
 			playAudioalways(R.raw.pesticidename);
 			ShowHelpIcon(v);
 		}

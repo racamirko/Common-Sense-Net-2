@@ -78,24 +78,25 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <Button
+                <!-- <Button
                     android:id="@+id/variety_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" /> -->
 
                 <TextView
                     android:id="@+id/amount_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
+                    android:layout_centerInParent="true"
                     android:text="Method"
                     android:textColor="#000000"
                     android:textSize="20sp" />
@@ -108,7 +109,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/variety_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="60dp"
@@ -122,23 +123,25 @@
                 android:id="@+id/RelativeLayoutwf_2"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_margin="5dip"
+                android:layout_marginLeft="0dip"                    
+                android:layout_marginRight="10dip"  
                 android:gravity="right" >
 
                 <ImageView
                     android:id="@+id/img_bg_method_irr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_method_irr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:layout_centerInParent="true"
+                    android:gravity="left"
                     android:text="Method"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textSize="22sp" />
@@ -178,25 +181,26 @@
 
                 <TextView
                     android:id="@+id/amount_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
+                    android:layout_centerInParent="true"
                     android:text="Duartion"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+                <!-- <Button
                     android:id="@+id/amount_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" /> -->
             </RelativeLayout>
 
             <RelativeLayout
@@ -206,7 +210,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/amount_sow_img_btn"
                     android:layout_width="50dip"
                     android:layout_height="60dp"
@@ -227,14 +231,16 @@
 
                 <ImageView
                     android:id="@+id/img_bg_hrs_irr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_unit_no_irr"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="fill_parent"
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="10dp"
                     android:paddingBottom="5dip"
@@ -279,25 +285,26 @@
 
                 <TextView
                     android:id="@+id/date_sow_txt"
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
                     android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="1"
-                    android:gravity="right"
+                    android:gravity="left"
                     android:text="Date"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
-                <Button
+                <!-- <Button
                     android:id="@+id/date_sow_txt_btn"
                     android:layout_width="100dp"
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignParentLeft="true"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" /> -->
             </RelativeLayout>
 
             <RelativeLayout
@@ -307,7 +314,7 @@
                 android:layout_margin="5dip"
                 android:gravity="right" >
 
-                <ImageButton
+                <ImageView
                     android:id="@+id/date_sow_img_btn"
                     android:layout_width="40dip"
                     android:layout_height="60dp"
@@ -330,13 +337,14 @@
                 <ImageView
                     android:id="@+id/img_bg_day_irr"
                     android:layout_width="wrap_content"
-                    android:layout_height="match_parent"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_day_irr"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_alignParentLeft="true"
                     android:layout_alignRight="@+id/dlg_unit_sow"
                     android:layout_centerVertical="true"
@@ -371,14 +379,16 @@
                 <ImageView
                     android:id="@+id/img_bg_month_irr"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/empty" />
+                    android:layout_height="40dp"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/empty" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_month_irr"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="40dp"
                     android:layout_centerVertical="true"
+                    android:layout_centerInParent="true"
                     android:paddingBottom="5dip"
                     android:paddingLeft="10dp"
                     android:paddingTop="5dip"

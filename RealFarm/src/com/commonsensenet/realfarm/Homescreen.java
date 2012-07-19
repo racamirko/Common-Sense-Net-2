@@ -29,6 +29,8 @@ import com.commonsensenet.realfarm.actions.action_selling;
 import com.commonsensenet.realfarm.actions.action_sowing;
 import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
+import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
+import com.commonsensenet.realfarm.aggregates.problem_aggregate;
 import com.commonsensenet.realfarm.aggregates.selling_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
@@ -44,7 +46,7 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Indicates whether the demo data has been inserted or not. */
-	public static boolean IS_INITIALIZED = true;
+	public static boolean IS_INITIALIZED = false;
 	/** Tag used to log the App activity. */
 	public static String LOG_TAG = "Homescreen";
 
@@ -127,7 +129,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			for (int x = 0; x < plotData.length; x++) {
 				long plotId = mDataProvider.insertPlot(
 						(Integer) plotData[x][0], seeds.get(x).getId(),
-						(String) plotData[x][2], (String) plotData[x][3], 0, 0);
+						(String) plotData[x][2], (String) plotData[x][3], 0, 0, 3);
 				// updates the id if I am the owner
 				if ((Integer) plotData[x][0] == Global.userId) {
 					Global.plotId = plotId;
@@ -138,42 +140,38 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			// sowing
 			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "1.12", "may not treat", 0, 0);
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "main crop");
+			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
+					"Bag of 10 Kgs", "02.12", "treated", 0, 0, "main crop");
 			mDataProvider.setSowing(2, 1, seeds.get(1).getId(),
-					"Bag of 10 Kgs", "3.12", "treated", 0, 0);
+					"Bag of 10 Kgs", "03.12", "treated", 0, 0, "main crop");
 			mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
-					"Bag of 10 Kgs", "4.12", "may not treat", 0, 0);
+					"Bag of 10 Kgs", "04.12", "treated", 0, 0, "intercrop");
 			mDataProvider.setSowing(4, 1, seeds.get(3).getId(),
-					"Bag of 10 Kgs", "5.12", "treated", 0, 0);
+					"Bag of 10 Kgs", "05.12", "treated", 0, 0, "intercrop");
 			mDataProvider.setSowing(5, 1, seeds.get(4).getId(),
-					"Bag of 10 Kgs", "1.12", "may not treat", 0, 0);
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
+			mDataProvider.setSowing(5, 1, seeds.get(2).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
+			mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
 
 			// irrigating
-			mDataProvider
-					.setIrrigation(1, 4, "hours", "1.12", "Method 1", 0, 0);
-			mDataProvider
-					.setIrrigation(2, 4, "hours", "1.12", "Method 3", 0, 0);
-			mDataProvider
-					.setIrrigation(3, 5, "hours", "2.12", "Method 2", 0, 0);
-			mDataProvider
-					.setIrrigation(4, 1, "hours", "4.12", "Method 2", 0, 0);
-			mDataProvider
-					.setIrrigation(2, 1, "hours", "4.12", "Method 2", 0, 0);
-
-			// problems
-			mDataProvider.setProblem(3, "1.12", "Problem 1", 0, 0);
-			mDataProvider.setProblem(1, "2.12", "Problem 2", 0, 0);
-			mDataProvider.setProblem(5, "2.12", "Problem 1", 0, 0);
-
-			// harvest
-			mDataProvider.setHarvest(1, 2, "Bag of 20 Kgs", "06.12", "good", 0,
+			mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Method 1", 0,
 					0);
-			mDataProvider.setHarvest(3, 2, "Bag of 10 Kgs", "07.12", "bad", 0,
+			mDataProvider.setIrrigation(2, 4, "hours", "01.12", "Method 3", 0,
+					0);
+			mDataProvider.setIrrigation(3, 5, "hours", "02.12", "Method 2", 0,
+					0);
+			mDataProvider.setIrrigation(4, 1, "hours", "04.12", "Method 2", 0,
+					0);
+			mDataProvider.setIrrigation(2, 1, "hours", "04.12", "Method 2", 0,
 					0);
 
 			// flags the data insertion as done.
 			IS_INITIALIZED = true;
 		}
+
 	}
 
 	protected void launchActionIntent() {
@@ -259,51 +257,60 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_report) {
-			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-					RealFarmDatabase.ACTION_NAME_REPORT_ID);
-			this.startActivity(inte);
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_irrigate) {
-			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-					RealFarmDatabase.ACTION_NAME_IRRIGATE_ID);
-			this.startActivity(inte);
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_harvest) {
-			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-					RealFarmDatabase.ACTION_NAME_HARVEST_ID);
-			this.startActivity(inte);
-		}
-
-		if (v.getId() == R.id.btn_action_sow) {
-			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONNAME,
-					RealFarmDatabase.ACTION_NAME_SOW_ID);
-			this.startActivity(inte);
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_yield) {
-			Log.d(LOG_TAG, "Starting yield info");
-			inte = new Intent(this, yielddetails.class);
+			Log.d(LOG_TAG, "Starting Problem aggregate info");
+			inte = new Intent(this, problem_aggregate.class);
 			inte.putExtra("type", "yield");
 			this.startActivity(inte);
 			this.finish();
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_market) {
+		if (v.getId() == R.id.btn_action_irrigate) {
+			inte = new Intent(this, ActionAggregateActivity.class);
+			inte.putExtra("actionName",
+					RealFarmDatabase.ACTION_NAME_IRRIGATE_ID);
+			this.startActivity(inte);
+			return;
+		}
+
+		if (v.getId() == R.id.btn_action_harvest) {
+			Log.d(LOG_TAG, "Starting harvest aggregate info");
+			inte = new Intent(this, harvest_aggregate.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();
+			return;
+		}
+
+		if (v.getId() == R.id.btn_action_sow) {
+			inte = new Intent(this, ActionAggregateActivity.class);
+			inte.putExtra("actionName", RealFarmDatabase.ACTION_NAME_SOW_ID);
+			this.startActivity(inte);
+			return;
+		}
+		
+		if (v.getId() == R.id.btn_action_spray) {/* TODO
+			inte = new Intent(this, ActionAggregateActivity.class);
+			inte.putExtra("actionName", RealFarmDatabase.ACTION_NAME_SOW_ID);
+			this.startActivity(inte);*/
+			return;
+		}
+
+		if (v.getId() == R.id.hmscrn_btn_yield) { /* TODO
+			Log.d(LOG_TAG, "Starting yield info");
+			inte = new Intent(this, yielddetails.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();*/
+			return;
+		}
+
+		if (v.getId() == R.id.hmscrn_btn_market) { /* TODO
 			System.out.println("Market Price details clicked");
 			inte = new Intent(this, Marketprice_details.class);
 			// inte.putExtra("type", "yield");
 			this.startActivity(inte);
-			this.finish();
+			this.finish();*/
 			return;
 		}
 
@@ -731,5 +738,105 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getPlots(); // New plot list
 		mDataProvider.getSeeds(); // Seed type
 		mDataProvider.getActionNames(); // Action names
+		mDataProvider.getFertilizer(); // Fertilizer
+		mDataProvider.getPesticides(); // Pesticides
+	}
+	
+	public boolean onLongClick(View v) { // TODO: replace all sounds
+		Log.i(LOG_TAG, "Long click");
+
+		if (v.getId() == R.id.hmscrn_btn_market) {
+			playAudioAlways(R.raw.problems);
+		}
+		
+		if (v.getId() == R.id.hmscrn_btn_yield) {
+			playAudioAlways(R.raw.problems);
+		}
+		
+		if (v.getId() == R.id.hmscrn_btn_advice) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.hmscrn_btn_weather) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.hmscrn_btn_video) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.btn_action_fertilize) {
+			playAudioAlways(R.raw.problems);
+		}
+		
+		if (v.getId() == R.id.btn_action_spray) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.btn_action_sell) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.btn_action_report) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.btn_action_irrigate) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.btn_action_harvest) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.btn_action_sow) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.hmscrn_btn_actions) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.hmscrn_lay_btn_diary) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.hmscrn_lay_btn_plots) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.hmscrn_btn_sound) {
+			playAudioAlways(R.raw.problems);
+		}
+		
+		if (v.getId() == R.id.button_action_sow) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.button_action_fertilize) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.button_action_spray) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.button_action_report) {
+			playAudioAlways(R.raw.problems);
+		}
+		
+		if (v.getId() == R.id.button_action_irrigate) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.button_action_harvest) {
+			playAudioAlways(R.raw.problems);
+		}
+
+		if (v.getId() == R.id.button_action_sell) {
+			playAudioAlways(R.raw.problems);
+		}
+		
+		return true;
 	}
 }

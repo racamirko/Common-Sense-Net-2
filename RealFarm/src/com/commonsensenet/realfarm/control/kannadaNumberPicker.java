@@ -12,7 +12,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 
-public class KannadaNumberPicker extends LinearLayout {
+public class kannadaNumberPicker extends LinearLayout {
 
 	private class RepetetiveUpdater implements Runnable {
 		public void run() {
@@ -43,7 +43,7 @@ public class KannadaNumberPicker extends LinearLayout {
 	private Integer mValue;
 	private EditText mValueText;
 
-	public KannadaNumberPicker(Context context, AttributeSet attributeSet) {
+	public kannadaNumberPicker(Context context, AttributeSet attributeSet) {
 		super(context, attributeSet);
 
 		// sets the default values.

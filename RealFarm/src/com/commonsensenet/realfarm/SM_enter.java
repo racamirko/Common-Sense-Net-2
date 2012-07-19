@@ -49,7 +49,7 @@ public class SM_enter extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 
 				NumberPicker mynp1 = (NumberPicker) findViewById(R.id.sm_enter_val);
-				int sm_enter_val = mynp1.getValue();
+				double sm_enter_val = mynp1.getValue();
 				String sm_enter_no = String.valueOf(sm_enter_val);
 
 				Toast.makeText(SM_enter.this,

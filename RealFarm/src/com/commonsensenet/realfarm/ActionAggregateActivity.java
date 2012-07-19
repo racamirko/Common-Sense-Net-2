@@ -12,13 +12,15 @@ import android.view.View.OnLongClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
@@ -30,8 +32,7 @@ import com.commonsensenet.realfarm.view.AggregateItemAdapter;
 import com.commonsensenet.realfarm.view.AggregateItemWrapper;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
-public class ActionAggregateActivity extends HelpEnabledActivityOld implements
-		OnLongClickListener, OnItemClickListener {
+public class ActionAggregateActivity extends HelpEnabledActivityOld implements OnItemClickListener, OnLongClickListener, OnItemLongClickListener{
 	/** Name used to log the activity of the class. */
 	public static final String LOG_TAG = "sowing_aggregate";
 
@@ -48,14 +49,21 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	/** Reference to the current instance. */
 	private final ActionAggregateActivity mParentReference = this;
 
+	protected void cancelAudio() {
+
+		Intent adminintent = new Intent(ActionAggregateActivity.this,
+				Homescreen.class);
+
+		startActivity(adminintent);
+	}
+
 	public void onBackPressed() {
 
 		// stops all active audio.
 		stopAudio();
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
-				"back");
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "back");
 
 		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
 
@@ -73,24 +81,23 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		// extracts the passed parameters
 		Bundle extras = getIntent().getExtras();
-		if (extras != null
-				&& extras.containsKey(RealFarmDatabase.TABLE_NAME_ACTIONNAME)) {
+		if (extras != null && extras.containsKey("actionName")) {
 			// gets the action name id
-			mActiveActionNameId = extras
-					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONNAME);
-
+			mActiveActionNameId = extras.getInt("actionName");
 		}
 
 		// gets the action name object.
-		ActionName actionName = mDataProvider
-				.getActionNameById(mActiveActionNameId);
+		ActionName actionName = mDataProvider.getActionNameById(mActiveActionNameId);
+		
+		/*Toast toast = Toast.makeText(getApplicationContext(), actionName.getName(), Toast.LENGTH_SHORT);
+		toast.show();
+		toast = Toast.makeText(getApplicationContext(), actionName.getRes(), Toast.LENGTH_SHORT);
+		toast.show();*/
 
 		// gets the list of aggregate data.
-		List<AggregateItem> aggregates = ActionDataFactory.getAggregateData(
-				mActiveActionNameId, mDataProvider);
+		List<AggregateItem> aggregates = ActionDataFactory.getAggregateData(mActiveActionNameId, mDataProvider);
 		// creates the data adapter.
-		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates,
-				mActiveActionNameId, mDataProvider);
+		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates, mActiveActionNameId, mDataProvider); 
 
 		// gets the list from the UI.
 		mAggregatesListView = (ListView) findViewById(R.id.list_aggregates);
@@ -100,6 +107,8 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		mAggregatesListView.setAdapter(mAggregateItemAdapter);
 		// sets the listener
 		mAggregatesListView.setOnItemClickListener(this);
+		// sets the listener for the sound
+		mAggregatesListView.setOnItemLongClickListener(this);
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
@@ -119,9 +128,15 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		Button back = (Button) findViewById(R.id.button_back);
 		back.setOnLongClickListener(this);
+
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				onBackPressed();
+				cancelAudio();
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "back");
+
 			}
 		});
 
@@ -179,8 +194,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				aggr_fert.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						actionNameImage
-								.setImageResource(R.drawable.ic_fertilize);
+						actionNameImage.setImageResource(R.drawable.ic_fertilize);
 						mActiveActionNameId = 2;
 						dlg.cancel();
 					}
@@ -190,8 +204,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				aggr_irr.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 
-						actionNameImage
-								.setImageResource(R.drawable.ic_irrigate);
+						actionNameImage.setImageResource(R.drawable.ic_irrigate);
 						mActiveActionNameId = 3;
 						dlg.cancel();
 					}
@@ -330,7 +343,24 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		// dialog used to request the information
 		final Dialog dialog = new Dialog(this);
-
+		
+/*		dialog.setContentView(R.layout.dialog_layout);		
+		String[] listContent = {
+				"January", "February", "March", "April", 
+				"May", "June", "July", "August", "September", 
+				"October", "November", "December"};
+	
+		ListView dialog_ListView = (ListView)dialog.findViewById(R.id.dialoglist);
+		ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, listContent);
+		dialog_ListView.setAdapter(adapter);
+		
+		dialog_ListView.setOnItemClickListener(new OnItemClickListener(){
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// TODO Auto-generated method stub
+				Toast.makeText(ActionAggregateActivity.this, parent.getItemAtPosition(position).toString() + " clicked", Toast.LENGTH_LONG).show();
+			}});	
+*/
+		
 		// loads the dialog layout
 		View layout = mLayoutInflater.inflate(
 				R.layout.dialog_aggregate_details, null);
@@ -338,7 +368,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		// gets the ListView from the layout
 		ListView userListView = (ListView) layout
 				.findViewById(R.id.list_dialog_aggregate);
-
+		
+		userListView.setItemsCanFocus(false);
+		
 		// adds the event to dismiss the dialog.
 		layout.findViewById(R.id.button_back).setOnClickListener(
 				new View.OnClickListener() {
@@ -355,31 +387,13 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		((TextView) layout.findViewById(R.id.label_dialog_aggregate_type))
 				.setText(selectedItemView.getTypeText().getText());
 
-		// gets the detail container
-		View detailCount = selectedItemView.getRow().findViewById(
-				R.id.button_aggregate_detail);
-
-		if (detailCount != null && detailCount.getVisibility() == View.VISIBLE) {
-			// gets the TextView that contains the value.
-			detailCount = selectedItemView.getRow().findViewById(
-					R.id.label_aggregate_detail_count);
-			((TextView) layout
-					.findViewById(R.id.label_dialog_aggregate_detail_count))
-					.setText(((TextView) detailCount).getText());
-		} else { // hides the element.
-			layout.findViewById(R.id.button_dialog_aggregate_detail)
-					.setVisibility(View.INVISIBLE);
-
-		}
-
 		// gets the data and data adapter.
 		List<UserAggregateItem> list = ActionDataFactory.getUserAggregateData(
 				selectedItem, mDataProvider);
 
 		// selectedItem.getSeedTypeId()
-		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
-				this, list, mDataProvider);
-		// sets the adapter.
+		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(this, list, mDataProvider);
+		
 		userListView.setAdapter(userAdapter);
 
 		// disables the title in the dialog
@@ -390,10 +404,62 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		// displays the dialog.
 		dialog.show();
+	
+	}
+	
+	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+		// gets the selected view using the position
+		playAudioalways(R.raw.problems);
+		// TODO: Add the audio. See WeatherForecastActivity?
+		
+		return true;
 	}
 
 	public boolean onLongClick(View v) {
+		
+		if (v.getId() == R.id.action_aggr_icon_btn_sow) { // TODO: put audios
 
-		return super.onLongClick(v);
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v); // added for help icon
+		}
+		
+		if (v.getId() == R.id.action_aggr_icon_btn_fert) { // TODO: put audios
+
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v); // added for help icon
+		}
+		
+		if (v.getId() == R.id.action_aggr_icon_btn_irr) { // TODO: put audios
+
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v); // added for help icon
+		}
+		
+		if (v.getId() == R.id.action_aggr_icon_btn_prob) { // TODO: put audios
+
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v); // added for help icon
+		}
+		
+		if (v.getId() == R.id.action_aggr_icon_btn_spray) { // TODO: put audios
+
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v); // added for help icon
+		}
+		
+		if (v.getId() == R.id.action_aggr_icon_btn_harvest) { // TODO: put audios
+
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v); // added for help icon
+		}
+		
+		if (v.getId() == R.id.action_aggr_icon_btn_sell) { // TODO: put audios
+
+			playAudioalways(R.raw.problems);
+			ShowHelpIcon(v); // added for help icon
+		}
+
+		//return super.onLongClick(v);
+		return true;
 	}
 }

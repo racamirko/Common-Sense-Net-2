@@ -119,11 +119,11 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 		help.setOnLongClickListener(this);
 
-		final Button harvest_date;
-		final Button Amount;
+		final TableRow harvest_date;
+		final TableRow Amount;
 
-		harvest_date = (Button) findViewById(R.id.variety_sow_txt_btn);
-		Amount = (Button) findViewById(R.id.amount_sow_txt_btn);
+		harvest_date = (TableRow) findViewById(R.id.harvest_date_tr);
+		Amount = (TableRow) findViewById(R.id.units_harvest_tr);
 
 		harvest_date.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
@@ -729,12 +729,12 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 					System.out.println("harvesting writing");
-					mDataProvider.setHarvest(Global.plotId, harvest_no,
-							units_harvest, final_day_harvest, feedback_txt, 0,
-							0);
+					mDataProvider.setHarvest(Global.userId, Global.plotId,
+							harvest_no, 0, units_harvest, final_day_harvest,
+							feedback_txt, 1, 0);
 
-					System.out.println("harvesting reading");
-					mDataProvider.getharvesting();
+					//System.out.println("harvesting reading");
+					//mDataProvider.getharvesting();
 
 					startActivity(new Intent(action_harvest.this,
 							Homescreen.class));
@@ -1122,12 +1122,12 @@ public class action_harvest extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) {
+		if (v.getId() == R.id.harvest_date_tr) {
 			playAudioalways(R.raw.harvestyear);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) {
+		if (v.getId() == R.id.units_harvest_tr) {
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
 		}

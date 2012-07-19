@@ -95,13 +95,13 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		item4.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final Button method;
-		final Button duration;
-		final Button Date;
+		final TableRow method;
+		final TableRow duration;
+		final TableRow Date;
 
-		method = (Button) findViewById(R.id.variety_sow_txt_btn);
-		duration = (Button) findViewById(R.id.amount_sow_txt_btn);
-		Date = (Button) findViewById(R.id.date_sow_txt_btn);
+		method = (TableRow) findViewById(R.id.method_irr_tr);
+		duration = (TableRow) findViewById(R.id.units_irr_tr);
+		Date = (TableRow) findViewById(R.id.day_irr_tr);
 
 		method.setOnLongClickListener(this);
 		duration.setOnLongClickListener(this);
@@ -110,17 +110,17 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				Log.d("in method irrigate dialog", "in dialog");
+				Log.d("in irrigation method dialog", "in dialog");
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.method_irrigate_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Variety of seed sowed");
-				Log.d("in variety sowing dialog", "in dialog");
+				dlg.setTitle("Choose the irrigation method");
+				Log.d("in irrigation method", "in dialog");
 				dlg.show();
-
+				
 				final Button meth1;
-				// final Button meth2;
-				final Button meth3;
+				final Button meth2;
+				//final Button meth3;
 
 				// final Button variety7;
 				// final ImageView img_1 = img_1 = (ImageView)
@@ -128,23 +128,22 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_method_irr);
 				meth1 = (Button) dlg.findViewById(R.id.home_var_fert_1);
-				// meth2 = (Button) dlg.findViewById(R.id.home_var_fert_2);
-				meth3 = (Button) dlg.findViewById(R.id.home_var_fert_3);
+				meth2 = (Button) dlg.findViewById(R.id.home_var_fert_2);
+				//meth3 = (Button) dlg.findViewById(R.id.home_var_fert_3);
 
 				((Button) dlg.findViewById(R.id.home_var_fert_1))
 						.setOnLongClickListener(parentReference);
 				((Button) dlg.findViewById(R.id.home_var_fert_2))
 						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_var_fert_3))
-						.setOnLongClickListener(parentReference);
+				// ((Button) dlg.findViewById(R.id.home_var_fert_3)).setOnLongClickListener(parentReference);
 
 				meth1.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 1 picked ", "in dialog");
 						// img_1.setMaxWidth(300);
 						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Method 1");
-						irr_method_sel = "Method 1";
+						var_text.setText("Sprinkling");
+						irr_method_sel = "Sprinkling";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -153,13 +152,13 @@ public class action_irrigate extends HelpEnabledActivityOld {
 						dlg.cancel();
 					}
 				});
-
-				meth1.setOnClickListener(new View.OnClickListener() {
+				
+				meth2.setOnClickListener(new View.OnClickListener() {
 					public void onClick(View v) {
 						Log.d("var 2 picked ", "in dialog");
 						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Method 2");
-						irr_method_sel = "Method 2";
+						var_text.setText("Flooding");
+						irr_method_sel = "Flooding";
 						TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
 
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
@@ -168,22 +167,6 @@ public class action_irrigate extends HelpEnabledActivityOld {
 						dlg.cancel();
 					}
 				});
-
-				meth3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Method 3");
-						irr_method_sel = "Method 3";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_method_irr.setImageResource(R.drawable.empty_not);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						dlg.cancel();
-					}
-				});
-
 			}
 		});
 
@@ -194,7 +177,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Date");
+				dlg.setTitle("Choose the day");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
@@ -226,15 +209,12 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.day_irr_tr);
 
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
+							tr_feedback.setBackgroundResource(R.drawable.def_img);
 
 							bg_day_irr.setImageResource(R.drawable.empty_not);
 
 							// tracks the application usage.
-							ApplicationTracker.getInstance().logEvent(
-									EventType.CLICK, LOG_TAG,
-									"no_units_fertilizer", fert_no_sel);
+							// ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,"no_units_fertilizer", fert_no_sel);
 						}
 
 						dlg.cancel();
@@ -812,16 +792,16 @@ public class action_irrigate extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.variety_sow_txt_btn) {
+		if (v.getId() == R.id.method_irr_tr) {
 			playAudioalways(R.raw.method);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) {
+		if (v.getId() == R.id.units_irr_tr) {
 			playAudioalways(R.raw.duration);
 			ShowHelpIcon(v);
 		}
-		if (v.getId() == R.id.date_sow_txt_btn) {
+		if (v.getId() == R.id.day_irr_tr) {
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}

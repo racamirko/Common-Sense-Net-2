@@ -47,14 +47,14 @@
                     android:id="@+id/dlg_lbl_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/home_btn_har_1"
-                    android:layout_alignBottom="@+id/home_btn_har_1"
                     android:layout_alignLeft="@+id/dlg_img_seed"
-                    android:layout_marginLeft="65dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="64dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
                     android:text="Two weeks before"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -87,14 +87,14 @@
                     android:id="@+id/dlg_lbl_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/home_btn_har_1"
-                    android:layout_alignBottom="@+id/home_btn_har_1"
                     android:layout_alignLeft="@+id/dlg_img_seed"
-                    android:layout_marginLeft="65dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="62dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
                     android:text="One week before"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -166,14 +166,14 @@
                     android:id="@+id/dlg_lbl_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/home_btn_har_1"
-                    android:layout_alignBottom="@+id/home_btn_har_1"
                     android:layout_alignLeft="@+id/dlg_img_seed"
-                    android:layout_marginLeft="65dp"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="63dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
                     android:text="Today"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </RelativeLayout>
 
             <RelativeLayout
@@ -206,14 +206,14 @@
                     android:id="@+id/dlg_lbl_details"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_alignBaseline="@+id/home_btn_har_1"
-                    android:layout_alignBottom="@+id/home_btn_har_1"
                     android:layout_alignLeft="@+id/dlg_img_seed"
+                    android:layout_centerVertical="true"
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
                     android:paddingTop="5dip"
                     android:text="Tomorrow"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
+
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

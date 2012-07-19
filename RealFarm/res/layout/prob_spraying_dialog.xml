@@ -91,7 +91,7 @@
                     android:layout_alignLeft="@+id/dlg_img_seed"
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
+                    android:paddingTop="30dip"
                     android:text="Problem 2"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>
@@ -131,7 +131,7 @@
                     android:layout_alignLeft="@+id/dlg_img_seed"
                     android:layout_marginLeft="65dp"
                     android:paddingBottom="5dip"
-                    android:paddingTop="5dip"
+                    android:paddingTop="30dip"
                     android:text="Problem 3"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
             </RelativeLayout>

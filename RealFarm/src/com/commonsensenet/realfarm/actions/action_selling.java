@@ -102,18 +102,18 @@ public class action_selling extends HelpEnabledActivityOld {
 		item8.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final Button crop;
-		final Button date;
-		final Button quantity;
-		final Button priceperquint;
-		final Button remain;
+		final TableRow crop;
+		final TableRow date;
+		final TableRow quantity;
+		final TableRow priceperquint;
+		final TableRow remain;
 
-		crop = (Button) findViewById(R.id.crop_sell_txt_btn);
-		date = (Button) findViewById(R.id.amount_sow_txt_btn);
+		crop = (TableRow) findViewById(R.id.crop_sell_tr);
+		date = (TableRow) findViewById(R.id.date_sell_tr);
 
-		quantity = (Button) findViewById(R.id.quantity_sow_txt_btn);
-		priceperquint = (Button) findViewById(R.id.treat_sow_txt_btn);
-		remain = (Button) findViewById(R.id.remain_sow_txt_btn);
+		quantity = (TableRow) findViewById(R.id.quant_sell_tr);
+		priceperquint = (TableRow) findViewById(R.id.price_sell_tr);
+		remain = (TableRow) findViewById(R.id.rem_quant_sell_tr);
 
 		crop.setOnLongClickListener(this);
 		date.setOnLongClickListener(this);
@@ -279,7 +279,7 @@ public class action_selling extends HelpEnabledActivityOld {
 				final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.numberentry_dialog);
 				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Date");
+				dlg.setTitle("Choose the day");
 				Log.d("in variety sowing dialog", "in dialog");
 				dlg.show();
 
@@ -1144,31 +1144,31 @@ public class action_selling extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.quantity_sow_txt_btn) {
+		if (v.getId() == R.id.quant_sell_tr) {
 
 			playAudioalways(R.raw.quantity);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.crop_sell_txt_btn) {
+		if (v.getId() == R.id.crop_sell_tr) {
 
 			playAudioalways(R.raw.crop);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.amount_sow_txt_btn) {
+		if (v.getId() == R.id.date_sell_tr) {
 
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.treat_sow_txt_btn) {
+		if (v.getId() == R.id.price_sell_tr) {
 
 			playAudioalways(R.raw.priceperquintal);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.remain_sow_txt_btn) {
+		if (v.getId() == R.id.rem_quant_sell_tr) {
 
 			playAudioalways(R.raw.remaining);
 			ShowHelpIcon(v);
