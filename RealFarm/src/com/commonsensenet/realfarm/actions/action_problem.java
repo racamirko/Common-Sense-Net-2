@@ -1,16 +1,24 @@
 package com.commonsensenet.realfarm.actions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
@@ -18,9 +26,12 @@ import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.view.DialogAdapter;
+import com.commonsensenet.realfarm.view.DialogArrayLists;
 
 public class action_problem extends HelpEnabledActivityOld {
 	private Context context = this;
@@ -29,6 +40,7 @@ public class action_problem extends HelpEnabledActivityOld {
 	private String prob_var_sel = "0", prob_crop_sel = "0", prob_day_sel, months_prob = "0",
 			prob_day_str;
 	private int prob_day_int;
+	private HashMap<String, String> resultsMap;
 
 	public static final String LOG_TAG = "action_problem";
 
@@ -68,6 +80,11 @@ public class action_problem extends HelpEnabledActivityOld {
 		// findViewById(R.id.dlg_lbl_month_prob);
 
 		playAudio(R.raw.clickingfertilising);
+		
+		resultsMap = new HashMap<String, String>();  
+		resultsMap.put("prob_var_sel", "0");
+		resultsMap.put("months_prob", "0");
+		resultsMap.put("prob_crop_sel", "0");
 
 		final ImageView bg_type_problem = (ImageView) findViewById(R.id.img_bg_type_prob);
 		final ImageView bg_date_problem = (ImageView) findViewById(R.id.img_bg_day_prob);
@@ -109,73 +126,10 @@ public class action_problem extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.prob_spraying_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Variety of seed sowed");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				final Button fert1;
-				final Button fert2;
-				final Button fert3;
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_var_prob);
-				fert1 = (Button) dlg.findViewById(R.id.home_prob_spray_1);
-				fert2 = (Button) dlg.findViewById(R.id.home_prob_spray_2);
-				fert3 = (Button) dlg.findViewById(R.id.home_prob_spray_3);
-
-				((Button) dlg.findViewById(R.id.home_prob_spray_1))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_prob_spray_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_prob_spray_3))
-						.setOnLongClickListener(parentReference);
-
-				fert1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Problem 1");
-						prob_var_sel = "Problem 1";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_type_problem.setImageResource(R.drawable.empty_not);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						dlg.cancel();
-					}
-				});
-
-				fert2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Problem 2");
-						prob_var_sel = "Problem 2";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_type_problem.setImageResource(R.drawable.empty_not);
-						dlg.cancel();
-					}
-				});
-
-				fert3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Problem 3");
-						prob_var_sel = "Problem 3";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_type_problem.setImageResource(R.drawable.empty_not);
-						dlg.cancel();
-					}
-				});
-
+				
+				ArrayList<DialogData> m_entries = mDataProvider.getProblems();
+				displayDialog(v, m_entries, "prob_var_sel", "Choose the problem type", R.raw.problems, R.id.dlg_lbl_var_prob, R.id.var_prob_tr);
+				
 			}
 		});
 
@@ -249,245 +203,10 @@ public class action_problem extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.months_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the month ");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				final Button month1 = (Button) dlg
-						.findViewById(R.id.home_month_1);
-				final Button month2 = (Button) dlg
-						.findViewById(R.id.home_month_2);
-				final Button month3 = (Button) dlg
-						.findViewById(R.id.home_month_3);
-				final Button month4 = (Button) dlg
-						.findViewById(R.id.home_month_4);
-				final Button month5 = (Button) dlg
-						.findViewById(R.id.home_month_5);
-				final Button month6 = (Button) dlg
-						.findViewById(R.id.home_month_6);
-				final Button month7 = (Button) dlg
-						.findViewById(R.id.home_month_7);
-				final Button month8 = (Button) dlg
-						.findViewById(R.id.home_month_8);
-				final Button month9 = (Button) dlg
-						.findViewById(R.id.home_month_9);
-				final Button month10 = (Button) dlg
-						.findViewById(R.id.home_month_10);
-				final Button month11 = (Button) dlg
-						.findViewById(R.id.home_month_11);
-				final Button month12 = (Button) dlg
-						.findViewById(R.id.home_month_12);
-
-				((Button) dlg.findViewById(R.id.home_month_1))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_3))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_4))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_5))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_6))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_7))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_8))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_9))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_10))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_11))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_12))
-						.setOnLongClickListener(parentReference);
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_prob);
-
-				month1.setOnClickListener(new View.OnClickListener() {
-
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("01");
-						months_prob = "01";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("02");
-						months_prob = "02";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("03");
-						months_prob = "03";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month4.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("04");
-						months_prob = "04";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month5.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("05");
-						months_prob = "05";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month6.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("06");
-						months_prob = "06";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month7.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("07");
-						months_prob = "07";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month8.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("08");
-						months_prob = "08";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month9.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("09");
-						months_prob = "09";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month10.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("10");
-						months_prob = "10";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month11.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("11");
-						months_prob = "11";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month12.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("12");
-						months_prob = "12";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_prob.setImageResource(R.drawable.empty_not);
-						dlg.cancel();
-					}
-				});
-
+				
+				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
+				displayDialog(v, m_entries, "months_prob", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_prob, R.id.day_prob_tr);
+	
 			}
 
 		});
@@ -496,72 +215,9 @@ public class action_problem extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.prob_spraying_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Variety of seed sowed");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				final Button fert1;
-				final Button fert2;
-				final Button fert3;
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_var_prob4);
-				fert1 = (Button) dlg.findViewById(R.id.home_prob_spray_1);
-				fert2 = (Button) dlg.findViewById(R.id.home_prob_spray_2);
-				fert3 = (Button) dlg.findViewById(R.id.home_prob_spray_3);
-
-				((Button) dlg.findViewById(R.id.home_prob_spray_1))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_prob_spray_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_prob_spray_3))
-						.setOnLongClickListener(parentReference);
-
-				fert1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						// img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Problem 1");
-						prob_crop_sel = "Problem 1";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_type_problem.setImageResource(R.drawable.empty_not);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						dlg.cancel();
-					}
-				});
-
-				fert2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Problem 2");
-						prob_crop_sel = "Problem 2";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_type_problem.setImageResource(R.drawable.empty_not);
-						dlg.cancel();
-					}
-				});
-
-				fert3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Problem 3");
-						prob_crop_sel = "Problem 3";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_type_problem.setImageResource(R.drawable.empty_not);
-						dlg.cancel();
-					}
-				});
+				
+				ArrayList<DialogData> m_entries = mDataProvider.getCrops();
+				displayDialog(v, m_entries, "prob_crop_sel", "Select the crop", R.raw.problems, R.id.dlg_lbl_var_prob4, R.id.var_prob_tr4);
 
 			}
 		});
@@ -581,11 +237,15 @@ public class action_problem extends HelpEnabledActivityOld {
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+				prob_var_sel = resultsMap.get("prob_var_sel");
+				months_prob = resultsMap.get("months_prob");
+				prob_crop_sel = resultsMap.get("prob_crop_sel");
 
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
 				int flag1, flag2, flag4;
-				if (prob_var_sel.toString().equalsIgnoreCase("0")) {
+				if (prob_var_sel.toString().equalsIgnoreCase("0")) { 
 					flag1 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
@@ -735,80 +395,6 @@ public class action_problem extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_month_1) {
-
-			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v);
-		}
-		if (v.getId() == R.id.home_month_2) {
-
-			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_3) {
-
-			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_4) {
-
-			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_5) {
-
-			playAudioalways(R.raw.may);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_6) {
-
-			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_7) {
-
-			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_8) {
-
-			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_9) {
-
-			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_10) {
-
-			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_11) {
-
-			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_12) {
-
-			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v);
-		}
-
 		if (v.getId() == R.id.home_btn_month_prob) {
 
 			playAudioalways(R.raw.choosethemonth);
@@ -844,5 +430,54 @@ public class action_problem extends HelpEnabledActivityOld {
 		}
 		
 		return true;
+	}
+	
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback){ 
+		final Dialog dialog = new Dialog(v.getContext());
+		dialog.setContentView(R.layout.mc_dialog);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+
+		DialogAdapter m_adapter = new DialogAdapter(v.getContext(), R.layout.mc_dialog_row, m_entries);
+		ListView mList = (ListView)dialog.findViewById(R.id.liste);
+		mList.setAdapter(m_adapter);
+
+		dialog.show();
+		playAudio(entryAudio); // TODO: onOpen
+
+		mList.setOnItemClickListener(new OnItemClickListener(){ // TODO: adapt the audio in the db
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Does whatever is specific to the application
+				Log.d("var "+position+" picked ", "in dialog");
+				TextView var_text = (TextView) findViewById(varText);
+				DialogData choice = m_entries.get(position);
+				var_text.setText(choice.getName());
+				resultsMap.put(mapEntry, choice.getValue());  
+				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(
+						EventType.CLICK, LOG_TAG, title,
+						choice.getValue());
+				
+				Toast.makeText(parentReference, resultsMap.get(mapEntry), Toast.LENGTH_SHORT).show();
+						
+				// onClose
+				dialog.cancel();
+				int iden = choice.getAudioRes();
+				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + choice.getAudio(), null, null);
+				playAudio(iden);
+			}});
+
+		mList.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) { // TODO: adapt the audio in the db
+				int iden = m_entries.get(position).getAudioRes();
+				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + m_entries.get(position).getAudio(), null, null);
+				playAudioalways(iden);
+				return true;
+			}});
 	}
 }

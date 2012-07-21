@@ -66,7 +66,7 @@
             android:id="@+id/prob_spray_tr"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
@@ -168,7 +168,7 @@
             android:id="@+id/pest_spray_tr"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
@@ -226,7 +226,7 @@
                 android:id="@+id/RelativeLayoutwf_2"
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
-                android:layout_marginLeft="10dip"
+                android:layout_marginLeft="0dip"
                 android:layout_marginRight="10dip"
                 android:gravity="right" >
 
@@ -270,7 +270,7 @@
             android:id="@+id/units_spray_tr"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
@@ -336,6 +336,7 @@
                     android:id="@+id/img_bg_units_no_spray"
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
+                    android:layout_centerInParent="true"
                     android:background="@drawable/empty" />
 
                 <TextView
@@ -416,7 +417,7 @@
             android:id="@+id/day_spray_tr"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 

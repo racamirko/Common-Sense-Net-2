@@ -34,6 +34,11 @@ public final class ActionDataFactory {
 		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
 			return dataProvider.getAggregateItems(actionTypeId,
 					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
+			
+		case RealFarmDatabase.ACTION_NAME_SELL_ID:
+			return dataProvider.getAggregateItems(actionTypeId,
+					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
+			
 		default:
 			return null;
 		}

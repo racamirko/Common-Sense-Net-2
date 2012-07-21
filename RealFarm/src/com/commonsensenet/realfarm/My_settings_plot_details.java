@@ -71,20 +71,21 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		ImageButton help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
 		help1.setOnLongClickListener(this);
 
-		final Button plotImage; // 20-06-2012
-		final Button soilType;
-		final Button mainCrop;
-		final Button size;
+		final TableRow plotImage; // 20-06-2012
+		final TableRow soilType;
+		final TableRow mainCrop;
+		final TableRow size;
 
-		plotImage = (Button) findViewById(R.id.image_plot_txt_btn); // 20-06-2012
-		soilType = (Button) findViewById(R.id.soiltype_plot_txt_btn);
-		mainCrop = (Button) findViewById(R.id.maincrop_plot_txt_btn);
-		size = (Button) findViewById(R.id.home_btn_units_no_harvest);
+		plotImage = (TableRow) findViewById(R.id.plot_tr); // 20-06-2012
+		soilType = (TableRow) findViewById(R.id.soiltype_tr);
+		mainCrop = (TableRow) findViewById(R.id.maincrop_tr);
+		size = (TableRow) findViewById(R.id.size_tr);
 
 
 		plotImage.setOnLongClickListener(this); // 20-06-2012
 		soilType.setOnLongClickListener(this);
 		mainCrop.setOnLongClickListener(this);
+		size.setOnLongClickListener(this);
 
 		home1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -618,25 +619,25 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.image_plot_txt_btn) {
+		if (v.getId() == R.id.plot_tr) {
 
 			playAudio(R.raw.plotimage);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.soiltype_plot_txt_btn) {
+		if (v.getId() == R.id.soiltype_tr) {
 
 			playAudio(R.raw.soiltype);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.maincrop_plot_txt_btn) {
+		if (v.getId() == R.id.maincrop_tr) {
 
 			playAudio(R.raw.maincrop);
 			ShowHelpIcon(v);
 		}
 		
-		if (v.getId() == R.id.home_btn_units_no_harvest) {
+		if (v.getId() == R.id.size_tr) {
 
 			// playAudio(R.raw.maincrop);
 			ShowHelpIcon(v);

@@ -67,7 +67,7 @@
             android:id="@+id/method_irr_tr"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
@@ -168,7 +168,7 @@
             android:id="@+id/units_irr_tr"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
@@ -272,7 +272,7 @@
             android:id="@+id/day_irr_tr"
             android:layout_width="fill_parent"
             android:layout_height="70dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 

@@ -68,7 +68,7 @@
                     android:id="@+id/seed_type_sow_tr"
                     android:layout_width="fill_parent"
                     android:layout_height="match_parent"
-                    android:background="@drawable/def_img"
+            		android:background="@android:drawable/list_selector_background"
                     android:paddingBottom="5dip"
                     android:paddingTop="4dip" >
 
@@ -172,7 +172,7 @@
                     android:id="@+id/units_sow_tr"
                     android:layout_width="fill_parent"
                     android:layout_height="70dp"
-                    android:background="@drawable/def_img"
+            		android:background="@android:drawable/list_selector_background"
                     android:paddingBottom="10dip"
                     android:paddingTop="4dip" >
 
@@ -275,23 +275,17 @@
                         android:paddingLeft="10dp"
                         android:paddingRight="12dp" >
 
-                        <ImageView
-                            android:id="@+id/img_bg_units_sow"
-                            android:layout_width="wrap_content"
-                            android:layout_height="40dp"
-                            android:layout_centerInParent="true"
-                            android:background="@drawable/empty" />
-
-                        <TextView
+                         <TextView
                             android:id="@+id/dlg_lbl_unit_sow"
-                            android:layout_width="wrap_content"
+                            android:layout_width="100dp"
                             android:layout_height="40dp"
                             android:layout_centerInParent="true"
                             android:layout_centerVertical="true"
                             android:paddingBottom="5dip"
-                            android:paddingLeft="10dp"
+                            android:paddingLeft="0dp"
                             android:paddingTop="5dip"
-                            android:text="Kg&apos;s"
+                            android:text="serus"
+                            android:textColor="#000000"
                             android:textAppearance="?android:attr/textAppearanceMedium" />
 
                         <Button
@@ -317,7 +311,7 @@
                     android:id="@+id/day_sow_tr"
                     android:layout_width="fill_parent"
                     android:layout_height="70dp"
-                    android:background="@drawable/def_img"
+            		android:background="@android:drawable/list_selector_background"
                     android:paddingBottom="10dip"
                     android:paddingTop="4dip" >
 
@@ -359,7 +353,7 @@
                         android:layout_margin="5dip"
                         android:gravity="right" >
 
-                        <ImageButton
+                        <ImageView
                             android:id="@+id/date_sow_img_btn"
                             android:layout_width="40dip"
                             android:layout_height="60dp"
@@ -461,7 +455,7 @@
                     android:id="@+id/treatment_sow_tr"
                     android:layout_width="fill_parent"
                     android:layout_height="60dp"
-                    android:background="@drawable/def_img"
+            		android:background="@android:drawable/list_selector_background"
                     android:paddingBottom="10dip"
                     android:paddingTop="4dip" >
 
@@ -564,7 +558,7 @@
                     android:id="@+id/intercrop_sow_tr"
                     android:layout_width="fill_parent"
                     android:layout_height="70dp"
-                    android:background="@drawable/def_img"
+            		android:background="@android:drawable/list_selector_background"
                     android:paddingBottom="10dip"
                     >
 

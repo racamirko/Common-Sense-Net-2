@@ -16,6 +16,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
+import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.model.Fertilizing;
 import com.commonsensenet.realfarm.model.Harvesting;
 import com.commonsensenet.realfarm.model.Irrigation;
@@ -700,6 +701,8 @@ public class RealFarmProvider {
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
 		mDatabase.open();
+		
+		//System.out.println("lala "+String.format(MY_QUERY, actionNameId, groupField));
 
 		Cursor c = mDatabase.rawQuery(
 				String.format(MY_QUERY, actionNameId, groupField),
@@ -1253,6 +1256,147 @@ public class RealFarmProvider {
 			} while (c.moveToNext());
 		}
 		Log.d("done: ", "finished Wf getdata");
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getCrops() {
+		final String MY_QUERY = "SELECT DISTINCT name, id, resBg, audio FROM seedType ORDER BY name ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setAudio(c.getInt(3));
+				dd.setValue(dd.getName());
+				dd.setBackground(c.getInt(2));
+				tmpList.add(dd);
+				//System.out.println(c.getString(0)+" "+c.getInt(1));
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getVarieties() {
+		final String MY_QUERY = "SELECT DISTINCT variety, id, resBg, audio FROM seedType ORDER BY name, variety ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setAudio(c.getInt(3));
+				dd.setValue(c.getInt(1)+"");
+				dd.setBackground(c.getInt(2));
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getUnits() {
+		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM unit ORDER BY name ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setImage(c.getInt(1));
+				dd.setAudio(c.getInt(2));
+				dd.setValue(dd.getName());
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getFertilizers() {
+		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM fertilizer ORDER BY name ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setImage(c.getInt(1));
+				dd.setAudio(c.getInt(2));
+				dd.setValue(dd.getName());
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getProblems() {
+		final String MY_QUERY = "SELECT name, audio, res, masterId FROM problem ORDER BY masterId, name ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				final String MY_QUERY2 = "SELECT res FROM problemType WHERE id = "+c.getInt(3);
+				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+				c2.moveToFirst();
+				
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setImage(c2.getInt(0));
+				dd.setImage2(c.getInt(2));
+				dd.setAudio(c.getInt(1));
+				dd.setValue(dd.getName());
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+
 		c.close();
 		mDatabase.close();
 

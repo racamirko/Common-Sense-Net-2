@@ -98,6 +98,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_FERTILIZER_ID + " integer primary key, "
 					+ COLUMN_NAME_FERTILIZER_NAME + " text, "
 					+ COLUMN_NAME_FERTILIZER_AUDIO + " integer, "
+					+ COLUMN_NAME_FERTILIZER_RESOURCE + " integer, "
 					+ COLUMN_NAME_FERTILIZER_UNITID + " references unit(id) "
 					+ " ); ");
 			Log.d(LOG_TAG, "Created fertilizer table");
@@ -173,6 +174,7 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_UNIT + " ( "
 					+ COLUMN_NAME_UNIT_ID + " integer primary key, "
 					+ COLUMN_NAME_UNIT_NAME + " text not null, "
+					+ COLUMN_NAME_UNIT_RESOURCE + " integer, "
 					+ COLUMN_NAME_UNIT_AUDIO + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created unit table");
 
@@ -249,6 +251,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
 
 	public static final String COLUMN_NAME_FERTILIZER_AUDIO = "audio";
+	public static final String COLUMN_NAME_FERTILIZER_RESOURCE = "resource";
 	public static final String COLUMN_NAME_FERTILIZER_ID = "id";
 	public static final String COLUMN_NAME_FERTILIZER_NAME = "name";
 	public static final String COLUMN_NAME_FERTILIZER_UNITID = "unitId";
@@ -305,6 +308,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_NAME = "name";
+	public static final String COLUMN_NAME_UNIT_RESOURCE = "resource";
 
 	public static final String COLUMN_NAME_USER_ADMINFLAG = "adminFlag";
 	public static final String COLUMN_NAME_USER_DELETEFLAG = "deleteFlag";
@@ -539,23 +543,110 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "actionName works");
 
-		// units
-		Object[][] unitData = { { "unknown", R.raw.audio1 },
-				{ "none", R.raw.audio1 },
-				{ "cart/tractor loads", R.raw.audio1 },
-				{ "number of days", R.raw.audio1 },
-				{ "number of year", R.raw.audio1 },
-				{ "number of nights", R.raw.audio1 },
-				{ "bags of 50 kg", R.raw.audio1 },
-				{ "number of main crop rows between each row", R.raw.audio1 }
+		// fertilizer
+		Object[][] fertilizerData = {
+				{ "Not in the list", R.raw.audio1, R.drawable.icon},
+				{ "Complex", R.raw.audio1 , R.drawable.icon},
+				{ "Compost", R.raw.audio1 , R.drawable.icon},
+				{ "DAP", R.raw.audio1, R.drawable.icon },
+				{ "FYM", R.raw.audio1 , R.drawable.icon},
+				{ "Gypsum", R.raw.audio1, R.drawable.icon },
+				{ "Potash", R.raw.audio1 , R.drawable.icon},
+				{ "Salt", R.raw.audio1, R.drawable.icon },
+				{ "Super", R.raw.audio1, R.drawable.icon },
+				{ "Urea", R.raw.audio1, R.drawable.icon }
+		};
 
+		ContentValues fertilizer = new ContentValues();
+		for (int x = 0; x < fertilizerData.length; x++) {
+			fertilizer.put(COLUMN_NAME_FERTILIZER_ID, (x + 1));
+			fertilizer.put(COLUMN_NAME_FERTILIZER_NAME, (String) fertilizerData[x][0]);
+			fertilizer.put(COLUMN_NAME_FERTILIZER_AUDIO, (Integer) fertilizerData[x][1]);
+			fertilizer.put(COLUMN_NAME_FERTILIZER_RESOURCE, (Integer) fertilizerData[x][2]);
+			fertilizer.put(COLUMN_NAME_FERTILIZER_UNITID, x); // What is that?
+			insertEntriesIntoDatabase(TABLE_NAME_FERTILIZER, fertilizer, db);
+			fertilizer.clear();
+		}
+
+		Log.d(LOG_TAG, "fertilizer works");	
+
+		// problem types
+		Object[][] problemTypeData = {
+				{ "Disease", R.raw.audio1, R.drawable.ic_diseasecategory},
+				{ "Pest", R.raw.audio1 , R.drawable.ic_pestcategory},
+				{ "Other", R.raw.audio1 , R.drawable.ic_otherproblemcategory}
+		};
+
+		ContentValues problemType = new ContentValues();
+		for (int x = 0; x < problemTypeData.length; x++) {
+			problemType.put(COLUMN_NAME_PROBLEMTYPE_ID, (x + 1));
+			problemType.put(COLUMN_NAME_PROBLEMTYPE_NAME, (String) problemTypeData[x][0]);
+			problemType.put(COLUMN_NAME_PROBLEMTYPE_AUDIO, (Integer) problemTypeData[x][1]);
+			problemType.put(COLUMN_NAME_PROBLEMTYPE_RESOURCE, (Integer) problemTypeData[x][2]);
+			insertEntriesIntoDatabase(TABLE_NAME_PROBLEMTYPE, problemType, db);
+			problemType.clear();
+		}
+
+		Log.d(LOG_TAG, "problem type works");	
+
+
+		// problems
+		Object[][] problemData = {
+				{ "Pod rot", R.raw.audio1, R.drawable.icon, 1 },
+				{ "Late leaf spot", R.raw.audio1, R.drawable.icon, 1 },
+				{ "Unknown disease", R.raw.audio1, R.drawable.icon, 1 },
+				{ "Disease not listed", R.raw.audio1, R.drawable.icon, 1 },
+				{ "Pod borer", R.raw.audio1, R.drawable.icon, 2 },
+				{ "Aphids", R.raw.audio1, R.drawable.icon, 2 },
+				{ "Leaf miner", R.raw.audio1, R.drawable.icon, 2 },
+				{ "Red hairy caterpillar", R.raw.audio1, R.drawable.icon, 2 },
+				{ "Unknown pest", R.raw.audio1, R.drawable.icon, 2 },
+				{ "Pest not listed", R.raw.audio1, R.drawable.icon, 2 },
+				{ "Low growth", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Too much vegetative growth", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Weeds", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Reduced flowering", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Rod of stalks", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Root grub", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Pegs not developed", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Pod germination", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Wild boar", R.raw.audio1, R.drawable.icon, 3 },
+				{ "Problem not listed", R.raw.audio1, R.drawable.icon, 3 }
+		};
+
+		ContentValues problem = new ContentValues();
+		for (int x = 0; x < problemData.length; x++) {
+			problem.put(COLUMN_NAME_PROBLEM_ID, (x + 1));
+			problem.put(COLUMN_NAME_PROBLEM_NAME, (String) problemData[x][0]);
+			problem.put(COLUMN_NAME_PROBLEM_AUDIO, (Integer) problemData[x][1]);
+			problem.put(COLUMN_NAME_PROBLEM_RESOURCE, (Integer) problemData[x][2]);
+			problem.put(COLUMN_NAME_PROBLEM_PROBLEMTYPEID, (Integer) problemData[x][3]);
+			insertEntriesIntoDatabase(TABLE_NAME_PROBLEM, problem, db);
+			problem.clear();
+		}
+
+		Log.d(LOG_TAG, "problem works");	
+
+		// units
+		Object[][] unitData = { { "unknown", R.drawable.icon, R.raw.audio1 },
+				{ "none", R.drawable.icon, R.raw.audio1 },
+				{ "tractor loads", R.drawable.ic_tractorload, R.raw.audio1 },
+				{ "cart loads", R.drawable.ic_cartload, R.raw.audio1 },
+				{ "1L can", R.drawable.ic_pesticideherbicidecan, R.raw.audio1 },
+				{ "1 seru", R.drawable.ic_seruunit, R.raw.audio1 },
+				{ "number of days", R.drawable.icon, R.raw.audio1 },
+				{ "number of year", R.drawable.icon, R.raw.audio1 },
+				{ "number of nights", R.drawable.icon, R.raw.audio1 },
+				{ "bag of 50 kg", R.drawable.ic_50kgbag, R.raw.audio1 },
+				{ "number of main crop rows between each row", R.drawable.icon, R.raw.audio1 }
 		};
 
 		ContentValues unit = new ContentValues();
 		for (int x = 0; x < unitData.length; x++) {
 			unit.put(COLUMN_NAME_UNIT_ID, (x + 1));
 			unit.put(COLUMN_NAME_UNIT_NAME, (String) unitData[x][0]);
-			unit.put(COLUMN_NAME_UNIT_AUDIO, (Integer) unitData[x][1]);
+			unit.put(COLUMN_NAME_UNIT_RESOURCE, (Integer) unitData[x][1]);
+			unit.put(COLUMN_NAME_UNIT_AUDIO, (Integer) unitData[x][2]);
 			insertEntriesIntoDatabase(TABLE_NAME_UNIT, unit, db);
 			unit.clear();
 		}

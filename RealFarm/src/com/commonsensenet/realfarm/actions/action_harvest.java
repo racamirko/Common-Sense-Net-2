@@ -1,5 +1,8 @@
 package com.commonsensenet.realfarm.actions;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
@@ -9,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
@@ -16,6 +20,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
@@ -23,9 +28,12 @@ import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.view.DialogAdapter;
+import com.commonsensenet.realfarm.view.DialogArrayLists;
 
 public class action_harvest extends HelpEnabledActivityOld {
 	private Context context = this;
@@ -37,6 +45,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 	private final action_harvest parentReference = this;
 	private String final_day_harvest;
 	String mSelectedMonth;
+	private HashMap<String, String> resultsMap;
 
 	protected void cancelaudio() {
 
@@ -88,6 +97,10 @@ public class action_harvest extends HelpEnabledActivityOld {
 		smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
 
 		playAudio(R.raw.clickingharvest);
+		
+		resultsMap = new HashMap<String, String>(); 
+		resultsMap.put("units_harvest", "0");
+		resultsMap.put("months_harvest", "0");
 
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
@@ -255,92 +268,10 @@ public class action_harvest extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in units fert dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.units_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the units");
-				Log.d("in units fert dialog", "in dialog");
-				dlg.show();
+				
+				final ArrayList<DialogData> m_entries = DialogArrayLists.getItUnitsArray(v, 20, 51, 1);
+				displayDialog(v, m_entries, "units_harvest", "Select the unit", R.raw.problems, R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr);
 
-				final Button unit1;
-				final Button unit2;
-				final Button unit3;
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_units_harvest);
-				unit1 = (Button) dlg.findViewById(R.id.home_btn_units_1);
-				unit2 = (Button) dlg.findViewById(R.id.home_btn_units_2);
-				unit3 = (Button) dlg.findViewById(R.id.home_btn_units_3);
-
-				dlg.findViewById(R.id.home_btn_units_1).setOnLongClickListener(
-						parentReference);
-				dlg.findViewById(R.id.home_btn_units_2).setOnLongClickListener(
-						parentReference);
-				dlg.findViewById(R.id.home_btn_units_3).setOnLongClickListener(
-						parentReference);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "units");
-
-				unit1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-						var_text.setText("10 Kgs");
-						units_harvest = "Bag of 10 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-
-						bg_units_harvest.setImageResource(R.drawable.empty_not);
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "units",
-								units_harvest);
-
-						dlg.cancel();
-					}
-				});
-
-				unit2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("20 Kgs");
-						units_harvest = "Bag of 20 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_units_harvest.setImageResource(R.drawable.empty_not);
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "units",
-								units_harvest);
-
-						dlg.cancel();
-					}
-				});
-
-				unit3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("50 Kgs");
-						units_harvest = "Bag of 50 Kgs";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_units_harvest.setImageResource(R.drawable.empty_not);
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "units",
-								units_harvest);
-
-						dlg.cancel();
-					}
-				});
 			}
 		});
 
@@ -349,231 +280,9 @@ public class action_harvest extends HelpEnabledActivityOld {
 				stopaudio();
 
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.months_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the month when harvested");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				final Button month1 = (Button) dlg
-						.findViewById(R.id.home_month_1);
-				final Button month2 = (Button) dlg
-						.findViewById(R.id.home_month_2);
-				final Button month3 = (Button) dlg
-						.findViewById(R.id.home_month_3);
-				final Button month4 = (Button) dlg
-						.findViewById(R.id.home_month_4);
-				final Button month5 = (Button) dlg
-						.findViewById(R.id.home_month_5);
-				final Button month6 = (Button) dlg
-						.findViewById(R.id.home_month_6);
-				final Button month7 = (Button) dlg
-						.findViewById(R.id.home_month_7);
-				final Button month8 = (Button) dlg
-						.findViewById(R.id.home_month_8);
-				final Button month9 = (Button) dlg
-						.findViewById(R.id.home_month_9);
-				final Button month10 = (Button) dlg
-						.findViewById(R.id.home_month_10);
-				final Button month11 = (Button) dlg
-						.findViewById(R.id.home_month_11);
-				final Button month12 = (Button) dlg
-						.findViewById(R.id.home_month_12);
-
-				((Button) dlg.findViewById(R.id.home_month_1))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_2))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_3))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_4))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_5))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_6))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_7))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_8))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_9))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_10))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_11))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.home_month_12))
-						.setOnLongClickListener(parentReference);
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_harvest);
-
-				month1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("01");
-						months_harvest = "01";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("02");
-						months_harvest = "02";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("03");
-						months_harvest = "03";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month4.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("04");
-						months_harvest = "04";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month5.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("05");
-						months_harvest = "05";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month6.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("06");
-						months_harvest = "06";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month7.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("07");
-						months_harvest = "07";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month8.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("08");
-						months_harvest = "08";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month9.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("09");
-						months_harvest = "09";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month10.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("10");
-						months_harvest = "10";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month11.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("11");
-						months_harvest = "11";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-						dlg.cancel();
-					}
-				});
-
-				month12.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						var_text.setText("12");
-						months_harvest = "12";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_month_harvest.setImageResource(R.drawable.empty_not);
-						dlg.cancel();
-					}
-				});
+				
+				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
+				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_harvest, R.id.harvest_date_tr);
 			}
 		});
 
@@ -654,6 +363,9 @@ public class action_harvest extends HelpEnabledActivityOld {
 		btnNext.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
+				
+				units_harvest = resultsMap.get("units_harvest");
+				months_harvest = resultsMap.get("months_harvest");
 
 				int flag1, flag2, flag3;
 				// Toast.makeText(action_harvest.this, "User selected " +
@@ -691,7 +403,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 					tr_feedback.setBackgroundResource(R.drawable.def_img);
 
 				}
-				if (units_harvest.toString().equalsIgnoreCase("0")
+				if (units_harvest.toString().equalsIgnoreCase("0") 
 						|| harvest_no == 0) {
 					flag2 = 1;
 
@@ -959,7 +671,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 		}
 
-		if (v.getId() == R.id.home_month_1) {
+		/*if (v.getId() == R.id.home_month_1) {
 
 			playAudioalways(R.raw.jan);
 			ShowHelpIcon(v);
@@ -1108,7 +820,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 			playAudioalways(R.raw.dec);
 			ShowHelpIcon(v);
-		}
+		}*/
 
 		if (v.getId() == R.id.number_ok) {
 
@@ -1137,5 +849,54 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 	protected void stopaudio() {
 		SoundQueue.getInstance().stop();
+	}
+	
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback){ 
+		final Dialog dialog = new Dialog(v.getContext());
+		dialog.setContentView(R.layout.mc_dialog);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+
+		DialogAdapter m_adapter = new DialogAdapter(v.getContext(), R.layout.mc_dialog_row, m_entries);
+		ListView mList = (ListView)dialog.findViewById(R.id.liste);
+		mList.setAdapter(m_adapter);
+
+		dialog.show();
+		playAudio(entryAudio); // TODO: onOpen
+
+		mList.setOnItemClickListener(new OnItemClickListener(){ // TODO: adapt the audio in the db
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Does whatever is specific to the application
+				Log.d("var "+position+" picked ", "in dialog");
+				TextView var_text = (TextView) findViewById(varText);
+				DialogData choice = m_entries.get(position);
+				var_text.setText(choice.getName());
+				resultsMap.put(mapEntry, choice.getValue());  
+				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(
+						EventType.CLICK, LOG_TAG, title,
+						choice.getValue());
+				
+				Toast.makeText(parentReference, resultsMap.get(mapEntry), Toast.LENGTH_SHORT).show();
+						
+				// onClose
+				dialog.cancel();
+				int iden = choice.getAudioRes();
+				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + choice.getAudio(), null, null);
+				playAudio(iden);
+			}});
+
+		mList.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) { // TODO: adapt the audio in the db
+				int iden = m_entries.get(position).getAudioRes();
+				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + m_entries.get(position).getAudio(), null, null);
+				playAudioalways(iden);
+				return true;
+			}});
 	}
 }

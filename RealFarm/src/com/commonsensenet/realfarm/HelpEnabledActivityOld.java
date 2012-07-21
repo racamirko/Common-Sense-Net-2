@@ -1,9 +1,11 @@
 package com.commonsensenet.realfarm;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 import android.app.Activity;
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.MotionEvent;
@@ -12,9 +14,19 @@ import android.view.View.OnLongClickListener;
 import android.view.View.OnTouchListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
+import android.widget.AdapterView;
+import android.widget.ListView;
+import android.widget.TableRow;
+import android.widget.TextView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.model.DialogData;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.view.DialogAdapter;
 
 public abstract class HelpEnabledActivityOld extends Activity implements
 		OnLongClickListener, OnTouchListener {
@@ -309,4 +321,5 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 	protected void stopAudio() {
 		SoundQueue.getInstance().stop();
 	}
+	
 }

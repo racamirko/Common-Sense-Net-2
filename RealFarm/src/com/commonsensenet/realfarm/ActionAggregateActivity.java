@@ -364,13 +364,11 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements O
 		// loads the dialog layout
 		View layout = mLayoutInflater.inflate(
 				R.layout.dialog_aggregate_details, null);
-
 		// gets the ListView from the layout
-		ListView userListView = (ListView) layout
-				.findViewById(R.id.list_dialog_aggregate);
+		ListView userListView = (ListView) layout.findViewById(R.id.list_dialog_aggregate);
 		
 		userListView.setItemsCanFocus(false);
-		
+
 		// adds the event to dismiss the dialog.
 		layout.findViewById(R.id.button_back).setOnClickListener(
 				new View.OnClickListener() {
@@ -395,6 +393,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements O
 		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(this, list, mDataProvider);
 		
 		userListView.setAdapter(userAdapter);
+	
+		
+		//userListView.setOnItemLongClickListener(mParentReference);
 
 		// disables the title in the dialog
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -416,7 +417,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements O
 	}
 
 	public boolean onLongClick(View v) {
+		playAudioalways(R.raw.problems);
 		
+		/*
 		if (v.getId() == R.id.action_aggr_icon_btn_sow) { // TODO: put audios
 
 			playAudioalways(R.raw.problems);
@@ -457,7 +460,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements O
 
 			playAudioalways(R.raw.problems);
 			ShowHelpIcon(v); // added for help icon
-		}
+		}*/
 
 		//return super.onLongClick(v);
 		return true;

@@ -59,7 +59,7 @@
             android:id="@+id/crop_sell_tr"
             android:layout_width="fill_parent"
             android:layout_height="match_parent"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
            >
 
             <RelativeLayout
@@ -163,7 +163,7 @@
             android:id="@+id/date_sell_tr"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
              >
 
             <RelativeLayout
@@ -310,7 +310,7 @@
             android:id="@+id/quant_sell_tr"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
@@ -457,7 +457,7 @@
             android:id="@+id/price_sell_tr"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
@@ -551,7 +551,7 @@
             android:id="@+id/rem_quant_sell_tr"
             android:layout_width="fill_parent"
             android:layout_height="60dp"
-            android:background="@drawable/def_img"
+            android:background="@android:drawable/list_selector_background"
             android:paddingBottom="10dip"
             android:paddingTop="4dip" >
 
