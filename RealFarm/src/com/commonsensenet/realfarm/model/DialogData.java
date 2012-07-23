@@ -9,6 +9,19 @@ public class DialogData {
     private String value;
     private String number = "";
     private int backgroundRes = -1;
+    
+    public DialogData (){
+    }
+    
+    public DialogData (String name, int imgRes, int img2Res, int audioRes, String value, String number, int backgroundRes){
+    	this.name = name;
+    	this.imgRes = imgRes;
+    	this.img2Res = img2Res;
+    	this.audioRes = audioRes;
+    	this.value = value;
+    	this.number = number;
+    	this.backgroundRes = backgroundRes;
+    }
    
     public String getName() {
         return name;

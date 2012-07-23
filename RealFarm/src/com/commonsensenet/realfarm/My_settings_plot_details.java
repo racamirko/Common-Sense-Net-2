@@ -1,24 +1,34 @@
 package com.commonsensenet.realfarm;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.view.DialogAdapter;
+import com.commonsensenet.realfarm.view.DialogArrayLists;
 
 public class My_settings_plot_details extends HelpEnabledActivityOld {
 
@@ -33,6 +43,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 	private String mSoilType = "0";
 	private String mSize = "0";
 	private final My_settings_plot_details parentReference = this;
+	private HashMap<String, String> resultsMap;
 
 	private void addPlotToDatabase() {
 
@@ -66,6 +77,10 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
 		mDataProvider = RealFarmProvider.getInstance(mContext);
+		
+		resultsMap = new HashMap<String, String>(); 
+		resultsMap.put("mSoilType", "0");
+		resultsMap.put("mMainCrop", "0");
 
 		ImageButton home1 = (ImageButton) findViewById(R.id.aggr_img_home1);
 		ImageButton help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
@@ -109,7 +124,8 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 		Button plotimage = (Button) findViewById(R.id.home_btn_list_plot);
 		Button plotcrop = (Button) findViewById(R.id.home_btn_crop_plot);
-		Button plotsoil = (Button) findViewById(R.id.home_btn_soil_plot);
+		Button plotsoil = (Button) findViewById(R.id.home_btn_soil_plot); 
+		Button plotsize = (Button) findViewById(R.id.home_btn_size_plot);
 		Button plotok = (Button) findViewById(R.id.button_ok);
 		Button plotcancel = (Button) findViewById(R.id.button_cancel); // 25-06-2012
 
@@ -128,7 +144,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		// SoilType = (EditText)findViewById(R.id.soiltype);
 		// MainCrop = (EditText)findViewById(R.id.maincrop);
 		
-		size.setOnClickListener(new View.OnClickListener() {
+		plotsize.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				final Dialog dlg = new Dialog(v.getContext());
@@ -196,7 +212,11 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		plotsoil.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
+				stopAudio();
+				final ArrayList<DialogData> m_entries = DialogArrayLists.getSoilTypeArray(v);
+				displayDialog(v, m_entries, "mSoilType", "Select the soil type", R.raw.problems, R.id.dlg_lbl_soil_plot, R.id.soiltype_tr);
+				
+				/*final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.plot_soil_dialog);
 				dlg.setCancelable(true);
 				dlg.setTitle("Select the defualt image of the plot");
@@ -258,7 +278,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						dlg.cancel();
 					}
-				});
+				});*/
 
 			}
 		});
@@ -267,7 +287,12 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		plotcrop.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				Log.d("in crop plot dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
+				
+				stopAudio();
+				ArrayList<DialogData> m_entries = mDataProvider.getVarieties();
+				displayDialog(v, m_entries, "mMainCrop", "Select the variety", R.raw.problems, R.id.dlg_lbl_crop_plot, R.id.maincrop_tr);
+				
+				/*final Dialog dlg = new Dialog(v.getContext());
 				dlg.setContentView(R.layout.dialog_variety);
 				dlg.setCancelable(true);
 				dlg.setTitle("Choose the Main Crop");
@@ -377,7 +402,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 						tr_feedback.setBackgroundResource(R.drawable.def_img);
 						dlg.cancel();
 					}
-				});
+				});*/
 
 			}
 		});
@@ -385,6 +410,9 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		plotok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
+				mSoilType = resultsMap.get("mSoilType");
+				mMainCrop = resultsMap.get("mMainCrop");
+				
 				int flag1, flag2, flag3, flag4;
 				if (mPlotImage.toString().equalsIgnoreCase("0")) {
 					flag1 = 1;
@@ -644,5 +672,54 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		}
 
 		return true;
+	}
+	
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback){ 
+		final Dialog dialog = new Dialog(v.getContext());
+		dialog.setContentView(R.layout.mc_dialog);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+
+		DialogAdapter m_adapter = new DialogAdapter(v.getContext(), R.layout.mc_dialog_row, m_entries);
+		ListView mList = (ListView)dialog.findViewById(R.id.liste);
+		mList.setAdapter(m_adapter);
+
+		dialog.show();
+		playAudio(entryAudio); // TODO: onOpen
+
+		mList.setOnItemClickListener(new OnItemClickListener(){ // TODO: adapt the audio in the db
+			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+				// Does whatever is specific to the application
+				Log.d("var "+position+" picked ", "in dialog");
+				TextView var_text = (TextView) findViewById(varText);
+				DialogData choice = m_entries.get(position);
+				var_text.setText(choice.getName());
+				resultsMap.put(mapEntry, choice.getValue());  
+				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(
+						EventType.CLICK, LOG_TAG, title,
+						choice.getValue());
+				
+				Toast.makeText(parentReference, resultsMap.get(mapEntry), Toast.LENGTH_SHORT).show();
+						
+				// onClose
+				dialog.cancel();
+				int iden = choice.getAudioRes();
+				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + choice.getAudio(), null, null);
+				playAudio(iden);
+			}});
+
+		mList.setOnItemLongClickListener(new OnItemLongClickListener(){
+
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) { // TODO: adapt the audio in the db
+				int iden = m_entries.get(position).getAudioRes();
+				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + m_entries.get(position).getAudio(), null, null);
+				playAudioalways(iden);
+				return true;
+			}});
 	}
 }

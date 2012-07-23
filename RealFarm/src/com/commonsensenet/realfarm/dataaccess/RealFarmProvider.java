@@ -899,8 +899,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
+						 RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
+						 RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG },
 				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
 				null, null, null);
@@ -933,8 +933,8 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
+									 RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
+									 RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG });
 
 			if (c.moveToFirst()) {
@@ -1262,7 +1262,7 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 	
-	public ArrayList<DialogData> getCrops() {
+	public ArrayList<DialogData> getCropsThisSeason() {
 		final String MY_QUERY = "SELECT DISTINCT name, id, resBg, audio FROM seedType ORDER BY name ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
@@ -1290,12 +1290,40 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 	
-	public ArrayList<DialogData> getVarieties() {
-		final String MY_QUERY = "SELECT DISTINCT variety, id, resBg, audio FROM seedType ORDER BY name, variety ASC";
+	public ArrayList<DialogData> getCrops() {
+		final String MY_QUERY = "SELECT name, id, resBg, audio FROM cropType ORDER BY id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
-		mDatabase.open();
+		/*mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setAudio(c.getInt(3));
+				dd.setValue(dd.getName());
+				dd.setBackground(c.getInt(2));
+				tmpList.add(dd);
+				//System.out.println(c.getString(0)+" "+c.getInt(1));
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+*/
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getVarieties() {
+		final String MY_QUERY = "SELECT variety, id, audio FROM seedType ORDER BY id ASC"; //resBg from crop
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		/*mDatabase.open();
 		
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
@@ -1312,13 +1340,13 @@ public class RealFarmProvider {
 		}
 
 		c.close();
-		mDatabase.close();
+		mDatabase.close();*/
 
 		return tmpList;
 	}
 	
-	public ArrayList<DialogData> getUnits() {
-		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM unit ORDER BY name ASC";
+	public ArrayList<DialogData> getUnits(int id) {
+		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM unit WHERE action = "+id+" OR action = "+RealFarmDatabase.ACTION_NAME_ALL_ID+" ORDER BY id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1345,7 +1373,7 @@ public class RealFarmProvider {
 	}
 	
 	public ArrayList<DialogData> getFertilizers() {
-		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM fertilizer ORDER BY name ASC";
+		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM fertilizer ORDER BY id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1371,8 +1399,41 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 	
+	public ArrayList<DialogData> getPesticide() {
+		// final String MY_QUERY = "SELECT p.name, p.resource, p.audio, a.res FROM pesticide p, pesticideType a WHERE p.type = a.id ORDER BY p.type, p.id ASC";
+		
+		final String MY_QUERY = "SELECT name, audio, type FROM pesticide ORDER BY type, id ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				final String MY_QUERY2 = "SELECT res FROM pesticideType WHERE id = "+c.getInt(2);
+				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+				c2.moveToFirst();
+				
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setImage(c2.getInt(0));
+				dd.setAudio(c.getInt(1));
+				dd.setValue(dd.getName());
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
 	public ArrayList<DialogData> getProblems() {
-		final String MY_QUERY = "SELECT name, audio, res, masterId FROM problem ORDER BY masterId, name ASC";
+		final String MY_QUERY = "SELECT name, audio, res, masterId FROM problem ORDER BY masterId, id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 

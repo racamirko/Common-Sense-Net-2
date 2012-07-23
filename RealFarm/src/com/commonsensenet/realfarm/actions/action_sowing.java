@@ -196,7 +196,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
 							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
+									.setBackgroundResource(android.R.drawable.list_selector_background);
 							bg_day_sow.setImageResource(R.drawable.empty_not);
 
 						}

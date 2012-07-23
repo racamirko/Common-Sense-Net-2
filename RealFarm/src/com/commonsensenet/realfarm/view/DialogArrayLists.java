@@ -14,77 +14,42 @@ public class DialogArrayLists {
 
 	public static ArrayList<DialogData> getMonthArray(View v){
 		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
-		DialogData dd1 = new DialogData();
-		dd1.setName("01 January");
+		
 		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/jan", null, null);
-		dd1.setAudio(aud);
-		dd1.setValue("01");
+		DialogData dd1 = new DialogData("01 January", -1, -1, aud, "01", "", -1);
 
-		DialogData dd2 = new DialogData();
-		dd2.setName("02 February");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/feb", null, null);
-		dd2.setAudio(aud);
-		dd2.setValue("02");
+		DialogData dd2 = new DialogData("02 February", -1, -1, aud, "02", "", -1);
 
-		DialogData dd3 = new DialogData();
-		dd3.setName("03 March");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/mar", null, null);
-		dd3.setAudio(aud);
-		dd3.setValue("03");
+		DialogData dd3 = new DialogData("03 March", -1, -1, aud, "03", "", -1);
 
-		DialogData dd4 = new DialogData();
-		dd4.setName("04 April");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/apr", null, null);
-		dd4.setAudio(aud);
-		dd4.setValue("04");
+		DialogData dd4 = new DialogData("04 April", -1, -1, aud, "04", "", -1);
 
-		DialogData dd5 = new DialogData();
-		dd5.setName("05 May");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/may", null, null);
-		dd5.setAudio(aud);
-		dd5.setValue("05");
+		DialogData dd5 = new DialogData("05 May", -1, -1, aud, "05", "", -1);
 
-		DialogData dd6 = new DialogData();
-		dd6.setName("06 June");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/jun", null, null);
-		dd6.setAudio(aud);
-		dd6.setValue("06");
+		DialogData dd6 = new DialogData("06 June", -1, -1, aud, "06", "", -1);
 
-		DialogData dd7 = new DialogData();
-		dd7.setName("07 July");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/jul", null, null);
-		dd7.setAudio(aud);
-		dd7.setValue("07");
+		DialogData dd7 = new DialogData("07 July", -1, -1, aud, "07", "", -1);
 
-		DialogData dd8 = new DialogData();
-		dd8.setName("08 August");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/aug", null, null);
-		dd8.setAudio(aud);
-		dd8.setValue("08");
+		DialogData dd8 = new DialogData("08 August", -1, -1, aud, "08", "", -1);
 
-		DialogData dd9 = new DialogData();
-		dd9.setName("09 September");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/sep", null, null);
-		dd9.setAudio(aud);
-		dd9.setValue("09");
+		DialogData dd9 = new DialogData("09 September", -1, -1, aud, "09", "", -1);
 
-		DialogData dd10 = new DialogData();
-		dd10.setName("10 October");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/oct", null, null);
-		dd10.setAudio(aud);
-		dd10.setValue("10");
+		DialogData dd10 = new DialogData("10 October", -1, -1, aud, "10", "", -1);
 
-		DialogData dd11 = new DialogData();
-		dd11.setName("11 November");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/nov", null, null);
-		dd11.setAudio(aud);
-		dd11.setValue("11");
+		DialogData dd11 = new DialogData("11 November", -1, -1, aud, "11", "", -1);
 
-		DialogData dd12 = new DialogData();
-		dd12.setName("12 December");
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/dec", null, null);
-		dd12.setAudio(aud);
-		dd12.setValue("12");
+		DialogData dd12 = new DialogData("12 December", -1, -1, aud, "12", "", -1);
 
 		m_entries.add(dd1);
 		m_entries.add(dd2);
@@ -104,18 +69,13 @@ public class DialogArrayLists {
 
 	public static ArrayList<DialogData> getTreatmentArray(View v){
 		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
-		DialogData dd1 = new DialogData();
-		dd1.setName("Treated");
-		dd1.setImage(R.drawable.ic_sowingseedtreated);
+		
 		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof10kg", null, null);
-		dd1.setAudio(aud);
-		dd1.setValue("treated");
-		DialogData dd2 = new DialogData();
-		dd2.setName("Not treated");
-		dd2.setImage(R.drawable.ic_sowingseednottreated);
+		DialogData dd1 = new DialogData("Treated", R.drawable.ic_sowingseedtreated, -1, aud, "treated", "", -1);
+
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof20kg", null, null);
-		dd2.setAudio(aud);
-		dd2.setValue("not treated");
+		DialogData dd2 = new DialogData("Not treated", R.drawable.ic_sowingseednottreated, -1, aud, "not treated", "", -1);
+
 		m_entries.add(dd1);
 		m_entries.add(dd2);
 		return m_entries;
@@ -123,18 +83,13 @@ public class DialogArrayLists {
 
 	public static ArrayList<DialogData> getIntercropArray(View v){
 		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
-		DialogData dd1 = new DialogData();
-		dd1.setName("Main Crop");
-		dd1.setImage(R.drawable.ic_maincrop);
+
 		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof10kg", null, null);
-		dd1.setAudio(aud);
-		dd1.setValue("maincrop");
-		DialogData dd2 = new DialogData();
-		dd2.setName("Intercrop");
-		dd2.setImage(R.drawable.ic_intercrop);
+		DialogData dd1 = new DialogData("Main Crop", R.drawable.ic_maincrop, -1, aud, "maincrop", "", -1);
+
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof20kg", null, null);
-		dd2.setAudio(aud);
-		dd2.setValue("intercrop");
+		DialogData dd2 = new DialogData("Intercrop", R.drawable.ic_intercrop, -1, aud, "intercrop", "", -1);
+		
 		m_entries.add(dd1);
 		m_entries.add(dd2);
 		return m_entries;
@@ -142,33 +97,43 @@ public class DialogArrayLists {
 
 	public static ArrayList<DialogData> getIrrigationArray(View v){
 		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
-		DialogData dd1 = new DialogData();
-		dd1.setName("Flooding");
-		dd1.setImage(R.drawable.ic_flooding);
+
 		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof10kg", null, null);
-		dd1.setAudio(aud);
-		dd1.setValue("Flooding");
-		DialogData dd2 = new DialogData();
-		dd2.setName("Sprinkling");
-		dd2.setImage(R.drawable.ic_sprinkling);
+		DialogData dd1 = new DialogData("Flooding", R.drawable.ic_flooding, -1, aud, "Flooding", "", -1);
+
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof20kg", null, null);
-		dd2.setAudio(aud);
-		dd2.setValue("Sprinkling");
+		DialogData dd2 = new DialogData("Sprinkling", R.drawable.ic_sprinkling, -1, aud, "Sprinkling", "", -1);
+
 		m_entries.add(dd1);
 		m_entries.add(dd2);
+		return m_entries;
+	}
+	
+	public static ArrayList<DialogData> getSoilTypeArray(View v){
+		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
+
+		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof10kg", null, null);
+		DialogData dd1 = new DialogData("Loamy", -1, -1, aud, "Loamy", "", -1);
+
+		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof20kg", null, null);
+		DialogData dd2 = new DialogData("Sandy", -1, -1, aud, "Sandy", "", -1);
+
+		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof20kg", null, null);
+		DialogData dd3 = new DialogData("Clay", -1, -1, aud, "Clay", "", -1);
+		
+		m_entries.add(dd1);
+		m_entries.add(dd2);
+		m_entries.add(dd3);
 		return m_entries;
 	}
 
 	public static ArrayList<DialogData> getItUnitsArray(View v, int dep, int arr, int inc){
 		final ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
 		for(int i=dep; i<arr; i=i+inc) {
-			DialogData dd = new DialogData();
-			dd.setName("bag of "+i+" kgs");
-			dd.setImage(R.drawable.ic_genericbaglarger);
+			
 			int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + "bagof"+i+"kg", null, null);
-			dd.setAudio(aud);
-			dd.setValue(i+"");
-			dd.setNumber(i+"");
+			DialogData dd = new DialogData("bag of "+i+" kgs", R.drawable.ic_genericbaglarger, -1, aud, i+"", i+"", -1);
+
 			m_entries.add(dd);
 		}
 		return m_entries;

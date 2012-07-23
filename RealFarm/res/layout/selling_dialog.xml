@@ -243,7 +243,7 @@
                     android:paddingBottom="5dip"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dip"
-                    android:text="Date"
+                    android:text="Day"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Button
@@ -330,7 +330,7 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:gravity="left"
-                    android:text="Quantity"
+                    android:text="Qty sold"
                     android:textColor="#000000"
                     android:textSize="20sp" />
 
@@ -512,7 +512,7 @@
 
             <RelativeLayout
                 android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="fill_parent"
+                android:layout_width="60dp"
                 android:layout_height="60dp"
                 android:layout_marginRight="10dip"
                 android:gravity="right" >
@@ -542,7 +542,26 @@
                     android:layout_height="60dp"
                     android:layout_alignBottom="@+id/dlg_var_sow"
                     android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />
+                    android:background="@drawable/square_btn_transp" />                
+            </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/RelativeLayoutwf_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="0.09" >
+
+                <ImageView
+                    android:id="@+id/treat_sow_img_btn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="60dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentTop="true"
+                    android:gravity="left"
+                    android:src="@drawable/ic_sell" />
             </RelativeLayout>
         </TableRow>
     </LinearLayout>
@@ -572,9 +591,9 @@
                     android:layout_marginLeft="5dp"
                     android:layout_weight="1"
                     android:gravity="right"
-                    android:text="Remaining"
+                    android:text="Qty remaining"
                     android:textColor="#000000"
-                    android:textSize="20sp" />
+                    android:textSize="15sp" />
 
                <!-- <Button
                     android:id="@+id/remain_sow_txt_btn"

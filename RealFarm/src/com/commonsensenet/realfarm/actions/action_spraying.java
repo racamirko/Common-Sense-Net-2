@@ -25,6 +25,7 @@ import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
@@ -251,7 +252,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in pest spray dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = mDataProvider.getFertilizers();
+				ArrayList<DialogData> m_entries = mDataProvider.getPesticide();
 				displayDialog(v, m_entries, "pest_sel_spray", "Choose the pesticide", R.raw.problems, R.id.dlg_lbl_pest_spray, R.id.pest_spray_tr);
 			}
 		});
@@ -261,7 +262,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in units fert dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = mDataProvider.getUnits();
+				ArrayList<DialogData> m_entries = mDataProvider.getUnits(RealFarmDatabase.ACTION_NAME_SPRAY_ID);
 				displayDialog(v, m_entries, "unit_sel_spray", "Choose the unit", R.raw.problems, R.id.dlg_lbl_units_spray, R.id.units_spray_tr);
 			}
 		});

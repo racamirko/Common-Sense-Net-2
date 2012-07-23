@@ -175,6 +175,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	protected void launchActionIntent() {
+		if(Global.selectedAction == action_selling.class) { // Temporary fix
+			this.startActivity(new Intent(this, Global.selectedAction)); 
+			return;
+		}
+		
 		Intent intent = null;
 		int plotCount = mDataProvider.getPlotsByUserIdAndDeleteFlag(
 				Global.userId, 0).size();

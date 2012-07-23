@@ -25,6 +25,7 @@ import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
@@ -136,7 +137,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				stopAudio();
 				Log.d("in units fert dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = mDataProvider.getUnits();
+				ArrayList<DialogData> m_entries = mDataProvider.getUnits(RealFarmDatabase.ACTION_NAME_FERTILIZE_ID);
 				displayDialog(v, m_entries, "units_fert", "Choose the unit", R.raw.problems, R.id.dlg_lbl_units_fert, R.id.units_fert_tr);
 			}
 		});

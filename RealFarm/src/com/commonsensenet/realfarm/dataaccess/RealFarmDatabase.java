@@ -107,8 +107,18 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_PESTICIDE + " ( "
 					+ COLUMN_NAME_PESTICIDE_ID + " integer primary key, "
 					+ COLUMN_NAME_PESTICIDE_NAME + " text, "
-					+ COLUMN_NAME_PESTICIDE_AUDIO + " integer " + " ); ");
+					+ COLUMN_NAME_PESTICIDE_RESOURCE + " integer, "
+					+ COLUMN_NAME_PESTICIDE_TYPE + " references pesticideType(id), "
+					+ COLUMN_NAME_PESTICIDE_AUDIO + " integer " + " ); "); 
 			Log.d(LOG_TAG, "Created pesticide table");
+
+			// pesticide types
+			db.execSQL("create table " + TABLE_NAME_PESTICIDETYPE + " ( "
+					+ COLUMN_NAME_PESTICIDETYPE_ID + " integer primary key, "
+					+ COLUMN_NAME_PESTICIDETYPE_NAME + " text, "
+					+ COLUMN_NAME_PESTICIDETYPE_RESOURCE + " integer, "
+					+ COLUMN_NAME_PESTICIDETYPE_AUDIO + " integer " + " ); ");
+			Log.d(LOG_TAG, "Created pesticide type table");
 
 			// plots
 			db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
@@ -175,7 +185,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_UNIT_ID + " integer primary key, "
 					+ COLUMN_NAME_UNIT_NAME + " text not null, "
 					+ COLUMN_NAME_UNIT_RESOURCE + " integer, "
-					+ COLUMN_NAME_UNIT_AUDIO + " integer " + " ); ");
+					+ COLUMN_NAME_UNIT_AUDIO + " integer, "
+					+ COLUMN_NAME_UNIT_ACTION + " integer " + " ); "); // To modify. For the moment 1-n but ideally, n-n
 			Log.d(LOG_TAG, "Created unit table");
 
 			// soil moisture
@@ -265,6 +276,13 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PESTICIDE_AUDIO = "audio";
 	public static final String COLUMN_NAME_PESTICIDE_ID = "id";
 	public static final String COLUMN_NAME_PESTICIDE_NAME = "name";
+	public static final String COLUMN_NAME_PESTICIDE_RESOURCE = "res";
+	public static final String COLUMN_NAME_PESTICIDE_TYPE = "type";
+	
+	public static final String COLUMN_NAME_PESTICIDETYPE_AUDIO = "audio";
+	public static final String COLUMN_NAME_PESTICIDETYPE_ID = "id";
+	public static final String COLUMN_NAME_PESTICIDETYPE_NAME = "name";
+	public static final String COLUMN_NAME_PESTICIDETYPE_RESOURCE = "res";
 
 	public static final String COLUMN_NAME_PLOT_ADMINFLAG = "adminFlag";
 	public static final String COLUMN_NAME_PLOT_DELETEFLAG = "deleteFlag";
@@ -305,6 +323,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SOILMOISTURE_VALUE1 = "value1";
 	public static final String COLUMN_NAME_SOILMOISTURE_VALUE2 = "value2";
 
+	public static final String COLUMN_NAME_UNIT_ACTION = "action";
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_NAME = "name";
@@ -344,6 +363,7 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_FERTILIZER = "fertilizer";
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice"; // ok
 	public static final String TABLE_NAME_PESTICIDE = "pesticide";
+	public static final String TABLE_NAME_PESTICIDETYPE = "pesticideType";
 	public static final String TABLE_NAME_PLOT = "plot"; // ok
 	public static final String TABLE_NAME_PROBLEM = "problem";
 	public static final String TABLE_NAME_PROBLEMTYPE = "problemType";
@@ -377,6 +397,7 @@ public class RealFarmDatabase {
 		mDb.delete(TABLE_NAME_ACTION, null, null);
 		mDb.delete(TABLE_NAME_FERTILIZER, null, null);
 		mDb.delete(TABLE_NAME_PESTICIDE, null, null);
+		mDb.delete(TABLE_NAME_PESTICIDETYPE, null, null);
 		mDb.delete(TABLE_NAME_PROBLEM, null, null);
 		mDb.delete(TABLE_NAME_PROBLEMTYPE, null, null);
 		mDb.delete(TABLE_NAME_PLOT, null, null);
@@ -450,6 +471,7 @@ public class RealFarmDatabase {
 				having, orderBy);
 	}
 
+	public static final int ACTION_NAME_ALL_ID = 0;
 	public static final int ACTION_NAME_SOW_ID = 1;
 	public static final int ACTION_NAME_FERTILIZE_ID = 2;
 	public static final int ACTION_NAME_IRRIGATE_ID = 3;
@@ -542,19 +564,62 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "actionName works");
+		
+		// pesticide types
+		Object[][] pesticideTypesData = {
+				{"Pesticide", R.drawable.pesticide, R.raw.audio1 },
+				{"Fungicide", R.drawable.fungicide, R.raw.audio1 }
+
+		};
+
+		ContentValues pesticideType = new ContentValues();
+		for (int x = 0; x < pesticideTypesData.length; x++) {
+			pesticideType.put(COLUMN_NAME_PESTICIDE_ID,(x + 1));
+			pesticideType.put(COLUMN_NAME_PESTICIDE_NAME, (String) pesticideTypesData[x][0]);
+			pesticideType.put(COLUMN_NAME_PESTICIDE_RESOURCE, (Integer) pesticideTypesData[x][1]);
+			pesticideType.put(COLUMN_NAME_PESTICIDE_AUDIO, (Integer) pesticideTypesData[x][2]);
+			insertEntriesIntoDatabase(TABLE_NAME_PESTICIDETYPE, pesticideType, db);
+			pesticideType.clear();
+		}
+
+		Log.d(LOG_TAG, "pesticide types works");
+
+		//pesticides
+		Object[][] pesticideData = {
+				{"Monocrotophos", R.drawable.icon, R.raw.audio1, 1 },
+				{"Dimethoate", R.drawable.icon, R.raw.audio1, 1 },
+				{"Pesticide not listed", R.drawable.icon, R.raw.audio1, 1 },
+				{"Dithane M-45", R.drawable.icon, R.raw.audio1, 2 },
+				{"Triazole", R.drawable.icon, R.raw.audio1, 2 },
+				{"Fungicide not listed", R.drawable.icon, R.raw.audio1, 2 }
+
+		};
+
+		ContentValues pesticide = new ContentValues();
+		for (int x = 0; x < pesticideData.length; x++) {
+			pesticide.put(COLUMN_NAME_PESTICIDE_ID, (x + 1));
+			pesticide.put(COLUMN_NAME_PESTICIDE_NAME, (String) pesticideData[x][0]);
+			pesticide.put(COLUMN_NAME_PESTICIDE_RESOURCE, (Integer) pesticideData[x][1]);
+			pesticide.put(COLUMN_NAME_PESTICIDE_AUDIO, (Integer) pesticideData[x][2]);
+			pesticide.put(COLUMN_NAME_PESTICIDE_TYPE, (Integer) pesticideData[x][3]);
+			insertEntriesIntoDatabase(TABLE_NAME_PESTICIDE, pesticide, db);
+			pesticide.clear();
+		}
+
+		Log.d(LOG_TAG, "pesticide works");
 
 		// fertilizer
 		Object[][] fertilizerData = {
-				{ "Not in the list", R.raw.audio1, R.drawable.icon},
-				{ "Complex", R.raw.audio1 , R.drawable.icon},
-				{ "Compost", R.raw.audio1 , R.drawable.icon},
-				{ "DAP", R.raw.audio1, R.drawable.icon },
-				{ "FYM", R.raw.audio1 , R.drawable.icon},
-				{ "Gypsum", R.raw.audio1, R.drawable.icon },
-				{ "Potash", R.raw.audio1 , R.drawable.icon},
-				{ "Salt", R.raw.audio1, R.drawable.icon },
-				{ "Super", R.raw.audio1, R.drawable.icon },
-				{ "Urea", R.raw.audio1, R.drawable.icon }
+				{ "Complex", R.raw.audio1 , R.drawable.whitespaceicon},
+				{ "Compost", R.raw.audio1 , R.drawable.whitespaceicon},
+				{ "DAP", R.raw.audio1, R.drawable.whitespaceicon },
+				{ "Farm Yard Manure / FYM", R.raw.audio1 , R.drawable.whitespaceicon},
+				{ "Gypsum", R.raw.audio1, R.drawable.whitespaceicon },
+				{ "Potash", R.raw.audio1 , R.drawable.whitespaceicon},
+				{ "Salt", R.raw.audio1, R.drawable.whitespaceicon },
+				{ "Super", R.raw.audio1, R.drawable.whitespaceicon },
+				{ "Urea", R.raw.audio1, R.drawable.whitespaceicon },
+				{ "Not in the list", R.raw.audio1, R.drawable.whitespaceicon }
 		};
 
 		ContentValues fertilizer = new ContentValues();
@@ -592,26 +657,26 @@ public class RealFarmDatabase {
 
 		// problems
 		Object[][] problemData = {
-				{ "Pod rot", R.raw.audio1, R.drawable.icon, 1 },
-				{ "Late leaf spot", R.raw.audio1, R.drawable.icon, 1 },
-				{ "Unknown disease", R.raw.audio1, R.drawable.icon, 1 },
-				{ "Disease not listed", R.raw.audio1, R.drawable.icon, 1 },
-				{ "Pod borer", R.raw.audio1, R.drawable.icon, 2 },
-				{ "Aphids", R.raw.audio1, R.drawable.icon, 2 },
-				{ "Leaf miner", R.raw.audio1, R.drawable.icon, 2 },
-				{ "Red hairy caterpillar", R.raw.audio1, R.drawable.icon, 2 },
-				{ "Unknown pest", R.raw.audio1, R.drawable.icon, 2 },
-				{ "Pest not listed", R.raw.audio1, R.drawable.icon, 2 },
-				{ "Low growth", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Too much vegetative growth", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Weeds", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Reduced flowering", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Rod of stalks", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Root grub", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Pegs not developed", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Pod germination", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Wild boar", R.raw.audio1, R.drawable.icon, 3 },
-				{ "Problem not listed", R.raw.audio1, R.drawable.icon, 3 }
+				{ "Late leaf spot", R.raw.audio1, 1 },
+				{ "Pod rot", R.raw.audio1, 1 },
+				{ "Unknown disease", R.raw.audio1, 1 },
+				{ "Disease not listed", R.raw.audio1, 1 },
+				{ "Aphids", R.raw.audio1, 2 },
+				{ "Leaf miner", R.raw.audio1, 2 },
+				{ "Pod borer", R.raw.audio1, 2 },
+				{ "Red hairy caterpillar", R.raw.audio1, 2 },
+				{ "Unknown pest", R.raw.audio1, 2 },
+				{ "Pest not listed", R.raw.audio1, 2 },
+				{ "Low growth", R.raw.audio1, 3 },
+				{ "Pegs not developed", R.raw.audio1, 3 },
+				{ "Pod germination", R.raw.audio1, 3 },
+				{ "Reduced flowering", R.raw.audio1,3 },
+				{ "Rot of stalks", R.raw.audio1,  3 },
+				{ "Root grub", R.raw.audio1, 3 },
+				{ "Too much vegetative growth", R.raw.audio1, 3 },
+				{ "Weeds", R.raw.audio1, 3 },
+				{ "Wild boar", R.raw.audio1, 3 },
+				{ "Problem not listed", R.raw.audio1, 3 }
 		};
 
 		ContentValues problem = new ContentValues();
@@ -619,8 +684,7 @@ public class RealFarmDatabase {
 			problem.put(COLUMN_NAME_PROBLEM_ID, (x + 1));
 			problem.put(COLUMN_NAME_PROBLEM_NAME, (String) problemData[x][0]);
 			problem.put(COLUMN_NAME_PROBLEM_AUDIO, (Integer) problemData[x][1]);
-			problem.put(COLUMN_NAME_PROBLEM_RESOURCE, (Integer) problemData[x][2]);
-			problem.put(COLUMN_NAME_PROBLEM_PROBLEMTYPEID, (Integer) problemData[x][3]);
+			problem.put(COLUMN_NAME_PROBLEM_PROBLEMTYPEID, (Integer) problemData[x][2]);
 			insertEntriesIntoDatabase(TABLE_NAME_PROBLEM, problem, db);
 			problem.clear();
 		}
@@ -628,17 +692,15 @@ public class RealFarmDatabase {
 		Log.d(LOG_TAG, "problem works");	
 
 		// units
-		Object[][] unitData = { { "unknown", R.drawable.icon, R.raw.audio1 },
-				{ "none", R.drawable.icon, R.raw.audio1 },
-				{ "tractor loads", R.drawable.ic_tractorload, R.raw.audio1 },
-				{ "cart loads", R.drawable.ic_cartload, R.raw.audio1 },
-				{ "1L can", R.drawable.ic_pesticideherbicidecan, R.raw.audio1 },
-				{ "1 seru", R.drawable.ic_seruunit, R.raw.audio1 },
-				{ "number of days", R.drawable.icon, R.raw.audio1 },
-				{ "number of year", R.drawable.icon, R.raw.audio1 },
-				{ "number of nights", R.drawable.icon, R.raw.audio1 },
-				{ "bag of 50 kg", R.drawable.ic_50kgbag, R.raw.audio1 },
-				{ "number of main crop rows between each row", R.drawable.icon, R.raw.audio1 }
+		Object[][] unitData = {
+				{ "seru(s)", R.drawable.ic_seruunit, R.raw.audio1,  ACTION_NAME_HARVEST_ID},
+				{ "1L can(s)", R.drawable.ic_pesticideherbicidecan, R.raw.audio1 , ACTION_NAME_SPRAY_ID},
+				{ "bag(s) of 1 kg", R.drawable.ic_50kgbag, R.raw.audio1, ACTION_NAME_SPRAY_ID },
+				{ "bag(s) of 50 kg", R.drawable.ic_50kgbag, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
+				{ "cart load(s)", R.drawable.ic_cartload, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
+				{ "tractor load(s)", R.drawable.ic_tractorload, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
+				{ "unknown", R.drawable.icon, R.raw.audio1, ACTION_NAME_ALL_ID },
+				{ "none", R.drawable.icon, R.raw.audio1, ACTION_NAME_ALL_ID }
 		};
 
 		ContentValues unit = new ContentValues();
@@ -647,6 +709,7 @@ public class RealFarmDatabase {
 			unit.put(COLUMN_NAME_UNIT_NAME, (String) unitData[x][0]);
 			unit.put(COLUMN_NAME_UNIT_RESOURCE, (Integer) unitData[x][1]);
 			unit.put(COLUMN_NAME_UNIT_AUDIO, (Integer) unitData[x][2]);
+			unit.put(COLUMN_NAME_UNIT_ACTION, (Integer) unitData[x][3]);
 			insertEntriesIntoDatabase(TABLE_NAME_UNIT, unit, db);
 			unit.clear();
 		}

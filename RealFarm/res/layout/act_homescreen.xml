@@ -89,7 +89,7 @@
             android:layout_toRightOf="@id/hmscrn_usr_icon"
             android:background="@drawable/square_btn_transp"
             android:scaleType="fitXY"
-            android:src="@drawable/allactions_test1" />
+            android:src="@drawable/hmscrn_btn_actions" />
     </RelativeLayout>
 
     <!-- Actions part -->
@@ -127,15 +127,16 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_bg_sow" />
+                    android:src="@drawable/sowingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_fertilize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
+                    android:layout_marginTop="5px"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_bg_fert" />
+                    android:src="@drawable/fertilizingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_irrigate"
@@ -143,7 +144,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_bg_irrigate" />
+                    android:src="@drawable/irrigationsection" />
             </LinearLayout>
             <!-- second row -->
 
@@ -159,7 +160,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_bg_problems" />
+                    android:src="@drawable/problemsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_spray"
@@ -167,7 +168,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_bg_spray" />
+                    android:src="@drawable/sprayingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_harvest"
@@ -175,7 +176,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_bg_harvest" />
+                    android:src="@drawable/harvestingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_sell"
@@ -183,7 +184,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/ic_bg_sell" />
+                    android:src="@drawable/sellingsection" />
             </LinearLayout>
         </LinearLayout>
 

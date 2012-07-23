@@ -346,7 +346,7 @@
                     android:paddingBottom="5dip"
                     android:paddingLeft="5dp"
                     android:paddingTop="5dip"
-                    android:text="Date"
+                    android:text="Day"
                     android:textAppearance="?android:attr/textAppearanceMedium" />
 
                 <Button

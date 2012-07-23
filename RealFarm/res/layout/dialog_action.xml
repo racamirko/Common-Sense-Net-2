@@ -26,7 +26,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_72px_sowing" />
+                    android:src="@drawable/sowingaction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -48,7 +48,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_72px_fertilizing1" />
+                    android:src="@drawable/fertilizingaction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -70,7 +70,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_72px_spraying3" />
+                    android:src="@drawable/sprayingaction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -92,7 +92,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_72px_reporting" />
+                    android:src="@drawable/problemreportingaction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -114,7 +114,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_72px_irrigation1" />
+                    android:src="@drawable/irrigationaction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:src="@drawable/ic_72px_harvesting2" />
+                    android:src="@drawable/harvestingaction" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -158,7 +158,7 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="40dp"
-                    android:src="@drawable/selling" />
+                    android:src="@drawable/sellingaction" />
 
                 <TextView
                     android:layout_width="wrap_content"

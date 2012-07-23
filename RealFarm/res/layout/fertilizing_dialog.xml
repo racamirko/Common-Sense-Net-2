@@ -224,7 +224,7 @@
                         android:layout_alignParentTop="true"
                         android:background="@drawable/square_btn_transp"
                         android:gravity="center"
-                        android:src="@drawable/amount" />
+                        android:src="@drawable/unitsicon" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -396,7 +396,7 @@
                         android:paddingBottom="5dip"
                         android:paddingLeft="5dp"
                         android:paddingTop="5dip"
-                        android:text="Date"
+                        android:text="Day"
                         android:textAppearance="?android:attr/textAppearanceMedium" />
 
                     <Button

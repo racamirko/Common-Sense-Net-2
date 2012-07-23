@@ -42,7 +42,7 @@ public class action_selling extends HelpEnabledActivityOld {
 	private String months_harvest = "0";
 	private int sell_price;
 	private String sell_price_sel = "0";
-	private int sell_no_rem;
+	private int sell_no_rem = -1;
 	private String units_rem_sell = "0";
 	private String sell_no_sel_rem = "0";
 	private HashMap<String, String> resultsMap;
@@ -147,7 +147,7 @@ public class action_selling extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				
-				ArrayList<DialogData> m_entries = mDataProvider.getCrops();
+				ArrayList<DialogData> m_entries = mDataProvider.getCropsThisSeason();
 				displayDialog(v, m_entries, "crop_sell", "Select the crop", R.raw.problems, R.id.dlg_lbl_crop_sell, R.id.crop_sell_tr);
 
 			}
@@ -190,7 +190,7 @@ public class action_selling extends HelpEnabledActivityOld {
 							TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
 
 							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
+									.setBackgroundResource(android.R.drawable.list_selector_background);
 							bg_date_sell.setImageResource(R.drawable.empty_not);
 
 						}
@@ -260,7 +260,7 @@ public class action_selling extends HelpEnabledActivityOld {
 							TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
 
 							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
+									.setBackgroundResource(android.R.drawable.list_selector_background);
 							bg_units_no_sell
 									.setImageResource(R.drawable.empty_not);
 
@@ -320,7 +320,7 @@ public class action_selling extends HelpEnabledActivityOld {
 							TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
 
 							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
+									.setBackgroundResource(android.R.drawable.list_selector_background);
 							bg_price_sell
 									.setImageResource(R.drawable.empty_not);
 
@@ -364,12 +364,12 @@ public class action_selling extends HelpEnabledActivityOld {
 						sell_no_rem = mynp1.getValue();
 						sell_no_sel_rem = String.valueOf(sell_no_rem);
 						no_text3.setText(sell_no_sel_rem);
-						if (sell_no_rem != 0) {
+						if (sell_no_rem != -1) {
 
 							TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
 
 							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
+									.setBackgroundResource(android.R.drawable.list_selector_background);
 							bg_units_no_rem_sell
 									.setImageResource(R.drawable.empty_not);
 
@@ -490,7 +490,7 @@ public class action_selling extends HelpEnabledActivityOld {
 				}
 
 				if (units_rem_sell.toString().equalsIgnoreCase("0")
-						|| sell_no_rem == 0) {
+						|| sell_no_rem == -1) {
 
 					flag5 = 1;
 

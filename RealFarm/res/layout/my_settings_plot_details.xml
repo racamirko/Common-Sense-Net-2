@@ -62,8 +62,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="70dp"
                     android:background="@android:drawable/list_selector_background"
-                    android:paddingBottom="10dip"
-                    android:paddingTop="4dip" >
+                    android:paddingBottom="10dip" >
 
                     <RelativeLayout
                         android:id="@+id/RelativeLayoutwf_2"
@@ -433,7 +432,7 @@
 		                    android:textAppearance="?android:attr/textAppearanceMedium" />
 		
 		                <Button
-		                    android:id="@+id/home_btn_units_no_harvest"
+		                    android:id="@+id/home_btn_size_plot"
 		                    android:layout_width="wrap_content"
 		                    android:layout_height="wrap_content"
 		                    android:layout_alignParentBottom="true"
