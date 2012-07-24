@@ -1,22 +1,20 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,8 +37,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 	private Context context = this;
 	private int feedback_sel;
 	private int harvest_no, day_harvest_int;
-	private String harvest_no_sel, units_harvest = "0", feedback_txt,
-			months_harvest = "0", day_harvest_sel_1 = "0";
+	private String units_harvest = "0", feedback_txt, months_harvest = "0";
 	private RealFarmProvider mDataProvider;
 	private final action_harvest parentReference = this;
 	private String final_day_harvest;
@@ -84,11 +81,6 @@ public class action_harvest extends HelpEnabledActivityOld {
 		final Button smiley2;
 		final Button smiley3;
 
-		final ImageView bg_day_harvest = (ImageView) findViewById(R.id.img_bg_day_harvest);
-		final ImageView bg_units_no_harvest = (ImageView) findViewById(R.id.img_bg_units_no_harvest);
-		final ImageView bg_units_harvest = (ImageView) findViewById(R.id.img_bg_units_harvest);
-		final ImageView bg_month_harvest = (ImageView) findViewById(R.id.img_bg_month_harvest);
-
 		smiley1 = (Button) findViewById(R.id.home_btn_har_1);
 		smiley2 = (Button) findViewById(R.id.home_btn_har_2);
 		smiley3 = (Button) findViewById(R.id.home_btn_har_3);
@@ -101,6 +93,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 		resultsMap = new HashMap<String, String>(); 
 		resultsMap.put("units_harvest", "0");
 		resultsMap.put("months_harvest", "0");
+		resultsMap.put("day_harvest_int", "0");
+		resultsMap.put("harvest_no", "0");
 
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
@@ -195,72 +189,12 @@ public class action_harvest extends HelpEnabledActivityOld {
 			}
 		});
 
-		final TextView no_text_1 = (TextView) findViewById(R.id.dlg_lbl_unit_no_harvest);
-
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Number of bags");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.noofbags);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "no_of_bags");
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						harvest_no = mynp1.getValue();
-						harvest_no_sel = String.valueOf(harvest_no);
-						no_text_1.setText(harvest_no_sel);
-
-						if (harvest_no != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.units_harvest_tr);
-
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-							bg_units_no_harvest
-									.setImageResource(R.drawable.empty_not);
-
-							// tracks the application usage.
-							ApplicationTracker.getInstance().logEvent(
-									EventType.CLICK, LOG_TAG, "no_of_bags",
-									harvest_no_sel);
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "no_of_bags",
-								"cancel");
-					}
-				});
-
+			
+				displayDialogNP("Choose the number of bags", "harvest_no", R.raw.dateinfo, 1, 200, 0, 1, 0, R.id.dlg_lbl_unit_no_harvest, R.id.units_harvest_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
 
@@ -286,61 +220,11 @@ public class action_harvest extends HelpEnabledActivityOld {
 			}
 		});
 
-		final TextView day_fert = (TextView) findViewById(R.id.dlg_lbl_day_harvest);
-
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Year when harvested");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.dateinfo);
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynpd = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						day_harvest_int = mynpd.getValue();
-						day_harvest_sel_1 = String.valueOf(day_harvest_int);
-						day_fert.setText(day_harvest_sel_1);
-						if (day_harvest_int != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-							bg_day_harvest
-									.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "no_bags_selection",
-								"cancel");
-					}
-				});
+				displayDialogNP("Choose the day", "day_harvest_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_harvest, R.id.harvest_date_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
 
@@ -366,6 +250,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 				
 				units_harvest = resultsMap.get("units_harvest");
 				months_harvest = resultsMap.get("months_harvest");
+				day_harvest_int = Integer.parseInt(resultsMap.get("day_harvest_int"));
+				harvest_no = Integer.parseInt(resultsMap.get("harvest_no"));
 
 				int flag1, flag2, flag3;
 				// Toast.makeText(action_harvest.this, "User selected " +
@@ -472,106 +358,6 @@ public class action_harvest extends HelpEnabledActivityOld {
 		});
 	}
 
-	protected void callmonthlist() {
-		// TODO Auto-generated method stub
-		Log.d("in Lang selection", "in dialog");
-		final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_month_harvest);
-		final ImageView bg_month_harvest = (ImageView) findViewById(R.id.img_bg_month_harvest);
-
-		// dialog used to request the information
-		final Dialog dialog = new Dialog(this);
-
-		// gets the language list from the resources.
-		Resources res = getResources();
-		String[] languages = res.getStringArray(R.array.array_months);
-
-		ListView monthList = new ListView(this);
-		ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				languages);
-		// sets the adapter.
-		monthList.setAdapter(languageAdapter);
-
-		// adds the event listener to detect the language selection.
-		monthList.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				// stores the selected language.
-				mSelectedMonth = (String) parent.getAdapter().getItem(position);
-
-				TableRow tr_feedback = (TableRow) findViewById(R.id.harvest_date_tr);
-
-				tr_feedback.setBackgroundResource(R.drawable.def_img);
-				bg_month_harvest.setImageResource(R.drawable.empty_not);
-
-				if (mSelectedMonth.toString().equalsIgnoreCase("January")) {
-					var_text.setText("01");
-					months_harvest = "01";
-				}
-
-				if (mSelectedMonth.toString().equalsIgnoreCase("February")) {
-					var_text.setText("02");
-					months_harvest = "02";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("March")) {
-					var_text.setText("03");
-					months_harvest = "03";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("April")) {
-					var_text.setText("04");
-					months_harvest = "04";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("May")) {
-					var_text.setText("05");
-					months_harvest = "05";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("June")) {
-					var_text.setText("06");
-					months_harvest = "06";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("July")) {
-					var_text.setText("07");
-					months_harvest = "07";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("August")) {
-					var_text.setText("08");
-					months_harvest = "08";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("September")) {
-					var_text.setText("09");
-					months_harvest = "09";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("October")) {
-					var_text.setText("10");
-					months_harvest = "10";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("November")) {
-					var_text.setText("11");
-					months_harvest = "11";
-				}
-				if (mSelectedMonth.toString().equalsIgnoreCase("December")) {
-					var_text.setText("12");
-					months_harvest = "12";
-				}
-
-				// closes the dialog.
-				dialog.dismiss();
-			}
-
-		});
-
-		// sets the view
-		dialog.setContentView(monthList);
-		// sets the properties of the dialog.
-		dialog.setTitle("Please select the month");
-		dialog.setCancelable(true);
-
-		// displays the dialog.
-		dialog.show();
-	}
-
 	@Override
 	public boolean onLongClick(View v) {
 
@@ -635,28 +421,6 @@ public class action_harvest extends HelpEnabledActivityOld {
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 					LOG_TAG, "units");
 		}
-
-		if (v.getId() == R.id.home_btn_units_1) {
-
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_2) {
-
-			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_3) {
-
-			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v);
-
-		}
-
 		if (v.getId() == R.id.home_btn_day_harvest) {
 
 			playAudioalways(R.raw.selectthedate);
@@ -669,169 +433,6 @@ public class action_harvest extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.choosethemonthwhenharvested);
 			ShowHelpIcon(v);
 
-		}
-
-		/*if (v.getId() == R.id.home_month_1) {
-
-			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v);
-
-		}
-		if (v.getId() == R.id.home_month_2) {
-
-			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_3) {
-
-			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_4) {
-
-			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_5) {
-
-			playAudioalways(R.raw.may);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_6) {
-
-			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_7) {
-
-			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_8) {
-
-			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_9) {
-
-			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_10) {
-
-			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_11) {
-
-			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_12) {
-
-			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_1) {
-
-			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v);
-		}
-		if (v.getId() == R.id.home_month_2) {
-
-			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_3) {
-
-			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_4) {
-
-			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_5) {
-
-			playAudioalways(R.raw.may);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_6) {
-
-			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_7) {
-
-			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_8) {
-
-			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_9) {
-
-			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_10) {
-
-			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_11) {
-
-			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_12) {
-
-			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v);
-		}*/
-
-		if (v.getId() == R.id.number_ok) {
-
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_cancel) {
-
-			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.harvest_date_tr) {
@@ -898,5 +499,60 @@ public class action_harvest extends HelpEnabledActivityOld {
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(parentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
+
+		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 }

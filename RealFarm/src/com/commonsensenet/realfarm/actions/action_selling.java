@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Dialog;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -35,16 +35,13 @@ public class action_selling extends HelpEnabledActivityOld {
 
 	private final action_selling parentReference = this;
 	private int sell_no;
-	private String sell_no_sel, units_sell = "0";
+	private String units_sell = "0";
 	private String crop_sell = "0";
 	private int date_sel;
-	private String date_sel_str = "0";
 	private String months_harvest = "0";
 	private int sell_price;
-	private String sell_price_sel = "0";
 	private int sell_no_rem = -1;
 	private String units_rem_sell = "0";
-	private String sell_no_sel_rem = "0";
 	private HashMap<String, String> resultsMap;
 	private RealFarmProvider mDataProvider;
 
@@ -89,16 +86,10 @@ public class action_selling extends HelpEnabledActivityOld {
 		resultsMap.put("months_harvest", "0");
 		resultsMap.put("units_sell", "0");
 		resultsMap.put("units_rem_sell", "0");
-
-		// final ImageView bg_crop_sell = (ImageView)
-		// findViewById(R.id.img_bg_units_no_sow);
-		final ImageView bg_date_sell = (ImageView) findViewById(R.id.img_bg_date_sell);
-		final ImageView bg_month_sell = (ImageView) findViewById(R.id.img_bg_month_sell);
-		final ImageView bg_units_sell = (ImageView) findViewById(R.id.img_bg_units_sell);
-		final ImageView bg_units_no_sell = (ImageView) findViewById(R.id.img_bg_units_no_sell);
-		final ImageView bg_price_sell = (ImageView) findViewById(R.id.img_bg_price_sell);
-		final ImageView bg_units_no_rem_sell = (ImageView) findViewById(R.id.img_bg_units_no_rem_sell);
-		final ImageView bg_units_rem_sell = (ImageView) findViewById(R.id.img_bg_units_rem_sell);
+		resultsMap.put("date_sel", "0");
+		resultsMap.put("sell_no", "0");
+		resultsMap.put("sell_price", "0");
+		resultsMap.put("sell_no_rem", "0");
 
 		// bg_day_sow.setImageResource(R.drawable.empty_not);
 
@@ -153,61 +144,12 @@ public class action_selling extends HelpEnabledActivityOld {
 			}
 		});
 
-		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_date_sell);
-
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the day");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.dateinfo);
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				dlg.findViewById(R.id.number_ok).setOnLongClickListener(
-						parentReference);
-				dlg.findViewById(R.id.number_cancel).setOnLongClickListener(
-						parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynpd = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						date_sel = mynpd.getValue();
-						date_sel_str = String.valueOf(date_sel);
-						no_text.setText(date_sel_str);
-						if (date_sel != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
-
-							tr_feedback
-									.setBackgroundResource(android.R.drawable.list_selector_background);
-							bg_date_sell.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "bags", "cancel");
-					}
-				});
-
+				
+				displayDialogNP("Choose the day", "date_sel", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_date_sell, R.id.date_sell_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
 
@@ -223,59 +165,13 @@ public class action_selling extends HelpEnabledActivityOld {
 
 		});
 
-		final TextView no_text1 = (TextView) findViewById(R.id.dlg_lbl_unit_no_sell);
 
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Number of bags");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.noofbags); // 20-06-2012
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						sell_no = mynp1.getValue();
-						sell_no_sel = String.valueOf(sell_no);
-						no_text1.setText(sell_no_sel);
-						if (sell_no != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
-
-							tr_feedback
-									.setBackgroundResource(android.R.drawable.list_selector_background);
-							bg_units_no_sell
-									.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-					}
-				});
-
+				
+				displayDialogNP("Choose the number of bags", "sell_no", R.raw.dateinfo, 0, 200, 0, 1, 0, R.id.dlg_lbl_unit_no_sell, R.id.quant_sell_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
 
@@ -290,52 +186,11 @@ public class action_selling extends HelpEnabledActivityOld {
 			}
 		});
 
-		final TextView no_text2 = (TextView) findViewById(R.id.dlg_lbl_price_sell);
-
 		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Enter the Price");
-
-				dlg.show();
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-				no_ok.setOnClickListener(new View.OnClickListener() {
-
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						sell_price = mynp1.getValue();
-						sell_price_sel = String.valueOf(sell_price);
-						no_text2.setText(sell_price_sel);
-						if (sell_price != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
-
-							tr_feedback
-									.setBackgroundResource(android.R.drawable.list_selector_background);
-							bg_price_sell
-									.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-					}
-				});
-
+				displayDialogNP("Enter the price", "sell_price", R.raw.dateinfo, 0, 9999, 3200, 50, 0, R.id.dlg_lbl_price_sell, R.id.price_sell_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
 
@@ -345,45 +200,8 @@ public class action_selling extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Number of bags");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-				no_ok.setOnClickListener(new View.OnClickListener() {
-
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						sell_no_rem = mynp1.getValue();
-						sell_no_sel_rem = String.valueOf(sell_no_rem);
-						no_text3.setText(sell_no_sel_rem);
-						if (sell_no_rem != -1) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
-
-							tr_feedback
-									.setBackgroundResource(android.R.drawable.list_selector_background);
-							bg_units_no_rem_sell
-									.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-					}
-				});
+				
+				displayDialogNP("Choose the number of bags", "sell_no_rem", R.raw.dateinfo, 0, 200, 0, 1, 0, R.id.dlg_lbl_unit_no_rem_sell, R.id.rem_quant_sell_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
 			}
 		});
@@ -419,7 +237,11 @@ public class action_selling extends HelpEnabledActivityOld {
 				months_harvest = resultsMap.get("months_harvest");
 				units_sell = resultsMap.get("units_sell");
 				units_rem_sell = resultsMap.get("units_rem_sell");
-
+				date_sel = Integer.parseInt(resultsMap.get("date_sel"));
+				sell_no = Integer.parseInt(resultsMap.get("sell_no"));
+				sell_price = Integer.parseInt(resultsMap.get("sell_price"));
+				sell_no_rem = Integer.parseInt(resultsMap.get("sell_no_rem"));
+				
 				int flag1, flag2, flag3, flag4, flag5;
 
 				if (crop_sell.toString().equalsIgnoreCase("0")) {
@@ -539,96 +361,9 @@ public class action_selling extends HelpEnabledActivityOld {
 
 	@Override
 	public boolean onLongClick(View v) {
-
-		if (v.getId() == R.id.home_month_1) {
-
-			playAudioalways(R.raw.jan);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_2) {
-
-			playAudioalways(R.raw.feb);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_3) {
-
-			playAudioalways(R.raw.mar);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_4) {
-
-			playAudioalways(R.raw.apr);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_month_5) {
-
-			playAudioalways(R.raw.may);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_6) {
-
-			playAudioalways(R.raw.jun);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_7) {
-
-			playAudioalways(R.raw.jul);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_8) {
-
-			playAudioalways(R.raw.aug);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_9) {
-
-			playAudioalways(R.raw.sep);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_10) {
-
-			playAudioalways(R.raw.oct);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_11) {
-
-			playAudioalways(R.raw.nov);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_month_12) {
-
-			playAudioalways(R.raw.dec);
-			ShowHelpIcon(v);
-		}
-
 		if (v.getId() == R.id.home_btn_month_sell) {
 
 			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_ok) {
-
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_cancel) {
-
-			playAudioalways(R.raw.cancel);
 			ShowHelpIcon(v);
 		}
 
@@ -660,70 +395,6 @@ public class action_selling extends HelpEnabledActivityOld {
 
 			playAudioalways(R.raw.remaining);
 			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_variety_1) {
-
-			System.out.println("variety sow1 called");
-			playAudioalways(R.raw.bajra);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_2) {
-
-			playAudioalways(R.raw.castor);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_3) {
-
-			playAudioalways(R.raw.cowpea);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_4) {
-
-			playAudioalways(R.raw.greengram);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_5) {
-
-			playAudioalways(R.raw.groundnut1);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_6) {
-
-			playAudioalways(R.raw.horsegram);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_1) {
-
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_2) {
-
-			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_3) {
-
-			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v);
-
 		}
 
 		if (v.getId() == R.id.home_btn_crop_sell) {
@@ -842,5 +513,60 @@ public class action_selling extends HelpEnabledActivityOld {
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(parentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
+
+		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 }

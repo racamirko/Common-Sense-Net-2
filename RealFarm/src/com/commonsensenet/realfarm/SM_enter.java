@@ -6,9 +6,12 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class SM_enter extends HelpEnabledActivityOld {
 
@@ -25,7 +28,7 @@ public class SM_enter extends HelpEnabledActivityOld {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.smenter_dialog);
-		System.out.println("SM eneter");
+		System.out.println("SM enter");
 
 		ImageButton home1;
 		ImageButton help1;
@@ -42,21 +45,31 @@ public class SM_enter extends HelpEnabledActivityOld {
 
 			}
 		});
+		
+		TableRow tr = (TableRow)findViewById(R.id.sm_enter_tr);
+		NumberPicker np = new NumberPicker(SM_enter.this, 0, 100, 50, 1, 0);
+		tr.addView(np);
+		
+		final TextView tw = (TextView)findViewById(R.id.tw);
+		tw.setOnLongClickListener(this);
+		
+		ImageButton ok = (ImageButton)findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)findViewById(R.id.cancel);
+		ok.setVisibility(View.GONE);
+		cancel.setVisibility(View.GONE);
 
 		Button btnNext = (Button) findViewById(R.id.button_ok);
 
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				NumberPicker mynp1 = (NumberPicker) findViewById(R.id.sm_enter_val);
-				double sm_enter_val = mynp1.getValue();
-				String sm_enter_no = String.valueOf(sm_enter_val);
+				String sm_enter_no = String.valueOf(tw.getText().toString());
 
 				Toast.makeText(SM_enter.this,
 						"User enetred " + sm_enter_no + " %", Toast.LENGTH_LONG)
 						.show();
 				int flag1;
-				if (sm_enter_val == 0) {
+				if (sm_enter_no.equals("0")) {
 					flag1 = 1;
 
 					TableRow tr_feedback = (TableRow) findViewById(R.id.sm_enter_tr);
@@ -84,6 +97,10 @@ public class SM_enter extends HelpEnabledActivityOld {
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.aggr_img_help1) {
+			playAudio(R.raw.help);
+		}
+		
+		if (v.getId() == R.id.tw) {
 			playAudio(R.raw.help);
 		}
 

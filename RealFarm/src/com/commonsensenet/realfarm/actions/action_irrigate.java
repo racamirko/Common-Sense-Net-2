@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Dialog;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -36,12 +36,11 @@ import com.commonsensenet.realfarm.view.DialogArrayLists;
 public class action_irrigate extends HelpEnabledActivityOld {
 	public static final String LOG_TAG = "action_irrigate";
 	private Context context = this;
-	private String fert_no_sel;
 	private int hrs_irrigate = 0;
-	private String hrs_irrigate_sel = "0", irr_method_sel = "0", irr_day_sel;
+	private String irr_method_sel = "0", irr_day_sel;
 	private int irr_day_int;
 	private RealFarmProvider mDataProvider;
-	private String months_irr = "0", irr_day_str;	
+	private String months_irr = "0";	
 	private HashMap<String, String> resultsMap;
 
 	private final action_irrigate parentReference = this;
@@ -76,18 +75,14 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
 		System.out.println("plant done");
-		final TextView day_irr = (TextView) findViewById(R.id.dlg_lbl_day_irr);
 
 		playAudio(R.raw.clickingfertilising);
 		
 		resultsMap = new HashMap<String, String>();
 		resultsMap.put("irr_method_sel", "0");
 		resultsMap.put("months_irr", "0");
-
-		final ImageView bg_method_irr = (ImageView) findViewById(R.id.img_bg_method_irr);
-		final ImageView bg_hrs_irr = (ImageView) findViewById(R.id.img_bg_hrs_irr);
-		final ImageView bg_day_irr = (ImageView) findViewById(R.id.img_bg_day_irr);
-		final ImageView bg_month_irr = (ImageView) findViewById(R.id.img_bg_month_irr);
+		resultsMap.put("irr_day_int", "0");
+		resultsMap.put("hrs_irrigate", "0");
 
 		// bg_day_irr.setImageResource(R.drawable.empty_not);
 		final Button item1;
@@ -137,113 +132,19 @@ public class action_irrigate extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the day");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
+			
+				displayDialogNP("Choose the day", "irr_day_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_irr, R.id.day_irr_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
-				playAudio(R.raw.dateinfo);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "no_units_fertilizer");
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						irr_day_int = mynp1.getValue();
-						irr_day_str = String.valueOf(irr_day_int);
-						day_irr.setText(irr_day_str);
-						if (irr_day_int != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.day_irr_tr);
-
-							tr_feedback.setBackgroundResource(R.drawable.def_img);
-
-							bg_day_irr.setImageResource(R.drawable.empty_not);
-
-							// tracks the application usage.
-							// ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,"no_units_fertilizer", fert_no_sel);
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG,
-								"no_units_fertilizer", "cancel");
-						dlg.cancel();
-					}
-				});
 			}
 		});
 
-		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_unit_no_irr);
 
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Number of bags");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.noofbags);
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						hrs_irrigate = mynp1.getValue();
-						hrs_irrigate_sel = String.valueOf(hrs_irrigate);
-						no_text.setText(hrs_irrigate_sel);
-						if (hrs_irrigate != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.units_irr_tr);
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-							bg_hrs_irr.setImageResource(R.drawable.empty_not);
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-					}
-				});
+				
+				displayDialogNP("Choose the irrigation duration", "hrs_irrigate", R.raw.dateinfo, 0, 24, 0, 1, 0, R.id.dlg_lbl_unit_no_irr, R.id.units_irr_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
 
@@ -276,6 +177,9 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 				irr_method_sel = resultsMap.get("irr_method_sel");
 				months_irr = resultsMap.get("months_irr");
+				irr_day_int = Integer.parseInt(resultsMap.get("irr_day_int"));
+				hrs_irrigate = Integer.parseInt(resultsMap.get("hrs_irrigate"));
+
 				
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
@@ -398,62 +302,8 @@ public class action_irrigate extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_var_fert_1) {
-			playAudioalways(R.raw.method1);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_var_fert_2) {
-			playAudioalways(R.raw.method2);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_var_fert_3) {
-			playAudioalways(R.raw.method3);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_1) {
-			playAudioalways(R.raw.twoweeksbefore);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_2) {
-			playAudioalways(R.raw.oneweekbefore);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_3) {
-			playAudioalways(R.raw.yesterday);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_4) {
-			playAudioalways(R.raw.todayonly);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_5) {
-			playAudioalways(R.raw.tomorrows);
-			ShowHelpIcon(v);
-		}
-
 		if (v.getId() == R.id.home_btn_month_irr) {
 			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_ok) {
-
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_cancel) {
-
-			playAudioalways(R.raw.cancel);
 			ShowHelpIcon(v);
 		}
 
@@ -521,5 +371,60 @@ public class action_irrigate extends HelpEnabledActivityOld {
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(parentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
+
+		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 }

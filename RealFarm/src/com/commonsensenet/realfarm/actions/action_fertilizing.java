@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Dialog;
@@ -12,7 +13,6 @@ import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -42,7 +42,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 	private String units_fert = "0", fert_var_sel = "0", day_fert_sel = "0",
 			day_fert_sel_1;
 	private int fert_no, day_fert_int;
-	private String fert_no_sel, months_fert = "0";
+	private String months_fert = "0";
 	private HashMap<String, String> resultsMap;
 
 	public static final String LOG_TAG = "action_fertilizing";
@@ -76,13 +76,8 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 		resultsMap.put("units_fert", "0");
 		resultsMap.put("months_fert", "0");
 		resultsMap.put("fert_var_sel", "0");
-
-		final TextView day_fert = (TextView) findViewById(R.id.dlg_lbl_day_fert);
-		final ImageView bg_day_fert = (ImageView) findViewById(R.id.img_bg_day_fert);
-		final ImageView bg_units_no_fert = (ImageView) findViewById(R.id.img_bg_units_no_fert);
-		final ImageView bg_units_fert = (ImageView) findViewById(R.id.img_bg_units_fert);
-		final ImageView bg_var_fert = (ImageView) findViewById(R.id.img_bg_var_fert);
-		final ImageView bg_month_fert = (ImageView) findViewById(R.id.img_bg_month_fert);
+		resultsMap.put("day_fert_int", "0");
+		resultsMap.put("fert_no", "0");
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
@@ -146,131 +141,18 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 			public void onClick(View v) {
 				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
+				
+				displayDialogNP("Choose the day", "day_fert_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_fert, R.id.day_fert_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
-				// To change the default increments on the number picker.
-				((NumberPicker) dlg.findViewById(R.id.numberpick))
-						.setIncrementValue(1);
-
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Date");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.dateinfo);
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				dlg.findViewById(R.id.number_ok).setOnLongClickListener(
-						mParentReference);
-				dlg.findViewById(R.id.number_cancel).setOnLongClickListener(
-						mParentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynpd = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-
-						day_fert_int = mynpd.getValue();
-						day_fert_sel_1 = String.valueOf(day_fert_int);
-						day_fert.setText(day_fert_sel_1);
-						if (day_fert_int != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.day_fert_tr);
-
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-							bg_day_fert.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "bags for sowing",
-								"cancel");
-					}
-				});
 			}
 		});
-
-		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_unit_no_fert);
 
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Number of bags");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.noofbags);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "no_units_fertilizer");
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				dlg.findViewById(R.id.number_ok).setOnLongClickListener(
-						mParentReference);
-				dlg.findViewById(R.id.number_cancel).setOnLongClickListener(
-						mParentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						fert_no = mynp1.getValue();
-						fert_no_sel = String.valueOf(fert_no);
-						no_text.setText(fert_no_sel);
-						if (fert_no != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.units_fert_tr);
-
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-
-							bg_units_no_fert
-									.setImageResource(R.drawable.empty_not);
-
-							// tracks the application usage.
-							ApplicationTracker.getInstance().logEvent(
-									EventType.CLICK, LOG_TAG, "number_picker",
-									"no_units_fertilizer", fert_no_sel);
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "number_picker",
-								"cancel_no_units", "cancelnumberentry");
-
-						dlg.cancel();
-					}
-				});
+				
+				displayDialogNP("Choose the amount", "fert_no", R.raw.dateinfo, 0, 100, 1, 0.25, 2, R.id.dlg_lbl_unit_no_fert, R.id.units_fert_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
 			}
 		});
@@ -313,7 +195,8 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				units_fert = resultsMap.get("units_fert");
 				months_fert = resultsMap.get("months_fert");
 				fert_var_sel = resultsMap.get("fert_var_sel");
-
+				day_fert_int = Integer.parseInt(resultsMap.get("day_fert_int"));
+				fert_no = Integer.parseInt(resultsMap.get("fert_no"));
 
 				int flag1, flag2, flag3;
 				if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
@@ -478,61 +361,6 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 					LOG_TAG, "help_fertilizer");
 		}
 
-		if (v.getId() == R.id.home_var_fert_1) {
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_var_fert_2) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_var_fert_3) {
-			playAudioalways(R.raw.fertilizer3);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_btn_units_1) {
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_btn_units_2) {
-			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_btn_units_3) {
-			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_1) {
-			playAudioalways(R.raw.twoweeksbefore);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_2) {
-			playAudioalways(R.raw.oneweekbefore);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_3) {
-			playAudioalways(R.raw.yesterday);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_4) {
-			playAudioalways(R.raw.todayonly);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_5) {
-			playAudioalways(R.raw.tomorrows);
-			ShowHelpIcon(v);
-		}
-
 		if (v.getId() == R.id.var_fert_tr) {
 			playAudioalways(R.raw.amount);
 			ShowHelpIcon(v);
@@ -551,18 +379,6 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 		if (v.getId() == R.id.home_btn_month_fert) {
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_ok) { // added
-
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v); // added for help icon
-		}
-
-		if (v.getId() == R.id.number_cancel) { // added
-
-			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v); // added for help icon
 		}
 
 		return true;
@@ -632,6 +448,61 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(mParentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
+		
+		NumberPicker np = new NumberPicker(mParentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(mParentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 
 }

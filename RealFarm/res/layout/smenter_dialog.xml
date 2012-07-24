@@ -90,14 +90,14 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/def_img" >
 
-                <com.commonsensenet.realfarm.control.NumberPicker
+                <!-- <com.commonsensenet.realfarm.control.NumberPicker
                     android:id="@+id/sm_enter_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="130dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical" >
-                </com.commonsensenet.realfarm.control.NumberPicker>
+                </com.commonsensenet.realfarm.control.NumberPicker>-->
             </TableRow>
         </LinearLayout>
     </LinearLayout>

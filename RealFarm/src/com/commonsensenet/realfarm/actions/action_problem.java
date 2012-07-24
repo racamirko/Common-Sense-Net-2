@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Dialog;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -37,8 +37,7 @@ public class action_problem extends HelpEnabledActivityOld {
 	private Context context = this;
 	private RealFarmProvider mDataProvider;
 	private final action_problem parentReference = this;
-	private String prob_var_sel = "0", prob_crop_sel = "0", prob_day_sel, months_prob = "0",
-			prob_day_str;
+	private String prob_var_sel = "0", prob_crop_sel = "0", prob_day_sel, months_prob = "0";
 	private int prob_day_int;
 	private HashMap<String, String> resultsMap;
 
@@ -75,7 +74,6 @@ public class action_problem extends HelpEnabledActivityOld {
 		super.onCreate(savedInstanceState, R.layout.problem_dialog);
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
-		final TextView day_prob = (TextView) findViewById(R.id.dlg_lbl_day_prob);
 		// final TextView month_prob = (TextView)
 		// findViewById(R.id.dlg_lbl_month_prob);
 
@@ -85,10 +83,8 @@ public class action_problem extends HelpEnabledActivityOld {
 		resultsMap.put("prob_var_sel", "0");
 		resultsMap.put("months_prob", "0");
 		resultsMap.put("prob_crop_sel", "0");
-
-		final ImageView bg_type_problem = (ImageView) findViewById(R.id.img_bg_type_prob);
-		final ImageView bg_date_problem = (ImageView) findViewById(R.id.img_bg_day_prob);
-		final ImageView bg_month_prob = (ImageView) findViewById(R.id.img_bg_month_prob);
+		resultsMap.put("prob_day_int", "0");
+		
 		// bg_date_problem.setImageResource(R.drawable.empty_not);
 
 		final Button item1;
@@ -137,64 +133,7 @@ public class action_problem extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the day");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-				
-				playAudio(R.raw.dateinfo);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "no_units_fertilizer");
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-				
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-																		
-						prob_day_int = mynp1.getValue();
-						prob_day_str = String.valueOf(prob_day_int);
-						day_prob.setText(prob_day_str);
-						if (prob_day_int != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
-
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-
-							bg_date_problem
-									.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-						
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "number_picker",
-								"cancel_no_units", "cancelnumberentry");
-
-						dlg.cancel();
-					}
-				});
+				displayDialogNP("Choose the day", "prob_day_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_prob, R.id.day_prob_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
 			}
 		});
@@ -241,6 +180,8 @@ public class action_problem extends HelpEnabledActivityOld {
 				prob_var_sel = resultsMap.get("prob_var_sel");
 				months_prob = resultsMap.get("months_prob");
 				prob_crop_sel = resultsMap.get("prob_crop_sel");
+				prob_day_int = Integer.parseInt(resultsMap.get("prob_day_int"));
+
 
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
@@ -355,61 +296,9 @@ public class action_problem extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_prob_spray_1) {
-			playAudioalways(R.raw.problem1);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_prob_spray_2) {
-			playAudioalways(R.raw.problem2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_prob_spray_3) {
-			playAudioalways(R.raw.problem3);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_1) {
-			playAudioalways(R.raw.twoweeksbefore);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_2) {
-			playAudioalways(R.raw.oneweekbefore);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_3) {
-			playAudioalways(R.raw.yesterday);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_4) {
-			playAudioalways(R.raw.today);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_5) {
-			playAudioalways(R.raw.tomorrows);
-			ShowHelpIcon(v);
-		}
-
 		if (v.getId() == R.id.home_btn_month_prob) {
 
 			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_ok) {
-
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_cancel) {
-
-			playAudioalways(R.raw.cancel);
 			ShowHelpIcon(v);
 		}
 
@@ -479,5 +368,60 @@ public class action_problem extends HelpEnabledActivityOld {
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(parentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
+
+		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 }

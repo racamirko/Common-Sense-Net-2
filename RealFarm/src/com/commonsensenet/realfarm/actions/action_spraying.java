@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Dialog;
@@ -12,7 +13,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -41,14 +41,12 @@ public class action_spraying extends HelpEnabledActivityOld {
 	private Context context = this;
 	private String day_sel_spray = "0";
 	private int day_spray_int;
-	private String day_spray_str;
 	private RealFarmProvider mDataProvider;
 	private String months_spray = "0";
 	private final action_spraying parentReference = this;
 	private String pest_sel_spray = "0";
 	private String prob_sel_spray = "0";
 	private int spray_no;
-	private String spray_no_sel;
 	private String unit_sel_spray = "0";
 	private HashMap<String, String> resultsMap;
 
@@ -84,8 +82,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 		super.onCreate(savedInstanceState, R.layout.spraying_dialog);
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
-		final TextView day_spray = (TextView) findViewById(R.id.dlg_lbl_day_spray);
-
 		playAudio(R.raw.clickingspraying);
 
 		resultsMap = new HashMap<String, String>();
@@ -93,16 +89,11 @@ public class action_spraying extends HelpEnabledActivityOld {
 		resultsMap.put("pest_sel_spray", "0");
 		resultsMap.put("prob_sel_spray", "0");
 		resultsMap.put("months_spray", "0");
+		resultsMap.put("day_spray_int", "0");
+		resultsMap.put("spray_no", "0");
 		
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
-
-		final ImageView bg_prob_spray = (ImageView) findViewById(R.id.img_bg_prob_spray);
-		final ImageView bg_pest_spray = (ImageView) findViewById(R.id.img_bg_pest_spray);
-		final ImageView bg_units_no_spray = (ImageView) findViewById(R.id.img_bg_units_no_spray);
-		final ImageView bg_units_spray = (ImageView) findViewById(R.id.img_bg_units_spray);
-		final ImageView bg_day_spray = (ImageView) findViewById(R.id.img_bg_day_spray);
-		final ImageView bg_month_spray = (ImageView) findViewById(R.id.img_bg_month_spray);
 
 		final Button item1;
 		final Button item2;
@@ -151,99 +142,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 				
 				ArrayList<DialogData> m_entries = mDataProvider.getProblems();
 				displayDialog(v, m_entries, "prob_sel_spray", "Choose the problem for spraying", R.raw.problems, R.id.dlg_lbl_prob_spray, R.id.prob_spray_tr);
-				
-				/*final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.prob_spraying_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the problem for spraying");
-				Log.d("in problem spray dialog", "in dialog");
-				dlg.show();
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "problem");
-
-				final Button prob1;
-				final Button prob2;
-				final Button prob3;
-
-				// final Button variety7;
-				// final ImageView img_1 = (ImageView)
-				// findViewById(R.id.dlg_var_sow);
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_prob_spray);
-				prob1 = (Button) dlg.findViewById(R.id.home_prob_spray_1);
-				prob2 = (Button) dlg.findViewById(R.id.home_prob_spray_2);
-				prob3 = (Button) dlg.findViewById(R.id.home_prob_spray_3);
-
-				dlg.findViewById(R.id.home_prob_spray_1)
-						.setOnLongClickListener(parentReference);
-				dlg.findViewById(R.id.home_prob_spray_2)
-						.setOnLongClickListener(parentReference);
-				dlg.findViewById(R.id.home_prob_spray_3)
-						.setOnLongClickListener(parentReference);
-
-				prob1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-
-						var_text.setText("Problem 1");
-						prob_sel_spray = "Problem 1";
-
-						TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-
-						bg_prob_spray.setImageResource(R.drawable.empty_not);
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "problem",
-								prob_sel_spray);
-
-						dlg.cancel();
-					}
-				});
-
-				prob2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-
-						var_text.setText("Problem 2");
-						prob_sel_spray = "Problem 2";
-
-						TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_prob_spray.setImageResource(R.drawable.empty_not);
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "problem",
-								prob_sel_spray);
-
-						dlg.cancel();
-					}
-				});
-
-				prob3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						// img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Problem 3");
-						prob_sel_spray = "Problem 3";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						bg_prob_spray.setImageResource(R.drawable.empty_not);
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "problem",
-								prob_sel_spray);
-
-						dlg.cancel();
-					}
-				});*/
-
 			}
 		});
 
@@ -271,119 +169,17 @@ public class action_spraying extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the day");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.dateinfo);
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynpd = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						day_spray_int = mynpd.getValue();
-						day_spray_str = String.valueOf(day_spray_int);
-						day_spray.setText(day_spray_str);
-						if (day_spray_int != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
-
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-							bg_day_spray.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "units", "cancel");
-					}
-				});
-
+				
+				displayDialogNP("Choose the day", "day_spray_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_spray, R.id.day_spray_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
-
-		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_unit_no_spray);
 
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Number of bags");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.noofbags);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "bags");
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						spray_no = mynp1.getValue();
-						spray_no_sel = String.valueOf(spray_no);
-						no_text.setText(spray_no_sel);
-						if (spray_no != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
-
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-							bg_units_no_spray
-									.setImageResource(R.drawable.empty_not);
-
-							// tracks the application usage.
-							ApplicationTracker.getInstance().logEvent(
-									EventType.CLICK, LOG_TAG, "bags",
-									spray_no_sel);
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "bags", "cancel");
-					}
-				});
+				
+				displayDialogNP("Choose the quantity", "spray_no", R.raw.dateinfo, 1, 20, 1, 1, 0, R.id.dlg_lbl_unit_no_spray, R.id.units_spray_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
 			}
 		});
@@ -425,6 +221,8 @@ public class action_spraying extends HelpEnabledActivityOld {
 				pest_sel_spray = resultsMap.get("pest_sel_spray");
 				prob_sel_spray = resultsMap.get("prob_sel_spray");
 				months_spray = resultsMap.get("months_spray");
+				day_spray_int = Integer.parseInt(resultsMap.get("day_spray_int"));
+				spray_no = Integer.parseInt(resultsMap.get("spray_no"));
 				
 				int flag1, flag2, flag3, flag4;
 				if (unit_sel_spray.toString().equalsIgnoreCase("0")
@@ -607,53 +405,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 					LOG_TAG, "help");
 		}
-
-		if (v.getId() == R.id.home_prob_spray_1) {
-			playAudioalways(R.raw.problem1);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_prob_spray_2) {
-			playAudioalways(R.raw.problem2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_prob_spray_3) {
-			playAudioalways(R.raw.problem3);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_pest_spray_1) {
-			playAudioalways(R.raw.pesticide1);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_pest_spray_2) {
-			playAudioalways(R.raw.pesticide2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_pest_spray_3) {
-			playAudioalways(R.raw.pesticide3);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_btn_units_1) {
-
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_2) {
-			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_btn_units_3) {
-			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v);
-		}
 		
 		if (v.getId() == R.id.home_btn_month_spray) { // added
 
@@ -678,18 +429,6 @@ public class action_spraying extends HelpEnabledActivityOld {
 		if (v.getId() == R.id.pest_spray_tr) {
 			playAudioalways(R.raw.pesticidename);
 			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.number_ok) { // added
-
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v); // added for help icon
-		}
-
-		if (v.getId() == R.id.number_cancel) { // added
-
-			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v); // added for help icon
 		}
 
 		return true;
@@ -742,5 +481,60 @@ public class action_spraying extends HelpEnabledActivityOld {
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(parentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
+
+		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 }

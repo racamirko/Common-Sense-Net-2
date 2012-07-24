@@ -81,6 +81,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		resultsMap = new HashMap<String, String>(); 
 		resultsMap.put("mSoilType", "0");
 		resultsMap.put("mMainCrop", "0");
+		resultsMap.put("mSize", "0");
 
 		ImageButton home1 = (ImageButton) findViewById(R.id.aggr_img_home1);
 		ImageButton help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
@@ -147,51 +148,8 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		plotsize.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the size");
-				dlg.show();
 				
-				// playAudio(R.raw.noofbags);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "size");
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok))
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						TextView sizeTw = (TextView) findViewById(R.id.size_txt);
-
-						NumberPicker mynp1 = (NumberPicker) dlg.findViewById(R.id.numberpick);
-						mynp1.setIncrementValue(1); // TODO 0.1
-						mSize = String.valueOf(mynp1.getValue());
-						
-						if (mynp1.getValue() != 0) {
-							sizeTw.setText(mSize);
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "no_of_bags",
-								"cancel");
-					}
-				});
+				displayDialogNP("Enter plot size", "mSize", R.raw.dateinfo, 0, 50, 0, 0.1, 1, R.id.size_txt, R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
 			}
 		});
@@ -215,70 +173,6 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				stopAudio();
 				final ArrayList<DialogData> m_entries = DialogArrayLists.getSoilTypeArray(v);
 				displayDialog(v, m_entries, "mSoilType", "Select the soil type", R.raw.problems, R.id.dlg_lbl_soil_plot, R.id.soiltype_tr);
-				
-				/*final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.plot_soil_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Select the defualt image of the plot");
-				dlg.show();
-
-				final View unit1;
-				final View unit2;
-				final View unit3;
-
-				final ImageView img_1;
-				img_1 = (ImageView) findViewById(R.id.dlg_img_soil_plot);
-
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_soil_plot);
-				unit1 = dlg.findViewById(R.id.button_soil_1);
-				unit2 = dlg.findViewById(R.id.button_soil_2);
-				unit3 = dlg.findViewById(R.id.button_soil_3);
-
-				// adds the long click listener to enable the help feature.
-				unit1.setOnLongClickListener(parentReference);
-				unit2.setOnLongClickListener(parentReference);
-				unit3.setOnLongClickListener(parentReference);
-
-				unit1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-
-						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Loamy");
-						mSoilType = "Loamy";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						dlg.cancel();
-					}
-				});
-
-				unit2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Sandy");
-						mSoilType = "Sandy";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});
-
-				unit3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Clay");
-						mSoilType = "Clay";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});*/
 
 			}
 		});
@@ -291,119 +185,6 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				stopAudio();
 				ArrayList<DialogData> m_entries = mDataProvider.getVarieties();
 				displayDialog(v, m_entries, "mMainCrop", "Select the variety", R.raw.problems, R.id.dlg_lbl_crop_plot, R.id.maincrop_tr);
-				
-				/*final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.dialog_variety);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Main Crop");
-
-				dlg.show();
-
-				final View crop1;
-				final View crop2;
-				final View crop3;
-				final View crop4;
-				final View crop5;
-				final View crop6;
-
-				final ImageView img_1 = (ImageView) findViewById(R.id.dlg_img_crop_plot);
-				final TextView var_text = (TextView) findViewById(R.id.dlg_lbl_crop_plot);
-
-				// gets all the crop buttons
-				crop1 = dlg.findViewById(R.id.button_variety_1);
-				crop2 = dlg.findViewById(R.id.button_variety_2);
-				crop3 = dlg.findViewById(R.id.button_variety_3);
-				crop4 = dlg.findViewById(R.id.button_variety_4);
-				crop5 = dlg.findViewById(R.id.button_variety_5);
-				crop6 = dlg.findViewById(R.id.button_variety_6);
-
-				// adds the long click listener to enable the help functionality
-				crop1.setOnLongClickListener(parentReference);
-				crop2.setOnLongClickListener(parentReference);
-				crop3.setOnLongClickListener(parentReference);
-				crop4.setOnLongClickListener(parentReference);
-				crop5.setOnLongClickListener(parentReference);
-				crop6.setOnLongClickListener(parentReference);
-
-				crop1.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 1 picked ", "in dialog");
-						// img_1.setMaxWidth(300);
-						img_1.setImageResource(R.drawable.pic_90px_bajra_tiled);
-						var_text.setText("Bajra");
-						mMainCrop = "Bajra";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						mSeedTypeId = 5; // added with audio integration
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						// item1.setBackgroundResource(R.drawable.pic_90px_bajra_tiled);
-						dlg.cancel();
-					}
-				});
-
-				crop2.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 2 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_castor_tiled);
-						var_text.setText("Castor");
-						mMainCrop = "Castor";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						mSeedTypeId = 6; // added with audio integration
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});
-
-				crop3.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_cowpea_tiled);
-						var_text.setText("Cowpea");
-						mMainCrop = "Cowpea";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						mSeedTypeId = 7; // added with audio integration
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});
-
-				crop4.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_greengram_tiled);
-						var_text.setText("Greengram");
-						mMainCrop = "Greengram";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						mSeedTypeId = 8; // added with audio integration
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});
-				crop5.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_groundnut_tiled);
-						var_text.setText("Groundnut");
-						mMainCrop = "Groundnut";
-						mSeedTypeId = 3; // added with audio integration
-						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});
-				crop6.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						Log.d("var 3 picked ", "in dialog");
-						img_1.setImageResource(R.drawable.pic_90px_horsegram_tiled);
-						var_text.setText("Horsegram");
-						mMainCrop = "Horsegram";
-						TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
-						mSeedTypeId = 9; // added with audio integration
-						tr_feedback.setBackgroundResource(R.drawable.def_img);
-						dlg.cancel();
-					}
-				});*/
-
 			}
 		});
 
@@ -412,6 +193,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 				mSoilType = resultsMap.get("mSoilType");
 				mMainCrop = resultsMap.get("mMainCrop");
+				mSize = resultsMap.get("mSize");
 				
 				int flag1, flag2, flag3, flag4;
 				if (mPlotImage.toString().equalsIgnoreCase("0")) {
@@ -587,21 +369,6 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.button_soil_1) {
-			playAudio(R.raw.loamy);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_soil_2) {
-			playAudio(R.raw.sandy);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_soil_3) {
-			playAudio(R.raw.clay);
-			ShowHelpIcon(v);
-		}
-
 		if (v.getId() == R.id.home_btn_crop_plot) {
 			playAudio(R.raw.yieldinfo);
 			ShowHelpIcon(v);
@@ -721,5 +488,60 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(parentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0")) init = Double.valueOf(resultsMap.get(mapEntry));
+		
+		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 }

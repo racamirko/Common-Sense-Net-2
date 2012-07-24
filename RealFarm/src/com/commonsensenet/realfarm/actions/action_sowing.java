@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.HashMap;
 
 import android.app.Dialog;
@@ -9,10 +10,9 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.ImageView;
+import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TableRow;
 import android.widget.TextView;
@@ -39,8 +39,6 @@ public class action_sowing extends HelpEnabledActivityOld {
 	private final action_sowing parentReference = this;
 	private int sow_no;
 	private int day_sow_int;
-	private String sow_no_sel;
-	private String day_sow_str;
 	private String months_sow = "0";
 	private String treatment_sow = "0";
 	private String cropType_sow = "0";
@@ -89,9 +87,11 @@ public class action_sowing extends HelpEnabledActivityOld {
 		resultsMap.put("treatment_sow", "0");
 		resultsMap.put("cropType_sow", "0");
 		resultsMap.put("seed_sow", "0");
+		resultsMap.put("day_sow_int", "0");
+		resultsMap.put("sow_no", "0");
 
 		System.out.println("plant done");
-		final TextView day_sow = (TextView) findViewById(R.id.dlg_lbl_day_sow);
+		//final TextView day_sow = (TextView) findViewById(R.id.dlg_lbl_day_sow);
 		// final TextView month_sow = (TextView)
 		// findViewById(R.id.dlg_lbl_month_sow);
 
@@ -99,12 +99,6 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
-
-		final ImageView bg_units_no_sow = (ImageView) findViewById(R.id.img_bg_units_no_sow);
-		final ImageView bg_units_sow = (ImageView) findViewById(R.id.img_bg_units_sow);
-		final ImageView bg_treatment_sow = (ImageView) findViewById(R.id.img_bg_treatment_sow);
-		final ImageView bg_day_sow = (ImageView) findViewById(R.id.img_bg_day_sow);
-		final ImageView bg_month_sow = (ImageView) findViewById(R.id.img_bg_month_sow);
 
 		final View item1;
 		final View item2;
@@ -166,53 +160,8 @@ public class action_sowing extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the day");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.dateinfo); // 20-06-2012
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				((Button) dlg.findViewById(R.id.number_ok)) // 20-06-2012
-						.setOnLongClickListener(parentReference);
-				((Button) dlg.findViewById(R.id.number_cancel))
-						.setOnLongClickListener(parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynpd = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						day_sow_int = mynpd.getValue();
-						day_sow_str = String.valueOf(day_sow_int);
-						day_sow.setText(day_sow_str);
-						if (day_sow_int != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
-							tr_feedback
-									.setBackgroundResource(android.R.drawable.list_selector_background);
-							bg_day_sow.setImageResource(R.drawable.empty_not);
-
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "units", "cancel");
-					}
-				});
+				displayDialogNP("Choose the day", "day_sow_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_sow, R.id.day_sow_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
+				
 			}
 		});
                        
@@ -227,69 +176,12 @@ public class action_sowing extends HelpEnabledActivityOld {
 			}
 		});
 
-		final TextView no_text = (TextView) findViewById(R.id.dlg_lbl_unit_no_sow);
-		
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.numberentry_dialog);
-				dlg.setCancelable(true);
-				dlg.setTitle("Choose the Number of bags");
-				Log.d("in variety sowing dialog", "in dialog");
-				dlg.show();
-
-				playAudio(R.raw.noofbags);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "bags");
-
-				Button no_ok = (Button) dlg.findViewById(R.id.number_ok);
-				Button no_cancel = (Button) dlg
-						.findViewById(R.id.number_cancel);
-
-				dlg.findViewById(R.id.number_ok).setOnLongClickListener(
-						parentReference);
-				dlg.findViewById(R.id.number_cancel).setOnLongClickListener(
-						parentReference);
-
-				no_ok.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						NumberPicker mynp1 = (NumberPicker) dlg
-								.findViewById(R.id.numberpick);
-						sow_no = mynp1.getValue();
-						sow_no_sel = String.valueOf(sow_no);
-						no_text.setText(sow_no_sel);
-						if (sow_no != 0) {
-
-							TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
-
-							tr_feedback
-									.setBackgroundResource(R.drawable.def_img);
-							bg_units_no_sow
-									.setImageResource(R.drawable.empty_not);
-
-							// tracks the application usage.
-							ApplicationTracker.getInstance().logEvent(
-									EventType.CLICK, LOG_TAG, "bags",
-									sow_no_sel);
-						}
-
-						dlg.cancel();
-					}
-				});
-				no_cancel.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						dlg.cancel();
-
-						// tracks the application usage.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, LOG_TAG, "bags", "cancel");
-					}
-				});
+				
+				displayDialogNP("Choose the number of serus", "sow_no", R.raw.dateinfo, 1, 999, 1, 1, 0, R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 
 			}
 		});
@@ -343,7 +235,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 				treatment_sow = resultsMap.get("treatment_sow");
 				cropType_sow = resultsMap.get("cropType_sow");
 				seed_sow = Integer.parseInt(resultsMap.get("seed_sow"));
-				
+				day_sow_int = Integer.parseInt(resultsMap.get("day_sow_int"));
+				sow_no = Integer.parseInt(resultsMap.get("sow_no"));
+
 
 				// Toast.makeText(action_sowing.this, "User enetred " +
 				// sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
@@ -545,111 +439,6 @@ public class action_sowing extends HelpEnabledActivityOld {
 					LOG_TAG, "help");
 		}
 
-		if (v.getId() == R.id.button_variety_1) {
-
-			System.out.println("variety sow1 called");
-			playAudioalways(R.raw.bajra);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_2) {
-
-			playAudioalways(R.raw.castor);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_3) {
-
-			playAudioalways(R.raw.cowpea);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_4) {
-
-			playAudioalways(R.raw.greengram);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_5) {
-
-			playAudioalways(R.raw.groundnut1);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.button_variety_6) {
-
-			playAudioalways(R.raw.horsegram);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_1) {
-
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_2) {
-
-			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_btn_units_3) {
-
-			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_day_1) {
-
-			playAudioalways(R.raw.twoweeksbefore);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_day_2) {
-
-			playAudioalways(R.raw.oneweekbefore);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_day_3) {
-
-			playAudioalways(R.raw.yesterday);
-			ShowHelpIcon(v);
-
-		}
-
-		if (v.getId() == R.id.home_day_4) {
-			playAudioalways(R.raw.todayonly);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_day_5) {
-			playAudioalways(R.raw.tomorrows);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_treat_sow_1) {
-			playAudioalways(R.raw.treatmenttoseeds2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.home_treat_sow_2) {
-			playAudioalways(R.raw.treatmenttoseeds3);
-			ShowHelpIcon(v);
-		}
-
 		if (v.getId() == R.id.seed_type_sow_tr) { // 20-06-2012
 			playAudioalways(R.raw.variety);
 			ShowHelpIcon(v);
@@ -680,19 +469,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v); // added for help icon
 		}
-
-		if (v.getId() == R.id.number_ok) { // added
-
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v); // added for help icon
-		}
-
-		if (v.getId() == R.id.number_cancel) { // added
-
-			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v); // added for help icon
-		}
-
+		
 		if (v.getId() == R.id.day_sow_tr) { // added
 
 			playAudioalways(R.raw.date);
@@ -749,6 +526,61 @@ public class action_sowing extends HelpEnabledActivityOld {
 				playAudioalways(iden);
 				return true;
 			}});
+	}
+	 
+	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+		final Dialog dialog = new Dialog(parentReference);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+		playAudio(openAudio); // opening audio
+		
+		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
+
+		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		dialog.setContentView(np);
+		
+		final TextView tw_sow = (TextView) findViewById(textField);
+		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+
+		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
+        ok.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				String result = tw.getText().toString(); 
+				resultsMap.put(mapEntry, result); 
+				tw_sow.setText(result);
+				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				dialog.cancel();
+				playAudio(okAudio); // ok audio
+		}});
+        cancel.setOnClickListener(new View.OnClickListener(){ 
+			public void onClick(View view) {
+				dialog.cancel();
+				playAudio(cancelAudio); // cancel audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
+		}});
+        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoOkAudio); // info audio
+				return true;
+		}});
+        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				playAudio(infoCancelAudio); // info audio
+				return true;
+		}});
+        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			public boolean onLongClick(View view) {
+				String num = tw.getText().toString();
+				playAudio(R.raw.dateinfo); // info audio
+				return false;
+		}});
+        				
+		dialog.show();
 	}
 
 }
