@@ -679,6 +679,7 @@ public class RealFarmDatabase {
 				{ "Leaf miner", R.raw.audio1, 2 },
 				{ "Pod borer", R.raw.audio1, 2 },
 				{ "Red hairy caterpillar", R.raw.audio1, 2 },
+				{ "Root grub", R.raw.audio1, 2 },
 				{ "Unknown pest", R.raw.audio1, 2 },
 				{ "Pest not listed", R.raw.audio1, 2 },
 				{ "Low growth", R.raw.audio1, 3 },
@@ -686,7 +687,6 @@ public class RealFarmDatabase {
 				{ "Pod germination", R.raw.audio1, 3 },
 				{ "Reduced flowering", R.raw.audio1,3 },
 				{ "Rot of stalks", R.raw.audio1,  3 },
-				{ "Root grub", R.raw.audio1, 3 },
 				{ "Too much vegetative growth", R.raw.audio1, 3 },
 				{ "Weeds", R.raw.audio1, 3 },
 				{ "Wild boar", R.raw.audio1, 3 },
@@ -822,7 +822,16 @@ public class RealFarmDatabase {
 				{ "JL24", "", "", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant },
 				{ "K6 / Kadari ghat", "", "", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant },
 				{ "Samrat", "", "", "", R.drawable.pic_72px_bajra, 1, R.raw.msg_plant },
-				{ "TMV2 / Bunching", "", "", "", R.drawable.pic_72px_castor, 1, R.raw.msg_plant }
+				{ "TMV2 / Bunching", "", "", "", R.drawable.pic_72px_castor, 1, R.raw.msg_plant },
+				{ "Bajra / pearl millet", "", "", "",R.drawable.pic_72px_bajra,2, R.raw.msg_plant },
+				{ "Castor", "", "", "",R.drawable.pic_72px_castor,3, R.raw.msg_plant },
+				{ "Cow pea", "", "", "",R.drawable.pic_72px_cowpea,4, R.raw.msg_plant },
+				{ "Field beans","", "", "",R.drawable.fieldbean,5, R.raw.msg_plant },
+				{ "Green / moong gram","", "", "", R.drawable.pic_72px_greengram,6,R.raw.msg_plant },
+				{ "Horse gram","", "", "", R.drawable.pic_72px_horsegram,7,R.raw.msg_plant },
+				{ "Padddy / rice","", "", "", R.drawable.paddy,8, R.raw.msg_plant },
+				{ "Ragi / finger millet","", "", "", R.drawable.ragi,9, R.raw.msg_plant },
+				{ "Sorghum","", "", "", R.drawable.pic_72px_sorghum,10, R.raw.msg_plant }
 		};
 
 		for (int x = 0; x < seedData.length; x++) {
@@ -847,11 +856,11 @@ public class RealFarmDatabase {
 				{ "Bajra / pearl millet", R.drawable.pic_72px_bajra, R.drawable.pic_90px_bajra_tiled, R.raw.msg_plant },
 				{ "Castor", R.drawable.pic_72px_castor, R.drawable.pic_90px_castor_tiled, R.raw.msg_plant },
 				{ "Cow pea", R.drawable.pic_72px_cowpea, R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant },
-				{ "Field beans", R.drawable.pic_72px_cowpea, R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant },
+				{ "Field beans", R.drawable.fieldbean, R.drawable.fieldbean, R.raw.msg_plant },
 				{ "Green / moong gram", R.drawable.pic_72px_greengram, R.drawable.pic_90px_greengram_tiled, R.raw.msg_plant },
 				{ "Horse gram", R.drawable.pic_72px_horsegram, R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant },
-				{ "Padddy / rice", R.drawable.pic_72px_horsegram, R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant },
-				{ "Ragi / finger millet", R.drawable.pic_72px_pigeonpea, R.drawable.pic_90px_pidgeonpea_tiled, R.raw.msg_plant },
+				{ "Padddy / rice", R.drawable.paddy, R.drawable.paddy, R.raw.msg_plant },
+				{ "Ragi / finger millet", R.drawable.ragi, R.drawable.ragi, R.raw.msg_plant },
 				{ "Sorghum", R.drawable.pic_72px_sorghum, R.drawable.pic_90px_sorghum_tiled, R.raw.msg_plant }
 		};
 

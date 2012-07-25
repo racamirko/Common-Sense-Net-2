@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -108,19 +107,17 @@ public class action_sowing extends HelpEnabledActivityOld {
 		final View item7;
 		View home;
 		View help;
-		item1 = findViewById(R.id.home_btn_var_sow);
-		item2 = findViewById(R.id.home_btn_units_sow);
-		item3 = findViewById(R.id.home_btn_day_sow);
-		item4 = findViewById(R.id.home_btn_treat_sow);
-		item5 = findViewById(R.id.home_btn_units_no_sow);
-		item7 = findViewById(R.id.home_btn_intercrop_sow);
+		item1 = findViewById(R.id.dlg_var_text_sow);
+		item3 = findViewById(R.id.dlg_lbl_day_sow);
+		item4 = findViewById(R.id.dlg_lbl_treat_sow);
+		item5 = findViewById(R.id.dlg_lbl_unit_no_sow);
+		item7 = findViewById(R.id.dlg_lbl_intercrop_sow);
 
-		final Button item6 = (Button) findViewById(R.id.home_btn_month_sow);
+		final View item6 = findViewById(R.id.dlg_lbl_month_sow);
 		home = findViewById(R.id.aggr_img_home);
 		help = findViewById(R.id.aggr_img_help);
 
 		item1.setOnLongClickListener(this);
-		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 		item5.setOnLongClickListener(this);
@@ -128,17 +125,17 @@ public class action_sowing extends HelpEnabledActivityOld {
 		item7.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final TableRow variety;
-		final TableRow Amount;
-		final TableRow Date;
-		final TableRow Treatment;
-		final TableRow Intercrop;
+		final View variety;
+		final View Amount;
+		final View Date;
+		final View Treatment;
+		final View Intercrop;
 
-		variety = (TableRow) findViewById(R.id.seed_type_sow_tr);
-		Amount = (TableRow) findViewById(R.id.units_sow_tr);
-		Date = (TableRow) findViewById(R.id.day_sow_tr);
-		Treatment = (TableRow) findViewById(R.id.treatment_sow_tr);
-		Intercrop = (TableRow) findViewById(R.id.intercrop_sow_tr);
+		variety = findViewById(R.id.seed_type_sow_tr);
+		Amount = findViewById(R.id.units_sow_tr);
+		Date = findViewById(R.id.day_sow_tr);
+		Treatment = findViewById(R.id.treatment_sow_tr);
+		Intercrop = findViewById(R.id.intercrop_sow_tr);
 
 		variety.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
@@ -245,7 +242,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 				if (seed_sow == 0) {
 					flag1 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
+					View tr_feedback = findViewById(R.id.seed_type_sow_tr);
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 					// tracks the application usage.
@@ -255,15 +252,15 @@ public class action_sowing extends HelpEnabledActivityOld {
 				} else {
 					flag1 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.seed_type_sow_tr);
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					View tr_feedback = findViewById(R.id.seed_type_sow_tr);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (/*units_sow.toString().equalsIgnoreCase("0") || */sow_no == 0) {
 
 					flag2 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+					View tr_feedback = findViewById(R.id.units_sow_tr);
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 					// tracks the application usage.
@@ -274,16 +271,16 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 					flag2 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_sow_tr);
+					View tr_feedback = findViewById(R.id.units_sow_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (treatment_sow.toString().equalsIgnoreCase("0")) {
 
 					flag3 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+					View tr_feedback = findViewById(R.id.treatment_sow_tr);
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 					// tracks the application usage.
@@ -294,9 +291,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 					flag3 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.treatment_sow_tr);
+					View tr_feedback = findViewById(R.id.treatment_sow_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (months_sow.toString().equalsIgnoreCase("0")
@@ -304,7 +301,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 					flag4 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+					View tr_feedback = findViewById(R.id.day_sow_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -317,16 +314,16 @@ public class action_sowing extends HelpEnabledActivityOld {
 					flag4 = 0;
 
 					days_sel_sow = day_sow_int + "." + months_sow;
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_sow_tr);
+					View tr_feedback = findViewById(R.id.day_sow_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 				
 				if (cropType_sow.toString().equalsIgnoreCase("0")) {
 
 					flag5 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.intercrop_sow_tr);
+					View tr_feedback = findViewById(R.id.intercrop_sow_tr);
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 					// tracks the application usage.
@@ -337,9 +334,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 					flag5 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.intercrop_sow_tr);
+					View tr_feedback = findViewById(R.id.intercrop_sow_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0 && flag5 == 0) {
@@ -379,7 +376,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 	@Override
 	public boolean onLongClick(View v) { // latest
 
-		if (v.getId() == R.id.home_btn_var_sow) {
+		if (v.getId() == R.id.dlg_var_text_sow) {
 
 			playAudioalways(R.raw.varietyofseedssowd);
 			ShowHelpIcon(v);
@@ -389,8 +386,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 					LOG_TAG, "variety");
 		}
 
-		if (v.getId() == R.id.home_btn_units_sow
-				|| v.getId() == R.id.home_btn_units_no_sow) {
+		if (v.getId() == R.id.dlg_lbl_unit_no_sow) {
 
 			playAudioalways(R.raw.selecttheunits);
 			ShowHelpIcon(v);
@@ -400,7 +396,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 					LOG_TAG, "units");
 		}
 
-		if (v.getId() == R.id.home_btn_day_sow) {
+		if (v.getId() == R.id.dlg_lbl_month_sow) {
 
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
@@ -410,7 +406,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 					LOG_TAG, "day");
 		}
 
-		if (v.getId() == R.id.home_btn_treat_sow) {
+		if (v.getId() == R.id.dlg_lbl_treat_sow) {
 
 			playAudioalways(R.raw.treatmenttoseeds1);
 			ShowHelpIcon(v);
@@ -459,12 +455,12 @@ public class action_sowing extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 		
-		if (v.getId() == R.id.intercrop_sow_tr || v.getId() == R.id.home_btn_intercrop_sow) { // 20-06-2012 + added
+		if (v.getId() == R.id.intercrop_sow_tr || v.getId() == R.id.dlg_lbl_intercrop_sow) { // 20-06-2012 + added
 			playAudioalways(R.raw.intercrop);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_month_sow) { // added
+		if (v.getId() == R.id.dlg_lbl_day_sow) { // added
 
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v); // added for help icon
@@ -499,10 +495,11 @@ public class action_sowing extends HelpEnabledActivityOld {
 				Log.d("var "+position+" picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getName());
+				var_text.setText(choice.getShortName());
 				resultsMap.put(mapEntry, choice.getValue());  
-				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				View tr_feedback = findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(
@@ -542,7 +539,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 		dialog.setContentView(np);
 		
 		final TextView tw_sow = (TextView) findViewById(textField);
-		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+		final View tr_feedback = findViewById(tableRow);
 
 		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
 		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);

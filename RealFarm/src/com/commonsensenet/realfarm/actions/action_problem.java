@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -87,15 +86,15 @@ public class action_problem extends HelpEnabledActivityOld {
 		
 		// bg_date_problem.setImageResource(R.drawable.empty_not);
 
-		final Button item1;
-		final Button item4;
+		final View item1;
+		final View item4;
 
 		ImageButton home;
 		ImageButton help;
-		item1 = (Button) findViewById(R.id.home_btn_var_prob);
-		item4 = (Button) findViewById(R.id.home_btn_var_prob4);
-		final Button item2 = (Button) findViewById(R.id.home_btn_day_prob);
-		final Button item3 = (Button) findViewById(R.id.home_btn_month_prob);
+		item1 = (View) findViewById(R.id.dlg_lbl_var_prob);
+		item4 = (View) findViewById(R.id.dlg_lbl_var_prob4);
+		final View item2 = (View) findViewById(R.id.dlg_lbl_day_prob);
+		final View item3 = (View) findViewById(R.id.dlg_lbl_month_prob);
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
@@ -106,13 +105,13 @@ public class action_problem extends HelpEnabledActivityOld {
 
 		help.setOnLongClickListener(this);
 
-		final TableRow problem;
-		final TableRow crop;
-		final TableRow Date;
+		final View problem;
+		final View crop;
+		final View Date;
 
-		problem = (TableRow) findViewById(R.id.var_prob_tr);
-		crop = (TableRow) findViewById(R.id.var_prob_tr4);
-		Date = (TableRow) findViewById(R.id.day_prob_tr);
+		problem = (View) findViewById(R.id.var_prob_tr);
+		crop = (View) findViewById(R.id.var_prob_tr4);
+		Date = (View) findViewById(R.id.day_prob_tr);
 
 		problem.setOnLongClickListener(this);
 		crop.setOnLongClickListener(this);
@@ -189,23 +188,23 @@ public class action_problem extends HelpEnabledActivityOld {
 				if (prob_var_sel.toString().equalsIgnoreCase("0")) { 
 					flag1 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
+					View tr_feedback = (View) findViewById(R.id.var_prob_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
 					flag1 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr);
+					View tr_feedback = (View) findViewById(R.id.var_prob_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (months_prob.toString().equalsIgnoreCase("0")
 						|| prob_day_int == 0) {
 					flag2 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
+					View tr_feedback = (View) findViewById(R.id.day_prob_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -213,24 +212,24 @@ public class action_problem extends HelpEnabledActivityOld {
 					flag2 = 0;
 
 					prob_day_sel = prob_day_int + "." + months_prob;
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_prob_tr);
+					View tr_feedback = (View) findViewById(R.id.day_prob_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 				
 				if (prob_crop_sel.toString().equalsIgnoreCase("0")) {
 					flag4 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr4);
+					View tr_feedback = (View) findViewById(R.id.var_prob_tr4);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
 					flag4 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.var_prob_tr4);
+					View tr_feedback = (View) findViewById(R.id.var_prob_tr4);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag4 == 0) {
@@ -266,17 +265,17 @@ public class action_problem extends HelpEnabledActivityOld {
 	@Override
 	public boolean onLongClick(View v) { 
 		playAudioalways(R.raw.date);
-		if (v.getId() == R.id.home_btn_var_prob) {
+		if (v.getId() == R.id.dlg_lbl_var_prob) {
 			playAudioalways(R.raw.problems);
 			ShowHelpIcon(v);
 		}
 		
-		if (v.getId() == R.id.home_btn_var_prob4) {
+		if (v.getId() == R.id.dlg_lbl_var_prob4) {
 			// playAudioalways(R.raw.problems); // TODO: put the audio
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_day_prob) {
+		if (v.getId() == R.id.dlg_lbl_day_prob) {
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
 		}
@@ -296,7 +295,7 @@ public class action_problem extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_month_prob) {
+		if (v.getId() == R.id.dlg_lbl_month_prob) {
 
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v);
@@ -341,10 +340,11 @@ public class action_problem extends HelpEnabledActivityOld {
 				Log.d("var "+position+" picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getName());
+				var_text.setText(choice.getShortName());
 				resultsMap.put(mapEntry, choice.getValue());  
-				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(
@@ -384,7 +384,7 @@ public class action_problem extends HelpEnabledActivityOld {
 		dialog.setContentView(np);
 		
 		final TextView tw_sow = (TextView) findViewById(textField);
-		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+		final View tr_feedback = (View) findViewById(tableRow);
 
 		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
 		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);

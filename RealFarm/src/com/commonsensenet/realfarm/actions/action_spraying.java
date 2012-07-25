@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -95,20 +94,20 @@ public class action_spraying extends HelpEnabledActivityOld {
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
 
-		final Button item1;
-		final Button item2;
-		final Button item3;
-		final Button item4;
-		final Button item5;
+		final View item1;
+		final View item2;
+		final View item3;
+		final View item4;
+		final View item5;
 
 		ImageButton home;
 		ImageButton help;
-		item1 = (Button) findViewById(R.id.home_btn_prob_spray);
-		item2 = (Button) findViewById(R.id.home_btn_pest_spray);
-		item3 = (Button) findViewById(R.id.home_btn_units_spray);
-		item4 = (Button) findViewById(R.id.home_btn_day_spray);
-		item5 = (Button) findViewById(R.id.home_btn_units_no_spray);
-		final Button item6 = (Button) findViewById(R.id.home_btn_month_spray);
+		item1 = (View) findViewById(R.id.dlg_lbl_prob_spray);
+		item2 = (View) findViewById(R.id.dlg_lbl_pest_spray);
+		item3 = (View) findViewById(R.id.dlg_lbl_units_spray);
+		item4 = (View) findViewById(R.id.dlg_lbl_day_spray);
+		item5 = (View) findViewById(R.id.dlg_lbl_unit_no_spray);
+		final View item6 = (View) findViewById(R.id.dlg_lbl_month_spray);
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
@@ -120,15 +119,15 @@ public class action_spraying extends HelpEnabledActivityOld {
 		item6.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final TableRow Problems;
-		final TableRow Amount;
-		final TableRow Date;
-		final TableRow PestName;
+		final View Problems;
+		final View Amount;
+		final View Date;
+		final View PestName;
 
-		Problems = (TableRow) findViewById(R.id.prob_spray_tr);
-		PestName = (TableRow) findViewById(R.id.pest_spray_tr);
-		Amount = (TableRow) findViewById(R.id.units_spray_tr);
-		Date = (TableRow) findViewById(R.id.day_spray_tr);
+		Problems = (View) findViewById(R.id.prob_spray_tr);
+		PestName = (View) findViewById(R.id.pest_spray_tr);
+		Amount = (View) findViewById(R.id.units_spray_tr);
+		Date = (View) findViewById(R.id.day_spray_tr);
 		
 		Problems.setOnLongClickListener(this);
 		PestName.setOnLongClickListener(this);
@@ -229,7 +228,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 						|| spray_no == 0) {
 					flag1 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
+					View tr_feedback = (View) findViewById(R.id.units_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -240,16 +239,16 @@ public class action_spraying extends HelpEnabledActivityOld {
 				} else {
 					flag1 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_spray_tr);
+					View tr_feedback = (View) findViewById(R.id.units_spray_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (pest_sel_spray.toString().equalsIgnoreCase("0")) {
 
 					flag2 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
+					View tr_feedback = (View) findViewById(R.id.pest_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -260,15 +259,15 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 					flag2 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.pest_spray_tr);
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					View tr_feedback = (View) findViewById(R.id.pest_spray_tr);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (prob_sel_spray.toString().equalsIgnoreCase("0")) {
 
 					flag3 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
+					View tr_feedback = (View) findViewById(R.id.prob_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -279,8 +278,8 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 					flag3 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.prob_spray_tr);
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					View tr_feedback = (View) findViewById(R.id.prob_spray_tr);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (months_spray.toString().equalsIgnoreCase("0")
@@ -288,7 +287,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 					flag4 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
+					View tr_feedback = (View) findViewById(R.id.day_spray_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -301,8 +300,8 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 					day_sel_spray = day_spray_int + "." + months_spray;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_spray_tr);
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					View tr_feedback = (View) findViewById(R.id.day_spray_tr);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
@@ -348,7 +347,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 	@Override
 	public boolean onLongClick(View v) { // latest
 
-		if (v.getId() == R.id.home_btn_prob_spray) {
+		if (v.getId() == R.id.dlg_lbl_prob_spray) {
 			playAudioalways(R.raw.selecttheproblem);
 			ShowHelpIcon(v);
 
@@ -357,7 +356,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 					LOG_TAG, "problem");
 		}
 
-		if (v.getId() == R.id.home_btn_pest_spray) {
+		if (v.getId() == R.id.dlg_lbl_pest_spray) {
 			playAudioalways(R.raw.selectthepesticide);
 			ShowHelpIcon(v);
 
@@ -366,8 +365,8 @@ public class action_spraying extends HelpEnabledActivityOld {
 					LOG_TAG, "pest");
 		}
 
-		if (v.getId() == R.id.home_btn_units_spray
-				|| v.getId() == R.id.home_btn_units_no_spray) {
+		if (v.getId() == R.id.dlg_lbl_unit_no_spray
+				|| v.getId() == R.id.dlg_lbl_units_spray) {
 			playAudioalways(R.raw.selecttheunits);
 			ShowHelpIcon(v);
 
@@ -376,7 +375,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 					LOG_TAG, "units");
 		}
 
-		if (v.getId() == R.id.home_btn_day_spray) {
+		if (v.getId() == R.id.dlg_lbl_day_spray) {
 
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
@@ -406,7 +405,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 					LOG_TAG, "help");
 		}
 		
-		if (v.getId() == R.id.home_btn_month_spray) { // added
+		if (v.getId() == R.id.dlg_lbl_month_spray) { // added
 
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v); // added for help icon
@@ -454,9 +453,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 				Log.d("var "+position+" picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getName());
+				var_text.setText(choice.getShortName());
 				resultsMap.put(mapEntry, choice.getValue());  
-				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 
 				// tracks the application usage.
@@ -497,7 +496,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 		dialog.setContentView(np);
 		
 		final TextView tw_sow = (TextView) findViewById(textField);
-		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+		final View tr_feedback = (View) findViewById(tableRow);
 
 		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
 		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);

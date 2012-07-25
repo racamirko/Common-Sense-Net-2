@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm.model;
 public class DialogData {
 	   
     private String name;
+    private String shortName = "";
     private int imgRes = -1;
     private int img2Res = -1;
     private int audioRes = -1;
@@ -21,13 +22,32 @@ public class DialogData {
     	this.value = value;
     	this.number = number;
     	this.backgroundRes = backgroundRes;
+        this.shortName = name;
+    }
+    
+    public DialogData (String name, String shortName, int imgRes, int img2Res, int audioRes, String value, String number, int backgroundRes){
+    	this.name = name;
+    	this.imgRes = imgRes;
+    	this.img2Res = img2Res;
+    	this.audioRes = audioRes;
+    	this.value = value;
+    	this.number = number;
+    	this.backgroundRes = backgroundRes;
+        this.shortName = shortName;
     }
    
     public String getName() {
         return name;
     }
     public void setName(String name) {
+        this.shortName = name;
         this.name = name;
+    }
+    public String getShortName() {
+        return shortName;
+    }
+    public void setShortName(String name) {
+        this.shortName = name;
     }
     public int getImageRes() {
         return imgRes;

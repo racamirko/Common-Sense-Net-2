@@ -14,7 +14,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -85,17 +84,17 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		resultsMap.put("hrs_irrigate", "0");
 
 		// bg_day_irr.setImageResource(R.drawable.empty_not);
-		final Button item1;
-		final Button item2;
-		final Button item3;
-		final Button item4;
+		final View item1;
+		final View item2;
+		final View item3;
+		final View item4;
 		ImageButton home;
 		ImageButton help;
-		item1 = (Button) findViewById(R.id.home_btn_method_irr);
+		item1 = (View) findViewById(R.id.dlg_lbl_method_irr);
 
-		item3 = (Button) findViewById(R.id.home_btn_day_irr);
-		item2 = (Button) findViewById(R.id.home_btn_units_no_irr);
-		item4 = (Button) findViewById(R.id.home_btn_month_irr);
+		item3 = (View) findViewById(R.id.dlg_lbl_day_irr);
+		item2 = (View) findViewById(R.id.dlg_lbl_unit_no_irr);
+		item4 = (View) findViewById(R.id.dlg_lbl_month_irr);
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
 		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
@@ -106,13 +105,13 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		item4.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final TableRow method;
-		final TableRow duration;
-		final TableRow Date;
+		final View method;
+		final View duration;
+		final View Date;
 
-		method = (TableRow) findViewById(R.id.method_irr_tr);
-		duration = (TableRow) findViewById(R.id.units_irr_tr);
-		Date = (TableRow) findViewById(R.id.day_irr_tr);
+		method = (View) findViewById(R.id.method_irr_tr);
+		duration = (View) findViewById(R.id.units_irr_tr);
+		Date = (View) findViewById(R.id.day_irr_tr);
 
 		method.setOnLongClickListener(this);
 		duration.setOnLongClickListener(this);
@@ -187,23 +186,23 @@ public class action_irrigate extends HelpEnabledActivityOld {
 				if (hrs_irrigate == 0) {
 					flag1 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_irr_tr);
+					View tr_feedback = (View) findViewById(R.id.units_irr_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
 					flag1 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.units_irr_tr);
+					View tr_feedback = (View) findViewById(R.id.units_irr_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (irr_method_sel.toString().equalsIgnoreCase("0")) { 
 
 					flag2 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
+					View tr_feedback = (View) findViewById(R.id.method_irr_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -211,9 +210,9 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 					flag2 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.method_irr_tr);
+					View tr_feedback = (View) findViewById(R.id.method_irr_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (months_irr.toString().equalsIgnoreCase("0")
@@ -221,7 +220,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 					flag3 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_irr_tr);
+					View tr_feedback = (View) findViewById(R.id.day_irr_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -230,9 +229,9 @@ public class action_irrigate extends HelpEnabledActivityOld {
 					flag3 = 0;
 
 					irr_day_sel = irr_day_int + "." + months_irr;
-					TableRow tr_feedback = (TableRow) findViewById(R.id.day_irr_tr);
+					View tr_feedback = (View) findViewById(R.id.day_irr_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
@@ -272,17 +271,17 @@ public class action_irrigate extends HelpEnabledActivityOld {
 	@Override
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.home_btn_method_irr) {
+		if (v.getId() == R.id.dlg_lbl_method_irr) {
 			playAudioalways(R.raw.method);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_units_no_irr) {
+		if (v.getId() == R.id.dlg_lbl_unit_no_irr) {
 			playAudioalways(R.raw.noofhours);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_day_irr) {
+		if (v.getId() == R.id.dlg_lbl_day_irr) {
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
 		}
@@ -302,7 +301,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_month_irr) {
+		if (v.getId() == R.id.dlg_lbl_month_irr) {
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v);
 		}
@@ -344,9 +343,9 @@ public class action_irrigate extends HelpEnabledActivityOld {
 				Log.d("var "+position+" picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getName());
+				var_text.setText(choice.getShortName());
 				resultsMap.put(mapEntry, choice.getValue());  
-				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 
 				// tracks the application usage.
@@ -387,7 +386,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		dialog.setContentView(np);
 		
 		final TextView tw_sow = (TextView) findViewById(textField);
-		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+		final View tr_feedback = (View) findViewById(tableRow);
 
 		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
 		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);

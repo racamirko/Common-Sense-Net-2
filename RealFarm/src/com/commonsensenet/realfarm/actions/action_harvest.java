@@ -16,7 +16,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -77,13 +76,13 @@ public class action_harvest extends HelpEnabledActivityOld {
 		super.onCreate(savedInstanceState, R.layout.harvest_dialog);
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
-		final Button smiley1;
-		final Button smiley2;
-		final Button smiley3;
+		final View smiley1;
+		final View smiley2;
+		final View smiley3;
 
-		smiley1 = (Button) findViewById(R.id.home_btn_har_1);
-		smiley2 = (Button) findViewById(R.id.home_btn_har_2);
-		smiley3 = (Button) findViewById(R.id.home_btn_har_3);
+		smiley1 = findViewById(R.id.home_btn_har_1);
+		smiley2 = findViewById(R.id.home_btn_har_2);
+		smiley3 = findViewById(R.id.home_btn_har_3);
 		smiley1.setBackgroundResource(R.drawable.smiley_good_not);
 		smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
 		smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
@@ -100,17 +99,17 @@ public class action_harvest extends HelpEnabledActivityOld {
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
 
 		System.out.println("Plant details entered1");
-		final Button item1;
-		final Button item2;
-		final Button item3;
-		final Button item4;
+		final View item1;
+		final View item2;
+		final View item3;
+		final View item4;
 		ImageButton home;
 		ImageButton help;
 		System.out.println("Plant details entered2");
-		item1 = (Button) findViewById(R.id.home_btn_units_no_harvest);
-		item2 = (Button) findViewById(R.id.home_btn_units_harvest);
-		item3 = (Button) findViewById(R.id.home_btn_month_harvest);
-		item4 = (Button) findViewById(R.id.home_btn_day_harvest);
+		item1 = findViewById(R.id.dlg_lbl_unit_no_harvest);
+		item2 = findViewById(R.id.dlg_lbl_units_harvest);
+		item3 = findViewById(R.id.dlg_lbl_month_harvest);
+		item4 = findViewById(R.id.dlg_lbl_day_harvest);
 
 		System.out.println("Plant details entered3");
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
@@ -126,11 +125,11 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 		help.setOnLongClickListener(this);
 
-		final TableRow harvest_date;
-		final TableRow Amount;
+		final View harvest_date;
+		final View Amount;
 
-		harvest_date = (TableRow) findViewById(R.id.harvest_date_tr);
-		Amount = (TableRow) findViewById(R.id.units_harvest_tr);
+		harvest_date = (View) findViewById(R.id.harvest_date_tr);
+		Amount = (View) findViewById(R.id.units_harvest_tr);
 
 		harvest_date.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
@@ -144,7 +143,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 				smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
 				smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
 
-				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
+				View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
 
 				// tracks the application usage.
@@ -162,7 +161,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 				smiley2.setBackgroundResource(R.drawable.smiley_medium);
 				smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
 
-				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
+				View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
 
 				// tracks the application usage.
@@ -179,7 +178,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 				smiley1.setBackgroundResource(R.drawable.smiley_good_not);
 				smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
 				smiley3.setBackgroundResource(R.drawable.smiley_bad);
-				TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
+				View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
 
 				tr_feedback.setBackgroundResource(R.drawable.def_img);
 
@@ -277,23 +276,23 @@ public class action_harvest extends HelpEnabledActivityOld {
 				if (feedback_sel == 0) {
 					flag1 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
+					View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 							LOG_TAG, "feedback");
 				} else {
 					flag1 = 0;
-					TableRow tr_feedback = (TableRow) findViewById(R.id.tableRow_feedback);
+					View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 
 				}
 				if (units_harvest.toString().equalsIgnoreCase("0") 
 						|| harvest_no == 0) {
 					flag2 = 1;
 
-					TableRow tr_units = (TableRow) findViewById(R.id.units_harvest_tr);
+					View tr_units = (View) findViewById(R.id.units_harvest_tr);
 					tr_units.setBackgroundResource(R.drawable.def_img_not);
 
 					// tracks the application usage.
@@ -301,15 +300,15 @@ public class action_harvest extends HelpEnabledActivityOld {
 							LOG_TAG, "units");
 				} else {
 					flag2 = 0;
-					TableRow tr_units = (TableRow) findViewById(R.id.units_harvest_tr);
-					tr_units.setBackgroundResource(R.drawable.def_img);
+					View tr_units = (View) findViewById(R.id.units_harvest_tr);
+					tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (months_harvest.toString().equalsIgnoreCase("0")
 						|| day_harvest_int == 0) {
 					flag3 = 1;
 
-					TableRow tr_months = (TableRow) findViewById(R.id.harvest_date_tr);
+					View tr_months = (View) findViewById(R.id.harvest_date_tr);
 
 					tr_months.setBackgroundResource(R.drawable.def_img_not);
 
@@ -321,8 +320,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 					final_day_harvest = day_harvest_int + "." + months_harvest;
 
-					TableRow tr_units = (TableRow) findViewById(R.id.harvest_date_tr);
-					tr_units.setBackgroundResource(R.drawable.def_img);
+					View tr_units = (View) findViewById(R.id.harvest_date_tr);
+					tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
@@ -410,9 +409,9 @@ public class action_harvest extends HelpEnabledActivityOld {
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 					LOG_TAG, "help");
 		}
-
-		if (v.getId() == R.id.home_btn_units_no_harvest
-				|| v.getId() == R.id.home_btn_units_harvest) {
+		
+		if (v.getId() == R.id.dlg_lbl_unit_no_harvest
+				|| v.getId() == R.id.dlg_lbl_units_harvest) {
 
 			playAudioalways(R.raw.selecttheunits);
 			ShowHelpIcon(v);
@@ -421,14 +420,14 @@ public class action_harvest extends HelpEnabledActivityOld {
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 					LOG_TAG, "units");
 		}
-		if (v.getId() == R.id.home_btn_day_harvest) {
+		if (v.getId() == R.id.dlg_lbl_day_harvest) {
 
 			playAudioalways(R.raw.selectthedate);
 			ShowHelpIcon(v);
 
 		}
 
-		if (v.getId() == R.id.home_btn_month_harvest) {
+		if (v.getId() == R.id.dlg_lbl_month_harvest) {
 
 			playAudioalways(R.raw.choosethemonthwhenharvested);
 			ShowHelpIcon(v);
@@ -472,9 +471,9 @@ public class action_harvest extends HelpEnabledActivityOld {
 				Log.d("var "+position+" picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getName());
+				var_text.setText(choice.getShortName());
 				resultsMap.put(mapEntry, choice.getValue());  
-				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 
 				// tracks the application usage.
@@ -515,7 +514,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 		dialog.setContentView(np);
 		
 		final TextView tw_sow = (TextView) findViewById(textField);
-		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+		final View tr_feedback = (View) findViewById(tableRow);
 
 		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
 		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);

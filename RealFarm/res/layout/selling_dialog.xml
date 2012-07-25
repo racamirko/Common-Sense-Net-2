@@ -50,661 +50,243 @@
     </LinearLayout>
     
      <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal" >
+         android:id="@+id/crop_sell_tr"
+         android:layout_width="fill_parent"
+         android:layout_height="50dp"
+         android:layout_marginTop="5dp"
+         android:background="@android:drawable/list_selector_background"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:paddingRight="5dp" >
 
-        <TableRow
-            android:id="@+id/crop_sell_tr"
-            android:layout_width="fill_parent"
-            android:layout_height="match_parent"
-            android:background="@android:drawable/list_selector_background"
-           >
+         <TextView
+             android:id="@+id/variety_sow_txt"
+             android:layout_width="90dp"
+             android:layout_height="wrap_content"
+             android:gravity="left"
+             android:text="Crop"
+             android:textColor="#000000"
+             android:textSize="20sp" />
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
+         <ImageView
+             android:id="@+id/variety_sow_img_btn"
+             android:layout_width="40dp"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:src="@drawable/variety_sow" />
 
-                <TextView
-                    android:id="@+id/variety_sow_txt"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="Crop"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
-
-                <!-- <Button
-                    android:id="@+id/crop_sell_txt_btn"
-                    android:layout_width="100dp"
-                    android:layout_height="60dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" /> -->
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="40dp"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/variety_sow_img_btn"
-                    android:layout_width="40dip"
-                    android:layout_height="60dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/variety_sow" />
-            </RelativeLayout>
-
-           <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="fill_parent"
-                android:layout_height="60dp"
-                android:layout_marginRight="10dip"
-                android:layout_marginLeft="5dp"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/img_bg_crop_sell"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_crop_sell"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerVertical="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="0dp"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="Crop"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="22sp" />
-
-                <Button
-                    android:id="@+id/home_btn_crop_sell"
-                    android:layout_width="160dp"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp" />
-
-            </RelativeLayout>
-        </TableRow>
-    </LinearLayout>
-    
+         <TextView
+             android:id="@+id/dlg_lbl_crop_sell"
+             android:layout_width="170dp"
+             android:layout_height="48dp"
+             android:layout_marginLeft="10dp"
+             android:background="@drawable/empty"
+             android:gravity="center_vertical|left"
+             android:paddingLeft="10dp"
+             android:text="Crop"
+             android:textAppearance="?android:attr/textAppearanceMedium"
+             android:textSize="22sp" />
+     </LinearLayout>
     
     <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/date_sell_tr"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal" >
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:drawable/list_selector_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="5dp" >
 
-        <TableRow
-            android:id="@+id/date_sell_tr"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:background="@android:drawable/list_selector_background"
-             >
+        <TextView
+            android:id="@+id/amount_sow_txt"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Date"
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
+        <ImageView
+            android:id="@+id/amount_sow_img_btn"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/date" />
 
-                <TextView
-                    android:id="@+id/amount_sow_txt"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="10dp"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="Date"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
+        <TextView
+            android:id="@+id/dlg_lbl_date_sell"
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/empty"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="Day"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
 
-               <!--  <Button
-                    android:id="@+id/amount_sow_txt_btn"
-                    android:layout_width="100dp"
-                    android:layout_height="60dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" /> -->
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="40dp"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/amount_sow_img_btn"
-                    android:layout_width="40dip"
-                    android:layout_height="60dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/date" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="5dp"
-                android:layout_weight="0.09" >
-
-                <ImageView
-                    android:id="@+id/img_bg_date_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_date_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:layout_alignRight="@+id/dlg_unit_sow"
-                    android:layout_centerVertical="true"
-                    android:paddingBottom="5dip"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dip"
-                    android:text="Day"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Button
-                    android:id="@+id/home_btn_date_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/img_bg_date_sell"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.09"
-                android:paddingLeft="10dp"
-                android:paddingRight="12dp" >
-
-                <ImageView
-                    android:id="@+id/img_bg_month_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_month_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:paddingBottom="5dip"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dip"
-                    android:text="Month"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Button
-                    android:id="@+id/home_btn_month_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/img_bg_month_sell"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-        </TableRow>
-
+        <TextView
+            android:id="@+id/dlg_lbl_month_sell"
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/empty"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="Month"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
     </LinearLayout>
     
      <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+         android:id="@+id/quant_sell_tr"
+         android:layout_width="fill_parent"
+         android:layout_height="50dp"
+         android:layout_marginTop="5dp"
+         android:background="@android:drawable/list_selector_background"
+         android:gravity="center"
+         android:orientation="horizontal"
+         android:paddingRight="5dp" >
+
+         <TextView
+             android:id="@+id/amount_sow_txt"
+             android:layout_width="90dp"
+             android:layout_height="wrap_content"
+             android:gravity="left"
+             android:text="Quantity sold"
+             android:textColor="#000000"
+             android:textSize="20sp" />
+
+         <ImageView
+             android:id="@+id/amount_sow_img_btn"
+             android:layout_width="40dp"
+             android:layout_height="wrap_content"
+             android:gravity="center"
+             android:src="@drawable/ic_bagssold" />
+
+        <TextView
+            android:id="@+id/dlg_lbl_unit_no_sell"
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/empty"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="No"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
+
+        <TextView
+            android:id="@+id/dlg_lbl_unit_sell"
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/empty"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="unit"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
+   </LinearLayout>
+
+   <LinearLayout
+        android:id="@+id/price_sell_tr"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal" >
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:drawable/list_selector_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="5dp" >
 
-        <TableRow
-            android:id="@+id/quant_sell_tr"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:background="@android:drawable/list_selector_background"
-            android:paddingBottom="10dip"
-            android:paddingTop="4dip" >
+        <TextView
+            android:id="@+id/treat_sow_txt"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Price/qt"
+            android:textColor="#000000"
+            android:textSize="20sp" />
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
+        <ImageView
+            android:id="@+id/treat_sow_img_btn"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/sellprice" />
 
-                <TextView
-                    android:id="@+id/amount_sow_txt"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="Qty sold"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
+        <TextView
+            android:id="@+id/dlg_lbl_price_sell"
+            android:layout_width="120dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/empty"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="Price"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
 
-               <!--  <Button
-                    android:id="@+id/quantity_sow_txt_btn"
-                    android:layout_width="100dp"
-                    android:layout_height="60dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />-->
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="40dp"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/amount_sow_img_btn"
-                    android:layout_width="40dip"
-                    android:layout_height="60dp"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/ic_bagssold" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.09" >
-
-
-                <ImageView
-                    android:id="@+id/img_bg_units_no_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_unit_no_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignRight="@+id/dlg_unit_sow"
-                    android:layout_centerVertical="true"
-                    android:paddingBottom="5dip"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dip"
-                    android:text="No"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Button
-                    android:id="@+id/home_btn_units_no_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/img_bg_units_no_sell"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.09"
-                android:paddingLeft="10dp"
-                android:paddingRight="12dp" >
-
-                <ImageView
-                    android:id="@+id/img_bg_units_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_unit_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerVertical="true"
-                    android:layout_centerInParent="true"
-                    android:paddingBottom="5dip"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dip"
-                    android:text="Kg&apos;s"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Button
-                    android:id="@+id/home_btn_units_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/img_bg_units_sell"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-        </TableRow>
-    </LinearLayout>
+        <ImageView
+            android:id="@+id/treat_sow_img_btn"
+            android:layout_width="50dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/ic_sell" />
+   </LinearLayout>
     
-      <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
+   
+       <LinearLayout
+        android:id="@+id/rem_quant_sell_tr"
         android:layout_width="fill_parent"
-        android:layout_height="60dp"
-        android:orientation="horizontal" >
+        android:layout_height="50dp"
+        android:layout_marginTop="5dp"
+        android:background="@android:drawable/list_selector_background"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingRight="5dp" >
 
-        <TableRow
-            android:id="@+id/price_sell_tr"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:background="@android:drawable/list_selector_background"
-            android:paddingBottom="10dip"
-            android:paddingTop="4dip" >
+        <TextView
+            android:id="@+id/amount_sow_txt"
+            android:layout_width="90dp"
+            android:layout_height="wrap_content"
+            android:gravity="left"
+            android:text="Quantity remaining"
+            android:textColor="#000000"
+            android:textSize="19sp" />
 
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
+        <ImageView
+            android:id="@+id/amount_sow_img_btn"
+            android:layout_width="40dp"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:src="@drawable/ic_remainingbags" />
 
-                <TextView
-                    android:id="@+id/treat_sow_txt"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignRight="@+id/treat_sow_txt_btn"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:layout_weight="1"
-                    android:text=" Price/qt"
-                    android:textColor="#000000"
-                    android:textSize="20sp" />
+        <TextView
+            android:id="@+id/dlg_lbl_unit_no_rem_sell"
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/empty"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="No"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
 
-                <!-- <Button
-                    android:id="@+id/treat_sow_txt_btn"
-                    android:layout_width="80dp"
-                    android:layout_height="60dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />-->
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/treat_sow_img_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/sellprice" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="60dp"
-                android:layout_height="60dp"
-                android:layout_marginRight="10dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/img_bg_price_sell"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_price_sell"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:layout_weight="1"
-                    android:gravity="left"
-                    android:text="Price"
-                    android:textAppearance="?android:attr/textAppearanceMedium"
-                    android:textSize="22sp" />
-
-                <Button
-                    android:id="@+id/home_btn_price_sell"
-                    android:layout_width="120dp"
-                    android:layout_height="60dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />                
-            </RelativeLayout>
-            
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.09" >
-
-                <ImageView
-                    android:id="@+id/treat_sow_img_btn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="60dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:gravity="left"
-                    android:src="@drawable/ic_sell" />
-            </RelativeLayout>
-        </TableRow>
-    </LinearLayout>
-    
-    <TableRow
-            android:id="@+id/rem_quant_sell_tr"
-            android:layout_width="fill_parent"
-            android:layout_height="60dp"
-            android:background="@android:drawable/list_selector_background"
-            android:paddingBottom="10dip"
-            android:paddingTop="4dip" >
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <TextView
-                    android:id="@+id/amount_sow_txt"
-                    android:layout_width="100dp"
-                    android:layout_height="wrap_content"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="1"
-                    android:gravity="right"
-                    android:text="Qty remaining"
-                    android:textColor="#000000"
-                    android:textSize="15sp" />
-
-               <!-- <Button
-                    android:id="@+id/remain_sow_txt_btn"
-                    android:layout_width="100dp"
-                    android:layout_height="60dp"
-                    android:layout_alignBottom="@+id/dlg_var_sow"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignTop="@+id/dlg_var_sow"
-                    android:background="@drawable/square_btn_transp" />-->
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="40dp"
-                android:layout_height="60dp"
-                android:layout_margin="5dip"
-                android:gravity="right" >
-
-                <ImageView
-                    android:id="@+id/amount_sow_img_btn"
-                    android:layout_width="40dip"
-                    android:layout_height="50dp"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:background="@drawable/square_btn_transp"
-                    android:gravity="center"
-                    android:src="@drawable/ic_remainingbags" />
-
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="0.09" >
-
-                <ImageView
-                    android:id="@+id/img_bg_units_no_rem_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_unit_no_rem_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignRight="@+id/dlg_unit_sow"
-                    android:layout_centerVertical="true"
-                    android:paddingBottom="5dip"
-                    android:paddingLeft="5dp"
-                    android:paddingTop="5dip"
-                    android:text="No"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Button
-                    android:id="@+id/home_btn_units_no_rem_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/img_bg_units_no_rem_sell"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/RelativeLayoutwf_2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="5dp"
-                android:layout_weight="0.09"
-                android:paddingLeft="10dp"
-                android:paddingRight="12dp" >
-
-                <ImageView
-                    android:id="@+id/img_bg_units_rem_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/empty" />
-
-                <TextView
-                    android:id="@+id/dlg_lbl_unit_rem_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="40dp"
-                    android:layout_centerInParent="true"
-                    android:layout_centerVertical="true"
-                    android:paddingBottom="5dip"
-                    android:paddingLeft="10dp"
-                    android:paddingTop="5dip"
-                    android:text="Kg&apos;s"
-                    android:textAppearance="?android:attr/textAppearanceMedium" />
-
-                <Button
-                    android:id="@+id/home_btn_units_rem_sell"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentBottom="true"
-                    android:layout_alignParentLeft="true"
-                    android:layout_alignParentTop="true"
-                    android:layout_alignRight="@+id/img_bg_units_rem_sell"
-                    android:background="@drawable/square_btn_transp" />
-            </RelativeLayout>
-        </TableRow>
+        <TextView
+            android:id="@+id/dlg_lbl_unit_rem_sell"
+            android:layout_width="80dp"
+            android:layout_height="48dp"
+            android:layout_marginLeft="10dp"
+            android:background="@drawable/empty"
+            android:gravity="center_vertical|left"
+            android:paddingLeft="10dp"
+            android:text="unit"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textSize="22sp" />
+   </LinearLayout>
 
 </LinearLayout>
  <LinearLayout

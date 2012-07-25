@@ -16,40 +16,40 @@ public class DialogArrayLists {
 		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
 		
 		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/jan", null, null);
-		DialogData dd1 = new DialogData("01 January", -1, -1, aud, "01", "", -1);
+		DialogData dd1 = new DialogData("01 January", "01", -1, -1, aud, "01", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/feb", null, null);
-		DialogData dd2 = new DialogData("02 February", -1, -1, aud, "02", "", -1);
+		DialogData dd2 = new DialogData("02 February", "02", -1, -1, aud, "02", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/mar", null, null);
-		DialogData dd3 = new DialogData("03 March", -1, -1, aud, "03", "", -1);
+		DialogData dd3 = new DialogData("03 March", "03", -1, -1, aud, "03", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/apr", null, null);
-		DialogData dd4 = new DialogData("04 April", -1, -1, aud, "04", "", -1);
+		DialogData dd4 = new DialogData("04 April", "04", -1, -1, aud, "04", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/may", null, null);
-		DialogData dd5 = new DialogData("05 May", -1, -1, aud, "05", "", -1);
+		DialogData dd5 = new DialogData("05 May", "05", -1, -1, aud, "05", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/jun", null, null);
-		DialogData dd6 = new DialogData("06 June", -1, -1, aud, "06", "", -1);
+		DialogData dd6 = new DialogData("06 June", "06", -1, -1, aud, "06", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/jul", null, null);
-		DialogData dd7 = new DialogData("07 July", -1, -1, aud, "07", "", -1);
+		DialogData dd7 = new DialogData("07 July", "07", -1, -1, aud, "07", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/aug", null, null);
-		DialogData dd8 = new DialogData("08 August", -1, -1, aud, "08", "", -1);
+		DialogData dd8 = new DialogData("08 August", "08", -1, -1, aud, "08", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/sep", null, null);
-		DialogData dd9 = new DialogData("09 September", -1, -1, aud, "09", "", -1);
+		DialogData dd9 = new DialogData("09 September", "09", -1, -1, aud, "09", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/oct", null, null);
-		DialogData dd10 = new DialogData("10 October", -1, -1, aud, "10", "", -1);
+		DialogData dd10 = new DialogData("10 October", "10", -1, -1, aud, "10", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/nov", null, null);
-		DialogData dd11 = new DialogData("11 November", -1, -1, aud, "11", "", -1);
+		DialogData dd11 = new DialogData("11 November", "11", -1, -1, aud, "11", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/dec", null, null);
-		DialogData dd12 = new DialogData("12 December", -1, -1, aud, "12", "", -1);
+		DialogData dd12 = new DialogData("12 December", "12", -1, -1, aud, "12", "", -1);
 
 		m_entries.add(dd1);
 		m_entries.add(dd2);
@@ -85,7 +85,7 @@ public class DialogArrayLists {
 		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
 
 		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof10kg", null, null);
-		DialogData dd1 = new DialogData("Main Crop", R.drawable.ic_maincrop, -1, aud, "maincrop", "", -1);
+		DialogData dd1 = new DialogData("Main crop",R.drawable.ic_maincrop, -1, aud, "maincrop", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof20kg", null, null);
 		DialogData dd2 = new DialogData("Intercrop", R.drawable.ic_intercrop, -1, aud, "intercrop", "", -1);
@@ -113,7 +113,7 @@ public class DialogArrayLists {
 		ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
 
 		int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof10kg", null, null);
-		DialogData dd1 = new DialogData("Loamy", -1, -1, aud, "Loamy", "", -1);
+		DialogData dd1 = new DialogData("Loamy",-1, -1, aud, "Loamy", "", -1);
 
 		aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/bagof20kg", null, null);
 		DialogData dd2 = new DialogData("Sandy", -1, -1, aud, "Sandy", "", -1);
@@ -133,7 +133,7 @@ public class DialogArrayLists {
 			
 			//int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + "bagof"+i+"kg", null, null);
 			int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + "bagof10kg", null, null);
-			DialogData dd = new DialogData("bag of "+i+" kgs", R.drawable.ic_genericbaglarger, -1, aud, i+"", i+"", -1);
+			DialogData dd = new DialogData("bag of "+i+" kgs",i+" kgs", R.drawable.ic_genericbaglarger, -1, aud, i+"", i+"", -1);
 
 			m_entries.add(dd);
 		}

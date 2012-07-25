@@ -14,7 +14,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -87,15 +86,15 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		ImageButton help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
 		help1.setOnLongClickListener(this);
 
-		final TableRow plotImage; // 20-06-2012
-		final TableRow soilType;
-		final TableRow mainCrop;
-		final TableRow size;
+		final View plotImage; // 20-06-2012
+		final View soilType;
+		final View mainCrop;
+		final View size;
 
-		plotImage = (TableRow) findViewById(R.id.plot_tr); // 20-06-2012
-		soilType = (TableRow) findViewById(R.id.soiltype_tr);
-		mainCrop = (TableRow) findViewById(R.id.maincrop_tr);
-		size = (TableRow) findViewById(R.id.size_tr);
+		plotImage = (View) findViewById(R.id.plot_tr); // 20-06-2012
+		soilType = (View) findViewById(R.id.soiltype_tr);
+		mainCrop = (View) findViewById(R.id.maincrop_tr);
+		size = (View) findViewById(R.id.size_tr);
 
 
 		plotImage.setOnLongClickListener(this); // 20-06-2012
@@ -123,23 +122,25 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 		}
 
-		Button plotimage = (Button) findViewById(R.id.home_btn_list_plot);
-		Button plotcrop = (Button) findViewById(R.id.home_btn_crop_plot);
-		Button plotsoil = (Button) findViewById(R.id.home_btn_soil_plot); 
-		Button plotsize = (Button) findViewById(R.id.home_btn_size_plot);
-		Button plotok = (Button) findViewById(R.id.button_ok);
-		Button plotcancel = (Button) findViewById(R.id.button_cancel); // 25-06-2012
+		View plotimage = (View) findViewById(R.id.dlg_plot_img_test);
+		View plotcrop = (View) findViewById(R.id.maincrop_tr);
+		View plotsoil = (View) findViewById(R.id.dlg_lbl_soil_plot); 
+		View plotsize = (View) findViewById(R.id.size_tr);
+		View plotok = (View) findViewById(R.id.button_ok);
+		View plotcancel = (View) findViewById(R.id.button_cancel); // 25-06-2012
 
-		((Button) findViewById(R.id.home_btn_list_plot))
+		((View) findViewById(R.id.dlg_plot_img_test))
 				.setOnLongClickListener(parentReference); // Audio integration
-		((Button) findViewById(R.id.home_btn_crop_plot))
+		((View) findViewById(R.id.maincrop_tr))
 				.setOnLongClickListener(parentReference);
-		((Button) findViewById(R.id.home_btn_soil_plot))
+		((View) findViewById(R.id.dlg_lbl_soil_plot))
 				.setOnLongClickListener(parentReference);
-		((Button) findViewById(R.id.button_ok))
+		((View) findViewById(R.id.button_ok))
 				.setOnLongClickListener(parentReference);
-		((Button) findViewById(R.id.button_cancel)) // 25-06-2012
-				.setOnLongClickListener(parentReference);
+		((View) findViewById(R.id.button_cancel)) // 25-06-2012
+		.setOnLongClickListener(parentReference);
+		((View) findViewById(R.id.size_tr)) 
+			.setOnLongClickListener(parentReference);
 
 		// PlotImage =(EditText) findViewById(R.id.plotimage);
 		// SoilType = (EditText)findViewById(R.id.soiltype);
@@ -199,16 +200,16 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				if (mPlotImage.toString().equalsIgnoreCase("0")) {
 					flag1 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.plot_tr);
+					View tr_feedback = (View) findViewById(R.id.plot_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
 					flag1 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.plot_tr);
+					View tr_feedback = (View) findViewById(R.id.plot_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				// TODO: overrides image requirement
@@ -218,48 +219,48 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 					flag2 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
+					View tr_feedback = (View) findViewById(R.id.soiltype_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 				} else {
 
 					flag2 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.soiltype_tr);
+					View tr_feedback = (View) findViewById(R.id.soiltype_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (mMainCrop.toString().equalsIgnoreCase("0")) {
 
 					flag3 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
+					View tr_feedback = (View) findViewById(R.id.maincrop_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 				} else {
 
 					flag3 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.maincrop_tr);
+					View tr_feedback = (View) findViewById(R.id.maincrop_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 				
 				if (mSize.toString().equalsIgnoreCase("0")) {
 
 					flag4 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.size_tr);
+					View tr_feedback = (View) findViewById(R.id.size_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 				} else {
 
 					flag4 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.size_tr);
+					View tr_feedback = (View) findViewById(R.id.size_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
@@ -359,48 +360,23 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_list_plot) {
+		if (v.getId() == R.id.dlg_plot_img_test) {
 			playAudio(R.raw.plotimage);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_soil_plot) {
+		if (v.getId() == R.id.dlg_lbl_soil_plot) {
 			playAudio(R.raw.soiltype);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_crop_plot) {
+		if (v.getId() == R.id.maincrop_tr) {
 			playAudio(R.raw.yieldinfo);
 			ShowHelpIcon(v);
 		}
-
-		if (v.getId() == R.id.button_variety_1) {
-			playAudio(R.raw.bajra);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_variety_2) {
-			playAudio(R.raw.castor);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_variety_3) {
-			playAudio(R.raw.cowpea);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_variety_4) {
-			playAudio(R.raw.greengram);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_variety_5) {
-			playAudio(R.raw.groundnuts);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_variety_6) {
-			playAudio(R.raw.horsegram);
+		
+		if (v.getId() == R.id.size_tr) {
+			playAudio(R.raw.yieldinfo);
 			ShowHelpIcon(v);
 		}
 
@@ -463,8 +439,9 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getName());
 				resultsMap.put(mapEntry, choice.getValue());  
-				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(
@@ -504,7 +481,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		dialog.setContentView(np);
 		
 		final TextView tw_sow = (TextView) findViewById(textField);
-		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+		final View tr_feedback = (View) findViewById(tableRow);
 
 		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
 		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);

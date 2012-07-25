@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ListView;
-import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -93,14 +92,14 @@ public class action_selling extends HelpEnabledActivityOld {
 
 		// bg_day_sow.setImageResource(R.drawable.empty_not);
 
-		final Button item1 = (Button) findViewById(R.id.home_btn_crop_sell);
-		final Button item2 = (Button) findViewById(R.id.home_btn_date_sell);
-		final Button item3 = (Button) findViewById(R.id.home_btn_month_sell);
-		final Button item4 = (Button) findViewById(R.id.home_btn_units_no_sell);
-		final Button item5 = (Button) findViewById(R.id.home_btn_units_sell);
-		final Button item6 = (Button) findViewById(R.id.home_btn_price_sell);
-		final Button item7 = (Button) findViewById(R.id.home_btn_units_no_rem_sell);
-		final Button item8 = (Button) findViewById(R.id.home_btn_units_rem_sell);
+		final View item1 = (View) findViewById(R.id.dlg_lbl_crop_sell);
+		final View item2 = (View) findViewById(R.id.dlg_lbl_date_sell);
+		final View item3 = (View) findViewById(R.id.dlg_lbl_month_sell);
+		final View item4 = (View) findViewById(R.id.dlg_lbl_unit_no_sell);
+		final View item5 = (View) findViewById(R.id.dlg_lbl_unit_sell);
+		final View item6 = (View) findViewById(R.id.dlg_lbl_price_sell);
+		final View item7 = (View) findViewById(R.id.dlg_lbl_unit_no_rem_sell);
+		final View item8 = (View) findViewById(R.id.dlg_lbl_unit_rem_sell);
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
@@ -115,18 +114,18 @@ public class action_selling extends HelpEnabledActivityOld {
 		item8.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 
-		final TableRow crop;
-		final TableRow date;
-		final TableRow quantity;
-		final TableRow priceperquint;
-		final TableRow remain;
+		final View crop;
+		final View date;
+		final View quantity;
+		final View priceperquint;
+		final View remain;
 
-		crop = (TableRow) findViewById(R.id.crop_sell_tr);
-		date = (TableRow) findViewById(R.id.date_sell_tr);
+		crop = (View) findViewById(R.id.crop_sell_tr);
+		date = (View) findViewById(R.id.date_sell_tr);
 
-		quantity = (TableRow) findViewById(R.id.quant_sell_tr);
-		priceperquint = (TableRow) findViewById(R.id.price_sell_tr);
-		remain = (TableRow) findViewById(R.id.rem_quant_sell_tr);
+		quantity = (View) findViewById(R.id.quant_sell_tr);
+		priceperquint = (View) findViewById(R.id.price_sell_tr);
+		remain = (View) findViewById(R.id.rem_quant_sell_tr);
 
 		crop.setOnLongClickListener(this);
 		date.setOnLongClickListener(this);
@@ -138,7 +137,7 @@ public class action_selling extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				
-				ArrayList<DialogData> m_entries = mDataProvider.getCropsThisSeason();
+				ArrayList<DialogData> m_entries = mDataProvider.getCrops();
 				displayDialog(v, m_entries, "crop_sell", "Select the crop", R.raw.problems, R.id.dlg_lbl_crop_sell, R.id.crop_sell_tr);
 
 			}
@@ -248,7 +247,7 @@ public class action_selling extends HelpEnabledActivityOld {
 
 					flag1 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.crop_sell_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -256,9 +255,9 @@ public class action_selling extends HelpEnabledActivityOld {
 
 					flag1 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.crop_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.crop_sell_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (months_harvest.toString().equalsIgnoreCase("0")
@@ -266,7 +265,7 @@ public class action_selling extends HelpEnabledActivityOld {
 
 					flag2 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.date_sell_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -274,16 +273,16 @@ public class action_selling extends HelpEnabledActivityOld {
 
 					flag2 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.date_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.date_sell_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (units_sell.toString().equalsIgnoreCase("0") || sell_no == 0) {
 
 					flag3 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.quant_sell_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -291,24 +290,24 @@ public class action_selling extends HelpEnabledActivityOld {
 
 					flag3 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.quant_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.quant_sell_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (sell_price == 0) {
 					flag4 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.price_sell_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 				} else {
 					flag4 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.price_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.price_sell_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (units_rem_sell.toString().equalsIgnoreCase("0")
@@ -316,7 +315,7 @@ public class action_selling extends HelpEnabledActivityOld {
 
 					flag5 = 1;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.rem_quant_sell_tr);
 
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -324,9 +323,9 @@ public class action_selling extends HelpEnabledActivityOld {
 
 					flag5 = 0;
 
-					TableRow tr_feedback = (TableRow) findViewById(R.id.rem_quant_sell_tr);
+					View tr_feedback = (View) findViewById(R.id.rem_quant_sell_tr);
 
-					tr_feedback.setBackgroundResource(R.drawable.def_img);
+					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0
@@ -361,7 +360,7 @@ public class action_selling extends HelpEnabledActivityOld {
 
 	@Override
 	public boolean onLongClick(View v) {
-		if (v.getId() == R.id.home_btn_month_sell) {
+		if (v.getId() == R.id.date_sell_tr) {
 
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v);
@@ -397,48 +396,48 @@ public class action_selling extends HelpEnabledActivityOld {
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_crop_sell) {
+		if (v.getId() == R.id.dlg_lbl_crop_sell) {
 
 			playAudioalways(R.raw.crop);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_date_sell) {
+		if (v.getId() == R.id.dlg_lbl_date_sell) {
 
 			playAudioalways(R.raw.date);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_month_sell) {
+		if (v.getId() == R.id.dlg_lbl_month_sell) {
 
 			playAudioalways(R.raw.choosethemonth);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_units_no_sell) {
+		if (v.getId() == R.id.dlg_lbl_unit_no_sell) {
 
 			playAudioalways(R.raw.noofbags);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_units_sell) {
+		if (v.getId() == R.id.dlg_lbl_unit_sell) {
 			playAudioalways(R.raw.keygis);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_price_sell) {
+		if (v.getId() == R.id.dlg_lbl_price_sell) {
 
 			playAudioalways(R.raw.value);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_units_no_rem_sell) {
+		if (v.getId() == R.id.dlg_lbl_unit_no_rem_sell) {
 
 			playAudioalways(R.raw.noofbags);
 			ShowHelpIcon(v);
 		}
 
-		if (v.getId() == R.id.home_btn_units_rem_sell) {
+		if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
 
 			playAudioalways(R.raw.keygis);
 			ShowHelpIcon(v);
@@ -486,10 +485,11 @@ public class action_selling extends HelpEnabledActivityOld {
 				Log.d("var "+position+" picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getName());
+				var_text.setText(choice.getShortName());
 				resultsMap.put(mapEntry, choice.getValue());  
-				TableRow tr_feedback = (TableRow) findViewById(trFeedback);
+				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(
@@ -529,7 +529,7 @@ public class action_selling extends HelpEnabledActivityOld {
 		dialog.setContentView(np);
 		
 		final TextView tw_sow = (TextView) findViewById(textField);
-		final TableRow tr_feedback = (TableRow) findViewById(tableRow);
+		final View tr_feedback = (View) findViewById(tableRow);
 
 		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
 		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
