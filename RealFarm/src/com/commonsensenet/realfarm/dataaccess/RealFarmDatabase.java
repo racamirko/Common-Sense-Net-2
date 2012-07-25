@@ -167,6 +167,15 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text" + " ); ");
 			Log.d(LOG_TAG, "Created seed type table");
 
+			// cropTypes
+			db.execSQL("create table " + TABLE_NAME_CROP + " ( "
+					+ COLUMN_NAME_CROP_ID + " integer primary key, "
+					+ COLUMN_NAME_CROP_NAME + " text not null, "
+					+ COLUMN_NAME_CROP_RESOURCE + " integer, "
+					+ COLUMN_NAME_CROP_RESOURCE_BG + " integer, "
+					+ COLUMN_NAME_CROP_AUDIO + " integer" + " ); ");
+			Log.d(LOG_TAG, "Created crop type table");
+
 			// users
 			db.execSQL("create table " + TABLE_NAME_USER + " ( "
 					+ COLUMN_NAME_USER_ID
@@ -315,6 +324,12 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE_BG = "resBg";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
 	public static final String COLUMN_NAME_SEEDTYPE_VARIETYKANNADA = "varietyKannada";
+	
+	public static final String COLUMN_NAME_CROP_AUDIO = "audio";
+	public static final String COLUMN_NAME_CROP_ID = "id";
+	public static final String COLUMN_NAME_CROP_NAME = "name";
+	public static final String COLUMN_NAME_CROP_RESOURCE = "res";
+	public static final String COLUMN_NAME_CROP_RESOURCE_BG = "resBg";
 
 	public static final String COLUMN_NAME_SOILMOISTURE_ADMINFLAG = "adminFlag";
 	public static final String COLUMN_NAME_SOILMOISTURE_CLUSTER = "cluster";
@@ -368,6 +383,7 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_PROBLEM = "problem";
 	public static final String TABLE_NAME_PROBLEMTYPE = "problemType";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType"; // ok
+	public static final String TABLE_NAME_CROP = "cropType"; // ok
 	public static final String TABLE_NAME_SOILMOISTURE = "soilMoisture"; // ok
 	public static final String TABLE_NAME_UNIT = "unit"; // ok
 	public static final String TABLE_NAME_USER = "user"; // ok
@@ -402,12 +418,11 @@ public class RealFarmDatabase {
 		mDb.delete(TABLE_NAME_PROBLEMTYPE, null, null);
 		mDb.delete(TABLE_NAME_PLOT, null, null);
 		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
+		mDb.delete(TABLE_NAME_CROP, null, null);
 		mDb.delete(TABLE_NAME_UNIT, null, null);
 		mDb.delete(TABLE_NAME_USER, null, null);
-
-		Log.d(LOG_TAG, "Cleared existing content if any");
 	}
-
+		
 	/**
 	 * Closes the database and its handler.
 	 */
@@ -419,8 +434,7 @@ public class RealFarmDatabase {
 		mDb = null;
 	}
 
-	public long deleteEntriesdb(String TableName, String whereClause,
-			String[] whereArgs) {
+		public long deleteEntriesdb(String TableName, String whereClause, String[] whereArgs) {
 		long result = -1;
 
 		if (TableName != null) {
@@ -757,6 +771,10 @@ public class RealFarmDatabase {
 		// R.drawable.ic_72px_unknown);
 		// insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		// seedtype.clear();
+		
+		
+		/* Seedtypes old version
+		 * 
 		ContentValues seedtype = new ContentValues();
 		Object[][] seedData = {
 				{ "Groundnut", "", "TMV2", "", R.drawable.pic_72px_groundnut,
@@ -796,12 +814,58 @@ public class RealFarmDatabase {
 			seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, (Integer) seedData[x][6]);
 			insertEntriesIntoDatabase(TABLE_NAME_SEEDTYPE, seedtype, db);
 			seedtype.clear();
+		}*/
+		
+		//seedType
+		ContentValues seedtype = new ContentValues();
+		Object[][] seedData = {
+				{ "JL24", "", "", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant },
+				{ "K6 / Kadari ghat", "", "", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant },
+				{ "Samrat", "", "", "", R.drawable.pic_72px_bajra, 1, R.raw.msg_plant },
+				{ "TMV2 / Bunching", "", "", "", R.drawable.pic_72px_castor, 1, R.raw.msg_plant }
+		};
+
+		for (int x = 0; x < seedData.length; x++) {
+			seedtype.put(COLUMN_NAME_SEEDTYPE_ID, (x + 1));
+			seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, (String) seedData[x][0]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, (String) seedData[x][1]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, (String) seedData[x][2]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETYKANNADA, (String) seedData[x][3]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, (Integer) seedData[x][4]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG, (Integer) seedData[x][5]); // This is the reference to the main crop 
+			seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, (Integer) seedData[x][6]);
+			insertEntriesIntoDatabase(TABLE_NAME_SEEDTYPE, seedtype, db);
+			seedtype.clear();
 		}
 
 		Log.d(LOG_TAG, "seedtype works");
+		
+		// cropTypes
+		ContentValues croptype = new ContentValues();
+		Object[][] cropData = {
+				{ "Groundnut", R.drawable.pic_72px_groundnut, R.drawable.pic_90px_groundnut_tiled, R.raw.msg_plant },
+				{ "Bajra / pearl millet", R.drawable.pic_72px_bajra, R.drawable.pic_90px_bajra_tiled, R.raw.msg_plant },
+				{ "Castor", R.drawable.pic_72px_castor, R.drawable.pic_90px_castor_tiled, R.raw.msg_plant },
+				{ "Cow pea", R.drawable.pic_72px_cowpea, R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant },
+				{ "Field beans", R.drawable.pic_72px_cowpea, R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant },
+				{ "Green / moong gram", R.drawable.pic_72px_greengram, R.drawable.pic_90px_greengram_tiled, R.raw.msg_plant },
+				{ "Horse gram", R.drawable.pic_72px_horsegram, R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant },
+				{ "Padddy / rice", R.drawable.pic_72px_horsegram, R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant },
+				{ "Ragi / finger millet", R.drawable.pic_72px_pigeonpea, R.drawable.pic_90px_pidgeonpea_tiled, R.raw.msg_plant },
+				{ "Sorghum", R.drawable.pic_72px_sorghum, R.drawable.pic_90px_sorghum_tiled, R.raw.msg_plant }
+		};
 
+		for (int x = 0; x < cropData.length; x++) {
+			croptype.put(COLUMN_NAME_CROP_ID, (x + 1));
+			croptype.put(COLUMN_NAME_CROP_NAME, (String) cropData[x][0]);
+			croptype.put(COLUMN_NAME_CROP_RESOURCE,(Integer) cropData[x][1]);
+			croptype.put(COLUMN_NAME_CROP_RESOURCE_BG,(Integer) cropData[x][2]);
+			croptype.put(COLUMN_NAME_CROP_AUDIO, (Integer) cropData[x][3]);
+			insertEntriesIntoDatabase(TABLE_NAME_CROP, croptype, db);
+			croptype.clear();
+		}
 	}
-
+	
 	/**
 	 * Inserts the values into the current database in the specified table.
 	 * 

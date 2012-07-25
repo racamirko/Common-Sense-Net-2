@@ -140,11 +140,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			// sowing
 			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "main crop");
+					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "maincrop");
 			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "02.12", "treated", 0, 0, "main crop");
+					"Bag of 10 Kgs", "02.12", "treated", 0, 0, "maincrop");
 			mDataProvider.setSowing(2, 1, seeds.get(1).getId(),
-					"Bag of 10 Kgs", "03.12", "treated", 0, 0, "main crop");
+					"Bag of 10 Kgs", "03.12", "treated", 0, 0, "maincrop");
 			mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
 					"Bag of 10 Kgs", "04.12", "treated", 0, 0, "intercrop");
 			mDataProvider.setSowing(4, 1, seeds.get(3).getId(),
@@ -741,7 +741,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getselling(); // Selling action
 		mDataProvider.getMarketPrices(); // Market price
 		mDataProvider.getPlots(); // New plot list
-		mDataProvider.getSeeds(); // Seed type
+		//mDataProvider.getSeeds(); // Seed type
 		mDataProvider.getActionNames(); // Action names
 		mDataProvider.getFertilizer(); // Fertilizer
 		mDataProvider.getPesticides(); // Pesticides

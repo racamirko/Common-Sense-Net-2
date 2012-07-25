@@ -890,7 +890,7 @@ public class RealFarmProvider {
 	}
 
 	// TODO: implement optimization
-	public SeedType getSeedById(int seedId) {
+	public SeedType getSeedById(int seedId) { 
 
 		SeedType res = null;
 		mDatabase.open();
@@ -916,7 +916,7 @@ public class RealFarmProvider {
 
 	}
 
-	public List<SeedType> getSeeds() {
+	public List<SeedType> getSeeds() { /* Modified ? */
 
 		// seeds are not in cache
 		if (mAllSeeds == null) {
@@ -924,7 +924,7 @@ public class RealFarmProvider {
 			mAllSeeds = new ArrayList<SeedType>();
 			mDatabase.open();
 
-			Cursor c = mDatabase
+			/*Cursor c = mDatabase
 					.getAllEntries(
 							RealFarmDatabase.TABLE_NAME_SEEDTYPE,
 							new String[] {
@@ -936,12 +936,35 @@ public class RealFarmProvider {
 									 RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
 									 RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
 									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG });
-
-			if (c.moveToFirst()) {
+									
+				if (c.moveToFirst()) {
 				do {
 					SeedType s = new SeedType(c.getInt(0), c.getString(1),
 							c.getString(2), c.getInt(3), c.getInt(4),
 							c.getString(5), c.getString(6), c.getInt(7));
+					mAllSeeds.add(s);
+
+					Log.d("seed type: ", s.toString());
+
+				} while (c.moveToNext());
+
+			}*/
+			
+			Cursor c = mDatabase
+					.getAllEntries(
+							RealFarmDatabase.TABLE_NAME_CROP,
+							new String[] {
+									RealFarmDatabase.COLUMN_NAME_CROP_ID,
+									RealFarmDatabase.COLUMN_NAME_CROP_NAME,
+									RealFarmDatabase.COLUMN_NAME_CROP_RESOURCE,
+									RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
+									RealFarmDatabase.COLUMN_NAME_CROP_RESOURCE_BG });
+
+			if (c.moveToFirst()) {
+				do {
+					SeedType s = new SeedType(c.getInt(0), c.getString(1),
+							"", c.getInt(2), c.getInt(3),
+							"", "", c.getInt(4));
 					mAllSeeds.add(s);
 
 					Log.d("seed type: ", s.toString());
@@ -1280,7 +1303,6 @@ public class RealFarmProvider {
 				dd.setValue(dd.getName());
 				dd.setBackground(c.getInt(2));
 				tmpList.add(dd);
-				//System.out.println(c.getString(0)+" "+c.getInt(1));
 			} while (c.moveToNext());
 		}
 
@@ -1295,35 +1317,7 @@ public class RealFarmProvider {
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
-		/*mDatabase.open();
-		
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
-		if (c.moveToFirst()) {
-			do {
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setAudio(c.getInt(3));
-				dd.setValue(dd.getName());
-				dd.setBackground(c.getInt(2));
-				tmpList.add(dd);
-				//System.out.println(c.getString(0)+" "+c.getInt(1));
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-*/
-		return tmpList;
-	}
-	
-	public ArrayList<DialogData> getVarieties() {
-		final String MY_QUERY = "SELECT variety, id, audio FROM seedType ORDER BY id ASC"; //resBg from crop
-
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
-
-		/*mDatabase.open();
+		mDatabase.open();
 		
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
@@ -1340,7 +1334,53 @@ public class RealFarmProvider {
 		}
 
 		c.close();
-		mDatabase.close();*/
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getVarieties() {
+		final String MY_QUERY = "SELECT name, id, audio, resBg FROM seedType ORDER BY id ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = "+c.getInt(3);
+				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+				c2.moveToFirst();
+				
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setAudio(c.getInt(2));
+				dd.setValue(c.getInt(1)+"");
+				dd.setBackground(c2.getInt(0));
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+		
+		final String MY_QUERY3 = "SELECT name, id, resBg, audio FROM cropType WHERE cropType.id IN (SELECT cropType.id FROM cropType WHERE cropType.id NOT IN (SELECT seedType.resBg FROM seedType)) ORDER BY id ASC";
+
+		c = mDatabase.rawQuery(MY_QUERY3, new String[] {});
+
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setAudio(c.getInt(3));
+				dd.setValue(c.getInt(1)+"");
+				dd.setBackground(c.getInt(2));
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+		
+		c.close();
+		mDatabase.close();
 
 		return tmpList;
 	}

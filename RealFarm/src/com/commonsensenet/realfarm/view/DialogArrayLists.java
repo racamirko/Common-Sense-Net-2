@@ -131,7 +131,8 @@ public class DialogArrayLists {
 		final ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
 		for(int i=dep; i<arr; i=i+inc) {
 			
-			int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + "bagof"+i+"kg", null, null);
+			//int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + "bagof"+i+"kg", null, null);
+			int aud = v.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + "bagof10kg", null, null);
 			DialogData dd = new DialogData("bag of "+i+" kgs", R.drawable.ic_genericbaglarger, -1, aud, i+"", i+"", -1);
 
 			m_entries.add(dd);
