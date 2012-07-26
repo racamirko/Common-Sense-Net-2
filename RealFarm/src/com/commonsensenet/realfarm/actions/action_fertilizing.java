@@ -6,14 +6,20 @@ import java.util.HashMap;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnLongClickListener;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
@@ -122,7 +128,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				Log.d("in variety fert dialog", "in dialog");
 				
 				ArrayList<DialogData> m_entries = mDataProvider.getFertilizers();
-				displayDialog(v, m_entries, "fert_var_sel", "Choose the fertilizer", R.raw.problems, R.id.dlg_lbl_var_fert, R.id.var_fert_tr);
+				displayDialog(v, m_entries, "fert_var_sel", "Choose the fertilizer", R.raw.problems, R.id.dlg_lbl_var_fert, R.id.var_fert_tr, 0);
 			}
 		});
 
@@ -132,7 +138,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				Log.d("in units fert dialog", "in dialog");
 				
 				ArrayList<DialogData> m_entries = mDataProvider.getUnits(RealFarmDatabase.ACTION_NAME_FERTILIZE_ID);
-				displayDialog(v, m_entries, "units_fert", "Choose the unit", R.raw.problems, R.id.dlg_lbl_units_fert, R.id.units_fert_tr);
+				displayDialog(v, m_entries, "units_fert", "Choose the unit", R.raw.problems, R.id.dlg_lbl_units_fert, R.id.units_fert_tr, 1);
 			}
 		});
 
@@ -162,7 +168,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				Log.d("in variety sowing dialog", "in dialog");
 				
 				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
-				displayDialog(v, m_entries, "months_fert", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_fert, R.id.day_fert_tr);
+				displayDialog(v, m_entries, "months_fert", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_fert, R.id.day_fert_tr, 0);
 			}
 
 		});
@@ -195,7 +201,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				months_fert = resultsMap.get("months_fert");
 				fert_var_sel = resultsMap.get("fert_var_sel");
 				day_fert_int = Integer.parseInt(resultsMap.get("day_fert_int"));
-				fert_no = Integer.parseInt(resultsMap.get("fert_no"));
+				fert_no = (int)(Double.parseDouble(resultsMap.get("fert_no")));
 
 				int flag1, flag2, flag3;
 				if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
@@ -401,8 +407,30 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 		playAudio(R.raw.ok);
 
 	}
+
+	private void putBackgrounds(DialogData choice, TextView var_text, int imageType){
+		if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
+		if(imageType == 1 || imageType == 2){
+			BitmapDrawable bd=(BitmapDrawable) mParentReference.getResources().getDrawable(choice.getImageRes());
+			int width = bd.getBitmap().getWidth();
+			if(width>80) width = 80;
+			
+			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		    llp.setMargins(10, 0, 80-width-20, 0); 
+		    var_text.setLayoutParams(llp);
+			
+			var_text.setBackgroundResource(choice.getImageRes());
+			if (imageType == 1) var_text.setTextColor(Color.TRANSPARENT);
+			else{ 
+			    var_text.setGravity(Gravity.TOP); 
+			    var_text.setPadding(0, 0, 0, 0); 
+			    var_text.setTextSize(20); 
+				var_text.setTextColor(Color.BLACK);
+			}
+		}
+	}
 	
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback){ 
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback, final int imageType){ 
 		final Dialog dialog = new Dialog(v.getContext());
 		dialog.setContentView(R.layout.mc_dialog);
 		dialog.setTitle(title);
@@ -426,7 +454,10 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				resultsMap.put(mapEntry, choice.getValue());  
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
-
+				
+				// put backgrounds (specific to the application) TODO: optimize the resize
+				putBackgrounds(choice, var_text, imageType);
+				
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(
 						EventType.CLICK, LOG_TAG, title,

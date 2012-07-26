@@ -731,7 +731,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	// TODO: this should be modified since it will make the DB slower.
 	protected void writeDatabaseToSDcard() {
-		Global.writeToSD = true;
 
 		mDataProvider.getUsers(); // User
 		mDataProvider.getActions(); // New action table

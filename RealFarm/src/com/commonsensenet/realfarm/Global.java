@@ -12,5 +12,4 @@ public class Global {
 	public static Class<?> selectedAction = null;
 	public static int userId = 1;
 	public static int videosel;
-	public static boolean writeToSD = false;
 }

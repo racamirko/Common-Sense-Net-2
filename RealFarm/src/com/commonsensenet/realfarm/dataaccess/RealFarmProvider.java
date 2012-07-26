@@ -1391,7 +1391,7 @@ public class RealFarmProvider {
 	}
 	
 	public ArrayList<DialogData> getFertilizers() {
-		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM fertilizer ORDER BY id ASC";
+		final String MY_QUERY = "SELECT DISTINCT name, audio, shortName FROM fertilizer ORDER BY id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1404,8 +1404,8 @@ public class RealFarmProvider {
 			do {
 				dd = new DialogData();
 				dd.setName(c.getString(0));
-				dd.setImage(c.getInt(1));
-				dd.setAudio(c.getInt(2));
+				dd.setShortName(c.getString(2));
+				dd.setAudio(c.getInt(1));
 				dd.setValue(dd.getName());
 				tmpList.add(dd);
 			} while (c.moveToNext());
@@ -1420,7 +1420,7 @@ public class RealFarmProvider {
 	public ArrayList<DialogData> getPesticide() {
 		// final String MY_QUERY = "SELECT p.name, p.resource, p.audio, a.res FROM pesticide p, pesticideType a WHERE p.type = a.id ORDER BY p.type, p.id ASC";
 		
-		final String MY_QUERY = "SELECT name, audio, type FROM pesticide ORDER BY type, id ASC";
+		final String MY_QUERY = "SELECT name, audio, type, shortName FROM pesticide ORDER BY type, id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1437,6 +1437,7 @@ public class RealFarmProvider {
 				
 				dd = new DialogData();
 				dd.setName(c.getString(0));
+				dd.setShortName(c.getString(3));
 				dd.setImage(c2.getInt(0));
 				dd.setAudio(c.getInt(1));
 				dd.setValue(dd.getName());
@@ -1451,7 +1452,7 @@ public class RealFarmProvider {
 	}
 	
 	public ArrayList<DialogData> getProblems() {
-		final String MY_QUERY = "SELECT name, audio, res, masterId FROM problem ORDER BY masterId, id ASC";
+		final String MY_QUERY = "SELECT name, audio, res, masterId, shortName FROM problem ORDER BY masterId, id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1468,6 +1469,7 @@ public class RealFarmProvider {
 				
 				dd = new DialogData();
 				dd.setName(c.getString(0));
+				dd.setShortName(c.getString(4));
 				dd.setImage(c2.getInt(0));
 				dd.setImage2(c.getInt(2));
 				dd.setAudio(c.getInt(1));

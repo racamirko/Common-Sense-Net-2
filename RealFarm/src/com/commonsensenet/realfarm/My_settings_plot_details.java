@@ -6,13 +6,18 @@ import java.util.HashMap;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -123,9 +128,9 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		}
 
 		View plotimage = (View) findViewById(R.id.dlg_plot_img_test);
-		View plotcrop = (View) findViewById(R.id.maincrop_tr);
+		View plotcrop = (View) findViewById(R.id.dlg_lbl_crop_plot);
 		View plotsoil = (View) findViewById(R.id.dlg_lbl_soil_plot); 
-		View plotsize = (View) findViewById(R.id.size_tr);
+		View plotsize = (View) findViewById(R.id.size_txt);
 		View plotok = (View) findViewById(R.id.button_ok);
 		View plotcancel = (View) findViewById(R.id.button_cancel); // 25-06-2012
 
@@ -173,7 +178,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
 				final ArrayList<DialogData> m_entries = DialogArrayLists.getSoilTypeArray(v);
-				displayDialog(v, m_entries, "mSoilType", "Select the soil type", R.raw.problems, R.id.dlg_lbl_soil_plot, R.id.soiltype_tr);
+				displayDialog(v, m_entries, "mSoilType", "Select the soil type", R.raw.problems, R.id.dlg_lbl_soil_plot, R.id.soiltype_tr, 0);
 
 			}
 		});
@@ -185,7 +190,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				
 				stopAudio();
 				ArrayList<DialogData> m_entries = mDataProvider.getVarieties();
-				displayDialog(v, m_entries, "mMainCrop", "Select the variety", R.raw.problems, R.id.dlg_lbl_crop_plot, R.id.maincrop_tr);
+				displayDialog(v, m_entries, "mMainCrop", "Select the variety", R.raw.problems, R.id.dlg_lbl_crop_plot, R.id.maincrop_tr, 0);
 			}
 		});
 
@@ -271,8 +276,8 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 					startActivity(adminintent);
 					My_settings_plot_details.this.finish();
 
-					addPlotToDatabase();
-					mDataProvider.getPlots();
+					 addPlotToDatabase();
+					// mDataProvider.getPlots();
 
 				} else
 					initmissingval();
@@ -417,7 +422,29 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		return true;
 	}
 	
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback){ 
+	private void putBackgrounds(DialogData choice, TextView var_text, int imageType){
+		if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
+		if(imageType == 1 || imageType == 2){
+			BitmapDrawable bd=(BitmapDrawable) parentReference.getResources().getDrawable(choice.getImageRes());
+			int width = bd.getBitmap().getWidth();
+			if(width>80) width = 80;
+			
+			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		    llp.setMargins(10, 0, 80-width-20, 0); 
+		    var_text.setLayoutParams(llp);
+			
+			var_text.setBackgroundResource(choice.getImageRes());
+			if (imageType == 1) var_text.setTextColor(Color.TRANSPARENT);
+			else{ 
+			    var_text.setGravity(Gravity.TOP); 
+			    var_text.setPadding(0, 0, 0, 0); 
+			    var_text.setTextSize(20); 
+				var_text.setTextColor(Color.BLACK);
+			}
+		}
+	}
+	
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback, final int imageType){ 
 		final Dialog dialog = new Dialog(v.getContext());
 		dialog.setContentView(R.layout.mc_dialog);
 		dialog.setTitle(title);
@@ -441,7 +468,9 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				resultsMap.put(mapEntry, choice.getValue());  
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
-				if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
+
+				// put backgrounds (specific to the application) TODO: optimize the resize
+				putBackgrounds(choice, var_text, imageType);
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(

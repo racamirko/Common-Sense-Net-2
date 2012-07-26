@@ -7,14 +7,19 @@ import java.util.HashMap;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -203,7 +208,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 				Log.d("in units fert dialog", "in dialog");
 				
 				final ArrayList<DialogData> m_entries = DialogArrayLists.getItUnitsArray(v, 20, 51, 1);
-				displayDialog(v, m_entries, "units_harvest", "Select the unit", R.raw.problems, R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr);
+				displayDialog(v, m_entries, "units_harvest", "Select the unit", R.raw.problems, R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr, 2);
 
 			}
 		});
@@ -215,7 +220,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 				Log.d("in variety sowing dialog", "in dialog");
 				
 				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
-				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_harvest, R.id.harvest_date_tr);
+				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_harvest, R.id.harvest_date_tr, 0);
 			}
 		});
 
@@ -451,7 +456,29 @@ public class action_harvest extends HelpEnabledActivityOld {
 		SoundQueue.getInstance().stop();
 	}
 	
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback){ 
+	private void putBackgrounds(DialogData choice, TextView var_text, int imageType){
+		if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
+		if(imageType == 1 || imageType == 2){
+			BitmapDrawable bd=(BitmapDrawable) parentReference.getResources().getDrawable(choice.getImageRes());
+			int width = bd.getBitmap().getWidth();
+			if(width>80) width = 80;
+			
+			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		    llp.setMargins(10, 0, 80-width-20, 0); 
+		    var_text.setLayoutParams(llp);
+			
+			var_text.setBackgroundResource(choice.getImageRes());
+			if (imageType == 1) var_text.setTextColor(Color.TRANSPARENT);
+			else{ 
+			    var_text.setGravity(Gravity.TOP); 
+			    var_text.setPadding(0, 0, 0, 0); 
+			    var_text.setTextSize(20); 
+				var_text.setTextColor(Color.BLACK);
+			}
+		}
+	}
+	
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback, final int imageType){ 
 		final Dialog dialog = new Dialog(v.getContext());
 		dialog.setContentView(R.layout.mc_dialog);
 		dialog.setTitle(title);
@@ -475,6 +502,9 @@ public class action_harvest extends HelpEnabledActivityOld {
 				resultsMap.put(mapEntry, choice.getValue());  
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+				
+				// put backgrounds (specific to the application) TODO: optimize the resize
+				putBackgrounds(choice, var_text, imageType);
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(

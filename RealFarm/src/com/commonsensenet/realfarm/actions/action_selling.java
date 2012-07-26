@@ -6,12 +6,17 @@ import java.util.HashMap;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
+import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -138,7 +143,7 @@ public class action_selling extends HelpEnabledActivityOld {
 				stopaudio();
 				
 				ArrayList<DialogData> m_entries = mDataProvider.getCrops();
-				displayDialog(v, m_entries, "crop_sell", "Select the crop", R.raw.problems, R.id.dlg_lbl_crop_sell, R.id.crop_sell_tr);
+				displayDialog(v, m_entries, "crop_sell", "Select the crop", R.raw.problems, R.id.dlg_lbl_crop_sell, R.id.crop_sell_tr, 0);
 
 			}
 		});
@@ -158,7 +163,7 @@ public class action_selling extends HelpEnabledActivityOld {
 				Log.d("in variety sowing dialog", "in dialog");
 				
 				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
-				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_sell, R.id.date_sell_tr);
+				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_sell, R.id.date_sell_tr, 0);
 
 			}
 
@@ -180,7 +185,7 @@ public class action_selling extends HelpEnabledActivityOld {
 				Log.d("in units sow dialog", "in dialog");
 				
 				final ArrayList<DialogData> m_entries = DialogArrayLists.getItUnitsArray(v, 20, 51, 1);
-				displayDialog(v, m_entries, "units_sell", "Select the unit", R.raw.problems, R.id.dlg_lbl_unit_sell, R.id.quant_sell_tr);
+				displayDialog(v, m_entries, "units_sell", "Select the unit", R.raw.problems, R.id.dlg_lbl_unit_sell, R.id.quant_sell_tr, 2);
 
 			}
 		});
@@ -192,8 +197,6 @@ public class action_selling extends HelpEnabledActivityOld {
 				displayDialogNP("Enter the price", "sell_price", R.raw.dateinfo, 0, 9999, 3200, 50, 0, R.id.dlg_lbl_price_sell, R.id.price_sell_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
-
-		final TextView no_text3 = (TextView) findViewById(R.id.dlg_lbl_unit_no_rem_sell);
 
 		item7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -211,7 +214,7 @@ public class action_selling extends HelpEnabledActivityOld {
 				Log.d("in units sow dialog", "in dialog");
 				
 				final ArrayList<DialogData> m_entries = DialogArrayLists.getItUnitsArray(v, 20, 51, 1);
-				displayDialog(v, m_entries, "units_rem_sell", "Select the unit", R.raw.problems, R.id.dlg_lbl_unit_rem_sell, R.id.quant_sell_tr);
+				displayDialog(v, m_entries, "units_rem_sell", "Select the unit", R.raw.problems, R.id.dlg_lbl_unit_rem_sell, R.id.rem_quant_sell_tr, 2);
 
 			}
 		});
@@ -465,7 +468,29 @@ public class action_selling extends HelpEnabledActivityOld {
 		return true;
 	}
 	
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback){ 
+	private void putBackgrounds(DialogData choice, TextView var_text, int imageType){
+		if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
+		if(imageType == 1 || imageType == 2){
+			BitmapDrawable bd=(BitmapDrawable) parentReference.getResources().getDrawable(choice.getImageRes());
+			int width = bd.getBitmap().getWidth();
+			if(width>80) width = 80;
+			
+			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+		    llp.setMargins(10, 0, 80-width-20, 0); 
+		    var_text.setLayoutParams(llp);
+			
+			var_text.setBackgroundResource(choice.getImageRes());
+			if (imageType == 1) var_text.setTextColor(Color.TRANSPARENT);
+			else{ 
+			    var_text.setGravity(Gravity.TOP); 
+			    var_text.setPadding(0, 0, 0, 0); 
+			    var_text.setTextSize(20); 
+				var_text.setTextColor(Color.BLACK);
+			}
+		}
+	}
+	
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback, final int imageType){ 
 		final Dialog dialog = new Dialog(v.getContext());
 		dialog.setContentView(R.layout.mc_dialog);
 		dialog.setTitle(title);
@@ -489,7 +514,9 @@ public class action_selling extends HelpEnabledActivityOld {
 				resultsMap.put(mapEntry, choice.getValue());  
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
-				if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
+				
+				// put backgrounds (specific to the application) TODO: optimize the resize
+				putBackgrounds(choice, var_text, imageType);
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(
