@@ -159,8 +159,8 @@ public class action_problem extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = mDataProvider.getCrops();
-				displayDialog(v, m_entries, "prob_crop_sel", "Select the crop", R.raw.problems, R.id.dlg_lbl_var_prob4, R.id.var_prob_tr4, 0);
+				ArrayList<DialogData> m_entries = mDataProvider.getVarieties1();
+				displayDialog(v, m_entries, "prob_crop_sel", "Select the variety", R.raw.problems, R.id.dlg_lbl_var_prob4, R.id.var_prob_tr4, 0);
 
 			}
 		});

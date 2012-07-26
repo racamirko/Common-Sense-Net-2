@@ -31,9 +31,9 @@ public class action_plant extends Activity {
 		final Button smiley1;
 		final Button smiley2;
 		final Button smiley3;
-		smiley1 = (Button) findViewById(R.id.home_btn_har_1);
-		smiley2 = (Button) findViewById(R.id.home_btn_har_2);
-		smiley3 = (Button) findViewById(R.id.home_btn_har_3);
+		smiley1 = (Button) findViewById(R.id.home_btn_har_1); /* Smileys are now disabled */
+		smiley2 = (Button) findViewById(R.id.home_btn_har_1);
+		smiley3 = (Button) findViewById(R.id.home_btn_har_1);
 
 		smiley1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {

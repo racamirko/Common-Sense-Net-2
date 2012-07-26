@@ -177,6 +177,7 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
 						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
@@ -198,11 +199,11 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getInt(3), c.getInt(4), c.getString(5), c.getInt(6),
-						c.getString(7), c.getString(8), c.getString(9),
-						c.getInt(10), c.getString(11), c.getString(12),
-						c.getInt(13), c.getInt(14), c.getString(15),
-						c.getString(16), c.getString(17), c.getInt(18));
+						c.getInt(3), c.getInt(4), c.getInt(5), c.getString(6), c.getInt(7),
+						c.getString(8), c.getString(9), c.getString(10),
+						c.getInt(11), c.getString(12), c.getString(13),
+						c.getInt(14), c.getInt(15), c.getString(16),
+						c.getString(17), c.getString(18), c.getInt(19));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -259,11 +260,11 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getInt(3), c.getInt(4), c.getString(5), c.getInt(6),
-						c.getString(7), c.getString(8), c.getString(9),
-						c.getInt(10), c.getString(11), c.getString(12),
-						c.getInt(13), c.getInt(14), c.getString(15),
-						c.getString(16), c.getString(17), c.getInt(18));
+						c.getInt(3), c.getInt(4),  c.getInt(5), c.getString(6), c.getInt(7),
+						c.getString(8), c.getString(9), c.getString(10),
+						c.getInt(11), c.getString(12), c.getString(13),
+						c.getInt(14), c.getInt(15), c.getString(16),
+						c.getString(17), c.getString(18), c.getInt(19));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -287,6 +288,7 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
 						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
@@ -310,11 +312,11 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getInt(3), c.getInt(4), c.getString(5), c.getInt(6),
-						c.getString(7), c.getString(8), c.getString(9),
-						c.getInt(10), c.getString(11), c.getString(12),
-						c.getInt(13), c.getInt(14), c.getString(15),
-						c.getString(16), c.getString(17), c.getInt(18));
+						c.getInt(3), c.getInt(4),  c.getInt(5), c.getString(6), c.getInt(7),
+						c.getString(8), c.getString(9), c.getString(10),
+						c.getInt(11), c.getString(12), c.getString(13),
+						c.getInt(14), c.getInt(15), c.getString(16),
+						c.getString(17), c.getString(18), c.getInt(19));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -1304,7 +1306,7 @@ public class RealFarmProvider {
 	}
 	
 	public ArrayList<DialogData> getCrops() {
-		final String MY_QUERY = "SELECT name, id, resBg, audio FROM cropType ORDER BY id ASC";
+		final String MY_QUERY = "SELECT name, id, resBg, audio, shortName FROM cropType ORDER BY id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1317,6 +1319,7 @@ public class RealFarmProvider {
 			do {
 				dd = new DialogData();
 				dd.setName(c.getString(0));
+				dd.setShortName(c.getString(4));
 				dd.setAudio(c.getInt(3));
 				dd.setValue(c.getInt(1)+"");
 				dd.setBackground(c.getInt(2));
@@ -1331,7 +1334,7 @@ public class RealFarmProvider {
 	}
 	
 	public ArrayList<DialogData> getVarieties() {
-		final String MY_QUERY = "SELECT name, id, audio, resBg FROM seedType ORDER BY id ASC";
+		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName FROM seedType ORDER BY id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1348,6 +1351,7 @@ public class RealFarmProvider {
 				
 				dd = new DialogData();
 				dd.setName(c.getString(0));
+				dd.setShortName(c.getString(4));
 				dd.setAudio(c.getInt(2));
 				dd.setValue(c.getInt(1)+"");
 				dd.setBackground(c2.getInt(0));
@@ -1357,6 +1361,39 @@ public class RealFarmProvider {
 		
 		//final String MY_QUERY3 = "SELECT name, id, resBg, audio FROM cropType WHERE cropType.id IN (SELECT cropType.id FROM cropType WHERE cropType.id NOT IN (SELECT seedType.resBg FROM seedType)) ORDER BY id ASC";
 		
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getVarieties1() { // TODO; get varieties on this plot, in this season (action_harvest, item 6)
+		
+		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName FROM seedType ORDER BY id ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = "+c.getInt(3);
+				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+				c2.moveToFirst();
+				
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setShortName(c.getString(4));
+				dd.setAudio(c.getInt(2));
+				dd.setValue(c.getInt(1)+"");
+				dd.setBackground(c2.getInt(0));
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+				
 		c.close();
 		mDatabase.close();
 
@@ -1483,6 +1520,23 @@ public class RealFarmProvider {
 
 		return tmpList;
 	}
+	
+	public int getCropIdFromSeedId(int seedId){
+		
+		final String MY_QUERY = "SELECT masterId FROM seedType WHERE id = "+seedId;
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		if (c.moveToFirst()) {
+			return c.getInt(0);
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return -1;
+	}
 
 	// main crop info corresponds to seed type id
 	public long insertPlot(int userId, int seedTypeId, String imagePath,
@@ -1529,7 +1583,7 @@ public class RealFarmProvider {
 	}
 
 	public long setAction(int actionid, int actionnameid, String actiontype,
-			String Seedvariety, int quantity1, int quantity2, String Units,
+			String Seedvariety,String Cropvariety, int quantity1, int quantity2, String Units,
 			String day, int userid, int plotid, String TypeFert, String Prob,
 			String feedback, int sp, String QuaSeed, String type, int sent,
 			int isAdmin, String treat, String pesttype) {
@@ -1543,6 +1597,7 @@ public class RealFarmProvider {
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID, actionnameid);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, Seedvariety);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,Cropvariety);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, quantity2);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
@@ -1652,13 +1707,15 @@ public class RealFarmProvider {
 
 	// day takes the date
 	public long setHarvest(int userId, long plotId, int qua1, int qua2,
-			String Units, String day, String harvfeedback, int sent, int admin) {
+			String Units, String day, String harvfeedback, int sent, int admin, int varietyId) {
 
 		System.out.println("SET harvest");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 				RealFarmDatabase.ACTION_NAME_HARVEST_ID);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, varietyId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID, getCropIdFromSeedId(varietyId));
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
@@ -1759,6 +1816,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID, getCropIdFromSeedId(Integer.parseInt(crop)));
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, crop);
 
 		long result;
@@ -1816,6 +1874,7 @@ public class RealFarmProvider {
 				RealFarmDatabase.ACTION_NAME_SOW_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, seedTypeId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID, getCropIdFromSeedId(seedTypeId));
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);

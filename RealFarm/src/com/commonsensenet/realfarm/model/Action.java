@@ -18,6 +18,7 @@ public class Action {
 	private int mQuantity1;
 	private int mQuantity2;
 	private int mSeedTypeId;
+	private int mCropTypeId;
 	private int mSellingPrice;
 	private String mSellType;
 	private int mSent;
@@ -26,7 +27,7 @@ public class Action {
 	private String mTypeOfFert;
 	private String mUnits;
 
-	public Action(int id, int actionNameId, int seedTypeId, int quantity1,
+	public Action(int id, int actionNameId, int seedTypeId, int cropTypeId, int quantity1,
 			int quantity2, String units, int plotId, String typeOfFertilizer,
 			String problemType, String harvestFeedback, int sellingPrice,
 			String qualityOfSeed, String selltype, int sent, int isAdmin,
@@ -35,6 +36,7 @@ public class Action {
 		mId = id;
 		mActionNameId = actionNameId;
 		mSeedTypeId = seedTypeId;
+		mCropTypeId = cropTypeId;
 		mQuantity1 = quantity1;
 		mQuantity2 = quantity2;
 		mUnits = units;
@@ -101,6 +103,10 @@ public class Action {
 
 	public int getSeedTypeId() {
 		return mSeedTypeId;
+	}
+	
+	public int getCropTypeId() {
+		return mCropTypeId;
 	}
 
 	public int getSellingPrice() {

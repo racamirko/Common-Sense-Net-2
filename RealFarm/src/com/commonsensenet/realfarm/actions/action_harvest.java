@@ -42,6 +42,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 	private int feedback_sel;
 	private int harvest_no, day_harvest_int;
 	private String units_harvest = "0", feedback_txt, months_harvest = "0";
+	private int crop_harvest = 0;
 	private RealFarmProvider mDataProvider;
 	private final action_harvest parentReference = this;
 	private String final_day_harvest;
@@ -81,17 +82,6 @@ public class action_harvest extends HelpEnabledActivityOld {
 		super.onCreate(savedInstanceState, R.layout.harvest_dialog);
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
-		final View smiley1;
-		final View smiley2;
-		final View smiley3;
-
-		smiley1 = findViewById(R.id.home_btn_har_1);
-		smiley2 = findViewById(R.id.home_btn_har_2);
-		smiley3 = findViewById(R.id.home_btn_har_3);
-		smiley1.setBackgroundResource(R.drawable.smiley_good_not);
-		smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
-		smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
-
 		playAudio(R.raw.clickingharvest);
 		
 		resultsMap = new HashMap<String, String>(); 
@@ -99,6 +89,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 		resultsMap.put("months_harvest", "0");
 		resultsMap.put("day_harvest_int", "0");
 		resultsMap.put("harvest_no", "0");
+		resultsMap.put("feedback_sel", "0");
+		resultsMap.put("crop_harvest", "0");
 
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
@@ -108,6 +100,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 		final View item2;
 		final View item3;
 		final View item4;
+		final View item5;
+		final View item6;
 		ImageButton home;
 		ImageButton help;
 		System.out.println("Plant details entered2");
@@ -115,6 +109,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 		item2 = findViewById(R.id.dlg_lbl_units_harvest);
 		item3 = findViewById(R.id.dlg_lbl_month_harvest);
 		item4 = findViewById(R.id.dlg_lbl_day_harvest);
+		item5 = findViewById(R.id.dlg_lbl_satisfaction_harvest);
+		item6 = findViewById(R.id.dlg_lbl_harvest_crop);
 
 		System.out.println("Plant details entered3");
 		home = (ImageButton) findViewById(R.id.aggr_img_home);
@@ -123,10 +119,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
-
-		smiley1.setOnLongClickListener(this);
-		smiley2.setOnLongClickListener(this);
-		smiley3.setOnLongClickListener(this);
+		item5.setOnLongClickListener(this);
+		item6.setOnLongClickListener(this);
 
 		help.setOnLongClickListener(this);
 
@@ -139,60 +133,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 		harvest_date.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
 		System.out.println("Plant details entered4");
-		smiley1.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				stopaudio();
-				feedback_sel = 1;
-				feedback_txt = "good";
-				smiley1.setBackgroundResource(R.drawable.smiley_good);
-				smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
-				smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
-
-				View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
-				tr_feedback.setBackgroundResource(R.drawable.def_img);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "feedback", "good");
-			}
-		});
-
-		smiley2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				stopaudio();
-				feedback_sel = 2;
-				feedback_txt = "medium";
-				smiley1.setBackgroundResource(R.drawable.smiley_good_not);
-				smiley2.setBackgroundResource(R.drawable.smiley_medium);
-				smiley3.setBackgroundResource(R.drawable.smiley_bad_not);
-
-				View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
-				tr_feedback.setBackgroundResource(R.drawable.def_img);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "feedback", "medium");
-			}
-		});
-
-		smiley3.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				stopaudio();
-				feedback_sel = 3;
-				feedback_txt = "bad";
-				smiley1.setBackgroundResource(R.drawable.smiley_good_not);
-				smiley2.setBackgroundResource(R.drawable.smiley_medium_not);
-				smiley3.setBackgroundResource(R.drawable.smiley_bad);
-				View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
-
-				tr_feedback.setBackgroundResource(R.drawable.def_img);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "feedback", "bad");
-			}
-		});
-
+		
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
@@ -231,6 +172,22 @@ public class action_harvest extends HelpEnabledActivityOld {
 				displayDialogNP("Choose the day", "day_harvest_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_harvest, R.id.harvest_date_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
+		
+		item5.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				ArrayList<DialogData> m_entries = DialogArrayLists.getSmileyArray(v);
+				displayDialog(v, m_entries, "feedback_sel", "Are you satisfied?", R.raw.feedbackgood, R.id.dlg_lbl_satisfaction_harvest, R.id.satisfaction_harvest_tr, 1);	
+			}
+		});
+		
+		item6.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopaudio();
+				ArrayList<DialogData> m_entries = mDataProvider.getVarieties1();
+				displayDialog(v, m_entries, "crop_harvest", "Select the variety", R.raw.problems, R.id.dlg_lbl_harvest_crop, R.id.var_harvest_crop, 0);	
+			}
+		});
 
 		Button btnNext = (Button) findViewById(R.id.harvest_ok);
 		Button cancel = (Button) findViewById(R.id.harvest_cancel);
@@ -256,8 +213,10 @@ public class action_harvest extends HelpEnabledActivityOld {
 				months_harvest = resultsMap.get("months_harvest");
 				day_harvest_int = Integer.parseInt(resultsMap.get("day_harvest_int"));
 				harvest_no = Integer.parseInt(resultsMap.get("harvest_no"));
+				feedback_sel = Integer.parseInt(resultsMap.get("feedback_sel"));
+				crop_harvest =  Integer.parseInt(resultsMap.get("crop_harvest"));
 
-				int flag1, flag2, flag3;
+				int flag1, flag2, flag3, flag4;
 				// Toast.makeText(action_harvest.this, "User selected " +
 				// strDateTime + "Time", Toast.LENGTH_LONG).show(); //Generate a
 				// toast only if you want
@@ -281,14 +240,14 @@ public class action_harvest extends HelpEnabledActivityOld {
 				if (feedback_sel == 0) {
 					flag1 = 1;
 
-					View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
+					View tr_feedback = (View) findViewById(R.id.satisfaction_harvest_tr);
 					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 							LOG_TAG, "feedback");
 				} else {
 					flag1 = 0;
-					View tr_feedback = (View) findViewById(R.id.tableRow_feedback);
+					View tr_feedback = (View) findViewById(R.id.satisfaction_harvest_tr);
 
 					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
 
@@ -328,12 +287,29 @@ public class action_harvest extends HelpEnabledActivityOld {
 					View tr_units = (View) findViewById(R.id.harvest_date_tr);
 					tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
+				
+				if (crop_harvest == 0) {
+					flag4 = 1;
 
-				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
+					View tr_months = (View) findViewById(R.id.var_harvest_crop);
+
+					tr_months.setBackgroundResource(R.drawable.def_img_not);
+
+					// tracks the application usage.
+					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+							LOG_TAG, "date");
+				} else {
+					flag4 = 0;
+
+					View tr_units = (View) findViewById(R.id.var_harvest_crop);
+					tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
+				}
+
+				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
 					System.out.println("harvesting writing");
 					mDataProvider.setHarvest(Global.userId, Global.plotId,
 							harvest_no, 0, units_harvest, final_day_harvest,
-							feedback_txt, 1, 0);
+							feedback_txt, 1, 0, crop_harvest);
 
 					//System.out.println("harvesting reading");
 					//mDataProvider.getharvesting();
@@ -365,35 +341,12 @@ public class action_harvest extends HelpEnabledActivityOld {
 	@Override
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.home_btn_har_1) {
+		if (v.getId() == R.id.dlg_lbl_harvest_crop) {
 
 			playAudioalways(R.raw.feedbackgood);
 			ShowHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "feedback", "audio");
 		}
 
-		if (v.getId() == R.id.home_btn_har_2) {
-
-			playAudioalways(R.raw.feedbackmoderate);
-			ShowHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "feedback", "medium");
-		}
-		if (v.getId() == R.id.home_btn_har_3) {
-
-			playAudioalways(R.raw.feedbackbad);
-			ShowHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "feedback");
-
-		}
 		if (v.getId() == R.id.harvest_ok) {
 
 			playAudioalways(R.raw.ok);
@@ -462,7 +415,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 			BitmapDrawable bd=(BitmapDrawable) parentReference.getResources().getDrawable(choice.getImageRes());
 			int width = bd.getBitmap().getWidth();
 			if(width>80) width = 80;
-			
+
 			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 		    llp.setMargins(10, 0, 80-width-20, 0); 
 		    var_text.setLayoutParams(llp);

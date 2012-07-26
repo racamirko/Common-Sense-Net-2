@@ -63,6 +63,8 @@ public class RealFarmDatabase {
 					+ " references actionName(id), "
 					+ COLUMN_NAME_ACTION_SEEDTYPEID
 					+ " references seedType(id), "
+					+ COLUMN_NAME_ACTION_CROPTYPEID
+					+ " references cropType(id), "
 					+ COLUMN_NAME_ACTION_QUANTITY1 + " integer, "
 					+ COLUMN_NAME_ACTION_QUANTITY2 + " integer, "
 					+ COLUMN_NAME_ACTION_UNITS + " text, "
@@ -157,17 +159,15 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_PROBLEM_ADMINFLAG + " boolean, "
 					+ COLUMN_NAME_PROBLEM_SHORTNAME + " text " + " ); ");
 			Log.d(LOG_TAG, "Created problem table");
-
-			// seedTypes
+			
 			db.execSQL("create table " + TABLE_NAME_SEEDTYPE + " ( "
 					+ COLUMN_NAME_SEEDTYPE_ID + " integer primary key, "
 					+ COLUMN_NAME_SEEDTYPE_NAME + " text not null, "
 					+ COLUMN_NAME_SEEDTYPE_NAMEKANNADA + " text, "
 					+ COLUMN_NAME_SEEDTYPE_RESOURCE + " integer, "
-					+ COLUMN_NAME_SEEDTYPE_RESOURCE_BG + " integer, "
-					+ COLUMN_NAME_SEEDTYPE_AUDIO + " integer, "
-					+ COLUMN_NAME_SEEDTYPE_VARIETY + " text, "
-					+ COLUMN_NAME_SEEDTYPE_VARIETYKANNADA + " text" + " ); ");
+					+ COLUMN_NAME_SEEDTYPE_SHORTNAME + " text, "
+					+ COLUMN_NAME_SEEDTYPE_CROPTYPE + " integer, "
+					+ COLUMN_NAME_SEEDTYPE_AUDIO + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created seed type table");
 
 			// cropTypes
@@ -176,6 +176,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_CROP_NAME + " text not null, "
 					+ COLUMN_NAME_CROP_RESOURCE + " integer, "
 					+ COLUMN_NAME_CROP_RESOURCE_BG + " integer, "
+					+ COLUMN_NAME_CROP_SHORTNAME + " text, "
 					+ COLUMN_NAME_CROP_AUDIO + " integer" + " ); ");
 			Log.d(LOG_TAG, "Created crop type table");
 
@@ -260,6 +261,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_QUANTITY1 = "quantity1";
 	public static final String COLUMN_NAME_ACTION_QUANTITY2 = "quantity2";
 	public static final String COLUMN_NAME_ACTION_SEEDTYPEID = "seedTypeId";
+	public static final String COLUMN_NAME_ACTION_CROPTYPEID = "cropTypeId";
 	public static final String COLUMN_NAME_ACTION_SELLINGPRICE = "sellingPrice";
 	public static final String COLUMN_NAME_ACTION_SELLTYPE = "selltype";
 	public static final String COLUMN_NAME_ACTION_TREATMENT = "treatment";
@@ -327,15 +329,15 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_NAMEKANNADA = "nameKannada";
 	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE = "res";
-	public static final String COLUMN_NAME_SEEDTYPE_RESOURCE_BG = "resBg";
-	public static final String COLUMN_NAME_SEEDTYPE_VARIETY = "variety";
-	public static final String COLUMN_NAME_SEEDTYPE_VARIETYKANNADA = "varietyKannada";
-	
+	public static final String COLUMN_NAME_SEEDTYPE_SHORTNAME = "shortName";
+	public static final String COLUMN_NAME_SEEDTYPE_CROPTYPE = "masterId";
+		
 	public static final String COLUMN_NAME_CROP_AUDIO = "audio";
 	public static final String COLUMN_NAME_CROP_ID = "id";
 	public static final String COLUMN_NAME_CROP_NAME = "name";
 	public static final String COLUMN_NAME_CROP_RESOURCE = "res";
 	public static final String COLUMN_NAME_CROP_RESOURCE_BG = "resBg";
+	public static final String COLUMN_NAME_CROP_SHORTNAME = "shortName";
 
 	public static final String COLUMN_NAME_SOILMOISTURE_ADMINFLAG = "adminFlag";
 	public static final String COLUMN_NAME_SOILMOISTURE_CLUSTER = "cluster";
@@ -686,19 +688,19 @@ public class RealFarmDatabase {
 				{ "Aphids", R.raw.audio1, 2, "Aphids" },
 				{ "Leaf miner", R.raw.audio1, 2, "Leaf miner" },
 				{ "Pod borer", R.raw.audio1, 2, "Pod borer" },
-				{ "Red hairy caterpillar", R.raw.audio1, 2, "" },
-				{ "Root grub", R.raw.audio1, 2, "" },
-				{ "Unknown pest", R.raw.audio1, 2 , ""},
-				{ "Pest not listed", R.raw.audio1, 2 , ""},
-				{ "Low growth", R.raw.audio1, 3, "" },
-				{ "Pegs not developed", R.raw.audio1, 3, "" },
-				{ "Pod germination", R.raw.audio1, 3 , ""},
-				{ "Reduced flowering", R.raw.audio1,3 , ""},
-				{ "Rot of stalks", R.raw.audio1,  3, "" },
-				{ "Too much vegetative growth", R.raw.audio1, 3, "" },
-				{ "Weeds", R.raw.audio1, 3, "" },
-				{ "Wild boar", R.raw.audio1, 3 , ""},
-				{ "Problem not listed", R.raw.audio1, 3 , ""}
+				{ "Red hairy caterpillar", R.raw.audio1, 2, "R H Caterpillar" },
+				{ "Root grub", R.raw.audio1, 2, "Root grub" },
+				{ "Unknown pest", R.raw.audio1, 2 , "? pest"},
+				{ "Pest not listed", R.raw.audio1, 2 , "Pe-unlisted"},
+				{ "Low growth", R.raw.audio1, 3, "Low growth" },
+				{ "Pegs not developed", R.raw.audio1, 3, "Pegs undev" },
+				{ "Pod germination", R.raw.audio1, 3 , "Pod germination"},
+				{ "Reduced flowering", R.raw.audio1,3 , "Red flowering"},
+				{ "Rot of stalks", R.raw.audio1,  3, "Stalk rot" },
+				{ "Too much vegetative growth", R.raw.audio1, 3, "Veg growth" },
+				{ "Weeds", R.raw.audio1, 3, "Weeds" },
+				{ "Wild boar", R.raw.audio1, 3 , "Wild boar"},
+				{ "Problem not listed", R.raw.audio1, 3 , "Pb-unlisted"}
 		};
 
 		ContentValues problem = new ContentValues();
@@ -781,77 +783,32 @@ public class RealFarmDatabase {
 		// insertEntries(TABLE_NAME_SEEDTYPE, seedtype, db);
 		// seedtype.clear();
 		
-		
-		/* Seedtypes old version
-		 * 
-		ContentValues seedtype = new ContentValues();
-		Object[][] seedData = {
-				{ "Groundnut", "", "TMV2", "", R.drawable.pic_72px_groundnut,
-						R.drawable.pic_90px_groundnut_tiled, R.raw.msg_plant },
-				{ "Groundnut", "", "Samrat", "", R.drawable.pic_72px_groundnut,
-						R.drawable.pic_90px_groundnut_tiled, R.raw.msg_plant },
-				{ "Bajra", "", "", "", R.drawable.pic_72px_bajra,
-						R.drawable.pic_90px_bajra_tiled, R.raw.msg_plant },
-				{ "Castor", "", "", "", R.drawable.pic_72px_castor,
-						R.drawable.pic_90px_castor_tiled, R.raw.msg_plant },
-				{ "Cowpea", "", "", "", R.drawable.pic_72px_cowpea,
-						R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant },
-				{ "Greengram", "", "", "", R.drawable.pic_72px_greengram,
-						R.drawable.pic_90px_greengram_tiled, R.raw.msg_plant },
-				{ "Horsegram", "", "", "", R.drawable.pic_72px_horsegram,
-						R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant },
-				{ "Pigeonpea", "", "", "", R.drawable.pic_72px_pigeonpea,
-						R.drawable.pic_90px_pidgeonpea_tiled, R.raw.msg_plant },
-				{ "Redgram", "", "", "", R.drawable.pic_72px_redgram,
-						R.drawable.pic_90px_redgram_tiled, R.raw.msg_plant },
-				{ "Sorghum", "", "", "", R.drawable.pic_72px_sorghum,
-						R.drawable.pic_90px_sorghum_tiled, R.raw.msg_plant }
-		};
-
-		for (int x = 0; x < seedData.length; x++) {
-			seedtype.put(COLUMN_NAME_SEEDTYPE_ID, (x + 1));
-			seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, (String) seedData[x][0]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
-					(String) seedData[x][1]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, (String) seedData[x][2]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
-					(String) seedData[x][3]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
-					(Integer) seedData[x][4]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG,
-					(Integer) seedData[x][5]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, (Integer) seedData[x][6]);
-			insertEntriesIntoDatabase(TABLE_NAME_SEEDTYPE, seedtype, db);
-			seedtype.clear();
-		}*/
-		
 		//seedType
 		ContentValues seedtype = new ContentValues();
 		Object[][] seedData = {
-				{ "JL24", "", "", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant },
-				{ "K6 / Kadari ghat", "", "", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant },
-				{ "Samrat", "", "", "", R.drawable.pic_72px_bajra, 1, R.raw.msg_plant },
-				{ "TMV2 / Bunching", "", "", "", R.drawable.pic_72px_castor, 1, R.raw.msg_plant },
-				{ "Bajra / pearl millet", "", "", "",R.drawable.pic_72px_bajra,2, R.raw.msg_plant },
-				{ "Castor", "", "", "",R.drawable.pic_72px_castor,3, R.raw.msg_plant },
-				{ "Cow pea", "", "", "",R.drawable.pic_72px_cowpea,4, R.raw.msg_plant },
-				{ "Field beans","", "", "",R.drawable.fieldbean,5, R.raw.msg_plant },
-				{ "Green / moong gram","", "", "", R.drawable.pic_72px_greengram,6,R.raw.msg_plant },
-				{ "Horse gram","", "", "", R.drawable.pic_72px_horsegram,7,R.raw.msg_plant },
-				{ "Padddy / rice","", "", "", R.drawable.paddy,8, R.raw.msg_plant },
-				{ "Ragi / finger millet","", "", "", R.drawable.ragi,9, R.raw.msg_plant },
-				{ "Sorghum","", "", "", R.drawable.pic_72px_sorghum,10, R.raw.msg_plant }
+				{ "JL24", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant,  "JL24"},
+				{ "K6 / Kadari ghat", "", R.drawable.pic_72px_groundnut, 1, R.raw.msg_plant ,"K6"},
+				{ "Samrat", "", R.drawable.pic_72px_bajra, 1, R.raw.msg_plant ,"Samrat"},
+				{ "TMV2 / Bunching", "", R.drawable.pic_72px_castor, 1, R.raw.msg_plant,"TMV2" },
+				{ "Bajra / pearl millet", "", R.drawable.pic_72px_bajra,2, R.raw.msg_plant,"Bajra" },
+				{ "Castor", "", R.drawable.pic_72px_castor,3, R.raw.msg_plant,"Castor" },
+				{ "Cow pea", "", R.drawable.pic_72px_cowpea,4, R.raw.msg_plant,"Cow pea" },
+				{ "Field beans","", R.drawable.fieldbean,5, R.raw.msg_plant,"Field beans" },
+				{ "Green / moong gram","", R.drawable.pic_72px_greengram,6,R.raw.msg_plant,"Green gram" },
+				{ "Horse gram","", R.drawable.pic_72px_horsegram,7,R.raw.msg_plant,"Horse gram" },
+				{ "Padddy / rice","", R.drawable.paddy,8, R.raw.msg_plant, "Paddy" },
+				{ "Ragi / finger millet","", R.drawable.ragi,9, R.raw.msg_plant,"Ragi" },
+				{ "Sorghum","", R.drawable.pic_72px_sorghum,10, R.raw.msg_plant,"Sorghum" }
 		};
 
 		for (int x = 0; x < seedData.length; x++) {
 			seedtype.put(COLUMN_NAME_SEEDTYPE_ID, (x + 1));
 			seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, (String) seedData[x][0]);
 			seedtype.put(COLUMN_NAME_SEEDTYPE_NAMEKANNADA, (String) seedData[x][1]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETY, (String) seedData[x][2]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_VARIETYKANNADA, (String) seedData[x][3]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, (Integer) seedData[x][4]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE_BG, (Integer) seedData[x][5]); // This is the reference to the main crop 
-			seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, (Integer) seedData[x][6]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, (Integer) seedData[x][2]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_CROPTYPE, (Integer) seedData[x][3]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, (Integer) seedData[x][4]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_SHORTNAME, (String) seedData[x][5]);
 			insertEntriesIntoDatabase(TABLE_NAME_SEEDTYPE, seedtype, db);
 			seedtype.clear();
 		}
@@ -861,16 +818,16 @@ public class RealFarmDatabase {
 		// cropTypes
 		ContentValues croptype = new ContentValues();
 		Object[][] cropData = {
-				{ "Groundnut", R.drawable.pic_72px_groundnut, R.drawable.pic_90px_groundnut_tiled, R.raw.msg_plant },
-				{ "Bajra / pearl millet", R.drawable.pic_72px_bajra, R.drawable.pic_90px_bajra_tiled, R.raw.msg_plant },
-				{ "Castor", R.drawable.pic_72px_castor, R.drawable.pic_90px_castor_tiled, R.raw.msg_plant },
-				{ "Cow pea", R.drawable.pic_72px_cowpea, R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant },
-				{ "Field beans", R.drawable.fieldbean, R.drawable.fieldbean, R.raw.msg_plant },
-				{ "Green / moong gram", R.drawable.pic_72px_greengram, R.drawable.pic_90px_greengram_tiled, R.raw.msg_plant },
-				{ "Horse gram", R.drawable.pic_72px_horsegram, R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant },
-				{ "Padddy / rice", R.drawable.paddy, R.drawable.paddy, R.raw.msg_plant },
-				{ "Ragi / finger millet", R.drawable.ragi, R.drawable.ragi, R.raw.msg_plant },
-				{ "Sorghum", R.drawable.pic_72px_sorghum, R.drawable.pic_90px_sorghum_tiled, R.raw.msg_plant }
+				{ "Groundnut", R.drawable.pic_72px_groundnut, R.drawable.pic_90px_groundnut_tiled, R.raw.msg_plant, "Groundnut" },
+				{ "Bajra / pearl millet", R.drawable.pic_72px_bajra, R.drawable.pic_90px_bajra_tiled, R.raw.msg_plant,"Bajra" },
+				{ "Castor", R.drawable.pic_72px_castor, R.drawable.pic_90px_castor_tiled, R.raw.msg_plant,"Castor" },
+				{ "Cow pea", R.drawable.pic_72px_cowpea, R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant,"Cow pea" },
+				{ "Field beans", R.drawable.fieldbean, R.drawable.fieldbean, R.raw.msg_plant,"Field beans" },
+				{ "Green / moong gram", R.drawable.pic_72px_greengram, R.drawable.pic_90px_greengram_tiled, R.raw.msg_plant,"Green gram" },
+				{ "Horse gram", R.drawable.pic_72px_horsegram, R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant,"Horse gram" },
+				{ "Padddy / rice", R.drawable.paddy, R.drawable.paddy, R.raw.msg_plant,"Padddy" },
+				{ "Ragi / finger millet", R.drawable.ragi, R.drawable.ragi, R.raw.msg_plant,"Ragi" },
+				{ "Sorghum", R.drawable.pic_72px_sorghum, R.drawable.pic_90px_sorghum_tiled, R.raw.msg_plant ,"Sorghum"}
 		};
 
 		for (int x = 0; x < cropData.length; x++) {
@@ -879,6 +836,7 @@ public class RealFarmDatabase {
 			croptype.put(COLUMN_NAME_CROP_RESOURCE,(Integer) cropData[x][1]);
 			croptype.put(COLUMN_NAME_CROP_RESOURCE_BG,(Integer) cropData[x][2]);
 			croptype.put(COLUMN_NAME_CROP_AUDIO, (Integer) cropData[x][3]);
+			croptype.put(COLUMN_NAME_CROP_SHORTNAME, (String) cropData[x][4]);
 			insertEntriesIntoDatabase(TABLE_NAME_CROP, croptype, db);
 			croptype.clear();
 		}

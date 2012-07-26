@@ -20,8 +20,7 @@
         android:id="@+id/icon_weather_forecast"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:background="@drawable/lightrain" />
+        android:layout_alignParentRight="true" />
 
     <TextView
         android:id="@+id/label_weather_forecast_temperature"

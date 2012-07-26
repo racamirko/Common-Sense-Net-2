@@ -236,4 +236,34 @@ public class DialogArrayLists {
 		}
 		return m_entries;
 	}
+	
+	public static ArrayList<DialogData> getSmileyArray(View v) {
+		final ArrayList<DialogData> m_entries = new ArrayList<DialogData>();
+		int aud = v
+				.getContext()
+				.getResources()
+				.getIdentifier("com.commonsensenet.realfarm:raw/feedbackgood",
+						null, null);
+		DialogData dd1 = new DialogData("Good", R.drawable.smiley_good, -1,
+				aud, "1", "", -1);
+
+		aud = v.getContext()
+				.getResources()
+				.getIdentifier("com.commonsensenet.realfarm:raw/feedbackmoderate",
+						null, null);
+		DialogData dd2 = new DialogData("Moderate", R.drawable.smiley_medium,
+				-1, aud, "2", "", -1);
+		
+		aud = v.getContext()
+				.getResources()
+				.getIdentifier("com.commonsensenet.realfarm:raw/feedbackbad",
+						null, null);
+		DialogData dd3 = new DialogData("Bad", R.drawable.smiley_bad,
+				-1, aud, "3", "", -1);
+
+		m_entries.add(dd1);
+		m_entries.add(dd2);
+		m_entries.add(dd3);
+		return m_entries;
+	}
 }
