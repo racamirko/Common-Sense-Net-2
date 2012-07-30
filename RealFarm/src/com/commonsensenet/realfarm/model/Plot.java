@@ -14,9 +14,11 @@ public class Plot {
 	protected String mSoilType;
 	protected int mTimestamp;
 	protected int mUserId;
+	protected float mSize;
 
 	public Plot(int id, int userId, int seedTypeId, String imagePath,
-			String soilType, int deleteFlag, int adminFlag, int timestamp) {
+			String soilType, int deleteFlag, int adminFlag, int timestamp,
+			float size) {
 		mId = id;
 		mUserId = userId;
 		mSeedTypeId = seedTypeId;
@@ -25,6 +27,7 @@ public class Plot {
 		mDeleteFlag = deleteFlag;
 		mAdminFlag = adminFlag;
 		mTimestamp = timestamp;
+		mSize = size;
 	}
 
 	public int getAdminFlag() {
@@ -59,13 +62,17 @@ public class Plot {
 		return mUserId;
 	}
 
+	public float getSize() {
+		return mSize;
+	}
+
 	@Override
 	public String toString() {
 
 		return String
-				.format("[Plot id='%s', userId='%d', seedTypeId='%d', imagePath='%s', soilType='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
-						mId, mUserId, mSeedTypeId, mImagePath, mSoilType,
-						mDeleteFlag, mAdminFlag, mTimestamp);
+				.format("[Plot id='%s', userId='%d', size='%f' seedTypeId='%d', imagePath='%s', soilType='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
+						mId, mUserId, mSize, mSeedTypeId, mImagePath,
+						mSoilType, mDeleteFlag, mAdminFlag, mTimestamp);
 
 	}
 }
