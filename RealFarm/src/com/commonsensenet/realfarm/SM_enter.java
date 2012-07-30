@@ -10,8 +10,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
-import com.commonsensenet.realfarm.utils.ApplicationTracker;
-import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class SM_enter extends HelpEnabledActivityOld {
 
