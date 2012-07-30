@@ -33,8 +33,8 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 
 public class action_harvest extends HelpEnabledActivityOld {
@@ -83,8 +83,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 		setHelpIcon(findViewById(R.id.helpIndicator));
 
 		playAudio(R.raw.clickingharvest);
-		
-		resultsMap = new HashMap<String, String>(); 
+
+		resultsMap = new HashMap<String, String>();
 		resultsMap.put("units_harvest", "0");
 		resultsMap.put("months_harvest", "0");
 		resultsMap.put("day_harvest_int", "0");
@@ -133,13 +133,17 @@ public class action_harvest extends HelpEnabledActivityOld {
 		harvest_date.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
 		System.out.println("Plant details entered4");
-		
+
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-			
-				displayDialogNP("Choose the number of bags", "harvest_no", R.raw.dateinfo, 1, 200, 0, 1, 0, R.id.dlg_lbl_unit_no_harvest, R.id.units_harvest_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
+
+				displayDialogNP("Choose the number of bags", "harvest_no",
+						R.raw.dateinfo, 1, 200, 0, 1, 0,
+						R.id.dlg_lbl_unit_no_harvest, R.id.units_harvest_tr,
+						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
+						R.raw.dateinfo);
 			}
 		});
 
@@ -147,9 +151,18 @@ public class action_harvest extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in units fert dialog", "in dialog");
+<<<<<<< HEAD
 				
 				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_UNITS_ID);
 				displayDialog(v, m_entries, "units_harvest", "Select the unit", R.raw.problems, R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr, 2);
+=======
+
+				final ArrayList<DialogData> m_entries = DialogArrayLists
+						.getItUnitsArray(v, 20, 51, 1);
+				displayDialog(v, m_entries, "units_harvest", "Select the unit",
+						R.raw.problems, R.id.dlg_lbl_units_harvest,
+						R.id.units_harvest_tr, 2);
+>>>>>>> Modified DB to include the Resources table
 
 			}
 		});
@@ -159,9 +172,18 @@ public class action_harvest extends HelpEnabledActivityOld {
 				stopaudio();
 
 				Log.d("in variety sowing dialog", "in dialog");
+<<<<<<< HEAD
 				
 				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_harvest, R.id.harvest_date_tr, 0);
+=======
+
+				ArrayList<DialogData> m_entries = DialogArrayLists
+						.getMonthArray(v);
+				displayDialog(v, m_entries, "months_harvest",
+						"Select the month", R.raw.bagof50kg,
+						R.id.dlg_lbl_month_harvest, R.id.harvest_date_tr, 0);
+>>>>>>> Modified DB to include the Resources table
 			}
 		});
 
@@ -169,23 +191,39 @@ public class action_harvest extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-				displayDialogNP("Choose the day", "day_harvest_int", R.raw.dateinfo, 1, 31, Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1, 0, R.id.dlg_lbl_day_harvest, R.id.harvest_date_tr, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo);
+				displayDialogNP("Choose the day", "day_harvest_int",
+						R.raw.dateinfo, 1, 31,
+						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
+						0, R.id.dlg_lbl_day_harvest, R.id.harvest_date_tr,
+						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
+						R.raw.dateinfo);
 			}
 		});
-		
+
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
+<<<<<<< HEAD
 				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_SMILEYS_ID);
 				displayDialog(v, m_entries, "feedback_sel", "Are you satisfied?", R.raw.feedbackgood, R.id.dlg_lbl_satisfaction_harvest, R.id.satisfaction_harvest_tr, 1);	
+=======
+				ArrayList<DialogData> m_entries = DialogArrayLists
+						.getSmileyArray(v);
+				displayDialog(v, m_entries, "feedback_sel",
+						"Are you satisfied?", R.raw.feedbackgood,
+						R.id.dlg_lbl_satisfaction_harvest,
+						R.id.satisfaction_harvest_tr, 1);
+>>>>>>> Modified DB to include the Resources table
 			}
 		});
-		
+
 		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
 				ArrayList<DialogData> m_entries = mDataProvider.getVarieties1();
-				displayDialog(v, m_entries, "crop_harvest", "Select the variety", R.raw.problems, R.id.dlg_lbl_harvest_crop, R.id.var_harvest_crop, 0);	
+				displayDialog(v, m_entries, "crop_harvest",
+						"Select the variety", R.raw.problems,
+						R.id.dlg_lbl_harvest_crop, R.id.var_harvest_crop, 0);
 			}
 		});
 
@@ -208,13 +246,14 @@ public class action_harvest extends HelpEnabledActivityOld {
 		btnNext.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				
+
 				units_harvest = resultsMap.get("units_harvest");
 				months_harvest = resultsMap.get("months_harvest");
-				day_harvest_int = Integer.parseInt(resultsMap.get("day_harvest_int"));
+				day_harvest_int = Integer.parseInt(resultsMap
+						.get("day_harvest_int"));
 				harvest_no = Integer.parseInt(resultsMap.get("harvest_no"));
 				feedback_sel = Integer.parseInt(resultsMap.get("feedback_sel"));
-				crop_harvest =  Integer.parseInt(resultsMap.get("crop_harvest"));
+				crop_harvest = Integer.parseInt(resultsMap.get("crop_harvest"));
 
 				int flag1, flag2, flag3, flag4;
 				// Toast.makeText(action_harvest.this, "User selected " +
@@ -249,10 +288,11 @@ public class action_harvest extends HelpEnabledActivityOld {
 					flag1 = 0;
 					View tr_feedback = (View) findViewById(R.id.satisfaction_harvest_tr);
 
-					tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
+					tr_feedback
+							.setBackgroundResource(android.R.drawable.list_selector_background);
 
 				}
-				if (units_harvest.toString().equalsIgnoreCase("0") 
+				if (units_harvest.toString().equalsIgnoreCase("0")
 						|| harvest_no == 0) {
 					flag2 = 1;
 
@@ -287,7 +327,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 					View tr_units = (View) findViewById(R.id.harvest_date_tr);
 					tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
-				
+
 				if (crop_harvest == 0) {
 					flag4 = 1;
 
@@ -311,8 +351,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 							harvest_no, 0, units_harvest, final_day_harvest,
 							feedback_txt, 1, 0, crop_harvest);
 
-					//System.out.println("harvesting reading");
-					//mDataProvider.getharvesting();
+					// System.out.println("harvesting reading");
+					// mDataProvider.getharvesting();
 
 					startActivity(new Intent(action_harvest.this,
 							Homescreen.class));
@@ -367,7 +407,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 					LOG_TAG, "help");
 		}
-		
+
 		if (v.getId() == R.id.dlg_lbl_unit_no_harvest
 				|| v.getId() == R.id.dlg_lbl_units_harvest) {
 
@@ -408,133 +448,167 @@ public class action_harvest extends HelpEnabledActivityOld {
 	protected void stopaudio() {
 		SoundQueue.getInstance().stop();
 	}
-	
-	private void putBackgrounds(DialogData choice, TextView var_text, int imageType){
-		if(choice.getBackgroundRes() != -1) var_text.setBackgroundResource(choice.getBackgroundRes());
-		if(imageType == 1 || imageType == 2){
-			BitmapDrawable bd=(BitmapDrawable) parentReference.getResources().getDrawable(choice.getImageRes());
-			int width = bd.getBitmap().getWidth();
-			if(width>80) width = 80;
 
-			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		    llp.setMargins(10, 0, 80-width-20, 0); 
-		    var_text.setLayoutParams(llp);
-			
+	private void putBackgrounds(DialogData choice, TextView var_text,
+			int imageType) {
+		if (choice.getBackgroundRes() != -1)
+			var_text.setBackgroundResource(choice.getBackgroundRes());
+		if (imageType == 1 || imageType == 2) {
+			BitmapDrawable bd = (BitmapDrawable) parentReference.getResources()
+					.getDrawable(choice.getImageRes());
+			int width = bd.getBitmap().getWidth();
+			if (width > 80)
+				width = 80;
+
+			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			llp.setMargins(10, 0, 80 - width - 20, 0);
+			var_text.setLayoutParams(llp);
+
 			var_text.setBackgroundResource(choice.getImageRes());
-			if (imageType == 1) var_text.setTextColor(Color.TRANSPARENT);
-			else{ 
-			    var_text.setGravity(Gravity.TOP); 
-			    var_text.setPadding(0, 0, 0, 0); 
-			    var_text.setTextSize(20); 
+			if (imageType == 1)
+				var_text.setTextColor(Color.TRANSPARENT);
+			else {
+				var_text.setGravity(Gravity.TOP);
+				var_text.setPadding(0, 0, 0, 0);
+				var_text.setTextSize(20);
 				var_text.setTextColor(Color.BLACK);
 			}
 		}
 	}
-	
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String mapEntry, final String title, int entryAudio, final int varText, final int trFeedback, final int imageType){ 
+
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries,
+			final String mapEntry, final String title, int entryAudio,
+			final int varText, final int trFeedback, final int imageType) {
 		final Dialog dialog = new Dialog(v.getContext());
 		dialog.setContentView(R.layout.mc_dialog);
 		dialog.setTitle(title);
 		dialog.setCancelable(true);
 		dialog.setCanceledOnTouchOutside(true);
 
-		DialogAdapter m_adapter = new DialogAdapter(v.getContext(), R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView)dialog.findViewById(R.id.liste);
+		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
+				R.layout.mc_dialog_row, m_entries);
+		ListView mList = (ListView) dialog.findViewById(R.id.liste);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
 		playAudio(entryAudio); // TODO: onOpen
 
-		mList.setOnItemClickListener(new OnItemClickListener(){ // TODO: adapt the audio in the db
-			public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
+																	// the audio
+																	// in the db
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
 				// Does whatever is specific to the application
-				Log.d("var "+position+" picked ", "in dialog");
+				Log.d("var " + position + " picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getValue());  
+				resultsMap.put(mapEntry, choice.getValue());
 				View tr_feedback = (View) findViewById(trFeedback);
-				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
-				
-				// put backgrounds (specific to the application) TODO: optimize the resize
+				tr_feedback
+						.setBackgroundResource(android.R.drawable.list_selector_background);
+
+				// put backgrounds (specific to the application) TODO: optimize
+				// the resize
 				putBackgrounds(choice, var_text, imageType);
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(
-						EventType.CLICK, LOG_TAG, title,
-						choice.getValue());
-				
-				Toast.makeText(parentReference, resultsMap.get(mapEntry), Toast.LENGTH_SHORT).show();
-						
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, title, choice.getValue());
+
+				Toast.makeText(parentReference, resultsMap.get(mapEntry),
+						Toast.LENGTH_SHORT).show();
+
 				// onClose
 				dialog.cancel();
 				int iden = choice.getAudioRes();
-				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + choice.getAudio(), null, null);
+				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
+				// + choice.getAudio(), null, null);
 				playAudio(iden);
-			}});
+			}
+		});
 
-		mList.setOnItemLongClickListener(new OnItemLongClickListener(){
+		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) { // TODO: adapt the audio in the db
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) { // TODO: adapt the audio in the db
 				int iden = m_entries.get(position).getAudioRes();
-				//view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/" + m_entries.get(position).getAudio(), null, null);
+				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
+				// + m_entries.get(position).getAudio(), null, null);
 				playAudioalways(iden);
 				return true;
-			}});
+			}
+		});
 	}
-	
-	private void displayDialogNP(String title, final String mapEntry, int openAudio, double min, double max, double init, double inc, int nbDigits, int textField, int tableRow, final int okAudio, final int cancelAudio, final int infoOkAudio, final int infoCancelAudio){ 
+
+	private void displayDialogNP(String title, final String mapEntry,
+			int openAudio, double min, double max, double init, double inc,
+			int nbDigits, int textField, int tableRow, final int okAudio,
+			final int cancelAudio, final int infoOkAudio,
+			final int infoCancelAudio) {
 
 		final Dialog dialog = new Dialog(parentReference);
 		dialog.setTitle(title);
 		dialog.setCancelable(true);
 		dialog.setCanceledOnTouchOutside(true);
 		playAudio(openAudio); // opening audio
-		
-		if(!resultsMap.get(mapEntry).equals("0") && !resultsMap.get(mapEntry).equals("-1")) init = Double.valueOf(resultsMap.get(mapEntry));
 
-		NumberPicker np = new NumberPicker(parentReference, min, max, init, inc, nbDigits);
+		if (!resultsMap.get(mapEntry).equals("0")
+				&& !resultsMap.get(mapEntry).equals("-1"))
+			init = Double.valueOf(resultsMap.get(mapEntry));
+
+		NumberPicker np = new NumberPicker(parentReference, min, max, init,
+				inc, nbDigits);
 		dialog.setContentView(np);
-		
+
 		final TextView tw_sow = (TextView) findViewById(textField);
 		final View tr_feedback = (View) findViewById(tableRow);
 
-		final TextView tw = (TextView)dialog.findViewById(R.id.tw);
-		ImageButton ok = (ImageButton)dialog.findViewById(R.id.ok);
-		ImageButton cancel = (ImageButton)dialog.findViewById(R.id.cancel);
-        ok.setOnClickListener(new View.OnClickListener(){ 
+		final TextView tw = (TextView) dialog.findViewById(R.id.tw);
+		ImageButton ok = (ImageButton) dialog.findViewById(R.id.ok);
+		ImageButton cancel = (ImageButton) dialog.findViewById(R.id.cancel);
+		ok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				String result = tw.getText().toString(); 
-				resultsMap.put(mapEntry, result); 
+				String result = tw.getText().toString();
+				resultsMap.put(mapEntry, result);
 				tw_sow.setText(result);
-				tr_feedback.setBackgroundResource(android.R.drawable.list_selector_background);
-				Toast.makeText(parentReference , result, Toast.LENGTH_LONG).show();
+				tr_feedback
+						.setBackgroundResource(android.R.drawable.list_selector_background);
+				Toast.makeText(parentReference, result, Toast.LENGTH_LONG)
+						.show();
 				dialog.cancel();
 				playAudio(okAudio); // ok audio
-		}});
-        cancel.setOnClickListener(new View.OnClickListener(){ 
+			}
+		});
+		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				dialog.cancel();
 				playAudio(cancelAudio); // cancel audio
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG, "amount", "cancel");
-		}});
-        ok.setOnLongClickListener(new View.OnLongClickListener(){ 
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						LOG_TAG, "amount", "cancel");
+			}
+		});
+		ok.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
 				playAudio(infoOkAudio); // info audio
 				return true;
-		}});
-        cancel.setOnLongClickListener(new View.OnLongClickListener(){ 
+			}
+		});
+		cancel.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
 				playAudio(infoCancelAudio); // info audio
 				return true;
-		}});
-        tw.setOnLongClickListener(new View.OnLongClickListener(){ 
+			}
+		});
+		tw.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
-				String num = tw.getText().toString();
+				// String num = tw.getText().toString();
 				playAudio(R.raw.dateinfo); // info audio
 				return false;
-		}});
-        				
+			}
+		});
+
 		dialog.show();
 	}
 }
