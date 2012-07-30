@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/margin"
         android:background="@android:color/white" >
-        
+
         <ImageView
             android:id="@+id/hmscrn_usr_icon"
             android:layout_width="104dp"
@@ -134,7 +134,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:layout_marginTop="5px"
                     android:background="@drawable/circular_btn"
                     android:src="@drawable/fertilizingsection" />
 

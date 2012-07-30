@@ -1,6 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="ContentDescription">
+        <ignore path="res/layout/act_diary.xml" />
+        <ignore path="res/layout/act_homescreen.xml" />
+        <ignore path="res/layout/action_aggr_sel_dialog.xml" />
+        <ignore path="res/layout/dialog_action.xml" />
+        <ignore path="res/layout/dialog_aggregate_details.xml" />
+        <ignore path="res/layout/dialog_variety.xml" />
+        <ignore path="res/layout/fertilize_aggregate.xml" />
+        <ignore path="res/layout/fertilizing_dialog.xml" />
+        <ignore path="res/layout/harvest_aggregate.xml" />
+        <ignore path="res/layout/harvest_dialog.xml" />
+        <ignore path="res/layout/irrigate_dialog.xml" />
+        <ignore path="res/layout/marketdetails.xml" />
+        <ignore path="res/layout/mc_dialog_row.xml" />
+        <ignore path="res/layout/mp_details.xml" />
+        <ignore path="res/layout/my_settings_plot_details.xml" />
+        <ignore path="res/layout/numberpicker.xml" />
+        <ignore path="res/layout/preview.xml" />
+        <ignore path="res/layout/problem_aggregate.xml" />
+        <ignore path="res/layout/problem_dialog.xml" />
+        <ignore path="res/layout/selling_aggregate.xml" />
+        <ignore path="res/layout/selling_dialog.xml" />
+        <ignore path="res/layout/smenter_dialog.xml" />
+        <ignore path="res/layout/sowing_aggregate.xml" />
+        <ignore path="res/layout/sowing_dialog.xml" />
+        <ignore path="res/layout/spraying_dialog.xml" />
         <ignore path="res/layout/tpl_diary_item.xml" />
+        <ignore path="res/layout/tpl_plot_item.xml" />
+        <ignore path="res/layout/yielddetails.xml" />
     </issue>
 </lint>

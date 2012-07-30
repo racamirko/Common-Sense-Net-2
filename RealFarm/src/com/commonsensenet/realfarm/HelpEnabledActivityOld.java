@@ -157,10 +157,10 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		mHelpMode = active;
 	}
 
-	protected void playAudio(int resid) // audio integration
-	{
-		if (Global.enableAudio) // checking for audio enable
-		{
+	protected void playAudio(int resid) {
+		
+		// checking for audio enable
+		if (Global.enableAudio) {
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();
 			// cleans any possibly playing sound
@@ -172,7 +172,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		}
 
 	}
-
 	protected void playAudioalways(int resid) {
 		// gets the singleton queue
 		SoundQueue sq = SoundQueue.getInstance();
@@ -308,5 +307,5 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 	protected void stopAudio() {
 		SoundQueue.getInstance().stop();
 	}
-	
+
 }

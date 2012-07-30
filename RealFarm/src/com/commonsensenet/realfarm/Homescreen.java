@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -442,7 +441,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			this.startActivity(new Intent(this, Addplot_sm.class));
+			this.startActivity(new Intent(this, PlotsActivity.class));
 			return;
 		}
 
@@ -803,95 +802,95 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		Log.i(LOG_TAG, "Long click");
 
 		if (v.getId() == R.id.hmscrn_btn_market) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_advice) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_weather) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.btn_action_fertilize) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.btn_action_spray) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.btn_action_sell) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.btn_action_report) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.btn_action_irrigate) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.btn_action_harvest) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.btn_action_sow) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_actions) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_lay_btn_diary) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_sound) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.button_action_sow) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.button_action_fertilize) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.button_action_spray) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.button_action_report) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.button_action_irrigate) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.button_action_harvest) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		if (v.getId() == R.id.button_action_sell) {
-			playAudioAlways(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		}
 
 		return true;

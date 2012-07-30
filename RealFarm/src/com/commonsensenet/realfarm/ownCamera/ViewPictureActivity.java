@@ -18,8 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 
+import com.commonsensenet.realfarm.AddPlotActivity;
 import com.commonsensenet.realfarm.Global;
-import com.commonsensenet.realfarm.My_settings_plot_details;
 import com.commonsensenet.realfarm.R;
 
 public class ViewPictureActivity extends Activity {
@@ -146,7 +146,7 @@ public class ViewPictureActivity extends Activity {
 				 * image_file + "');");
 				 */
 				Intent kintent = new Intent(ViewPictureActivity.this,
-						My_settings_plot_details.class);
+						AddPlotActivity.class);
 				Global.cameraFlag = true;
 				startActivity(kintent);
 				ViewPictureActivity.this.finish();
@@ -160,7 +160,7 @@ public class ViewPictureActivity extends Activity {
 			public void onClick(View v) {
 
 				Intent kintent = new Intent(ViewPictureActivity.this,
-						My_settings_plot_details.class);
+						AddPlotActivity.class);
 
 				startActivity(kintent);
 				ViewPictureActivity.this.finish();
@@ -204,7 +204,7 @@ public class ViewPictureActivity extends Activity {
 		 * mIntent); super.onBackPressed();
 		 */
 		Intent adminintent123 = new Intent(ViewPictureActivity.this,
-				My_settings_plot_details.class);
+				AddPlotActivity.class);
 		startActivity(adminintent123);
 		ViewPictureActivity.this.finish();
 	}

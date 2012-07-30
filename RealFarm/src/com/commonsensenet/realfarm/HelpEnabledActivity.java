@@ -95,8 +95,21 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	 *            id of the audio.
 	 */
 	protected void playAudio(int resid) {
+		playAudio(resid, false);
+	}
+
+	/**
+	 * Plays the given resourceId. The forcePlay flag can be use to play an
+	 * audio no matter the Global.enableAudio setting.
+	 * 
+	 * @param resid
+	 *            id of the audio to play.
+	 * @param forcePlay
+	 *            whether the Global.enableAudio setting is respected or not.
+	 */
+	protected void playAudio(int resid, Boolean forcePlay) {
 		// checking for audio enable
-		if (Global.enableAudio) {
+		if (Global.enableAudio || forcePlay) {
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();
 			// cleans any possibly playing sound
@@ -107,16 +120,9 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 			sq.play();
 		}
 	}
-	
-	protected void playAudioAlways(int resid) {
-		// gets the singleton queue
-		SoundQueue sq = SoundQueue.getInstance();
-		// cleans any possibly playing sound
-		sq.clean();
-		// adds the sound to the queue
-		sq.addToQueue(resid);
-		// plays the sound
-		sq.play();
+
+	// TODO: Akshay's code needs to be merged here
+	public void ShowHelpIcon(View v) {
 
 	}
 

@@ -340,6 +340,7 @@ public class OwnCameraActivity extends Activity implements
 	@Override
 	protected void onRestart() {
 
+		super.onRestart();
 		Log.d(LOG_TAG, "Activity restarting");
 	}
 

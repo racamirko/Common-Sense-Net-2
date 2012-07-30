@@ -33,7 +33,7 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 
-public class My_settings_plot_details extends HelpEnabledActivityOld {
+public class AddPlotActivity extends HelpEnabledActivity {
 
 	private final Context mContext = this;
 	public static final String LOG_TAG = "enter_size";
@@ -45,7 +45,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 	private int mSeedTypeId = 0;
 	private String mSoilType = "0";
 	private String mSize = "0";
-	private final My_settings_plot_details parentReference = this;
+	private final AddPlotActivity parentReference = this;
 	private HashMap<String, String> resultsMap;
 
 	private void addPlotToDatabase() {
@@ -69,26 +69,32 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 		SoundQueue.getInstance().stop();
 
-		Intent adminintent123 = new Intent(My_settings_plot_details.this,
+		Intent adminintent123 = new Intent(AddPlotActivity.this,
 				Homescreen.class);
 		startActivity(adminintent123);
-		My_settings_plot_details.this.finish();
+		AddPlotActivity.this.finish();
+	}
+
+	protected void initmissingval() {
+
+		playAudio(R.raw.missinginfo);
+
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, R.layout.my_settings_plot_details);
-		setHelpIcon(findViewById(R.id.helpIndicator));
+		super.onCreate(savedInstanceState);
 
+		// sets the layout
+		setContentView(R.layout.my_settings_plot_details);
+
+		// gets the data provider
 		mDataProvider = RealFarmProvider.getInstance(mContext);
 
+		// map used to automatize the validation.
 		resultsMap = new HashMap<String, String>();
 		resultsMap.put("mSoilType", "0");
 		resultsMap.put("mMainCrop", "0");
 		resultsMap.put("mSize", "0");
-
-		ImageButton home1 = (ImageButton) findViewById(R.id.aggr_img_home1);
-		ImageButton help1 = (ImageButton) findViewById(R.id.aggr_img_help1);
-		help1.setOnLongClickListener(this);
 
 		final View plotImage;
 		final View soilType;
@@ -104,16 +110,6 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		soilType.setOnLongClickListener(this);
 		mainCrop.setOnLongClickListener(this);
 		size.setOnLongClickListener(this);
-
-		home1.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent adminintent123 = new Intent(
-						My_settings_plot_details.this, Homescreen.class);
-				startActivity(adminintent123);
-				My_settings_plot_details.this.finish();
-
-			}
-		});
 
 		if (Global.cameraFlag == true) {
 			Global.cameraFlag = false;
@@ -147,12 +143,12 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 		plotsize.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				stopaudio();
+				stopAudio();
 
-				displayDialogNP("Enter plot size in acres", "mSize", R.raw.dateinfo, 0,
-						50, 0, 0.1, 1, R.id.size_txt, R.id.size_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+				displayDialogNP("Enter plot size in acres", "mSize",
+						R.raw.dateinfo, 0, 50, 0, 0.1, 1, R.id.size_txt,
+						R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo,
+						R.raw.dateinfo, R.raw.dateinfo);
 
 			}
 		});
@@ -160,10 +156,10 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 		plotimage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				startActivity(new Intent(My_settings_plot_details.this,
+				startActivity(new Intent(AddPlotActivity.this,
 						OwnCameraActivity.class));
 
-				My_settings_plot_details.this.finish();
+				AddPlotActivity.this.finish();
 
 			}
 		});
@@ -274,16 +270,17 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
 
-					Intent adminintent = new Intent(
-							My_settings_plot_details.this, Homescreen.class);
+					Intent adminintent = new Intent(AddPlotActivity.this,
+							Homescreen.class);
 
 					startActivity(adminintent);
-					My_settings_plot_details.this.finish();
+					AddPlotActivity.this.finish();
 
 					addPlotToDatabase();
 
-				} else
+				} else {
 					initmissingval();
+				}
 
 			}
 		});
@@ -293,10 +290,10 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 
 				SoundQueue.getInstance().stop();
 
-				Intent adminintent123 = new Intent(
-						My_settings_plot_details.this, Homescreen.class);
+				Intent adminintent123 = new Intent(AddPlotActivity.this,
+						Homescreen.class);
 				startActivity(adminintent123);
-				My_settings_plot_details.this.finish();
+				AddPlotActivity.this.finish();
 
 			}
 		});
@@ -442,8 +439,6 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				// onClose
 				dialog.cancel();
 				int iden = choice.getAudioRes();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + choice.getAudio(), null, null);
 				playAudio(iden);
 			}
 		});
@@ -453,9 +448,8 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) { // TODO: adapt the audio in the db
 				int iden = m_entries.get(position).getAudioRes();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + m_entries.get(position).getAudio(), null, null);
-				playAudioalways(iden);
+
+				playAudio(iden, true);
 				return true;
 			}
 		});
@@ -496,7 +490,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				Toast.makeText(parentReference, result, Toast.LENGTH_LONG)
 						.show();
 				dialog.cancel();
-				playAudio(okAudio); // ok audio
+				playAudio(okAudio);
 			}
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {
