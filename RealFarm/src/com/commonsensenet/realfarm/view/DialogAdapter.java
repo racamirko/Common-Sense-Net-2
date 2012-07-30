@@ -51,7 +51,7 @@ public class DialogAdapter extends ArrayAdapter<DialogData> {
 				int id = dd.getImageRes();
 				//id = c.getResources().getIdentifier("com.commonsensenet.realfarm:drawable/" + dd.getImage(), null, null);
 				if(id != -1) im.setBackgroundResource(id);
-				im.setText(dd.getNumber()); 
+				if(dd.getNumber() != -1) im.setText(dd.getNumber()+""); 
 			}
 			if(ll != null){     
 				int id = dd.getBackgroundRes();

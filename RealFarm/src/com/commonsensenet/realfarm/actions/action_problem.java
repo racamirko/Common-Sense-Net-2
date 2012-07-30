@@ -29,13 +29,13 @@ import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
-import com.commonsensenet.realfarm.view.DialogArrayLists;
 
 public class action_problem extends HelpEnabledActivityOld {
 	private Context context = this;
@@ -147,7 +147,7 @@ public class action_problem extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_prob", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_prob, R.id.day_prob_tr, 0);
 	
 			}

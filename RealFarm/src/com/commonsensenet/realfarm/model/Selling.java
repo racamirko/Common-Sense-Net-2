@@ -3,43 +3,34 @@ package com.commonsensenet.realfarm.model;
 public class Selling {
 
 	private int mactionid;
-
-	private String mactionType;
+	private int mactionNameId;
 	private int mQuantity1;
 	private int mQuantity2;
 	private String mUnits;
 	private String mday;
 	private int muserid;
-	private int mplotid;
 	private int mSellingPrice;
-	private String mQuaofseed;
-	private String mselltype;
-	private int msend;
+	private int mCropTypeId;
+	private int msent;
+	private int muserId;
 	private int mIsadmin;
-	private String mActionPerformedDate;
-
-	public Selling(int actionid, String actionType, int qua1, int qua2,
-			String Units, String day, int userid, int plotid, int SellingPrice,
-			String Quaofseed, String selltype, int send, int Isadmin,
-			String ActionPerformedDate) {
+	
+	public Selling(int actionid, int actionNameId, int quantity1, int quantity2,
+			String Units, int SellingPrice, int cropType_id, int sent, int Isadmin
+			,String day, int userid) {
 
 		mactionid = actionid;
-		mactionType = actionType;
-		mQuantity1 = qua1;
-		mQuantity2 = qua2;
-
+		mactionNameId=actionNameId;
+		mQuantity1 = quantity1;
+		mQuantity2 = quantity2;
 		mUnits = Units;
 		mday = day;
 		muserid = userid;
-		mplotid = plotid;
-
 		mSellingPrice = SellingPrice;
-		mQuaofseed = Quaofseed;
-		mselltype = selltype;
-
-		msend = send;
+		mCropTypeId = cropType_id;
+		msent = sent;
 		mIsadmin = Isadmin;
-		mActionPerformedDate = ActionPerformedDate;
+		
 
 	}
 
@@ -47,8 +38,8 @@ public class Selling {
 		return mactionid;
 	}
 
-	public String getActionType() {
-		return mactionType;
+	public int getActionNameId() {
+		return mactionNameId;
 	}
 
 	public int getquantity1() {
@@ -71,32 +62,25 @@ public class Selling {
 		return muserid;
 	}
 
-	public int getplotid() {
-		return mplotid;
-	}
 
-	public int getsp() {
+
+	public int getSellingPrice() {
 		return mSellingPrice;
 	}
 
-	public String getQuaSeed() {
-		return mQuaofseed;
+	public int getCropTypeId() {
+		return mCropTypeId;
 	}
 
-	public String getselltype() {
-		return mselltype;
-	}
 
 	public int getsent() {
-		return msend;
+		return msent;
 	}
 
 	public int getadmin() {
 		return mIsadmin;
 	}
 
-	public String getactionPerfDate() {
-		return mActionPerformedDate;
-	}
+	
 
 }

@@ -14,6 +14,7 @@ import android.database.Cursor;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionName;
 import com.commonsensenet.realfarm.model.DialogData;
@@ -25,6 +26,7 @@ import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Problem;
 import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.Selling;
+import com.commonsensenet.realfarm.model.Sowing;
 import com.commonsensenet.realfarm.model.Spraying;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
@@ -193,7 +195,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP });
+						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIQUEIDSERVER,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID});
 
 		Action a = null;
 		if (c.moveToFirst()) {
@@ -203,7 +207,7 @@ public class RealFarmProvider {
 						c.getString(8), c.getString(9), c.getString(10),
 						c.getInt(11), c.getString(12), c.getString(13),
 						c.getInt(14), c.getInt(15), c.getString(16),
-						c.getString(17), c.getString(18), c.getInt(19));
+						c.getString(17), c.getString(18), c.getInt(19), c.getInt(20), c.getInt(21));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -264,7 +268,7 @@ public class RealFarmProvider {
 						c.getString(8), c.getString(9), c.getString(10),
 						c.getInt(11), c.getString(12), c.getString(13),
 						c.getInt(14), c.getInt(15), c.getString(16),
-						c.getString(17), c.getString(18), c.getInt(19));
+						c.getString(17), c.getString(18), c.getInt(19), c.getInt(20), c.getInt(21));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -316,7 +320,7 @@ public class RealFarmProvider {
 						c.getString(8), c.getString(9), c.getString(10),
 						c.getInt(11), c.getString(12), c.getString(13),
 						c.getInt(14), c.getInt(15), c.getString(16),
-						c.getString(17), c.getString(18), c.getInt(19));
+						c.getString(17), c.getString(18), c.getInt(19), c.getInt(20), c.getInt(21));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -362,8 +366,58 @@ public class RealFarmProvider {
 
 		return c;
 	}
+	
+	public List<Sowing> getSowing() {
 
-	public List<Fertilizing> getfertizing() {
+		mDatabase.open();
+		int sow = RealFarmDatabase.ACTION_NAME_SOW_ID;
+
+		List<Sowing> tmpList = null;
+
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
+				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_INTERCROP,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID
+						},
+				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + sow,
+				null, null, null, null);
+
+		tmpList = new ArrayList<Sowing>();
+
+		if (c.moveToFirst()) {
+			do {
+				tmpList.add(new Sowing(c.getInt(0), sow, c
+						.getInt(1), c.getInt(2), c.getString(3), c
+						.getInt(4), c.getInt(5), c.getInt(6), c.getString(7),c.getString(8),c.getString(9),c.getInt(10)));
+
+				String log = "action id: " + c.getInt(0) + " action name id: "
+						+ sow + " ,quantity1: " + c.getInt(1)
+						+ " ,seed type id: " + c.getString(2) + " ,units"
+						+ c.getString(3) + "plotId " + c.getInt(4)
+						+ " sent " + c.getInt(5) + " admin " + c.getInt(6)
+						+ "day  " + c.getString(7)+ "treatment  " + c.getString(8)+ "intercrop  " + c.getString(9) + " action user id" + c.getInt(10)
+						 + "\r\n";
+				Log.d("Sowing values: ", log);
+
+			} while (c.moveToNext());
+
+		}
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+
+
+	public List<Fertilizing> getfertilizing() {
 
 		mDatabase.open();
 		int fert = RealFarmDatabase.ACTION_NAME_FERTILIZE_ID;
@@ -372,14 +426,15 @@ public class RealFarmProvider {
 
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
 						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
-						RealFarmDatabase.COLUMN_NAME_ACTION_DATE },
+						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID
+						},
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + fert,
 				null, null, null, null);
 
@@ -387,18 +442,17 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				tmpList.add(new Fertilizing(c.getInt(0), c.getString(1), c
-						.getInt(2), c.getString(3), c.getString(4), c
-						.getString(5), c.getInt(6), c.getInt(7), c.getInt(8), c
-						.getInt(9), c.getString(10)));
+				tmpList.add(new Fertilizing(c.getInt(0), fert, c
+						.getInt(1), c.getString(2), c.getString(3), c
+						.getInt(4), c.getInt(5), c.getInt(6), c.getString(7),c.getInt(8)));
 
-				String log = "action id: " + c.getInt(0) + " ,Action type: "
-						+ c.getString(1) + " ,quantity1: " + c.getInt(2)
-						+ " ,Type of fertilize: " + c.getString(3) + " ,units"
-						+ c.getString(4) + "day " + c.getString(5)
-						+ " user id " + c.getInt(6) + " plot id " + c.getInt(7)
-						+ "sent  " + c.getInt(8) + " Is admin " + c.getInt(9)
-						+ " action performed date " + c.getString(10) + "\r\n";
+				String log = "action id: " + c.getInt(0) + " action name id: "
+						+ fert + " ,quantity1: " + c.getInt(1)
+						+ " ,Type of fertilize: " + c.getString(2) + " ,units"
+						+ c.getString(3) + "plotId " + c.getInt(4)
+						+ " sent " + c.getInt(5) + " admin " + c.getInt(6)
+						+ "day  " + c.getString(7) + " action user id" + c.getInt(8)
+						 + "\r\n";
 				Log.d("Fertilizing values: ", log);
 
 			} while (c.moveToNext());
@@ -419,15 +473,14 @@ public class RealFarmProvider {
 
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
 						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
-						RealFarmDatabase.COLUMN_NAME_ACTION_DATE },
+						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID},
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + harv,
 				null, null, null, null);
 
@@ -435,20 +488,18 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				tmpList.add(new Harvesting(c.getInt(0), c.getString(1), c
-						.getInt(2), c.getInt(3), c.getString(4),
-						c.getString(5), c.getInt(6), c.getInt(7), c
-								.getString(8), c.getInt(9), c.getInt(10), c
-								.getString(11)));
+				tmpList.add(new Harvesting(c.getInt(0),harv,c.getInt(1), c
+						.getString(2), c.getInt(3), c.getString(4),
+						c.getInt(5), c.getInt(6), c.getString(7), c
+								.getInt(8)));
 
-				String log = "action id: " + c.getInt(0) + " ,action type: "
-						+ c.getString(1) + " ,quantity1: " + c.getInt(2)
-						+ " ,quantity2" + c.getInt(3) + "units "
-						+ c.getString(4) + " day " + c.getString(5)
-						+ " user  id " + c.getInt(6) + " plot id "
-						+ c.getInt(7) + " harvest feedback " + c.getString(8)
-						+ "sent  " + c.getInt(9) + " Is admin " + c.getInt(10)
-						+ " action performed date " + c.getString(11) + "\r\n";
+				String log = "action id: " + c.getInt(0) + " ,action name id: "
+						+ harv + " ,quantity1: " + c.getInt(1)
+						+ " ,units" + c.getString(2) + "plot id "
+						+ c.getInt(3) + " harvest feedback " + c.getString(4)
+						+ " sent " + c.getInt(5) + " admin "
+						+ c.getInt(6) + " date " + c.getString(7)
+						+ "user id  " + c.getInt(8)  + "\r\n";
 
 				Log.d("harvesting values: ", log);
 
@@ -470,14 +521,15 @@ public class RealFarmProvider {
 
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD },
+						RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID
+						},
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "="
 						+ irrigate, null, null, null, null);
 
@@ -486,20 +538,17 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				tmpList.add(new Irrigation(c.getInt(0), c.getString(1), c
-						.getInt(2), c.getString(3), c.getString(4),
-						c.getInt(5), c.getInt(6), c.getInt(7), c.getInt(8), c
-								.getString(9), c.getString(10)));
+				tmpList.add(new Irrigation(c.getInt(0), irrigate, c
+						.getInt(1), c.getString(2), c.getInt(3),
+						c.getInt(4), c.getInt(5), c.getString(6), c.getString(7), c
+								.getInt(8)));
 
-				String log = "action id: " + c.getInt(0) + " ,Action type: "
-						+ c.getString(1) + " ,Action name id: " + irrigate
-						+ " ,QUANTITY1: " + c.getInt(2)
-
-						+ " ,units" + c.getString(3) + "day " + c.getString(4)
-						+ " user id " + c.getInt(5) + " plot id " + c.getInt(6)
-						+ "sent  " + c.getInt(7) + " Is admin " + c.getInt(8)
-						+ " action performed date " + c.getString(9)
-						+ " method " + c.getString(10) + "\r\n";
+				String log = "action id: " + c.getInt(0) +" ,Action name id: " + irrigate
+						+ " ,QUANTITY1: " + c.getInt(1)
+						+ " ,units" + c.getString(2) + "plot id " + c.getInt(3)
+						+ " sent " + c.getInt(4) + " admin " + c.getInt(5)
+						+ "date  " + c.getString(6) + " Irrigation method" + c.getString(7)
+						+ "  user id " + c.getInt(8) + "\r\n";
 				Log.d("Irrigation values: ", log);
 
 			} while (c.moveToNext());
@@ -855,12 +904,13 @@ public class RealFarmProvider {
 
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
-						RealFarmDatabase.COLUMN_NAME_ACTION_DATE },
+						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID
+						},
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "="
 						+ problem, null, null, null, null);
 
@@ -868,18 +918,17 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				tmpList.add(new Problem(c.getInt(0), c.getString(1), c
+		/*		tmpList.add(new Problem(c.getInt(0), c.getString(1), c
 						.getString(2), c.getInt(3), c.getInt(4),
 						c.getString(5), c.getInt(6), c.getInt(7), c
-								.getString(8)));
+								.getString(8)));*/
 
-				String log = "action id: " + c.getInt(0) + " ,Action type: "
-						+ c.getString(1) + " ,Actionnameid: " + problem
-						+ "day " + c.getString(2) + " user id " + c.getInt(3)
-						+ " plot id " + c.getInt(4) + " Problem type "
-						+ c.getString(5) + "sent  " + c.getInt(6)
-						+ " Is admin " + c.getInt(7)
-						+ " action performed date " + c.getString(8) + "\r\n";
+				String log = "action id: " + c.getInt(0)  + " ,Actionnameid: " + problem
+						+ "plot id " + c.getInt(1) + " problem type " + c.getString(2)
+						+ "sent " + c.getInt(3) + " admin "
+						+ c.getInt(4) + "date  " + c.getString(5)
+						+ " crop type id " + c.getInt(6)
+						 + "\r\n";
 				Log.d("Problem values: ", log);
 
 			} while (c.moveToNext());
@@ -1008,17 +1057,15 @@ public class RealFarmProvider {
 
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
 						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
-						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
-						RealFarmDatabase.COLUMN_NAME_ACTION_DATE },
+						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID},
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + sell,
 				null, null, null, null);
 
@@ -1026,21 +1073,19 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				tmpList.add(new Selling(c.getInt(0), c.getString(1), c
-						.getInt(2), c.getInt(3), c.getString(4),
-						c.getString(5), c.getInt(6), c.getInt(7), c.getInt(8),
-						c.getString(9), c.getString(10), c.getInt(11), c
-								.getInt(12), c.getString(13)));
+				tmpList.add(new Selling(c.getInt(0), sell, c
+						.getInt(1), c.getInt(2), c.getString(3),
+						c.getInt(4), c.getInt(5), c.getInt(6), c.getInt(7),
+						c.getString(8), c.getInt(9)));
 
-				String log = "action id: " + c.getInt(0) + " ,action type: "
-						+ c.getString(1) + " ,quantity1: " + c.getInt(2)
+				String log = "action id: " + c.getInt(0) + " ,action name id: "
+						+ c.getInt(1) + " ,quantity1: " + c.getInt(2)
 						+ " ,quantity2: " + c.getInt(3) + " ,units"
-						+ c.getString(4) + "day " + c.getString(5)
-						+ " user id " + c.getInt(6) + " plot id " + c.getInt(7)
-						+ " selling price " + c.getInt(8) + " quality of seed "
-						+ c.getString(9) + " selling type " + c.getString(10)
-						+ "sent  " + c.getInt(11) + " Is admin " + c.getInt(12)
-						+ " action performed date " + c.getString(13) + "\r\n";
+						+ c.getString(4) + "selling price " + c.getInt(5)
+						+ " crop type id " + c.getInt(6) + " sent " + c.getInt(7)
+						+ " admin " + c.getInt(8) + " date "
+						+ c.getString(9) + "action user id " + c.getInt(10)
+						+ "\r\n";
 				Log.d("selling values: ", log);
 
 			} while (c.moveToNext());
@@ -1061,7 +1106,6 @@ public class RealFarmProvider {
 
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
@@ -1069,7 +1113,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE },
+						RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID},
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + spray,
 				null, null, null, null);
 
@@ -1078,20 +1123,18 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				tmpList.add(new Spraying(c.getInt(0), c.getString(1), c
-						.getInt(2), c.getString(3), c.getString(4),
-						c.getInt(5), c.getInt(6), c.getString(7), c.getInt(8),
-						c.getInt(9), c.getString(10), c.getString(11)));
+				tmpList.add(new Spraying(c.getInt(0), spray, c
+						.getInt(1), c.getString(2), c.getInt(3), c
+						.getString(4), c.getInt(5), c.getInt(6), c.getString(7),c.getString(8),c.getInt(9)));
 
-				String log = "action id: " + c.getInt(0) + " ,action type"
-						+ c.getString(1) + " ,quantity1" + c.getString(2)
-
-						+ " ,units" + c.getString(3) + "day " + c.getString(4)
-						+ " user id " + c.getInt(5) + " plot id " + c.getInt(6)
-						+ " ,Problem type" + c.getString(7) + "sent  "
-						+ c.getInt(8) + " Is admin " + c.getInt(9)
-						+ " action performed date " + c.getString(10)
-						+ " Pesticide type " + c.getString(11) + "\r\n";
+				String log = "action id: " + c.getInt(0) + " ,action name id"
+						+ spray + " ,quantity1" + c.getInt(1)
+						+ " ,units" + c.getString(2) + "plot id " + c.getInt(3)
+						+ " problem type " + c.getString(4) + " sent" + c.getInt(5)
+						+ " ,admin" + c.getInt(6) + "day  "
+						+ c.getString(7) + " pesticide type " + c.getString(8)
+						+ "action user id " + c.getInt(9)
+						+ "\r\n";
 				Log.d("spraying values: ", log);
 
 			} while (c.moveToNext());
@@ -1515,6 +1558,30 @@ public class RealFarmProvider {
 			} while (c.moveToNext());
 		}
 
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public ArrayList<DialogData> getDialogData(int dataType) {
+		
+		final String MY_QUERY = "SELECT name, shortName, res, res2, audio, value, number, resBg FROM dialogArrays WHERE type = "+dataType+" ORDER BY type, id ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+			    dd = new DialogData (c.getString(0), c.getString(1), c.getInt(2), c.getInt(3), c.getInt(4), String.valueOf(c.getInt(5)), c.getInt(7), c.getInt(6));
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+		
 		c.close();
 		mDatabase.close();
 
@@ -1963,4 +2030,133 @@ public class RealFarmProvider {
 			OnDataChangeListener listener) {
 		sWeatherForecastDataListener = listener;
 	}
+	
+	public int getFertIdIdFromFertilizer(String fert_text){                    //27-07-2012
+		
+		int fert_id = 0;
+		final String MY_QUERY = "SELECT * FROM fertilizer" ;
+		
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		
+		
+		if (c.moveToFirst()) {
+			do {
+				if(c.getString(1).equals(fert_text))
+				{
+			   	fert_id=c.getInt(0);
+			  // 	System.out.println(c.getString(1) + "\r\n");
+				//	System.out.println(fert_id + "\r\n");
+					//System.out.println("In fert id");
+			
+				}
+				
+     
+			} while (c.moveToNext());
+		}
+		
+		c.close();
+		mDatabase.close();
+		
+		return fert_id;
+	
+	}
+	
+	public int getProblemIdFromProblem(String problem_text){                    //27-07-2012
+		
+		int problem_id = 0;
+		final String MY_QUERY = "SELECT * FROM problem" ;
+		
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		
+		
+		if (c.moveToFirst()) {
+			do {
+				if(c.getString(1).equals(problem_text))
+				{
+			   	problem_id=c.getInt(0);
+			   	System.out.println(c.getString(1) + "\r\n");
+					System.out.println(problem_id + "\r\n");
+					System.out.println("In problem id");
+			
+				}
+				
+			} while (c.moveToNext());
+		}
+		
+		c.close();
+		mDatabase.close();
+		
+		return problem_id;
+	
+	}
+	public int getUnitIdIdFromUnit(String unit_text){                    //27-07-2012
+		
+		int unit_id = 0;
+		final String MY_QUERY = "SELECT * FROM unit" ;
+		
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		
+		
+		if (c.moveToFirst()) {
+			do {
+				if(c.getString(1).equals(unit_text))
+				{
+			   	unit_id=c.getInt(0);
+			   	System.out.println(c.getString(1) + "\r\n");
+					System.out.println(unit_id + "\r\n");
+					System.out.println("In unit id");
+			
+				}
+				
+     
+			} while (c.moveToNext());
+		}
+		
+		c.close();
+		mDatabase.close();
+		
+		return unit_id;
+	
+	}
+	
+	
+	public int getPestIdIdIdFromPest(String pest_text){                    //27-07-2012
+		
+		int pest_id = 0;
+		final String MY_QUERY = "SELECT * FROM pesticide" ;
+		
+		mDatabase.open();
+		
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		
+		
+		if (c.moveToFirst()) {
+			do {
+				if(c.getString(1).equals(pest_text))
+				{
+			   	pest_id=c.getInt(0);
+			   	System.out.println(c.getString(1) + "\r\n");
+					System.out.println(pest_id + "\r\n");
+					System.out.println("In pesticide id");
+			
+				}
+				
+     
+			} while (c.moveToNext());
+		}
+		
+		c.close();
+		mDatabase.close();
+		
+		return pest_id;
+	
+	}
+
+
 }

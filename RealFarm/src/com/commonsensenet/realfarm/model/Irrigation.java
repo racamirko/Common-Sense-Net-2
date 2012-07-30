@@ -3,11 +3,8 @@ package com.commonsensenet.realfarm.model;
 public class Irrigation {
 
 	private int mactionid;
-	
-	private String mactionType;
+	private int mactionameId;
 	private int mQuantity1;
-	
-
 	private String mUnits;
 	private String mday;
 	private int muserid;
@@ -18,40 +15,32 @@ public class Irrigation {
 	private String mMethod;
 	
 
-	public Irrigation(int actionid, String actionType, int qua1,
-			 String Units, String day, int userid,
-			int plotid, int send, int Isadmin, String ActionPerformedDate,String Method) {  //Quantity1 mapped to no of hours
+	public Irrigation(int actionid, int actionNameId, int quantity1,
+			 String Units,int plotid,int send, int Isadmin, 
+			 String day,String Method, int userid){  
 
 		mactionid = actionid;
-		
-		mactionType = actionType;
-		mQuantity1 = qua1;
-		
-
+		mactionameId=actionNameId;
+		mQuantity1 = quantity1;
 		mUnits = Units;
 		mday = day;
 		muserid = userid;
 		mplotid = plotid;
-
 		msend = send;
 		mIsadmin = Isadmin;
-		mActionPerformedDate = ActionPerformedDate;
 		mMethod=Method;
-
 	}
 
 	public int getActionId() {
 		return mactionid;
 	}
 
-	// public int getActionNameId() {
-	// return mactionnameid;
-	// }
-	public String getActionType() {
-		return mactionType;
-	}
+	 public int getActionNameId() {
+	 return mactionameId;
+	 }
 
-	public int getquantity1() {              //gives no of hours
+
+	public int getquantity1() {              
 		return mQuantity1;
 	}
 
@@ -85,9 +74,7 @@ public class Irrigation {
 	}
 
 	
-	public String getactionPerfDate() {
-		return mActionPerformedDate;
-	}
+
 	
 
 }

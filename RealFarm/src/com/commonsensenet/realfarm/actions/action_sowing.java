@@ -29,13 +29,13 @@ import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
-import com.commonsensenet.realfarm.view.DialogArrayLists;
 
 public class action_sowing extends HelpEnabledActivityOld {
 	private Context context = this;
@@ -172,7 +172,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in treatment sow dialog", "in dialog");
 
-				ArrayList<DialogData> m_entries = DialogArrayLists.getTreatmentArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_TREATMENT_ID);
 				displayDialog(v, m_entries, "treatment_sow", "Select if the seeds were treated", R.raw.bagof50kg, R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
 		
 			}
@@ -193,7 +193,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in intercrop sow dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = DialogArrayLists.getIntercropArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_INTERCRIOP_ID);
 				displayDialog(v, m_entries, "cropType_sow", "Main crop or intercrop?", R.raw.bagof50kg, R.id.dlg_lbl_intercrop_sow, R.id.intercrop_sow_tr, 0);
 
 			}
@@ -204,7 +204,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 				Log.d("in treat sow dialog", "in dialog");
 				
 				stopaudio();
-				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_sow", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_sow, R.id.day_sow_tr, 0);
 			}
 

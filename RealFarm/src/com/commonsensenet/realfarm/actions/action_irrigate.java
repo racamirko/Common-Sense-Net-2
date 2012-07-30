@@ -29,13 +29,13 @@ import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.DialogAdapter;
-import com.commonsensenet.realfarm.view.DialogArrayLists;
 
 public class action_irrigate extends HelpEnabledActivityOld {
 	public static final String LOG_TAG = "action_irrigate";
@@ -127,7 +127,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in irrigation method dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = DialogArrayLists.getIrrigationArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_IRRIGATION_METHOD_ID);
 				displayDialog(v, m_entries, "irr_method_sel", "Select the irrigation method", R.raw.problems, R.id.dlg_lbl_method_irr, R.id.method_irr_tr, 0);
 			}
 		});
@@ -157,7 +157,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 				
-				ArrayList<DialogData> m_entries = DialogArrayLists.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_irr", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_irr, R.id.day_irr_tr, 0);
 			}
 

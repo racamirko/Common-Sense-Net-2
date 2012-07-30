@@ -26,12 +26,14 @@ public class Action {
 	private String mTreatment;
 	private String mTypeOfFert;
 	private String mUnits;
+	private int mUniqueIdServer;
+	private int mActionUserId;
 
 	public Action(int id, int actionNameId, int seedTypeId, int cropTypeId, int quantity1,
 			int quantity2, String units, int plotId, String typeOfFertilizer,
 			String problemType, String harvestFeedback, int sellingPrice,
 			String qualityOfSeed, String selltype, int sent, int isAdmin,
-			String date, String treatment, String pesticideType, int timestamp) {
+			String date, String treatment, String pesticideType, int timestamp, int uniqueIdServer, int actionUserId) {
 
 		mId = id;
 		mActionNameId = actionNameId;
@@ -53,8 +55,9 @@ public class Action {
 		mDate = date;
 		mTreatment = treatment;
 		mPestcideType = pesticideType;
-
 		mTimestamp = timestamp;
+		mUniqueIdServer=uniqueIdServer;
+		mActionUserId=actionUserId;
 	}
 
 	public int getActionNameId() {
@@ -135,5 +138,11 @@ public class Action {
 
 	public String getUnits() {
 		return mUnits;
+	}
+	public int getUniqueIdServer() {
+		return mUniqueIdServer;
+	}
+	public int getactionUserId() {
+		return mActionUserId;
 	}
 }

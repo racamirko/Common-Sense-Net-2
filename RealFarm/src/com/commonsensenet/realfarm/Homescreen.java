@@ -156,6 +156,17 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
 
+			//Fertilizing
+			mDataProvider.setFertilizing(1, 2,
+					"Complex","1L can(s)", "24.12", 0,0);
+			mDataProvider.setFertilizing(2, 2,
+					"Gypsum","cart load(s)", "25.12", 0,0);
+			mDataProvider.setFertilizing(1, 2,
+					"Urea","tractor load(s)", "26.12", 0,0);
+			mDataProvider.setFertilizing(2, 2,
+					"Super","1L can(s)", "27.12", 0,0);
+			
+			
 			// irrigating
 			mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Method 1", 0,
 					0);
@@ -662,6 +673,19 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		insertDemoData();
 
 		initActionListener();
+		
+	/*	System.out.println("*********************GETTING FERTILIZER ID**************************************");
+		mDataProvider.getFertIdIdFromFertilizer("Complex");
+		mDataProvider.getFertIdIdFromFertilizer("Compost");
+		mDataProvider.getFertIdIdFromFertilizer("DAP");
+		mDataProvider.getFertIdIdFromFertilizer("Farm Yard Manure / FYM");
+		mDataProvider.getFertIdIdFromFertilizer("Gypsum");
+		mDataProvider.getFertIdIdFromFertilizer("Potash");
+		mDataProvider.getFertIdIdFromFertilizer("Salt");
+		mDataProvider.getFertIdIdFromFertilizer("Super");
+		mDataProvider.getFertIdIdFromFertilizer("Urea");
+		mDataProvider.getFertIdIdFromFertilizer("Not in the list");*/
+		System.out.println("*********************DISPLAYED  FERTILIZER ID**************************************");
 
 	}
 
@@ -734,7 +758,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		mDataProvider.getUsers(); // User
 		mDataProvider.getActions(); // New action table
-		mDataProvider.getfertizing(); // Fertilizing action
+		mDataProvider.getfertilizing(); // Fertilizing action
 		mDataProvider.getspraying(); // Spraying action
 		mDataProvider.getharvesting(); // Harvesting acion
 		mDataProvider.getselling(); // Selling action

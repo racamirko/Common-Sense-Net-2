@@ -15,6 +15,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.model.DialogData;
 
 /**
  * Class to manage database, i.e., input, remove and read data.
@@ -82,7 +83,9 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_PESTICIDETYPE + " text, "
 					+ COLUMN_NAME_ACTION_IRRIGATE_METHOD + " text, "
 					+ COLUMN_NAME_ACTION_TIMESTAMP + " integer, "
-					+ COLUMN_NAME_ACTION_INTERCROP + " text " + " ); ");
+					+ COLUMN_NAME_ACTION_INTERCROP + " text, "
+					+ COLUMN_NAME_ACTION_UNIQUEIDSERVER + " integer, "
+					+ COLUMN_NAME_ACTION_USERID + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created action table");
 
 			// actionsNames
@@ -95,9 +98,24 @@ public class RealFarmDatabase {
 					+ " ); ");
 			Log.d(LOG_TAG, "Created actionName table");
 
+			// dialogArrays
+			db.execSQL("create table " + TABLE_NAME_DIALOG_ARRAYS + " ( "
+					+ COLUMN_NAME_DIALOG_ID + " integer primary key, "
+					+ COLUMN_NAME_DIALOG_NAME + " text, "
+					+ COLUMN_NAME_DIALOG_SHORTNAME + " text, "
+					+ COLUMN_NAME_DIALOG_RES + " integer, "
+					+ COLUMN_NAME_DIALOG_RES2 + " integer, "
+					+ COLUMN_NAME_DIALOG_AUDIO + " integer, "
+					+ COLUMN_NAME_DIALOG_VALUE + " integer, "
+					+ COLUMN_NAME_DIALOG_TYPE + " integer, "
+					+ COLUMN_NAME_DIALOG_NUMBER + " integer, "
+					+ COLUMN_NAME_DIALOG_RES_BG + " integer "
+					+ " ); ");
+			Log.d(LOG_TAG, "Created dialogArrays table");
+
 			// fertilizers
 			db.execSQL("create table " + TABLE_NAME_FERTILIZER + " ( "
-					+ COLUMN_NAME_FERTILIZER_ID + " integer primary key, "
+					+ COLUMN_NAME_FERTILIZER_ID + " integer , "
 					+ COLUMN_NAME_FERTILIZER_NAME + " text, "
 					+ COLUMN_NAME_FERTILIZER_AUDIO + " integer, "
 					+ COLUMN_NAME_FERTILIZER_RESOURCE + " integer, "
@@ -268,12 +286,25 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_INTERCROP = "intercrop";
 	public static final String COLUMN_NAME_ACTION_TYPEOFFERTILIZER = "typeOfFertilizer";
 	public static final String COLUMN_NAME_ACTION_UNITS = "units";
+	public static final String COLUMN_NAME_ACTION_UNIQUEIDSERVER = "uniqueIdServer";
+	public static final String COLUMN_NAME_ACTION_USERID = "actionUserId";
 
 	public static final String COLUMN_NAME_ACTIONNAME_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONNAME_ID = "id";
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_ACTIONNAME_NAMEKANNADA = "nameKannada";
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
+	
+	public static final String COLUMN_NAME_DIALOG_ID = "id";
+	public static final String COLUMN_NAME_DIALOG_NAME = "name";
+	public static final String COLUMN_NAME_DIALOG_SHORTNAME = "shortName";
+	public static final String COLUMN_NAME_DIALOG_RES = "res";
+	public static final String COLUMN_NAME_DIALOG_RES2 = "res2";
+	public static final String COLUMN_NAME_DIALOG_AUDIO = "audio";
+	public static final String COLUMN_NAME_DIALOG_VALUE = "value";
+	public static final String COLUMN_NAME_DIALOG_TYPE = "type";
+	public static final String COLUMN_NAME_DIALOG_NUMBER = "number";
+	public static final String COLUMN_NAME_DIALOG_RES_BG = "resBg";
 
 	public static final String COLUMN_NAME_FERTILIZER_AUDIO = "audio";
 	public static final String COLUMN_NAME_FERTILIZER_RESOURCE = "resource";
@@ -383,6 +414,7 @@ public class RealFarmDatabase {
 
 	public static final String TABLE_NAME_ACTION = "action"; // ok
 	public static final String TABLE_NAME_ACTIONNAME = "actionName"; // ok
+	public static final String TABLE_NAME_DIALOG_ARRAYS = "dialogArrays";
 	public static final String TABLE_NAME_FERTILIZER = "fertilizer";
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice"; // ok
 	public static final String TABLE_NAME_PESTICIDE = "pesticide";
@@ -419,6 +451,7 @@ public class RealFarmDatabase {
 		// Delete current elements in table
 		mDb.delete(TABLE_NAME_ACTIONNAME, null, null);
 		mDb.delete(TABLE_NAME_ACTION, null, null);
+		mDb.delete(TABLE_NAME_DIALOG_ARRAYS, null, null);
 		mDb.delete(TABLE_NAME_FERTILIZER, null, null);
 		mDb.delete(TABLE_NAME_PESTICIDE, null, null);
 		mDb.delete(TABLE_NAME_PESTICIDETYPE, null, null);
@@ -501,6 +534,15 @@ public class RealFarmDatabase {
 	public static final int ACTION_NAME_HARVEST_ID = 5;
 	public static final int ACTION_NAME_SELL_ID = 6;
 	public static final int ACTION_NAME_REPORT_ID = 4;
+	
+	public static final int DIALOG_MONTH_ID = 1;
+	public static final int DIALOG_TREATMENT_ID = 2;
+	public static final int DIALOG_INTERCRIOP_ID = 3;
+	public static final int DIALOG_IRRIGATION_METHOD_ID = 4;
+	public static final int DIALOG_SOIL_TYPE_ID = 5;
+	public static final int DIALOG_SMILEYS_ID = 6;
+	public static final int DIALOG_UNITS_ID = 7;
+
 
 	/**
 	 * Defines hard-coded initial values for database. All base tables and user
@@ -631,6 +673,84 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "pesticide works");
 
+		//dialogArrays
+		Object[][] dialogArrays = {
+				
+				{"01 January", "01", -1, -1, R.raw.jan, 1, DIALOG_MONTH_ID, -1, -1},
+				{"02 February", "02", -1, -1, R.raw.feb, 2, DIALOG_MONTH_ID,-1, -1},
+				{"03 March", "03", -1, -1, R.raw.mar, 3, DIALOG_MONTH_ID, -1,-1},
+				{"04 April", "04", -1, -1, R.raw.apr, 4, DIALOG_MONTH_ID, -1,-1},
+				{"05 May", "05", -1, -1, R.raw.may, 5, DIALOG_MONTH_ID, -1,-1},
+				{"06 June", "06", -1, -1, R.raw.jun, 6, DIALOG_MONTH_ID, -1,-1},
+				{"07 July", "07", -1, -1, R.raw.jul, 7, DIALOG_MONTH_ID, -1,-1},
+				{"08 August", "08", -1, -1, R.raw.aug, 8, DIALOG_MONTH_ID, -1,-1},
+				{"09 September", "09", -1, -1, R.raw.sep, 9, DIALOG_MONTH_ID, -1,-1},
+				{"10 October", "10", -1, -1, R.raw.oct, 10, DIALOG_MONTH_ID, -1,-1},
+				{"11 November", "11", -1, -1, R.raw.nov, 11, DIALOG_MONTH_ID, -1,-1},
+				{"12 December", "12", -1, -1, R.raw.dec, 12, DIALOG_MONTH_ID, -1, -1},
+				{"Treated", "Treated", R.drawable.ic_sowingseedtreated, -1, R.raw.bagof10kg, 1, DIALOG_TREATMENT_ID, -1,-1},
+				{"Not treated", "Not treated", R.drawable.ic_sowingseednottreated, -1, R.raw.bagof20kg, 2, DIALOG_TREATMENT_ID, -1,-1},
+				{"Main crop", "Main crop", R.drawable.ic_maincrop, -1, R.raw.bagof10kg, 1, DIALOG_INTERCRIOP_ID, -1,-1},
+				{"Intercrop", "Intercrop", R.drawable.ic_intercrop, -1, R.raw.bagof20kg, 2, DIALOG_INTERCRIOP_ID, -1,-1},
+				{"Flooding", "Flooding", R.drawable.ic_flooding, -1, R.raw.bagof10kg, 1, DIALOG_IRRIGATION_METHOD_ID, -1,-1},
+				{"Sprinkling", "Sprinkling", R.drawable.ic_sprinkling, -1, R.raw.bagof20kg, 2, DIALOG_IRRIGATION_METHOD_ID, -1,-1},
+				{"Loamy", "Loamy",-1, -1, R.raw.bagof10kg, 1, DIALOG_SOIL_TYPE_ID, -1,-1},
+				{"Sandy", "Sandy", -1, -1, R.raw.bagof20kg, 2, DIALOG_SOIL_TYPE_ID, -1,-1},
+				{"Clay", "Clay", -1, -1, R.raw.bagof50kg, 3, DIALOG_SOIL_TYPE_ID, -1,-1},
+				{"Good", "",  R.drawable.smiley_good, -1, R.raw.feedbackgood, 1, DIALOG_SMILEYS_ID, -1,-1},
+				{"Moderate", "",  R.drawable.smiley_medium, -1, R.raw.feedbackmoderate, 2, DIALOG_SMILEYS_ID, -1,-1},
+				{"Bad", "",  R.drawable.smiley_bad, -1, R.raw.feedbackbad, 3, DIALOG_SMILEYS_ID, -1,-1},
+				{"bag of 20 kgs", "20", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,20, DIALOG_UNITS_ID, 20,-1},
+				{"bag of 21 kgs", "21", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,21, DIALOG_UNITS_ID, 21,-1},
+				{"bag of 22 kgs", "22", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,22, DIALOG_UNITS_ID, 22,-1},
+				{"bag of 23 kgs", "23", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,23, DIALOG_UNITS_ID, 23,-1},
+				{"bag of 24 kgs", "24", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,24, DIALOG_UNITS_ID, 24,-1},
+				{"bag of 25 kgs", "25", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,25, DIALOG_UNITS_ID, 25,-1},
+				{"bag of 26 kgs", "26", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,26, DIALOG_UNITS_ID, 26,-1},
+				{"bag of 27 kgs", "27", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,27, DIALOG_UNITS_ID, 27,-1},
+				{"bag of 28 kgs", "28", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,28, DIALOG_UNITS_ID, 28,-1},
+				{"bag of 29 kgs", "29", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,29, DIALOG_UNITS_ID, 29,-1},
+				{"bag of 30 kgs", "30", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,30, DIALOG_UNITS_ID, 30,-1},
+				{"bag of 31 kgs", "31", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,31, DIALOG_UNITS_ID, 31,-1},
+				{"bag of 32 kgs", "32", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,32, DIALOG_UNITS_ID, 32,-1},
+				{"bag of 33 kgs", "33", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,33, DIALOG_UNITS_ID, 33,-1},
+				{"bag of 34 kgs", "34", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,34, DIALOG_UNITS_ID, 34,-1},
+				{"bag of 35 kgs", "35", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,35, DIALOG_UNITS_ID, 35,-1},
+				{"bag of 36 kgs", "36", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,36, DIALOG_UNITS_ID, 36,-1},
+				{"bag of 37 kgs", "37", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,37, DIALOG_UNITS_ID, 37,-1},
+				{"bag of 38 kgs", "38", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,38, DIALOG_UNITS_ID, 38,-1},
+				{"bag of 39 kgs", "39", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,39, DIALOG_UNITS_ID, 39,-1},
+				{"bag of 40 kgs", "40", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,40, DIALOG_UNITS_ID, 40,-1},
+				{"bag of 41 kgs", "41", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,41, DIALOG_UNITS_ID, 41,-1},
+				{"bag of 42 kgs", "42", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,42, DIALOG_UNITS_ID, 42,-1},
+				{"bag of 43 kgs", "43", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,43, DIALOG_UNITS_ID, 43,-1},
+				{"bag of 44 kgs", "44", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,44, DIALOG_UNITS_ID, 44,-1},
+				{"bag of 45 kgs", "45", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,45, DIALOG_UNITS_ID, 45,-1},
+				{"bag of 46 kgs", "46", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,46, DIALOG_UNITS_ID, 46,-1},
+				{"bag of 47 kgs", "47", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,47, DIALOG_UNITS_ID, 47,-1},
+				{"bag of 48 kgs", "48", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,48, DIALOG_UNITS_ID, 48,-1},
+				{"bag of 49 kgs", "49", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,49, DIALOG_UNITS_ID, 49,-1},
+				{"bag of 50 kgs", "50", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,50, DIALOG_UNITS_ID, 50,-1}
+		};
+		 
+		ContentValues dialogArray = new ContentValues();
+		for (int x = 0; x < dialogArrays.length; x++) {
+			dialogArray.put(COLUMN_NAME_DIALOG_ID, (x + 1));
+			dialogArray.put(COLUMN_NAME_DIALOG_NAME, (String) dialogArrays[x][0]);
+			dialogArray.put(COLUMN_NAME_DIALOG_SHORTNAME, (String) dialogArrays[x][1]);
+			dialogArray.put(COLUMN_NAME_DIALOG_RES, (Integer) dialogArrays[x][2]);
+			dialogArray.put(COLUMN_NAME_DIALOG_RES2, (Integer) dialogArrays[x][3]);
+			dialogArray.put(COLUMN_NAME_DIALOG_AUDIO, (Integer) dialogArrays[x][4]);
+			dialogArray.put(COLUMN_NAME_DIALOG_VALUE, (Integer) dialogArrays[x][5]);
+			dialogArray.put(COLUMN_NAME_DIALOG_TYPE, (Integer) dialogArrays[x][6]);
+			dialogArray.put(COLUMN_NAME_DIALOG_NUMBER, (Integer) dialogArrays[x][7]);
+			dialogArray.put(COLUMN_NAME_DIALOG_RES_BG, (Integer) dialogArrays[x][8]);
+			insertEntriesIntoDatabase(TABLE_NAME_DIALOG_ARRAYS, dialogArray, db);
+			dialogArray.clear();
+		}
+
+		Log.d(LOG_TAG, "dialog arrays works");
+
 		// fertilizer
 		Object[][] fertilizerData = {
 				{ "Complex", R.raw.audio1 , R.drawable.whitespaceicon, "Complex"},
@@ -720,7 +840,7 @@ public class RealFarmDatabase {
 		Object[][] unitData = {
 				{ "seru(s)", R.drawable.ic_seruunit, R.raw.audio1,  ACTION_NAME_HARVEST_ID},
 				{ "1L can(s)", R.drawable.ic_pesticideherbicidecan, R.raw.audio1 , ACTION_NAME_SPRAY_ID},
-				{ "bag(s) of 1 kg", R.drawable.ic_50kgbag, R.raw.audio1, ACTION_NAME_SPRAY_ID },
+				{ "bag(s) of 1 kg", R.drawable.onekgbagpesticides, R.raw.audio1, ACTION_NAME_SPRAY_ID },
 				{ "bag(s) of 50 kg", R.drawable.ic_50kgbag, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
 				{ "cart load(s)", R.drawable.ic_cartload, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
 				{ "tractor load(s)", R.drawable.ic_tractorload, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},

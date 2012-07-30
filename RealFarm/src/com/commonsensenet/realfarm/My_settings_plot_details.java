@@ -25,6 +25,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
@@ -32,7 +33,6 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.DialogAdapter;
-import com.commonsensenet.realfarm.view.DialogArrayLists;
 
 public class My_settings_plot_details extends HelpEnabledActivityOld {
 
@@ -177,7 +177,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
-				final ArrayList<DialogData> m_entries = DialogArrayLists.getSoilTypeArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_SOIL_TYPE_ID);
 				displayDialog(v, m_entries, "mSoilType", "Select the soil type", R.raw.problems, R.id.dlg_lbl_soil_plot, R.id.soiltype_tr, 0);
 
 			}

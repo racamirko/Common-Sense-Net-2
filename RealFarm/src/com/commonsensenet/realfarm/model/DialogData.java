@@ -8,34 +8,43 @@ public class DialogData {
     private int img2Res = -1;
     private int audioRes = -1;
     private String value;
-    private String number = "";
     private int backgroundRes = -1;
+    private int number = -1;
     
     public DialogData (){
     }
     
-    public DialogData (String name, int imgRes, int img2Res, int audioRes, String value, String number, int backgroundRes){
+    public DialogData (String name, int imgRes, int img2Res, int audioRes, String value, int backgroundRes){
     	this.name = name;
     	this.imgRes = imgRes;
     	this.img2Res = img2Res;
     	this.audioRes = audioRes;
     	this.value = value;
-    	this.number = number;
     	this.backgroundRes = backgroundRes;
         this.shortName = name;
     }
     
-    public DialogData (String name, String shortName, int imgRes, int img2Res, int audioRes, String value, String number, int backgroundRes){
+    public DialogData (String name, String shortName, int imgRes, int img2Res, int audioRes, String value, int backgroundRes, int number){
     	this.name = name;
     	this.imgRes = imgRes;
     	this.img2Res = img2Res;
     	this.audioRes = audioRes;
     	this.value = value;
-    	this.number = number;
+    	this.backgroundRes = backgroundRes;
+        this.shortName = shortName;
+        this.number = number;
+    }
+   
+    public DialogData (String name, String shortName, int imgRes, int img2Res, int audioRes, String value, int backgroundRes){
+    	this.name = name;
+    	this.imgRes = imgRes;
+    	this.img2Res = img2Res;
+    	this.audioRes = audioRes;
+    	this.value = value;
     	this.backgroundRes = backgroundRes;
         this.shortName = shortName;
     }
-   
+    
     public String getName() {
         return name;
     }
@@ -73,16 +82,16 @@ public class DialogData {
     public void setValue(String value) {
         this.value = value;
     }
-    public String getNumber() {
-        return number;
-    }
-    public void setNumber(String number) {
-        this.number = number;
-    }
     public int getBackgroundRes() {
         return backgroundRes;
     }
     public void setBackground(int background) {
         this.backgroundRes = background;
+    }
+    public int getNumber() {
+        return number;
+    }
+    public void setNumber(int number) {
+        this.number = number;
     }
 }

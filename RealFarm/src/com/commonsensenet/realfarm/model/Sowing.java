@@ -1,47 +1,52 @@
 package com.commonsensenet.realfarm.model;
 
-public class Spraying {
+public class Sowing {
 
 	private int mactionid;
 	private int mactionNameId;
+	private String mactionType;
 	private int mQuantity1;
+	private int mseedTypeId;
 	private String mUnits;
 	private String mday;
 	private int muserid;
 	private int mplotid;
-	private String mprobType;
 	private int msent;
 	private int mIsadmin;
-	private String mPestcideType;;
+	private String mTreatment;
+	private String mInterCrop;
 
-	public Spraying(int actionid, int actionNameid, int quantity1,
-			String Units, int plotid, String probType,int sent, int Isadmin,
-			 String day, String PestcideType, int userid) {
+	public Sowing(int actionid, int actionNameId , int quantity1,
+			int seedTypeId , String Units, int plotid,int sent, int Isadmin,
+			String day, String Treatment,String intercrop, int userId) {
 
 		mactionid = actionid;
+		mactionNameId=actionNameId;
 		mQuantity1 = quantity1;
-		mactionNameId=actionNameid;
+		mseedTypeId = seedTypeId;
 		mUnits = Units;
 		mday = day;
-		muserid = userid;
+		muserid = userId;
 		mplotid = plotid;
-		mprobType = probType;
 		msent = sent;
 		mIsadmin = Isadmin;
-	    mPestcideType = PestcideType;
-
+		 mTreatment = Treatment;
+		 mInterCrop=intercrop;
 	}
 
 	public int getActionId() {
 		return mactionid;
 	}
 
-	public int getactionNameId() {
-		return mactionNameId;
+	 public int getActionNameId() {
+	 return mactionNameId;
+	 }
+		public int getquantity1() {
+		return mQuantity1;
 	}
 
-	public int getquantity1() {
-		return mQuantity1;
+	public int getSeedTypeId() {
+		return mseedTypeId;
 	}
 
 	public String getUnits() {
@@ -60,10 +65,6 @@ public class Spraying {
 		return mplotid;
 	}
 
-	public String getProbtype() {
-		return mprobType;
-	}
-
 	public int getsent() {
 		return msent;
 	}
@@ -72,8 +73,13 @@ public class Spraying {
 		return mIsadmin;
 	}
 
-	public String getPesticidtype() {
-		return mPestcideType;
+
+	public String getreatment() {
+		return mTreatment;
+	}
+	
+	public String getInterCrop() {
+		return mInterCrop;
 	}
 
 }

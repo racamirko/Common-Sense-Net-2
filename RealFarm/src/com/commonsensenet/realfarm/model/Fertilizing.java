@@ -3,7 +3,7 @@ package com.commonsensenet.realfarm.model;
 public class Fertilizing {
 
 	private int mactionid;
-	private String mactionType;
+	private int mactionNameId;
 	private int mQuantity1;
 	private String mTypeofFert;
 	private String mUnits;
@@ -12,16 +12,13 @@ public class Fertilizing {
 	private int mplotid;
 	private int msend;
 	private int mIsadmin;
-	private String mActionPerformedDate;
+	
 
-	// private String mTreatment;
-
-	public Fertilizing(int actionid, String actionType, int qua1,
-			String TypeofFert, String Units, String day, int userid,
-			int plotid, int send, int Isadmin, String ActionPerformedDate) {
+	public Fertilizing(int actionid, int  actionNameId, int qua1,
+			String TypeofFert, String Units,
+			int plotid, int send, int Isadmin, String day, int userid) {
 
 		mactionid = actionid;
-		mactionType = actionType;
 		mQuantity1 = qua1;
 		mTypeofFert = TypeofFert;
 		mUnits = Units;
@@ -30,16 +27,15 @@ public class Fertilizing {
 		mplotid = plotid;
 		msend = send;
 		mIsadmin = Isadmin;
-		mActionPerformedDate = ActionPerformedDate;
-
+		mactionNameId=actionNameId;
 	}
 
 	public int getActionId() {
 		return mactionid;
 	}
 
-	public String getActionType() {
-		return mactionType;
+	public int getActionNameId() {
+		return mactionNameId;
 	}
 
 	public int getquantity1() {
@@ -74,8 +70,6 @@ public class Fertilizing {
 		return mIsadmin;
 	}
 
-	public String getactionPerfDate() {
-		return mActionPerformedDate;
-	}
+
 
 }
