@@ -75,8 +75,6 @@ public class PlotItemWrapper {
 		// TODO: this shouldn't be done here due to performance issues!!!
 		SeedType seed = provider.getSeedById(plot.getSeedTypeId());
 
-		System.out.print("Plot image name" + plot.getImagePath());
-
 		// Bitmap bitmap = BitmapFactory.decodeFile(plot.getImageName());
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inTempStorage = new byte[16 * 1024];

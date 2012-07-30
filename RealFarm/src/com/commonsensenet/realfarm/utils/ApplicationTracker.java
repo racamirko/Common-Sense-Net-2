@@ -142,7 +142,7 @@ public class ApplicationTracker {
 			}
 		} else {
 
-			// creates a string with all the availble objects.
+			// creates a string with all the available objects.
 			StringBuilder sb = new StringBuilder();
 			for (int i = 0; i < args.length; i++) {
 				// appends the next object.

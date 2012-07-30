@@ -1270,8 +1270,8 @@ containing a value of this type.
         public static final int icon_dialog_aggregate_crop=0x7f060073;
         public static final int icon_dialog_aggregate_detail=0x7f060076;
         public static final int icon_diary=0x7f060029;
-        public static final int icon_diary_action=0x7f060139;
-        public static final int icon_diary_crop=0x7f06013a;
+        public static final int icon_diary_action=0x7f06013a;
+        public static final int icon_diary_plot=0x7f060139;
         public static final int icon_plot=0x7f06013c;
         public static final int icon_plot_crop=0x7f06013d;
         public static final int icon_user_aggregate_call=0x7f06014b;

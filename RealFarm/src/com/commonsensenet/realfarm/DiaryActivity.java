@@ -3,6 +3,9 @@ package com.commonsensenet.realfarm;
 import java.util.List;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
@@ -15,13 +18,14 @@ import com.commonsensenet.realfarm.view.ActionItemAdapter;
  * @author Oscar Bola–os <@oscarbolanos>
  * 
  */
-public class DiaryActivity extends HelpEnabledActivity {
+public class DiaryActivity extends HelpEnabledActivity implements
+		OnItemClickListener {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the actions. */
 	private ActionItemAdapter mActionItemAdapter;
-	/** ListView where the plots are rendered. */
-	private ListView mPlotsListView;
+	/** ListView where the diary is rendered. */
+	private ListView mDiaryListView;
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -39,10 +43,20 @@ public class DiaryActivity extends HelpEnabledActivity {
 		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);
 
 		// gets the list from the UI.
-		mPlotsListView = (ListView) findViewById(R.id.list_diary);
-		mPlotsListView.setItemsCanFocus(true);
-
+		mDiaryListView = (ListView) findViewById(R.id.list_diary);
+		// enables the focus on the items.
+		mDiaryListView.setItemsCanFocus(true);
 		// sets the custom adapter.
-		mPlotsListView.setAdapter(mActionItemAdapter);
+		mDiaryListView.setAdapter(mActionItemAdapter);
+		// detects when a diary item has been touched.
+		mDiaryListView.setOnItemClickListener(this);
+	}
+
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		// gets the selected view using the position
+		// Action selectedAction = mActionItemAdapter.getItem(position);
+
+		// TODO: play sound based on the selectedAction.
 	}
 }

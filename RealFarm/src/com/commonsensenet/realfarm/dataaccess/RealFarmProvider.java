@@ -115,8 +115,6 @@ public class RealFarmProvider {
 
 			tmpAction = new ActionName(actionNameId, c.getString(0),
 					c.getString(1), c.getInt(2), c.getInt(3));
-			System.out.println(c.getString(0) + " " + c.getString(1) + " "
-					+ c.getInt(2) + " " + c.getInt(3));
 		}
 		c.close();
 		mDatabase.close();
@@ -757,6 +755,40 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public Plot getPlotById(int plotId) {
+
+		mDatabase.open();
+
+		// query all actions
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE },
+				RealFarmDatabase.COLUMN_NAME_PLOT_ID + "=" + plotId, null,
+				null, null, null);
+
+		Plot p = null;
+		if (c.moveToFirst()) {
+			do {
+				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
+						c.getString(3), c.getString(4), c.getInt(5),
+						c.getInt(6), c.getInt(7), c.getFloat(8));
+
+				Log.d("plot values: ", p.toString());
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+		return p;
+	}
+
 	// modified(You can take seedtypyId corresponding to the userId and plotId)
 	public List<Plot> getPlotsByUserIdAndDeleteFlag(int userId, int delete) {
 
@@ -788,45 +820,6 @@ public class RealFarmProvider {
 						c.getString(3), c.getString(4), c.getInt(5),
 						c.getInt(6), c.getInt(7), c.getFloat(8));
 				tmpList.add(p);
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-		return tmpList;
-	}
-
-	// modified(You can take seedtypyId corresponding to the userId and plotId)
-	public List<Plot> getPlotsByUserIdAndPlotId(int userId, int plotId) {
-		// opens the database.
-		List<Plot> tmpList = new ArrayList<Plot>();
-
-		mDatabase.open();
-
-		// query all actions
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
-						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE },
-				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
-						+ " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_ID + "="
-						+ plotId + "", null, null, null, null);
-
-		Plot p = null;
-		if (c.moveToFirst()) {
-			do {
-				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getString(4), c.getInt(5),
-						c.getInt(6), c.getInt(7), c.getFloat(8));
-				tmpList.add(p);
-
-				Log.d("plot values: ", p.toString());
 			} while (c.moveToNext());
 		}
 
@@ -914,22 +907,6 @@ public class RealFarmProvider {
 
 		SeedType res = null;
 		mDatabase.open();
-		/*
-		 * Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
-		 * new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-		 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
-		 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
-		 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-		 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-		 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
-		 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG },
-		 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null, null,
-		 * null, null);
-		 * 
-		 * if (c.moveToFirst()) { res = new SeedType(seedId, c.getString(0),
-		 * c.getString(1), c.getInt(2), c.getInt(3), c.getString(4),
-		 * c.getString(5), c.getInt(6)); }
-		 */
 
 		seedId = 1;
 
@@ -959,30 +936,6 @@ public class RealFarmProvider {
 
 			mAllSeeds = new ArrayList<SeedType>();
 			mDatabase.open();
-
-			/*
-			 * Cursor c = mDatabase .getAllEntries(
-			 * RealFarmDatabase.TABLE_NAME_SEEDTYPE, new String[] {
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETY,
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_VARIETYKANNADA,
-			 * RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE_BG });
-			 * 
-			 * if (c.moveToFirst()) { do { SeedType s = new
-			 * SeedType(c.getInt(0), c.getString(1), c.getString(2),
-			 * c.getInt(3), c.getInt(4), c.getString(5), c.getString(6),
-			 * c.getInt(7)); mAllSeeds.add(s);
-			 * 
-			 * Log.d("seed type: ", s.toString());
-			 * 
-			 * } while (c.moveToNext());
-			 * 
-			 * }
-			 */
 
 			Cursor c = mDatabase.getAllEntries(
 					RealFarmDatabase.TABLE_NAME_CROP, new String[] {
@@ -1179,19 +1132,16 @@ public class RealFarmProvider {
 		// user exists in database
 		if (c.moveToFirst()) {
 
-			// tmpUser = new User(userId, c.getString(0), c.getString(1),
-			// c.getString(2), c.getString(3));
-
 			tmpUser = new User(userId, c.getString(0), c.getString(1),
 					c.getString(2), c.getString(3), c.getInt(4), c.getInt(5),
 					c.getInt(6));
 		}
 
+		// closes the cursor and database.
 		c.close();
 		mDatabase.close();
 
 		return tmpUser;
-
 	}
 
 	public User getUserByMobile(String deviceId) {
@@ -1251,9 +1201,6 @@ public class RealFarmProvider {
 	public List<User> getUserDelete(int delete) {
 
 		mDatabase.open();
-		// int delete=0;
-
-		System.out.println("In getuserDelete");
 
 		List<User> tmpList;
 
@@ -1563,7 +1510,6 @@ public class RealFarmProvider {
 
 	public long setDeleteFlagForPlot(int plotId) {
 
-		System.out.println("in setDeleteFlagForPlot ");
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG, 1);
 
@@ -1576,13 +1522,11 @@ public class RealFarmProvider {
 				null);
 
 		mDatabase.close();
-		System.out.println(result);
 		return result;
 	}
 
 	public long setDeleteFlagForUser(int userid) {
 
-		System.out.println("in setDeleteFlagForUser ");
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG, 1);
 
@@ -1595,7 +1539,6 @@ public class RealFarmProvider {
 				null);
 
 		mDatabase.close();
-		System.out.println(result);
 		return result;
 	}
 
@@ -1603,7 +1546,6 @@ public class RealFarmProvider {
 			String typeOfFertilizer, String units, String day, int sent,
 			int admin) {
 
-		System.out.println("SET fertilizing");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
@@ -1634,7 +1576,6 @@ public class RealFarmProvider {
 			String Units, String day, String harvfeedback, int sent, int admin,
 			int varietyId) {
 
-		System.out.println("SET harvest");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
@@ -1668,7 +1609,6 @@ public class RealFarmProvider {
 	public long setIrrigation(long plotId, int qua1, String units, String day,
 			String method, int sent, int admin) {
 
-		System.out.println("SET IRRIGATION");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
@@ -1732,7 +1672,6 @@ public class RealFarmProvider {
 	public long setProblem(long plotId, String day, String probType, int sent,
 			int admin, String crop) {
 
-		System.out.println("SET PROBLEM");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
@@ -1763,7 +1702,6 @@ public class RealFarmProvider {
 			String day, int sellingprice, String QuaOfSeed, String selltype,
 			int sent, int admin) {
 
-		System.out.println("SET selling");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
@@ -1795,7 +1733,6 @@ public class RealFarmProvider {
 			String units, String day, String treat, int sent, int admin,
 			String intercrop) {
 
-		System.out.println("SET SOWING");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
@@ -1828,7 +1765,6 @@ public class RealFarmProvider {
 			String Units, String day, String probtype, int sent, int admin,
 			String pesttype) {
 
-		System.out.println("SET spraying");
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
@@ -1856,7 +1792,6 @@ public class RealFarmProvider {
 
 	public long setUserInfo(String deviceId, String firstname, String lastname) {
 
-		getUserCount();
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILE, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
@@ -1880,8 +1815,9 @@ public class RealFarmProvider {
 		}
 
 		// if main id is undefined and result is good
-		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1))
+		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1)) {
 			RealFarmDatabase.MAIN_USER_ID = (int) result;
+		}
 
 		mDatabase.close();
 
@@ -1893,7 +1829,7 @@ public class RealFarmProvider {
 		sWeatherForecastDataListener = listener;
 	}
 
-	public int getFertIdIdFromFertilizer(String fert_text) { // 27-07-2012
+	public int getFertIdIdFromFertilizer(String text) {
 
 		int fert_id = 0;
 		final String MY_QUERY = "SELECT * FROM fertilizer";
@@ -1904,12 +1840,8 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				if (c.getString(1).equals(fert_text)) {
+				if (c.getString(1).equals(text)) {
 					fert_id = c.getInt(0);
-					// System.out.println(c.getString(1) + "\r\n");
-					// System.out.println(fert_id + "\r\n");
-					// System.out.println("In fert id");
-
 				}
 
 			} while (c.moveToNext());
@@ -1922,9 +1854,9 @@ public class RealFarmProvider {
 
 	}
 
-	public int getProblemIdFromProblem(String problem_text) { // 27-07-2012
+	public int getProblemIdFromProblem(String text) {
 
-		int problem_id = 0;
+		int problemId = 0;
 		final String MY_QUERY = "SELECT * FROM problem";
 
 		mDatabase.open();
@@ -1933,11 +1865,8 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				if (c.getString(1).equals(problem_text)) {
-					problem_id = c.getInt(0);
-					System.out.println(c.getString(1) + "\r\n");
-					System.out.println(problem_id + "\r\n");
-					System.out.println("In problem id");
+				if (c.getString(1).equals(text)) {
+					problemId = c.getInt(0);
 
 				}
 
@@ -1947,13 +1876,13 @@ public class RealFarmProvider {
 		c.close();
 		mDatabase.close();
 
-		return problem_id;
+		return problemId;
 
 	}
 
-	public int getUnitIdIdFromUnit(String unit_text) { // 27-07-2012
+	public int getUnitIdIdFromUnit(String text) {
 
-		int unit_id = 0;
+		int unitId = 0;
 		final String MY_QUERY = "SELECT * FROM unit";
 
 		mDatabase.open();
@@ -1962,12 +1891,8 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				if (c.getString(1).equals(unit_text)) {
-					unit_id = c.getInt(0);
-					System.out.println(c.getString(1) + "\r\n");
-					System.out.println(unit_id + "\r\n");
-					System.out.println("In unit id");
-
+				if (c.getString(1).equals(text)) {
+					unitId = c.getInt(0);
 				}
 
 			} while (c.moveToNext());
@@ -1976,13 +1901,13 @@ public class RealFarmProvider {
 		c.close();
 		mDatabase.close();
 
-		return unit_id;
+		return unitId;
 
 	}
 
-	public int getPestIdIdIdFromPest(String pest_text) { // 27-07-2012
+	public int getPestIdIdIdFromPest(String text) {
 
-		int pest_id = 0;
+		int pestId = 0;
 		final String MY_QUERY = "SELECT * FROM pesticide";
 
 		mDatabase.open();
@@ -1991,12 +1916,8 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				if (c.getString(1).equals(pest_text)) {
-					pest_id = c.getInt(0);
-					System.out.println(c.getString(1) + "\r\n");
-					System.out.println(pest_id + "\r\n");
-					System.out.println("In pesticide id");
-
+				if (c.getString(1).equals(text)) {
+					pestId = c.getInt(0);
 				}
 
 			} while (c.moveToNext());
@@ -2005,8 +1926,6 @@ public class RealFarmProvider {
 		c.close();
 		mDatabase.close();
 
-		return pest_id;
-
+		return pestId;
 	}
-
 }

@@ -46,7 +46,7 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Indicates whether the demo data has been inserted or not. */
-	public static boolean IS_INITIALIZED = false;
+	public static boolean IS_INITIALIZED = true;
 	/** Tag used to log the App activity. */
 	public static String LOG_TAG = "Homescreen";
 
