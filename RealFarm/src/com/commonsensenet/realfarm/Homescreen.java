@@ -129,8 +129,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			for (int x = 0; x < plotData.length; x++) {
 				long plotId = mDataProvider.insertPlot(
 						(Integer) plotData[x][0], seeds.get(x).getId(),
-						(String) plotData[x][2], (String) plotData[x][3], 3.0f,
-						0, 0);
+						(String) plotData[x][2], (String) plotData[x][3], 0, 0, 3);
 				// updates the id if I am the owner
 				if ((Integer) plotData[x][0] == Global.userId) {
 					Global.plotId = plotId;
@@ -187,11 +186,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	protected void launchActionIntent() {
-		if (Global.selectedAction == action_selling.class) { // Temporary fix
-			this.startActivity(new Intent(this, Global.selectedAction));
+		if(Global.selectedAction == action_selling.class) { // Temporary fix
+			this.startActivity(new Intent(this, Global.selectedAction)); 
 			return;
 		}
-
+		
 		Intent intent = null;
 		int plotCount = mDataProvider.getPlotsByUserIdAndDeleteFlag(
 				Global.userId, 0).size();
@@ -305,44 +304,29 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			this.startActivity(inte);
 			return;
 		}
-
-		if (v.getId() == R.id.btn_action_spray) {/*
-												 * TODO inte = new Intent(this,
-												 * ActionAggregateActivity
-												 * .class);
-												 * inte.putExtra("actionName",
-												 * RealFarmDatabase
-												 * .ACTION_NAME_SOW_ID);
-												 * this.startActivity(inte);
-												 */
+		
+		if (v.getId() == R.id.btn_action_spray) {/* TODO
+			inte = new Intent(this, ActionAggregateActivity.class);
+			inte.putExtra("actionName", RealFarmDatabase.ACTION_NAME_SOW_ID);
+			this.startActivity(inte);*/
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_yield) { /*
-												 * TODO Log.d(LOG_TAG,
-												 * "Starting yield info"); inte
-												 * = new Intent(this,
-												 * yielddetails.class);
-												 * inte.putExtra("type",
-												 * "yield");
-												 * this.startActivity(inte);
-												 * this.finish();
-												 */
+		if (v.getId() == R.id.hmscrn_btn_yield) { /* TODO
+			Log.d(LOG_TAG, "Starting yield info");
+			inte = new Intent(this, yielddetails.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();*/
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_market) { /*
-													 * TODO System.out.println(
-													 * "Market Price details clicked"
-													 * ); inte = new
-													 * Intent(this,
-													 * Marketprice_details
-													 * .class); //
-													 * inte.putExtra("type",
-													 * "yield");
-													 * this.startActivity(inte);
-													 * this.finish();
-													 */
+		if (v.getId() == R.id.hmscrn_btn_market) { /* TODO
+			System.out.println("Market Price details clicked");
+			inte = new Intent(this, Marketprice_details.class);
+			// inte.putExtra("type", "yield");
+			this.startActivity(inte);
+			this.finish();*/
 			return;
 		}
 
@@ -780,21 +764,23 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		mDataProvider.getselling(); // Selling action
 		mDataProvider.getMarketPrices(); // Market price
 		mDataProvider.getPlots(); // New plot list
+		//mDataProvider.getSeeds(); // Seed type
 		mDataProvider.getActionNames(); // Action names
-
+		mDataProvider.getFertilizer(); // Fertilizer
+		mDataProvider.getPesticides(); // Pesticides
 	}
-
+	
 	public boolean onLongClick(View v) { // TODO: replace all sounds
 		Log.i(LOG_TAG, "Long click");
 
 		if (v.getId() == R.id.hmscrn_btn_market) {
 			playAudioAlways(R.raw.problems);
 		}
-
+		
 		if (v.getId() == R.id.hmscrn_btn_yield) {
 			playAudioAlways(R.raw.problems);
 		}
-
+		
 		if (v.getId() == R.id.hmscrn_btn_advice) {
 			playAudioAlways(R.raw.problems);
 		}
@@ -810,7 +796,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.btn_action_fertilize) {
 			playAudioAlways(R.raw.problems);
 		}
-
+		
 		if (v.getId() == R.id.btn_action_spray) {
 			playAudioAlways(R.raw.problems);
 		}
@@ -850,7 +836,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.hmscrn_btn_sound) {
 			playAudioAlways(R.raw.problems);
 		}
-
+		
 		if (v.getId() == R.id.button_action_sow) {
 			playAudioAlways(R.raw.problems);
 		}
@@ -866,7 +852,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.button_action_report) {
 			playAudioAlways(R.raw.problems);
 		}
-
+		
 		if (v.getId() == R.id.button_action_irrigate) {
 			playAudioAlways(R.raw.problems);
 		}
@@ -878,7 +864,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.button_action_sell) {
 			playAudioAlways(R.raw.problems);
 		}
-
+		
 		return true;
 	}
 }
