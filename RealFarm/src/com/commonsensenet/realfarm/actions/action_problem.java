@@ -154,20 +154,13 @@ public class action_problem extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_prob", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_prob, R.id.day_prob_tr, 0);
-	
-=======
 
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_prob", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_prob,
 						R.id.day_prob_tr, 0);
 
->>>>>>> Modified DB to include the Resources table
 			}
 
 		});
@@ -392,8 +385,8 @@ public class action_problem extends HelpEnabledActivityOld {
 		playAudio(entryAudio); // TODO: onOpen
 
 		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-																	// the audio
-																	// in the db
+			// the audio
+			// in the db
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// Does whatever is specific to the application

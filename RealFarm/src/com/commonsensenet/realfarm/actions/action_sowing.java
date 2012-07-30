@@ -179,18 +179,12 @@ public class action_sowing extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in treatment sow dialog", "in dialog");
 
-<<<<<<< HEAD
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_TREATMENT_ID);
-				displayDialog(v, m_entries, "treatment_sow", "Select if the seeds were treated", R.raw.bagof50kg, R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
-		
-=======
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getTreatmentArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_TREATMENT_ID);
 				displayDialog(v, m_entries, "treatment_sow",
 						"Select if the seeds were treated", R.raw.bagof50kg,
 						R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
 
->>>>>>> Modified DB to include the Resources table
 			}
 		});
 
@@ -212,18 +206,12 @@ public class action_sowing extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in intercrop sow dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_INTERCRIOP_ID);
-				displayDialog(v, m_entries, "cropType_sow", "Main crop or intercrop?", R.raw.bagof50kg, R.id.dlg_lbl_intercrop_sow, R.id.intercrop_sow_tr, 0);
-=======
 
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getIntercropArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_INTERCRIOP_ID);
 				displayDialog(v, m_entries, "cropType_sow",
 						"Main crop or intercrop?", R.raw.bagof50kg,
 						R.id.dlg_lbl_intercrop_sow, R.id.intercrop_sow_tr, 0);
->>>>>>> Modified DB to include the Resources table
 
 			}
 		});
@@ -233,16 +221,13 @@ public class action_sowing extends HelpEnabledActivityOld {
 				Log.d("in treat sow dialog", "in dialog");
 
 				stopaudio();
-<<<<<<< HEAD
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_sow", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_sow, R.id.day_sow_tr, 0);
-=======
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getMonthArray(v);
+
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_sow", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_sow,
 						R.id.day_sow_tr, 0);
->>>>>>> Modified DB to include the Resources table
+
 			}
 
 		});
@@ -277,8 +262,6 @@ public class action_sowing extends HelpEnabledActivityOld {
 				day_sow_int = Integer.parseInt(resultsMap.get("day_sow_int"));
 				sow_no = Integer.parseInt(resultsMap.get("sow_no"));
 
-				// Toast.makeText(action_sowing.this, "User enetred " +
-				// sow_no_sel + "kgs", Toast.LENGTH_LONG).show();
 				int flag1, flag2, flag3, flag4, flag5;
 				if (seed_sow == 0) {
 					flag1 = 1;
@@ -298,7 +281,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 							.setBackgroundResource(android.R.drawable.list_selector_background);
 				}
 
-				if (/* units_sow.toString().equalsIgnoreCase("0") || */sow_no == 0) {
+				if (sow_no == 0) {
 
 					flag2 = 1;
 

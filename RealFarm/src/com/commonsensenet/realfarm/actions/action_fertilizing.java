@@ -6,7 +6,6 @@ import java.util.HashMap;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.database.Cursor;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
@@ -179,18 +178,12 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 			public void onClick(View v) {
 				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_fert", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_fert, R.id.day_fert_tr, 0);
-=======
 
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_fert", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_fert,
 						R.id.day_fert_tr, 0);
->>>>>>> Modified DB to include the Resources table
 			}
 
 		});
@@ -208,82 +201,100 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						LOG_TAG, "cancel");
-	/*			System.out.println("*********************GETTING FERTILIZER ID**************************************");
-				
-				mDataProvider.getFertIdIdFromFertilizer("Complex");
-				mDataProvider.getFertIdIdFromFertilizer("Compost");
-				mDataProvider.getFertIdIdFromFertilizer("DAP");
-				mDataProvider.getFertIdIdFromFertilizer("Farm Yard Manure / FYM");
-				mDataProvider.getFertIdIdFromFertilizer("Gypsum");
-				mDataProvider.getFertIdIdFromFertilizer("Potash");
-				mDataProvider.getFertIdIdFromFertilizer("Salt");
-				mDataProvider.getFertIdIdFromFertilizer("Super");
-				mDataProvider.getFertIdIdFromFertilizer("Urea");
-				mDataProvider.getFertIdIdFromFertilizer("Not in the list");
-				
-				System.out.println("*********************DISPLAYED  FERTILIZER ID**************************************");
-System.out.println("*********************GETTING UNIT ID**************************************");
-				
-				mDataProvider.getUnitIdIdFromUnit("seru(s)");
-				mDataProvider.getUnitIdIdFromUnit("1L can(s)");
-				mDataProvider.getUnitIdIdFromUnit("bag(s) of 1 kg");
-				mDataProvider.getUnitIdIdFromUnit("bag(s) of 50 kg");
-				mDataProvider.getUnitIdIdFromUnit("cart load(s)");
-				mDataProvider.getUnitIdIdFromUnit("tractor load(s)");
-				mDataProvider.getUnitIdIdFromUnit("unknown");
-				mDataProvider.getUnitIdIdFromUnit("none");
-			
-				System.out.println("*********************DISPLAYED  UNIT ID**************************************");
-System.out.println("*********************GETTING PROBLEM ID**************************************");
-				
-				mDataProvider.getProblemIdFromProblem("Late leaf spot");
-				mDataProvider.getProblemIdFromProblem("Pod rot");
-				mDataProvider.getProblemIdFromProblem("Unknown disease");
-				mDataProvider.getProblemIdFromProblem("Disease not listed");
-				mDataProvider.getProblemIdFromProblem("Aphids");
-				mDataProvider.getProblemIdFromProblem("Leaf miner");
-				mDataProvider.getProblemIdFromProblem("Pod borer");
-				mDataProvider.getProblemIdFromProblem("Red hairy caterpillar");
-				mDataProvider.getProblemIdFromProblem("Root grub");
-				mDataProvider.getProblemIdFromProblem("Unknown pest");
-				mDataProvider.getProblemIdFromProblem("Pest not listed");
-				mDataProvider.getProblemIdFromProblem("Low growth");
-				mDataProvider.getProblemIdFromProblem("Pegs not developed");
-				mDataProvider.getProblemIdFromProblem("Pod germination");
-				mDataProvider.getProblemIdFromProblem("Reduced flowering");
-				mDataProvider.getProblemIdFromProblem("Rot of stalks");
-				mDataProvider.getProblemIdFromProblem("Too much vegetative growth");
-				mDataProvider.getProblemIdFromProblem("Weeds");
-				mDataProvider.getProblemIdFromProblem("Wild boar");
-				mDataProvider.getProblemIdFromProblem("Problem not listed");
-				
+				/*
+				 * System.out.println(
+				 * "*********************GETTING FERTILIZER ID**************************************"
+				 * );
+				 * 
+				 * mDataProvider.getFertIdIdFromFertilizer("Complex");
+				 * mDataProvider.getFertIdIdFromFertilizer("Compost");
+				 * mDataProvider.getFertIdIdFromFertilizer("DAP");
+				 * mDataProvider.
+				 * getFertIdIdFromFertilizer("Farm Yard Manure / FYM");
+				 * mDataProvider.getFertIdIdFromFertilizer("Gypsum");
+				 * mDataProvider.getFertIdIdFromFertilizer("Potash");
+				 * mDataProvider.getFertIdIdFromFertilizer("Salt");
+				 * mDataProvider.getFertIdIdFromFertilizer("Super");
+				 * mDataProvider.getFertIdIdFromFertilizer("Urea");
+				 * mDataProvider.getFertIdIdFromFertilizer("Not in the list");
+				 * 
+				 * System.out.println(
+				 * "*********************DISPLAYED  FERTILIZER ID**************************************"
+				 * ); System.out.println(
+				 * "*********************GETTING UNIT ID**************************************"
+				 * );
+				 * 
+				 * mDataProvider.getUnitIdIdFromUnit("seru(s)");
+				 * mDataProvider.getUnitIdIdFromUnit("1L can(s)");
+				 * mDataProvider.getUnitIdIdFromUnit("bag(s) of 1 kg");
+				 * mDataProvider.getUnitIdIdFromUnit("bag(s) of 50 kg");
+				 * mDataProvider.getUnitIdIdFromUnit("cart load(s)");
+				 * mDataProvider.getUnitIdIdFromUnit("tractor load(s)");
+				 * mDataProvider.getUnitIdIdFromUnit("unknown");
+				 * mDataProvider.getUnitIdIdFromUnit("none");
+				 * 
+				 * System.out.println(
+				 * "*********************DISPLAYED  UNIT ID**************************************"
+				 * ); System.out.println(
+				 * "*********************GETTING PROBLEM ID**************************************"
+				 * );
+				 * 
+				 * mDataProvider.getProblemIdFromProblem("Late leaf spot");
+				 * mDataProvider.getProblemIdFromProblem("Pod rot");
+				 * mDataProvider.getProblemIdFromProblem("Unknown disease");
+				 * mDataProvider.getProblemIdFromProblem("Disease not listed");
+				 * mDataProvider.getProblemIdFromProblem("Aphids");
+				 * mDataProvider.getProblemIdFromProblem("Leaf miner");
+				 * mDataProvider.getProblemIdFromProblem("Pod borer");
+				 * mDataProvider
+				 * .getProblemIdFromProblem("Red hairy caterpillar");
+				 * mDataProvider.getProblemIdFromProblem("Root grub");
+				 * mDataProvider.getProblemIdFromProblem("Unknown pest");
+				 * mDataProvider.getProblemIdFromProblem("Pest not listed");
+				 * mDataProvider.getProblemIdFromProblem("Low growth");
+				 * mDataProvider.getProblemIdFromProblem("Pegs not developed");
+				 * mDataProvider.getProblemIdFromProblem("Pod germination");
+				 * mDataProvider.getProblemIdFromProblem("Reduced flowering");
+				 * mDataProvider.getProblemIdFromProblem("Rot of stalks");
+				 * mDataProvider
+				 * .getProblemIdFromProblem("Too much vegetative growth");
+				 * mDataProvider.getProblemIdFromProblem("Weeds");
+				 * mDataProvider.getProblemIdFromProblem("Wild boar");
+				 * mDataProvider.getProblemIdFromProblem("Problem not listed");
+				 * 
+				 * 
+				 * 
+				 * System.out.println(
+				 * "*********************DISPLAYED  PROBLEM ID**************************************"
+				 * ); System.out.println(
+				 * "*********************GETTING PESTICIDE ID**************************************"
+				 * );
+				 * 
+				 * mDataProvider.getPestIdIdIdFromPest("Monocrotophos");
+				 * mDataProvider.getPestIdIdIdFromPest("Dimethoate");
+				 * mDataProvider.getPestIdIdIdFromPest("Pesticide not listed");
+				 * mDataProvider.getPestIdIdIdFromPest("Dithane M-45");
+				 * mDataProvider.getPestIdIdIdFromPest("Triazole");
+				 * mDataProvider.getPestIdIdIdFromPest("Fungicide not listed");
+				 * 
+				 * System.out.println(
+				 * "*********************DISPLAYED  PESTICIDE ID**************************************"
+				 * );
+				 */
 
-				
-				System.out.println("*********************DISPLAYED  PROBLEM ID**************************************");
-System.out.println("*********************GETTING PESTICIDE ID**************************************");
-				
-				mDataProvider.getPestIdIdIdFromPest("Monocrotophos");
-				mDataProvider.getPestIdIdIdFromPest("Dimethoate");
-				mDataProvider.getPestIdIdIdFromPest("Pesticide not listed");
-				mDataProvider.getPestIdIdIdFromPest("Dithane M-45");
-				mDataProvider.getPestIdIdIdFromPest("Triazole");
-				mDataProvider.getPestIdIdIdFromPest("Fungicide not listed");
-			
-				System.out.println("*********************DISPLAYED  PESTICIDE ID**************************************");
-			*/
-				
-				System.out.println("*********************GETTING ACTIONS**************************************");
-				
+				System.out
+						.println("*********************GETTING ACTIONS**************************************");
+
 				mDataProvider.getSowing();
 				mDataProvider.getfertilizing();
 				mDataProvider.getspraying();
 				mDataProvider.getProblem();
-			    mDataProvider.getirrigate();
+				mDataProvider.getirrigate();
 				mDataProvider.getharvesting();
 				mDataProvider.getselling();
-				
-			
-				System.out.println("*********************DISPLAYED  ACTIONS**************************************");
+
+				System.out
+						.println("*********************DISPLAYED  ACTIONS**************************************");
 			}
 
 		});

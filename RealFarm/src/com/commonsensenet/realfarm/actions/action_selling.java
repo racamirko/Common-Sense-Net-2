@@ -168,18 +168,12 @@ public class action_selling extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_sell, R.id.date_sell_tr, 0);
-=======
 
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_harvest",
 						"Select the month", R.raw.bagof50kg,
 						R.id.dlg_lbl_month_sell, R.id.date_sell_tr, 0);
->>>>>>> Modified DB to include the Resources table
 
 			}
 
@@ -202,18 +196,12 @@ public class action_selling extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in units sow dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_UNITS_ID);
-				displayDialog(v, m_entries, "units_sell", "Select the unit", R.raw.problems, R.id.dlg_lbl_unit_sell, R.id.quant_sell_tr, 2);
-=======
 
-				final ArrayList<DialogData> m_entries = DialogArrayLists
-						.getItUnitsArray(v, 20, 51, 1);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_UNITS_ID);
 				displayDialog(v, m_entries, "units_sell", "Select the unit",
 						R.raw.problems, R.id.dlg_lbl_unit_sell,
 						R.id.quant_sell_tr, 2);
->>>>>>> Modified DB to include the Resources table
 
 			}
 		});
@@ -248,18 +236,12 @@ public class action_selling extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in units sow dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_UNITS_ID);
-				displayDialog(v, m_entries, "units_rem_sell", "Select the unit", R.raw.problems, R.id.dlg_lbl_unit_rem_sell, R.id.rem_quant_sell_tr, 2);
-=======
 
-				final ArrayList<DialogData> m_entries = DialogArrayLists
-						.getItUnitsArray(v, 20, 51, 1);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_UNITS_ID);
 				displayDialog(v, m_entries, "units_rem_sell",
 						"Select the unit", R.raw.problems,
 						R.id.dlg_lbl_unit_rem_sell, R.id.rem_quant_sell_tr, 2);
->>>>>>> Modified DB to include the Resources table
 
 			}
 		});

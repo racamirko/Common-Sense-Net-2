@@ -4,7 +4,6 @@ public class Sowing {
 
 	private int mactionid;
 	private int mactionNameId;
-	private String mactionType;
 	private int mQuantity1;
 	private int mseedTypeId;
 	private String mUnits;

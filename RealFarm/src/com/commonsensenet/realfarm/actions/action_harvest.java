@@ -151,18 +151,12 @@ public class action_harvest extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in units fert dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_UNITS_ID);
-				displayDialog(v, m_entries, "units_harvest", "Select the unit", R.raw.problems, R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr, 2);
-=======
 
-				final ArrayList<DialogData> m_entries = DialogArrayLists
-						.getItUnitsArray(v, 20, 51, 1);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_UNITS_ID);
 				displayDialog(v, m_entries, "units_harvest", "Select the unit",
 						R.raw.problems, R.id.dlg_lbl_units_harvest,
 						R.id.units_harvest_tr, 2);
->>>>>>> Modified DB to include the Resources table
 
 			}
 		});
@@ -172,18 +166,13 @@ public class action_harvest extends HelpEnabledActivityOld {
 				stopaudio();
 
 				Log.d("in variety sowing dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_harvest", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_harvest, R.id.harvest_date_tr, 0);
-=======
 
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_harvest",
 						"Select the month", R.raw.bagof50kg,
 						R.id.dlg_lbl_month_harvest, R.id.harvest_date_tr, 0);
->>>>>>> Modified DB to include the Resources table
+
 			}
 		});
 
@@ -203,17 +192,14 @@ public class action_harvest extends HelpEnabledActivityOld {
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopaudio();
-<<<<<<< HEAD
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_SMILEYS_ID);
-				displayDialog(v, m_entries, "feedback_sel", "Are you satisfied?", R.raw.feedbackgood, R.id.dlg_lbl_satisfaction_harvest, R.id.satisfaction_harvest_tr, 1);	
-=======
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getSmileyArray(v);
+
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_SMILEYS_ID);
 				displayDialog(v, m_entries, "feedback_sel",
 						"Are you satisfied?", R.raw.feedbackgood,
 						R.id.dlg_lbl_satisfaction_harvest,
 						R.id.satisfaction_harvest_tr, 1);
->>>>>>> Modified DB to include the Resources table
+
 			}
 		});
 
@@ -495,8 +481,8 @@ public class action_harvest extends HelpEnabledActivityOld {
 		playAudio(entryAudio); // TODO: onOpen
 
 		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-																	// the audio
-																	// in the db
+			// the audio
+			// in the db
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// Does whatever is specific to the application

@@ -126,18 +126,12 @@ public class action_irrigate extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in irrigation method dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_IRRIGATION_METHOD_ID);
-				displayDialog(v, m_entries, "irr_method_sel", "Select the irrigation method", R.raw.problems, R.id.dlg_lbl_method_irr, R.id.method_irr_tr, 0);
-=======
 
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getIrrigationArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_IRRIGATION_METHOD_ID);
 				displayDialog(v, m_entries, "irr_method_sel",
 						"Select the irrigation method", R.raw.problems,
 						R.id.dlg_lbl_method_irr, R.id.method_irr_tr, 0);
->>>>>>> Modified DB to include the Resources table
 			}
 		});
 
@@ -173,18 +167,12 @@ public class action_irrigate extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
-<<<<<<< HEAD
-				
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_irr", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_irr, R.id.day_irr_tr, 0);
-=======
 
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_irr", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_irr,
 						R.id.day_irr_tr, 0);
->>>>>>> Modified DB to include the Resources table
 			}
 
 		});
@@ -402,8 +390,8 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		playAudio(entryAudio); // TODO: onOpen
 
 		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-																	// the audio
-																	// in the db
+			// the audio
+			// in the db
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// Does whatever is specific to the application

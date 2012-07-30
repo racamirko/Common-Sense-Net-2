@@ -15,7 +15,6 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.model.DialogData;
 
 /**
  * Class to manage database, i.e., input, remove and read data.
@@ -109,40 +108,9 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_DIALOG_VALUE + " integer, "
 					+ COLUMN_NAME_DIALOG_TYPE + " integer, "
 					+ COLUMN_NAME_DIALOG_NUMBER + " integer, "
-					+ COLUMN_NAME_DIALOG_RES_BG + " integer "
-					+ " ); ");
+					+ COLUMN_NAME_DIALOG_RES_BG + " integer " + " ); ");
 			Log.d(LOG_TAG, "Created dialogArrays table");
 
-			// fertilizers
-<<<<<<< HEAD
-			db.execSQL("create table " + TABLE_NAME_FERTILIZER + " ( "
-					+ COLUMN_NAME_FERTILIZER_ID + " integer , "
-					+ COLUMN_NAME_FERTILIZER_NAME + " text, "
-					+ COLUMN_NAME_FERTILIZER_AUDIO + " integer, "
-					+ COLUMN_NAME_FERTILIZER_RESOURCE + " integer, "
-					+ COLUMN_NAME_FERTILIZER_UNITID + " references unit(id), "
-					+ COLUMN_NAME_FERTILIZER_SHORTNAME + " text "
-					+ " ); ");
-			Log.d(LOG_TAG, "Created fertilizer table");
-
-			// pesticides
-			db.execSQL("create table " + TABLE_NAME_PESTICIDE + " ( "
-					+ COLUMN_NAME_PESTICIDE_ID + " integer primary key, "
-					+ COLUMN_NAME_PESTICIDE_NAME + " text, "
-					+ COLUMN_NAME_PESTICIDE_RESOURCE + " integer, "
-					+ COLUMN_NAME_PESTICIDE_TYPE + " references pesticideType(id), "
-					+ COLUMN_NAME_PESTICIDE_AUDIO + " integer, "
-					+ COLUMN_NAME_PESTICIDE_SHORTNAME + " text " + " ); "); 
-			Log.d(LOG_TAG, "Created pesticide table");
-
-			// pesticide types
-			db.execSQL("create table " + TABLE_NAME_PESTICIDETYPE + " ( "
-					+ COLUMN_NAME_PESTICIDETYPE_ID + " integer primary key, "
-					+ COLUMN_NAME_PESTICIDETYPE_NAME + " text, "
-					+ COLUMN_NAME_PESTICIDETYPE_RESOURCE + " integer, "
-					+ COLUMN_NAME_PESTICIDETYPE_AUDIO + " integer " + " ); ");
-			Log.d(LOG_TAG, "Created pesticide type table");
-=======
 			db.execSQL("create table " + TABLE_NAME_RESOURCE + " ( "
 					+ COLUMN_NAME_RESOURCE_ID + " integer primary key, "
 					+ COLUMN_NAME_RESOURCE_NAME + " text, "
@@ -153,7 +121,6 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_RESOURCE_RESOURCEBG + " integer, "
 					+ COLUMN_NAME_RESOURCE_TYPE + " text " + " ); ");
 			Log.d(LOG_TAG, "Created Resources Type table");
->>>>>>> Modified DB to include the Resources table
 
 			// plots
 			db.execSQL("create table " + TABLE_NAME_PLOT + " ( "
@@ -292,7 +259,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONNAME_NAME = "name";
 	public static final String COLUMN_NAME_ACTIONNAME_NAMEKANNADA = "nameKannada";
 	public static final String COLUMN_NAME_ACTIONNAME_RESOURCE = "res";
-	
+
 	public static final String COLUMN_NAME_DIALOG_ID = "id";
 	public static final String COLUMN_NAME_DIALOG_NAME = "name";
 	public static final String COLUMN_NAME_DIALOG_SHORTNAME = "shortName";
@@ -387,12 +354,8 @@ public class RealFarmDatabase {
 
 	public static final String TABLE_NAME_ACTION = "action"; // ok
 	public static final String TABLE_NAME_ACTIONNAME = "actionName"; // ok
-<<<<<<< HEAD
 	public static final String TABLE_NAME_DIALOG_ARRAYS = "dialogArrays";
-	public static final String TABLE_NAME_FERTILIZER = "fertilizer";
-=======
 	public static final String TABLE_NAME_CROP = "cropType"; // ok
->>>>>>> Modified DB to include the Resources table
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice"; // ok
 	public static final String TABLE_NAME_PLOT = "plot"; // ok
 	public static final String TABLE_NAME_RESOURCE = "resource"; // ok
@@ -424,16 +387,8 @@ public class RealFarmDatabase {
 		// Delete current elements in table
 		mDb.delete(TABLE_NAME_ACTIONNAME, null, null);
 		mDb.delete(TABLE_NAME_ACTION, null, null);
-<<<<<<< HEAD
 		mDb.delete(TABLE_NAME_DIALOG_ARRAYS, null, null);
-		mDb.delete(TABLE_NAME_FERTILIZER, null, null);
-		mDb.delete(TABLE_NAME_PESTICIDE, null, null);
-		mDb.delete(TABLE_NAME_PESTICIDETYPE, null, null);
-		mDb.delete(TABLE_NAME_PROBLEM, null, null);
-		mDb.delete(TABLE_NAME_PROBLEMTYPE, null, null);
-=======
 		mDb.delete(TABLE_NAME_RESOURCE, null, null);
->>>>>>> Modified DB to include the Resources table
 		mDb.delete(TABLE_NAME_PLOT, null, null);
 		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
 		mDb.delete(TABLE_NAME_CROP, null, null);
@@ -504,16 +459,6 @@ public class RealFarmDatabase {
 				having, orderBy);
 	}
 
-<<<<<<< HEAD
-	public static final int ACTION_NAME_ALL_ID = 0;
-	public static final int ACTION_NAME_SOW_ID = 1;
-	public static final int ACTION_NAME_FERTILIZE_ID = 2;
-	public static final int ACTION_NAME_IRRIGATE_ID = 3;
-	public static final int ACTION_NAME_SPRAY_ID = 4;
-	public static final int ACTION_NAME_HARVEST_ID = 5;
-	public static final int ACTION_NAME_SELL_ID = 6;
-	public static final int ACTION_NAME_REPORT_ID = 4;
-	
 	public static final int DIALOG_MONTH_ID = 1;
 	public static final int DIALOG_TREATMENT_ID = 2;
 	public static final int DIALOG_INTERCRIOP_ID = 3;
@@ -522,9 +467,6 @@ public class RealFarmDatabase {
 	public static final int DIALOG_SMILEYS_ID = 6;
 	public static final int DIALOG_UNITS_ID = 7;
 
-
-=======
->>>>>>> Modified DB to include the Resources table
 	/**
 	 * Defines hard-coded initial values for database. All base tables and user
 	 * data, the latter is for testing purposes only and should be replaced by
@@ -609,124 +551,168 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "actionName works");
-<<<<<<< HEAD
-		
+
 		// pesticide types
 		Object[][] pesticideTypesData = {
-				{"Pesticide", R.drawable.pesticide, R.raw.audio1 },
-				{"Fungicide", R.drawable.fungicide, R.raw.audio1 }
+				{ "Pesticide", R.drawable.pesticide, R.raw.audio1 },
+				{ "Fungicide", R.drawable.fungicide, R.raw.audio1 }
 
 		};
-
-		ContentValues pesticideType = new ContentValues();
-		for (int x = 0; x < pesticideTypesData.length; x++) {
-			pesticideType.put(COLUMN_NAME_PESTICIDE_ID,(x + 1));
-			pesticideType.put(COLUMN_NAME_PESTICIDE_NAME, (String) pesticideTypesData[x][0]);
-			pesticideType.put(COLUMN_NAME_PESTICIDE_RESOURCE, (Integer) pesticideTypesData[x][1]);
-			pesticideType.put(COLUMN_NAME_PESTICIDE_AUDIO, (Integer) pesticideTypesData[x][2]);
-			insertEntriesIntoDatabase(TABLE_NAME_PESTICIDETYPE, pesticideType, db);
-			pesticideType.clear();
-		}
 
 		Log.d(LOG_TAG, "pesticide types works");
 
-		//pesticides
+		// pesticides
 		Object[][] pesticideData = {
-				{"Monocrotophos", R.drawable.icon, R.raw.audio1, 1 ,"Monocrotopho"},
-				{"Dimethoate", R.drawable.icon, R.raw.audio1, 1 ,"Dimethoate"},
-				{"Pesticide not listed", R.drawable.icon, R.raw.audio1, 1,"P-unlisted" },
-				{"Dithane M-45", R.drawable.icon, R.raw.audio1, 2,"Dithane M-45" },
-				{"Triazole", R.drawable.icon, R.raw.audio1, 2,"Triazole" },
-				{"Fungicide not listed", R.drawable.icon, R.raw.audio1, 2,"F-unlisted" }
+				{ "Monocrotophos", R.drawable.icon, R.raw.audio1, 1,
+						"Monocrotopho" },
+				{ "Dimethoate", R.drawable.icon, R.raw.audio1, 1, "Dimethoate" },
+				{ "Pesticide not listed", R.drawable.icon, R.raw.audio1, 1,
+						"P-unlisted" },
+				{ "Dithane M-45", R.drawable.icon, R.raw.audio1, 2,
+						"Dithane M-45" },
+				{ "Triazole", R.drawable.icon, R.raw.audio1, 2, "Triazole" },
+				{ "Fungicide not listed", R.drawable.icon, R.raw.audio1, 2,
+						"F-unlisted" }
 
 		};
-
-		ContentValues pesticide = new ContentValues();
-		for (int x = 0; x < pesticideData.length; x++) {
-			pesticide.put(COLUMN_NAME_PESTICIDE_ID, (x + 1));
-			pesticide.put(COLUMN_NAME_PESTICIDE_NAME, (String) pesticideData[x][0]);
-			pesticide.put(COLUMN_NAME_PESTICIDE_RESOURCE, (Integer) pesticideData[x][1]);
-			pesticide.put(COLUMN_NAME_PESTICIDE_AUDIO, (Integer) pesticideData[x][2]);
-			pesticide.put(COLUMN_NAME_PESTICIDE_TYPE, (Integer) pesticideData[x][3]);
-			pesticide.put(COLUMN_NAME_PESTICIDE_SHORTNAME, (String) pesticideData[x][4]);
-			insertEntriesIntoDatabase(TABLE_NAME_PESTICIDE, pesticide, db);
-			pesticide.clear();
-		}
 
 		Log.d(LOG_TAG, "pesticide works");
 
-		//dialogArrays
+		// dialogArrays
 		Object[][] dialogArrays = {
-				
-				{"01 January", "01", -1, -1, R.raw.jan, 1, DIALOG_MONTH_ID, -1, -1},
-				{"02 February", "02", -1, -1, R.raw.feb, 2, DIALOG_MONTH_ID,-1, -1},
-				{"03 March", "03", -1, -1, R.raw.mar, 3, DIALOG_MONTH_ID, -1,-1},
-				{"04 April", "04", -1, -1, R.raw.apr, 4, DIALOG_MONTH_ID, -1,-1},
-				{"05 May", "05", -1, -1, R.raw.may, 5, DIALOG_MONTH_ID, -1,-1},
-				{"06 June", "06", -1, -1, R.raw.jun, 6, DIALOG_MONTH_ID, -1,-1},
-				{"07 July", "07", -1, -1, R.raw.jul, 7, DIALOG_MONTH_ID, -1,-1},
-				{"08 August", "08", -1, -1, R.raw.aug, 8, DIALOG_MONTH_ID, -1,-1},
-				{"09 September", "09", -1, -1, R.raw.sep, 9, DIALOG_MONTH_ID, -1,-1},
-				{"10 October", "10", -1, -1, R.raw.oct, 10, DIALOG_MONTH_ID, -1,-1},
-				{"11 November", "11", -1, -1, R.raw.nov, 11, DIALOG_MONTH_ID, -1,-1},
-				{"12 December", "12", -1, -1, R.raw.dec, 12, DIALOG_MONTH_ID, -1, -1},
-				{"Treated", "Treated", R.drawable.ic_sowingseedtreated, -1, R.raw.bagof10kg, 1, DIALOG_TREATMENT_ID, -1,-1},
-				{"Not treated", "Not treated", R.drawable.ic_sowingseednottreated, -1, R.raw.bagof20kg, 2, DIALOG_TREATMENT_ID, -1,-1},
-				{"Main crop", "Main crop", R.drawable.ic_maincrop, -1, R.raw.bagof10kg, 1, DIALOG_INTERCRIOP_ID, -1,-1},
-				{"Intercrop", "Intercrop", R.drawable.ic_intercrop, -1, R.raw.bagof20kg, 2, DIALOG_INTERCRIOP_ID, -1,-1},
-				{"Flooding", "Flooding", R.drawable.ic_flooding, -1, R.raw.bagof10kg, 1, DIALOG_IRRIGATION_METHOD_ID, -1,-1},
-				{"Sprinkling", "Sprinkling", R.drawable.ic_sprinkling, -1, R.raw.bagof20kg, 2, DIALOG_IRRIGATION_METHOD_ID, -1,-1},
-				{"Loamy", "Loamy",-1, -1, R.raw.bagof10kg, 1, DIALOG_SOIL_TYPE_ID, -1,-1},
-				{"Sandy", "Sandy", -1, -1, R.raw.bagof20kg, 2, DIALOG_SOIL_TYPE_ID, -1,-1},
-				{"Clay", "Clay", -1, -1, R.raw.bagof50kg, 3, DIALOG_SOIL_TYPE_ID, -1,-1},
-				{"Good", "",  R.drawable.smiley_good, -1, R.raw.feedbackgood, 1, DIALOG_SMILEYS_ID, -1,-1},
-				{"Moderate", "",  R.drawable.smiley_medium, -1, R.raw.feedbackmoderate, 2, DIALOG_SMILEYS_ID, -1,-1},
-				{"Bad", "",  R.drawable.smiley_bad, -1, R.raw.feedbackbad, 3, DIALOG_SMILEYS_ID, -1,-1},
-				{"bag of 20 kgs", "20", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,20, DIALOG_UNITS_ID, 20,-1},
-				{"bag of 21 kgs", "21", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,21, DIALOG_UNITS_ID, 21,-1},
-				{"bag of 22 kgs", "22", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,22, DIALOG_UNITS_ID, 22,-1},
-				{"bag of 23 kgs", "23", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,23, DIALOG_UNITS_ID, 23,-1},
-				{"bag of 24 kgs", "24", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,24, DIALOG_UNITS_ID, 24,-1},
-				{"bag of 25 kgs", "25", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,25, DIALOG_UNITS_ID, 25,-1},
-				{"bag of 26 kgs", "26", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,26, DIALOG_UNITS_ID, 26,-1},
-				{"bag of 27 kgs", "27", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,27, DIALOG_UNITS_ID, 27,-1},
-				{"bag of 28 kgs", "28", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,28, DIALOG_UNITS_ID, 28,-1},
-				{"bag of 29 kgs", "29", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,29, DIALOG_UNITS_ID, 29,-1},
-				{"bag of 30 kgs", "30", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,30, DIALOG_UNITS_ID, 30,-1},
-				{"bag of 31 kgs", "31", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,31, DIALOG_UNITS_ID, 31,-1},
-				{"bag of 32 kgs", "32", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,32, DIALOG_UNITS_ID, 32,-1},
-				{"bag of 33 kgs", "33", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,33, DIALOG_UNITS_ID, 33,-1},
-				{"bag of 34 kgs", "34", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,34, DIALOG_UNITS_ID, 34,-1},
-				{"bag of 35 kgs", "35", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,35, DIALOG_UNITS_ID, 35,-1},
-				{"bag of 36 kgs", "36", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,36, DIALOG_UNITS_ID, 36,-1},
-				{"bag of 37 kgs", "37", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,37, DIALOG_UNITS_ID, 37,-1},
-				{"bag of 38 kgs", "38", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,38, DIALOG_UNITS_ID, 38,-1},
-				{"bag of 39 kgs", "39", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,39, DIALOG_UNITS_ID, 39,-1},
-				{"bag of 40 kgs", "40", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,40, DIALOG_UNITS_ID, 40,-1},
-				{"bag of 41 kgs", "41", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,41, DIALOG_UNITS_ID, 41,-1},
-				{"bag of 42 kgs", "42", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,42, DIALOG_UNITS_ID, 42,-1},
-				{"bag of 43 kgs", "43", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,43, DIALOG_UNITS_ID, 43,-1},
-				{"bag of 44 kgs", "44", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,44, DIALOG_UNITS_ID, 44,-1},
-				{"bag of 45 kgs", "45", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,45, DIALOG_UNITS_ID, 45,-1},
-				{"bag of 46 kgs", "46", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,46, DIALOG_UNITS_ID, 46,-1},
-				{"bag of 47 kgs", "47", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,47, DIALOG_UNITS_ID, 47,-1},
-				{"bag of 48 kgs", "48", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,48, DIALOG_UNITS_ID, 48,-1},
-				{"bag of 49 kgs", "49", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,49, DIALOG_UNITS_ID, 49,-1},
-				{"bag of 50 kgs", "50", R.drawable.ic_genericbaglarger, -1, R.raw.bagof10kg,50, DIALOG_UNITS_ID, 50,-1}
-		};
-		 
+
+				{ "01 January", "01", -1, -1, R.raw.jan, 1, DIALOG_MONTH_ID,
+						-1, -1 },
+				{ "02 February", "02", -1, -1, R.raw.feb, 2, DIALOG_MONTH_ID,
+						-1, -1 },
+				{ "03 March", "03", -1, -1, R.raw.mar, 3, DIALOG_MONTH_ID, -1,
+						-1 },
+				{ "04 April", "04", -1, -1, R.raw.apr, 4, DIALOG_MONTH_ID, -1,
+						-1 },
+				{ "05 May", "05", -1, -1, R.raw.may, 5, DIALOG_MONTH_ID, -1, -1 },
+				{ "06 June", "06", -1, -1, R.raw.jun, 6, DIALOG_MONTH_ID, -1,
+						-1 },
+				{ "07 July", "07", -1, -1, R.raw.jul, 7, DIALOG_MONTH_ID, -1,
+						-1 },
+				{ "08 August", "08", -1, -1, R.raw.aug, 8, DIALOG_MONTH_ID, -1,
+						-1 },
+				{ "09 September", "09", -1, -1, R.raw.sep, 9, DIALOG_MONTH_ID,
+						-1, -1 },
+				{ "10 October", "10", -1, -1, R.raw.oct, 10, DIALOG_MONTH_ID,
+						-1, -1 },
+				{ "11 November", "11", -1, -1, R.raw.nov, 11, DIALOG_MONTH_ID,
+						-1, -1 },
+				{ "12 December", "12", -1, -1, R.raw.dec, 12, DIALOG_MONTH_ID,
+						-1, -1 },
+				{ "Treated", "Treated", R.drawable.ic_sowingseedtreated, -1,
+						R.raw.bagof10kg, 1, DIALOG_TREATMENT_ID, -1, -1 },
+				{ "Not treated", "Not treated",
+						R.drawable.ic_sowingseednottreated, -1,
+						R.raw.bagof20kg, 2, DIALOG_TREATMENT_ID, -1, -1 },
+				{ "Main crop", "Main crop", R.drawable.ic_maincrop, -1,
+						R.raw.bagof10kg, 1, DIALOG_INTERCRIOP_ID, -1, -1 },
+				{ "Intercrop", "Intercrop", R.drawable.ic_intercrop, -1,
+						R.raw.bagof20kg, 2, DIALOG_INTERCRIOP_ID, -1, -1 },
+				{ "Flooding", "Flooding", R.drawable.ic_flooding, -1,
+						R.raw.bagof10kg, 1, DIALOG_IRRIGATION_METHOD_ID, -1, -1 },
+				{ "Sprinkling", "Sprinkling", R.drawable.ic_sprinkling, -1,
+						R.raw.bagof20kg, 2, DIALOG_IRRIGATION_METHOD_ID, -1, -1 },
+				{ "Loamy", "Loamy", -1, -1, R.raw.bagof10kg, 1,
+						DIALOG_SOIL_TYPE_ID, -1, -1 },
+				{ "Sandy", "Sandy", -1, -1, R.raw.bagof20kg, 2,
+						DIALOG_SOIL_TYPE_ID, -1, -1 },
+				{ "Clay", "Clay", -1, -1, R.raw.bagof50kg, 3,
+						DIALOG_SOIL_TYPE_ID, -1, -1 },
+				{ "Good", "", R.drawable.smiley_good, -1, R.raw.feedbackgood,
+						1, DIALOG_SMILEYS_ID, -1, -1 },
+				{ "Moderate", "", R.drawable.smiley_medium, -1,
+						R.raw.feedbackmoderate, 2, DIALOG_SMILEYS_ID, -1, -1 },
+				{ "Bad", "", R.drawable.smiley_bad, -1, R.raw.feedbackbad, 3,
+						DIALOG_SMILEYS_ID, -1, -1 },
+				{ "bag of 20 kgs", "20", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 20, DIALOG_UNITS_ID, 20, -1 },
+				{ "bag of 21 kgs", "21", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 21, DIALOG_UNITS_ID, 21, -1 },
+				{ "bag of 22 kgs", "22", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 22, DIALOG_UNITS_ID, 22, -1 },
+				{ "bag of 23 kgs", "23", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 23, DIALOG_UNITS_ID, 23, -1 },
+				{ "bag of 24 kgs", "24", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 24, DIALOG_UNITS_ID, 24, -1 },
+				{ "bag of 25 kgs", "25", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 25, DIALOG_UNITS_ID, 25, -1 },
+				{ "bag of 26 kgs", "26", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 26, DIALOG_UNITS_ID, 26, -1 },
+				{ "bag of 27 kgs", "27", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 27, DIALOG_UNITS_ID, 27, -1 },
+				{ "bag of 28 kgs", "28", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 28, DIALOG_UNITS_ID, 28, -1 },
+				{ "bag of 29 kgs", "29", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 29, DIALOG_UNITS_ID, 29, -1 },
+				{ "bag of 30 kgs", "30", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 30, DIALOG_UNITS_ID, 30, -1 },
+				{ "bag of 31 kgs", "31", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 31, DIALOG_UNITS_ID, 31, -1 },
+				{ "bag of 32 kgs", "32", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 32, DIALOG_UNITS_ID, 32, -1 },
+				{ "bag of 33 kgs", "33", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 33, DIALOG_UNITS_ID, 33, -1 },
+				{ "bag of 34 kgs", "34", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 34, DIALOG_UNITS_ID, 34, -1 },
+				{ "bag of 35 kgs", "35", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 35, DIALOG_UNITS_ID, 35, -1 },
+				{ "bag of 36 kgs", "36", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 36, DIALOG_UNITS_ID, 36, -1 },
+				{ "bag of 37 kgs", "37", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 37, DIALOG_UNITS_ID, 37, -1 },
+				{ "bag of 38 kgs", "38", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 38, DIALOG_UNITS_ID, 38, -1 },
+				{ "bag of 39 kgs", "39", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 39, DIALOG_UNITS_ID, 39, -1 },
+				{ "bag of 40 kgs", "40", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 40, DIALOG_UNITS_ID, 40, -1 },
+				{ "bag of 41 kgs", "41", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 41, DIALOG_UNITS_ID, 41, -1 },
+				{ "bag of 42 kgs", "42", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 42, DIALOG_UNITS_ID, 42, -1 },
+				{ "bag of 43 kgs", "43", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 43, DIALOG_UNITS_ID, 43, -1 },
+				{ "bag of 44 kgs", "44", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 44, DIALOG_UNITS_ID, 44, -1 },
+				{ "bag of 45 kgs", "45", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 45, DIALOG_UNITS_ID, 45, -1 },
+				{ "bag of 46 kgs", "46", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 46, DIALOG_UNITS_ID, 46, -1 },
+				{ "bag of 47 kgs", "47", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 47, DIALOG_UNITS_ID, 47, -1 },
+				{ "bag of 48 kgs", "48", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 48, DIALOG_UNITS_ID, 48, -1 },
+				{ "bag of 49 kgs", "49", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 49, DIALOG_UNITS_ID, 49, -1 },
+				{ "bag of 50 kgs", "50", R.drawable.ic_genericbaglarger, -1,
+						R.raw.bagof10kg, 50, DIALOG_UNITS_ID, 50, -1 } };
+
 		ContentValues dialogArray = new ContentValues();
 		for (int x = 0; x < dialogArrays.length; x++) {
 			dialogArray.put(COLUMN_NAME_DIALOG_ID, (x + 1));
-			dialogArray.put(COLUMN_NAME_DIALOG_NAME, (String) dialogArrays[x][0]);
-			dialogArray.put(COLUMN_NAME_DIALOG_SHORTNAME, (String) dialogArrays[x][1]);
-			dialogArray.put(COLUMN_NAME_DIALOG_RES, (Integer) dialogArrays[x][2]);
-			dialogArray.put(COLUMN_NAME_DIALOG_RES2, (Integer) dialogArrays[x][3]);
-			dialogArray.put(COLUMN_NAME_DIALOG_AUDIO, (Integer) dialogArrays[x][4]);
-			dialogArray.put(COLUMN_NAME_DIALOG_VALUE, (Integer) dialogArrays[x][5]);
-			dialogArray.put(COLUMN_NAME_DIALOG_TYPE, (Integer) dialogArrays[x][6]);
-			dialogArray.put(COLUMN_NAME_DIALOG_NUMBER, (Integer) dialogArrays[x][7]);
-			dialogArray.put(COLUMN_NAME_DIALOG_RES_BG, (Integer) dialogArrays[x][8]);
+			dialogArray.put(COLUMN_NAME_DIALOG_NAME,
+					(String) dialogArrays[x][0]);
+			dialogArray.put(COLUMN_NAME_DIALOG_SHORTNAME,
+					(String) dialogArrays[x][1]);
+			dialogArray.put(COLUMN_NAME_DIALOG_RES,
+					(Integer) dialogArrays[x][2]);
+			dialogArray.put(COLUMN_NAME_DIALOG_RES2,
+					(Integer) dialogArrays[x][3]);
+			dialogArray.put(COLUMN_NAME_DIALOG_AUDIO,
+					(Integer) dialogArrays[x][4]);
+			dialogArray.put(COLUMN_NAME_DIALOG_VALUE,
+					(Integer) dialogArrays[x][5]);
+			dialogArray.put(COLUMN_NAME_DIALOG_TYPE,
+					(Integer) dialogArrays[x][6]);
+			dialogArray.put(COLUMN_NAME_DIALOG_NUMBER,
+					(Integer) dialogArrays[x][7]);
+			dialogArray.put(COLUMN_NAME_DIALOG_RES_BG,
+					(Integer) dialogArrays[x][8]);
 			insertEntriesIntoDatabase(TABLE_NAME_DIALOG_ARRAYS, dialogArray, db);
 			dialogArray.clear();
 		}
@@ -735,98 +721,49 @@ public class RealFarmDatabase {
 
 		// fertilizer
 		Object[][] fertilizerData = {
-				{ "Complex", R.raw.audio1 , R.drawable.whitespaceicon, "Complex"},
-				{ "Compost", R.raw.audio1 , R.drawable.whitespaceicon, "Compost"},
-				{ "DAP", R.raw.audio1, R.drawable.whitespaceicon, "DAP"},
-				{ "Farm Yard Manure / FYM", R.raw.audio1 , R.drawable.whitespaceicon, "FYM"},
-				{ "Gypsum", R.raw.audio1, R.drawable.whitespaceicon, "Gypsum"},
-				{ "Potash", R.raw.audio1 , R.drawable.whitespaceicon, "Potash"},
-				{ "Salt", R.raw.audio1, R.drawable.whitespaceicon, "Salt"},
-				{ "Super", R.raw.audio1, R.drawable.whitespaceicon, "Super"},
-				{ "Urea", R.raw.audio1, R.drawable.whitespaceicon, "Urea"},
-				{ "Not in the list", R.raw.audio1, R.drawable.whitespaceicon, "Unlisted"}
-		};
+				{ "Complex", R.raw.audio1, R.drawable.whitespaceicon, "Complex" },
+				{ "Compost", R.raw.audio1, R.drawable.whitespaceicon, "Compost" },
+				{ "DAP", R.raw.audio1, R.drawable.whitespaceicon, "DAP" },
+				{ "Farm Yard Manure / FYM", R.raw.audio1,
+						R.drawable.whitespaceicon, "FYM" },
+				{ "Gypsum", R.raw.audio1, R.drawable.whitespaceicon, "Gypsum" },
+				{ "Potash", R.raw.audio1, R.drawable.whitespaceicon, "Potash" },
+				{ "Salt", R.raw.audio1, R.drawable.whitespaceicon, "Salt" },
+				{ "Super", R.raw.audio1, R.drawable.whitespaceicon, "Super" },
+				{ "Urea", R.raw.audio1, R.drawable.whitespaceicon, "Urea" },
+				{ "Not in the list", R.raw.audio1, R.drawable.whitespaceicon,
+						"Unlisted" } };
 
-		ContentValues fertilizer = new ContentValues();
-		for (int x = 0; x < fertilizerData.length; x++) {
-			fertilizer.put(COLUMN_NAME_FERTILIZER_ID, (x + 1));
-			fertilizer.put(COLUMN_NAME_FERTILIZER_NAME, (String) fertilizerData[x][0]);
-			fertilizer.put(COLUMN_NAME_FERTILIZER_AUDIO, (Integer) fertilizerData[x][1]);
-			fertilizer.put(COLUMN_NAME_FERTILIZER_RESOURCE, (Integer) fertilizerData[x][2]);
-			fertilizer.put(COLUMN_NAME_FERTILIZER_UNITID, x); // What is that?
-			fertilizer.put(COLUMN_NAME_FERTILIZER_SHORTNAME, (String) fertilizerData[x][3]);
-			insertEntriesIntoDatabase(TABLE_NAME_FERTILIZER, fertilizer, db);
-			fertilizer.clear();
-		}
-
-		Log.d(LOG_TAG, "fertilizer works");	
+		Log.d(LOG_TAG, "fertilizer works");
 
 		// problem types
 		Object[][] problemTypeData = {
-				{ "Disease", R.raw.audio1, R.drawable.ic_diseasecategory},
-				{ "Pest", R.raw.audio1 , R.drawable.ic_pestcategory},
-				{ "Other", R.raw.audio1 , R.drawable.ic_otherproblemcategory}
-		};
-
-		ContentValues problemType = new ContentValues();
-		for (int x = 0; x < problemTypeData.length; x++) {
-			problemType.put(COLUMN_NAME_PROBLEMTYPE_ID, (x + 1));
-			problemType.put(COLUMN_NAME_PROBLEMTYPE_NAME, (String) problemTypeData[x][0]);
-			problemType.put(COLUMN_NAME_PROBLEMTYPE_AUDIO, (Integer) problemTypeData[x][1]);
-			problemType.put(COLUMN_NAME_PROBLEMTYPE_RESOURCE, (Integer) problemTypeData[x][2]);
-			insertEntriesIntoDatabase(TABLE_NAME_PROBLEMTYPE, problemType, db);
-			problemType.clear();
-		}
-
-		Log.d(LOG_TAG, "problem type works");	
-
+				{ "Disease", R.raw.audio1, R.drawable.ic_diseasecategory },
+				{ "Pest", R.raw.audio1, R.drawable.ic_pestcategory },
+				{ "Other", R.raw.audio1, R.drawable.ic_otherproblemcategory } };
 
 		// problems
 		Object[][] problemData = {
 				{ "Late leaf spot", R.raw.audio1, 1, "LLS" },
 				{ "Pod rot", R.raw.audio1, 1, "Pod rot" },
-				{ "Unknown disease", R.raw.audio1, 1 , "? disease"},
-				{ "Disease not listed", R.raw.audio1, 1 ,"D-unlisted"},
+				{ "Unknown disease", R.raw.audio1, 1, "? disease" },
+				{ "Disease not listed", R.raw.audio1, 1, "D-unlisted" },
 				{ "Aphids", R.raw.audio1, 2, "Aphids" },
 				{ "Leaf miner", R.raw.audio1, 2, "Leaf miner" },
 				{ "Pod borer", R.raw.audio1, 2, "Pod borer" },
 				{ "Red hairy caterpillar", R.raw.audio1, 2, "R H Caterpillar" },
 				{ "Root grub", R.raw.audio1, 2, "Root grub" },
-				{ "Unknown pest", R.raw.audio1, 2 , "? pest"},
-				{ "Pest not listed", R.raw.audio1, 2 , "Pe-unlisted"},
+				{ "Unknown pest", R.raw.audio1, 2, "? pest" },
+				{ "Pest not listed", R.raw.audio1, 2, "Pe-unlisted" },
 				{ "Low growth", R.raw.audio1, 3, "Low growth" },
 				{ "Pegs not developed", R.raw.audio1, 3, "Pegs undev" },
-				{ "Pod germination", R.raw.audio1, 3 , "Pod germination"},
-				{ "Reduced flowering", R.raw.audio1,3 , "Red flowering"},
-				{ "Rot of stalks", R.raw.audio1,  3, "Stalk rot" },
+				{ "Pod germination", R.raw.audio1, 3, "Pod germination" },
+				{ "Reduced flowering", R.raw.audio1, 3, "Red flowering" },
+				{ "Rot of stalks", R.raw.audio1, 3, "Stalk rot" },
 				{ "Too much vegetative growth", R.raw.audio1, 3, "Veg growth" },
 				{ "Weeds", R.raw.audio1, 3, "Weeds" },
-				{ "Wild boar", R.raw.audio1, 3 , "Wild boar"},
-				{ "Problem not listed", R.raw.audio1, 3 , "Pb-unlisted"}
-		};
-
-		ContentValues problem = new ContentValues();
-		for (int x = 0; x < problemData.length; x++) {
-			problem.put(COLUMN_NAME_PROBLEM_ID, (x + 1));
-			problem.put(COLUMN_NAME_PROBLEM_NAME, (String) problemData[x][0]);
-			problem.put(COLUMN_NAME_PROBLEM_AUDIO, (Integer) problemData[x][1]);
-			problem.put(COLUMN_NAME_PROBLEM_PROBLEMTYPEID, (Integer) problemData[x][2]);
-			problem.put(COLUMN_NAME_PROBLEM_SHORTNAME, (String) problemData[x][3]);
-			insertEntriesIntoDatabase(TABLE_NAME_PROBLEM, problem, db);
-			problem.clear();
-		}
-
-		Log.d(LOG_TAG, "problem works");	
-
-		// units
-		Object[][] unitData = {
-				{ "seru(s)", R.drawable.ic_seruunit, R.raw.audio1,  ACTION_NAME_HARVEST_ID},
-				{ "1L can(s)", R.drawable.ic_pesticideherbicidecan, R.raw.audio1 , ACTION_NAME_SPRAY_ID},
-				{ "bag(s) of 1 kg", R.drawable.onekgbagpesticides, R.raw.audio1, ACTION_NAME_SPRAY_ID },
-				{ "bag(s) of 50 kg", R.drawable.ic_50kgbag, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
-				{ "cart load(s)", R.drawable.ic_cartload, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
-				{ "tractor load(s)", R.drawable.ic_tractorload, R.raw.audio1 , ACTION_NAME_FERTILIZE_ID},
-=======
+				{ "Wild boar", R.raw.audio1, 3, "Wild boar" },
+				{ "Problem not listed", R.raw.audio1, 3, "Pb-unlisted" } };
 
 		// units
 		Object[][] unitData = {
@@ -834,15 +771,14 @@ public class RealFarmDatabase {
 						ACTION_NAME_HARVEST_ID },
 				{ "1L can(s)", R.drawable.ic_pesticideherbicidecan,
 						R.raw.audio1, ACTION_NAME_SPRAY_ID },
-				{ "bag(s) of 1 kg", R.drawable.ic_50kgbag, R.raw.audio1,
-						ACTION_NAME_SPRAY_ID },
+				{ "bag(s) of 1 kg", R.drawable.onekgbagpesticides,
+						R.raw.audio1, ACTION_NAME_SPRAY_ID },
 				{ "bag(s) of 50 kg", R.drawable.ic_50kgbag, R.raw.audio1,
 						ACTION_NAME_FERTILIZE_ID },
 				{ "cart load(s)", R.drawable.ic_cartload, R.raw.audio1,
 						ACTION_NAME_FERTILIZE_ID },
 				{ "tractor load(s)", R.drawable.ic_tractorload, R.raw.audio1,
 						ACTION_NAME_FERTILIZE_ID },
->>>>>>> Modified DB to include the Resources table
 				{ "unknown", R.drawable.icon, R.raw.audio1, ACTION_NAME_ALL_ID },
 				{ "none", R.drawable.icon, R.raw.audio1, ACTION_NAME_ALL_ID } };
 
@@ -973,72 +909,6 @@ public class RealFarmDatabase {
 			insertEntriesIntoDatabase(TABLE_NAME_CROP, croptype, db);
 			croptype.clear();
 		}
-
-		// TODO: all this values should be included in the resources table
-
-		// pesticides
-		Object[][] pesticideData = {
-				{ "Monocrotophos", R.drawable.icon, R.raw.audio1, 1,
-						"Monocrotopho" },
-				{ "Dimethoate", R.drawable.icon, R.raw.audio1, 1, "Dimethoate" },
-				{ "Pesticide not listed", R.drawable.icon, R.raw.audio1, 1,
-						"P-unlisted" },
-				{ "Dithane M-45", R.drawable.icon, R.raw.audio1, 2,
-						"Dithane M-45" },
-				{ "Triazole", R.drawable.icon, R.raw.audio1, 2, "Triazole" },
-				{ "Fungicide not listed", R.drawable.icon, R.raw.audio1, 2,
-						"F-unlisted" }
-
-		};
-
-		// pesticide types
-		Object[][] pesticideTypesData = {
-				{ "Pesticide", R.drawable.pesticide, R.raw.audio1 },
-				{ "Fungicide", R.drawable.fungicide, R.raw.audio1 } };
-
-		// fertilizer
-		Object[][] fertilizerData = {
-				{ "Complex", R.raw.audio1, R.drawable.whitespaceicon, "Complex" },
-				{ "Compost", R.raw.audio1, R.drawable.whitespaceicon, "Compost" },
-				{ "DAP", R.raw.audio1, R.drawable.whitespaceicon, "DAP" },
-				{ "Farm Yard Manure / FYM", R.raw.audio1,
-						R.drawable.whitespaceicon, "FYM" },
-				{ "Gypsum", R.raw.audio1, R.drawable.whitespaceicon, "Gypsum" },
-				{ "Potash", R.raw.audio1, R.drawable.whitespaceicon, "Potash" },
-				{ "Salt", R.raw.audio1, R.drawable.whitespaceicon, "Salt" },
-				{ "Super", R.raw.audio1, R.drawable.whitespaceicon, "Super" },
-				{ "Urea", R.raw.audio1, R.drawable.whitespaceicon, "Urea" },
-				{ "Not in the list", R.raw.audio1, R.drawable.whitespaceicon,
-						"Unlisted" } };
-
-		// problem types
-		Object[][] problemTypeData = {
-				{ "Disease", R.raw.audio1, R.drawable.ic_diseasecategory },
-				{ "Pest", R.raw.audio1, R.drawable.ic_pestcategory },
-				{ "Other", R.raw.audio1, R.drawable.ic_otherproblemcategory } };
-
-		// problems
-		Object[][] problemData = {
-				{ "Late leaf spot", R.raw.audio1, 1, "LLS" },
-				{ "Pod rot", R.raw.audio1, 1, "Pod rot" },
-				{ "Unknown disease", R.raw.audio1, 1, "? disease" },
-				{ "Disease not listed", R.raw.audio1, 1, "D-unlisted" },
-				{ "Aphids", R.raw.audio1, 2, "Aphids" },
-				{ "Leaf miner", R.raw.audio1, 2, "Leaf miner" },
-				{ "Pod borer", R.raw.audio1, 2, "Pod borer" },
-				{ "Red hairy caterpillar", R.raw.audio1, 2, "R H Caterpillar" },
-				{ "Root grub", R.raw.audio1, 2, "Root grub" },
-				{ "Unknown pest", R.raw.audio1, 2, "? pest" },
-				{ "Pest not listed", R.raw.audio1, 2, "Pe-unlisted" },
-				{ "Low growth", R.raw.audio1, 3, "Low growth" },
-				{ "Pegs not developed", R.raw.audio1, 3, "Pegs undev" },
-				{ "Pod germination", R.raw.audio1, 3, "Pod germination" },
-				{ "Reduced flowering", R.raw.audio1, 3, "Red flowering" },
-				{ "Rot of stalks", R.raw.audio1, 3, "Stalk rot" },
-				{ "Too much vegetative growth", R.raw.audio1, 3, "Veg growth" },
-				{ "Weeds", R.raw.audio1, 3, "Weeds" },
-				{ "Wild boar", R.raw.audio1, 3, "Wild boar" },
-				{ "Problem not listed", R.raw.audio1, 3, "Pb-unlisted" } };
 	}
 
 	/**

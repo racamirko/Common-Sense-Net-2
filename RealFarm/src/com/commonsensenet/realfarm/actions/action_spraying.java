@@ -208,16 +208,11 @@ public class action_spraying extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 
-<<<<<<< HEAD
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_spray", "Select the month", R.raw.bagof50kg, R.id.dlg_lbl_month_spray, R.id.day_spray_tr, 0);
-=======
-				ArrayList<DialogData> m_entries = DialogArrayLists
-						.getMonthArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
 				displayDialog(v, m_entries, "months_spray", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_spray,
 						R.id.day_spray_tr, 0);
->>>>>>> Modified DB to include the Resources table
 			}
 
 		});

@@ -12,15 +12,14 @@ public class Selling {
 	private int mSellingPrice;
 	private int mCropTypeId;
 	private int msent;
-	private int muserId;
 	private int mIsadmin;
-	
-	public Selling(int actionid, int actionNameId, int quantity1, int quantity2,
-			String Units, int SellingPrice, int cropType_id, int sent, int Isadmin
-			,String day, int userid) {
+
+	public Selling(int actionid, int actionNameId, int quantity1,
+			int quantity2, String Units, int SellingPrice, int cropType_id,
+			int sent, int Isadmin, String day, int userid) {
 
 		mactionid = actionid;
-		mactionNameId=actionNameId;
+		mactionNameId = actionNameId;
 		mQuantity1 = quantity1;
 		mQuantity2 = quantity2;
 		mUnits = Units;
@@ -30,7 +29,6 @@ public class Selling {
 		mCropTypeId = cropType_id;
 		msent = sent;
 		mIsadmin = Isadmin;
-		
 
 	}
 
@@ -62,8 +60,6 @@ public class Selling {
 		return muserid;
 	}
 
-
-
 	public int getSellingPrice() {
 		return mSellingPrice;
 	}
@@ -72,7 +68,6 @@ public class Selling {
 		return mCropTypeId;
 	}
 
-
 	public int getsent() {
 		return msent;
 	}
@@ -80,7 +75,5 @@ public class Selling {
 	public int getadmin() {
 		return mIsadmin;
 	}
-
-	
 
 }

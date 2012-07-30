@@ -11,16 +11,14 @@ public class Irrigation {
 	private int mplotid;
 	private int msend;
 	private int mIsadmin;
-	private String mActionPerformedDate;
 	private String mMethod;
-	
 
 	public Irrigation(int actionid, int actionNameId, int quantity1,
-			 String Units,int plotid,int send, int Isadmin, 
-			 String day,String Method, int userid){  
+			String Units, int plotid, int send, int Isadmin, String day,
+			String Method, int userid) {
 
 		mactionid = actionid;
-		mactionameId=actionNameId;
+		mactionameId = actionNameId;
 		mQuantity1 = quantity1;
 		mUnits = Units;
 		mday = day;
@@ -28,23 +26,21 @@ public class Irrigation {
 		mplotid = plotid;
 		msend = send;
 		mIsadmin = Isadmin;
-		mMethod=Method;
+		mMethod = Method;
 	}
 
 	public int getActionId() {
 		return mactionid;
 	}
 
-	 public int getActionNameId() {
-	 return mactionameId;
-	 }
+	public int getActionNameId() {
+		return mactionameId;
+	}
 
-
-	public int getquantity1() {              
+	public int getquantity1() {
 		return mQuantity1;
 	}
 
-	
 	public String getUnits() {
 		return mUnits;
 	}
@@ -72,9 +68,5 @@ public class Irrigation {
 	public String getMethod() {
 		return mMethod;
 	}
-
-	
-
-	
 
 }

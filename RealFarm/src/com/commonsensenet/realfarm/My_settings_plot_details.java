@@ -172,16 +172,11 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
-<<<<<<< HEAD
-				ArrayList<DialogData> m_entries = mDataProvider.getDialogData(RealFarmDatabase.DIALOG_SOIL_TYPE_ID);
-				displayDialog(v, m_entries, "mSoilType", "Select the soil type", R.raw.problems, R.id.dlg_lbl_soil_plot, R.id.soiltype_tr, 0);
-=======
-				final ArrayList<DialogData> m_entries = DialogArrayLists
-						.getSoilTypeArray(v);
+				ArrayList<DialogData> m_entries = mDataProvider
+						.getDialogData(RealFarmDatabase.DIALOG_SOIL_TYPE_ID);
 				displayDialog(v, m_entries, "mSoilType",
 						"Select the soil type", R.raw.problems,
 						R.id.dlg_lbl_soil_plot, R.id.soiltype_tr, 0);
->>>>>>> Modified DB to include the Resources table
 
 			}
 		});
