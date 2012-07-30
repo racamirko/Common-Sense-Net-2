@@ -33,12 +33,12 @@ import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 
 public class RealFarmProvider {
 	public abstract interface OnDataChangeListener {
-		public abstract void onDataChanged(String data, int temperature,
-				String type, int adminflag);
+		public abstract void onDataChanged(String date, int temperature,
+				String type);
 	}
 
 	/** Date format used throughout the application. */
-	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	public static String DATE_FORMAT = "yyyy-MM-dd";
 	/** Map used to handle different instances depending on the context. */
 	private static Map<Context, RealFarmProvider> sMapProviders = new HashMap<Context, RealFarmProvider>();
 	/** Listener used to detect changes in the weather forecast. */
@@ -68,8 +68,8 @@ public class RealFarmProvider {
 		mDatabase.close();
 	}
 
-	public long addWeatherForecast(String date, int value, String type,
-			int adminFlag) {
+	// TODO: check that date is respected.
+	public long addWeatherForecast(String date, int value, String type) {
 
 		Log.d("WF values: ", "in setdata");
 		ContentValues args = new ContentValues();
@@ -87,8 +87,7 @@ public class RealFarmProvider {
 
 		// notifies any listener that the data changed.
 		if (sWeatherForecastDataListener != null) {
-			sWeatherForecastDataListener.onDataChanged(date, value, type,
-					adminFlag);
+			sWeatherForecastDataListener.onDataChanged(date, value, type);
 		}
 		Log.d("done: ", "wf setdata");
 		return result;
@@ -112,7 +111,6 @@ public class RealFarmProvider {
 								+ actionNameId, null, null, null, null);
 
 		if (c.moveToFirst()) {
-
 			tmpAction = new ActionName(actionNameId, c.getString(0),
 					c.getString(1), c.getInt(2), c.getInt(3));
 		}
@@ -1344,6 +1342,12 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	/**
+	 * Gets all the available WeatherForecasts, sorted by date. Old forecasts
+	 * will be included as well.
+	 * 
+	 * @return a List of all the available WeatherForecasts.
+	 */
 	public List<WeatherForecast> getWeatherForecasts() {
 		List<WeatherForecast> tmpList;
 
@@ -1359,8 +1363,80 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE },
-						null, null, null, null, null);
+						null, null, null, null,
+						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
+								+ " ASC");
 
+		tmpList = new ArrayList<WeatherForecast>();
+
+		WeatherForecast wf = null;
+		if (c.moveToFirst()) {
+			do {
+				wf = new WeatherForecast(c.getInt(0), c.getString(1),
+						c.getInt(2), c.getString(3));
+				tmpList.add(wf);
+
+				Log.d("WF values: ", wf.toString());
+
+			} while (c.moveToNext());
+		}
+		Log.d("done: ", "finished Wf getdata");
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+
+	/**
+	 * Gets the list of available WeatherForecasts based on a start date. Any
+	 * date matching the start date is included as well in the list.
+	 * 
+	 * @param startDate
+	 *            the initial date to be considered.
+	 * 
+	 * @return a List of WeatherForecasts that match this criteria.
+	 */
+	public List<WeatherForecast> getWeatherForecasts(Date startDate) {
+
+		// creates the formatter based on the format using in the database.
+		SimpleDateFormat df = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
+
+		return getWeatherForecasts(df.format(startDate));
+	}
+
+	/**
+	 * Gets the list of available WeatherForecasts based on a start date. Any
+	 * date matching the start date is included as well in the list. The given
+	 * date has to be formatted according to RealFarmProvider.DATE_FORMAT.
+	 * 
+	 * @param startDate
+	 *            the initial date to be considered.
+	 * 
+	 * @return a List of WeatherForecasts that match this criteria.
+	 */
+	public List<WeatherForecast> getWeatherForecasts(String startDate) {
+		List<WeatherForecast> tmpList;
+
+		// opens the database.
+		mDatabase.open();
+		Log.d("done: ", "in Wf getdata");
+
+		// query all actions
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_WEATHERFORECAST,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE },
+						"date("
+								+ RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
+								+ ") >= date('" + startDate + "')", null, null,
+						null, RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
+								+ " ASC");
+
+		// creates the result list.
 		tmpList = new ArrayList<WeatherForecast>();
 
 		WeatherForecast wf = null;

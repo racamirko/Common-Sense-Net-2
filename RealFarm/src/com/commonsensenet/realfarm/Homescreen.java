@@ -1,5 +1,7 @@
 package com.commonsensenet.realfarm;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog;
@@ -697,8 +699,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	protected void updateWidgets() {
+
+		// gets the forecast from the database.
 		List<WeatherForecast> forecastList = mDataProvider
-				.getWeatherForecasts();
+				.getWeatherForecasts(new Date());
 
 		// if there is at least one value
 		if (forecastList.size() != 0) {

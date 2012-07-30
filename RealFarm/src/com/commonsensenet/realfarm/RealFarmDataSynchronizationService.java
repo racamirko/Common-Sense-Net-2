@@ -82,14 +82,14 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				// fertilizer, seeds, stages etc..
 				String type = separated[1];
 
-				int typeval = new Integer(type);
+				int typeval = Integer.valueOf(type);
 				Log.d("Type val: ", type);
 
 				if (typeval == 1) {
 					// Its a WF, MP, SM message
 					String cond = separated[4];
 					Log.d("before int conversion ", "before");
-					int condval = new Integer(cond);
+					int condval = Integer.valueOf(cond);
 					Log.d("after int conversion ", "after");
 					String type1 = null;
 					switch (condval) {
@@ -114,7 +114,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 					}
 					Log.d("cond val: ", type1);
 					String cond1 = separated[7];
-					int condval1 = new Integer(cond1);
+					int condval1 = Integer.valueOf(cond1);
 					String type2 = null;
 					switch (condval1) {
 					case 0:
@@ -174,11 +174,10 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 
 					mDataProvider = RealFarmProvider.getInstance(context);
 
-					int temperature = new Integer(separated[3]);
-					int adminFlag = new Integer(separated[8]);
+					int temperature = Integer.valueOf(separated[3]);
 
 					mDataProvider.addWeatherForecast(separated[2], temperature,
-							type1, adminFlag);
+							type1);
 
 					Log.d("inserted to DB ", "inserrted data");
 					mDataProvider.getWeatherForecasts();

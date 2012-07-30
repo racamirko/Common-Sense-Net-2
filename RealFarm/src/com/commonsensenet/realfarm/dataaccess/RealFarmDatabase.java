@@ -806,10 +806,11 @@ public class RealFarmDatabase {
 
 		ContentValues wf = new ContentValues();
 		int[] tempForecast = { 28, 30, 27, 29, 35 };
-		String[] typeForecast = { "Sunny", "Cloudy", "Chance of Rain",
+		String[] typeForecast = { "Cloudy", "Sunny", "Chance of Rain",
 				"Light Rain", "Rain" };
 
 		for (int x = 0; x < 5; x++, calendar.add(Calendar.DAY_OF_MONTH, 1)) {
+
 			wf.put(COLUMN_NAME_WEATHERFORECAST_DATE,
 					df.format(calendar.getTime()));
 			wf.put(COLUMN_NAME_WEATHERFORECAST_TEMPERATURE, tempForecast[x]);

@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm;
 
+import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
@@ -38,8 +39,9 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		// updated.
 		mDataProvider.setWeatherForecastDataChangeListener(this);
 
-		// gets the forecast from the database.
-		List<WeatherForecast> wf = mDataProvider.getWeatherForecasts();
+		// gets the forecast from the database for today.
+		List<WeatherForecast> wf = mDataProvider
+				.getWeatherForecasts(new Date());
 
 		// creates the adapter used to manage the data.
 		mWeatherForecastItemAdapter = new WeatherForecastItemAdapter(this, wf,
@@ -56,8 +58,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 	}
 
 	// TODO: this is not implemented.
-	public void onDataChanged(String date, int temperature, String type,
-			int adminflag) {
+	public void onDataChanged(String date, int temperature, String type) {
 
 		// item should be added to the adapter.
 	}
