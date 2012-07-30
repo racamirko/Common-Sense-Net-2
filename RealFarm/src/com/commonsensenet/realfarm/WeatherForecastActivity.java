@@ -18,7 +18,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		OnDataChangeListener, OnItemLongClickListener {
 
 	/** Celsius indicator. */
-	public static final String CELSIUS = "¡";
+	public static String CELSIUS = "¡";
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the weather forecasts. */
