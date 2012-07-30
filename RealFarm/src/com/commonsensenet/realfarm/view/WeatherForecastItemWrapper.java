@@ -71,31 +71,13 @@ public class WeatherForecastItemWrapper {
 
 	public void populateFrom(WeatherForecast weatherForecast) {
 
-		String type = weatherForecast.getType();
-		int typeIconId = 0;
-
-		// gets the icon based on the text.
-		if (type.toString().equalsIgnoreCase("Sunny")) {
-			typeIconId = R.drawable.sunny;
-		} else if (type.toString().equalsIgnoreCase("Light Rain")) {
-			typeIconId = R.drawable.lightrain;
-		} else if (type.toString().equalsIgnoreCase("Cloudy")) {
-			typeIconId = R.drawable.cloudy;
-		} else if (type.toString().equalsIgnoreCase("Chance of Rain")) {
-			typeIconId = R.drawable.chance_of_rain;
-		} else if (type.toString().equalsIgnoreCase("Rain")) {
-			typeIconId = R.drawable.rain;
-		} else if (type.toString().equalsIgnoreCase("Storm")) {
-			typeIconId = R.drawable.storm;
-		}
-
+		getIcon().setImageResource(weatherForecast.getTypeResourceId());
+		getForecast().setText(weatherForecast.getType());
 		getTemperature().setText(
 				weatherForecast.getTemperature()
 						+ WeatherForecastActivity.CELSIUS);
-		getIcon().setImageResource(typeIconId);
 		getDay().setText(
 				DateHelper.formatWithDay(weatherForecast.getDate())
 						.toUpperCase());
-		getForecast().setText(type);
 	}
 }

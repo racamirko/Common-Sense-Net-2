@@ -18,6 +18,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
@@ -36,6 +37,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.utils.ReminderTask;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
@@ -157,17 +159,16 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
 
-			//Fertilizing
-			mDataProvider.setFertilizing(1, 2,
-					"Complex","1L can(s)", "24.12", 0,0);
-			mDataProvider.setFertilizing(2, 2,
-					"Gypsum","cart load(s)", "25.12", 0,0);
-			mDataProvider.setFertilizing(1, 2,
-					"Urea","tractor load(s)", "26.12", 0,0);
-			mDataProvider.setFertilizing(2, 2,
-					"Super","1L can(s)", "27.12", 0,0);
-			
-			
+			// Fertilizing
+			mDataProvider.setFertilizing(1, 2, "Complex", "1L can(s)", "24.12",
+					0, 0);
+			mDataProvider.setFertilizing(2, 2, "Gypsum", "cart load(s)",
+					"25.12", 0, 0);
+			mDataProvider.setFertilizing(1, 2, "Urea", "tractor load(s)",
+					"26.12", 0, 0);
+			mDataProvider.setFertilizing(2, 2, "Super", "1L can(s)", "27.12",
+					0, 0);
+
 			// irrigating
 			mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Method 1", 0,
 					0);
@@ -688,21 +689,31 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// initDb();
 		insertDemoData();
 
+		// adds the widgets
+		updateWidgets();
+		// adds the listeners
 		initActionListener();
-		
-	/*	System.out.println("*********************GETTING FERTILIZER ID**************************************");
-		mDataProvider.getFertIdIdFromFertilizer("Complex");
-		mDataProvider.getFertIdIdFromFertilizer("Compost");
-		mDataProvider.getFertIdIdFromFertilizer("DAP");
-		mDataProvider.getFertIdIdFromFertilizer("Farm Yard Manure / FYM");
-		mDataProvider.getFertIdIdFromFertilizer("Gypsum");
-		mDataProvider.getFertIdIdFromFertilizer("Potash");
-		mDataProvider.getFertIdIdFromFertilizer("Salt");
-		mDataProvider.getFertIdIdFromFertilizer("Super");
-		mDataProvider.getFertIdIdFromFertilizer("Urea");
-		mDataProvider.getFertIdIdFromFertilizer("Not in the list");*/
-		System.out.println("*********************DISPLAYED  FERTILIZER ID**************************************");
 
+	}
+
+	protected void updateWidgets() {
+		List<WeatherForecast> forecastList = mDataProvider
+				.getWeatherForecasts();
+
+		// if there is at least one value
+		if (forecastList.size() != 0) {
+
+			// sets the first forecast
+			WeatherForecast wf = forecastList.get(0);
+			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
+			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
+			weatherTemp.setText(wf.getTemperature()
+					+ WeatherForecastActivity.CELSIUS);
+
+			// sets the icon
+			weatherImage.setImageResource(wf.getTypeResourceId());
+
+		}
 	}
 
 	// public boolean onCreateOptionsMenu(Menu menu) {
