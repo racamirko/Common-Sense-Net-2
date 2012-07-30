@@ -149,7 +149,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 			public void onClick(View v) {
 				stopaudio();
 
-				displayDialogNP("Enter plot size", "mSize", R.raw.dateinfo, 0,
+				displayDialogNP("Enter plot size in acres", "mSize", R.raw.dateinfo, 0,
 						50, 0, 0.1, 1, R.id.size_txt, R.id.size_tr,
 						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo);
@@ -422,7 +422,7 @@ public class My_settings_plot_details extends HelpEnabledActivityOld {
 				Log.d("var " + position + " picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getName());
+				var_text.setText(choice.getShortName());
 				resultsMap.put(mapEntry, choice.getValue());
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback

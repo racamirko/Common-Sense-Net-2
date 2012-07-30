@@ -114,7 +114,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:src="@drawable/date" />
+                    android:src="@drawable/soiltypeicon" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_soil_plot"
@@ -153,7 +153,7 @@
                     android:layout_width="40dp"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:src="@drawable/maincrop" />
+                    android:src="@drawable/ic_maincrop" />
 
                 <TextView
                     android:id="@+id/dlg_lbl_crop_plot"

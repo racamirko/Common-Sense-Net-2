@@ -1011,31 +1011,32 @@ containing a value of this type.
         public static final int smiley_question_vec=0x7f02010e;
         public static final int smiley_wave=0x7f02010f;
         public static final int smiley_wave_vec=0x7f020110;
-        public static final int sorghum=0x7f020111;
-        public static final int soundoff=0x7f020112;
-        public static final int sowingaction=0x7f020113;
-        public static final int sowingsection=0x7f020114;
-        public static final int sprayingaction=0x7f020115;
-        public static final int sprayingsection=0x7f020116;
-        public static final int square_btn=0x7f020117;
-        public static final int square_btn_normal=0x7f020118;
-        public static final int square_btn_pressed=0x7f020119;
-        public static final int square_btn_transp=0x7f02011a;
-        public static final int square_btn_transp_normal=0x7f02011b;
-        public static final int storm=0x7f02011c;
-        public static final int sun=0x7f02011d;
-        public static final int sunny=0x7f02011e;
-        public static final int tablerow_bg=0x7f02011f;
-        public static final int time=0x7f020120;
-        public static final int trash_delete=0x7f020121;
-        public static final int treatment=0x7f020122;
-        public static final int unitsicon=0x7f020123;
-        public static final int var_sow=0x7f020124;
-        public static final int variety_crop_sow=0x7f020125;
-        public static final int variety_crop_sow_1=0x7f020126;
-        public static final int variety_sow=0x7f020127;
-        public static final int video=0x7f020128;
-        public static final int whitespaceicon=0x7f020129;
+        public static final int soiltypeicon=0x7f020111;
+        public static final int sorghum=0x7f020112;
+        public static final int soundoff=0x7f020113;
+        public static final int sowingaction=0x7f020114;
+        public static final int sowingsection=0x7f020115;
+        public static final int sprayingaction=0x7f020116;
+        public static final int sprayingsection=0x7f020117;
+        public static final int square_btn=0x7f020118;
+        public static final int square_btn_normal=0x7f020119;
+        public static final int square_btn_pressed=0x7f02011a;
+        public static final int square_btn_transp=0x7f02011b;
+        public static final int square_btn_transp_normal=0x7f02011c;
+        public static final int storm=0x7f02011d;
+        public static final int sun=0x7f02011e;
+        public static final int sunny=0x7f02011f;
+        public static final int tablerow_bg=0x7f020120;
+        public static final int time=0x7f020121;
+        public static final int trash_delete=0x7f020122;
+        public static final int treatment=0x7f020123;
+        public static final int unitsicon=0x7f020124;
+        public static final int var_sow=0x7f020125;
+        public static final int variety_crop_sow=0x7f020126;
+        public static final int variety_crop_sow_1=0x7f020127;
+        public static final int variety_sow=0x7f020128;
+        public static final int video=0x7f020129;
+        public static final int whitespaceicon=0x7f02012a;
     }
     public static final class id {
         public static final int AddUser=0x7f060060;
@@ -3072,7 +3073,7 @@ or to a theme attribute in the form "<code>?[<i>package</i>:][<i>type</i>:]<i>na
          */
         public static final int[] SherlockSpinner = {
             0x010100af, 0x01010175, 0x01010176, 0x0101017b,
-            0x01010262, 0x010102ac, 0x010102ad, 0x010103ef
+            0x01010262, 0x010102ac, 0x010102ad, 0x010103fd
         };
         /**
           <p>
