@@ -1,61 +1,54 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:background="#FFFFFF"
-    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
     android:gravity="center"
-    android:padding="20px" >
+    android:orientation="vertical"
+    android:padding="@dimen/margin" >
 
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="wrap_content"
         android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true" 
         android:gravity="center" >
-        
+
         <ImageButton
-	        android:id="@+id/button1"
-	        android:layout_width="56dp"
-	        android:layout_height="54dp"
-	        android:src="@drawable/decactionactive"
-            android:background="@android:drawable/list_selector_background" />
+            android:id="@+id/button1"
+            android:layout_width="56dp"
+            android:layout_height="54dp"
+            android:background="@android:drawable/list_selector_background"
+            android:src="@drawable/decactionactive" />
 
         <TextView
             android:id="@+id/tw"
             android:layout_width="110dp"
-            android:layout_height="fill_parent"
-            android:layout_centerHorizontal="true"
-            android:layout_centerVertical="true"
+            android:layout_height="match_parent"
+            android:background="@android:drawable/list_selector_background"
+            android:gravity="center"
             android:text="0"
-            android:textSize="40dp"
-            android:gravity="center" 
-    		android:textColor="#000000" 
-            android:background="@android:drawable/list_selector_background" />
-        
+            android:textColor="@android:color/black"
+            android:textSize="40dp" />
+
         <ImageButton
             android:id="@+id/button2"
-	        android:layout_width="56dp"
-	        android:layout_height="54dp"
-            android:src="@drawable/incactionactive"
-            android:background="@android:drawable/list_selector_background" />
+            android:layout_width="56dp"
+            android:layout_height="54dp"
+            android:background="@android:drawable/list_selector_background"
+            android:src="@drawable/incactionactive" />
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/linearLayout2"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
         android:layout_marginTop="20dp"
+        android:baselineAligned="false"
         android:gravity="center" >
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-             android:layout_weight="2"
+            android:layout_weight="2"
             android:gravity="center" >
 
             <ImageButton
@@ -68,7 +61,6 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="2"
@@ -82,6 +74,6 @@
                 android:gravity="center"
                 android:src="@drawable/ic_72px_cancel" />
         </LinearLayout>
-</LinearLayout>
+    </LinearLayout>
 
 </LinearLayout>

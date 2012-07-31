@@ -32,7 +32,7 @@ import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
 public class ActionAggregateActivity extends HelpEnabledActivityOld implements OnItemClickListener, OnLongClickListener, OnItemLongClickListener{
 	/** Name used to log the activity of the class. */
-	public static final String LOG_TAG = "sowing_aggregate";
+	public static final String LOG_TAG = "ActionAggregateActivity";
 
 	/** Indicates the id of the activity that is being displayed. */
 	private int mActiveActionNameId;

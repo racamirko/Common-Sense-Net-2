@@ -60,7 +60,7 @@
 
             <LinearLayout
                 android:id="@+id/seed_type_sow_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:background="@android:drawable/list_selector_background"
@@ -99,7 +99,7 @@
 
             <LinearLayout
                 android:id="@+id/units_sow_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:background="@android:drawable/list_selector_background"
@@ -149,7 +149,7 @@
 
             <LinearLayout
                 android:id="@+id/day_sow_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:background="@android:drawable/list_selector_background"
@@ -201,7 +201,7 @@
 
             <LinearLayout
                 android:id="@+id/treatment_sow_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:background="@android:drawable/list_selector_background"
@@ -244,7 +244,7 @@
 			
 			<LinearLayout
                 android:id="@+id/intercrop_sow_tr"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:layout_marginTop="5dp"
                 android:background="@android:drawable/list_selector_background"
@@ -288,7 +288,7 @@
 
         <LinearLayout
             style="@android:style/ButtonBar"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="horizontal" >

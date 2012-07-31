@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.view.Menu;
@@ -21,7 +22,7 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
  * @author Oscar Bola–os <@oscarbolanos> My_settings_plot_details, SM_
  */
 public class PlotsActivity extends HelpEnabledActivity implements
-		OnItemClickListener {
+		OnItemClickListener, OnItemLongClickListener {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the plots. */
@@ -74,8 +75,9 @@ public class PlotsActivity extends HelpEnabledActivity implements
 		mPlotsListView.setItemsCanFocus(true);
 		// sets the custom adapter.
 		mPlotsListView.setAdapter(mPlotItemAdapter);
-		// sets the listener
+		// adds the item listeners.
 		mPlotsListView.setOnItemClickListener(this);
+		mPlotsListView.setOnItemLongClickListener(this);
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -93,5 +95,13 @@ public class PlotsActivity extends HelpEnabledActivity implements
 			// ensures that back will not reach it.
 			PlotsActivity.this.finish();
 		}
+	}
+
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		// TODO: add help sound based on selected plot
+		// Plot selectedPlot = mPlotItemAdapter.getItem(position);
+
+		return false;
 	}
 }

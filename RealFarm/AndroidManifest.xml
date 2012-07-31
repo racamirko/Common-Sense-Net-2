@@ -135,6 +135,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".DiaryActivity"
+            android:icon="@drawable/ic_64px_diary"
             android:label="Diary"
             android:screenOrientation="portrait" />
         <activity

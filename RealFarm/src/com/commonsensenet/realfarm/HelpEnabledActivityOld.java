@@ -65,21 +65,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 
 	}
 
-	protected void stopaudio() {
-		SoundQueue.getInstance().stop();
-	}
-
-	protected void initmissingval() {
-
-		playAudio(R.raw.missinginfo);
-
-		// ShowHelpIcon(v);
-	}
-
-	protected void okaudio() {
-		playAudio(R.raw.ok);
-	}
-
 	private static final String LOG_TAG = "HelpEnabledActivity";
 
 	protected HelpAnimation mAnimFadeIn;
@@ -95,12 +80,38 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 
 	}
 
+	protected String getCurrentTime() {
+		Calendar ctaq = Calendar.getInstance();
+		SimpleDateFormat dfaq = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		String crntdt = dfaq.format(ctaq.getTime());
+		Log.i("strtdat", crntdt);
+		return crntdt;
+	}
+
 	public View getHelpIcon() {
 		return mHelpIcon;
 	}
 
 	public boolean getHelpMode() {
 		return mHelpMode;
+	}
+
+	protected void initmissingval() {
+
+		playAudio(R.raw.missinginfo);
+
+		// ShowHelpIcon(v);
+	}
+
+	protected void okaudio() {
+		playAudio(R.raw.ok);
+	}
+
+	public void onBackPressed() {
+		// stops any currently playing sound.
+		stopAudio();
+
+		super.onBackPressed();
 	}
 
 	public void onCreate(Bundle savedInstanceState, int resLayoutId) {
@@ -148,17 +159,8 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		return false;
 	}
 
-	public void setHelpIcon(View helpIcon) {
-		this.mHelpIcon = helpIcon;
-		mAnimFadeIn.setViewAnimated(helpIcon);
-	}
-
-	public void setHelpMode(boolean active) {
-		mHelpMode = active;
-	}
-
 	protected void playAudio(int resid) {
-		
+
 		// checking for audio enable
 		if (Global.enableAudio) {
 			// gets the singleton queue
@@ -172,6 +174,7 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		}
 
 	}
+
 	protected void playAudioalways(int resid) {
 		// gets the singleton queue
 		SoundQueue sq = SoundQueue.getInstance();
@@ -184,22 +187,13 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 
 	}
 
-	public void ShowHelpIcon(View v) {
+	public void setHelpIcon(View helpIcon) {
+		this.mHelpIcon = helpIcon;
+		mAnimFadeIn.setViewAnimated(helpIcon);
+	}
 
-		int loc[] = new int[2];
-		v.getLocationOnScreen(loc);
-		int iconWidth = mHelpIcon.getWidth() - mHelpIcon.getPaddingLeft();
-		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
-		mHelpIcon.setPadding(loc[0] + v.getWidth() / 2 - iconWidth / 2, loc[1]
-				- iconHeight - 20, 0, 0);
-		Log.d(LOG_TAG, "Showing help at: " + loc[0] + " , " + loc[1]);
-
-		mAnimFadeIn.setViewAssociated(v);
-		mAnimFadeIn.setDuration(500);
-		mHelpIcon.setVisibility(View.VISIBLE);
-		mHelpIcon.startAnimation(mAnimFadeIn);
-		setHelpMode(true);
-
+	public void setHelpMode(boolean active) {
+		mHelpMode = active;
 	}
 
 	public void showHelp(View v) {
@@ -289,19 +283,26 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		// TODO: make a table mapping IDs to sound files
 	}
 
-	public void onBackPressed() {
-		// stops any currently playing sound.
-		stopAudio();
+	public void ShowHelpIcon(View v) {
 
-		super.onBackPressed();
+		int loc[] = new int[2];
+		v.getLocationOnScreen(loc);
+		int iconWidth = mHelpIcon.getWidth() - mHelpIcon.getPaddingLeft();
+		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
+		mHelpIcon.setPadding(loc[0] + v.getWidth() / 2 - iconWidth / 2, loc[1]
+				- iconHeight - 20, 0, 0);
+		Log.d(LOG_TAG, "Showing help at: " + loc[0] + " , " + loc[1]);
+
+		mAnimFadeIn.setViewAssociated(v);
+		mAnimFadeIn.setDuration(500);
+		mHelpIcon.setVisibility(View.VISIBLE);
+		mHelpIcon.startAnimation(mAnimFadeIn);
+		setHelpMode(true);
+
 	}
 
-	protected String getCurrentTime() {
-		Calendar ctaq = Calendar.getInstance();
-		SimpleDateFormat dfaq = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		String crntdt = dfaq.format(ctaq.getTime());
-		Log.i("strtdat", crntdt);
-		return crntdt;
+	protected void stopaudio() {
+		SoundQueue.getInstance().stop();
 	}
 
 	protected void stopAudio() {

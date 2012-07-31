@@ -122,7 +122,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	}
 
 	// TODO: Akshay's code needs to be merged here
-	public void ShowHelpIcon(View v) {
+	public void showHelpIcon(View v) {
 
 	}
 

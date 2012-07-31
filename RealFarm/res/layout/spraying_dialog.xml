@@ -58,7 +58,7 @@
 
     <LinearLayout
         android:id="@+id/prob_spray_tr"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@android:drawable/list_selector_background"
@@ -97,7 +97,7 @@
 
     <LinearLayout
         android:id="@+id/pest_spray_tr"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@android:drawable/list_selector_background"
@@ -136,7 +136,7 @@
 
     <LinearLayout
         android:id="@+id/units_spray_tr"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@android:drawable/list_selector_background"
@@ -187,7 +187,7 @@
 
     <LinearLayout
         android:id="@+id/day_spray_tr"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@android:drawable/list_selector_background"
@@ -240,7 +240,7 @@
 
     <LinearLayout
         style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >

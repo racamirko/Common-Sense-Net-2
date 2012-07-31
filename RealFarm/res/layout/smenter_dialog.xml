@@ -58,8 +58,8 @@
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:id="@+id/MainLayout"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:background="@drawable/def_img"
             android:gravity="center_vertical|center_horizontal"
             android:orientation="vertical" >
@@ -90,14 +90,16 @@
                 android:layout_marginTop="5dp"
                 android:background="@drawable/def_img" >
 
-                <!-- <com.commonsensenet.realfarm.control.NumberPicker
+                <!--
+                <com.commonsensenet.realfarm.control.NumberPicker
                     android:id="@+id/sm_enter_val"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="130dp"
                     android:layout_marginTop="10dp"
                     android:orientation="vertical" >
-                </com.commonsensenet.realfarm.control.NumberPicker>-->
+                </com.commonsensenet.realfarm.control.NumberPicker>
+                -->
             </TableRow>
         </LinearLayout>
     </LinearLayout>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <issue id="ContentDescription">
+        <ignore path="res/layout/act_add_plot.xml" />
         <ignore path="res/layout/act_diary.xml" />
         <ignore path="res/layout/act_homescreen.xml" />
         <ignore path="res/layout/action_aggr_sel_dialog.xml" />

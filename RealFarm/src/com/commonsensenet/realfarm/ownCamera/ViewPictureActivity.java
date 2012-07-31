@@ -86,7 +86,9 @@ public class ViewPictureActivity extends Activity {
 
 		// rotate image
 		Matrix matrix = new Matrix();
-		matrix.postRotate(90);
+		// TODO: orbolanos: rotation is not always necessary! Depends on picture
+		// orientation.
+		// matrix.postRotate(90);
 		Global.rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
 				bitmap.getHeight(), matrix, true);
 

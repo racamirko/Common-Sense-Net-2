@@ -51,7 +51,7 @@
     
      <LinearLayout
          android:id="@+id/crop_sell_tr"
-         android:layout_width="fill_parent"
+         android:layout_width="match_parent"
          android:layout_height="50dp"
          android:layout_marginTop="5dp"
          android:background="@android:drawable/list_selector_background"
@@ -90,7 +90,7 @@
     
     <LinearLayout
         android:id="@+id/date_sell_tr"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@android:drawable/list_selector_background"
@@ -141,7 +141,7 @@
     
      <LinearLayout
          android:id="@+id/quant_sell_tr"
-         android:layout_width="fill_parent"
+         android:layout_width="match_parent"
          android:layout_height="50dp"
          android:layout_marginTop="5dp"
          android:background="@android:drawable/list_selector_background"
@@ -192,7 +192,7 @@
 
    <LinearLayout
         android:id="@+id/price_sell_tr"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@android:drawable/list_selector_background"
@@ -239,7 +239,7 @@
    
        <LinearLayout
         android:id="@+id/rem_quant_sell_tr"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="50dp"
         android:layout_marginTop="5dp"
         android:background="@android:drawable/list_selector_background"
@@ -291,7 +291,7 @@
 </LinearLayout>
  <LinearLayout
         style="@android:style/ButtonBar"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:orientation="horizontal" >
