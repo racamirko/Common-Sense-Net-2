@@ -90,7 +90,7 @@ public class PlotsActivity extends HelpEnabledActivity implements
 
 		// TODO: orbolanos: should open the plot details
 		// Soil Moisture should be set from there.
-		// loads the target activity
+		// loads the target activityRemoved
 		if (Global.selectedAction != null) {
 			view.getContext().startActivity(
 					new Intent(view.getContext(), Global.selectedAction));
