@@ -308,8 +308,55 @@ public class RealFarmProvider {
 		return tmpActions;
 	}
 
-	public List<AggregateItem> getAggregateItems(int actionNameId,
-			String groupField) {
+	public List<AggregateItem> getAggregateItems(int actionNameId, int seedTypeId) {
+		
+		String add = "";
+		//if(seedTypeId != 0) add = "AND a.seedTypeId = "+seedTypeId;
+
+		final String QUERY;
+		switch (actionNameId) {
+		case RealFarmDatabase.ACTION_NAME_SOW_ID:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users, a.seedTypeId, SUM(case when a.treatment='treated' THEN 1 ELSE 0 END) AS treatment FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId, a.seedTypeId ORDER BY a.seedTypeId ASC";
+			break;
+		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users, a.irrigateMethod FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d "+add+" GROUP BY a.actionNameId, a.irrigateMethod ORDER BY a.irrigateMethod ASC";
+			break;
+		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users, a.problemType FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d "+add+" GROUP BY a.actionNameId, a.problemType ORDER BY a.problemType ASC";
+			break;
+		default:
+			QUERY = "SELECT a.actionNameId, COUNT(p.userId) AS users FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId";
+			break;
+		}
+
+		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
+
+		mDatabase.open();
+
+		Cursor c = mDatabase.rawQuery(String.format(QUERY, actionNameId),
+				new String[] {});
+
+		AggregateItem a = null;
+		if (c.moveToFirst()) {
+			do {
+				a = new AggregateItem(c.getInt(0), c.getInt(1));
+				// adds any additionally found column into the aggregate item
+				// starts in 2 since actionNameId and users are ignored.
+				for (int x = 2; x < c.getColumnCount(); x++) {
+					a.addValue(c.getColumnName(x), c.getString(x));
+				}
+				tmpList.add(a);
+
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
+	public List<AggregateItem> getAggregateItemsSowing(int actionNameId, String groupField, int seedTypeId) {
 		final String MY_QUERY = "SELECT a.actionNameId, COUNT(p.userId) as users, a.%2$s FROM action a LEFT JOIN plot p ON a.plotId = p.id WHERE a.actionNameId= %1$d GROUP BY a.actionNameId, a.%2$s ORDER BY a.%2$s ASC";
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
@@ -340,6 +387,34 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public ArrayList<DialogData> getAction() {
+		final String MY_QUERY = "SELECT name, id, res, audio FROM actionName ORDER BY id ASC";
+
+		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+
+		mDatabase.open();
+
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(0));
+				dd.setShortName(c.getString(0));
+				dd.setAudio(c.getInt(3));
+				dd.setValue(c.getInt(1) + "");
+				dd.setImage(c.getInt(2));
+				tmpList.add(dd);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
 	public ArrayList<DialogData> getCrops() {
 		final String MY_QUERY = "SELECT name, id, resBg, audio, shortName FROM cropType ORDER BY id ASC";
 
@@ -900,6 +975,36 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public SeedType getVarById(int seedId) {
+
+		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName FROM seedType WHERE id = "+seedId+" ORDER BY id ASC";
+
+
+		mDatabase.open();
+
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		SeedType st = null;
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = " + c.getInt(3);
+				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+				c2.moveToFirst();
+				st = new SeedType(c.getInt(1), c.getString(0), "", -1, c.getInt(2), "", "", c2.getInt(0), c.getString(4));
+
+			} while (c.moveToNext());
+		}
+
+
+		c.close();
+		mDatabase.close();
+
+		return st;
+
+	}
+
 	// TODO: implement optimization
 	public SeedType getSeedById(int seedId) {
 
@@ -912,13 +1017,14 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_CROP_NAME,
 						RealFarmDatabase.COLUMN_NAME_CROP_RESOURCE,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-						RealFarmDatabase.COLUMN_NAME_CROP_RESOURCEBG },
+						RealFarmDatabase.COLUMN_NAME_CROP_RESOURCEBG,
+						RealFarmDatabase.COLUMN_NAME_CROP_SHORTNAME },
 				RealFarmDatabase.COLUMN_NAME_CROP_ID + "=" + seedId, null,
 				null, null, null);
 
 		if (c.moveToFirst()) {
 			res = new SeedType(seedId, c.getString(0), "", c.getInt(1),
-					c.getInt(2), "", "", c.getInt(3));
+					c.getInt(2), "", "", c.getInt(3),  c.getString(4));
 		}
 
 		c.close();
@@ -941,12 +1047,13 @@ public class RealFarmProvider {
 							RealFarmDatabase.COLUMN_NAME_CROP_NAME,
 							RealFarmDatabase.COLUMN_NAME_CROP_RESOURCE,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO,
-							RealFarmDatabase.COLUMN_NAME_CROP_RESOURCEBG });
+							RealFarmDatabase.COLUMN_NAME_CROP_RESOURCEBG,
+							RealFarmDatabase.COLUMN_NAME_CROP_SHORTNAME});
 
 			if (c.moveToFirst()) {
 				do {
 					SeedType s = new SeedType(c.getInt(0), c.getString(1), "",
-							c.getInt(2), c.getInt(3), "", "", c.getInt(4));
+							c.getInt(2), c.getInt(3), "", "", c.getInt(4), c.getString(5));
 					mAllSeeds.add(s);
 
 					Log.d("seed type: ", s.toString());
@@ -1082,6 +1189,9 @@ public class RealFarmProvider {
 			break;
 		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
 			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.irrigateMethod = '%2$s' ORDER BY a.date DESC";
+			break;
+		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
+			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.problemType = '%2$s' ORDER BY a.date DESC";
 			break;
 		default:
 			QUERY = "SELECT u.*, a.date FROM action a, plot p, user u WHERE a.plotId = p.id AND p.userId = u.id AND a.actionNameId = %1$d AND a.seedTypeId = %2$s ORDER BY a.date DESC";
@@ -1271,7 +1381,7 @@ public class RealFarmProvider {
 	}
 
 	public ArrayList<DialogData> getVarieties() {
-		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName FROM seedType ORDER BY id ASC";
+		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName, res FROM seedType ORDER BY id ASC";
 
 		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
 
@@ -1292,6 +1402,7 @@ public class RealFarmProvider {
 				dd.setShortName(c.getString(4));
 				dd.setAudio(c.getInt(2));
 				dd.setValue(c.getInt(1) + "");
+				dd.setImage(c.getInt(5));
 				dd.setBackground(c2.getInt(0));
 				tmpList.add(dd);
 			} while (c.moveToNext());

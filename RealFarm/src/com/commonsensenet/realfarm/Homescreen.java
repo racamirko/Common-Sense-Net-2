@@ -49,7 +49,7 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Indicates whether the demo data has been inserted or not. */
-	public static boolean IS_INITIALIZED = true;
+	public static boolean IS_INITIALIZED = false;
 	/** Tag used to log the App activity. */
 	public static String LOG_TAG = "Homescreen";
 
@@ -154,7 +154,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			mDataProvider.setSowing(4, 1, seeds.get(3).getId(),
 					"Bag of 10 Kgs", "05.12", "treated", 0, 0, "intercrop");
 			mDataProvider.setSowing(5, 1, seeds.get(4).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
+					"Bag of 10 Kgs", "01.12", "not treated", 0, 0, "intercrop");
 			mDataProvider.setSowing(5, 1, seeds.get(2).getId(),
 					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
 			mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
@@ -171,15 +171,15 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					0, 0);
 
 			// irrigating
-			mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Method 1", 0,
+			mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Spraying", 0,
 					0);
-			mDataProvider.setIrrigation(2, 4, "hours", "01.12", "Method 3", 0,
+			mDataProvider.setIrrigation(2, 4, "hours", "01.12", "Flooding", 0,
 					0);
-			mDataProvider.setIrrigation(3, 5, "hours", "02.12", "Method 2", 0,
+			mDataProvider.setIrrigation(3, 5, "hours", "02.12", "Spraying", 0,
 					0);
-			mDataProvider.setIrrigation(4, 1, "hours", "04.12", "Method 2", 0,
+			mDataProvider.setIrrigation(4, 1, "hours", "04.12", "Flooding", 0,
 					0);
-			mDataProvider.setIrrigation(2, 1, "hours", "04.12", "Method 2", 0,
+			mDataProvider.setIrrigation(2, 1, "hours", "04.12", "Flooding", 0,
 					0);
 
 			// flags the data insertion as done.

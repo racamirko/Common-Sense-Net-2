@@ -14,11 +14,13 @@ public class SeedType {
 	private int mResBg;
 	private String mVariety;
 	private String mVarietyKannada;
+	private String shortName;
 
 	public SeedType(int id, String name, String nameKannada, int res,
-			int audioRes, String variety, String varietyKannada, int resBg) {
+			int audioRes, String variety, String varietyKannada, int resBg, String shortName) {
 		mId = id;
 		mName = name;
+		this.shortName = shortName;
 		mNameKannada = nameKannada;
 		mRes = res;
 		mAudioRes = audioRes;
@@ -51,6 +53,10 @@ public class SeedType {
 
 	public String getName() {
 		return mName;
+	}
+	
+	public String getShortName() {
+		return shortName;
 	}
 
 	public String getNameKannada() {

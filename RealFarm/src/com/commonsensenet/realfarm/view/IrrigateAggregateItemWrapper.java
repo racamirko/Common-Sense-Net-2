@@ -1,6 +1,8 @@
 package com.commonsensenet.realfarm.view;
 
+import android.graphics.Color;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -31,6 +33,9 @@ public class IrrigateAggregateItemWrapper extends AggregateItemWrapper {
 		// hides the aggregate detail
 		mRow.findViewById(R.id.button_aggregate_detail).setVisibility(
 				View.INVISIBLE);
+
+		getTypeText().setTextColor(Color.BLACK);
+		/*getUserImg().setImageResource(R.drawable.irrigatingaggsection);*/
 
 		// getTypeImage().setImageResource(seed.getResBg());
 	}

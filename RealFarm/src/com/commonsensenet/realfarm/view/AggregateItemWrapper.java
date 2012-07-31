@@ -21,6 +21,8 @@ public abstract class AggregateItemWrapper {
 	protected View mRow;
 	protected TextView mTypeText;
 	protected TextView mUserCount;
+	protected TextView mTreatmentCount;
+	protected ImageView mUserImg;
 
 	/**
 	 * Creates a new AggregateItemWrapper instance.
@@ -59,6 +61,23 @@ public abstract class AggregateItemWrapper {
 					.findViewById(R.id.label_aggregate_user_count);
 		}
 		return (mUserCount);
+	}
+	
+	public ImageView getUserImg(){
+		if (mUserImg == null) {
+			mUserImg = (ImageView) mRow
+					.findViewById(R.id.img_aggregate_user_count);
+		}
+		return (mUserImg);		
+	}
+	
+	public TextView getTreatmentCount() {
+
+		if (mTreatmentCount == null) {
+			mTreatmentCount = (TextView) mRow
+					.findViewById(R.id.label_aggregate_detail_count);
+		}
+		return (mTreatmentCount);
 	}
 
 	public abstract void populateFrom(AggregateItem aggregate,

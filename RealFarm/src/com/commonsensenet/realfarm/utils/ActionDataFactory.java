@@ -24,20 +24,17 @@ import com.commonsensenet.realfarm.view.SowAggregateItemWrapper;
 public final class ActionDataFactory {
 
 	public static List<AggregateItem> getAggregateData(int actionTypeId,
-			RealFarmProvider dataProvider) {
+			RealFarmProvider dataProvider, int seedTypeId) {
 
 		switch (actionTypeId) {
 		case RealFarmDatabase.ACTION_NAME_SOW_ID:
-			return dataProvider.getAggregateItems(actionTypeId,
-					RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID);
+			return dataProvider.getAggregateItems(actionTypeId, seedTypeId);
 
 		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
-			return dataProvider.getAggregateItems(actionTypeId,
-					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
+			return dataProvider.getAggregateItems(actionTypeId, -1);
 			
 		case RealFarmDatabase.ACTION_NAME_SELL_ID:
-			return dataProvider.getAggregateItems(actionTypeId,
-					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
+			return dataProvider.getAggregateItems(actionTypeId, -1);
 			
 		default:
 			return null;
@@ -57,6 +54,14 @@ public final class ActionDataFactory {
 							aggregateItem.getActionNameId(),
 							aggregateItem
 									.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD));
+		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
+			return dataProvider.getUserAggregateItem(aggregateItem
+					.getActionNameId(), aggregateItem
+					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
+		case RealFarmDatabase.ACTION_NAME_HARVEST_ID:
+			return dataProvider.getUserAggregateItem(aggregateItem
+					.getActionNameId(), aggregateItem
+					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
 		default:
 			return null;
 		}
