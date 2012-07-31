@@ -63,8 +63,8 @@ public class UserAggregateItemWrapper {
 			RealFarmProvider provider) {
 
 		getUserName().setText(
-				userAggregate.getUser().getFirstName() + " "
-						+ userAggregate.getUser().getLastName());
+				userAggregate.getUser().getFirstname() + " "
+						+ userAggregate.getUser().getLastname());
 		getDate().setText(userAggregate.getDate());
 
 		int resId = mRow.getResources().getIdentifier(

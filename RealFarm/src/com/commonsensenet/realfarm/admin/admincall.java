@@ -213,8 +213,8 @@ public class admincall extends Activity {
 		List<User> userList = mDataProvider.getUserDelete(0);
 		// adds the users into the list adapter.
 		for (int x = 0; x < userList.size(); x++) {
-			listAdapter.add(userList.get(x).getFirstName() + " "
-					+ userList.get(x).getLastName());
+			listAdapter.add(userList.get(x).getFirstname() + " "
+					+ userList.get(x).getLastname());
 
 		}
 	}

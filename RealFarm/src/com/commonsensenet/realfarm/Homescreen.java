@@ -666,7 +666,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// sets the name of the user.
 		getSupportActionBar().setTitle(
-				user.getFirstName() + ' ' + user.getLastName());
+				user.getFirstname() + ' ' + user.getLastname());
 		getSupportActionBar().setSubtitle("CK Pura");
 
 		// gets the image from the resources.

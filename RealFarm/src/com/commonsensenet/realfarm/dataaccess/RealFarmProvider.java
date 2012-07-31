@@ -77,7 +77,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE, date);
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
 				value);
-		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE, type);
+		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID, type);
 		mDatabase.open();
 
 		long result = mDatabase.insertEntries(
@@ -173,22 +173,14 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
-						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNIQUEIDSERVER,
-						RealFarmDatabase.COLUMN_NAME_ACTION_USERID });
+						RealFarmDatabase.COLUMN_NAME_ACTION_GLOBALID });
 
 		Action a = null;
 		if (c.moveToFirst()) {
@@ -227,21 +219,21 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNIQUEIDSERVER,
+						RealFarmDatabase.COLUMN_NAME_ACTION_GLOBALID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID },
 				RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID + " = " + plotId
 						+ "", null, null, null, null);
@@ -485,10 +477,10 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT,
 						RealFarmDatabase.COLUMN_NAME_ACTION_INTERCROP,
@@ -535,10 +527,10 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID },
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + fert,
@@ -572,11 +564,11 @@ public class RealFarmProvider {
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID },
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + harv,
@@ -612,10 +604,10 @@ public class RealFarmProvider {
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID },
@@ -723,10 +715,10 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE },
-				RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "=" + delete,
+				RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "=" + delete,
 				null, null, null, null);
 
 		tmpList = new ArrayList<Plot>();
@@ -766,8 +758,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE }, null, null,
 				null, null, null);
@@ -804,8 +796,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE },
 				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId, null,
@@ -839,8 +831,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE },
 				RealFarmDatabase.COLUMN_NAME_PLOT_ID + "=" + plotId, null,
@@ -877,13 +869,13 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE },
 				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
 						+ " AND "
-						+ RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG + "="
+						+ RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "="
 						+ delete + "", null, null, null, null);
 
 		Plot p = null;
@@ -912,8 +904,8 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID },
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "="
@@ -1079,11 +1071,11 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID },
 				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID + "=" + sell,
@@ -1118,11 +1110,11 @@ public class RealFarmProvider {
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
 				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-						RealFarmDatabase.COLUMN_NAME_ACTION_UNITS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE,
-						RealFarmDatabase.COLUMN_NAME_ACTION_SENT,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID },
@@ -1231,8 +1223,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINAFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
+						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
 				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId, null,
 				null, null, null);
@@ -1270,7 +1262,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINAFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
 
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
@@ -1318,9 +1310,9 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINAFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG + "=" + delete,
+				RealFarmDatabase.COLUMN_NAME_USER_ISENABLED + "=" + delete,
 				null, null, null, null);
 
 		tmpList = new ArrayList<User>();
@@ -1358,8 +1350,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG,
-						RealFarmDatabase.COLUMN_NAME_USER_ADMINAFLAG,
+						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
+						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP }, null,
 				null, null, null, null);
 
@@ -1473,7 +1465,7 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE },
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID },
 						null, null, null, null,
 						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
 								+ " ASC");
@@ -1540,7 +1532,7 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TYPE },
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID },
 						"date("
 								+ RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
 								+ ") >= date('" + startDate + "')", null, null,
@@ -1624,8 +1616,8 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, soilType);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG, deleteFlag);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ADMINFLAG, adminFlag);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, deleteFlag);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, adminFlag);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 				new Date().getTime());
 
@@ -1668,16 +1660,16 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID, Cropvariety);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, quantity2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotid);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER, TypeFert);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE, Prob);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK, feedback);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE, sp);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE, sp);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED, QuaSeed);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE, type);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, isAdmin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, isAdmin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 				dateFormat.format(calendar.getTime()));
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT, treat);
@@ -1698,7 +1690,7 @@ public class RealFarmProvider {
 	public long setDeleteFlagForPlot(int plotId) {
 
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_DELETEFLAG, 1);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, 1);
 
 		long result;
 
@@ -1715,7 +1707,7 @@ public class RealFarmProvider {
 	public long setDeleteFlagForUser(int userid) {
 
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG, 1);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, 1);
 
 		long result;
 
@@ -1740,10 +1732,10 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TYPEOFFERTILIZER,
 				typeOfFertilizer);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
 
 		long result;
@@ -1772,12 +1764,12 @@ public class RealFarmProvider {
 				getCropIdFromSeedId(varietyId));
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_HARVESTFEEDBACK,
 				harvfeedback);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
 
 		long result;
@@ -1801,10 +1793,10 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 				RealFarmDatabase.ACTION_NAME_IRRIGATE_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD, method);
 
@@ -1865,8 +1857,8 @@ public class RealFarmProvider {
 				RealFarmDatabase.ACTION_NAME_REPORT_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE, probType);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
 				getCropIdFromSeedId(Integer.parseInt(crop)));
@@ -1895,13 +1887,13 @@ public class RealFarmProvider {
 				RealFarmDatabase.ACTION_NAME_SELL_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, qua1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, qua2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLINGPRICE, sellingprice);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE, sellingprice);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUALITYOFSEED, QuaOfSeed);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SELLTYPE, selltype);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
 
 		long result;
@@ -1928,10 +1920,10 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
 				getCropIdFromSeedId(seedTypeId));
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT, treat);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_INTERCROP, intercrop);
@@ -1957,11 +1949,11 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONNAMEID,
 				RealFarmDatabase.ACTION_NAME_SPRAY_ID);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNITS, Units);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, Units);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE, probtype);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENT, sent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMIN, admin);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION, admin);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, day);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PESTICIDETYPE, pesttype);
 
@@ -1983,8 +1975,8 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILE, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_DELETEFLAG, 0);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ADMINAFLAG, 0);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, 0);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, 0);
 
 		long result;
 
@@ -2011,108 +2003,15 @@ public class RealFarmProvider {
 		return result;
 	}
 
+	/**
+	 * Adds the listener used to detect when the WeatherForecast table is
+	 * modified.
+	 * 
+	 * @param listener
+	 *            the Data Change Listener.
+	 */
 	public void setWeatherForecastDataChangeListener(
 			OnDataChangeListener listener) {
 		sWeatherForecastDataListener = listener;
-	}
-
-	public int getFertIdIdFromFertilizer(String text) {
-
-		int fert_id = 0;
-		final String MY_QUERY = "SELECT * FROM fertilizer";
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		if (c.moveToFirst()) {
-			do {
-				if (c.getString(1).equals(text)) {
-					fert_id = c.getInt(0);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return fert_id;
-
-	}
-
-	public int getProblemIdFromProblem(String text) {
-
-		int problemId = 0;
-		final String MY_QUERY = "SELECT * FROM problem";
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		if (c.moveToFirst()) {
-			do {
-				if (c.getString(1).equals(text)) {
-					problemId = c.getInt(0);
-
-				}
-
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return problemId;
-
-	}
-
-	public int getUnitIdIdFromUnit(String text) {
-
-		int unitId = 0;
-		final String MY_QUERY = "SELECT * FROM unit";
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		if (c.moveToFirst()) {
-			do {
-				if (c.getString(1).equals(text)) {
-					unitId = c.getInt(0);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return unitId;
-
-	}
-
-	public int getPestIdIdIdFromPest(String text) {
-
-		int pestId = 0;
-		final String MY_QUERY = "SELECT * FROM pesticide";
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		if (c.moveToFirst()) {
-			do {
-				if (c.getString(1).equals(text)) {
-					pestId = c.getInt(0);
-				}
-
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return pestId;
 	}
 }

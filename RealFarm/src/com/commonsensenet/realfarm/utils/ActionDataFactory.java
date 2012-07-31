@@ -31,11 +31,21 @@ public final class ActionDataFactory {
 			return dataProvider.getAggregateItems(actionTypeId, seedTypeId);
 
 		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
+<<<<<<< HEAD
 			return dataProvider.getAggregateItems(actionTypeId, -1);
 			
 		case RealFarmDatabase.ACTION_NAME_SELL_ID:
 			return dataProvider.getAggregateItems(actionTypeId, -1);
 			
+=======
+			return dataProvider.getAggregateItems(actionTypeId,
+					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
+
+		case RealFarmDatabase.ACTION_NAME_SELL_ID:
+			return dataProvider.getAggregateItems(actionTypeId,
+					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
+
+>>>>>>> Warning: NON working version. Pending table modifications.
 		default:
 			return null;
 		}

@@ -306,7 +306,7 @@ public class Settings extends Activity {
 			RealFarmDatabase.DEVICE_ID = deviceID; // update main device ID
 
 			// if no information, try to fetch the default.
-			if (user == null || user.getFirstName() == null) {
+			if (user == null || user.getFirstname() == null) {
 				// number in case user configured phone
 				// without sim card
 				user = mDataProvider
@@ -314,16 +314,16 @@ public class Settings extends Activity {
 				flagNewSim = true;
 			}
 
-			firstname.setText(user.getFirstName());
-			lastname.setText(user.getLastName());
+			firstname.setText(user.getFirstname());
+			lastname.setText(user.getLastname());
 		} else { // user must insert a sim card, use default user mode
 			Toast.makeText(getApplicationContext(), "Insert SIM card",
 					Toast.LENGTH_SHORT).show();
 			User user = mDataProvider
 					.getUserByMobile(RealFarmDatabase.DEVICE_ID);
 
-			firstname.setText(user.getFirstName());
-			lastname.setText(user.getLastName());
+			firstname.setText(user.getFirstname());
+			lastname.setText(user.getLastname());
 		}
 
 		origFirstname = firstname.getText().toString();

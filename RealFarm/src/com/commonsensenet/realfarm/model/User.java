@@ -6,46 +6,40 @@ package com.commonsensenet.realfarm.model;
  */
 public class User {
 
-	/** Flag that indicates whether the user was inserted by an admin or not. */
-	protected int mAdminFlag;
-	/** Flag that indicates whether the user is enabled or not. */
-	protected int mDeleteFlag;
 	/** First name of the User. */
-	protected String mFirstName;
-	/** Unique identifier. */
+	protected String mFirstname;
+	/** Unique User Identifier */
 	protected int mId;
-	/** Image file of the user. */
+	/** Path where the image of the User is located. */
 	protected String mImagePath;
-	/** Last name of the User. */
-	protected String mLastName;
-	/** Mobile Number of the user. */
-	protected String mMobileNumber;
+	/**
+	 * Flag that indicates whether the user was inserted by an administrator or
+	 * not.
+	 */
+	protected int mIsAdminAction;
+	/** Flag that indicates whether the user is enabled or not. */
+	protected int mIsEnabled;
+	/** Lastname of the User. */
+	protected String mLastname;
+	/** Mobile number of the User. */
+	protected String mMobile;
 	/** Timestamp that indicates the creation of the User. */
 	protected int mTimestamp;
 
-	public User(int userId, String firstName, String lastName,
-			String mobileNumber, String imagePath, int deleteFlag,
-			int adminFlag, int timestamp) {
+	public User(int userId, String firstname, String lastname, String mobile,
+			String imagePath, int isEnabled, int isAdminAction, int timestamp) {
 		mId = userId;
-		mFirstName = firstName;
-		mLastName = lastName;
-		mMobileNumber = mobileNumber;
+		mFirstname = firstname;
+		mLastname = lastname;
+		mMobile = mobile;
 		mImagePath = imagePath;
-		mDeleteFlag = deleteFlag;
-		mAdminFlag = adminFlag;
+		mIsEnabled = isEnabled;
+		mIsAdminAction = isAdminAction;
 		mTimestamp = timestamp;
 	}
 
-	public int getAdminFlag() {
-		return mAdminFlag;
-	}
-
-	public int getDeleteFlag() {
-		return mDeleteFlag;
-	}
-
-	public String getFirstName() {
-		return mFirstName;
+	public String getFirstname() {
+		return mFirstname;
 	}
 
 	public int getId() {
@@ -56,12 +50,20 @@ public class User {
 		return mImagePath;
 	}
 
-	public String getLastName() {
-		return mLastName;
+	public int getIsAdminAction() {
+		return mIsAdminAction;
 	}
 
-	public String getMobileNumber() {
-		return mMobileNumber;
+	public int getIsEnabled() {
+		return mIsEnabled;
+	}
+
+	public String getLastname() {
+		return mLastname;
+	}
+
+	public String getMobile() {
+		return mMobile;
 	}
 
 	public int getTimestamp() {
@@ -73,8 +75,8 @@ public class User {
 
 		return String
 				.format("[User id='%s', firstName='%s', lastName='%s', mobileNumber='%s', imagePath='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
-						mId, mFirstName, mLastName, mMobileNumber, mImagePath,
-						mDeleteFlag, mAdminFlag, mTimestamp);
+						mId, mFirstname, mLastname, mMobile, mImagePath,
+						mIsEnabled, mIsAdminAction, mTimestamp);
 
 	}
 
