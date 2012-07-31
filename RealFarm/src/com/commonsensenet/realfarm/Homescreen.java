@@ -333,18 +333,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_market) { /*
-													 * TODO System.out.println(
-													 * "Market Price details clicked"
-													 * ); inte = new
-													 * Intent(this,
-													 * Marketprice_details
-													 * .class); //
-													 * inte.putExtra("type",
-													 * "yield");
-													 * this.startActivity(inte);
-													 * this.finish();
-													 */
+		if (v.getId() == R.id.hmscrn_btn_market) {
+			inte = new Intent(this, Marketprice_details.class);
+			inte.putExtra("type", "yield");
+			this.startActivity(inte);
+
 			return;
 		}
 

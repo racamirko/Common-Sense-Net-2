@@ -32,16 +32,9 @@ public class Marketprice_details extends HelpEnabledActivityOld {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("WF details entered");
-		// super.onCreate(savedInstanceState);
-		// setContentView(R.layout.wf_details);
-		// RelativeLayout relLay = (RelativeLayout)
-		// findViewById(R.id.RelativeLayout93);
-		// setContentView(R.id.linearLayout19);
-
-		mDataProvider = RealFarmProvider.getInstance(context);
 
 		super.onCreate(savedInstanceState);
+		mDataProvider = RealFarmProvider.getInstance(context);
 		setContentView(R.layout.marketdetails);
 
 		Button back = (Button) findViewById(R.id.button_back);
