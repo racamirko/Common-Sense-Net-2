@@ -51,7 +51,7 @@ public class AddPlotActivity extends DataFormActivity {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, R.layout.act_add_plot);
+		super.onCreate(savedInstanceState, R.layout.act_add_plot, LOG_TAG);
 
 		// adds the name of the fields to validate.
 		mResultsMap.put("mSoilType", "0");
@@ -149,53 +149,43 @@ public class AddPlotActivity extends DataFormActivity {
 	@Override
 	public boolean onLongClick(View v) {
 
+		// shows the help icon based on the view.
+		showHelpIcon(v);
+
 		if (v.getId() == R.id.aggr_img_help1) {
 			playAudio(R.raw.help);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.dlg_plot_img_test) {
 			playAudio(R.raw.plotimage);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.dlg_lbl_soil_plot) {
 			playAudio(R.raw.soiltype);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.maincrop_tr) {
 			playAudio(R.raw.yieldinfo);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.size_tr) {
 			playAudio(R.raw.yieldinfo);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.plot_tr) {
-
 			playAudio(R.raw.plotimage);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.soiltype_tr) {
-
 			playAudio(R.raw.soiltype);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.maincrop_tr) {
-
 			playAudio(R.raw.maincrop);
-			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.size_tr) {
-
 			playAudio(R.raw.maincrop);
-			showHelpIcon(v);
 		}
 
 		return true;
@@ -203,6 +193,8 @@ public class AddPlotActivity extends DataFormActivity {
 
 	@Override
 	protected Boolean validateForm() {
+
+		// values obtained that need to be validated.
 		mSoilType = mResultsMap.get("mSoilType");
 		mMainCrop = mResultsMap.get("mMainCrop");
 		mSize = mResultsMap.get("mSize");

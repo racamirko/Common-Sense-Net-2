@@ -88,6 +88,8 @@ public class PlotsActivity extends HelpEnabledActivity implements
 		// sets the active plotId
 		Global.plotId = selectedPlot.getId();
 
+		// TODO: orbolanos: should open the plot details
+		// Soil Moisture should be set from there.
 		// loads the target activity
 		if (Global.selectedAction != null) {
 			view.getContext().startActivity(
@@ -101,6 +103,7 @@ public class PlotsActivity extends HelpEnabledActivity implements
 			int position, long id) {
 		// TODO: add help sound based on selected plot
 		// Plot selectedPlot = mPlotItemAdapter.getItem(position);
+		playAudio(R.raw.may);
 
 		return false;
 	}

@@ -202,7 +202,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (plotCount == 1) {
 			intent = new Intent(this, Global.selectedAction);
 		} else if (plotCount == 0) {
-			intent = new Intent(this, My_setting_plot_info.class);
+			intent = new Intent(this, PlotsActivity.class);
 		} else {
 			intent = new Intent(this, ChoosePlotActivity.class);
 		}
@@ -641,6 +641,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 
 		Log.i(LOG_TAG, "App started");
+
+		// clears the navigation to an action.
+		Global.selectedAction = null;
 
 		// disables the back button since this is the home screen
 		getSupportActionBar().setDisplayHomeAsUpEnabled(false);

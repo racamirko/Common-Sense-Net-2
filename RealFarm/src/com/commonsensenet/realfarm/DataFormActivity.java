@@ -39,109 +39,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	/** Results map used to handle the validation of the form. */
 	protected HashMap<String, String> mResultsMap;
 
-	protected void initMissingValue() {
-		playAudio(R.raw.missinginfo);
-	}
-
-	public void onCreate(Bundle savedInstanceState, int layoutId) {
-		super.onCreate(savedInstanceState);
-
-		// sets the layout
-		setContentView(layoutId);
-
-		// gets the data provider
-		mDataProvider = RealFarmProvider.getInstance(this);
-
-		// map used to automatize the validation.
-		mResultsMap = new HashMap<String, String>();
-
-		// gets the action buttons.
-		View plotok = findViewById(R.id.button_ok);
-		View plotcancel = findViewById(R.id.button_cancel);
-
-		// adds the long click listeners to enable the help function.
-		plotok.setOnLongClickListener(this);
-		plotcancel.setOnLongClickListener(this);
-
-		plotok.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				if (validateForm()) {
-					startActivity(new Intent(DataFormActivity.this,
-							Homescreen.class));
-					DataFormActivity.this.finish();
-				} else {
-					initMissingValue();
-				}
-
-			}
-		});
-
-		plotcancel.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				// equivalent to pressing the back button.
-				onBackPressed();
-			}
-		});
-	}
-
-	/**
-	 * Allows custom validation of the form. If true is returned it means the
-	 * form is valid.
-	 * 
-	 * @return true if the form is valid, otherwise false.
-	 */
-	protected abstract Boolean validateForm();
-
-	@Override
-	public boolean onLongClick(View v) {
-
-		if (v.getId() == R.id.button_ok) {
-			playAudio(R.raw.ok);
-			showHelpIcon(v);
-		} else if (v.getId() == R.id.button_cancel) {
-			playAudio(R.raw.cancel);
-			showHelpIcon(v);
-		}
-
-		return true;
-	}
-
-	protected void putBackgrounds(DialogData choice, TextView textView,
-			int imageType) {
-
-		if (choice.getBackgroundRes() != -1) {
-			textView.setBackgroundResource(choice.getBackgroundRes());
-		}
-
-		if (imageType == 1 || imageType == 2) {
-			BitmapDrawable bd = (BitmapDrawable) mParentReference
-					.getResources().getDrawable(choice.getImageRes());
-
-			// validates the maximum width.
-			int width = bd.getBitmap().getWidth();
-			if (width > 80) {
-				width = 80;
-			}
-
-			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			llp.setMargins(10, 0, 80 - width - 20, 0);
-			textView.setLayoutParams(llp);
-			textView.setBackgroundResource(choice.getImageRes());
-
-			if (imageType == 1) {
-				textView.setTextColor(Color.TRANSPARENT);
-			} else {
-				textView.setGravity(Gravity.TOP);
-				textView.setPadding(0, 0, 0, 0);
-				textView.setTextSize(20);
-				textView.setTextColor(Color.BLACK);
-			}
-		}
-	}
-
 	protected void displayDialog(View v, final ArrayList<DialogData> entries,
 			final String mapEntry, final String title, int entryAudio,
 			final int varText, final int trFeedback, final int imageType) {
@@ -273,4 +170,109 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 		dialog.show();
 	}
+
+	protected void initMissingValue() {
+		playAudio(R.raw.missinginfo);
+	}
+
+	public void onCreate(Bundle savedInstanceState, int layoutId, String logTag) {
+		super.onCreate(savedInstanceState);
+
+		// tag used to log the events.
+		LOG_TAG = logTag;
+
+		// sets the layout
+		setContentView(layoutId);
+
+		// gets the data provider
+		mDataProvider = RealFarmProvider.getInstance(this);
+
+		// map used to automatize the validation.
+		mResultsMap = new HashMap<String, String>();
+
+		// gets the action buttons.
+		View plotok = findViewById(R.id.button_ok);
+		View plotcancel = findViewById(R.id.button_cancel);
+
+		// adds the long click listeners to enable the help function.
+		plotok.setOnLongClickListener(this);
+		plotcancel.setOnLongClickListener(this);
+
+		plotok.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				if (validateForm()) {
+					startActivity(new Intent(DataFormActivity.this,
+							Homescreen.class));
+					DataFormActivity.this.finish();
+				} else {
+					initMissingValue();
+				}
+			}
+		});
+
+		plotcancel.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				// equivalent to pressing the back button.
+				onBackPressed();
+			}
+		});
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+
+		if (v.getId() == R.id.button_ok) {
+			playAudio(R.raw.ok);
+			showHelpIcon(v);
+		} else if (v.getId() == R.id.button_cancel) {
+			playAudio(R.raw.cancel);
+			showHelpIcon(v);
+		}
+
+		return true;
+	}
+
+	protected void putBackgrounds(DialogData choice, TextView textView,
+			int imageType) {
+
+		if (choice.getBackgroundRes() != -1) {
+			textView.setBackgroundResource(choice.getBackgroundRes());
+		}
+
+		if (imageType == 1 || imageType == 2) {
+			BitmapDrawable bd = (BitmapDrawable) mParentReference
+					.getResources().getDrawable(choice.getImageRes());
+
+			// validates the maximum width.
+			int width = bd.getBitmap().getWidth();
+			if (width > 80) {
+				width = 80;
+			}
+
+			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
+			llp.setMargins(10, 0, 80 - width - 20, 0);
+			textView.setLayoutParams(llp);
+			textView.setBackgroundResource(choice.getImageRes());
+
+			if (imageType == 1) {
+				textView.setTextColor(Color.TRANSPARENT);
+			} else {
+				textView.setGravity(Gravity.TOP);
+				textView.setPadding(0, 0, 0, 0);
+				textView.setTextSize(20);
+				textView.setTextColor(Color.BLACK);
+			}
+		}
+	}
+
+	/**
+	 * Allows custom validation of the form. If true is returned it means the
+	 * form is valid.
+	 * 
+	 * @return true if the form is valid, otherwise false.
+	 */
+	protected abstract Boolean validateForm();
 }

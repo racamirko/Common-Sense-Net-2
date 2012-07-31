@@ -22,6 +22,9 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 public abstract class HelpEnabledActivity extends SherlockActivity implements
 		OnLongClickListener {
 
+	/** MenuItem that represents the help button. */
+	protected MenuItem mHelpItem;
+
 	@Override
 	public void onBackPressed() {
 		// stops any currently playing sound.
@@ -35,7 +38,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		setTheme(RealFarmApp.THEME);
 		super.onCreate(savedInstanceState);
 
-		// enables fullscreen mode
+		// enables full screen mode
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
@@ -58,8 +61,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		// adds the help button.
-		menu.add("Help").setIcon(R.drawable.ic_54px_help)
-				.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		mHelpItem = menu.add("Help").setIcon(R.drawable.ic_54px_help)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 		return true;
 	}
@@ -71,7 +74,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		if (item.getTitle().toString().equals("Help")) {
+		if (item.equals(mHelpItem)) {
 			playAudio(R.raw.help);
 			return true;
 		}
