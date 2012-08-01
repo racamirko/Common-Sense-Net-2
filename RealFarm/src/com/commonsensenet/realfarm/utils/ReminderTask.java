@@ -41,7 +41,7 @@ public class ReminderTask implements Task {
 
 		/*
 		 * for(int x = 0; x < tmpList.size(); x++) { action_list.add(" "+
-		 * tmpList.get(x).getId()+ " " +tmpList.get(x).getActionNameId()+ " " +
+		 * tmpList.get(x).getId()+ " " +tmpList.get(x).getActionTypeId()+ " " +
 		 * tmpList.get(x).getSeedTypeId()+ " " + tmpList.get(x).getQuantity1()+
 		 * " " + tmpList.get(x).getQuantity2()+ " " + tmpList.get(x).getUnits()+
 		 * " " + tmpList.get(x).getPlotId()+ " " + tmpList.get(x).getTypeFert()+
@@ -73,10 +73,13 @@ public class ReminderTask implements Task {
 		// String
 		// user="1#35#4#Hendrik Knoche#1234567891#0#0#10:30%2#35#4#Hendrik Knoche#1234567891#0#0#10:30";
 
-		String actions1 = "2000#1000%1#5#7#2#2#0#24.12#2#1#20%2#5#1#1#2#0#24.12#21%4#5#1#2#2#0#24.12#2#3#22%7#3#2#0#24.12#2#23%3#10#1#4#0#24.12#2#24%5#2#1#3#1#0#24.12#25%";
-		String actions2 = "2000#1000%6#2#4#1#2000#1#0#24.12#26%";
-		String plots = "2000#1001%1#35#2#3#3#0#0#10:3024.12#10.3#1%2#36#3#4#4#0#0#10:3524.12#11.3#2%";
-		String users = "2000#1002%1#124567891#1#Hendrik#Knoche#124567891#0#1#10:3024.12%2#124567892#2#John#Doe#124567892#0#1#10:3524.12%";
+		// String actions1 =
+		// "2000#1000%1#5#7#2#2#0#24.12#2#1#20%2#5#1#1#2#0#24.12#21%4#5#1#2#2#0#24.12#2#3#22%7#3#2#0#24.12#2#23%3#10#1#4#0#24.12#2#24%5#2#1#3#1#0#24.12#25%";
+		// String actions2 = "2000#1000%6#2#4#1#2000#1#0#24.12#26%";
+		// String plots =
+		// "2000#1001%1#35#2#3#3#0#0#10:3024.12#10.3#1%2#36#3#4#4#0#0#10:3524.12#11.3#2%";
+		// String users =
+		// "2000#1002%1#124567891#1#Hendrik#Knoche#124567891#0#1#10:3024.12%2#124567892#2#John#Doe#124567892#0#1#10:3524.12%";
 		// Send_message(actions1);
 		// Send_message(actions2);
 		// Send_message(plots);

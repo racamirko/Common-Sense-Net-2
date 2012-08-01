@@ -11,7 +11,7 @@ import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
  * Class that wraps up the contents of a Plot, which is presented on a list
  * adapter.
  * 
- * @author Oscar Bola–os <@oscarbolanos>
+ * @author Oscar Bolaños <@oscarbolanos>
  * 
  */
 public class HarvestAggregateItemWrapper extends AggregateItemWrapper {
@@ -26,7 +26,7 @@ public class HarvestAggregateItemWrapper extends AggregateItemWrapper {
 		getTypeText()
 				.setText(
 						aggregate
-								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD));
+								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
 
 		// hides the aggregate detail
 		mRow.findViewById(R.id.button_aggregate_detail).setVisibility(

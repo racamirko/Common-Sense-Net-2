@@ -168,7 +168,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 				Log.d("in units fert dialog", "in dialog");
 
 				ArrayList<DialogData> m_entries = mDataProvider
-						.getUnits(RealFarmDatabase.ACTION_NAME_SPRAY_ID);
+						.getUnits(RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
 				displayDialog(v, m_entries, "unit_sel_spray",
 						"Choose the unit", R.raw.problems,
 						R.id.dlg_lbl_units_spray, R.id.units_spray_tr, 1);
@@ -334,9 +334,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
 					System.out.println("spraying writing");
-					mDataProvider.setSpraying(Global.userId, Global.plotId,
-							spray_no, unit_sel_spray, day_sel_spray,
-							prob_sel_spray, 1, 0, pest_sel_spray);
+//					mDataProvider.setSpraying(Global.userId, Global.plotId,
+//							spray_no, unit_sel_spray, day_sel_spray,
+//							prob_sel_spray, 1, 0, pest_sel_spray);
 
 					// System.out.println("spraying reading");
 					// mDataProvider.getspraying();

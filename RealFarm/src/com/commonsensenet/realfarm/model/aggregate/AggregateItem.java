@@ -8,15 +8,15 @@ import java.util.Hashtable;
  */
 public class AggregateItem {
 
-	private int mActionNameId;
+	private int mActionTypeId;
 
 	private Hashtable<String, String> mAggregateValues;
 
 	private int mUserCount;
 
-	public AggregateItem(int actionNameID, int userCount) {
+	public AggregateItem(int actionTypeId, int userCount) {
 		mUserCount = userCount;
-		mActionNameId = actionNameID;
+		mActionTypeId = actionTypeId;
 
 		// initializes the data structure
 		mAggregateValues = new Hashtable<String, String>();
@@ -27,8 +27,8 @@ public class AggregateItem {
 		mAggregateValues.put(key, value);
 	}
 
-	public int getActionNameId() {
-		return mActionNameId;
+	public int getActionTypeId() {
+		return mActionTypeId;
 	}
 
 	public int getUserCount() {
@@ -39,12 +39,12 @@ public class AggregateItem {
 		return mAggregateValues.get(key);
 	}
 
-	public void setActionNameId(int value) {
-		this.mActionNameId = value;
+	public void setActionTypeId(int value) {
+		mActionTypeId = value;
 	}
 
 	public void setUserCount(int value) {
-		this.mUserCount = value;
+		mUserCount = value;
 	}
 
 }

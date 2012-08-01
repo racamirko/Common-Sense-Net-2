@@ -6,36 +6,45 @@ package com.commonsensenet.realfarm.model;
  */
 public class Plot {
 
-	protected int mAdminFlag;
-	protected int mDeleteFlag;
+	/** Indicates if the Plot was added by the system administrator. */
+	protected int mIsAdminAction;
+	/** Indicates whether the Plot is enabled or not. */
+	protected int mIsEnabled;
+	/** Unique identifier of the Plot. */
 	protected int mId;
+	/** Path where the image of the Plot is located. */
 	protected String mImagePath;
+	/** Type of seed planted in the Plot as a main crop. */
 	protected int mSeedTypeId;
-	protected String mSoilType;
-	protected int mTimestamp;
-	protected int mUserId;
+	/** Size in acres of the Plot. */
 	protected float mSize;
+	/** Type of soil that the Plot has. */
+	protected String mSoilType;
+	/** Timestamp that indicates the creation of the Plot. */
+	protected int mTimestamp;
+	/** Owner of the plot. */
+	protected int mUserId;
 
 	public Plot(int id, int userId, int seedTypeId, String imagePath,
-			String soilType, int deleteFlag, int adminFlag, int timestamp,
-			float size) {
+			String soilType, float size, int isEnabled, int isAdminAction,
+			int timestamp) {
 		mId = id;
 		mUserId = userId;
 		mSeedTypeId = seedTypeId;
 		mImagePath = imagePath;
 		mSoilType = soilType;
-		mDeleteFlag = deleteFlag;
-		mAdminFlag = adminFlag;
-		mTimestamp = timestamp;
 		mSize = size;
+		mIsEnabled = isEnabled;
+		mIsAdminAction = isAdminAction;
+		mTimestamp = timestamp;
 	}
 
-	public int getAdminFlag() {
-		return mAdminFlag;
+	public int getIsAdminFlag() {
+		return mIsAdminAction;
 	}
 
-	public int getDeleteFlag() {
-		return mDeleteFlag;
+	public int getIsEnabled() {
+		return mIsEnabled;
 	}
 
 	public int getId() {
@@ -50,6 +59,10 @@ public class Plot {
 		return mSeedTypeId;
 	}
 
+	public float getSize() {
+		return mSize;
+	}
+
 	public String getSoilType() {
 		return mSoilType;
 	}
@@ -62,17 +75,12 @@ public class Plot {
 		return mUserId;
 	}
 
-	public float getSize() {
-		return mSize;
-	}
-
 	@Override
 	public String toString() {
 
 		return String
-				.format("[Plot id='%s', userId='%d', size='%f' seedTypeId='%d', imagePath='%s', soilType='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
-						mId, mUserId, mSize, mSeedTypeId, mImagePath,
-						mSoilType, mDeleteFlag, mAdminFlag, mTimestamp);
-
+				.format("[Plot id='%s', userId='%d', seedTypeId='%d', imagePath='%s', soilType='%s', size='%f', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
+						mId, mUserId, mSeedTypeId, mImagePath, mSoilType,
+						mSize, mIsEnabled, mIsAdminAction, mTimestamp);
 	}
 }

@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.ActionName;
+import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
@@ -41,7 +41,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	public static final String LOG_TAG = "sowing_aggregate";
 
 	/** Indicates the id of the activity that is being displayed. */
-	private int mActiveActionNameId;
+	private int mActionActionTypeId;
 	/** ListAdapter used to handle the aggregates. */
 	private AggregateItemAdapter mAggregateItemAdapter;
 	/** ListView where the aggregate elements are shown. */
@@ -54,7 +54,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	private final ActionAggregateActivity mParentReference = this;
 
 	private List<AggregateItem> aggregates;
-	
+
 	protected void cancelAudio() {
 
 		Intent adminintent = new Intent(ActionAggregateActivity.this,
@@ -89,56 +89,37 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		// extracts the passed parameters
 		Bundle extras = getIntent().getExtras();
 		if (extras != null
-				&& extras.containsKey(RealFarmDatabase.TABLE_NAME_ACTIONNAME)) {
+				&& extras.containsKey(RealFarmDatabase.TABLE_NAME_ACTIONTYPE)) {
 			// gets the action name id
-			mActiveActionNameId = extras
-					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONNAME);
+			mActionActionTypeId = extras
+					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONTYPE);
 		}
 
 		// gets the action name object.
-		ActionName actionName = mDataProvider
-				.getActionNameById(mActiveActionNameId);
+		ActionType actionType = mDataProvider
+				.getActionTypeById(mActionActionTypeId);
 
 		/*
 		 * Toast toast = Toast.makeText(getApplicationContext(),
-		 * actionName.getName(), Toast.LENGTH_SHORT); toast.show(); toast =
-		 * Toast.makeText(getApplicationContext(), actionName.getRes(),
+		 * actionType.getName(), Toast.LENGTH_SHORT); toast.show(); toast =
+		 * Toast.makeText(getApplicationContext(), actionType.getRes(),
 		 * Toast.LENGTH_SHORT); toast.show();
 		 */
 
-<<<<<<< HEAD
 		setList(0);
-=======
-		// gets the list of aggregate data.
-		List<AggregateItem> aggregates = ActionDataFactory.getAggregateData(
-				mActiveActionNameId, mDataProvider);
-		// creates the data adapter.
-		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates,
-				mActiveActionNameId, mDataProvider);
-
-		// gets the list from the UI.
-		mAggregatesListView = (ListView) findViewById(R.id.list_aggregates);
-		// enables the focus on the items.
-		mAggregatesListView.setItemsCanFocus(false);
-		// sets the custom adapter.
-		mAggregatesListView.setAdapter(mAggregateItemAdapter);
-		// sets the listener
-		mAggregatesListView.setOnItemClickListener(this);
-		// sets the listener for the sound
-		mAggregatesListView.setOnItemLongClickListener(this);
->>>>>>> Warning: NON working version. Pending table modifications.
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 		final View action = findViewById(R.id.aggr_action);
 		final View crop = findViewById(R.id.aggr_crop);
 		Button back = (Button) findViewById(R.id.button_back);
-		
-		if(mActiveActionNameId == RealFarmDatabase.ACTION_NAME_SOW_ID) crop.setVisibility(View.INVISIBLE);
-		
-		final ImageView actionNameImage = (ImageView) findViewById(R.id.aggr_action_img);
-		actionNameImage.setImageResource(actionName.getRes());
-		
+
+		if (mActionActionTypeId == RealFarmDatabase.ACTION_TYPE_SOW_ID)
+			crop.setVisibility(View.INVISIBLE);
+
+		final ImageView actionTypeImage = (ImageView) findViewById(R.id.aggr_action_img);
+		actionTypeImage.setImageResource(actionType.getResource());
+
 		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
@@ -170,131 +151,36 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		action.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-<<<<<<< HEAD
-				
+
 				ArrayList<DialogData> m_entries = mDataProvider.getAction();
-				displayDialog(v, m_entries, "Select the action", R.raw.problems, actionNameImage, 1);
-=======
-
-				// creates the dialog.
-				final Dialog dlg = new Dialog(v.getContext());
-				dlg.setContentView(R.layout.action_aggr_sel_dialog);
-				dlg.setCancelable(true);
-				dlg.show();
-
-				final View aggr_sow;
-				final View aggr_fert;
-				final View aggr_irr;
-				final View aggr_prob;
-				final View aggr_spray;
-				final View aggr_harvest;
-				final View aggr_sell;
-
-				aggr_sow = dlg.findViewById(R.id.action_aggr_icon_btn_sow);
-				aggr_fert = dlg.findViewById(R.id.action_aggr_icon_btn_fert);
-				aggr_irr = dlg.findViewById(R.id.action_aggr_icon_btn_irr);
-				aggr_prob = dlg.findViewById(R.id.action_aggr_icon_btn_prob);
-				aggr_spray = dlg.findViewById(R.id.action_aggr_icon_btn_spray);
-				aggr_harvest = dlg
-						.findViewById(R.id.action_aggr_icon_btn_harvest);
-				aggr_sell = dlg.findViewById(R.id.action_aggr_icon_btn_sell);
-
-				// adds the long click event to provide help support.
-				aggr_sow.setOnLongClickListener(mParentReference);
-				aggr_fert.setOnLongClickListener(mParentReference);
-				aggr_irr.setOnLongClickListener(mParentReference);
-				aggr_prob.setOnLongClickListener(mParentReference);
-				aggr_spray.setOnLongClickListener(mParentReference);
-				aggr_harvest.setOnLongClickListener(mParentReference);
-				aggr_sell.setOnLongClickListener(mParentReference);
-
-				aggr_sow.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						actionNameImage.setImageResource(R.drawable.ic_sow);
-						mActiveActionNameId = 1;
-						dlg.cancel();
-					}
-				});
-
-				aggr_fert.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						actionNameImage
-								.setImageResource(R.drawable.ic_fertilize);
-						mActiveActionNameId = 2;
-						dlg.cancel();
-					}
-
-				});
-
-				aggr_irr.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						actionNameImage
-								.setImageResource(R.drawable.ic_irrigate);
-						mActiveActionNameId = 3;
-						dlg.cancel();
-					}
-				});
-
-				aggr_prob.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						actionNameImage.setImageResource(R.drawable.ic_problem);
-						mActiveActionNameId = 4;
-						dlg.cancel();
-					}
-				});
-				aggr_spray.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						actionNameImage.setImageResource(R.drawable.ic_spray);
-						mActiveActionNameId = 5;
-						dlg.cancel();
-					}
-				});
-				aggr_harvest.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						actionNameImage.setImageResource(R.drawable.ic_harvest);
-						mActiveActionNameId = 6;
-						dlg.cancel();
-					}
-				});
-
-				aggr_sell.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-
-						actionNameImage.setImageResource(R.drawable.ic_sell);
-						mActiveActionNameId = 7;
-						dlg.cancel();
-					}
-				});
-
->>>>>>> Warning: NON working version. Pending table modifications.
+				displayDialog(v, m_entries, "Select the action",
+						R.raw.problems, actionTypeImage, 1);
 			}
 		});
 
 		crop.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
+
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 
 				ArrayList<DialogData> m_entries = mDataProvider.getVarieties();
-				m_entries.add(new DialogData("All", "All", R.drawable.icon, -1, R.raw.problems, "0", R.drawable.icon));
-				displayDialog(v, m_entries, "Select the variety", R.raw.problems, img_1, 2);
+				m_entries.add(new DialogData("All", "All", R.drawable.icon, -1,
+						R.raw.problems, "0", R.drawable.icon));
+				displayDialog(v, m_entries, "Select the variety",
+						R.raw.problems, img_1, 2);
 
-				//R.drawable.pic_72px_groundnut
+				// R.drawable.pic_72px_groundnut
 			}
 		});
 	}
 
-	public void setList(int seedTypeId){
+	public void setList(int seedTypeId) {
 		// gets the list of aggregate data.
-		aggregates = ActionDataFactory.getAggregateData(mActiveActionNameId, mDataProvider, seedTypeId);
+		aggregates = ActionDataFactory.getAggregateData(mActionActionTypeId,
+				mDataProvider, seedTypeId);
 		// creates the data adapter.
-		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates, mActiveActionNameId, mDataProvider); 
+		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates,
+				mActionActionTypeId, mDataProvider);
 
 		// gets the list from the UI.
 		mAggregatesListView = (ListView) findViewById(R.id.list_aggregates);
@@ -314,33 +200,11 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		AggregateItem selectedItem = mAggregateItemAdapter.getItem(position);
 		// gets the wrapper to extract data directly from it.
 		AggregateItemWrapper selectedItemView = ActionDataFactory
-				.getAggregateWrapper(view, mActiveActionNameId);
+				.getAggregateWrapper(view, mActionActionTypeId);
 
 		// dialog used to request the information
 		final Dialog dialog = new Dialog(this);
 
-<<<<<<< HEAD
-=======
-		/*
-		 * dialog.setContentView(R.layout.dialog_layout); String[] listContent =
-		 * { "January", "February", "March", "April", "May", "June", "July",
-		 * "August", "September", "October", "November", "December"};
-		 * 
-		 * ListView dialog_ListView =
-		 * (ListView)dialog.findViewById(R.id.dialoglist); ArrayAdapter<String>
-		 * adapter = new ArrayAdapter<String>(this,
-		 * android.R.layout.simple_list_item_1, listContent);
-		 * dialog_ListView.setAdapter(adapter);
-		 * 
-		 * dialog_ListView.setOnItemClickListener(new OnItemClickListener(){
-		 * public void onItemClick(AdapterView<?> parent, View view, int
-		 * position, long id) { // TODO Auto-generated method stub
-		 * Toast.makeText(ActionAggregateActivity.this,
-		 * parent.getItemAtPosition(position).toString() + " clicked",
-		 * Toast.LENGTH_LONG).show(); }});
-		 */
-
->>>>>>> Warning: NON working version. Pending table modifications.
 		// loads the dialog layout
 		View layout = mLayoutInflater.inflate(
 				R.layout.dialog_aggregate_details, null);
@@ -348,11 +212,8 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		// gets the ListView from the layout
 		ListView userListView = (ListView) layout
 				.findViewById(R.id.list_dialog_aggregate);
-<<<<<<< HEAD
-=======
 
 		userListView.setItemsCanFocus(false);
->>>>>>> Warning: NON working version. Pending table modifications.
 
 		// adds the event to dismiss the dialog.
 		layout.findViewById(R.id.button_back).setOnClickListener(
@@ -394,15 +255,10 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		// selectedItem.getSeedTypeId()
 		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
 				this, list, mDataProvider);
-<<<<<<< HEAD
 		// sets the adapter.
-		userListView.setAdapter(userAdapter);
-=======
-
 		userListView.setAdapter(userAdapter);
 
 		// userListView.setOnItemLongClickListener(mParentReference);
->>>>>>> Warning: NON working version. Pending table modifications.
 
 		// disables the title in the dialog
 		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -412,10 +268,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		// displays the dialog.
 		dialog.show();
-<<<<<<< HEAD
-=======
 
->>>>>>> Warning: NON working version. Pending table modifications.
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -423,50 +276,47 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		// gets the selected view using the position
 		playAudioalways(R.raw.problems);
 		// TODO: Add the audio. See WeatherForecastActivity?
-<<<<<<< HEAD
-		
-		switch(mActiveActionNameId){
-			case RealFarmDatabase.ACTION_NAME_SOW_ID:
-				int nbUsers = aggregates.get(position).getUserCount(); // retrieve what you need and say something
-			break;
-		
-		}
-				
-=======
 
->>>>>>> Warning: NON working version. Pending table modifications.
+		switch (mActionActionTypeId) {
+		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
+			// retrieve what you need and say something.
+			// int nbUsers = aggregates.get(position).getUserCount();
+			break;
+
+		}
 		return true;
 	}
 
+	// TODO: put audios
 	public boolean onLongClick(View v) {
 		playAudioalways(R.raw.problems);
-<<<<<<< HEAD
-		
-		if (v.getId() == R.id.aggr_img_home) { // TODO: put audios
+
+		if (v.getId() == R.id.aggr_img_home) {
+			playAudioalways(R.raw.problems);
+		}
+		if (v.getId() == R.id.aggr_action) {
 
 			playAudioalways(R.raw.problems);
 		}
-		if (v.getId() == R.id.aggr_action) { // TODO: put audios
+		if (v.getId() == R.id.aggr_crop) {
 
 			playAudioalways(R.raw.problems);
 		}
-		if (v.getId() == R.id.aggr_crop) { // TODO: put audios
+		if (v.getId() == R.id.aggr_img_help) {
 
 			playAudioalways(R.raw.problems);
 		}
-		if (v.getId() == R.id.aggr_img_help) { // TODO: put audios
-
-			playAudioalways(R.raw.problems);
-		}
-		if (v.getId() == R.id.button_back) { // TODO: put audios
+		if (v.getId() == R.id.button_back) {
 
 			playAudioalways(R.raw.problems);
 		}
 
 		return true;
 	}
-	
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries, final String title, int entryAudio, final ImageView actionNameImage, final int type) {
+
+	private void displayDialog(View v, final ArrayList<DialogData> m_entries,
+			final String title, int entryAudio,
+			final ImageView actionTypeImage, final int type) {
 		final Dialog dialog = new Dialog(v.getContext());
 		dialog.setContentView(R.layout.mc_dialog);
 		dialog.setTitle(title);
@@ -489,20 +339,25 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				// Does whatever is specific to the application
 				Log.d("var " + position + " picked ", "in dialog");
 				DialogData choice = m_entries.get(position);
-				
-				if(type == 2){ // change the query
-					setList(Integer.parseInt(m_entries.get(position).getValue()));
-				} else if(type == 1) {  // change the action
-					mActiveActionNameId = Integer.parseInt(m_entries.get(position).getValue());
+
+				if (type == 2) { // change the query
+					setList(Integer
+							.parseInt(m_entries.get(position).getValue()));
+				} else if (type == 1) { // change the action
+					mActionActionTypeId = Integer.parseInt(m_entries.get(
+							position).getValue());
 				}
-				
-				actionNameImage.setImageResource(m_entries.get(position).getImageRes());
+
+				actionTypeImage.setImageResource(m_entries.get(position)
+						.getImageRes());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						LOG_TAG, title, choice.getValue());
 
-				Toast.makeText(mParentReference, m_entries.get(position).getName(),Toast.LENGTH_SHORT).show();
+				Toast.makeText(mParentReference,
+						m_entries.get(position).getName(), Toast.LENGTH_SHORT)
+						.show();
 
 				// onClose
 				dialog.cancel();
@@ -524,52 +379,5 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				return true;
 			}
 		});
-=======
-
-		/*
-		 * if (v.getId() == R.id.action_aggr_icon_btn_sow) { // TODO: put audios
-		 * 
-		 * playAudioalways(R.raw.problems); ShowHelpIcon(v); // added for help
-		 * icon }
-		 * 
-		 * if (v.getId() == R.id.action_aggr_icon_btn_fert) { // TODO: put
-		 * audios
-		 * 
-		 * playAudioalways(R.raw.problems); ShowHelpIcon(v); // added for help
-		 * icon }
-		 * 
-		 * if (v.getId() == R.id.action_aggr_icon_btn_irr) { // TODO: put audios
-		 * 
-		 * playAudioalways(R.raw.problems); ShowHelpIcon(v); // added for help
-		 * icon }
-		 * 
-		 * if (v.getId() == R.id.action_aggr_icon_btn_prob) { // TODO: put
-		 * audios
-		 * 
-		 * playAudioalways(R.raw.problems); ShowHelpIcon(v); // added for help
-		 * icon }
-		 * 
-		 * if (v.getId() == R.id.action_aggr_icon_btn_spray) { // TODO: put
-		 * audios
-		 * 
-		 * playAudioalways(R.raw.problems); ShowHelpIcon(v); // added for help
-		 * icon }
-		 * 
-		 * if (v.getId() == R.id.action_aggr_icon_btn_harvest) { // TODO: put
-		 * audios
-		 * 
-		 * playAudioalways(R.raw.problems); ShowHelpIcon(v); // added for help
-		 * icon }
-		 * 
-		 * if (v.getId() == R.id.action_aggr_icon_btn_sell) { // TODO: put
-		 * audios
-		 * 
-		 * playAudioalways(R.raw.problems); ShowHelpIcon(v); // added for help
-		 * icon }
-		 */
-
-		// return super.onLongClick(v);
-		return true;
->>>>>>> Warning: NON working version. Pending table modifications.
 	}
 }

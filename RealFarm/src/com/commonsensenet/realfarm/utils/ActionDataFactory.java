@@ -27,25 +27,14 @@ public final class ActionDataFactory {
 			RealFarmProvider dataProvider, int seedTypeId) {
 
 		switch (actionTypeId) {
-		case RealFarmDatabase.ACTION_NAME_SOW_ID:
+		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 			return dataProvider.getAggregateItems(actionTypeId, seedTypeId);
 
-		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
-<<<<<<< HEAD
+		case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
 			return dataProvider.getAggregateItems(actionTypeId, -1);
-			
-		case RealFarmDatabase.ACTION_NAME_SELL_ID:
+		case RealFarmDatabase.ACTION_TYPE_SELL_ID:
 			return dataProvider.getAggregateItems(actionTypeId, -1);
-			
-=======
-			return dataProvider.getAggregateItems(actionTypeId,
-					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
 
-		case RealFarmDatabase.ACTION_NAME_SELL_ID:
-			return dataProvider.getAggregateItems(actionTypeId,
-					RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD);
-
->>>>>>> Warning: NON working version. Pending table modifications.
 		default:
 			return null;
 		}
@@ -53,25 +42,24 @@ public final class ActionDataFactory {
 
 	public static List<UserAggregateItem> getUserAggregateData(
 			AggregateItem aggregateItem, RealFarmProvider dataProvider) {
-		switch (aggregateItem.getActionNameId()) {
-		case RealFarmDatabase.ACTION_NAME_SOW_ID:
+		switch (aggregateItem.getActionTypeId()) {
+		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 			return dataProvider.getUserAggregateItem(aggregateItem
-					.getActionNameId(), aggregateItem
+					.getActionTypeId(), aggregateItem
 					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID));
-		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
-			return dataProvider
-					.getUserAggregateItem(
-							aggregateItem.getActionNameId(),
-							aggregateItem
-									.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_IRRIGATE_METHOD));
-		case RealFarmDatabase.ACTION_NAME_REPORT_ID:
+		case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
 			return dataProvider.getUserAggregateItem(aggregateItem
-					.getActionNameId(), aggregateItem
-					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
-		case RealFarmDatabase.ACTION_NAME_HARVEST_ID:
+					.getActionTypeId(), aggregateItem
+					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
+		case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
 			return dataProvider.getUserAggregateItem(aggregateItem
-					.getActionNameId(), aggregateItem
-					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_PROBLEMTYPE));
+					.getActionTypeId(), aggregateItem
+					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
+			// TODO: Resource1ID has a satisfaction type, is this what we want?
+		case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
+			return dataProvider.getUserAggregateItem(aggregateItem
+					.getActionTypeId(), aggregateItem
+					.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
 		default:
 			return null;
 		}
@@ -99,9 +87,9 @@ public final class ActionDataFactory {
 	public static AggregateItemWrapper getAggregateWrapper(View row,
 			int actionTypeId) {
 		switch (actionTypeId) {
-		case RealFarmDatabase.ACTION_NAME_SOW_ID:
+		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 			return new SowAggregateItemWrapper(row);
-		case RealFarmDatabase.ACTION_NAME_IRRIGATE_ID:
+		case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
 			return new IrrigateAggregateItemWrapper(row);
 		default:
 			return null;

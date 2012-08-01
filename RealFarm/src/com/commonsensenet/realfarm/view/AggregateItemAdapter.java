@@ -15,19 +15,19 @@ public class AggregateItemAdapter extends ArrayAdapter<AggregateItem> {
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
 
-	/** Type of ActionName that the Adapter is handling. */
-	private int mActionNameId;
+	/** Type of ActionType that the Adapter is handling. */
+	private int mActionTypeId;
 
 	/**
 	 * Creates a new AggregateItemAdapter instance.
 	 */
 	public AggregateItemAdapter(Context context,
-			List<AggregateItem> aggregates, int actionNameId,
+			List<AggregateItem> aggregates, int actionTypeId,
 			RealFarmProvider dataProvider) {
 		super(context, android.R.layout.simple_list_item_1, aggregates);
 
 		// sets the type of action that is being handled.
-		mActionNameId = actionNameId;
+		mActionTypeId = actionTypeId;
 		// sets the data provider.
 		mDataProvider = dataProvider;
 	}
@@ -37,7 +37,7 @@ public class AggregateItemAdapter extends ArrayAdapter<AggregateItem> {
 		AggregateItemWrapper wrapper = null;
 		if (row == null) {
 			wrapper = ActionDataFactory.getAggregateWrapper(getContext(), row,
-					parent, mActionNameId);
+					parent, mActionTypeId);
 			// extracts the row from the wrapper
 			row = wrapper.getRow();
 			// sets the tag to avoid looking for it.

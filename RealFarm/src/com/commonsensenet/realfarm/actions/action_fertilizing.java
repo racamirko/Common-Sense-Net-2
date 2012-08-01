@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
@@ -139,7 +138,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				Log.d("in units fert dialog", "in dialog");
 
 				ArrayList<DialogData> m_entries = mDataProvider
-						.getUnits(RealFarmDatabase.ACTION_NAME_FERTILIZE_ID);
+						.getUnits(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
 				displayDialog(v, m_entries, "units_fert", "Choose the unit",
 						R.raw.problems, R.id.dlg_lbl_units_fert,
 						R.id.units_fert_tr, 1);
@@ -281,20 +280,6 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				 * "*********************DISPLAYED  PESTICIDE ID**************************************"
 				 * );
 				 */
-
-				System.out
-						.println("*********************GETTING ACTIONS**************************************");
-
-				mDataProvider.getSowing();
-				mDataProvider.getfertilizing();
-				mDataProvider.getspraying();
-				mDataProvider.getProblem();
-				mDataProvider.getirrigate();
-				mDataProvider.getharvesting();
-				mDataProvider.getselling();
-
-				System.out
-						.println("*********************DISPLAYED  ACTIONS**************************************");
 			}
 
 		});
@@ -374,10 +359,10 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
-
-					System.out.println("fertilizing writing");
-					mDataProvider.setFertilizing(Global.plotId, fert_no,
-							fert_var_sel, units_fert, day_fert_sel, 1, 0);
+//
+//					System.out.println("fertilizing writing");
+//					mDataProvider.setFertilizing(Global.plotId, fert_no,
+//							fert_var_sel, units_fert, day_fert_sel, 1, 0);
 
 					// System.out.println("fertilizing reading");
 					// mDataProvider.getfertizing();

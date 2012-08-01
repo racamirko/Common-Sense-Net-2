@@ -32,8 +32,9 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 
 		// inserts the new action
-		Global.plotId = mDataProvider.insertPlot(Global.userId, mSeedTypeId,
-				mPlotImage, mSoilType, Float.parseFloat(mSize), 0, 0);
+		Global.plotId = (int) mDataProvider.insertPlot(Global.userId,
+				mSeedTypeId, mPlotImage, mSoilType, Float.parseFloat(mSize), 0,
+				0);
 
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,

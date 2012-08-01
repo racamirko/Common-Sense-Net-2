@@ -371,9 +371,9 @@ public class action_sowing extends HelpEnabledActivityOld {
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0
 						&& flag5 == 0) {
 					System.out.println("sowing writing");
-					mDataProvider.setSowing(Global.plotId, sow_no, seed_sow,
-							units_sow, days_sel_sow, treatment_sow, 0, 0,
-							cropType_sow);
+					// mDataProvider.setSowing(Global.plotId, sow_no, seed_sow,
+					// units_sow, days_sel_sow, treatment_sow, 0, 0,
+					// cropType_sow);
 
 					Intent adminintent = new Intent(action_sowing.this,
 							Homescreen.class);

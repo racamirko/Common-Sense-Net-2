@@ -10,7 +10,7 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
-import com.commonsensenet.realfarm.model.ActionName;
+import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.utils.DateHelper;
 
@@ -75,9 +75,9 @@ public class ActionItemWrapper {
 	public void populateFrom(Action action, RealFarmProvider provider,
 			Context context) {
 
-		// gets the actionName
-		ActionName actionName = provider.getActionNameById(action
-				.getActionNameId());
+		// gets the actionType
+		ActionType actionType = provider.getActionTypeById(action
+				.getActionTypeId());
 
 		// gets the plot from the action.
 		Plot plot = provider.getPlotById(action.getPlotId());
@@ -90,8 +90,8 @@ public class ActionItemWrapper {
 				options);
 
 		// sets the parts of the view.
-		getActionIcon().setImageResource(actionName.getRes());
-		getTitle().setText(actionName.getName());
+		getActionIcon().setImageResource(actionType.getResource());
+		getTitle().setText(actionType.getName());
 		getDate().setText(DateHelper.formatDate(action.getDate(), context));
 
 		if (bitmapImage != null) {

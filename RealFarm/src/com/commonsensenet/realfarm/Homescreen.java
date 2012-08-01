@@ -127,10 +127,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					{ 3, 1, "farmer_90px_adam_jones", "Loamy" },
 					{ 4, 1, "farmer_90px_walmart_stores", "Loamy" } };
 
-			List<SeedType> seeds = mDataProvider.getSeeds();
+			List<SeedType> seeds = mDataProvider.getSeedTypes();
 
 			for (int x = 0; x < plotData.length; x++) {
-				long plotId = mDataProvider.insertPlot(
+				int plotId = (int) mDataProvider.insertPlot(
 						(Integer) plotData[x][0], seeds.get(x).getId(),
 						(String) plotData[x][2], (String) plotData[x][3], 3.0f,
 						0, 0);
@@ -143,44 +143,50 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Log.d(LOG_TAG, "plot works");
 
 			// sowing
-			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "maincrop");
-			mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
-					"Bag of 10 Kgs", "02.12", "treated", 0, 0, "maincrop");
-			mDataProvider.setSowing(2, 1, seeds.get(1).getId(),
-					"Bag of 10 Kgs", "03.12", "treated", 0, 0, "maincrop");
-			mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
-					"Bag of 10 Kgs", "04.12", "treated", 0, 0, "intercrop");
-			mDataProvider.setSowing(4, 1, seeds.get(3).getId(),
-					"Bag of 10 Kgs", "05.12", "treated", 0, 0, "intercrop");
-			mDataProvider.setSowing(5, 1, seeds.get(4).getId(),
-					"Bag of 10 Kgs", "01.12", "not treated", 0, 0, "intercrop");
-			mDataProvider.setSowing(5, 1, seeds.get(2).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
-			mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
-					"Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
-
-			// Fertilizing
-			mDataProvider.setFertilizing(1, 2, "Complex", "1L can(s)", "24.12",
-					0, 0);
-			mDataProvider.setFertilizing(2, 2, "Gypsum", "cart load(s)",
-					"25.12", 0, 0);
-			mDataProvider.setFertilizing(1, 2, "Urea", "tractor load(s)",
-					"26.12", 0, 0);
-			mDataProvider.setFertilizing(2, 2, "Super", "1L can(s)", "27.12",
-					0, 0);
-
-			// irrigating
-			mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Spraying", 0,
-					0);
-			mDataProvider.setIrrigation(2, 4, "hours", "01.12", "Flooding", 0,
-					0);
-			mDataProvider.setIrrigation(3, 5, "hours", "02.12", "Spraying", 0,
-					0);
-			mDataProvider.setIrrigation(4, 1, "hours", "04.12", "Flooding", 0,
-					0);
-			mDataProvider.setIrrigation(2, 1, "hours", "04.12", "Flooding", 0,
-					0);
+			// mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
+			// "Bag of 10 Kgs", "01.12", "treated", 0, 0, "maincrop");
+			// mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
+			// "Bag of 10 Kgs", "02.12", "treated", 0, 0, "maincrop");
+			// mDataProvider.setSowing(2, 1, seeds.get(1).getId(),
+			// "Bag of 10 Kgs", "03.12", "treated", 0, 0, "maincrop");
+			// mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
+			// "Bag of 10 Kgs", "04.12", "treated", 0, 0, "intercrop");
+			// mDataProvider.setSowing(4, 1, seeds.get(3).getId(),
+			// "Bag of 10 Kgs", "05.12", "treated", 0, 0, "intercrop");
+			// mDataProvider.setSowing(5, 1, seeds.get(4).getId(),
+			// "Bag of 10 Kgs", "01.12", "not treated", 0, 0, "intercrop");
+			// mDataProvider.setSowing(5, 1, seeds.get(2).getId(),
+			// "Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
+			// mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
+			// "Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
+			//
+			// // Fertilizing
+			// mDataProvider.setFertilizing(1, 2, "Complex", "1L can(s)",
+			// "24.12",
+			// 0, 0);
+			// mDataProvider.setFertilizing(2, 2, "Gypsum", "cart load(s)",
+			// "25.12", 0, 0);
+			// mDataProvider.setFertilizing(1, 2, "Urea", "tractor load(s)",
+			// "26.12", 0, 0);
+			// mDataProvider.setFertilizing(2, 2, "Super", "1L can(s)", "27.12",
+			// 0, 0);
+			//
+			// // irrigating
+			// mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Spraying",
+			// 0,
+			// 0);
+			// mDataProvider.setIrrigation(2, 4, "hours", "01.12", "Flooding",
+			// 0,
+			// 0);
+			// mDataProvider.setIrrigation(3, 5, "hours", "02.12", "Spraying",
+			// 0,
+			// 0);
+			// mDataProvider.setIrrigation(4, 1, "hours", "04.12", "Flooding",
+			// 0,
+			// 0);
+			// mDataProvider.setIrrigation(2, 1, "hours", "04.12", "Flooding",
+			// 0,
+			// 0);
 
 			// flags the data insertion as done.
 			IS_INITIALIZED = true;
@@ -286,8 +292,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_irrigate) {
 			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra("actionName",
-					RealFarmDatabase.ACTION_NAME_IRRIGATE_ID);
+			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+					RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID);
 			this.startActivity(inte);
 			return;
 		}
@@ -303,7 +309,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_sow) {
 			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra("actionName", RealFarmDatabase.ACTION_NAME_SOW_ID);
+			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE, RealFarmDatabase.ACTION_TYPE_SOW_ID);
 			this.startActivity(inte);
 			return;
 		}
@@ -312,7 +318,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 												 * TODO inte = new Intent(this,
 												 * ActionAggregateActivity
 												 * .class);
-												 * inte.putExtra("actionName",
+												 * inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 												 * RealFarmDatabase
 												 * .ACTION_NAME_SOW_ID);
 												 * this.startActivity(inte);
@@ -784,13 +790,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		mDataProvider.getUsers(); // User
 		mDataProvider.getActions(); // New action table
-		mDataProvider.getfertilizing(); // Fertilizing action
-		mDataProvider.getspraying(); // Spraying action
-		mDataProvider.getharvesting(); // Harvesting acion
-		mDataProvider.getselling(); // Selling action
 		mDataProvider.getMarketPrices(); // Market price
 		mDataProvider.getPlots(); // New plot list
-		mDataProvider.getActionNames(); // Action names
+		mDataProvider.getActionTypes(); // Action names
 
 	}
 

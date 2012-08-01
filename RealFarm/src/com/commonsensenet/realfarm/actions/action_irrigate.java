@@ -257,11 +257,8 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 					System.out.println("Irrigting Writing");
-					mDataProvider.setIrrigation(Global.plotId, hrs_irrigate,
-							"hours", irr_day_sel, irr_method_sel, 0, 0);
-
-					System.out.println("Irrigting reading");
-					mDataProvider.getharvesting();
+//					mDataProvider.setIrrigation(Global.plotId, hrs_irrigate,
+//							"hours", irr_day_sel, irr_method_sel, 0, 0);
 
 					Intent adminintent = new Intent(action_irrigate.this,
 							Homescreen.class);

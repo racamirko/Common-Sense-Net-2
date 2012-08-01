@@ -1,9 +1,6 @@
 package com.commonsensenet.realfarm.view;
 
-import android.graphics.Color;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -24,26 +21,18 @@ public class SowAggregateItemWrapper extends AggregateItemWrapper {
 		super(row);
 	}
 
-//	private TextView mTreatmentCount;
-
-/*	public TextView getTreatmentCount() {
-
-		if (mTreatmentCount == null) {
-			mTreatmentCount = (TextView) mRow
-					.findViewById(R.id.label_aggregate_detail_count);
-		}
-		return (mTreatmentCount);
-	}*/
-
 	public void populateFrom(AggregateItem aggregate, RealFarmProvider provider) {
 
-		SeedType seed = provider.getVarById(Integer.valueOf(aggregate
-				.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID)));
+		SeedType seed = provider.getSeedById((Integer.valueOf(aggregate
+				.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID))));
 		getUserCount().setText(String.valueOf(aggregate.getUserCount()));
 		getTypeText().setText(seed.getShortName());
-		getTypeImage().setBackgroundResource(seed.getResBg());
+		getTypeImage().setBackgroundResource(seed.getResource());
 
-		getTreatmentCount().setText(aggregate.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_TREATMENT));		
+		getTreatmentCount()
+				.setText(
+						aggregate
+								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
 		getUserImg().setImageResource(R.drawable.sowingaggsection);
 
 	}

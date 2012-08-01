@@ -2,39 +2,34 @@ package com.commonsensenet.realfarm.model;
 
 public class MarketPrice {
 
+	/** Date when the price occurred. */
+	private String mDate;
+	/** Unique identifier of the MarketPrice. */
 	private int mId;
-	private String mdate;
-	private int mvalue;
-	private String mtype;
-	private int madminflag;
+	private String mType;
+	/** Price in the given date. */
+	private int mValue;
 
-	public MarketPrice(int id, String date, String type, int value,
-			int adminflag) {
+	public MarketPrice(int id, String date, String type, int value) {
 		mId = id;
-		mdate = date;
-		mvalue = value;
-		mtype = type;
-		madminflag = adminflag;
-	}
-
-	public int getMarketPriceId() {
-		return mId;
+		mDate = date;
+		mValue = value;
+		mType = type;
 	}
 
 	public String getDate() {
-		return mdate;
+		return mDate;
 	}
 
-	public int getvalue() {
-		return mvalue;
+	public int getId() {
+		return mId;
 	}
 
-	public String gettype() {
-		return mtype;
+	public String getType() {
+		return mType;
 	}
 
-	public int getadminflag() {
-		return madminflag;
+	public int getValue() {
+		return mValue;
 	}
-
 }

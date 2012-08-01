@@ -6,45 +6,38 @@ package com.commonsensenet.realfarm.model;
  */
 public class SeedType {
 
-	private int mAudioRes;
+	/** Help audio used for the seed. */
+	private int mAudio;
+	/** CropType that this seed represents. */
+	private int mCropTypeId;
+	/** Unique identifier. */
 	private int mId;
+	/** Full name of the SeedType. */
 	private String mName;
+	/** Name of the seed in Kannada language. */
 	private String mNameKannada;
-	private int mRes;
-	private int mResBg;
-	private String mVariety;
-	private String mVarietyKannada;
-	private String shortName;
+	/** Identifier of the Image Resource. */
+	private int mResource;
+	/** Short name of the SeedType. */
+	private String mShortName;
 
-	public SeedType(int id, String name, String nameKannada, int res,
-			int audioRes, String variety, String varietyKannada, int resBg, String shortName) {
+	public SeedType(int id, String name, String nameKannada, String shortName,
+			int cropTypeId, int resource, int audio) {
 		mId = id;
 		mName = name;
-		this.shortName = shortName;
+		mShortName = shortName;
 		mNameKannada = nameKannada;
-		mRes = res;
-		mAudioRes = audioRes;
-		mVariety = variety;
-		mVarietyKannada = varietyKannada;
-		mResBg = resBg;
+		mResource = resource;
+		mAudio = audio;
+		mCropTypeId = cropTypeId;
 	}
 
-	public int getAudioRes() {
-		return mAudioRes;
+	public int getAudio() {
+		return mAudio;
 	}
 
-	public String getFullName() {
-		if (mVariety != null)
-			return mName + " - " + mVariety;
-		else
-			return mName;
-	}
-
-	public String getFullNameKannada() {
-		if (mVarietyKannada != null)
-			return mNameKannada + " - " + mVarietyKannada;
-		else
-			return mNameKannada;
+	public int getCropTypeId() {
+		return mCropTypeId;
 	}
 
 	public int getId() {
@@ -54,43 +47,25 @@ public class SeedType {
 	public String getName() {
 		return mName;
 	}
-	
-	public String getShortName() {
-		return shortName;
-	}
 
 	public String getNameKannada() {
 		return mNameKannada;
 	}
 
-	public int getRes() {
-		return mRes;
+	public int getResource() {
+		return mResource;
 	}
 
-	public int getResBg() {
-		return mResBg;
-	}
-
-	public String getVariety() {
-		return mVariety;
-	}
-
-	public String getVarietyKannada() {
-		return mVarietyKannada;
-	}
-
-	public void setResBg(int mResBg) {
-		this.mResBg = mResBg;
+	public String getShortName() {
+		return mShortName;
 	}
 
 	@Override
 	public String toString() {
 
 		return String
-				.format("[SeedType id='%s', name='%s', nameKannada='%s', res='%d', audio='%d', variety='%s', varietyKannada='%s', resBG='%d']",
-						mId, mName, mNameKannada, mRes, mAudioRes, mVariety,
-						mVarietyKannada, mResBg);
-
+				.format("[SeedType id='%s', name='%s', nameKannada='%s', shortName='%s', cropTypeId='%d', resource='%d', audio='%d']",
+						mId, mName, mNameKannada, mShortName, mCropTypeId,
+						mResource, mAudio);
 	}
-
 }

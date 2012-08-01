@@ -255,8 +255,8 @@ public class action_problem extends HelpEnabledActivityOld {
 				if (flag1 == 0 && flag2 == 0 && flag4 == 0) {
 
 					System.out.println("Problem writing");
-					mDataProvider.setProblem(Global.plotId, prob_day_sel,
-							prob_var_sel, 0, 0, prob_crop_sel);
+					// mDataProvider.setProblem(Global.plotId, prob_day_sel,
+					// prob_var_sel, 0, 0, prob_crop_sel);
 
 					startActivity(new Intent(action_problem.this,
 							Homescreen.class));
