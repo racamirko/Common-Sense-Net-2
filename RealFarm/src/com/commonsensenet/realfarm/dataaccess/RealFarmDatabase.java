@@ -211,7 +211,7 @@ public class RealFarmDatabase {
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_USER_FIRSTNAME + " text not null, "
 					+ COLUMN_NAME_USER_LASTNAME + " text not null, "
-					+ COLUMN_NAME_USER_MOBILE + " text unique not null, "
+					+ COLUMN_NAME_USER_DEVICEID + " text unique not null, "
 					+ COLUMN_NAME_USER_IMAGEPATH + " text, "
 					+ COLUMN_NAME_USER_ISENABLED + " boolean, "
 					+ COLUMN_NAME_USER_ISADMINACTION + " boolean, "
@@ -360,7 +360,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_USER_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_USER_ISENABLED = "isEnabled";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastname";
-	public static final String COLUMN_NAME_USER_MOBILE = "mobile";
+	public static final String COLUMN_NAME_USER_DEVICEID = "deviceId";
 	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
 
 	public static final String COLUMN_NAME_WEATHERFORECAST_DATE = "date";
@@ -395,7 +395,7 @@ public class RealFarmDatabase {
 	/** Identifier used to debug the database. */
 	public static final String LOG_TAG = "RealFarm";
 	/** Identifier of the current User. */
-	public static int MAIN_USER_ID = -1;
+	public static long MAIN_USER_ID = -1;
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONTYPE = "actionType";
@@ -521,19 +521,17 @@ public class RealFarmDatabase {
 		// 1
 		TelephonyManager telephonyManager = (TelephonyManager) mContext
 				.getSystemService(Context.TELEPHONY_SERVICE);
-		String deviceID = telephonyManager.getLine1Number();
+		String deviceId = telephonyManager.getLine1Number();
 
-		DEVICE_ID = deviceID;
+		DEVICE_ID = deviceId;
 
-		String mobileNumber;
-		if (deviceID == null) {
-			mobileNumber = DEFAULT_NUMBER;
-		} else {
-			mobileNumber = deviceID;
+		// sets the default value if invalid.
+		if (deviceId == null) {
+			deviceId = DEFAULT_NUMBER;
 		}
 
 		String[][] userData = {
-				{ "John", "Doe", mobileNumber, "farmer_90px_kiran_kumar_g" },
+				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g" },
 				{ "Hendrik", "Knoche", "788844672", "farmer_90px_adam_jones" },
 				{ "Chris", "Bishop", "788244421", "farmer_90px_neil_palmer" },
 				{ "Chris", "McDougall", "781122672", "farmer_90px_neil_palmer2" },
@@ -544,7 +542,7 @@ public class RealFarmDatabase {
 		for (int x = 0; x < userData.length; x++) {
 			users.put(COLUMN_NAME_USER_FIRSTNAME, userData[x][0]);
 			users.put(COLUMN_NAME_USER_LASTNAME, userData[x][1]);
-			users.put(COLUMN_NAME_USER_MOBILE, userData[x][2]);
+			users.put(COLUMN_NAME_USER_DEVICEID, userData[x][2]);
 			users.put(COLUMN_NAME_USER_IMAGEPATH, userData[x][3]);
 			users.put(COLUMN_NAME_USER_ISENABLED, 0);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);

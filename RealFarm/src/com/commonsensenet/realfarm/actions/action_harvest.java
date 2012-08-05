@@ -337,9 +337,6 @@ public class action_harvest extends HelpEnabledActivityOld {
 					// harvest_no, 0, units_harvest, final_day_harvest,
 					// feedback_txt, 1, 0, crop_harvest);
 
-					// System.out.println("harvesting reading");
-					// mDataProvider.getharvesting();
-
 					startActivity(new Intent(action_harvest.this,
 							Homescreen.class));
 					action_harvest.this.finish();

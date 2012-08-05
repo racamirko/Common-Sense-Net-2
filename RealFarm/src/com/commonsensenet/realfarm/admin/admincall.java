@@ -159,9 +159,6 @@ public class admincall extends Activity {
 
 												mDataProvider
 														.setDeleteFlagForUser(Global.userId);
-												// TODO: why the return value is
-												// not stored?
-												mDataProvider.getUsers();
 
 												// mDataProvider.getuserDelete(0);
 

@@ -21,17 +21,17 @@ public class User {
 	protected int mIsEnabled;
 	/** Lastname of the User. */
 	protected String mLastname;
-	/** Mobile number of the User. */
-	protected String mMobile;
+	/** Identifier if the device the User has. */
+	protected String mDeviceId;
 	/** Timestamp that indicates the creation of the User. */
 	protected int mTimestamp;
 
-	public User(int userId, String firstname, String lastname, String mobile,
+	public User(int userId, String firstname, String lastname, String deviceId,
 			String imagePath, int isEnabled, int isAdminAction, int timestamp) {
 		mId = userId;
 		mFirstname = firstname;
 		mLastname = lastname;
-		mMobile = mobile;
+		mDeviceId = deviceId;
 		mImagePath = imagePath;
 		mIsEnabled = isEnabled;
 		mIsAdminAction = isAdminAction;
@@ -62,8 +62,8 @@ public class User {
 		return mLastname;
 	}
 
-	public String getMobile() {
-		return mMobile;
+	public String getDeviceId() {
+		return mDeviceId;
 	}
 
 	public int getTimestamp() {
@@ -74,8 +74,8 @@ public class User {
 	public String toString() {
 
 		return String
-				.format("[User id='%s', firstName='%s', lastName='%s', mobileNumber='%s', imagePath='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
-						mId, mFirstname, mLastname, mMobile, mImagePath,
+				.format("[User id='%s', firstName='%s', lastName='%s', deviceId='%s', imagePath='%s', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
+						mId, mFirstname, mLastname, mDeviceId, mImagePath,
 						mIsEnabled, mIsAdminAction, mTimestamp);
 
 	}

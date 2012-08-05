@@ -130,7 +130,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			List<SeedType> seeds = mDataProvider.getSeedTypes();
 
 			for (int x = 0; x < plotData.length; x++) {
-				int plotId = (int) mDataProvider.insertPlot(
+				int plotId = (int) mDataProvider.addPlot(
 						(Integer) plotData[x][0], seeds.get(x).getId(),
 						(String) plotData[x][2], (String) plotData[x][3], 3.0f,
 						0, 0);
@@ -309,7 +309,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.btn_action_sow) {
 			inte = new Intent(this, ActionAggregateActivity.class);
-			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE, RealFarmDatabase.ACTION_TYPE_SOW_ID);
+			inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+					RealFarmDatabase.ACTION_TYPE_SOW_ID);
 			this.startActivity(inte);
 			return;
 		}
@@ -318,7 +319,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 												 * TODO inte = new Intent(this,
 												 * ActionAggregateActivity
 												 * .class);
-												 * inte.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+												 * inte.putExtra(RealFarmDatabase
+												 * .TABLE_NAME_ACTIONTYPE,
 												 * RealFarmDatabase
 												 * .ACTION_NAME_SOW_ID);
 												 * this.startActivity(inte);
@@ -621,10 +623,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		 * 
 		 * }
 		 * 
-		 * /* Global.actionno=6;
-		 * System.out.println("Displaying plot information list");
-		 * mDataProvider.getAllPlotList(); inte = new Intent(this,
-		 * Plot_Image.class); this.startActivity(inte);
+		 * /* Global.actionno=6; inte = new Intent(this, Plot_Image.class);
+		 * this.startActivity(inte);
 		 */
 		// }
 
@@ -788,11 +788,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	// TODO: this should be modified since it will make the DB slower.
 	protected void writeDatabaseToSDcard() {
 
-		mDataProvider.getUsers(); // User
-		mDataProvider.getActions(); // New action table
-		mDataProvider.getMarketPrices(); // Market price
-		mDataProvider.getPlots(); // New plot list
-		mDataProvider.getActionTypes(); // Action names
+		throw new Error("Not implemented");
 
 	}
 

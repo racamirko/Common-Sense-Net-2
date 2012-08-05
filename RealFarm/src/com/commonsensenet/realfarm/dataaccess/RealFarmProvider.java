@@ -2,7 +2,6 @@ package com.commonsensenet.realfarm.dataaccess;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -985,7 +984,7 @@ public class RealFarmProvider {
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_USER,
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
+						RealFarmDatabase.COLUMN_NAME_USER_DEVICEID,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
@@ -1008,37 +1007,33 @@ public class RealFarmProvider {
 		return tmpUser;
 	}
 
-	public User getUserByMobile(String deviceId) {
+	public User getUserByDeviceId(String deviceId) {
 
 		mDatabase.open();
 
 		User tmpUser = null;
-		String mobile;
 
-		if (deviceId == null)
-			mobile = RealFarmDatabase.DEFAULT_NUMBER;
-		else
-			mobile = deviceId;
+		// adds the default value if the active one is invalid.
+		if (deviceId == null) {
+			deviceId = RealFarmDatabase.DEFAULT_NUMBER;
+		}
 
-		Cursor c = mDatabase
-				.getEntries(RealFarmDatabase.TABLE_NAME_USER, new String[] {
-						RealFarmDatabase.COLUMN_NAME_USER_ID,
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_USER,
+				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID,
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
 
-						RealFarmDatabase.COLUMN_NAME_USER_MOBILE + "= '"
-								+ mobile + "'", null, null, null, null);
+				RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + "= '" + deviceId
+						+ "'", null, null, null, null);
 
-		if (c.moveToFirst()) { // user exists in database
-
-			// tmpUser = new User(c.getInt(0), c.getString(1), c.getString(2),
-			// mobile, c.getString(3));
+		// user exists in database
+		if (c.moveToFirst()) {
 
 			tmpUser = new User(c.getInt(0), c.getString(1), c.getString(2),
-					mobile, c.getString(3), c.getInt(4), c.getInt(5),
+					deviceId, c.getString(3), c.getInt(4), c.getInt(5),
 					c.getInt(6));
 		}
 		c.close();
@@ -1072,7 +1067,7 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID,
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
+						RealFarmDatabase.COLUMN_NAME_USER_DEVICEID,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
@@ -1112,7 +1107,7 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_USER_ID,
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_MOBILE,
+						RealFarmDatabase.COLUMN_NAME_USER_DEVICEID,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
@@ -1325,7 +1320,7 @@ public class RealFarmProvider {
 	}
 
 	// main crop info corresponds to seed type id
-	public long insertPlot(int userId, int seedTypeId, String imagePath,
+	public long addPlot(int userId, int seedTypeId, String imagePath,
 			String soilType, float size, int deleteFlag, int adminFlag) {
 
 		ContentValues args = new ContentValues();
@@ -1362,14 +1357,10 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long setAction(int actionTypeId, int plotId, String date,
+	public long addAction(int actionTypeId, int plotId, String date,
 			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
 			int globalId, int isSent, int isAdminAction) {
-
-		// used to add the timestamp.
-		SimpleDateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT);
-		Calendar calendar = Calendar.getInstance();
 
 		ContentValues args = new ContentValues();
 
@@ -1398,7 +1389,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 				isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP,
-				dateFormat.format(calendar.getTime()));
+				new Date().getTime());
 
 		long result;
 
@@ -1449,7 +1440,7 @@ public class RealFarmProvider {
 	public long setFertilizing(int plotId, int quantity1, int fertilizerId,
 			int unit1, String date, int isSent, int isAdminAction) {
 
-		return setAction(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID, plotId,
+		return addAction(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, fertilizerId,
 				NONE, NONE, NONE, isSent, isAdminAction);
 	}
@@ -1458,7 +1449,7 @@ public class RealFarmProvider {
 			int quantity2, int unit1, String date, int satisfactionId,
 			int isSent, int isAdminAction, int seedTypeId) {
 
-		return setAction(RealFarmDatabase.ACTION_TYPE_HARVEST_ID, plotId, date,
+		return addAction(RealFarmDatabase.ACTION_TYPE_HARVEST_ID, plotId, date,
 				seedTypeId, getCropIdFromSeedId(seedTypeId), quantity1,
 				quantity2, unit1, NONE, satisfactionId, NONE, NONE, NONE,
 				isSent, isAdminAction);
@@ -1467,12 +1458,12 @@ public class RealFarmProvider {
 	public long setIrrigation(int plotId, int quantity1, int unit1,
 			String date, int methodId, int isSent, int isAdminAction) {
 
-		return setAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
+		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, methodId, NONE,
 				NONE, NONE, isSent, isAdminAction);
 	}
 
-	public long setMarketPrice(int id, String date, String type, int value,
+	public long addMarketPrice(int id, String date, String type, int value,
 			int adminflag) {
 
 		ContentValues args = new ContentValues();
@@ -1491,77 +1482,80 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long setPlot(int userID) {
-
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userID);
-
-		mDatabase.open();
-
-		// add to plot list
-		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				args);
-
-		mDatabase.close();
-		return result;
-
-	}
-
-	public long setProblem(int plotId, int seedTypeId, int problemTypeId,
+	public long addReportAction(int plotId, int seedTypeId, int problemTypeId,
 			String date, int isSent, int isAdminAction) {
 
-		return setAction(RealFarmDatabase.ACTION_TYPE_REPORT_ID, plotId, date,
+		return addAction(RealFarmDatabase.ACTION_TYPE_REPORT_ID, plotId, date,
 				seedTypeId, getCropIdFromSeedId(seedTypeId), NONE, NONE, NONE,
 				NONE, problemTypeId, NONE, NONE, NONE, isSent, isAdminAction);
 	}
 
-	public long setSelling(int plotId, int seedTypeId, int quantity1,
+	public long addSellAction(int plotId, int seedTypeId, int quantity1,
 			int quantity2, int unit1, int unit2, int price, String date,
 			int isSent, int isAdminAction) {
 
-		return setAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
+		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
 				seedTypeId, getCropIdFromSeedId(seedTypeId), quantity1,
 				quantity2, unit1, unit2, NONE, NONE, price, NONE, isSent,
 				isAdminAction);
 	}
 
-	public long setSowing(int plotId, int quantity1, int seedTypeId, int unit1,
-			String date, int treatmentId, int isSent, int isAdminAction,
-			int intercropId) {
+	public long addSowAction(int plotId, int quantity1, int seedTypeId,
+			int unit1, String date, int treatmentId, int isSent,
+			int isAdminAction, int intercropId) {
 
-		return setAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
+		return addAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
 				seedTypeId, getCropIdFromSeedId(seedTypeId), quantity1, NONE,
 				unit1, NONE, treatmentId, intercropId, NONE, NONE, isSent,
 				isAdminAction);
 	}
 
-	public long setSpraying(int userId, int plotId, int quantity1, int unit1,
-			String date, int problemId, int isSent, int isAdminAction,
-			int pesticideId) {
+	public long addSprayAction(int userId, int plotId, int quantity1,
+			int unit1, String date, int problemId, int isSent,
+			int isAdminAction, int pesticideId) {
 
-		return setAction(RealFarmDatabase.ACTION_TYPE_SPRAY_ID, plotId, date,
+		return addAction(RealFarmDatabase.ACTION_TYPE_SPRAY_ID, plotId, date,
 				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,
 				pesticideId, NONE, NONE, isSent, isAdminAction);
 	}
 
-	public long setUserInfo(String deviceId, String firstname, String lastname) {
+	/**
+	 * Adds a new User to the database. If a user already exists with the same
+	 * DEVICEID, the User is updated instead
+	 * 
+	 * @param deviceId
+	 * @param firstname
+	 * @param lastname
+	 * @param imagePath
+	 * @param isEnabled
+	 * @param isAdminAction
+	 * @return
+	 */
+	public long addUser(String deviceId, String firstname, String lastname,
+			String imagePath, int isEnabled, int isAdminAction) {
 
+		// creates the value container.
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILE, deviceId);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, 0);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, 0);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP,
+				new Date().getTime());
 
 		long result;
 
-		User user = getUserByMobile(deviceId);
+		// queries the user using the deviceId
+		User user = getUserByDeviceId(deviceId);
 
 		mDatabase.open();
 
-		if (user != null) { // user exists in database => update
+		// user exists in database => update
+		if (user != null) {
 			result = mDatabase.update(RealFarmDatabase.TABLE_NAME_USER, args,
-					RealFarmDatabase.COLUMN_NAME_USER_MOBILE + " = '"
+					RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + " = '"
 							+ deviceId + "'", null);
 		} else { // user must be created
 			result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_USER,

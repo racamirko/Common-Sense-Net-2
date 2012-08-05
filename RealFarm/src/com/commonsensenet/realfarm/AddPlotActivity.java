@@ -32,7 +32,7 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 
 		// inserts the new action
-		Global.plotId = (int) mDataProvider.insertPlot(Global.userId,
+		Global.plotId = (int) mDataProvider.addPlot(Global.userId,
 				mSeedTypeId, mPlotImage, mSoilType, Float.parseFloat(mSize), 0,
 				0);
 

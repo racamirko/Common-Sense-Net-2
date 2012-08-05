@@ -178,10 +178,6 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 
 					mDataProvider.addWeatherForecast(separated[2], temperature,
 							type1);
-
-					Log.d("inserted to DB ", "inserrted data");
-					mDataProvider.getWeatherForecasts();
-					Log.d("inserted to DB ", "after inserting data");
 				}
 
 				if (typeval == 2) {
@@ -221,7 +217,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				if (typeval == 5) {
 					// For updating users, action types, units, plots,
 					// pesticides, fertilizer, seeds, stages...
-					// users= subtype, first name, last name, mobileno, plotid,
+					// users= subtype, first name, last name, deviceId, plotid,
 					// long, lat ( users, plots)
 					// actions= subtype, action name,
 					// units= subtype, name, value
@@ -235,26 +231,15 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 						Log.d("subtype: ", "in US");
 						String usmsg = "Updation to user table Firstname: "
 								+ separated[3] + " Last Name: " + separated[4]
-								+ " Mobile No: " + separated[5];// +
-																// " and his plot longitude and latitude values are "
-																// +
-																// separated[6]
-																// + ", " +
-																// separated[7];
+								+ " DeviceId: " + separated[5];
 						Toast.makeText(context, usmsg, Toast.LENGTH_SHORT)
 								.show();
 
-						mDataProvider.setUserInfo(separated[5], separated[3],
-								separated[4]);
-						// TODO: why the return value is not stored?
-						mDataProvider.getUsers();
+						// TODO: provide the rest of the parameters.
+						mDataProvider.addUser(separated[5], separated[3],
+								separated[4], "", 0, 0);
 
-						System.out.println("User details is put to database");
-						// mDataProvider.setUserInfo(separated[5] ,separated[3],
-						// separated[4]);
-						// mDataProvider.getUser();
-						String insertedtodb = "inseted to DB";
-						Toast.makeText(context, insertedtodb,
+						Toast.makeText(context, "inseted to DB",
 								Toast.LENGTH_SHORT).show();
 					}
 					// For Action type updates

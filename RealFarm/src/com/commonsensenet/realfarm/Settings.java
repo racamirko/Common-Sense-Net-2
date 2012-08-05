@@ -30,21 +30,23 @@ import com.commonsensenet.realfarm.model.User;
 
 public class Settings extends Activity {
 
-	private String deviceID;
-	private boolean flagNewSim = false;
 	private ImageButton ib;
 	private RealFarmProvider mDataProvider;
-	private EditText MobileNumber, firstname12, lastname12;
-	private String origFirstname;
-	private String origLastname;
-	private int plotNumber = 0;
-	private int userId;
+	private String mDeviceId;
+	private EditText mDeviceIdTextField;
+	private EditText mFirstnameTextField;
+	private boolean mIsNewSim = false;
+	private EditText mLastnameTextField;
+	private String mOriginalFirstname;
+	private String mOriginalLastname;
+	private int mPlotId = 0;
+	private int mUserId;
 
-	private void addButton(LinearLayout plotLayout, int plotID) {
+	private void addButton(LinearLayout plotLayout, int plotId) {
 		Button b = new Button(this);
 		b.setText("x, y");
 		b.setBackgroundColor(Color.RED);
-		b.setOnClickListener(OnClickDoSomething(plotLayout, plotID));
+		b.setOnClickListener(OnClickDoSomething(plotLayout, plotId));
 		plotLayout.addView(b);
 
 	}
@@ -52,6 +54,7 @@ public class Settings extends Activity {
 	/**
 	 * Manage list of things to plot
 	 */
+	// TODO: add plot is not functional.
 	private void addPlot() {
 
 		LinearLayout container2 = (LinearLayout) findViewById(R.id.linearLayout2);
@@ -67,13 +70,16 @@ public class Settings extends Activity {
 		// add plot header
 		TextView tv = new TextView(this);
 
-		tv.setText("plot " + plotNumber);
-		long plotID = mDataProvider.setPlot(userId);
+		tv.setText("plot " + mPlotId);
+		long plotID = -1;
+		// mDataProvider.addPlot(userId, seedTypeId, imagePath,
+		// soilType, size, 0, 0);
 
-		plotNumber = plotNumber + 1;
+		mPlotId = mPlotId + 1;
 
-		if (!(plotID > 0))
+		if (!(plotID > 0)) {
 			tv.setBackgroundColor(Color.RED);
+		}
 
 		plotLayout.addView(tv);
 		addButton(plotLayout, (int) plotID);
@@ -161,25 +167,27 @@ public class Settings extends Activity {
 
 		long result = 0;
 
-		if (deviceID == null) // user has no sim card, use default number
-			deviceID = RealFarmDatabase.DEFAULT_NUMBER;
-
-		if (flagNewSim == true) // user inserted a sim card and already had
-								// account => update device id information
-			result = mDataProvider.setUserInfo(deviceID, firstnameString,
-					lastnameString);
-
-		// detect changes
-		if ((!firstnameString.equalsIgnoreCase(origFirstname))
-				|| (!lastnameString.equalsIgnoreCase(origLastname))) // user
-																		// changed
-																		// something
-		{
-			result = mDataProvider.setUserInfo(deviceID, firstnameString,
-					lastnameString);
+		// user has no sim card, use default number
+		if (mDeviceId == null) {
+			mDeviceId = RealFarmDatabase.DEFAULT_NUMBER;
 		}
 
-		if (result > 0) { // success
+		// user inserted a sim card and already had
+		// account => update device id information
+		if (mIsNewSim == true) {
+
+			// TODO: indicate the image path
+			result = mDataProvider.addUser(mDeviceId, firstnameString,
+					lastnameString, "", 0, 0);
+			// detect changes
+		} else if ((!firstnameString.equalsIgnoreCase(mOriginalFirstname))
+				|| (!lastnameString.equalsIgnoreCase(mOriginalLastname))) {
+			result = mDataProvider.addUser(mDeviceId, firstnameString,
+					lastnameString, "", 0, 0);
+		}
+
+		// success
+		if (result > 0) {
 			Toast.makeText(getApplicationContext(), "User created/modified",
 					Toast.LENGTH_SHORT).show();
 		}
@@ -279,15 +287,16 @@ public class Settings extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
 
-		firstname12 = (EditText) findViewById(R.id.editText1); // First name
-		lastname12 = (EditText) findViewById(R.id.editText2);
-		MobileNumber = (EditText) this.findViewById(R.id.MobileNo);
+		mFirstnameTextField = (EditText) findViewById(R.id.editText1); // First
+																		// name
+		mLastnameTextField = (EditText) findViewById(R.id.editText2);
+		mDeviceIdTextField = (EditText) this.findViewById(R.id.MobileNo);
 		Button OK = (Button) findViewById(R.id.OK); // Prakruthi
 
 		// String deviceID = RealFarmDatabase.DEVICE_ID;
 		TelephonyManager telephonyManager = (TelephonyManager) this
 				.getSystemService(Context.TELEPHONY_SERVICE);
-		deviceID = telephonyManager.getLine1Number();
+		mDeviceId = telephonyManager.getLine1Number();
 
 		EditText firstname = (EditText) this.findViewById(R.id.editText1);
 		EditText lastname = (EditText) this.findViewById(R.id.editText2);
@@ -298,20 +307,20 @@ public class Settings extends Activity {
 
 		mDataProvider = RealFarmProvider.getInstance(getApplicationContext());
 
-		if (deviceID != null) { // sim card exists
+		if (mDeviceId != null) { // sim card exists
 
 			User user = mDataProvider
-					.getUserByMobile(RealFarmDatabase.DEVICE_ID);
+					.getUserByDeviceId(RealFarmDatabase.DEVICE_ID);
 
-			RealFarmDatabase.DEVICE_ID = deviceID; // update main device ID
+			RealFarmDatabase.DEVICE_ID = mDeviceId; // update main device ID
 
 			// if no information, try to fetch the default.
 			if (user == null || user.getFirstname() == null) {
 				// number in case user configured phone
 				// without sim card
 				user = mDataProvider
-						.getUserByMobile(RealFarmDatabase.DEVICE_ID);
-				flagNewSim = true;
+						.getUserByDeviceId(RealFarmDatabase.DEVICE_ID);
+				mIsNewSim = true;
 			}
 
 			firstname.setText(user.getFirstname());
@@ -320,14 +329,14 @@ public class Settings extends Activity {
 			Toast.makeText(getApplicationContext(), "Insert SIM card",
 					Toast.LENGTH_SHORT).show();
 			User user = mDataProvider
-					.getUserByMobile(RealFarmDatabase.DEVICE_ID);
+					.getUserByDeviceId(RealFarmDatabase.DEVICE_ID);
 
 			firstname.setText(user.getFirstname());
 			lastname.setText(user.getLastname());
 		}
 
-		origFirstname = firstname.getText().toString();
-		origLastname = lastname.getText().toString();
+		mOriginalFirstname = firstname.getText().toString();
+		mOriginalLastname = lastname.getText().toString();
 
 		/*
 		 * Manage list of plots
@@ -341,7 +350,7 @@ public class Settings extends Activity {
 
 				// UserDetailsDatabase();
 				System.out.println("In OK button of settings");
-				UserDetailsDatabase();
+				addUserToDatabase();
 				Intent adminintent = new Intent(Settings.this, admincall.class);
 				startActivity(adminintent);
 				Settings.this.finish();
@@ -363,41 +372,13 @@ public class Settings extends Activity {
 		tvHeader.setTextSize(30);
 		container2.addView(tvHeader);
 
-		userId = mDataProvider.getUserByMobile(RealFarmDatabase.DEVICE_ID)
+		mUserId = mDataProvider.getUserByDeviceId(RealFarmDatabase.DEVICE_ID)
 				.getId();
 
 		// get plot list from db
-		List<Plot> poly = mDataProvider.getPlotsByUserId(userId);
+		List<Plot> poly = mDataProvider.getPlotsByUserId(mUserId);
 
-		plotNumber = poly.size();
-
-		// for each stored row
-		// for (int i = 0; i < plotNumber; i++) {
-		//
-		// LinearLayout plotLayout = new LinearLayout(this);
-		// LayoutParams layoutParams = new LinearLayout.LayoutParams(
-		// LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-		// plotLayout.setLayoutParams(layoutParams);
-		// plotLayout.setWeightSum(1);
-		//
-		// TextView tv = new TextView(this);
-		// tv.setText("plot " + i);
-		// plotLayout.addView(tv);
-		//
-		// Point[] coords = poly.get(i).getCoordinates();
-		//
-		// for (int j = 0; j < coords.length; j++) {
-		// Button b = new Button(this);
-		// b.setText("x, y");
-		// b.setBackgroundColor(Color.GREEN);
-		// b.setOnClickListener(OnClickAllowEdit(poly.get(i).getId(),
-		// coords[j].x, coords[j].y));
-		// plotLayout.addView(b);
-		// }
-		// int plotId = poly.get(i).getId();
-		// addButton(plotLayout, plotId);
-		// container2.addView(plotLayout);
-		// }
+		mPlotId = poly.size();
 
 		// Set + button
 		ib = new ImageButton(this);
@@ -413,21 +394,15 @@ public class Settings extends Activity {
 
 	}
 
-	public void UserDetailsDatabase() {
+	public void addUserToDatabase() {
 
-		String firstname12String = firstname12.getText().toString();
+		String firstname = mFirstnameTextField.getText().toString();
+		String lastname = mLastnameTextField.getText().toString();
+		String deviceId = mDeviceIdTextField.getText().toString();
 
-		String lastname12String = lastname12.getText().toString();
-		String MobileNumberString = MobileNumber.getText().toString();
+		mDeviceId = RealFarmDatabase.DEFAULT_NUMBER;
 
-		deviceID = RealFarmDatabase.DEFAULT_NUMBER;
-
-		System.out.println("User details is put to database");
-
-		mDataProvider.setUserInfo(MobileNumberString, firstname12String,
-				lastname12String);
-		// TODO: why the return value is not stored?
-		mDataProvider.getUsers();
+		mDataProvider.addUser(deviceId, firstname, lastname, "", 0, 0);
 		Toast.makeText(getBaseContext(), "User Details is put to Database",
 				Toast.LENGTH_SHORT).show();
 
