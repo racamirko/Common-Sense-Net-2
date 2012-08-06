@@ -8,22 +8,16 @@ public class SeedType extends Resource {
 
 	/** CropType that this seed represents. */
 	private int mCropTypeId;
-	/** Short name of the SeedType. */
-	private String mShortName;
 
 	public SeedType(int id, String name, String shortName, int cropTypeId,
 			int resource, int audio) {
-		super(id, name, name, audio, resource, -1, -1, -1);
-		mShortName = shortName;
+		super(id, name, shortName, audio, resource, -1, -1, -1);
+
 		mCropTypeId = cropTypeId;
 	}
 
 	public int getCropTypeId() {
 		return mCropTypeId;
-	}
-
-	public String getShortName() {
-		return mShortName;
 	}
 
 	@Override

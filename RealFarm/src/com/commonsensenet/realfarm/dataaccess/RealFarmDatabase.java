@@ -45,28 +45,6 @@ public class RealFarmDatabase {
 		}
 
 		/**
-		 * Helps building the reference statement for the table creation.
-		 * 
-		 * @param fieldName
-		 *            name of the field that references another one.
-		 * @param tableName
-		 *            name of the reference table.
-		 * @param id
-		 *            name of the column to reference.
-		 * 
-		 * @return a string that contains the reference to add.
-		 */
-		private String references(String fieldName, String tableName,
-				String id, boolean addComma) {
-			return String.format("%s references %s(%s)%s ", fieldName,
-					tableName, id, addComma ? "," : "");
-		}
-
-		private String references(String fieldName, String tableName, String id) {
-			return references(fieldName, tableName, id, true);
-		}
-
-		/**
 		 * Create the database with the table name and column names
 		 * 
 		 * @param SQLiteDatabase
@@ -164,7 +142,8 @@ public class RealFarmDatabase {
 							COLUMN_NAME_USER_ID)
 					+ references(COLUMN_NAME_PLOT_SEEDTYPEID,
 							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
-					+ COLUMN_NAME_PLOT_SOILTYPE + " text, "
+					+ references(COLUMN_NAME_PLOT_SOILTYPEID,
+							TABLE_NAME_SOILTYPE, COLUMN_NAME_SOILTYPE_ID)
 					+ COLUMN_NAME_PLOT_IMAGEPATH + " text, "
 					+ COLUMN_NAME_PLOT_ISENABLED + " boolean, "
 					+ COLUMN_NAME_PLOT_ISADMINACTION + " boolean, "
@@ -212,6 +191,16 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SOILMOISTURE_ISADMINACTION + " boolean "
 					+ " ); ");
 			Log.d(LOG_TAG, "Created soil moisture table");
+
+			// soil type
+			db.execSQL("create table " + TABLE_NAME_SOILTYPE + " ( "
+					+ COLUMN_NAME_SOILTYPE_ID
+					+ " integer primary key autoincrement, "
+					+ COLUMN_NAME_SOILTYPE_NAME + " text, "
+					+ COLUMN_NAME_SOILTYPE_SHORTNAME + " text, "
+					+ COLUMN_NAME_SOILTYPE_RESOURCE + " integer, "
+					+ COLUMN_NAME_SOILTYPE_AUDIO + " integer " + " ); ");
+			Log.d(LOG_TAG, "Created soil type table");
 
 			// users
 			db.execSQL("create table " + TABLE_NAME_USER + " ( "
@@ -264,6 +253,28 @@ public class RealFarmDatabase {
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 		}
+
+		private String references(String fieldName, String tableName, String id) {
+			return references(fieldName, tableName, id, true);
+		}
+
+		/**
+		 * Helps building the reference statement for the table creation.
+		 * 
+		 * @param fieldName
+		 *            name of the field that references another one.
+		 * @param tableName
+		 *            name of the reference table.
+		 * @param id
+		 *            name of the column to reference.
+		 * 
+		 * @return a string that contains the reference to add.
+		 */
+		private String references(String fieldName, String tableName,
+				String id, boolean addComma) {
+			return String.format("%s references %s(%s)%s ", fieldName,
+					tableName, id, addComma ? "," : "");
+		}
 	}
 
 	public static final int ACTION_TYPE_ALL_ID = 0;
@@ -274,17 +285,6 @@ public class RealFarmDatabase {
 	public static final int ACTION_TYPE_SELL_ID = 7;
 	public static final int ACTION_TYPE_SOW_ID = 1;
 	public static final int ACTION_TYPE_SPRAY_ID = 5;
-
-	public static final int RESOURCE_TYPE_PROBLEM = 0;
-	public static final int RESOURCE_TYPE_SOILTYPE = 1;
-	public static final int RESOURCE_TYPE_PESTICIDE = 2;
-	public static final int RESOURCE_TYPE_FERTILIZER = 3;
-	public static final int RESOURCE_TYPE_INTERCROP = 4;
-	public static final int RESOURCE_TYPE_IRRIGATIONMETHOD = 5;
-	public static final int RESOURCE_TYPE_MONTH = 6;
-	public static final int RESOURCE_TYPE_SMILEY = 7;
-	public static final int RESOURCE_TYPE_TREATMENT = 8;
-	public static final int RESOURCE_TYPE_UNIT = 9;
 
 	public static final String COLUMN_NAME_ACTION_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_ACTION_CROPTYPEID = "cropTypeId";
@@ -338,8 +338,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_ISENABLED = "isEnabled";
 	public static final String COLUMN_NAME_PLOT_SEEDTYPEID = "seedtypeId";
 	public static final String COLUMN_NAME_PLOT_SIZE = "size";
-	// maybe add this into its own table.
-	public static final String COLUMN_NAME_PLOT_SOILTYPE = "soilType";
+	public static final String COLUMN_NAME_PLOT_SOILTYPEID = "soilTypeId";
 	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 
@@ -365,46 +364,61 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_SOILMOISTURE_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_SOILMOISTURE_VALUE = "value";
 
+	public static final String COLUMN_NAME_SOILTYPE_ID = "id";
+	public static final String COLUMN_NAME_SOILTYPE_NAME = "name";
+	public static final String COLUMN_NAME_SOILTYPE_SHORTNAME = "shortName";
+	public static final String COLUMN_NAME_SOILTYPE_RESOURCE = "resource";
+	public static final String COLUMN_NAME_SOILTYPE_AUDIO = "audio";
+
 	public static final String COLUMN_NAME_UNIT_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_NAME = "name";
 	public static final String COLUMN_NAME_UNIT_RESOURCE = "resource";
 
+	public static final String COLUMN_NAME_USER_DEVICEID = "deviceId";
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstname";
 	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_IMAGEPATH = "imagePath";
 	public static final String COLUMN_NAME_USER_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_USER_ISENABLED = "isEnabled";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastname";
-	public static final String COLUMN_NAME_USER_DEVICEID = "deviceId";
 	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
 
 	public static final String COLUMN_NAME_WEATHERFORECAST_DATE = "date";
 	public static final String COLUMN_NAME_WEATHERFORECAST_ID = "id";
 	public static final String COLUMN_NAME_WEATHERFORECAST_TEMPERATURE = "temperature";
 	public static final String COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID = "weatherTypeId";
-
 	public static final String COLUMN_NAME_WEATHERTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_WEATHERTYPE_ID = "id";
 	public static final String COLUMN_NAME_WEATHERTYPE_NAME = "name";
 	public static final String COLUMN_NAME_WEATHERTYPE_RESOURCE = "resource";
-
 	/** Date format used to store the dates. */
 	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	/** Filename of the database. */
 	public static final String DB_NAME = "realFarm.db";
+
 	/** Current version of the database. */
 	private static final int DB_VERSION = 1;
 	/** Default User number. */
 	public static String DEFAULT_NUMBER = "000000000";
 	/** Current DeviceId. */
 	public static String DEVICE_ID;
-
 	/** Identifier used to debug the database. */
 	public static final String LOG_TAG = "RealFarm";
+
 	/** Identifier of the current User. */
 	public static long MAIN_USER_ID = -1;
+
+	public static final int RESOURCE_TYPE_FERTILIZER = 3;
+	public static final int RESOURCE_TYPE_INTERCROP = 4;
+	public static final int RESOURCE_TYPE_IRRIGATIONMETHOD = 5;
+	public static final int RESOURCE_TYPE_MONTH = 6;
+	public static final int RESOURCE_TYPE_PESTICIDE = 2;
+	public static final int RESOURCE_TYPE_PROBLEM = 0;
+	public static final int RESOURCE_TYPE_SMILEY = 7;
+	public static final int RESOURCE_TYPE_TREATMENT = 8;
+	public static final int RESOURCE_TYPE_UNIT = 9;
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONTYPE = "actionType";
@@ -415,6 +429,7 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_RESOURCE = "resource";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType";
 	public static final String TABLE_NAME_SOILMOISTURE = "soilMoisture";
+	public static final String TABLE_NAME_SOILTYPE = "soilType";
 	public static final String TABLE_NAME_UNIT = "unit";
 	public static final String TABLE_NAME_USER = "user";
 	public static final String TABLE_NAME_WEATHERFORECAST = "weatherForecast";
@@ -439,16 +454,21 @@ public class RealFarmDatabase {
 	}
 
 	public void clearValues() {
-		// Delete current elements in table
-		mDb.delete(TABLE_NAME_ACTIONTYPE, null, null);
+		// deletes all the tables.
 		mDb.delete(TABLE_NAME_ACTION, null, null);
-		mDb.delete(TABLE_NAME_DIALOG_ARRAYS, null, null);
-		mDb.delete(TABLE_NAME_RESOURCE, null, null);
-		mDb.delete(TABLE_NAME_PLOT, null, null);
-		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
+		mDb.delete(TABLE_NAME_ACTIONTYPE, null, null);
 		mDb.delete(TABLE_NAME_CROP, null, null);
+		mDb.delete(TABLE_NAME_DIALOG_ARRAYS, null, null);
+		mDb.delete(TABLE_NAME_MARKETPRICE, null, null);
+		mDb.delete(TABLE_NAME_PLOT, null, null);
+		mDb.delete(TABLE_NAME_RESOURCE, null, null);
+		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
+		mDb.delete(TABLE_NAME_SOILMOISTURE, null, null);
+		mDb.delete(TABLE_NAME_SOILTYPE, null, null);
 		mDb.delete(TABLE_NAME_UNIT, null, null);
 		mDb.delete(TABLE_NAME_USER, null, null);
+		mDb.delete(TABLE_NAME_WEATHERFORECAST, null, null);
+		mDb.delete(TABLE_NAME_WEATHERTYPE, null, null);
 	}
 
 	/**
@@ -541,10 +561,12 @@ public class RealFarmDatabase {
 
 		String[][] userData = {
 				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g" },
-				{ "Hendrik", "Knoche", "788844672", "farmer_90px_adam_jones" },
-				{ "Chris", "Bishop", "788244421", "farmer_90px_neil_palmer" },
-				{ "Chris", "McDougall", "781122672", "farmer_90px_neil_palmer2" },
-				{ "Frank", "Herbert", "788111172", "farmer_90px_walmart_stores" } };
+				{ "Hendrik", "Knoche", "7888446172", "farmer_90px_adam_jones" },
+				{ "Chris", "Bishop", "7882444210", "farmer_90px_neil_palmer" },
+				{ "Chris", "McDougall", "7811226720",
+						"farmer_90px_neil_palmer2" },
+				{ "Frank", "Herbert", "7881111720",
+						"farmer_90px_walmart_stores" } };
 
 		// users
 		ContentValues users = new ContentValues();
@@ -775,13 +797,6 @@ public class RealFarmDatabase {
 
 		// resources
 		Object[][] resourceData = {
-				/** SoilType */
-				{ "Loamy", "Loamy", R.raw.bagof10kg, -1, -1, -1,
-						RESOURCE_TYPE_SOILTYPE },
-				{ "Sandy", "Sandy", R.raw.bagof20kg, -1, -1, -1,
-						RESOURCE_TYPE_SOILTYPE },
-				{ "Clay", "Clay", R.raw.bagof50kg, -1, -1, -1,
-						RESOURCE_TYPE_SOILTYPE },
 				/** Problems */
 				{ "Late leaf spot", "LLS", R.raw.audio1, -1, -1, -1,
 						RESOURCE_TYPE_PROBLEM },
@@ -858,7 +873,9 @@ public class RealFarmDatabase {
 				{ "tractor load(s)", R.drawable.ic_tractorload, R.raw.audio1,
 						ACTION_TYPE_FERTILIZE_ID },
 				{ "unknown", R.drawable.icon, R.raw.audio1, ACTION_TYPE_ALL_ID },
-				{ "none", R.drawable.icon, R.raw.audio1, ACTION_TYPE_ALL_ID } };
+				{ "none", R.drawable.icon, R.raw.audio1, ACTION_TYPE_ALL_ID }
+
+		};
 
 		ContentValues unit = new ContentValues();
 		for (int x = 0; x < unitData.length; x++) {
@@ -871,6 +888,30 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "unit works");
+
+		// TODO: set correct image.
+		Object[][] soilTypes = {
+				{ "Loamy", "Loamy", R.drawable.pic_90px_cowpea_tiled,
+						R.raw.loamy },
+				{ "Sandy", "Sandy", R.drawable.pic_90px_groundnut_tiled,
+						R.raw.sandy },
+				{ "Clay", "Clay", R.drawable.pic_90px_bajra_tiled, R.raw.clay }
+
+		};
+
+		ContentValues soilType = new ContentValues();
+		for (int x = 0; x < soilTypes.length; x++) {
+			soilType.put(COLUMN_NAME_SOILTYPE_NAME, (String) soilTypes[x][0]);
+			soilType.put(COLUMN_NAME_SOILTYPE_SHORTNAME,
+					(String) soilTypes[x][1]);
+			soilType.put(COLUMN_NAME_SOILTYPE_RESOURCE,
+					(Integer) soilTypes[x][2]);
+			soilType.put(COLUMN_NAME_SOILTYPE_AUDIO, (Integer) soilTypes[x][3]);
+			insertEntriesIntoDatabase(TABLE_NAME_SOILTYPE, soilType, db);
+			soilType.clear();
+		}
+
+		Log.d(LOG_TAG, "soil type works");
 
 		// inserts the current date in the database.
 		SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);

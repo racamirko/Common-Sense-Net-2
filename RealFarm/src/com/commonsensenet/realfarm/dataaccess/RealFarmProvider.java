@@ -136,7 +136,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, soilType);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID, soilType);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, deleteFlag);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, adminFlag);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
@@ -708,6 +708,83 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public List<Resource> getSoilTypes() {
+
+		List<Resource> tmpList;
+
+		// opens the database.
+		mDatabase.open();
+
+		// queries all soil types
+		Cursor c = mDatabase.getAllEntries(
+				RealFarmDatabase.TABLE_NAME_SOILTYPE, new String[] {
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_ID,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_NAME,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_SHORTNAME,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_RESOURCE,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_AUDIO });
+
+		tmpList = new ArrayList<Resource>();
+
+		Resource r = null;
+		if (c.moveToFirst()) {
+			do {
+				// initializes a new Resource.
+				r = new Resource();
+				r.setId(c.getInt(0));
+				r.setName(c.getString(1));
+				r.setShortName(c.getString(2));
+				r.setBackgroundResource(c.getInt(3));
+				r.setAudio(c.getInt(4));
+
+				// adds it to the list.
+				tmpList.add(r);
+
+			} while (c.moveToNext());
+		}
+
+		// closes the database and the cursor.
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+
+	public Resource getSoilTypeById(int soilTypeId) {
+
+		// opens the database.
+		mDatabase.open();
+
+		// query all actions
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_SOILTYPE,
+				new String[] { RealFarmDatabase.COLUMN_NAME_SOILTYPE_ID,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_NAME,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_SHORTNAME,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_RESOURCE,
+						RealFarmDatabase.COLUMN_NAME_SOILTYPE_AUDIO },
+				RealFarmDatabase.COLUMN_NAME_SOILTYPE_ID + "=" + soilTypeId,
+				null, null, null, null);
+
+		Resource tmpRes = null;
+		if (c.moveToFirst()) {
+
+			// initializes a new Resource.
+			tmpRes = new Resource();
+			tmpRes.setId(c.getInt(0));
+			tmpRes.setName(c.getString(1));
+			tmpRes.setShortName(c.getString(2));
+			tmpRes.setBackgroundResource(c.getInt(2));
+			tmpRes.setAudio(c.getInt(4));
+
+		}
+
+		// closes the database and the cursor.
+		c.close();
+		mDatabase.close();
+
+		return tmpRes;
+	}
+
 	public List<MarketPrice> getMarketPrices() {
 		List<MarketPrice> tmpList;
 
@@ -787,7 +864,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
@@ -825,7 +902,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
@@ -869,7 +946,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
@@ -907,7 +984,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
@@ -946,7 +1023,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,

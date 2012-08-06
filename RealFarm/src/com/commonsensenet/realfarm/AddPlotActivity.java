@@ -9,7 +9,6 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
@@ -104,7 +103,6 @@ public class AddPlotActivity extends DataFormActivity {
 
 				// TODO: orbolanos: is this necessary?
 				AddPlotActivity.this.finish();
-
 			}
 		});
 
@@ -112,8 +110,7 @@ public class AddPlotActivity extends DataFormActivity {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOILTYPE);
+				List<Resource> data = mDataProvider.getSoilTypes();
 				displayDialog(v, data, SOIL_TYPE, "Select the soil type",
 						R.raw.problems, R.id.dlg_lbl_soil_plot,
 						R.id.soiltype_tr, 0);
@@ -140,7 +137,6 @@ public class AddPlotActivity extends DataFormActivity {
 						R.raw.dateinfo, 0, 30, 2, 0.1, 1, R.id.size_txt,
 						R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo, R.raw.dateinfo);
-
 			}
 		});
 	}
@@ -153,37 +149,21 @@ public class AddPlotActivity extends DataFormActivity {
 
 		if (v.getId() == R.id.aggr_img_help1) {
 			playAudio(R.raw.help);
-		}
-
-		if (v.getId() == R.id.dlg_plot_img_test) {
+		} else if (v.getId() == R.id.dlg_plot_img_test) {
 			playAudio(R.raw.plotimage);
-		}
-
-		if (v.getId() == R.id.dlg_lbl_soil_plot) {
+		} else if (v.getId() == R.id.dlg_lbl_soil_plot) {
 			playAudio(R.raw.soiltype);
-		}
-
-		if (v.getId() == R.id.maincrop_tr) {
+		} else if (v.getId() == R.id.maincrop_tr) {
 			playAudio(R.raw.yieldinfo);
-		}
-
-		if (v.getId() == R.id.size_tr) {
+		} else if (v.getId() == R.id.size_tr) {
 			playAudio(R.raw.yieldinfo);
-		}
-
-		if (v.getId() == R.id.plot_tr) {
+		} else if (v.getId() == R.id.plot_tr) {
 			playAudio(R.raw.plotimage);
-		}
-
-		if (v.getId() == R.id.soiltype_tr) {
+		} else if (v.getId() == R.id.soiltype_tr) {
 			playAudio(R.raw.soiltype);
-		}
-
-		if (v.getId() == R.id.maincrop_tr) {
+		} else if (v.getId() == R.id.maincrop_tr) {
 			playAudio(R.raw.maincrop);
-		}
-
-		if (v.getId() == R.id.size_tr) {
+		} else if (v.getId() == R.id.size_tr) {
 			playAudio(R.raw.maincrop);
 		}
 
@@ -231,7 +211,6 @@ public class AddPlotActivity extends DataFormActivity {
 
 		// if form is valid the plot is added to the database.
 		if (isValid) {
-
 			addPlotToDatabase();
 			return true;
 		}

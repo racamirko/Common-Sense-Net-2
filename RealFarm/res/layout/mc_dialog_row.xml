@@ -5,19 +5,12 @@
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:padding="@dimen/margin" >
 
-    <TextView
-        android:id="@+id/dialog_row_text2"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:gravity="top"
-        android:textColor="@android:color/black"
-        android:textSize="@dimen/font_large" />
-
     <ImageView
         android:id="@+id/dialog_row_icon"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/margin" />
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginRight="@dimen/margin"
+        android:scaleType="centerCrop" />
 
     <TextView
         android:id="@+id/dialog_row_text"

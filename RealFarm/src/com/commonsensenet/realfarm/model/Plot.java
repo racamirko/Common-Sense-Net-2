@@ -19,20 +19,20 @@ public class Plot {
 	/** Size in acres of the Plot. */
 	protected float mSize;
 	/** Type of soil that the Plot has. */
-	protected int mSoilType;
+	protected int mSoilTypeId;
 	/** Timestamp that indicates the creation of the Plot. */
 	protected int mTimestamp;
 	/** Owner of the plot. */
 	protected int mUserId;
 
 	public Plot(int id, int userId, int seedTypeId, String imagePath,
-			int soilType, float size, int isEnabled, int isAdminAction,
+			int soilTypeId, float size, int isEnabled, int isAdminAction,
 			int timestamp) {
 		mId = id;
 		mUserId = userId;
 		mSeedTypeId = seedTypeId;
 		mImagePath = imagePath;
-		mSoilType = soilType;
+		mSoilTypeId = soilTypeId;
 		mSize = size;
 		mIsEnabled = isEnabled;
 		mIsAdminAction = isAdminAction;
@@ -63,8 +63,8 @@ public class Plot {
 		return mSize;
 	}
 
-	public int getSoilType() {
-		return mSoilType;
+	public int getSoilTypeId() {
+		return mSoilTypeId;
 	}
 
 	public int getTimestamp() {
@@ -79,8 +79,8 @@ public class Plot {
 	public String toString() {
 
 		return String
-				.format("[Plot id='%s', userId='%d', seedTypeId='%d', imagePath='%s', soilType='%s', size='%f', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
-						mId, mUserId, mSeedTypeId, mImagePath, mSoilType,
+				.format("[Plot id='%s', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%s', size='%f', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
+						mId, mUserId, mSeedTypeId, mImagePath, mSoilTypeId,
 						mSize, mIsEnabled, mIsAdminAction, mTimestamp);
 	}
 }

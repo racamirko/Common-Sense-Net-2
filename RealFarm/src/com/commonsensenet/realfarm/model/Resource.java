@@ -48,10 +48,6 @@ public class Resource {
 		return mName;
 	}
 
-	public void setName(String value) {
-		mName = value;
-	}
-
 	public int getResource1() {
 		return mResource1;
 	}
@@ -78,6 +74,10 @@ public class Resource {
 
 	public void setId(int value) {
 		mId = value;
+	}
+
+	public void setName(String value) {
+		mName = value;
 	}
 
 	public void setResource1(int value) {

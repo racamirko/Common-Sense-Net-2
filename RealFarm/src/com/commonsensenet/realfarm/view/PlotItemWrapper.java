@@ -75,7 +75,7 @@ public class PlotItemWrapper {
 
 		// TODO: this shouldn't be done here due to performance issues!!!
 		SeedType seed = provider.getSeedById(plot.getSeedTypeId());
-		Resource soilType = provider.getResourceById(plot.getSoilType());
+		Resource soilType = provider.getSoilTypeById(plot.getSoilTypeId());
 
 		// Bitmap bitmap = BitmapFactory.decodeFile(plot.getImageName());
 		BitmapFactory.Options options = new BitmapFactory.Options();

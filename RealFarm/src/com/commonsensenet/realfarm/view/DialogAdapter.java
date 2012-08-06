@@ -34,7 +34,6 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 		if (res != null) {
 			TextView tt = (TextView) v.findViewById(R.id.dialog_row_text);
 			ImageView im2 = (ImageView) v.findViewById(R.id.dialog_row_icon);
-			TextView im = (TextView) v.findViewById(R.id.dialog_row_text2);
 			LinearLayout ll = (LinearLayout) v
 					.findViewById(R.id.dialog_row_layout);
 			if (tt != null) {
@@ -45,15 +44,6 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 				if (id != -1) {
 					im2.setImageResource(id);
 				}
-			}
-			if (im != null) {
-				int id = res.getResource1();
-				if (id != -1) {
-					im.setBackgroundResource(id);
-				}
-				// if (res.getNumber() != -1) {
-				// im.setText(res.getNumber() + "");
-				// }
 			}
 			if (ll != null) {
 				int id = res.getBackgroundResource();
