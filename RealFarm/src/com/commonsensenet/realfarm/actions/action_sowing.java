@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -111,7 +111,7 @@ public class action_sowing extends DataFormActivity {
 				Log.d("in treatment sow dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.TREATMENT);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_TREATMENT);
 				displayDialog(v, data, "treatment_sow",
 						"Select if the seeds were treated", R.raw.bagof50kg,
 						R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
@@ -139,7 +139,7 @@ public class action_sowing extends DataFormActivity {
 				Log.d("in intercrop sow dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.INTERCROP);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_INTERCROP);
 				displayDialog(v, data, "cropType_sow",
 						"Main crop or intercrop?", R.raw.bagof50kg,
 						R.id.dlg_lbl_intercrop_sow, R.id.intercrop_sow_tr, 0);
@@ -154,13 +154,11 @@ public class action_sowing extends DataFormActivity {
 				stopAudio();
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.MONTH);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, "months_sow", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_sow,
 						R.id.day_sow_tr, 0);
-
 			}
-
 		});
 	}
 

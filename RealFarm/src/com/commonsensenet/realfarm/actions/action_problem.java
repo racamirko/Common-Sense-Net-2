@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
 public class action_problem extends DataFormActivity {
@@ -67,7 +67,7 @@ public class action_problem extends DataFormActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.PROBLEM);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
 				displayDialog(v, data, "prob_var_sel",
 						"Choose the problem type", R.raw.problems,
 						R.id.dlg_lbl_var_prob, R.id.var_prob_tr, 0);
@@ -95,7 +95,7 @@ public class action_problem extends DataFormActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.MONTH);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, "months_prob", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_prob,
 						R.id.day_prob_tr, 0);

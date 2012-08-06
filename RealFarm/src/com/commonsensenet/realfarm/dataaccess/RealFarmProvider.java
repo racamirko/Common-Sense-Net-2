@@ -12,7 +12,6 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.DialogData;
@@ -650,7 +649,7 @@ public class RealFarmProvider {
 		return mDatabase;
 	}
 
-	public List<Resource> getResources(ResourceType resourceType) {
+	public List<Resource> getResources(int resourceType) {
 
 		// final String MY_QUERY =
 		// "SELECT name, shortName, resource, resource2, audio, value, number, resourceBg FROM dialogArrays WHERE type = "

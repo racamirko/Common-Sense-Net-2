@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
@@ -114,7 +114,7 @@ public class AddPlotActivity extends DataFormActivity {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.SOILTYPE);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOILTYPE);
 				displayDialog(v, data, SOIL_TYPE, "Select the soil type",
 						R.raw.problems, R.id.dlg_lbl_soil_plot,
 						R.id.soiltype_tr, 0);

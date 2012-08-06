@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -92,7 +92,7 @@ public class action_harvest extends DataFormActivity {
 				Log.d("in units fert dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.UNIT);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_UNIT);
 				displayDialog(v, data, "units_harvest", "Select the unit",
 						R.raw.problems, R.id.dlg_lbl_units_harvest,
 						R.id.units_harvest_tr, 2);
@@ -107,7 +107,7 @@ public class action_harvest extends DataFormActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.MONTH);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, "months_harvest", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_harvest,
 						R.id.harvest_date_tr, 0);
@@ -133,11 +133,10 @@ public class action_harvest extends DataFormActivity {
 				stopAudio();
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.SMILEY);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SMILEY);
 				displayDialog(v, data, "feedback_sel", "Are you satisfied?",
 						R.raw.feedbackgood, R.id.dlg_lbl_satisfaction_harvest,
 						R.id.satisfaction_harvest_tr, 1);
-
 			}
 		});
 

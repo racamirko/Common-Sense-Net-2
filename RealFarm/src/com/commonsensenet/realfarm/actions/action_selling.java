@@ -9,7 +9,7 @@ import android.view.View;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
 public class action_selling extends DataFormActivity {
@@ -116,7 +116,7 @@ public class action_selling extends DataFormActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.MONTH);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, "months_harvest", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_sell,
 						R.id.date_sell_tr, 0);
@@ -144,7 +144,7 @@ public class action_selling extends DataFormActivity {
 				Log.d("in units sow dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.UNIT);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_UNIT);
 				displayDialog(v, data, "units_sell", "Select the unit",
 						R.raw.problems, R.id.dlg_lbl_unit_sell,
 						R.id.quant_sell_tr, 2);
@@ -184,7 +184,7 @@ public class action_selling extends DataFormActivity {
 				Log.d("in units sow dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.UNIT);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_UNIT);
 				displayDialog(v, data, "units_rem_sell", "Select the unit",
 						R.raw.problems, R.id.dlg_lbl_unit_rem_sell,
 						R.id.rem_quant_sell_tr, 2);

@@ -10,7 +10,7 @@ import android.widget.ImageButton;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
 public class action_irrigate extends DataFormActivity {
@@ -77,7 +77,7 @@ public class action_irrigate extends DataFormActivity {
 				Log.d("in irrigation method dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.IRRIGATIONMETHOD);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD);
 				displayDialog(v, data, "irr_method_sel",
 						"Select the irrigation method", R.raw.problems,
 						R.id.dlg_lbl_method_irr, R.id.method_irr_tr, 0);
@@ -118,14 +118,12 @@ public class action_irrigate extends DataFormActivity {
 				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.MONTH);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, "months_irr", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_irr,
 						R.id.day_irr_tr, 0);
 			}
-
 		});
-
 	}
 
 	@Override

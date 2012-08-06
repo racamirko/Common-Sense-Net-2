@@ -15,7 +15,6 @@ import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -85,7 +84,7 @@ public class action_fertilizing extends DataFormActivity implements
 				Log.d("in variety fert dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.FERTILIZER);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZER);
 				displayDialog(v, data, "fert_var_sel", "Choose the fertilizer",
 						R.raw.problems, R.id.dlg_lbl_var_fert,
 						R.id.var_fert_tr, 0);
@@ -139,7 +138,7 @@ public class action_fertilizing extends DataFormActivity implements
 				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
-						.getResources(ResourceType.MONTH);
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, "months_fert", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_fert,
 						R.id.day_fert_tr, 0);
