@@ -1,91 +1,49 @@
 package com.commonsensenet.realfarm.actions;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.HashMap;
+import java.util.List;
 
-import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.view.ViewGroup.LayoutParams;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.LinearLayout;
-import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.HelpEnabledActivityOld;
+import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.DialogData;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
-import com.commonsensenet.realfarm.view.DialogAdapter;
 
-public class action_fertilizing extends HelpEnabledActivityOld implements
+public class action_fertilizing extends DataFormActivity implements
 		OnLongClickListener {
-	/** Database provider used to persist the data. */
-	private RealFarmProvider mDataProvider;
-	/** Reference to the current instance. */
-	private final action_fertilizing mParentReference = this;
+
 	private String units_fert = "0";
 	private String fert_var_sel = "0";
 	private String day_fert_sel = "0";
 	private String day_fert_sel_1;
 	private int fert_no, day_fert_int;
 	private String months_fert = "0";
-	private HashMap<String, Object> resultsMap;
 
 	public static final String LOG_TAG = "action_fertilizing";
-
-	public void onBackPressed() {
-
-		// stops all active audio.
-		stopAudio();
-
-		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
-				"back");
-
-		startActivity(new Intent(action_fertilizing.this, Homescreen.class));
-		action_fertilizing.this.finish();
-
-	}
 
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("Plant details entered");
-		mDataProvider = RealFarmProvider.getInstance(this);
 
-		super.onCreate(savedInstanceState, R.layout.fertilizing_dialog);
-		setHelpIcon(findViewById(R.id.helpIndicator));
+		super.onCreate(savedInstanceState, R.layout.fertilizing_dialog, LOG_TAG);
 
-		System.out.println("plant done");
-
-		resultsMap = new HashMap<String, Object>();
-		resultsMap.put("units_fert", "0");
-		resultsMap.put("months_fert", "0");
-		resultsMap.put("fert_var_sel", "0");
-		resultsMap.put("day_fert_int", "0");
-		resultsMap.put("fert_no", "0");
-
-		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
-		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
-		help.setOnLongClickListener(this);
+		// adds the values that need to be validated.
+		mResultsMap.put("units_fert", "0");
+		mResultsMap.put("months_fert", "0");
+		mResultsMap.put("fert_var_sel", "0");
+		mResultsMap.put("day_fert_int", "0");
+		mResultsMap.put("fert_no", "0");
 
 		playAudio(R.raw.clickingfertilising);
 
@@ -126,11 +84,11 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				stopAudio();
 				Log.d("in variety fert dialog", "in dialog");
 
-				ArrayList<DialogData> m_entries = mDataProvider
-						.getFertilizers();
-				displayDialog(v, m_entries, "fert_var_sel",
-						"Choose the fertilizer", R.raw.problems,
-						R.id.dlg_lbl_var_fert, R.id.var_fert_tr, 0);
+				List<Resource> data = mDataProvider
+						.getResources(ResourceType.FERTILIZER);
+				displayDialog(v, data, "fert_var_sel", "Choose the fertilizer",
+						R.raw.problems, R.id.dlg_lbl_var_fert,
+						R.id.var_fert_tr, 0);
 			}
 		});
 
@@ -139,9 +97,9 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				stopAudio();
 				Log.d("in units fert dialog", "in dialog");
 
-				ArrayList<DialogData> m_entries = mDataProvider
+				List<Resource> data = mDataProvider
 						.getUnits(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
-				displayDialog(v, m_entries, "units_fert", "Choose the unit",
+				displayDialog(v, data, "units_fert", "Choose the unit",
 						R.raw.problems, R.id.dlg_lbl_units_fert,
 						R.id.units_fert_tr, 1);
 			}
@@ -180,225 +138,13 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				stopAudio();
 				Log.d("in variety sowing dialog", "in dialog");
 
-				ArrayList<DialogData> m_entries = mDataProvider
-						.getDialogData(RealFarmDatabase.DIALOG_MONTH_ID);
-				displayDialog(v, m_entries, "months_fert", "Select the month",
+				List<Resource> data = mDataProvider
+						.getResources(ResourceType.MONTH);
+				displayDialog(v, data, "months_fert", "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_fert,
 						R.id.day_fert_tr, 0);
 			}
 
-		});
-
-		Button btnNext = (Button) findViewById(R.id.button_ok);
-		Button cancel = (Button) findViewById(R.id.button_cancel);
-
-		btnNext.setOnLongClickListener(this);
-		cancel.setOnLongClickListener(this);
-
-		cancel.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				cancelAudio();
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "cancel");
-				/*
-				 * System.out.println(
-				 * "*********************GETTING FERTILIZER ID**************************************"
-				 * );
-				 * 
-				 * mDataProvider.getFertIdIdFromFertilizer("Complex");
-				 * mDataProvider.getFertIdIdFromFertilizer("Compost");
-				 * mDataProvider.getFertIdIdFromFertilizer("DAP");
-				 * mDataProvider.
-				 * getFertIdIdFromFertilizer("Farm Yard Manure / FYM");
-				 * mDataProvider.getFertIdIdFromFertilizer("Gypsum");
-				 * mDataProvider.getFertIdIdFromFertilizer("Potash");
-				 * mDataProvider.getFertIdIdFromFertilizer("Salt");
-				 * mDataProvider.getFertIdIdFromFertilizer("Super");
-				 * mDataProvider.getFertIdIdFromFertilizer("Urea");
-				 * mDataProvider.getFertIdIdFromFertilizer("Not in the list");
-				 * 
-				 * System.out.println(
-				 * "*********************DISPLAYED  FERTILIZER ID**************************************"
-				 * ); System.out.println(
-				 * "*********************GETTING UNIT ID**************************************"
-				 * );
-				 * 
-				 * mDataProvider.getUnitIdIdFromUnit("seru(s)");
-				 * mDataProvider.getUnitIdIdFromUnit("1L can(s)");
-				 * mDataProvider.getUnitIdIdFromUnit("bag(s) of 1 kg");
-				 * mDataProvider.getUnitIdIdFromUnit("bag(s) of 50 kg");
-				 * mDataProvider.getUnitIdIdFromUnit("cart load(s)");
-				 * mDataProvider.getUnitIdIdFromUnit("tractor load(s)");
-				 * mDataProvider.getUnitIdIdFromUnit("unknown");
-				 * mDataProvider.getUnitIdIdFromUnit("none");
-				 * 
-				 * System.out.println(
-				 * "*********************DISPLAYED  UNIT ID**************************************"
-				 * ); System.out.println(
-				 * "*********************GETTING PROBLEM ID**************************************"
-				 * );
-				 * 
-				 * mDataProvider.getProblemIdFromProblem("Late leaf spot");
-				 * mDataProvider.getProblemIdFromProblem("Pod rot");
-				 * mDataProvider.getProblemIdFromProblem("Unknown disease");
-				 * mDataProvider.getProblemIdFromProblem("Disease not listed");
-				 * mDataProvider.getProblemIdFromProblem("Aphids");
-				 * mDataProvider.getProblemIdFromProblem("Leaf miner");
-				 * mDataProvider.getProblemIdFromProblem("Pod borer");
-				 * mDataProvider
-				 * .getProblemIdFromProblem("Red hairy caterpillar");
-				 * mDataProvider.getProblemIdFromProblem("Root grub");
-				 * mDataProvider.getProblemIdFromProblem("Unknown pest");
-				 * mDataProvider.getProblemIdFromProblem("Pest not listed");
-				 * mDataProvider.getProblemIdFromProblem("Low growth");
-				 * mDataProvider.getProblemIdFromProblem("Pegs not developed");
-				 * mDataProvider.getProblemIdFromProblem("Pod germination");
-				 * mDataProvider.getProblemIdFromProblem("Reduced flowering");
-				 * mDataProvider.getProblemIdFromProblem("Rot of stalks");
-				 * mDataProvider
-				 * .getProblemIdFromProblem("Too much vegetative growth");
-				 * mDataProvider.getProblemIdFromProblem("Weeds");
-				 * mDataProvider.getProblemIdFromProblem("Wild boar");
-				 * mDataProvider.getProblemIdFromProblem("Problem not listed");
-				 * 
-				 * 
-				 * 
-				 * System.out.println(
-				 * "*********************DISPLAYED  PROBLEM ID**************************************"
-				 * ); System.out.println(
-				 * "*********************GETTING PESTICIDE ID**************************************"
-				 * );
-				 * 
-				 * mDataProvider.getPestIdIdIdFromPest("Monocrotophos");
-				 * mDataProvider.getPestIdIdIdFromPest("Dimethoate");
-				 * mDataProvider.getPestIdIdIdFromPest("Pesticide not listed");
-				 * mDataProvider.getPestIdIdIdFromPest("Dithane M-45");
-				 * mDataProvider.getPestIdIdIdFromPest("Triazole");
-				 * mDataProvider.getPestIdIdIdFromPest("Fungicide not listed");
-				 * 
-				 * System.out.println(
-				 * "*********************DISPLAYED  PESTICIDE ID**************************************"
-				 * );
-				 */
-			}
-
-		});
-
-		btnNext.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "ok_btn");
-
-				units_fert = resultsMap.get("units_fert").toString();
-
-				months_fert = resultsMap.get("months_fert").toString();
-				fert_var_sel = resultsMap.get("fert_var_sel").toString();
-				day_fert_int = Integer.parseInt(resultsMap.get("day_fert_int")
-						.toString());
-				fert_no = (int) (Double.parseDouble(resultsMap.get("fert_no")
-						.toString()));
-
-				int flag1, flag2, flag3;
-				if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
-					flag1 = 1;
-
-					View tr_feedback = (View) findViewById(R.id.units_fert_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
-					// tracks the application usage.
-					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
-							LOG_TAG, "units_fertilizer");
-
-				} else {
-					flag1 = 0;
-					View tr_feedback = (View) findViewById(R.id.units_fert_tr);
-					tr_feedback
-							.setBackgroundResource(android.R.drawable.list_selector_background);
-				}
-
-				if (fert_var_sel.toString().equalsIgnoreCase("0")) {
-
-					flag2 = 1;
-
-					View tr_feedback = (View) findViewById(R.id.var_fert_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
-					// tracks the application usage.
-					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
-							LOG_TAG, "type_fertilizer");
-
-				} else {
-
-					flag2 = 0;
-					View tr_feedback = (View) findViewById(R.id.var_fert_tr);
-					tr_feedback
-							.setBackgroundResource(android.R.drawable.list_selector_background);
-				}
-
-				if (months_fert.toString().equalsIgnoreCase("0")
-						|| day_fert_int == 0) {
-
-					flag3 = 1;
-
-					View tr_feedback = (View) findViewById(R.id.day_fert_tr);
-
-					tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
-					// tracks the application usage.
-					ApplicationTracker.getInstance().logEvent(EventType.ERROR,
-							LOG_TAG, "type_fertilizer");
-
-				} else {
-
-					flag3 = 0;
-					day_fert_sel = day_fert_sel_1 + "." + months_fert;
-					View tr_feedback = (View) findViewById(R.id.var_fert_tr);
-					tr_feedback
-							.setBackgroundResource(android.R.drawable.list_selector_background);
-				}
-
-				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
-					//
-					// System.out.println("fertilizing writing");
-					// mDataProvider.setFertilizing(Global.plotId, fert_no,
-					// fert_var_sel, units_fert, day_fert_sel, 1, 0);
-
-					// System.out.println("fertilizing reading");
-					// mDataProvider.getfertizing();
-
-					// tracks the application usage.
-					ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-							LOG_TAG, "ok_button");
-
-					startActivity(new Intent(action_fertilizing.this,
-							Homescreen.class));
-					action_fertilizing.this.finish();
-					okAudio();
-
-				} else {
-					initmissingval();
-				}
-			}
-		});
-
-		home.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				Intent adminintent = new Intent(action_fertilizing.this,
-						Homescreen.class);
-
-				startActivity(adminintent);
-				action_fertilizing.this.finish();
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "home");
-			}
 		});
 
 	}
@@ -410,8 +156,8 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 			Toast.makeText(action_fertilizing.this, ((TextView) (v)).getText(),
 					Toast.LENGTH_LONG).show();
 
-			playAudioalways(R.raw.selecttypeoffertilizer);
-			ShowHelpIcon(v);
+			playAudio(R.raw.selecttypeoffertilizer);
+			showHelpIcon(v);
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
@@ -421,8 +167,8 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 		if (v.getId() == R.id.dlg_lbl_units_fert) {
 
-			playAudioalways(R.raw.selecttheunits);
-			ShowHelpIcon(v);
+			playAudio(R.raw.selecttheunits);
+			showHelpIcon(v);
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
@@ -431,8 +177,8 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 		if (v.getId() == R.id.dlg_lbl_unit_no_fert) {
 
-			playAudioalways(R.raw.selecttheunits);
-			ShowHelpIcon(v);
+			playAudio(R.raw.selecttheunits);
+			showHelpIcon(v);
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
@@ -441,8 +187,8 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 		if (v.getId() == R.id.dlg_lbl_day_fert) {
 
-			playAudioalways(R.raw.selectthedate);
-			ShowHelpIcon(v);
+			playAudio(R.raw.selectthedate);
+			showHelpIcon(v);
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
@@ -451,20 +197,20 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 		if (v.getId() == R.id.button_ok) {
 
-			playAudioalways(R.raw.ok);
-			ShowHelpIcon(v);
+			playAudio(R.raw.ok);
+			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.button_cancel) {
 
-			playAudioalways(R.raw.cancel);
-			ShowHelpIcon(v);
+			playAudio(R.raw.cancel);
+			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.aggr_img_help) {
 
-			playAudioalways(R.raw.help);
-			ShowHelpIcon(v);
+			playAudio(R.raw.help);
+			showHelpIcon(v);
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
@@ -472,23 +218,23 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 		}
 
 		if (v.getId() == R.id.var_fert_tr) {
-			playAudioalways(R.raw.amount);
-			ShowHelpIcon(v);
+			playAudio(R.raw.amount);
+			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.day_fert_tr) {
-			playAudioalways(R.raw.date);
-			ShowHelpIcon(v);
+			playAudio(R.raw.date);
+			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.units_fert_tr) {
-			playAudioalways(R.raw.fertilizername);
-			ShowHelpIcon(v);
+			playAudio(R.raw.fertilizername);
+			showHelpIcon(v);
 		}
 
 		if (v.getId() == R.id.dlg_lbl_month_fert) {
-			playAudioalways(R.raw.choosethemonth);
-			ShowHelpIcon(v);
+			playAudio(R.raw.choosethemonth);
+			showHelpIcon(v);
 		}
 
 		return true;
@@ -511,169 +257,91 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 	}
 
-	private void putBackgrounds(DialogData choice, TextView var_text,
-			int imageType) {
-		if (choice.getBackgroundRes() != -1)
-			var_text.setBackgroundResource(choice.getBackgroundRes());
-		if (imageType == 1 || imageType == 2) {
-			BitmapDrawable bd = (BitmapDrawable) mParentReference
-					.getResources().getDrawable(choice.getImageRes());
-			int width = bd.getBitmap().getWidth();
-			if (width > 80)
-				width = 80;
+	@Override
+	protected Boolean validateForm() {
+		units_fert = mResultsMap.get("units_fert").toString();
 
-			LinearLayout.LayoutParams llp = new LinearLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
-			llp.setMargins(10, 0, 80 - width - 20, 0);
-			var_text.setLayoutParams(llp);
+		months_fert = mResultsMap.get("months_fert").toString();
+		fert_var_sel = mResultsMap.get("fert_var_sel").toString();
+		day_fert_int = Integer.parseInt(mResultsMap.get("day_fert_int")
+				.toString());
+		fert_no = (int) (Double.parseDouble(mResultsMap.get("fert_no")
+				.toString()));
 
-			var_text.setBackgroundResource(choice.getImageRes());
-			if (imageType == 1)
-				var_text.setTextColor(Color.TRANSPARENT);
-			else {
-				var_text.setGravity(Gravity.TOP);
-				var_text.setPadding(0, 0, 0, 0);
-				var_text.setTextSize(20);
-				var_text.setTextColor(Color.BLACK);
-			}
+		int flag1, flag2, flag3;
+		if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
+			flag1 = 1;
+
+			View tr_feedback = (View) findViewById(R.id.units_fert_tr);
+
+			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+					"units_fertilizer");
+
+		} else {
+			flag1 = 0;
+			View tr_feedback = (View) findViewById(R.id.units_fert_tr);
+			tr_feedback
+					.setBackgroundResource(android.R.drawable.list_selector_background);
 		}
-	}
 
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries,
-			final String mapEntry, final String title, int entryAudio,
-			final int varText, final int trFeedback, final int imageType) {
-		final Dialog dialog = new Dialog(v.getContext());
-		dialog.setContentView(R.layout.mc_dialog);
-		dialog.setTitle(title);
-		dialog.setCancelable(true);
-		dialog.setCanceledOnTouchOutside(true);
+		if (fert_var_sel.toString().equalsIgnoreCase("0")) {
 
-		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
-				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
-		mList.setAdapter(m_adapter);
+			flag2 = 1;
 
-		dialog.show();
-		playAudio(entryAudio); // TODO: onOpen
+			View tr_feedback = (View) findViewById(R.id.var_fert_tr);
 
-		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-			// the audio
-			// in the db
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// Does whatever is specific to the application
-				Log.d("var " + position + " picked ", "in dialog");
-				TextView var_text = (TextView) findViewById(varText);
-				DialogData choice = m_entries.get(position);
-				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getId());
-				View tr_feedback = (View) findViewById(trFeedback);
-				tr_feedback
-						.setBackgroundResource(android.R.drawable.list_selector_background);
+			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-				// put backgrounds (specific to the application) TODO: optimize
-				// the resize
-				putBackgrounds(choice, var_text, imageType);
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+					"type_fertilizer");
 
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getId());
+		} else {
 
-				Toast.makeText(mParentReference,
-						resultsMap.get(mapEntry).toString(), Toast.LENGTH_SHORT)
-						.show();
+			flag2 = 0;
+			View tr_feedback = (View) findViewById(R.id.var_fert_tr);
+			tr_feedback
+					.setBackgroundResource(android.R.drawable.list_selector_background);
+		}
 
-				// onClose
-				dialog.cancel();
-				int iden = choice.getAudioRes();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + choice.getAudio(), null, null);
-				playAudio(iden);
-			}
-		});
+		if (months_fert.toString().equalsIgnoreCase("0") || day_fert_int == 0) {
 
-		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
+			flag3 = 1;
 
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) { // TODO: adapt the audio in the
-												// database
-				int iden = m_entries.get(position).getAudioRes();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + m_entries.get(position).getAudio(), null, null);
-				playAudioalways(iden);
-				return true;
-			}
-		});
-	}
+			View tr_feedback = (View) findViewById(R.id.day_fert_tr);
 
-	private void displayDialogNP(String title, final String mapEntry,
-			int openAudio, double min, double max, double init, double inc,
-			int nbDigits, int textField, int tableRow, final int okAudio,
-			final int cancelAudio, final int infoOkAudio,
-			final int infoCancelAudio) {
+			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-		final Dialog dialog = new Dialog(mParentReference);
-		dialog.setTitle(title);
-		dialog.setCancelable(true);
-		dialog.setCanceledOnTouchOutside(true);
-		playAudio(openAudio); // opening audio
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+					"type_fertilizer");
 
-		if (!resultsMap.get(mapEntry).equals("0")
-				&& !resultsMap.get(mapEntry).equals("-1"))
-			init = Double.valueOf(resultsMap.get(mapEntry).toString());
+		} else {
 
-		NumberPicker np = new NumberPicker(mParentReference, min, max, init,
-				inc, nbDigits);
-		dialog.setContentView(np);
+			flag3 = 0;
+			day_fert_sel = day_fert_sel_1 + "." + months_fert;
+			View tr_feedback = (View) findViewById(R.id.var_fert_tr);
+			tr_feedback
+					.setBackgroundResource(android.R.drawable.list_selector_background);
+		}
 
-		final TextView tw_sow = (TextView) findViewById(textField);
-		final View tr_feedback = (View) findViewById(tableRow);
+		if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
+			//
+			// System.out.println("fertilizing writing");
+			// mDataProvider.setFertilizing(Global.plotId, fert_no,
+			// fert_var_sel, units_fert, day_fert_sel, 1, 0);
 
-		final TextView tw = (TextView) dialog.findViewById(R.id.tw);
-		ImageButton ok = (ImageButton) dialog.findViewById(R.id.ok);
-		ImageButton cancel = (ImageButton) dialog.findViewById(R.id.cancel);
-		ok.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				String result = tw.getText().toString();
-				resultsMap.put(mapEntry, result);
-				tw_sow.setText(result);
-				tr_feedback
-						.setBackgroundResource(android.R.drawable.list_selector_background);
-				Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
-						.show();
-				dialog.cancel();
-				playAudio(okAudio); // ok audio
-			}
-		});
-		cancel.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View view) {
-				dialog.cancel();
-				playAudio(cancelAudio); // cancel audio
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "amount", "cancel");
-			}
-		});
-		ok.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View view) {
-				playAudio(infoOkAudio); // info audio
-				return true;
-			}
-		});
-		cancel.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View view) {
-				playAudio(infoCancelAudio); // info audio
-				return true;
-			}
-		});
-		tw.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View view) {
-				// String num = tw.getText().toString();
-				playAudio(R.raw.dateinfo); // info audio
-				return false;
-			}
-		});
+			// System.out.println("fertilizing reading");
+			// mDataProvider.getfertizing();
 
-		dialog.show();
+			return true;
+
+		}
+
+		return false;
 	}
 
 }

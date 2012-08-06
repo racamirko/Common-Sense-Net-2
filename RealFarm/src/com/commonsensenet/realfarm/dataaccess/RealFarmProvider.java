@@ -12,11 +12,13 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
@@ -46,9 +48,9 @@ public class RealFarmProvider {
 	}
 
 	/** Cached ActionTypes to improve performance. */
-	private List<ActionType> mAllActionTypes;
+	private List<Resource> mAllActionTypes;
 	/** Cached seeds to improve performance. */
-	private List<SeedType> mAllSeeds;
+	private List<Resource> mAllSeeds;
 
 	/** Real farm database access. */
 	private RealFarmDatabase mDatabase;
@@ -187,7 +189,7 @@ public class RealFarmProvider {
 			int unit1, String date, int problemId, int isSent,
 			int isAdminAction, int pesticideId) {
 
-		return addAction(RealFarmDatabase.ACTION_TYPE_SPRAY_ID, plotId, date,
+		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
 				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,
 				pesticideId, NONE, NONE, isSent, isAdminAction);
 	}
@@ -432,7 +434,7 @@ public class RealFarmProvider {
 		return tmpAction;
 	}
 
-	public List<ActionType> getActionTypes() {
+	public List<Resource> getActionTypes() {
 
 		if (mAllActionTypes == null) {
 			// opens the database.
@@ -450,7 +452,7 @@ public class RealFarmProvider {
 									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
 							null, null, null, null, null);
 
-			mAllActionTypes = new ArrayList<ActionType>();
+			mAllActionTypes = new ArrayList<Resource>();
 
 			ActionType at = null;
 			if (c.moveToFirst()) {
@@ -575,28 +577,35 @@ public class RealFarmProvider {
 		return -1;
 	}
 
-	public List<DialogData> getCrops() {
-		final String MY_QUERY = "SELECT name, id, resBg, audio, shortName FROM cropType ORDER BY id ASC";
+	public List<Resource> getCrops() {
 
-		List<DialogData> tmpList = new ArrayList<DialogData>();
+		List<Resource> tmpList = new ArrayList<Resource>();
 
 		mDatabase.open();
+		// query all actions
+		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_CROP,
+				new String[] { RealFarmDatabase.COLUMN_NAME_CROP_ID,
+						RealFarmDatabase.COLUMN_NAME_CROP_NAME,
+						RealFarmDatabase.COLUMN_NAME_CROP_SHORTNAME,
+						RealFarmDatabase.COLUMN_NAME_CROP_AUDIO,
+						RealFarmDatabase.COLUMN_NAME_CROP_RESOURCE,
+						RealFarmDatabase.COLUMN_NAME_CROP_RESOURCEBG });
 
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
+		Resource r = null;
 		if (c.moveToFirst()) {
 			do {
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setShortName(c.getString(4));
-				dd.setAudio(c.getInt(3));
-				dd.setId(c.getInt(1));
-				dd.setBackground(c.getInt(2));
-				tmpList.add(dd);
+				r = new Resource();
+				r.setId(c.getInt(0));
+				r.setName(c.getString(1));
+				r.setShortName(c.getString(2));
+				r.setAudio(c.getInt(3));
+				r.setResource1(c.getInt(4));
+				r.setBackgroundResource(c.getInt(5));
+				tmpList.add(r);
 			} while (c.moveToNext());
 		}
 
+		// closes the cursor and the database.
 		c.close();
 		mDatabase.close();
 
@@ -641,48 +650,21 @@ public class RealFarmProvider {
 		return mDatabase;
 	}
 
-	/** TODO: query should not be static */
-	public List<DialogData> getDialogData(int dataType) {
-
-		final String MY_QUERY = "SELECT id, name, shortName, resource, resource2, audio, number, resourceBg FROM dialogArrays WHERE type = "
-				+ dataType + " ORDER BY type, id ASC";
-
-		List<DialogData> tmpList = new ArrayList<DialogData>();
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
-		if (c.moveToFirst()) {
-			do {
-				dd = new DialogData(c.getInt(0), c.getString(1),
-						c.getString(2), c.getInt(3), c.getInt(4), c.getInt(5),
-						c.getInt(6), c.getInt(7));
-				tmpList.add(dd);
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return tmpList;
-	}
-
-	public List<DialogData> getResources(int dataType) {
+	public List<Resource> getResources(ResourceType resourceType) {
 
 		// final String MY_QUERY =
 		// "SELECT name, shortName, resource, resource2, audio, value, number, resourceBg FROM dialogArrays WHERE type = "
 		// + dataType + " ORDER BY type, id ASC";
 
-		List<DialogData> tmpList;
+		List<Resource> tmpList;
 
 		// opens the database.
 		mDatabase.open();
 
 		// query all actions
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_RESOURCE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_RESOURCE_ID,
+		Cursor c = mDatabase
+				.getEntries(RealFarmDatabase.TABLE_NAME_RESOURCE, new String[] {
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_ID,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_NAME,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_SHORTNAME,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO,
@@ -690,21 +672,21 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCE2,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCEBG,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE },
-				RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE + "=" + dataType,
-				null, null, null, null);
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE + "="
+								+ resourceType, null, null, null, null);
 
-		tmpList = new ArrayList<DialogData>();
+		tmpList = new ArrayList<Resource>();
 
-		DialogData dd = null;
+		Resource dd = null;
 		if (c.moveToFirst()) {
 			do {
-				dd = new DialogData();
+				dd = new Resource();
 				dd.setName(c.getString(1));
 				dd.setShortName(c.getString(2));
 				dd.setAudio(c.getInt(3));
-				dd.setImage(c.getInt(4));
-				dd.setImage2(c.getInt(5));
-				dd.setBackground(c.getInt(6));
+				dd.setResource1(c.getInt(4));
+				dd.setResource2(c.getInt(5));
+				dd.setBackgroundResource(c.getInt(6));
 
 				tmpList.add(dd);
 
@@ -713,35 +695,6 @@ public class RealFarmProvider {
 			} while (c.moveToNext());
 		}
 		Log.d("done: ", "finished MP getdata");
-		c.close();
-		mDatabase.close();
-
-		return tmpList;
-	}
-
-	/** TODO: query should not be static */
-	public List<DialogData> getFertilizers() {
-		final String MY_QUERY = "SELECT DISTINCT name, audio, shortName, id FROM fertilizer ORDER BY id ASC";
-
-		List<DialogData> tmpList = new ArrayList<DialogData>();
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
-		if (c.moveToFirst()) {
-			do {
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setShortName(c.getString(2));
-				dd.setAudio(c.getInt(1));
-				dd.setId(c.getInt(3));
-
-				tmpList.add(dd);
-			} while (c.moveToNext());
-		}
-
 		c.close();
 		mDatabase.close();
 
@@ -1044,13 +997,13 @@ public class RealFarmProvider {
 	 * 
 	 * @return the list of available SeedTypes.
 	 */
-	public List<SeedType> getSeedTypes() {
+	public List<Resource> getSeedTypes() {
 
 		// seeds are not in cache
 		if (mAllSeeds == null) {
 
 			// initializes the list used to cache the seeds.
-			mAllSeeds = new ArrayList<SeedType>();
+			mAllSeeds = new ArrayList<Resource>();
 			mDatabase.open();
 
 			Cursor c = mDatabase.getAllEntries(
@@ -1082,28 +1035,28 @@ public class RealFarmProvider {
 		return mAllSeeds;
 	}
 
-	public List<DialogData> getUnits(int id) {
-		final String MY_QUERY = "SELECT DISTINCT name, resource, audio, id FROM unit WHERE action = "
-				+ id
-				+ " OR action = "
-				+ RealFarmDatabase.ACTION_TYPE_ALL_ID
-				+ " ORDER BY id ASC";
+	public List<Resource> getUnits(int actionTypeId) {
+		final String MY_QUERY = "SELECT DISTINCT u.* FROM unit u WHERE actionTypeId = "
+				+ actionTypeId
+				+ " OR actionTypeId = "
+				+ RealFarmDatabase.ACTION_TYPE_ALL_ID + " ORDER BY id ASC";
 
-		List<DialogData> tmpList = new ArrayList<DialogData>();
+		List<Resource> tmpList = new ArrayList<Resource>();
 
 		mDatabase.open();
 
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
-		DialogData dd = null;
+		Resource r = null;
 		if (c.moveToFirst()) {
 			do {
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setImage(c.getInt(1));
-				dd.setAudio(c.getInt(2));
-				dd.setId(c.getInt(3));
-				tmpList.add(dd);
+				r = new Resource();
+				r.setId(c.getInt(0));
+				r.setName(c.getString(1));
+				r.setResource1(c.getInt(2));
+				r.setAudio(c.getInt(4));
+
+				tmpList.add(r);
 			} while (c.moveToNext());
 		}
 
@@ -1311,73 +1264,44 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public List<DialogData> getVarieties() {
-		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName, res FROM seedType ORDER BY id ASC";
+	// TODO: add optimization
+	public List<Resource> getVarieties() {
 
-		List<DialogData> tmpList = new ArrayList<DialogData>();
+		// raw query.
+		final String RAW_QUERY = "SELECT st.*, cp.%s FROM %s st INNER JOIN %s ct ON st.%s = ct.%s ORDER BY %s ASC";
+		// substitutes values in the query.
+		String processedQuery = String.format(RAW_QUERY,
+				RealFarmDatabase.COLUMN_NAME_CROP_RESOURCEBG,
+				RealFarmDatabase.TABLE_NAME_SEEDTYPE,
+				RealFarmDatabase.TABLE_NAME_CROP,
+				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
+				RealFarmDatabase.COLUMN_NAME_CROP_ID,
+				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID);
 
+		// creates the result list.
+		List<Resource> tmpList = new ArrayList<Resource>();
+
+		// opens the database and executes the query
 		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(processedQuery, new String[] {});
 
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
+		Resource r = null;
 		if (c.moveToFirst()) {
 			do {
-				final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = "
-						+ c.getInt(3);
-				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
-				c2.moveToFirst();
 
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setShortName(c.getString(4));
-				dd.setAudio(c.getInt(2));
-				dd.setId(c.getInt(1));
-				dd.setImage(c.getInt(5));
-				dd.setBackground(c2.getInt(0));
-				tmpList.add(dd);
+				r = new Resource();
+				r.setName(c.getString(0));
+				r.setShortName(c.getString(4));
+				r.setAudio(c.getInt(2));
+				r.setId(c.getInt(1));
+				r.setResource1(c.getInt(5));
+				r.setBackgroundResource(c.getInt(0));
+				tmpList.add(r);
 			} while (c.moveToNext());
 		}
 
 		// final String MY_QUERY3 =
 		// "SELECT name, id, resBg, audio FROM cropType WHERE cropType.id IN (SELECT cropType.id FROM cropType WHERE cropType.id NOT IN (SELECT seedType.resBg FROM seedType)) ORDER BY id ASC";
-
-		c.close();
-		mDatabase.close();
-
-		return tmpList;
-	}
-
-	// TODO; get varieties on
-	// this plot, in this season
-	// (action_harvest, item 6)
-	public List<DialogData> getVarieties1() {
-
-		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName FROM seedType ORDER BY id ASC";
-
-		List<DialogData> tmpList = new ArrayList<DialogData>();
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
-		if (c.moveToFirst()) {
-			do {
-				final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = "
-						+ c.getInt(3);
-				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
-				c2.moveToFirst();
-
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setShortName(c.getString(4));
-				dd.setAudio(c.getInt(2));
-				dd.setId(c.getInt(1));
-				dd.setBackground(c2.getInt(0));
-				tmpList.add(dd);
-			} while (c.moveToNext());
-		}
 
 		c.close();
 		mDatabase.close();

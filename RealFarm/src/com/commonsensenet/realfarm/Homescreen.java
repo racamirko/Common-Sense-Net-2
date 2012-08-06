@@ -36,7 +36,7 @@ import com.commonsensenet.realfarm.aggregates.problem_aggregate;
 import com.commonsensenet.realfarm.aggregates.selling_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.SeedType;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.utils.ReminderTask;
@@ -127,7 +127,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					{ 3, 1, "farmer_90px_adam_jones", "Loamy" },
 					{ 4, 1, "farmer_90px_walmart_stores", "Loamy" } };
 
-			List<SeedType> seeds = mDataProvider.getSeedTypes();
+			List<Resource> seeds = mDataProvider.getSeedTypes();
 
 			for (int x = 0; x < plotData.length; x++) {
 				int plotId = (int) mDataProvider.addPlot(

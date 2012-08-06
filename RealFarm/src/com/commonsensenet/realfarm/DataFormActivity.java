@@ -22,7 +22,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.DialogData;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.DialogAdapter;
@@ -39,7 +39,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	/** Results map used to handle the validation of the form. */
 	protected HashMap<String, Object> mResultsMap;
 
-	protected void displayDialog(View v, final List<DialogData> data,
+	protected void displayDialog(View v, final List<Resource> data,
 			final String propertyKey, final String title, int audio,
 			final int textFieldId, final int rowFeedbackId, final int imageType) {
 
@@ -69,7 +69,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				// does whatever is specific to the application
 				Log.d("var " + position + " picked ", "in dialog");
 				TextView var_text = (TextView) findViewById(textFieldId);
-				DialogData choice = data.get(position);
+				Resource choice = data.get(position);
 				var_text.setText(choice.getShortName());
 				mResultsMap.put(propertyKey, choice.getId());
 				View tr_feedback = findViewById(rowFeedbackId);
@@ -90,7 +90,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 				// onClose
 				dialog.cancel();
-				int iden = choice.getAudioRes();
+				int iden = choice.getAudio();
 				playAudio(iden);
 			}
 		});
@@ -100,7 +100,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// TODO: adapt the audio in the database
-				int iden = data.get(position).getAudioRes();
+				int iden = data.get(position).getAudio();
 
 				playAudio(iden, true);
 				return true;
@@ -188,6 +188,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 		// tag used to log the events.
 		LOG_TAG = logTag;
+		
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
 
 		// sets the layout
 		setContentView(layoutId);
@@ -199,14 +202,14 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		mResultsMap = new HashMap<String, Object>();
 
 		// gets the action buttons.
-		View plotok = findViewById(R.id.button_ok);
-		View plotcancel = findViewById(R.id.button_cancel);
+		View okButton = findViewById(R.id.button_ok);
+		View cancelButton = findViewById(R.id.button_cancel);
 
 		// adds the long click listeners to enable the help function.
-		plotok.setOnLongClickListener(this);
-		plotcancel.setOnLongClickListener(this);
+		okButton.setOnLongClickListener(this);
+		cancelButton.setOnLongClickListener(this);
 
-		plotok.setOnClickListener(new View.OnClickListener() {
+		okButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 				if (validateForm()) {
@@ -219,7 +222,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			}
 		});
 
-		plotcancel.setOnClickListener(new View.OnClickListener() {
+		cancelButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 				// equivalent to pressing the back button.
@@ -242,16 +245,16 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		return true;
 	}
 
-	protected void putBackgrounds(DialogData choice, TextView textView,
+	protected void putBackgrounds(Resource choice, TextView textView,
 			int imageType) {
 
-		if (choice.getBackgroundRes() != -1) {
-			textView.setBackgroundResource(choice.getBackgroundRes());
+		if (choice.getBackgroundResource() != -1) {
+			textView.setBackgroundResource(choice.getBackgroundResource());
 		}
 
 		if (imageType == 1 || imageType == 2) {
 			BitmapDrawable bd = (BitmapDrawable) mParentReference
-					.getResources().getDrawable(choice.getImageRes());
+					.getResources().getDrawable(choice.getResource1());
 
 			// validates the maximum width.
 			int width = bd.getBitmap().getWidth();
@@ -263,7 +266,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			llp.setMargins(10, 0, 80 - width - 20, 0);
 			textView.setLayoutParams(llp);
-			textView.setBackgroundResource(choice.getImageRes());
+			textView.setBackgroundResource(choice.getResource1());
 
 			if (imageType == 1) {
 				textView.setTextColor(Color.TRANSPARENT);

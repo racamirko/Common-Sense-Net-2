@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm.model;
 
-
 /**
  * 
  * @author Oscar Bola–os <@oscarbolanos>
@@ -12,7 +11,7 @@ public class ActionType extends Resource {
 
 	public ActionType(int id, String name, String nameKannada, int resource,
 			int audio) {
-		super(id, name, audio, resource, -1, -1, -1);
+		super(id, name, name, audio, resource, -1, -1, -1);
 
 		mNameKannada = nameKannada;
 	}

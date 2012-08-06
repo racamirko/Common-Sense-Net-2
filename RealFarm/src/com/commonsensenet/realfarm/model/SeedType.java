@@ -15,7 +15,7 @@ public class SeedType extends Resource {
 
 	public SeedType(int id, String name, String nameKannada, String shortName,
 			int cropTypeId, int resource, int audio) {
-		super(id, name, audio, resource, -1, -1, -1);
+		super(id, name, name, audio, resource, -1, -1, -1);
 		mShortName = shortName;
 		mNameKannada = nameKannada;
 		mCropTypeId = cropTypeId;

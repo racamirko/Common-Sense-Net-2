@@ -92,6 +92,6 @@ public class PlotItemWrapper {
 		getIcon().setImageBitmap(bitmapImage);
 		getTitle().setText(plot.getSoilType());
 		getDescription().setText(seed.getName());
-		getCropIcon().setImageResource(seed.getResource());
+		getCropIcon().setImageResource(seed.getResource1());
 	}
 }

@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Dialog;
@@ -24,7 +23,6 @@ import android.widget.Toast;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.ActionType;
-import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
@@ -164,13 +162,12 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 
-				List<Resource> data = mProvider.getSeedTypes();
-				data.add(new DialogData(-1, "All", "All", R.drawable.icon, -1,
-						R.raw.problems, R.drawable.icon));
+				List<Resource> data = mDataProvider.getSeedTypes();
+
+				// data.add(new SeedType(-1, "All", "", "All", -1,
+				// R.drawable.icon, R.raw.problems));
 				displayDialog(v, data, "Select the variety", R.raw.problems,
 						img_1, 2);
-
-				// R.drawable.pic_72px_groundnut
 			}
 		});
 	}
@@ -360,8 +357,6 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				// onClose
 				dialog.cancel();
 				int iden = choice.getAudio();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + choice.getAudio(), null, null);
 				playAudio(iden);
 			}
 		});
@@ -369,10 +364,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) { // TODO: adapt the audio in the db
-				int iden = data.get(position).getAudioRes();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + m_entries.get(position).getAudio(), null, null);
+					int position, long id) { // TODO: adapt the audio in the
+												// database
+				int iden = data.get(position).getAudio();
 				playAudio(iden);
 				return true;
 			}

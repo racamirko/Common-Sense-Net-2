@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
@@ -10,8 +9,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.model.DialogData;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase.ResourceType;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -114,9 +113,9 @@ public class AddPlotActivity extends DataFormActivity {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
-				List<DialogData> dialogData = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOILDTYPE);
-				displayDialog(v, dialogData, SOIL_TYPE, "Select the soil type",
+				List<Resource> data = mDataProvider
+						.getResources(ResourceType.SOILTYPE);
+				displayDialog(v, data, SOIL_TYPE, "Select the soil type",
 						R.raw.problems, R.id.dlg_lbl_soil_plot,
 						R.id.soiltype_tr, 0);
 			}
@@ -127,8 +126,8 @@ public class AddPlotActivity extends DataFormActivity {
 				Log.d("in crop plot dialog", "in dialog");
 
 				stopAudio();
-				ArrayList<DialogData> dialogData = mDataProvider.getVarieties();
-				displayDialog(v, dialogData, MAIN_CROP, "Select the variety",
+				List<Resource> data = mDataProvider.getVarieties();
+				displayDialog(v, data, MAIN_CROP, "Select the variety",
 						R.raw.problems, R.id.dlg_lbl_crop_plot,
 						R.id.maincrop_tr, 0);
 			}

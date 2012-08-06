@@ -27,6 +27,7 @@ public final class ActionDataFactory {
 			RealFarmProvider dataProvider, int seedTypeId) {
 
 		switch (actionTypeId) {
+
 		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 			return dataProvider.getAggregateItems(actionTypeId, seedTypeId);
 

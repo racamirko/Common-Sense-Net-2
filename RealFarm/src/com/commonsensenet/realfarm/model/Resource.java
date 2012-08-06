@@ -9,6 +9,7 @@ public class Resource {
 	protected String mName;
 	protected int mResource1;
 	protected int mResource2;
+	protected String mShortName;
 	protected int mType;
 
 	public Resource() {
@@ -19,9 +20,10 @@ public class Resource {
 		mType = -1;
 	}
 
-	public Resource(int id, String name, int audio, int resource1,
-			int resource2, int backgroundResource, int type) {
+	public Resource(int id, String name, String shortName, int audio,
+			int resource1, int resource2, int backgroundResource, int type) {
 		mName = name;
+		mShortName = shortName;
 		mResource1 = resource1;
 		mResource2 = resource2;
 		mAudio = audio;
@@ -46,12 +48,20 @@ public class Resource {
 		return mName;
 	}
 
+	public void setName(String value) {
+		mName = value;
+	}
+
 	public int getResource1() {
 		return mResource1;
 	}
 
 	public int getResource2() {
 		return mResource2;
+	}
+
+	public String getShortName() {
+		return mShortName;
 	}
 
 	public int getType() {
@@ -70,12 +80,16 @@ public class Resource {
 		mId = value;
 	}
 
-	public void setResource(int value) {
+	public void setResource1(int value) {
 		mResource1 = value;
 	}
 
 	public void setResource2(int value) {
 		mResource2 = value;
+	}
+
+	public void setShortName(String value) {
+		mShortName = value;
 	}
 
 	public void setType(int value) {
