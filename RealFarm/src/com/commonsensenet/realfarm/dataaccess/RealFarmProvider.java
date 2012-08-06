@@ -131,7 +131,7 @@ public class RealFarmProvider {
 
 	// main crop info corresponds to seed type id
 	public long addPlot(int userId, int seedTypeId, String imagePath,
-			String soilType, float size, int deleteFlag, int adminFlag) {
+			int soilType, double size, int deleteFlag, int adminFlag) {
 
 		ContentValues args = new ContentValues();
 
@@ -417,7 +417,6 @@ public class RealFarmProvider {
 						RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 						new String[] {
 								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAME,
-								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAMEKANNADA,
 								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_RESOURCE,
 								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
 						RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_ID + "="
@@ -425,7 +424,7 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			tmpAction = new ActionType(actionTypeId, c.getString(0),
-					c.getString(1), c.getInt(2), c.getInt(3));
+					c.getInt(1), c.getInt(2));
 		}
 		c.close();
 		mDatabase.close();
@@ -440,16 +439,13 @@ public class RealFarmProvider {
 			mDatabase.open();
 
 			// query all actions
-			Cursor c = mDatabase
-					.getEntries(
-							RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
-							new String[] {
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_ID,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAME,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAMEKANNADA,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_RESOURCE,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
-							null, null, null, null, null);
+			Cursor c = mDatabase.getEntries(
+					RealFarmDatabase.TABLE_NAME_ACTIONTYPE, new String[] {
+							RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_ID,
+							RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAME,
+							RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_RESOURCE,
+							RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
+					null, null, null, null, null);
 
 			mAllActionTypes = new ArrayList<Resource>();
 
@@ -457,7 +453,7 @@ public class RealFarmProvider {
 			if (c.moveToFirst()) {
 				do {
 					at = new ActionType(c.getInt(0), c.getString(1),
-							c.getString(2), c.getInt(3), c.getInt(4));
+							c.getInt(2), c.getInt(3));
 					mAllActionTypes.add(at);
 
 					Log.d("action name values: ", at.toString());
@@ -630,7 +626,7 @@ public class RealFarmProvider {
 	// + c.getInt(3);
 	// Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 	// c2.moveToFirst();
-	// // int id, String name, String nameKannada, String shortName,
+	// // int id, String name, String shortName,
 	// // int cropTypeId, int resource, int audio
 	// st = new SeedType(c.getInt(1), c.getString(0), "", -1,
 	// c.getInt(2), "", "", c2.getInt(0), c.getString(4));
@@ -680,12 +676,14 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				dd = new Resource();
+				dd.setId(c.getInt(0));
 				dd.setName(c.getString(1));
 				dd.setShortName(c.getString(2));
 				dd.setAudio(c.getInt(3));
 				dd.setResource1(c.getInt(4));
 				dd.setResource2(c.getInt(5));
 				dd.setBackgroundResource(c.getInt(6));
+				dd.setType(c.getInt(7));
 
 				tmpList.add(dd);
 
@@ -972,7 +970,6 @@ public class RealFarmProvider {
 
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
 				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
@@ -982,7 +979,7 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			res = new SeedType(seedId, c.getString(0), c.getString(1),
-					c.getString(2), c.getInt(3), c.getInt(4), c.getInt(5));
+					c.getInt(2), c.getInt(3), c.getInt(4));
 		}
 
 		c.close();
@@ -1009,7 +1006,6 @@ public class RealFarmProvider {
 					RealFarmDatabase.TABLE_NAME_SEEDTYPE, new String[] {
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAMEKANNADA,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
@@ -1018,8 +1014,8 @@ public class RealFarmProvider {
 			if (c.moveToFirst()) {
 				do {
 					SeedType s = new SeedType(c.getInt(0), c.getString(1),
-							c.getString(2), c.getString(3), c.getInt(4),
-							c.getInt(5), c.getInt(6));
+							c.getString(2), c.getInt(3), c.getInt(4),
+							c.getInt(5));
 					mAllSeeds.add(s);
 
 					Log.d("seed type: ", s.toString());
@@ -1053,7 +1049,7 @@ public class RealFarmProvider {
 				r.setId(c.getInt(0));
 				r.setName(c.getString(1));
 				r.setResource1(c.getInt(2));
-				r.setAudio(c.getInt(4));
+				r.setAudio(c.getInt(3));
 
 				tmpList.add(r);
 			} while (c.moveToNext());
@@ -1267,7 +1263,7 @@ public class RealFarmProvider {
 	public List<Resource> getVarieties() {
 
 		// raw query.
-		final String RAW_QUERY = "SELECT st.*, cp.%s FROM %s st INNER JOIN %s ct ON st.%s = ct.%s ORDER BY %s ASC";
+		final String RAW_QUERY = "SELECT st.*, ct.%s FROM %s st INNER JOIN %s ct ON st.%s = ct.%s ORDER BY %s ASC";
 		// substitutes values in the query.
 		String processedQuery = String.format(RAW_QUERY,
 				RealFarmDatabase.COLUMN_NAME_CROP_RESOURCEBG,
@@ -1289,12 +1285,12 @@ public class RealFarmProvider {
 			do {
 
 				r = new Resource();
-				r.setName(c.getString(0));
-				r.setShortName(c.getString(4));
-				r.setAudio(c.getInt(2));
-				r.setId(c.getInt(1));
-				r.setResource1(c.getInt(5));
-				r.setBackgroundResource(c.getInt(0));
+				r.setId(c.getInt(0));
+				r.setName(c.getString(1));
+				r.setShortName(c.getString(2));
+				r.setResource1(c.getInt(3));
+				r.setAudio(c.getInt(4));
+				r.setBackgroundResource(c.getInt(6));
 				tmpList.add(r);
 			} while (c.moveToNext());
 		}
@@ -1467,7 +1463,7 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long setFertilizing(int plotId, int quantity1, int fertilizerId,
+	public long addFertilizeAction(int plotId, int quantity1, int fertilizerId,
 			int unit1, String date, int isSent, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID, plotId,
@@ -1475,7 +1471,7 @@ public class RealFarmProvider {
 				NONE, NONE, NONE, isSent, isAdminAction);
 	}
 
-	public long setHarvest(int userId, int plotId, int quantity1,
+	public long addHarvestAction(int userId, int plotId, int quantity1,
 			int quantity2, int unit1, String date, int satisfactionId,
 			int isSent, int isAdminAction, int seedTypeId) {
 
@@ -1485,7 +1481,7 @@ public class RealFarmProvider {
 				isSent, isAdminAction);
 	}
 
-	public long setIrrigation(int plotId, int quantity1, int unit1,
+	public long addIrrigateAction(int plotId, int quantity1, int unit1,
 			String date, int methodId, int isSent, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,

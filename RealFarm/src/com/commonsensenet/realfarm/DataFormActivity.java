@@ -39,6 +39,12 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	/** Results map used to handle the validation of the form. */
 	protected HashMap<String, Object> mResultsMap;
 
+	protected void highlightField(int id, boolean isHighligted) {
+		View fieldView = findViewById(id);
+		fieldView.setBackgroundResource(isHighligted ? R.drawable.def_img_not
+				: android.R.drawable.list_selector_background);
+	}
+
 	protected void displayDialog(View v, final List<Resource> data,
 			final String propertyKey, final String title, int audio,
 			final int textFieldId, final int rowFeedbackId, final int imageType) {
@@ -114,13 +120,16 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			final int cancelAudio, final int infoOkAudio,
 			final int infoCancelAudio) {
 
+		// creates the dialog what will be shown.
 		final Dialog dialog = new Dialog(mParentReference);
 		dialog.setTitle(title);
 		dialog.setCancelable(true);
 		dialog.setCanceledOnTouchOutside(true);
+
+		// plays the open audio.
 		playAudio(openAudio);
 
-		if (!mResultsMap.get(mapEntry).equals("0")) {
+		if (mResultsMap.get(mapEntry) != null) {
 			init = Double.valueOf(mResultsMap.get(mapEntry).toString());
 		}
 
@@ -188,7 +197,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 		// tag used to log the events.
 		LOG_TAG = logTag;
-		
+
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
 

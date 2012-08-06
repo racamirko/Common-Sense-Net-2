@@ -120,20 +120,19 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	private void insertDemoData() {
 		if (!IS_INITIALIZED) {
-			Object[][] plotData = {
-					{ 1, 1, "farmer_90px_kiran_kumar_g", "Clay" },
-					{ 1, 2, "farmer_90px_adam_jones", "Sandy" },
-					{ 2, 2, "farmer_90px_adam_jones", "Sandy" },
-					{ 3, 1, "farmer_90px_adam_jones", "Loamy" },
-					{ 4, 1, "farmer_90px_walmart_stores", "Loamy" } };
+			Object[][] plotData = { { 1, 1, "farmer_90px_kiran_kumar_g", 1 },
+					{ 1, 2, "farmer_90px_adam_jones", 2 },
+					{ 2, 2, "farmer_90px_adam_jones", 2 },
+					{ 3, 1, "farmer_90px_adam_jones", 1 },
+					{ 4, 1, "farmer_90px_walmart_stores", 3 } };
 
 			List<Resource> seeds = mDataProvider.getSeedTypes();
 
 			for (int x = 0; x < plotData.length; x++) {
 				int plotId = (int) mDataProvider.addPlot(
 						(Integer) plotData[x][0], seeds.get(x).getId(),
-						(String) plotData[x][2], (String) plotData[x][3], 3.0f,
-						0, 0);
+						(String) plotData[x][2], (Integer) plotData[x][3],
+						3.0f, 0, 0);
 				// updates the id if I am the owner
 				if ((Integer) plotData[x][0] == Global.userId) {
 					Global.plotId = plotId;

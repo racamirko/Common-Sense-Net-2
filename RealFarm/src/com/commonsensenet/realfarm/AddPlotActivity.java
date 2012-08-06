@@ -20,16 +20,15 @@ public class AddPlotActivity extends DataFormActivity {
 	/** Name used to log the activity of the class. */
 	public static final String LOG_TAG = "AddPlotActivity";
 
-	public static final String PLOT_IMAGE = "plotImage";
-	public static final String SOIL_TYPE = "soilType";
 	public static final String MAIN_CROP = "mainCrop";
+	public static final String PLOT_IMAGE = "plotImage";
 	public static final String SIZE = "size";
+	public static final String SOIL_TYPE = "soilType";
 
-	private String mMainCrop = "0";
+	private int mMainCrop = -1;
 	private String mPlotImage = "0";
-	private int mSeedTypeId = 0;
-	private String mSize = "0";
-	private String mSoilType = "0";
+	private double mSize = -1;
+	private int mSoilType = -1;
 
 	/**
 	 * Adds the current plot to the database.
@@ -37,8 +36,8 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 
 		// inserts the new action
-		Global.plotId = (int) mDataProvider.addPlot(Global.userId, mSeedTypeId,
-				mPlotImage, mSoilType, Float.parseFloat(mSize), 0, 0);
+		Global.plotId = (int) mDataProvider.addPlot(Global.userId, mMainCrop,
+				mPlotImage, mSoilType, mSize, 0, 0);
 
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
@@ -55,9 +54,9 @@ public class AddPlotActivity extends DataFormActivity {
 		super.onCreate(savedInstanceState, R.layout.act_add_plot, LOG_TAG);
 
 		// adds the name of the fields to validate.
-		mResultsMap.put(SOIL_TYPE, "0");
-		mResultsMap.put(MAIN_CROP, "0");
-		mResultsMap.put(SIZE, "0");
+		mResultsMap.put(SOIL_TYPE, -1);
+		mResultsMap.put(MAIN_CROP, -1);
+		mResultsMap.put(SIZE, 0.0f);
 
 		final View plotImageRow;
 		final View soilTypeRow;
@@ -195,74 +194,43 @@ public class AddPlotActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// values obtained that need to be validated.
-		mSoilType = mResultsMap.get(SOIL_TYPE).toString();
-		mMainCrop = mResultsMap.get(MAIN_CROP).toString();
-		mSize = mResultsMap.get(SIZE).toString();
+		mSoilType = (Integer) mResultsMap.get(SOIL_TYPE);
+		mMainCrop = (Integer) mResultsMap.get(MAIN_CROP);
+		mSize = Double.valueOf(mResultsMap.get(SIZE).toString());
 
-		int flag1, flag2, flag3, flag4;
-		if (mPlotImage.toString().equalsIgnoreCase("0")) {
-			flag1 = 1;
+		boolean isValid = true;
 
-			View tr_feedback = findViewById(R.id.plot_tr);
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
+		if (!mPlotImage.toString().equalsIgnoreCase("0")) {
+			highlightField(R.id.plot_tr, false);
 		} else {
-			flag1 = 0;
-
-			View tr_feedback = findViewById(R.id.plot_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.plot_tr, true);
 		}
 
-		// TODO: overrides image requirement
-		flag1 = 0;
+		if (mSoilType != -1) {
 
-		if (mSoilType.toString().equalsIgnoreCase("0")) {
-
-			flag2 = 1;
-
-			View tr_feedback = findViewById(R.id.soiltype_tr);
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+			highlightField(R.id.soiltype_tr, false);
 		} else {
-
-			flag2 = 0;
-
-			View tr_feedback = findViewById(R.id.soiltype_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.soiltype_tr, true);
 		}
 
-		if (mMainCrop.toString().equalsIgnoreCase("0")) {
-
-			flag3 = 1;
-
-			View tr_feedback = findViewById(R.id.maincrop_tr);
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+		if (mMainCrop != -1) {
+			highlightField(R.id.maincrop_tr, false);
 		} else {
-
-			flag3 = 0;
-
-			View tr_feedback = findViewById(R.id.maincrop_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.maincrop_tr, true);
 		}
 
-		if (mSize.toString().equalsIgnoreCase("0")) {
-
-			flag4 = 1;
-
-			View tr_feedback = findViewById(R.id.size_tr);
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+		if (mSize != -1) {
+			highlightField(R.id.size_tr, false);
 		} else {
-
-			flag4 = 0;
-
-			View tr_feedback = findViewById(R.id.size_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.size_tr, true);
 		}
 
-		if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
+		// if form is valid the plot is added to the database.
+		if (isValid) {
 
 			addPlotToDatabase();
 			return true;
