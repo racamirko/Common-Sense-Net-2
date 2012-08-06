@@ -1,45 +1,24 @@
 package com.commonsensenet.realfarm.model;
 
+
 /**
  * 
  * @author Oscar Bola–os <@oscarbolanos>
  */
-public class ActionType {
+public class ActionType extends Resource {
 
-	private int mAudio;
-	/** Unique I*/
-	private int mId;
-	private String mName;
+	/** Name in Kannada of the ActionType. */
 	private String mNameKannada;
-	private int mResource;
 
 	public ActionType(int id, String name, String nameKannada, int resource,
 			int audio) {
-		mId = id;
-		mName = name;
-		mResource = resource;
-		mAudio = audio;
+		super(id, name, audio, resource, -1, -1, -1);
+
 		mNameKannada = nameKannada;
-	}
-
-	public int getAudio() {
-		return mAudio;
-	}
-
-	public int getId() {
-		return mId;
-	}
-
-	public String getName() {
-		return mName;
 	}
 
 	public String getNameKannada() {
 		return mNameKannada;
-	}
-
-	public int getResource() {
-		return mResource;
 	}
 
 }

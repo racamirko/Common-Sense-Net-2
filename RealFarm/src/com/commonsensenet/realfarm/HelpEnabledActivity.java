@@ -94,11 +94,14 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	 * Plays the given resourceId. The sound is only played if
 	 * Global.enabledAudio is true, otherwise it is not played.
 	 * 
-	 * @param resid
+	 * @param resourceId
 	 *            id of the audio.
 	 */
-	protected void playAudio(int resid) {
-		playAudio(resid, false);
+	protected void playAudio(int resourceId) {
+		// plays the sound if the id is valid.
+		if (resourceId != -1) {
+			playAudio(resourceId, false);
+		}
 	}
 
 	/**
@@ -112,7 +115,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	 */
 	protected void playAudio(int resid, Boolean forcePlay) {
 		// checking for audio enable
-		if (Global.enableAudio || forcePlay) {
+		if (Global.isAudioEnabled || forcePlay) {
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();
 			// cleans any possibly playing sound

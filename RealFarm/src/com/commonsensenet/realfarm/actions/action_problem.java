@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm.actions;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -15,16 +16,15 @@ import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
@@ -41,8 +41,10 @@ public class action_problem extends HelpEnabledActivityOld {
 	private Context context = this;
 	private RealFarmProvider mDataProvider;
 	private final action_problem parentReference = this;
-	private String prob_var_sel = "0", prob_crop_sel = "0", prob_day_sel,
-			months_prob = "0";
+	private String prob_var_sel = "0";
+	private String prob_crop_sel = "0";
+	private String prob_day_sel;
+	private String months_prob = "0";
 	private int prob_day_int;
 	private HashMap<String, String> resultsMap;
 
@@ -128,7 +130,8 @@ public class action_problem extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in variety sowing dialog", "in dialog");
 
-				ArrayList<DialogData> m_entries = mDataProvider.getProblems();
+				List<DialogData> m_entries = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
 				displayDialog(v, m_entries, "prob_var_sel",
 						"Choose the problem type", R.raw.problems,
 						R.id.dlg_lbl_var_prob, R.id.var_prob_tr, 0);
@@ -367,7 +370,7 @@ public class action_problem extends HelpEnabledActivityOld {
 		}
 	}
 
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries,
+	private void displayDialog(View v, final List<DialogData> m_entries,
 			final String mapEntry, final String title, int entryAudio,
 			final int varText, final int trFeedback, final int imageType) {
 		final Dialog dialog = new Dialog(v.getContext());
@@ -378,15 +381,14 @@ public class action_problem extends HelpEnabledActivityOld {
 
 		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
 				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
 		playAudio(entryAudio); // TODO: onOpen
 
-		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-			// the audio
-			// in the db
+		// TODO: adapt the audio in the db.
+		mList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// Does whatever is specific to the application
@@ -394,7 +396,7 @@ public class action_problem extends HelpEnabledActivityOld {
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getValue());
+				resultsMap.put(mapEntry, choice.getId() + "");
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback
 						.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -405,7 +407,7 @@ public class action_problem extends HelpEnabledActivityOld {
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, title, choice.getId());
 
 				Toast.makeText(parentReference, resultsMap.get(mapEntry),
 						Toast.LENGTH_SHORT).show();

@@ -38,7 +38,7 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Global.videosel = 1;
+				Global.selectedVideo = 1;
 				startActivity(mTargetIntent);
 				VideoActivity.this.finish();
 			}
@@ -47,7 +47,7 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Global.videosel = 2;
+				Global.selectedVideo = 2;
 				startActivity(mTargetIntent);
 				VideoActivity.this.finish();
 			}

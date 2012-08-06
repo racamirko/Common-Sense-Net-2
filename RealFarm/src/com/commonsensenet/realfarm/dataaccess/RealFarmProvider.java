@@ -63,6 +63,188 @@ public class RealFarmProvider {
 		mDatabase.close();
 	}
 
+	public long addAction(int actionTypeId, int plotId, String date,
+			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
+			int unit1, int unit2, int resource1Id, int resource2Id, int price,
+			int globalId, int isSent, int isAdminAction) {
+
+		ContentValues args = new ContentValues();
+
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPEID, actionTypeId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, date);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
+				seedTypeId != NONE ? seedTypeId : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
+				cropTypeId != NONE ? cropTypeId : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, quantity2);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
+				unit1 != NONE ? unit1 : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
+				unit2 != NONE ? unit2 : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
+				resource1Id != NONE ? resource1Id : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
+				resource2Id != NONE ? resource2Id : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
+				price != NONE ? price : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_GLOBALID,
+				globalId != NONE ? globalId : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, isSent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
+				isAdminAction);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP,
+				new Date().getTime());
+
+		long result;
+
+		mDatabase.open();
+
+		result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_ACTION,
+				args);
+
+		mDatabase.close();
+
+		return result;
+	}
+
+	public long addMarketPrice(int id, String date, String type, int value,
+			int adminflag) {
+
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ID, id);
+		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_DATE, date);
+		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE, type);
+		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE, value);
+
+		mDatabase.open();
+
+		long result = mDatabase.insertEntries(
+				RealFarmDatabase.TABLE_NAME_MARKETPRICE, args);
+
+		mDatabase.close();
+
+		return result;
+	}
+
+	// main crop info corresponds to seed type id
+	public long addPlot(int userId, int seedTypeId, String imagePath,
+			String soilType, float size, int deleteFlag, int adminFlag) {
+
+		ContentValues args = new ContentValues();
+
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID, seedTypeId);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, soilType);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, deleteFlag);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, adminFlag);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
+				new Date().getTime());
+
+		mDatabase.open();
+
+		// inserts the values into the database
+		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				args);
+
+		mDatabase.close();
+
+		return result;
+	}
+
+	public long addReportAction(int plotId, int seedTypeId, int problemTypeId,
+			String date, int isSent, int isAdminAction) {
+
+		return addAction(RealFarmDatabase.ACTION_TYPE_REPORT_ID, plotId, date,
+				seedTypeId, getCropIdFromSeedId(seedTypeId), NONE, NONE, NONE,
+				NONE, problemTypeId, NONE, NONE, NONE, isSent, isAdminAction);
+	}
+
+	public long addSellAction(int plotId, int seedTypeId, int quantity1,
+			int quantity2, int unit1, int unit2, int price, String date,
+			int isSent, int isAdminAction) {
+
+		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
+				seedTypeId, getCropIdFromSeedId(seedTypeId), quantity1,
+				quantity2, unit1, unit2, NONE, NONE, price, NONE, isSent,
+				isAdminAction);
+	}
+
+	public long addSowAction(int plotId, int quantity1, int seedTypeId,
+			int unit1, String date, int treatmentId, int isSent,
+			int isAdminAction, int intercropId) {
+
+		return addAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
+				seedTypeId, getCropIdFromSeedId(seedTypeId), quantity1, NONE,
+				unit1, NONE, treatmentId, intercropId, NONE, NONE, isSent,
+				isAdminAction);
+	}
+
+	public long addSprayAction(int userId, int plotId, int quantity1,
+			int unit1, String date, int problemId, int isSent,
+			int isAdminAction, int pesticideId) {
+
+		return addAction(RealFarmDatabase.ACTION_TYPE_SPRAY_ID, plotId, date,
+				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,
+				pesticideId, NONE, NONE, isSent, isAdminAction);
+	}
+
+	/**
+	 * Adds a new User to the database. If a user already exists with the same
+	 * DEVICEID, the User is updated instead
+	 * 
+	 * @param deviceId
+	 * @param firstname
+	 * @param lastname
+	 * @param imagePath
+	 * @param isEnabled
+	 * @param isAdminAction
+	 * @return
+	 */
+	public long addUser(String deviceId, String firstname, String lastname,
+			String imagePath, int isEnabled, int isAdminAction) {
+
+		// creates the value container.
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP,
+				new Date().getTime());
+
+		long result;
+
+		// queries the user using the deviceId
+		User user = getUserByDeviceId(deviceId);
+
+		mDatabase.open();
+
+		// user exists in database => update
+		if (user != null) {
+			result = mDatabase.update(RealFarmDatabase.TABLE_NAME_USER, args,
+					RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + " = '"
+							+ deviceId + "'", null);
+		} else { // user must be created
+			result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_USER,
+					args);
+		}
+
+		// if main id is undefined and result is good
+		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1)) {
+			RealFarmDatabase.MAIN_USER_ID = (int) result;
+		}
+
+		mDatabase.close();
+
+		return result;
+	}
+
 	// TODO: check that date is respected.
 	public long addWeatherForecast(String date, int value, String type) {
 
@@ -87,101 +269,6 @@ public class RealFarmProvider {
 		}
 		Log.d("done: ", "wf setdata");
 		return result;
-	}
-
-	public ArrayList<DialogData> getAction() {
-		final String MY_QUERY = "SELECT name, id, res, audio FROM actionType ORDER BY id ASC";
-
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
-		if (c.moveToFirst()) {
-			do {
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setShortName(c.getString(0));
-				dd.setAudio(c.getInt(3));
-				dd.setValue(c.getInt(1) + "");
-				dd.setImage(c.getInt(2));
-				tmpList.add(dd);
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return tmpList;
-	}
-
-	public ActionType getActionTypeById(int actionTypeId) {
-
-		mDatabase.open();
-
-		ActionType tmpAction = null;
-
-		Cursor c = mDatabase
-				.getEntries(
-						RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
-						new String[] {
-								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAME,
-								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAMEKANNADA,
-								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_RESOURCE,
-								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
-						RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_ID + "="
-								+ actionTypeId, null, null, null, null);
-
-		if (c.moveToFirst()) {
-			tmpAction = new ActionType(actionTypeId, c.getString(0),
-					c.getString(1), c.getInt(2), c.getInt(3));
-		}
-		c.close();
-		mDatabase.close();
-
-		return tmpAction;
-	}
-
-	public List<ActionType> getActionTypes() {
-
-		if (mAllActionTypes == null) {
-			// opens the database.
-			mDatabase.open();
-
-			// query all actions
-			Cursor c = mDatabase
-					.getEntries(
-							RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
-							new String[] {
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_ID,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAME,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAMEKANNADA,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_RESOURCE,
-									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
-							null, null, null, null, null);
-
-			mAllActionTypes = new ArrayList<ActionType>();
-
-			ActionType an = null;
-			if (c.moveToFirst()) {
-				do {
-					an = new ActionType(c.getInt(0), c.getString(1),
-							c.getString(2), c.getInt(3), c.getInt(4));
-					mAllActionTypes.add(an);
-
-					Log.d("action name values: ", an.toString());
-
-				} while (c.moveToNext());
-			}
-
-			c.close();
-			mDatabase.close();
-
-		}
-
-		return mAllActionTypes;
 	}
 
 	public List<Action> getActions() {
@@ -318,6 +405,73 @@ public class RealFarmProvider {
 		return tmpActions;
 	}
 
+	public ActionType getActionTypeById(int actionTypeId) {
+
+		mDatabase.open();
+
+		ActionType tmpAction = null;
+
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAME,
+								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAMEKANNADA,
+								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_RESOURCE,
+								RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
+						RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_ID + "="
+								+ actionTypeId, null, null, null, null);
+
+		if (c.moveToFirst()) {
+			tmpAction = new ActionType(actionTypeId, c.getString(0),
+					c.getString(1), c.getInt(2), c.getInt(3));
+		}
+		c.close();
+		mDatabase.close();
+
+		return tmpAction;
+	}
+
+	public List<ActionType> getActionTypes() {
+
+		if (mAllActionTypes == null) {
+			// opens the database.
+			mDatabase.open();
+
+			// query all actions
+			Cursor c = mDatabase
+					.getEntries(
+							RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+							new String[] {
+									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_ID,
+									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAME,
+									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_NAMEKANNADA,
+									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_RESOURCE,
+									RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
+							null, null, null, null, null);
+
+			mAllActionTypes = new ArrayList<ActionType>();
+
+			ActionType at = null;
+			if (c.moveToFirst()) {
+				do {
+					at = new ActionType(c.getInt(0), c.getString(1),
+							c.getString(2), c.getInt(3), c.getInt(4));
+					mAllActionTypes.add(at);
+
+					Log.d("action name values: ", at.toString());
+
+				} while (c.moveToNext());
+			}
+
+			c.close();
+			mDatabase.close();
+
+		}
+
+		return mAllActionTypes;
+	}
+
 	public List<AggregateItem> getAggregateItems(int actionTypeId,
 			int seedTypeId) {
 
@@ -421,10 +575,10 @@ public class RealFarmProvider {
 		return -1;
 	}
 
-	public ArrayList<DialogData> getCrops() {
+	public List<DialogData> getCrops() {
 		final String MY_QUERY = "SELECT name, id, resBg, audio, shortName FROM cropType ORDER BY id ASC";
 
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+		List<DialogData> tmpList = new ArrayList<DialogData>();
 
 		mDatabase.open();
 
@@ -437,7 +591,7 @@ public class RealFarmProvider {
 				dd.setName(c.getString(0));
 				dd.setShortName(c.getString(4));
 				dd.setAudio(c.getInt(3));
-				dd.setValue(c.getInt(1) + "");
+				dd.setId(c.getInt(1));
 				dd.setBackground(c.getInt(2));
 				tmpList.add(dd);
 			} while (c.moveToNext());
@@ -449,16 +603,51 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	// public SeedType getVarById(int seedId) {
+	//
+	// final String MY_QUERY =
+	// "SELECT name, id, audio, masterId, shortName FROM seedType WHERE id = "
+	// + seedId + " ORDER BY id ASC";
+	//
+	// mDatabase.open();
+	//
+	// Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+	//
+	// SeedType st = null;
+	//
+	// DialogData dd = null;
+	// if (c.moveToFirst()) {
+	// do {
+	// final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = "
+	// + c.getInt(3);
+	// Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+	// c2.moveToFirst();
+	// // int id, String name, String nameKannada, String shortName,
+	// // int cropTypeId, int resource, int audio
+	// st = new SeedType(c.getInt(1), c.getString(0), "", -1,
+	// c.getInt(2), "", "", c2.getInt(0), c.getString(4));
+	//
+	// } while (c.moveToNext());
+	// }
+	//
+	// c.close();
+	// mDatabase.close();
+	//
+	// return st;
+	//
+	// }
+
 	public RealFarmDatabase getDatabase() {
 		return mDatabase;
 	}
 
-	public ArrayList<DialogData> getDialogData(int dataType) {
+	/** TODO: query should not be static */
+	public List<DialogData> getDialogData(int dataType) {
 
-		final String MY_QUERY = "SELECT name, shortName, res, res2, audio, value, number, resBg FROM dialogArrays WHERE type = "
+		final String MY_QUERY = "SELECT id, name, shortName, resource, resource2, audio, number, resourceBg FROM dialogArrays WHERE type = "
 				+ dataType + " ORDER BY type, id ASC";
 
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+		List<DialogData> tmpList = new ArrayList<DialogData>();
 
 		mDatabase.open();
 
@@ -467,9 +656,9 @@ public class RealFarmProvider {
 		DialogData dd = null;
 		if (c.moveToFirst()) {
 			do {
-				dd = new DialogData(c.getString(0), c.getString(1),
-						c.getInt(2), c.getInt(3), c.getInt(4), String.valueOf(c
-								.getInt(5)), c.getInt(7), c.getInt(6));
+				dd = new DialogData(c.getInt(0), c.getString(1),
+						c.getString(2), c.getInt(3), c.getInt(4), c.getInt(5),
+						c.getInt(6), c.getInt(7));
 				tmpList.add(dd);
 			} while (c.moveToNext());
 		}
@@ -480,10 +669,61 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public ArrayList<DialogData> getFertilizers() {
-		final String MY_QUERY = "SELECT DISTINCT name, audio, shortName FROM fertilizer ORDER BY id ASC";
+	public List<DialogData> getResources(int dataType) {
 
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+		// final String MY_QUERY =
+		// "SELECT name, shortName, resource, resource2, audio, value, number, resourceBg FROM dialogArrays WHERE type = "
+		// + dataType + " ORDER BY type, id ASC";
+
+		List<DialogData> tmpList;
+
+		// opens the database.
+		mDatabase.open();
+
+		// query all actions
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_RESOURCE,
+				new String[] { RealFarmDatabase.COLUMN_NAME_RESOURCE_ID,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_NAME,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_SHORTNAME,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCE1,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCE2,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCEBG,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE },
+				RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE + "=" + dataType,
+				null, null, null, null);
+
+		tmpList = new ArrayList<DialogData>();
+
+		DialogData dd = null;
+		if (c.moveToFirst()) {
+			do {
+				dd = new DialogData();
+				dd.setName(c.getString(1));
+				dd.setShortName(c.getString(2));
+				dd.setAudio(c.getInt(3));
+				dd.setImage(c.getInt(4));
+				dd.setImage2(c.getInt(5));
+				dd.setBackground(c.getInt(6));
+
+				tmpList.add(dd);
+
+				Log.d("MP values: ", dd.toString());
+
+			} while (c.moveToNext());
+		}
+		Log.d("done: ", "finished MP getdata");
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+
+	/** TODO: query should not be static */
+	public List<DialogData> getFertilizers() {
+		final String MY_QUERY = "SELECT DISTINCT name, audio, shortName, id FROM fertilizer ORDER BY id ASC";
+
+		List<DialogData> tmpList = new ArrayList<DialogData>();
 
 		mDatabase.open();
 
@@ -496,7 +736,8 @@ public class RealFarmProvider {
 				dd.setName(c.getString(0));
 				dd.setShortName(c.getString(2));
 				dd.setAudio(c.getInt(1));
-				dd.setValue(dd.getName());
+				dd.setId(c.getInt(3));
+
 				tmpList.add(dd);
 			} while (c.moveToNext());
 		}
@@ -542,11 +783,11 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public ArrayList<DialogData> getPesticide() {
+	public List<DialogData> getPesticide() {
 
-		final String MY_QUERY = "SELECT name, audio, type, shortName FROM pesticide ORDER BY type, id ASC";
+		final String MY_QUERY = "SELECT name, audio, type, shortName, id FROM pesticide ORDER BY type, id ASC";
 
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+		List<DialogData> tmpList = new ArrayList<DialogData>();
 
 		mDatabase.open();
 
@@ -565,7 +806,7 @@ public class RealFarmProvider {
 				dd.setShortName(c.getString(3));
 				dd.setImage(c2.getInt(0));
 				dd.setAudio(c.getInt(1));
-				dd.setValue(dd.getName());
+				dd.setId(c.getInt(4));
 				tmpList.add(dd);
 			} while (c.moveToNext());
 		}
@@ -693,40 +934,6 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	// public SeedType getVarById(int seedId) {
-	//
-	// final String MY_QUERY =
-	// "SELECT name, id, audio, masterId, shortName FROM seedType WHERE id = "
-	// + seedId + " ORDER BY id ASC";
-	//
-	// mDatabase.open();
-	//
-	// Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-	//
-	// SeedType st = null;
-	//
-	// DialogData dd = null;
-	// if (c.moveToFirst()) {
-	// do {
-	// final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = "
-	// + c.getInt(3);
-	// Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
-	// c2.moveToFirst();
-	// // int id, String name, String nameKannada, String shortName,
-	// // int cropTypeId, int resource, int audio
-	// st = new SeedType(c.getInt(1), c.getString(0), "", -1,
-	// c.getInt(2), "", "", c2.getInt(0), c.getString(4));
-	//
-	// } while (c.moveToNext());
-	// }
-	//
-	// c.close();
-	// mDatabase.close();
-	//
-	// return st;
-	//
-	// }
-
 	public List<Plot> getPlotsByUserId(int userId) {
 
 		// opens the database.
@@ -803,41 +1010,7 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public ArrayList<DialogData> getProblems() {
-		final String MY_QUERY = "SELECT name, audio, res, masterId, shortName FROM problem ORDER BY masterId, id ASC";
-
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
-
-		mDatabase.open();
-
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-
-		DialogData dd = null;
-		if (c.moveToFirst()) {
-			do {
-				final String MY_QUERY2 = "SELECT res FROM problemType WHERE id = "
-						+ c.getInt(3);
-				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
-				c2.moveToFirst();
-
-				dd = new DialogData();
-				dd.setName(c.getString(0));
-				dd.setShortName(c.getString(4));
-				dd.setImage(c2.getInt(0));
-				dd.setImage2(c.getInt(2));
-				dd.setAudio(c.getInt(1));
-				dd.setValue(dd.getName());
-				tmpList.add(dd);
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return tmpList;
-	}
-
-	// TODO: implement optimization
+	// TODO: implement cache optimization.
 	public SeedType getSeedById(int seedId) {
 
 		SeedType res = null;
@@ -866,11 +1039,17 @@ public class RealFarmProvider {
 
 	}
 
+	/**
+	 * Gets the list of available SeedTypes.
+	 * 
+	 * @return the list of available SeedTypes.
+	 */
 	public List<SeedType> getSeedTypes() {
 
 		// seeds are not in cache
 		if (mAllSeeds == null) {
 
+			// initializes the list used to cache the seeds.
 			mAllSeeds = new ArrayList<SeedType>();
 			mDatabase.open();
 
@@ -903,14 +1082,14 @@ public class RealFarmProvider {
 		return mAllSeeds;
 	}
 
-	public ArrayList<DialogData> getUnits(int id) {
-		final String MY_QUERY = "SELECT DISTINCT name, resource, audio FROM unit WHERE action = "
+	public List<DialogData> getUnits(int id) {
+		final String MY_QUERY = "SELECT DISTINCT name, resource, audio, id FROM unit WHERE action = "
 				+ id
 				+ " OR action = "
 				+ RealFarmDatabase.ACTION_TYPE_ALL_ID
 				+ " ORDER BY id ASC";
 
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+		List<DialogData> tmpList = new ArrayList<DialogData>();
 
 		mDatabase.open();
 
@@ -923,7 +1102,7 @@ public class RealFarmProvider {
 				dd.setName(c.getString(0));
 				dd.setImage(c.getInt(1));
 				dd.setAudio(c.getInt(2));
-				dd.setValue(dd.getName());
+				dd.setId(c.getInt(3));
 				tmpList.add(dd);
 			} while (c.moveToNext());
 		}
@@ -977,36 +1156,6 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public User getUserById(int userId) {
-		mDatabase.open();
-		User tmpUser = null;
-
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_USER,
-				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
-						RealFarmDatabase.COLUMN_NAME_USER_DEVICEID,
-						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
-						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
-						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId, null,
-				null, null, null);
-
-		// user exists in database
-		if (c.moveToFirst()) {
-
-			tmpUser = new User(userId, c.getString(0), c.getString(1),
-					c.getString(2), c.getString(3), c.getInt(4), c.getInt(5),
-					c.getInt(6));
-		}
-
-		// closes the cursor and database.
-		c.close();
-		mDatabase.close();
-
-		return tmpUser;
-	}
-
 	public User getUserByDeviceId(String deviceId) {
 
 		mDatabase.open();
@@ -1042,9 +1191,40 @@ public class RealFarmProvider {
 		return tmpUser;
 	}
 
+	public User getUserById(int userId) {
+		mDatabase.open();
+		User tmpUser = null;
+
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_USER,
+				new String[] { RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
+						RealFarmDatabase.COLUMN_NAME_USER_DEVICEID,
+						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
+						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
+						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
+						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
+				RealFarmDatabase.COLUMN_NAME_USER_ID + " = " + userId, null,
+				null, null, null);
+
+		// user exists in database
+		if (c.moveToFirst()) {
+
+			tmpUser = new User(userId, c.getString(0), c.getString(1),
+					c.getString(2), c.getString(3), c.getInt(4), c.getInt(5),
+					c.getInt(6));
+		}
+
+		// closes the cursor and database.
+		c.close();
+		mDatabase.close();
+
+		return tmpUser;
+	}
+
 	/**
+	 * Gets the total number of Users.
 	 * 
-	 * @return integer number of users in the DB
+	 * @return integer total number of Users.
 	 */
 	public int getUserCount() {
 		mDatabase.open();
@@ -1057,7 +1237,7 @@ public class RealFarmProvider {
 		return userCount;
 	}
 
-	public List<User> getUserDelete(int delete) {
+	public List<User> getUsersByIsEnabled(int isEnabled) {
 
 		mDatabase.open();
 
@@ -1071,7 +1251,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_USER_ISENABLED + "=" + delete,
+				RealFarmDatabase.COLUMN_NAME_USER_ISENABLED + "=" + isEnabled,
 				null, null, null, null);
 
 		tmpList = new ArrayList<User>();
@@ -1080,7 +1260,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				u = new User(c.getInt(0), c.getString(1), c.getString(2),
-						c.getString(3), c.getString(4), delete, c.getInt(5),
+						c.getString(3), c.getString(4), isEnabled, c.getInt(5),
 						c.getInt(6));
 				tmpList.add(u);
 
@@ -1131,10 +1311,10 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public ArrayList<DialogData> getVarieties() {
+	public List<DialogData> getVarieties() {
 		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName, res FROM seedType ORDER BY id ASC";
 
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+		List<DialogData> tmpList = new ArrayList<DialogData>();
 
 		mDatabase.open();
 
@@ -1152,7 +1332,7 @@ public class RealFarmProvider {
 				dd.setName(c.getString(0));
 				dd.setShortName(c.getString(4));
 				dd.setAudio(c.getInt(2));
-				dd.setValue(c.getInt(1) + "");
+				dd.setId(c.getInt(1));
 				dd.setImage(c.getInt(5));
 				dd.setBackground(c2.getInt(0));
 				tmpList.add(dd);
@@ -1168,13 +1348,14 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public ArrayList<DialogData> getVarieties1() { // TODO; get varieties on
-													// this plot, in this season
-													// (action_harvest, item 6)
+	// TODO; get varieties on
+	// this plot, in this season
+	// (action_harvest, item 6)
+	public List<DialogData> getVarieties1() {
 
 		final String MY_QUERY = "SELECT name, id, audio, masterId, shortName FROM seedType ORDER BY id ASC";
 
-		ArrayList<DialogData> tmpList = new ArrayList<DialogData>();
+		List<DialogData> tmpList = new ArrayList<DialogData>();
 
 		mDatabase.open();
 
@@ -1192,7 +1373,7 @@ public class RealFarmProvider {
 				dd.setName(c.getString(0));
 				dd.setShortName(c.getString(4));
 				dd.setAudio(c.getInt(2));
-				dd.setValue(c.getInt(1) + "");
+				dd.setId(c.getInt(1));
 				dd.setBackground(c2.getInt(0));
 				tmpList.add(dd);
 			} while (c.moveToNext());
@@ -1319,94 +1500,20 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	// main crop info corresponds to seed type id
-	public long addPlot(int userId, int seedTypeId, String imagePath,
-			String soilType, float size, int deleteFlag, int adminFlag) {
+	/**
+	 * Enables or disables the plot with the selected id. If isEnabled is 1, the
+	 * plot is enabled, otherwise it gets disabled.
+	 * 
+	 * @param plotId
+	 *            the id of the plot to modify.
+	 * @param isEnabled
+	 *            the new state of the plot
+	 * @return the number of rows modified.
+	 */
+	public long setPlotEnabled(int plotId, int isEnabled) {
 
 		ContentValues args = new ContentValues();
-
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID, seedTypeId);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPE, soilType);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, deleteFlag);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, adminFlag);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
-				new Date().getTime());
-
-		mDatabase.open();
-
-		// inserts the values into the database
-		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				args);
-
-		mDatabase.close();
-
-		return result;
-	}
-
-	public long removeAction(int id) {
-		mDatabase.open();
-
-		long result = mDatabase.deleteEntriesdb(
-				RealFarmDatabase.TABLE_NAME_ACTION,
-				RealFarmDatabase.COLUMN_NAME_ACTION_ID + "=" + id, null);
-
-		mDatabase.close();
-		return result;
-	}
-
-	public long addAction(int actionTypeId, int plotId, String date,
-			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
-			int unit1, int unit2, int resource1Id, int resource2Id, int price,
-			int globalId, int isSent, int isAdminAction) {
-
-		ContentValues args = new ContentValues();
-
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPEID, actionTypeId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE, date);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
-				seedTypeId != NONE ? seedTypeId : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
-				cropTypeId != NONE ? cropTypeId : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, quantity2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
-				unit1 != NONE ? unit1 : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
-				unit2 != NONE ? unit2 : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
-				resource1Id != NONE ? resource1Id : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
-				resource2Id != NONE ? resource2Id : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
-				price != NONE ? price : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_GLOBALID,
-				globalId != NONE ? globalId : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, isSent);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
-				isAdminAction);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP,
-				new Date().getTime());
-
-		long result;
-
-		mDatabase.open();
-
-		result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_ACTION,
-				args);
-
-		mDatabase.close();
-
-		return result;
-	}
-
-	public long setDeleteFlagForPlot(int plotId) {
-
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, 1);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
 
 		long result;
 
@@ -1420,17 +1527,17 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long setDeleteFlagForUser(int userid) {
+	public long setUserEnabled(int userId, int isEnabled) {
 
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, 1);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
 
 		long result;
 
 		mDatabase.open();
 
 		result = mDatabase.update(RealFarmDatabase.TABLE_NAME_USER, args,
-				RealFarmDatabase.COLUMN_NAME_USER_ID + " = '" + userid + "'",
+				RealFarmDatabase.COLUMN_NAME_USER_ID + " = '" + userId + "'",
 				null);
 
 		mDatabase.close();
@@ -1461,115 +1568,6 @@ public class RealFarmProvider {
 		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, methodId, NONE,
 				NONE, NONE, isSent, isAdminAction);
-	}
-
-	public long addMarketPrice(int id, String date, String type, int value,
-			int adminflag) {
-
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ID, id);
-		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_DATE, date);
-		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE, type);
-		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE, value);
-
-		mDatabase.open();
-
-		long result = mDatabase.insertEntries(
-				RealFarmDatabase.TABLE_NAME_MARKETPRICE, args);
-
-		mDatabase.close();
-
-		return result;
-	}
-
-	public long addReportAction(int plotId, int seedTypeId, int problemTypeId,
-			String date, int isSent, int isAdminAction) {
-
-		return addAction(RealFarmDatabase.ACTION_TYPE_REPORT_ID, plotId, date,
-				seedTypeId, getCropIdFromSeedId(seedTypeId), NONE, NONE, NONE,
-				NONE, problemTypeId, NONE, NONE, NONE, isSent, isAdminAction);
-	}
-
-	public long addSellAction(int plotId, int seedTypeId, int quantity1,
-			int quantity2, int unit1, int unit2, int price, String date,
-			int isSent, int isAdminAction) {
-
-		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
-				seedTypeId, getCropIdFromSeedId(seedTypeId), quantity1,
-				quantity2, unit1, unit2, NONE, NONE, price, NONE, isSent,
-				isAdminAction);
-	}
-
-	public long addSowAction(int plotId, int quantity1, int seedTypeId,
-			int unit1, String date, int treatmentId, int isSent,
-			int isAdminAction, int intercropId) {
-
-		return addAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
-				seedTypeId, getCropIdFromSeedId(seedTypeId), quantity1, NONE,
-				unit1, NONE, treatmentId, intercropId, NONE, NONE, isSent,
-				isAdminAction);
-	}
-
-	public long addSprayAction(int userId, int plotId, int quantity1,
-			int unit1, String date, int problemId, int isSent,
-			int isAdminAction, int pesticideId) {
-
-		return addAction(RealFarmDatabase.ACTION_TYPE_SPRAY_ID, plotId, date,
-				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,
-				pesticideId, NONE, NONE, isSent, isAdminAction);
-	}
-
-	/**
-	 * Adds a new User to the database. If a user already exists with the same
-	 * DEVICEID, the User is updated instead
-	 * 
-	 * @param deviceId
-	 * @param firstname
-	 * @param lastname
-	 * @param imagePath
-	 * @param isEnabled
-	 * @param isAdminAction
-	 * @return
-	 */
-	public long addUser(String deviceId, String firstname, String lastname,
-			String imagePath, int isEnabled, int isAdminAction) {
-
-		// creates the value container.
-		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP,
-				new Date().getTime());
-
-		long result;
-
-		// queries the user using the deviceId
-		User user = getUserByDeviceId(deviceId);
-
-		mDatabase.open();
-
-		// user exists in database => update
-		if (user != null) {
-			result = mDatabase.update(RealFarmDatabase.TABLE_NAME_USER, args,
-					RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + " = '"
-							+ deviceId + "'", null);
-		} else { // user must be created
-			result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_USER,
-					args);
-		}
-
-		// if main id is undefined and result is good
-		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1)) {
-			RealFarmDatabase.MAIN_USER_ID = (int) result;
-		}
-
-		mDatabase.close();
-
-		return result;
 	}
 
 	/**

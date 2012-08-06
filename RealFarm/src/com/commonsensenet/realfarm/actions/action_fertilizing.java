@@ -41,11 +41,13 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 	private RealFarmProvider mDataProvider;
 	/** Reference to the current instance. */
 	private final action_fertilizing mParentReference = this;
-	private String units_fert = "0", fert_var_sel = "0", day_fert_sel = "0",
-			day_fert_sel_1;
+	private String units_fert = "0";
+	private String fert_var_sel = "0";
+	private String day_fert_sel = "0";
+	private String day_fert_sel_1;
 	private int fert_no, day_fert_int;
 	private String months_fert = "0";
-	private HashMap<String, String> resultsMap;
+	private HashMap<String, Object> resultsMap;
 
 	public static final String LOG_TAG = "action_fertilizing";
 
@@ -74,7 +76,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 		System.out.println("plant done");
 
-		resultsMap = new HashMap<String, String>();
+		resultsMap = new HashMap<String, Object>();
 		resultsMap.put("units_fert", "0");
 		resultsMap.put("months_fert", "0");
 		resultsMap.put("fert_var_sel", "0");
@@ -291,11 +293,14 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						LOG_TAG, "ok_btn");
 
-				units_fert = resultsMap.get("units_fert");
-				months_fert = resultsMap.get("months_fert");
-				fert_var_sel = resultsMap.get("fert_var_sel");
-				day_fert_int = Integer.parseInt(resultsMap.get("day_fert_int"));
-				fert_no = (int) (Double.parseDouble(resultsMap.get("fert_no")));
+				units_fert = resultsMap.get("units_fert").toString();
+
+				months_fert = resultsMap.get("months_fert").toString();
+				fert_var_sel = resultsMap.get("fert_var_sel").toString();
+				day_fert_int = Integer.parseInt(resultsMap.get("day_fert_int")
+						.toString());
+				fert_no = (int) (Double.parseDouble(resultsMap.get("fert_no")
+						.toString()));
 
 				int flag1, flag2, flag3;
 				if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
@@ -359,10 +364,10 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				}
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
-//
-//					System.out.println("fertilizing writing");
-//					mDataProvider.setFertilizing(Global.plotId, fert_no,
-//							fert_var_sel, units_fert, day_fert_sel, 1, 0);
+					//
+					// System.out.println("fertilizing writing");
+					// mDataProvider.setFertilizing(Global.plotId, fert_no,
+					// fert_var_sel, units_fert, day_fert_sel, 1, 0);
 
 					// System.out.println("fertilizing reading");
 					// mDataProvider.getfertizing();
@@ -545,7 +550,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
 				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
@@ -561,7 +566,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getValue());
+				resultsMap.put(mapEntry, choice.getId());
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback
 						.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -572,10 +577,11 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, title, choice.getId());
 
-				Toast.makeText(mParentReference, resultsMap.get(mapEntry),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(mParentReference,
+						resultsMap.get(mapEntry).toString(), Toast.LENGTH_SHORT)
+						.show();
 
 				// onClose
 				dialog.cancel();
@@ -589,7 +595,8 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) { // TODO: adapt the audio in the db
+					int position, long id) { // TODO: adapt the audio in the
+												// database
 				int iden = m_entries.get(position).getAudioRes();
 				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
 				// + m_entries.get(position).getAudio(), null, null);
@@ -613,7 +620,7 @@ public class action_fertilizing extends HelpEnabledActivityOld implements
 
 		if (!resultsMap.get(mapEntry).equals("0")
 				&& !resultsMap.get(mapEntry).equals("-1"))
-			init = Double.valueOf(resultsMap.get(mapEntry));
+			init = Double.valueOf(resultsMap.get(mapEntry).toString());
 
 		NumberPicker np = new NumberPicker(mParentReference, min, max, init,
 				inc, nbDigits);

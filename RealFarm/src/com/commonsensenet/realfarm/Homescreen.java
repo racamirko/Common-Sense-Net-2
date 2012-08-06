@@ -448,16 +448,16 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		if (v.getId() == R.id.hmscrn_btn_sound) {
 
-			if (!Global.enableAudio) {
+			if (!Global.isAudioEnabled) {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.ic_71px_sound_on);
 				// enables the sound.
-				Global.enableAudio = true;
+				Global.isAudioEnabled = true;
 			} else {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.soundoff);
 				// disables the audio.
-				Global.enableAudio = false;
+				Global.isAudioEnabled = false;
 			}
 
 			return;
@@ -656,7 +656,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		SoundQueue.getInstance().init(this);
 
 		// sets the audio icon based on the audio preferences.
-		if (Global.enableAudio) {
+		if (Global.isAudioEnabled) {
 			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 			snd.setImageResource(R.drawable.ic_71px_sound_on);
 		} else {

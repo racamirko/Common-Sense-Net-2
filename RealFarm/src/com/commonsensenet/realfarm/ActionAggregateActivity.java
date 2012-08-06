@@ -25,6 +25,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.DialogData;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
@@ -118,7 +119,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 			crop.setVisibility(View.INVISIBLE);
 
 		final ImageView actionTypeImage = (ImageView) findViewById(R.id.aggr_action_img);
-		actionTypeImage.setImageResource(actionType.getResource());
+		actionTypeImage.setImageResource(actionType.getResource1());
 
 		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
@@ -152,9 +153,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		action.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				ArrayList<DialogData> m_entries = mDataProvider.getAction();
-				displayDialog(v, m_entries, "Select the action",
-						R.raw.problems, actionTypeImage, 1);
+				List<Resource> data = mDataProvider.getActionTypes();
+				displayDialog(v, data, "Select the action", R.raw.problems,
+						actionTypeImage, 1);
 			}
 		});
 
@@ -163,11 +164,11 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 
-				ArrayList<DialogData> m_entries = mDataProvider.getVarieties();
-				m_entries.add(new DialogData("All", "All", R.drawable.icon, -1,
-						R.raw.problems, "0", R.drawable.icon));
-				displayDialog(v, m_entries, "Select the variety",
-						R.raw.problems, img_1, 2);
+				List<Resource> data = mProvider.getSeedTypes();
+				data.add(new DialogData(-1, "All", "All", R.drawable.icon, -1,
+						R.raw.problems, R.drawable.icon));
+				displayDialog(v, data, "Select the variety", R.raw.problems,
+						img_1, 2);
 
 				// R.drawable.pic_72px_groundnut
 			}
@@ -314,7 +315,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		return true;
 	}
 
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries,
+	private void displayDialog(View v, final List<Resource> data,
 			final String title, int entryAudio,
 			final ImageView actionTypeImage, final int type) {
 		final Dialog dialog = new Dialog(v.getContext());
@@ -324,44 +325,41 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		dialog.setCanceledOnTouchOutside(true);
 
 		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
-				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+				R.layout.mc_dialog_row, data);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
 		playAudio(entryAudio); // TODO: onOpen
 
-		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-			// the audio
-			// in the db
+		// TODO: adapt the audio in the database.
+		mList.setOnItemClickListener(new OnItemClickListener() {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// Does whatever is specific to the application
 				Log.d("var " + position + " picked ", "in dialog");
-				DialogData choice = m_entries.get(position);
+				Resource choice = data.get(position);
 
+				// TODO: this won't work.
 				if (type == 2) { // change the query
-					setList(Integer
-							.parseInt(m_entries.get(position).getValue()));
+					setList(data.get(position).getId());
 				} else if (type == 1) { // change the action
-					mActionActionTypeId = Integer.parseInt(m_entries.get(
-							position).getValue());
+					mActionActionTypeId = data.get(position).getId();
 				}
 
-				actionTypeImage.setImageResource(m_entries.get(position)
-						.getImageRes());
+				actionTypeImage.setImageResource(data.get(position)
+						.getResource1());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, title, choice.getId());
 
-				Toast.makeText(mParentReference,
-						m_entries.get(position).getName(), Toast.LENGTH_SHORT)
-						.show();
+				Toast.makeText(mParentReference, data.get(position).getName(),
+						Toast.LENGTH_SHORT).show();
 
 				// onClose
 				dialog.cancel();
-				int iden = choice.getAudioRes();
+				int iden = choice.getAudio();
 				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
 				// + choice.getAudio(), null, null);
 				playAudio(iden);
@@ -372,7 +370,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) { // TODO: adapt the audio in the db
-				int iden = m_entries.get(position).getAudioRes();
+				int iden = data.get(position).getAudioRes();
 				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
 				// + m_entries.get(position).getAudio(), null, null);
 				playAudio(iden);

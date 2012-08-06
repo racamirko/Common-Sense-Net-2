@@ -162,7 +162,7 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 	protected void playAudio(int resid) {
 
 		// checking for audio enable
-		if (Global.enableAudio) {
+		if (Global.isAudioEnabled) {
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();
 			// cleans any possibly playing sound

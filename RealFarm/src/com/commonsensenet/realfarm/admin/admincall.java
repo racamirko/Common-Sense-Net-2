@@ -80,7 +80,7 @@ public class admincall extends Activity {
 
 						System.out.println(Position);
 						List<User> userListNoDelete = mDataProvider
-								.getUserDelete(0); // Get the users whose delete
+								.getUsersByIsEnabled(0); // Get the users whose delete
 													// flag=0
 
 						Global.userId = userListNoDelete.get(position).getId(); // Set
@@ -127,7 +127,7 @@ public class admincall extends Activity {
 						// ReadUser= mDataProvider.getUserById(position+1);
 						System.out.println(position);
 						List<User> userListNoDelete = mDataProvider
-								.getUserDelete(0); // Get the users whose delete
+								.getUsersByIsEnabled(0); // Get the users whose delete
 													// flag=0
 
 						// sets the user id corresponding to the position that
@@ -157,10 +157,8 @@ public class admincall extends Activity {
 												// current activity
 												System.out.println("Yes");
 
-												mDataProvider
-														.setDeleteFlagForUser(Global.userId);
-
-												// mDataProvider.getuserDelete(0);
+												mDataProvider.setUserEnabled(
+														Global.userId, 0);
 
 												finish();
 												startActivity(getIntent());
@@ -207,7 +205,7 @@ public class admincall extends Activity {
 
 		// gets the users from the database.
 		// List<User> userList = mDataProvider.getUserList();
-		List<User> userList = mDataProvider.getUserDelete(0);
+		List<User> userList = mDataProvider.getUsersByIsEnabled(0);
 		// adds the users into the list adapter.
 		for (int x = 0; x < userList.size(); x++) {
 			listAdapter.add(userList.get(x).getFirstname() + " "

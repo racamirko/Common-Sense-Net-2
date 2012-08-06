@@ -47,10 +47,10 @@ public class VideoPlayerActivity extends Activity {
 		// path where the video is located.
 		String videoPath = null;
 		// gets the video path from the Global variables.
-		if (Global.videosel == 1) {
+		if (Global.selectedVideo == 1) {
 			videoPath = "android.resource://com.commonsensenet.realfarm/"
 					+ R.raw.kannada;
-		} else if (Global.videosel == 2) {
+		} else if (Global.selectedVideo == 2) {
 			videoPath = "android.resource://com.commonsensenet.realfarm/"
 					+ R.raw.english;
 		}

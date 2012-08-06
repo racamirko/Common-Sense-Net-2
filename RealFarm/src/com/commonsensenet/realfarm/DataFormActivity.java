@@ -1,7 +1,7 @@
 package com.commonsensenet.realfarm;
 
-import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Dialog;
 import android.content.Intent;
@@ -37,37 +37,42 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	/** Reference to the current class used in internal classes. */
 	private final DataFormActivity mParentReference = this;
 	/** Results map used to handle the validation of the form. */
-	protected HashMap<String, String> mResultsMap;
+	protected HashMap<String, Object> mResultsMap;
 
-	protected void displayDialog(View v, final ArrayList<DialogData> entries,
-			final String mapEntry, final String title, int entryAudio,
-			final int varText, final int trFeedback, final int imageType) {
+	protected void displayDialog(View v, final List<DialogData> data,
+			final String propertyKey, final String title, int audio,
+			final int textFieldId, final int rowFeedbackId, final int imageType) {
+
+		// creates a new dialog and configures it.
 		final Dialog dialog = new Dialog(v.getContext());
 		dialog.setContentView(R.layout.mc_dialog);
 		dialog.setTitle(title);
 		dialog.setCancelable(true);
 		dialog.setCanceledOnTouchOutside(true);
 
+		// creates an adapter that handles the data.
 		DialogAdapter adapter = new DialogAdapter(v.getContext(),
-				R.layout.mc_dialog_row, entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+				R.layout.mc_dialog_row, data);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(adapter);
 
 		dialog.show();
-		playAudio(entryAudio); // TODO: onOpen
 
-		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-			// the audio
-			// in the db
+		playAudio(audio);
+
+		// TODO: adapt the audio in the database.
+		mList.setOnItemClickListener(new OnItemClickListener() {
+
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				// Does whatever is specific to the application
+
+				// does whatever is specific to the application
 				Log.d("var " + position + " picked ", "in dialog");
-				TextView var_text = (TextView) findViewById(varText);
-				DialogData choice = entries.get(position);
+				TextView var_text = (TextView) findViewById(textFieldId);
+				DialogData choice = data.get(position);
 				var_text.setText(choice.getShortName());
-				mResultsMap.put(mapEntry, choice.getValue());
-				View tr_feedback = findViewById(trFeedback);
+				mResultsMap.put(propertyKey, choice.getId());
+				View tr_feedback = findViewById(rowFeedbackId);
 				tr_feedback
 						.setBackgroundResource(android.R.drawable.list_selector_background);
 
@@ -77,9 +82,10 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, propertyKey, choice.getId());
 
-				Toast.makeText(mParentReference, mResultsMap.get(mapEntry),
+				Toast.makeText(mParentReference,
+						mResultsMap.get(propertyKey).toString(),
 						Toast.LENGTH_SHORT).show();
 
 				// onClose
@@ -92,8 +98,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) { // TODO: adapt the audio in the db
-				int iden = entries.get(position).getAudioRes();
+					int position, long id) {
+				// TODO: adapt the audio in the database
+				int iden = data.get(position).getAudioRes();
 
 				playAudio(iden, true);
 				return true;
@@ -113,8 +120,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		dialog.setCanceledOnTouchOutside(true);
 		playAudio(openAudio);
 
-		if (!mResultsMap.get(mapEntry).equals("0"))
-			init = Double.valueOf(mResultsMap.get(mapEntry));
+		if (!mResultsMap.get(mapEntry).equals("0")) {
+			init = Double.valueOf(mResultsMap.get(mapEntry).toString());
+		}
 
 		NumberPicker np = new NumberPicker(mParentReference, min, max, init,
 				inc, nbDigits);
@@ -188,7 +196,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// map used to automatize the validation.
-		mResultsMap = new HashMap<String, String>();
+		mResultsMap = new HashMap<String, Object>();
 
 		// gets the action buttons.
 		View plotok = findViewById(R.id.button_ok);

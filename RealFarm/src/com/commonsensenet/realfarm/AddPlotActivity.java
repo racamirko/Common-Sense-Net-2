@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -20,11 +21,16 @@ public class AddPlotActivity extends DataFormActivity {
 	/** Name used to log the activity of the class. */
 	public static final String LOG_TAG = "AddPlotActivity";
 
+	public static final String PLOT_IMAGE = "plotImage";
+	public static final String SOIL_TYPE = "soilType";
+	public static final String MAIN_CROP = "mainCrop";
+	public static final String SIZE = "size";
+
 	private String mMainCrop = "0";
 	private String mPlotImage = "0";
 	private int mSeedTypeId = 0;
-	private String mSoilType = "0";
 	private String mSize = "0";
+	private String mSoilType = "0";
 
 	/**
 	 * Adds the current plot to the database.
@@ -32,9 +38,8 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 
 		// inserts the new action
-		Global.plotId = (int) mDataProvider.addPlot(Global.userId,
-				mSeedTypeId, mPlotImage, mSoilType, Float.parseFloat(mSize), 0,
-				0);
+		Global.plotId = (int) mDataProvider.addPlot(Global.userId, mSeedTypeId,
+				mPlotImage, mSoilType, Float.parseFloat(mSize), 0, 0);
 
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
@@ -47,17 +52,13 @@ public class AddPlotActivity extends DataFormActivity {
 						+ mSoilType, Toast.LENGTH_SHORT).show();
 	}
 
-	protected void initMissingValue() {
-		playAudio(R.raw.missinginfo);
-	}
-
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.act_add_plot, LOG_TAG);
 
 		// adds the name of the fields to validate.
-		mResultsMap.put("mSoilType", "0");
-		mResultsMap.put("mMainCrop", "0");
-		mResultsMap.put("mSize", "0");
+		mResultsMap.put(SOIL_TYPE, "0");
+		mResultsMap.put(MAIN_CROP, "0");
+		mResultsMap.put(SIZE, "0");
 
 		final View plotImageRow;
 		final View soilTypeRow;
@@ -113,12 +114,11 @@ public class AddPlotActivity extends DataFormActivity {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
-				ArrayList<DialogData> m_entries = mDataProvider
-						.getDialogData(RealFarmDatabase.DIALOG_SOIL_TYPE_ID);
-				displayDialog(v, m_entries, "mSoilType",
-						"Select the soil type", R.raw.problems,
-						R.id.dlg_lbl_soil_plot, R.id.soiltype_tr, 0);
-
+				List<DialogData> dialogData = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOILDTYPE);
+				displayDialog(v, dialogData, SOIL_TYPE, "Select the soil type",
+						R.raw.problems, R.id.dlg_lbl_soil_plot,
+						R.id.soiltype_tr, 0);
 			}
 		});
 
@@ -127,8 +127,8 @@ public class AddPlotActivity extends DataFormActivity {
 				Log.d("in crop plot dialog", "in dialog");
 
 				stopAudio();
-				ArrayList<DialogData> m_entries = mDataProvider.getVarieties();
-				displayDialog(v, m_entries, "mMainCrop", "Select the variety",
+				ArrayList<DialogData> dialogData = mDataProvider.getVarieties();
+				displayDialog(v, dialogData, MAIN_CROP, "Select the variety",
 						R.raw.problems, R.id.dlg_lbl_crop_plot,
 						R.id.maincrop_tr, 0);
 			}
@@ -138,7 +138,7 @@ public class AddPlotActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				displayDialogNP("Enter the plot size in acres", "mSize",
+				displayDialogNP("Enter the plot size in acres", SIZE,
 						R.raw.dateinfo, 0, 50, 0, 0.1, 1, R.id.size_txt,
 						R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo, R.raw.dateinfo);
@@ -196,9 +196,9 @@ public class AddPlotActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// values obtained that need to be validated.
-		mSoilType = mResultsMap.get("mSoilType");
-		mMainCrop = mResultsMap.get("mMainCrop");
-		mSize = mResultsMap.get("mSize");
+		mSoilType = mResultsMap.get(SOIL_TYPE).toString();
+		mMainCrop = mResultsMap.get(MAIN_CROP).toString();
+		mSize = mResultsMap.get(SIZE).toString();
 
 		int flag1, flag2, flag3, flag4;
 		if (mPlotImage.toString().equalsIgnoreCase("0")) {

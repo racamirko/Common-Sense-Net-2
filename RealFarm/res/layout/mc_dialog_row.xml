@@ -1,32 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:id="@+id/dialog_row_layout"
+    android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:padding="6dip" 
-    android:id="@+id/ll" >
-       
-	<TextView
-        android:id="@+id/text2"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:gravity="top"
-        android:paddingTop="0px"
-        android:textColor="#000000"
-        android:textSize="20sp" />
-       
-    <ImageView
-        android:id="@+id/icon2"
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginRight="6dip" />
-    
+    android:padding="@dimen/margin" >
+
     <TextView
-        android:id="@+id/text"
+        android:id="@+id/dialog_row_text2"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:gravity="top"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_large" />
+
+    <ImageView
+        android:id="@+id/dialog_row_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_marginRight="@dimen/margin" />
+
+    <TextView
+        android:id="@+id/dialog_row_text"
         android:layout_width="0dip"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_weight="1"
         android:gravity="center_vertical"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_large" />
 
 </LinearLayout>

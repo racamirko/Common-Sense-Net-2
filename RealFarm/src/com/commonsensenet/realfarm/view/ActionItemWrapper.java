@@ -90,7 +90,7 @@ public class ActionItemWrapper {
 				options);
 
 		// sets the parts of the view.
-		getActionIcon().setImageResource(actionType.getResource());
+		getActionIcon().setImageResource(actionType.getResource1());
 		getTitle().setText(actionType.getName());
 		getDate().setText(DateHelper.formatDate(action.getDate(), context));
 

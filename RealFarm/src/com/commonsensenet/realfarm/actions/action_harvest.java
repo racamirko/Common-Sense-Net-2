@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
@@ -41,13 +40,15 @@ public class action_harvest extends HelpEnabledActivityOld {
 	private Context context = this;
 	private int feedback_sel;
 	private int harvest_no, day_harvest_int;
-	private String units_harvest = "0", feedback_txt, months_harvest = "0";
+	private String units_harvest = "0";
+	private String feedback_txt;
+	private String months_harvest = "0";
 	private int crop_harvest = 0;
 	private RealFarmProvider mDataProvider;
 	private final action_harvest parentReference = this;
 	private String final_day_harvest;
 	String mSelectedMonth;
-	private HashMap<String, String> resultsMap;
+	private HashMap<String, Object> resultsMap;
 
 	protected void cancelaudio() {
 
@@ -84,7 +85,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 		playAudio(R.raw.clickingharvest);
 
-		resultsMap = new HashMap<String, String>();
+		resultsMap = new HashMap<String, Object>();
 		resultsMap.put("units_harvest", "0");
 		resultsMap.put("months_harvest", "0");
 		resultsMap.put("day_harvest_int", "0");
@@ -233,13 +234,16 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 			public void onClick(View v) {
 
-				units_harvest = resultsMap.get("units_harvest");
-				months_harvest = resultsMap.get("months_harvest");
-				day_harvest_int = Integer.parseInt(resultsMap
-						.get("day_harvest_int"));
-				harvest_no = Integer.parseInt(resultsMap.get("harvest_no"));
-				feedback_sel = Integer.parseInt(resultsMap.get("feedback_sel"));
-				crop_harvest = Integer.parseInt(resultsMap.get("crop_harvest"));
+				units_harvest = resultsMap.get("units_harvest").toString();
+				months_harvest = resultsMap.get("months_harvest").toString();
+				day_harvest_int = Integer.parseInt(resultsMap.get(
+						"day_harvest_int").toString());
+				harvest_no = Integer.parseInt(resultsMap.get("harvest_no")
+						.toString());
+				feedback_sel = Integer.parseInt(resultsMap.get("feedback_sel")
+						.toString());
+				crop_harvest = Integer.parseInt(resultsMap.get("crop_harvest")
+						.toString());
 
 				int flag1, flag2, flag3, flag4;
 				// Toast.makeText(action_harvest.this, "User selected " +
@@ -471,7 +475,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
 				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
@@ -487,7 +491,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getValue());
+				resultsMap.put(mapEntry, choice.getId());
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback
 						.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -498,10 +502,11 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, title, choice.getId());
 
-				Toast.makeText(parentReference, resultsMap.get(mapEntry),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(parentReference,
+						resultsMap.get(mapEntry).toString(), Toast.LENGTH_SHORT)
+						.show();
 
 				// onClose
 				dialog.cancel();
@@ -539,7 +544,7 @@ public class action_harvest extends HelpEnabledActivityOld {
 
 		if (!resultsMap.get(mapEntry).equals("0")
 				&& !resultsMap.get(mapEntry).equals("-1"))
-			init = Double.valueOf(resultsMap.get(mapEntry));
+			init = Double.valueOf(resultsMap.get(mapEntry).toString());
 
 		NumberPicker np = new NumberPicker(parentReference, min, max, init,
 				inc, nbDigits);

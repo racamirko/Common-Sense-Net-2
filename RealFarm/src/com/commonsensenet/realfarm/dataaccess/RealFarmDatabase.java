@@ -267,6 +267,9 @@ public class RealFarmDatabase {
 	public static final int ACTION_TYPE_SOW_ID = 1;
 	public static final int ACTION_TYPE_SPRAY_ID = 5;
 
+	public static final int RESOURCE_TYPE_PROBLEM = 1;
+	public static final int RESOURCE_TYPE_SOILDTYPE = 2;
+
 	public static final String COLUMN_NAME_ACTION_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_ACTION_CROPTYPEID = "cropTypeId";
 	public static final String COLUMN_NAME_ACTION_DATE = "date";
@@ -304,7 +307,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_DIALOG_NUMBER = "number";
 	public static final String COLUMN_NAME_DIALOG_RES = "resource";
 	public static final String COLUMN_NAME_DIALOG_RES_BG = "resourceBg";
-	public static final String COLUMN_NAME_DIALOG_RES2 = "res2";
+	public static final String COLUMN_NAME_DIALOG_RES2 = "resource2";
 	public static final String COLUMN_NAME_DIALOG_SHORTNAME = "shortName";
 	public static final String COLUMN_NAME_DIALOG_TYPE = "type";
 	public static final String COLUMN_NAME_DIALOG_VALUE = "value";
@@ -388,7 +391,6 @@ public class RealFarmDatabase {
 	public static final int DIALOG_IRRIGATION_METHOD_ID = 4;
 	public static final int DIALOG_MONTH_ID = 1;
 	public static final int DIALOG_SMILEYS_ID = 6;
-	public static final int DIALOG_SOIL_TYPE_ID = 5;
 	public static final int DIALOG_TREATMENT_ID = 2;
 	public static final int DIALOG_UNITS_ID = 7;
 
@@ -654,12 +656,6 @@ public class RealFarmDatabase {
 						R.raw.bagof10kg, 1, DIALOG_IRRIGATION_METHOD_ID, -1, -1 },
 				{ "Sprinkling", "Sprinkling", R.drawable.ic_sprinkling, -1,
 						R.raw.bagof20kg, 2, DIALOG_IRRIGATION_METHOD_ID, -1, -1 },
-				{ "Loamy", "Loamy", -1, -1, R.raw.bagof10kg, 1,
-						DIALOG_SOIL_TYPE_ID, -1, -1 },
-				{ "Sandy", "Sandy", -1, -1, R.raw.bagof20kg, 2,
-						DIALOG_SOIL_TYPE_ID, -1, -1 },
-				{ "Clay", "Clay", -1, -1, R.raw.bagof50kg, 3,
-						DIALOG_SOIL_TYPE_ID, -1, -1 },
 				{ "Good", "", R.drawable.smiley_good, -1, R.raw.feedbackgood,
 						1, DIALOG_SMILEYS_ID, -1, -1 },
 				{ "Moderate", "", R.drawable.smiley_medium, -1,
@@ -773,33 +769,80 @@ public class RealFarmDatabase {
 		Log.d(LOG_TAG, "fertilizer works");
 
 		// problem types
-		Object[][] problemTypeData = {
-				{ "Disease", R.raw.audio1, R.drawable.ic_diseasecategory },
-				{ "Pest", R.raw.audio1, R.drawable.ic_pestcategory },
-				{ "Other", R.raw.audio1, R.drawable.ic_otherproblemcategory } };
+		// Object[][] problemTypeData = {
+		// { "Disease", R.raw.audio1, R.drawable.ic_diseasecategory },
+		// { "Pest", R.raw.audio1, R.drawable.ic_pestcategory },
+		// { "Other", R.raw.audio1, R.drawable.ic_otherproblemcategory } };
 
-		// problems
-		Object[][] problemData = {
-				{ "Late leaf spot", R.raw.audio1, 1, "LLS" },
-				{ "Pod rot", R.raw.audio1, 1, "Pod rot" },
-				{ "Unknown disease", R.raw.audio1, 1, "? disease" },
-				{ "Disease not listed", R.raw.audio1, 1, "D-unlisted" },
-				{ "Aphids", R.raw.audio1, 2, "Aphids" },
-				{ "Leaf miner", R.raw.audio1, 2, "Leaf miner" },
-				{ "Pod borer", R.raw.audio1, 2, "Pod borer" },
-				{ "Red hairy caterpillar", R.raw.audio1, 2, "R H Caterpillar" },
-				{ "Root grub", R.raw.audio1, 2, "Root grub" },
-				{ "Unknown pest", R.raw.audio1, 2, "? pest" },
-				{ "Pest not listed", R.raw.audio1, 2, "Pe-unlisted" },
-				{ "Low growth", R.raw.audio1, 3, "Low growth" },
-				{ "Pegs not developed", R.raw.audio1, 3, "Pegs undev" },
-				{ "Pod germination", R.raw.audio1, 3, "Pod germination" },
-				{ "Reduced flowering", R.raw.audio1, 3, "Red flowering" },
-				{ "Rot of stalks", R.raw.audio1, 3, "Stalk rot" },
-				{ "Too much vegetative growth", R.raw.audio1, 3, "Veg growth" },
-				{ "Weeds", R.raw.audio1, 3, "Weeds" },
-				{ "Wild boar", R.raw.audio1, 3, "Wild boar" },
-				{ "Problem not listed", R.raw.audio1, 3, "Pb-unlisted" } };
+		// resources
+		Object[][] resourceData = {
+				/** SoilType */
+				{ "Loamy", "Loamy", R.raw.bagof10kg, -1, -1, -1,
+						RESOURCE_TYPE_SOILDTYPE },
+				{ "Sandy", "Sandy", R.raw.bagof20kg, -1, -1, -1,
+						RESOURCE_TYPE_SOILDTYPE },
+				{ "Clay", "Clay", R.raw.bagof50kg, -1, -1, -1,
+						RESOURCE_TYPE_SOILDTYPE },
+				/** Problems */
+				{ "Late leaf spot", "LLS", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Pod rot", "Pod rot", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Unknown disease", "? disease", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Disease not listed", "Aphids", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Aphids", "Aphids", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Leaf miner", "Leaf miner", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Pod borer", "Pod borer", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Red hairy caterpillar", "R H Caterpillar", R.raw.audio1, -1,
+						-1, -1, RESOURCE_TYPE_PROBLEM },
+				{ "Root grub", "Root grub", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Unknown pest", "? pest", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Pest not listed", "Pe-unlisted", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Low growth", "Low growth", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Pegs not developed", "Pegs undev", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Pod germination", "Pod germination", R.raw.audio1, -1, -1,
+						-1, RESOURCE_TYPE_PROBLEM },
+				{ "Reduced flowering", "Red flowering", R.raw.audio1, -1, -1,
+						-1, RESOURCE_TYPE_PROBLEM },
+				{ "Rot of stalks", "Stalk rot", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Too much vegetative growth", "Veg growth", R.raw.audio1, -1,
+						-1, -1, RESOURCE_TYPE_PROBLEM },
+				{ "Weeds", "Weeds", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Wild boar", "Wild boar", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_PROBLEM },
+				{ "Problem not listed", "Pb-unlisted", R.raw.audio1, -1, -1,
+						-1, RESOURCE_TYPE_PROBLEM } };
+
+		ContentValues resource = new ContentValues();
+		for (int x = 0; x < resourceData.length; x++) {
+			resource.put(COLUMN_NAME_RESOURCE_NAME, (String) resourceData[x][0]);
+			resource.put(COLUMN_NAME_RESOURCE_SHORTNAME,
+					(String) resourceData[x][1]);
+			resource.put(COLUMN_NAME_RESOURCE_AUDIO,
+					(Integer) resourceData[x][2]);
+			resource.put(COLUMN_NAME_RESOURCE_RESOURCE1,
+					(Integer) resourceData[x][3]);
+			resource.put(COLUMN_NAME_RESOURCE_RESOURCE2,
+					(Integer) resourceData[x][4]);
+			resource.put(COLUMN_NAME_RESOURCE_RESOURCEBG,
+					(Integer) resourceData[x][5]);
+			resource.put(COLUMN_NAME_RESOURCE_TYPE,
+					(Integer) resourceData[x][6]);
+			insertEntriesIntoDatabase(TABLE_NAME_RESOURCE, resource, db);
+			resource.clear();
+		}
 
 		// units
 		Object[][] unitData = {

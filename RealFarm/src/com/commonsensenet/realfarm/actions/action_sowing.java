@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
@@ -547,7 +546,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
 				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
@@ -563,7 +562,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getValue());
+				resultsMap.put(mapEntry, choice.getId() + "");
 				View tr_feedback = findViewById(trFeedback);
 				tr_feedback
 						.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -574,7 +573,7 @@ public class action_sowing extends HelpEnabledActivityOld {
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, title, choice.getId());
 
 				Toast.makeText(parentReference, resultsMap.get(mapEntry),
 						Toast.LENGTH_SHORT).show();

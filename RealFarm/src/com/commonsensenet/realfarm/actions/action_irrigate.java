@@ -24,7 +24,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
@@ -41,11 +40,12 @@ public class action_irrigate extends HelpEnabledActivityOld {
 	public static final String LOG_TAG = "action_irrigate";
 	private Context context = this;
 	private int hrs_irrigate = 0;
-	private String irr_method_sel = "0", irr_day_sel;
+	private String irr_method_sel = "0";
+	private String irr_day_sel;
 	private int irr_day_int;
 	private RealFarmProvider mDataProvider;
 	private String months_irr = "0";
-	private HashMap<String, String> resultsMap;
+	private HashMap<String, Object> resultsMap;
 
 	private final action_irrigate parentReference = this;
 
@@ -82,11 +82,11 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 		playAudio(R.raw.clickingfertilising);
 
-		resultsMap = new HashMap<String, String>();
-		resultsMap.put("irr_method_sel", "0");
-		resultsMap.put("months_irr", "0");
-		resultsMap.put("irr_day_int", "0");
-		resultsMap.put("hrs_irrigate", "0");
+		resultsMap = new HashMap<String, Object>();
+		resultsMap.put("irr_method_sel", "0").toString();
+		resultsMap.put("months_irr", "0").toString();
+		resultsMap.put("irr_day_int", "0").toString();
+		resultsMap.put("hrs_irrigate", "0").toString();
 
 		// bg_day_irr.setImageResource(R.drawable.empty_not);
 		final View item1;
@@ -193,10 +193,12 @@ public class action_irrigate extends HelpEnabledActivityOld {
 		btnNext.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				irr_method_sel = resultsMap.get("irr_method_sel");
-				months_irr = resultsMap.get("months_irr");
-				irr_day_int = Integer.parseInt(resultsMap.get("irr_day_int"));
-				hrs_irrigate = Integer.parseInt(resultsMap.get("hrs_irrigate"));
+				irr_method_sel = resultsMap.get("irr_method_sel").toString();
+				months_irr = resultsMap.get("months_irr").toString();
+				irr_day_int = Integer.parseInt(resultsMap.get("irr_day_int")
+						.toString());
+				hrs_irrigate = Integer.parseInt(resultsMap.get("hrs_irrigate")
+						.toString());
 
 				// Toast.makeText(action_fertilizing.this, "User enetred " +
 				// fert_no_sel + "kgs", Toast.LENGTH_LONG).show();
@@ -257,8 +259,8 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
 					System.out.println("Irrigting Writing");
-//					mDataProvider.setIrrigation(Global.plotId, hrs_irrigate,
-//							"hours", irr_day_sel, irr_method_sel, 0, 0);
+					// mDataProvider.setIrrigation(Global.plotId, hrs_irrigate,
+					// "hours", irr_day_sel, irr_method_sel, 0, 0);
 
 					Intent adminintent = new Intent(action_irrigate.this,
 							Homescreen.class);
@@ -380,7 +382,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
 				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
@@ -396,7 +398,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getValue());
+				resultsMap.put(mapEntry, choice.getId());
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback
 						.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -407,16 +409,15 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, title, choice.getId());
 
-				Toast.makeText(parentReference, resultsMap.get(mapEntry),
-						Toast.LENGTH_SHORT).show();
+				Toast.makeText(parentReference,
+						resultsMap.get(mapEntry).toString(), Toast.LENGTH_SHORT)
+						.show();
 
 				// onClose
 				dialog.cancel();
 				int iden = choice.getAudioRes();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + choice.getAudio(), null, null);
 				playAudio(iden);
 			}
 		});
@@ -426,8 +427,6 @@ public class action_irrigate extends HelpEnabledActivityOld {
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) { // TODO: adapt the audio in the db
 				int iden = m_entries.get(position).getAudioRes();
-				// view.getContext().getResources().getIdentifier("com.commonsensenet.realfarm:raw/"
-				// + m_entries.get(position).getAudio(), null, null);
 				playAudioalways(iden);
 				return true;
 			}
@@ -448,7 +447,7 @@ public class action_irrigate extends HelpEnabledActivityOld {
 
 		if (!resultsMap.get(mapEntry).equals("0")
 				&& !resultsMap.get(mapEntry).equals("-1"))
-			init = Double.valueOf(resultsMap.get(mapEntry));
+			init = Double.valueOf(resultsMap.get(mapEntry).toString());
 
 		NumberPicker np = new NumberPicker(parentReference, min, max, init,
 				inc, nbDigits);

@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm.actions;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 
 import android.app.Dialog;
 import android.content.Context;
@@ -24,7 +25,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
@@ -143,7 +143,8 @@ public class action_spraying extends HelpEnabledActivityOld {
 				stopaudio();
 				Log.d("in problem spray dialog", "in dialog");
 
-				ArrayList<DialogData> m_entries = mDataProvider.getProblems();
+				List<DialogData> m_entries = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
 				displayDialog(v, m_entries, "prob_sel_spray",
 						"Choose the problem for spraying", R.raw.problems,
 						R.id.dlg_lbl_prob_spray, R.id.prob_spray_tr, 0);
@@ -334,9 +335,9 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 				if (flag1 == 0 && flag2 == 0 && flag3 == 0 && flag4 == 0) {
 					System.out.println("spraying writing");
-//					mDataProvider.setSpraying(Global.userId, Global.plotId,
-//							spray_no, unit_sel_spray, day_sel_spray,
-//							prob_sel_spray, 1, 0, pest_sel_spray);
+					// mDataProvider.setSpraying(Global.userId, Global.plotId,
+					// spray_no, unit_sel_spray, day_sel_spray,
+					// prob_sel_spray, 1, 0, pest_sel_spray);
 
 					// System.out.println("spraying reading");
 					// mDataProvider.getspraying();
@@ -489,7 +490,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 		}
 	}
 
-	private void displayDialog(View v, final ArrayList<DialogData> m_entries,
+	private void displayDialog(View v, final List<DialogData> m_entries,
 			final String mapEntry, final String title, int entryAudio,
 			final int varText, final int trFeedback, final int imageType) {
 		final Dialog dialog = new Dialog(v.getContext());
@@ -500,15 +501,15 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
 				R.layout.mc_dialog_row, m_entries);
-		ListView mList = (ListView) dialog.findViewById(R.id.liste);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
 		playAudio(entryAudio); // TODO: onOpen
 
-		mList.setOnItemClickListener(new OnItemClickListener() { // TODO: adapt
-			// the audio
-			// in the db
+		// TODO: adapt the audio in the db
+		mList.setOnItemClickListener(new OnItemClickListener() {
+
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 				// Does whatever is specific to the application
@@ -516,7 +517,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 				TextView var_text = (TextView) findViewById(varText);
 				DialogData choice = m_entries.get(position);
 				var_text.setText(choice.getShortName());
-				resultsMap.put(mapEntry, choice.getValue());
+				resultsMap.put(mapEntry, choice.getId() + "");
 				View tr_feedback = (View) findViewById(trFeedback);
 				tr_feedback
 						.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -527,7 +528,7 @@ public class action_spraying extends HelpEnabledActivityOld {
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getValue());
+						LOG_TAG, title, choice.getId());
 
 				Toast.makeText(parentReference, resultsMap.get(mapEntry),
 						Toast.LENGTH_SHORT).show();
