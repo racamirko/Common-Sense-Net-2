@@ -19,14 +19,14 @@ public class Plot {
 	/** Size in acres of the Plot. */
 	protected float mSize;
 	/** Type of soil that the Plot has. */
-	protected String mSoilType;
+	protected int mSoilType;
 	/** Timestamp that indicates the creation of the Plot. */
 	protected int mTimestamp;
 	/** Owner of the plot. */
 	protected int mUserId;
 
 	public Plot(int id, int userId, int seedTypeId, String imagePath,
-			String soilType, float size, int isEnabled, int isAdminAction,
+			int soilType, float size, int isEnabled, int isAdminAction,
 			int timestamp) {
 		mId = id;
 		mUserId = userId;
@@ -63,7 +63,7 @@ public class Plot {
 		return mSize;
 	}
 
-	public String getSoilType() {
+	public int getSoilType() {
 		return mSoilType;
 	}
 

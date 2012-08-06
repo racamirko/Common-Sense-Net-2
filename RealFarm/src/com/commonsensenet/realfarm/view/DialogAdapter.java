@@ -17,20 +17,17 @@ import com.commonsensenet.realfarm.model.Resource;
 
 public class DialogAdapter extends ArrayAdapter<Resource> {
 
-	private Context mContext;
-
 	public DialogAdapter(Context context, int textViewResourceId,
 			List<Resource> items) {
 		super(context, textViewResourceId, items);
-		mContext = context;
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {
-			LayoutInflater vi = (LayoutInflater) mContext
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+			LayoutInflater vi = (LayoutInflater) getContext().getSystemService(
+					Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.mc_dialog_row, null);
 		}
 		Resource res = getItem(position);

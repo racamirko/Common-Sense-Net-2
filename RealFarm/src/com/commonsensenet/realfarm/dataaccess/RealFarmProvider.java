@@ -110,14 +110,12 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addMarketPrice(int id, String date, String type, int value,
-			int adminflag) {
+	public long addMarketPrice(String date, int value, String type) {
 
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_DATE, date);
-		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE, type);
 		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE, value);
+		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE, type);
 
 		mDatabase.open();
 
@@ -134,7 +132,6 @@ public class RealFarmProvider {
 			int soilType, double size, int deleteFlag, int adminFlag) {
 
 		ContentValues args = new ContentValues();
-
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
@@ -607,42 +604,55 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	// public SeedType getVarById(int seedId) {
-	//
-	// final String MY_QUERY =
-	// "SELECT name, id, audio, masterId, shortName FROM seedType WHERE id = "
-	// + seedId + " ORDER BY id ASC";
-	//
-	// mDatabase.open();
-	//
-	// Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-	//
-	// SeedType st = null;
-	//
-	// DialogData dd = null;
-	// if (c.moveToFirst()) {
-	// do {
-	// final String MY_QUERY2 = "SELECT resBg FROM cropType WHERE id = "
-	// + c.getInt(3);
-	// Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
-	// c2.moveToFirst();
-	// // int id, String name, String shortName,
-	// // int cropTypeId, int resource, int audio
-	// st = new SeedType(c.getInt(1), c.getString(0), "", -1,
-	// c.getInt(2), "", "", c2.getInt(0), c.getString(4));
-	//
-	// } while (c.moveToNext());
-	// }
-	//
-	// c.close();
-	// mDatabase.close();
-	//
-	// return st;
-	//
-	// }
-
 	public RealFarmDatabase getDatabase() {
 		return mDatabase;
+	}
+
+	/**
+	 * Gets the resource that matches the given id.
+	 * 
+	 * @param resourceId
+	 *            the Resource to find.
+	 * 
+	 * @return the Resource that matches the given id.
+	 */
+	// TODO: add optimization
+	public Resource getResourceById(int resourceId) {
+
+		// opens the database.
+		mDatabase.open();
+
+		// query all actions
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_RESOURCE,
+				new String[] { RealFarmDatabase.COLUMN_NAME_RESOURCE_ID,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_NAME,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_SHORTNAME,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCE1,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCE2,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_RESOURCEBG,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE },
+				RealFarmDatabase.COLUMN_NAME_RESOURCE_ID + "=" + resourceId,
+				null, null, null, null);
+
+		Resource tmpRes = null;
+		if (c.moveToFirst()) {
+
+			tmpRes = new Resource();
+			tmpRes.setId(c.getInt(0));
+			tmpRes.setName(c.getString(1));
+			tmpRes.setShortName(c.getString(2));
+			tmpRes.setAudio(c.getInt(3));
+			tmpRes.setResource1(c.getInt(4));
+			tmpRes.setResource2(c.getInt(5));
+			tmpRes.setBackgroundResource(c.getInt(6));
+			tmpRes.setType(c.getInt(7));
+
+		}
+		c.close();
+		mDatabase.close();
+
+		return tmpRes;
 	}
 
 	public List<Resource> getResources(int resourceType) {
@@ -789,7 +799,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getString(4), c.getFloat(5),
+						c.getString(3), c.getInt(4), c.getFloat(5),
 						c.getInt(6), c.getInt(7), c.getInt(8));
 
 				Log.d("plot values: ", p.toString());
@@ -830,7 +840,7 @@ public class RealFarmProvider {
 			do {
 
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getString(4), c.getFloat(5),
+						c.getString(3), c.getInt(4), c.getFloat(5),
 						c.getInt(6), c.getInt(7), c.getInt(8));
 
 				tmpList.add(p);
@@ -870,7 +880,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getString(4), c.getFloat(5),
+						c.getString(3), c.getInt(4), c.getFloat(5),
 						c.getInt(6), c.getInt(7), c.getInt(8));
 				tmpList.add(p);
 
@@ -909,7 +919,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getString(4), c.getFloat(5),
+						c.getString(3), c.getInt(4), c.getFloat(5),
 						c.getInt(6), c.getInt(7), c.getInt(8));
 				tmpList.add(p);
 
@@ -949,7 +959,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getString(4), c.getFloat(5),
+						c.getString(3), c.getInt(4), c.getFloat(5),
 						c.getInt(6), c.getInt(7), c.getInt(8));
 				tmpList.add(p);
 			} while (c.moveToNext());

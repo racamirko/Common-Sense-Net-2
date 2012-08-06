@@ -36,14 +36,6 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 		ChoosePlotActivity.this.finish();
 	}
 
-	/*
-	 * @Override public boolean onCreateOptionsMenu(Menu menu) {
-	 * 
-	 * // enables to add a new plot menu.add("Add").setShowAsAction(
-	 * MenuItem.SHOW_AS_ACTION_IF_ROOM | MenuItem.SHOW_AS_ACTION_WITH_TEXT);
-	 * 
-	 * return super.onCreateOptionsMenu(menu); }
-	 */
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 

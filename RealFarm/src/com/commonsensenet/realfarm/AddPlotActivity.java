@@ -137,7 +137,7 @@ public class AddPlotActivity extends DataFormActivity {
 				stopAudio();
 
 				displayDialogNP("Enter the plot size in acres", SIZE,
-						R.raw.dateinfo, 0, 50, 0, 0.1, 1, R.id.size_txt,
+						R.raw.dateinfo, 0, 30, 2, 0.1, 1, R.id.size_txt,
 						R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo, R.raw.dateinfo);
 

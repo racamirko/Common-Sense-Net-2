@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
@@ -62,6 +61,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(adapter);
 
+		// opens the dialog.
 		dialog.show();
 
 		playAudio(audio);
@@ -72,32 +72,37 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
 
-				// does whatever is specific to the application
-				Log.d("var " + position + " picked ", "in dialog");
-				TextView var_text = (TextView) findViewById(textFieldId);
+				// selected resource.
 				Resource choice = data.get(position);
-				var_text.setText(choice.getShortName());
-				mResultsMap.put(propertyKey, choice.getId());
-				View tr_feedback = findViewById(rowFeedbackId);
-				tr_feedback
-						.setBackgroundResource(android.R.drawable.list_selector_background);
-
-				// put backgrounds (specific to the application) TODO: optimize
-				// the resize
-				putBackgrounds(choice, var_text, imageType);
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						LOG_TAG, propertyKey, choice.getId());
 
+				// sets the short name of the resource.
+				TextView var_text = (TextView) findViewById(textFieldId);
+				var_text.setText(choice.getShortName());
+
+				// deselects the field.
+				highlightField(rowFeedbackId, false);
+
+				// saves the id of the selected item.
+				mResultsMap.put(propertyKey, choice.getId());
+
+				// put backgrounds (specific to the application) TODO: optimize
+				// the resize
+				putBackgrounds(choice, var_text, imageType);
+
 				Toast.makeText(mParentReference,
 						mResultsMap.get(propertyKey).toString(),
 						Toast.LENGTH_SHORT).show();
 
-				// onClose
-				dialog.cancel();
+				// plays the name of the chosen option.
 				int iden = choice.getAudio();
 				playAudio(iden);
+
+				// closes the dialog.
+				dialog.dismiss();
 			}
 		});
 
@@ -129,6 +134,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		// plays the open audio.
 		playAudio(openAudio);
 
+		// modifies the initial value if there's an existing value.
 		if (mResultsMap.get(mapEntry) != null) {
 			init = Double.valueOf(mResultsMap.get(mapEntry).toString());
 		}
@@ -243,12 +249,12 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	@Override
 	public boolean onLongClick(View v) {
 
+		showHelpIcon(v);
+
 		if (v.getId() == R.id.button_ok) {
 			playAudio(R.raw.ok);
-			showHelpIcon(v);
 		} else if (v.getId() == R.id.button_cancel) {
 			playAudio(R.raw.cancel);
-			showHelpIcon(v);
 		}
 
 		return true;

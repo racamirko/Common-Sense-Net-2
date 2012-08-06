@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.SeedType;
 
 /**
@@ -74,6 +75,7 @@ public class PlotItemWrapper {
 
 		// TODO: this shouldn't be done here due to performance issues!!!
 		SeedType seed = provider.getSeedById(plot.getSeedTypeId());
+		Resource soilType = provider.getResourceById(plot.getSoilType());
 
 		// Bitmap bitmap = BitmapFactory.decodeFile(plot.getImageName());
 		BitmapFactory.Options options = new BitmapFactory.Options();
@@ -83,14 +85,8 @@ public class PlotItemWrapper {
 		Bitmap bitmapImage = BitmapFactory.decodeFile(plot.getImagePath(),
 				options);
 
-		/*
-		 * Matrix matrix = new Matrix(); matrix.postRotate(90); Bitmap
-		 * plot_bg_img = Bitmap.createBitmap(bitmapImage, 0, 0,
-		 * bitmapImage.getWidth(), bitmapImage.getHeight(), matrix, true);
-		 */
-
 		getIcon().setImageBitmap(bitmapImage);
-		getTitle().setText(plot.getSoilType());
+		getTitle().setText(soilType.getName());
 		getDescription().setText(seed.getName());
 		getCropIcon().setImageResource(seed.getResource1());
 	}
