@@ -38,12 +38,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	/** Results map used to handle the validation of the form. */
 	protected HashMap<String, Object> mResultsMap;
 
-	protected void highlightField(int id, boolean isHighligted) {
-		View fieldView = findViewById(id);
-		fieldView.setBackgroundResource(isHighligted ? R.drawable.def_img_not
-				: android.R.drawable.list_selector_background);
-	}
-
 	protected void displayDialog(View v, final List<Resource> data,
 			final String propertyKey, final String title, int audio,
 			final int textFieldId, final int rowFeedbackId, final int imageType) {
@@ -185,7 +179,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		});
 		textView.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
-				// String num = tw.getText().toString();
 				playAudio(R.raw.dateinfo);
 				return false;
 			}
@@ -194,7 +187,24 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		dialog.show();
 	}
 
-	protected void initMissingValue() {
+	/**
+	 * Changes the background of the View to a highlighted or normal state.
+	 * 
+	 * @param id
+	 *            the id of the View to modify
+	 * @param isHighlighted
+	 *            whether to highlight or not the View.
+	 */
+	protected void highlightField(int id, boolean isHighlighted) {
+		View fieldView = findViewById(id);
+		fieldView.setBackgroundResource(isHighlighted ? R.drawable.def_img_not
+				: android.R.drawable.list_selector_background);
+	}
+
+	/**
+	 * Indicates that at least one field is missing.
+	 */
+	protected void missingValue() {
 		playAudio(R.raw.missinginfo);
 	}
 
@@ -232,7 +242,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 							Homescreen.class));
 					DataFormActivity.this.finish();
 				} else {
-					initMissingValue();
+					missingValue();
 				}
 			}
 		});
@@ -267,6 +277,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			textView.setBackgroundResource(choice.getBackgroundResource());
 		}
 
+		// TODO: orbolanos: what is this for?
 		if (imageType == 1 || imageType == 2) {
 			BitmapDrawable bd = (BitmapDrawable) mParentReference
 					.getResources().getDrawable(choice.getResource1());
