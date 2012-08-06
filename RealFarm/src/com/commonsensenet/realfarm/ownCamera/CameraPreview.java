@@ -11,6 +11,7 @@ import android.view.SurfaceView;
 
 public class CameraPreview extends SurfaceView implements
 		SurfaceHolder.Callback {
+	/** Tag used to log the class activity. */
 	protected static final String LOG_TAG = "CameraPreview";
 	/** Camera interface used to capture the pictures. */
 	private Camera mCamera;

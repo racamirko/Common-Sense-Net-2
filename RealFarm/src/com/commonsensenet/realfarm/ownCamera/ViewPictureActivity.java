@@ -24,61 +24,54 @@ import com.commonsensenet.realfarm.R;
 
 public class ViewPictureActivity extends Activity {
 
+	/** Tag used to log the activity of the class. */
+	public static final String LOG_TAG = "ViewPictureActivity";
 	public static final int MEDIA_TYPE_IMAGE = 1;
-	public static final String LOG_TAG = "Check_Image";
-	private ImageView iView = null;
-	private Uri image_file_uri;
-	private File image_file;
-	private String image_path;
+	private File mImageFile;
+	private Uri mImageFileUri;
+	private String mImagePath;
+	private ImageView mImageView = null;
+
+	@Override
+	public void onBackPressed() {
+
+		Intent adminintent123 = new Intent(ViewPictureActivity.this,
+				AddPlotActivity.class);
+		startActivity(adminintent123);
+		ViewPictureActivity.this.finish();
+	}
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		// TODO Auto-generated method stub
+
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.preview);
 		Log.d(LOG_TAG, "Entered new acivity");
-
-		// displayDate = (TextView) findViewById(R.id.fillDate);
-		// displayTime = (TextView) findViewById(R.id.fillTime);
 
 		// receive image in byte[] passed by OwnCameraActivity
 		Bundle extras = getIntent().getExtras();
 
 		if (extras != null) {
-			// CharSequence date_todisplay = (CharSequence) extras
-			// .get("date_selected");
-			// CharSequence time_todisplay = (CharSequence) extras
-			// .get("time_selected");
-			// int[] date = (int[]) extras.get("date");
-			// int[] time = (int[]) extras.get("time");
-			// day = date[0];
-			// month = date[1];
-			// year = date[2];
-			// hours = time[0];
-			// minutes = time[1];
-
-			// displayDate.setText(date_todisplay);
-			// displayTime.setText(time_todisplay);
-			image_file_uri = (Uri) extras.get("image_file_uri");
+			mImageFileUri = (Uri) extras.get("image_file_uri");
 			Log.d(LOG_TAG, "Picture uri transfered to next activity"
-					+ image_file_uri);
+					+ mImageFileUri);
 		} else {
 			// setCurrentDateOnView();
 			Log.d(LOG_TAG, "No data received");
 		}
 
 		// Add image to the ImageView of the layout
-		iView = (ImageView) findViewById(R.id.viewPhotoTakenView);
+		mImageView = (ImageView) findViewById(R.id.viewPhotoTakenView);
 
 		ContentResolver c = getContentResolver();
 		InputStream is = null;
 		try {
-			is = c.openInputStream(image_file_uri);
+			is = c.openInputStream(mImageFileUri);
 
 		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inSampleSize = 2;
 
@@ -86,30 +79,27 @@ public class ViewPictureActivity extends Activity {
 
 		// rotate image
 		Matrix matrix = new Matrix();
-		// TODO: orbolanos: rotation is not always necessary! Depends on picture
-		// orientation.
-		// matrix.postRotate(90);
+		matrix.postRotate(90);
 		Global.rotated = Bitmap.createBitmap(bitmap, 0, 0, bitmap.getWidth(),
 				bitmap.getHeight(), matrix, true);
 
-		iView.setImageBitmap(Global.rotated);
+		mImageView.setImageBitmap(Global.rotated);
 
-		// iView.setImageURI(image_file_uri);
-		Log.d(LOG_TAG, "Image added to view" + image_file_uri);
+		Log.d(LOG_TAG, "Image added to view" + mImageFileUri);
 
-		image_path = image_file_uri.getPath();
-		image_file = new File(image_path);
-		Global.plotImagePath = image_path;
+		mImagePath = mImageFileUri.getPath();
+		mImageFile = new File(mImagePath);
+		Global.plotImagePath = mImagePath;
+
 		// Adding listener to the retake button
-		Button retakeButton = (Button) findViewById(R.id.button_retake);
+		Button retakeButton = (Button) findViewById(R.id.button_cancel);
 		retakeButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				// TODO: clean image and return to previous activity
-
 				// delete image from sd card
 
-				boolean deleted = image_file.delete();
+				boolean deleted = mImageFile.delete();
 
 				if (deleted)
 					Log.d(LOG_TAG, "Image file deleted");
@@ -130,84 +120,17 @@ public class ViewPictureActivity extends Activity {
 		});
 
 		// Adding listener to the save button
-		Button saveButton = (Button) findViewById(R.id.button_save);
+		Button saveButton = (Button) findViewById(R.id.button_ok);
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
-				/*
-				 * // add event to db : add image and time-date to db db =
-				 * openOrCreateDatabase("EventsDB", MODE_PRIVATE, null); //
-				 * month = month + 1; //
-				 * db.execSQL("INSERT INTO EventsTable VALUES ('" + year + //
-				 * "', '" // + month + "', '" + day + "', '" + hours + minutes
-				 * // + "', '" + Constants.PICTURE + "','" + image_file_path //
-				 * + "');"); month = month + 1;
-				 * db.execSQL("INSERT INTO EventsTable VALUES ('" + year +
-				 * "', '" + month + "', '" + day + "', '" + pad(hours) +
-				 * pad(minutes) + "', '" + Constants.PICTURE + "','" +
-				 * image_file + "');");
-				 */
-				Intent kintent = new Intent(ViewPictureActivity.this,
-						AddPlotActivity.class);
+
 				Global.cameraFlag = true;
-				startActivity(kintent);
+
+				startActivity(new Intent(ViewPictureActivity.this,
+						AddPlotActivity.class));
 				ViewPictureActivity.this.finish();
 			}
 		});
-
-		// Camera cancel button
-		Button cancelbutton = (Button) findViewById(R.id.button_retake); // 25-06-2012
-		cancelbutton.setOnClickListener(new View.OnClickListener() {
-
-			public void onClick(View v) {
-
-				Intent kintent = new Intent(ViewPictureActivity.this,
-						AddPlotActivity.class);
-
-				startActivity(kintent);
-				ViewPictureActivity.this.finish();
-			}
-		});
-	}
-
-	// display current date
-	/*
-	 * public void setCurrentDateOnView() {
-	 * 
-	 * displayDate = (TextView) findViewById(R.id.fillDate);
-	 * 
-	 * final Calendar c = Calendar.getInstance(); year = c.get(Calendar.YEAR);
-	 * month = c.get(Calendar.MONTH); day = c.get(Calendar.DAY_OF_MONTH);
-	 * 
-	 * // set current date into textview displayDate.setText(new StringBuilder()
-	 * // Month is 0 based, just add 1 .append(day).append("-").append(month +
-	 * 1).append("-") .append(year).append(" "));
-	 * 
-	 * // set current time into textview
-	 * 
-	 * displayTime = (TextView) findViewById(R.id.fillTime);
-	 * 
-	 * Date currentDate = new Date(); SimpleDateFormat sdf = new
-	 * SimpleDateFormat("HH:mm"); String formattedTime =
-	 * sdf.format(currentDate); displayTime.setText(formattedTime); // hours =
-	 * currentDate.getHours(); // minutes = currentDate.getMinutes(); //
-	 * displayTime.setText(new //
-	 * StringBuilder().append(hours).append(":").append(minutes));
-	 * 
-	 * }
-	 */
-
-	@Override
-	public void onBackPressed() {
-		/*
-		 * Log.d(TAG, "Back button pressed-return to take photo"); Bundle bundle
-		 * = new Bundle(); bundle.putBoolean("retake", true); Intent mIntent =
-		 * new Intent(); mIntent.putExtras(bundle); setResult(RESULT_OK,
-		 * mIntent); super.onBackPressed();
-		 */
-		Intent adminintent123 = new Intent(ViewPictureActivity.this,
-				AddPlotActivity.class);
-		startActivity(adminintent123);
-		ViewPictureActivity.this.finish();
 	}
 }
