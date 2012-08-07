@@ -15,7 +15,12 @@ public class yielddetails extends HelpEnabledActivityOld {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;
-	boolean sel_1, sel_2, sel_3, sel_4, sel_5, sel_6;
+	private boolean sel_1;
+	private boolean sel_2;
+	private boolean sel_3;
+	private boolean sel_4;
+	private boolean sel_5;
+	private boolean sel_6;
 
 	public static final String LOG_TAG = "YieldDetailsActivity";
 

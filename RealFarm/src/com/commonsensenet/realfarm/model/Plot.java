@@ -1,5 +1,7 @@
 package com.commonsensenet.realfarm.model;
 
+import java.util.Date;
+
 /**
  * 
  * @author Oscar Bola–os <@oscarbolanos>
@@ -21,13 +23,14 @@ public class Plot {
 	/** Type of soil that the Plot has. */
 	protected int mSoilTypeId;
 	/** Timestamp that indicates the creation of the Plot. */
-	protected int mTimestamp;
+	protected long mTimestamp;
 	/** Owner of the plot. */
 	protected int mUserId;
 
 	public Plot(int id, int userId, int seedTypeId, String imagePath,
 			int soilTypeId, float size, int isEnabled, int isAdminAction,
-			int timestamp) {
+			long timestamp) {
+
 		mId = id;
 		mUserId = userId;
 		mSeedTypeId = seedTypeId;
@@ -67,7 +70,7 @@ public class Plot {
 		return mSoilTypeId;
 	}
 
-	public int getTimestamp() {
+	public long getTimestamp() {
 		return mTimestamp;
 	}
 
@@ -79,7 +82,7 @@ public class Plot {
 	public String toString() {
 
 		return String
-				.format("[Plot id='%s', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%s', size='%f', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
+				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
 						mId, mUserId, mSeedTypeId, mImagePath, mSoilTypeId,
 						mSize, mIsEnabled, mIsAdminAction, mTimestamp);
 	}

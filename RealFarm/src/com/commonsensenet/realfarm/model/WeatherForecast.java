@@ -52,17 +52,17 @@ public class WeatherForecast {
 
 		int typeIconId = -1;
 		if (mType.toString().equalsIgnoreCase("Sunny")) {
-			typeIconId = R.drawable.sunny;
+			typeIconId = R.drawable.wf_sunny;
 		} else if (mType.toString().equalsIgnoreCase("Light Rain")) {
-			typeIconId = R.drawable.lightrain;
+			typeIconId = R.drawable.wf_lightrain;
 		} else if (mType.toString().equalsIgnoreCase("Cloudy")) {
-			typeIconId = R.drawable.cloudy;
+			typeIconId = R.drawable.wf_cloudy;
 		} else if (mType.toString().equalsIgnoreCase("Chance of Rain")) {
-			typeIconId = R.drawable.chance_of_rain;
+			typeIconId = R.drawable.wf_chance_of_rain;
 		} else if (mType.toString().equalsIgnoreCase("Rain")) {
-			typeIconId = R.drawable.rain;
+			typeIconId = R.drawable.wf_rain;
 		} else if (mType.toString().equalsIgnoreCase("Storm")) {
-			typeIconId = R.drawable.storm;
+			typeIconId = R.drawable.wf_storm;
 		}
 
 		return typeIconId;

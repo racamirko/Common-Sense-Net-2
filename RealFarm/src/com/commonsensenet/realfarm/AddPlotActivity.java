@@ -24,10 +24,10 @@ public class AddPlotActivity extends DataFormActivity {
 	public static final String SIZE = "size";
 	public static final String SOIL_TYPE = "soilType";
 
-	private int mMainCrop = -1;
+	private int mMainCrop;
 	private String mPlotImage = "0";
-	private double mSize = -1;
-	private int mSoilType = -1;
+	private double mSize;
+	private int mSoilType;
 
 	/**
 	 * Adds the current plot to the database.
@@ -55,7 +55,7 @@ public class AddPlotActivity extends DataFormActivity {
 		// adds the name of the fields to validate.
 		mResultsMap.put(SOIL_TYPE, -1);
 		mResultsMap.put(MAIN_CROP, -1);
-		mResultsMap.put(SIZE, 0.0f);
+		mResultsMap.put(SIZE, 0.0);
 
 		final View plotImageRow;
 		final View soilTypeRow;
@@ -188,7 +188,6 @@ public class AddPlotActivity extends DataFormActivity {
 		}
 
 		if (mSoilType != -1) {
-
 			highlightField(R.id.soiltype_tr, false);
 		} else {
 			isValid = false;

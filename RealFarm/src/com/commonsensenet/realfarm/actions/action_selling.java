@@ -88,7 +88,7 @@ public class action_selling extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider.getCrops();
+				List<Resource> data = mDataProvider.getCropTypes();
 				displayDialog(v, data, "crop_sell", "Select the crop",
 						R.raw.problems, R.id.dlg_lbl_crop_sell,
 						R.id.crop_sell_tr, 0);

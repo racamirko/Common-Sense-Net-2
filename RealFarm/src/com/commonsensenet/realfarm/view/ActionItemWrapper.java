@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,6 +82,10 @@ public class ActionItemWrapper {
 
 		// gets the plot from the action.
 		Plot plot = provider.getPlotById(action.getPlotId());
+
+		if (plot == null) {
+			System.out.println("error!!");
+		}
 
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inTempStorage = new byte[16 * 1024];

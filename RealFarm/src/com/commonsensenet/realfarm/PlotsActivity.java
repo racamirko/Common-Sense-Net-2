@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm;
 import java.util.List;
 
 import android.content.Intent;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -59,6 +60,11 @@ public class PlotsActivity extends HelpEnabledActivity implements
 
 		// sets the layout
 		setContentView(R.layout.act_choose_plot);
+
+		// updates the header to have the extended background.
+		BitmapDrawable bg = (BitmapDrawable) getResources().getDrawable(
+				R.drawable.bg_curved_extended);
+		getSupportActionBar().setBackgroundDrawable(bg);
 
 		// gets the data provider
 		mDataProvider = RealFarmProvider.getInstance(this);

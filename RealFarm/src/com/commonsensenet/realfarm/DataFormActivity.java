@@ -129,7 +129,8 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		playAudio(openAudio);
 
 		// modifies the initial value if there's an existing value.
-		if (mResultsMap.get(mapEntry) != null) {
+		if (mResultsMap.get(mapEntry) != null
+				&& (Integer) mResultsMap.get(mapEntry) != -1) {
 			init = Double.valueOf(mResultsMap.get(mapEntry).toString());
 		}
 

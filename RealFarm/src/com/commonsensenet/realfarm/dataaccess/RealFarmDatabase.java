@@ -3,7 +3,6 @@ package com.commonsensenet.realfarm.dataaccess;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 import android.content.ContentValues;
 import android.content.Context;
@@ -66,7 +65,7 @@ public class RealFarmDatabase {
 					+ references(COLUMN_NAME_ACTION_SEEDTYPEID,
 							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
 					+ references(COLUMN_NAME_ACTION_CROPTYPEID,
-							TABLE_NAME_CROP, COLUMN_NAME_CROP_ID)
+							TABLE_NAME_CROPTYPE, COLUMN_NAME_CROPTYPE_ID)
 					+ COLUMN_NAME_ACTION_QUANTITY1
 					+ " integer, "
 					+ COLUMN_NAME_ACTION_QUANTITY2
@@ -113,14 +112,14 @@ public class RealFarmDatabase {
 			Log.d(LOG_TAG, "Created dialogArrays table");
 
 			// cropTypes
-			db.execSQL("create table " + TABLE_NAME_CROP + " ( "
-					+ COLUMN_NAME_CROP_ID
+			db.execSQL("create table " + TABLE_NAME_CROPTYPE + " ( "
+					+ COLUMN_NAME_CROPTYPE_ID
 					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_CROP_NAME + " text not null, "
-					+ COLUMN_NAME_CROP_SHORTNAME + " text, "
-					+ COLUMN_NAME_CROP_RESOURCE + " integer, "
-					+ COLUMN_NAME_CROP_RESOURCEBG + " integer, "
-					+ COLUMN_NAME_CROP_AUDIO + " integer" + " ); ");
+					+ COLUMN_NAME_CROPTYPE_NAME + " text not null, "
+					+ COLUMN_NAME_CROPTYPE_SHORTNAME + " text, "
+					+ COLUMN_NAME_CROPTYPE_RESOURCE + " integer, "
+					+ COLUMN_NAME_CROPTYPE_RESOURCEBG + " integer, "
+					+ COLUMN_NAME_CROPTYPE_AUDIO + " integer" + " ); ");
 			Log.d(LOG_TAG, "Created crop type table");
 
 			// Market price
@@ -177,7 +176,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SEEDTYPE_AUDIO
 					+ " integer, "
 					+ references(COLUMN_NAME_SEEDTYPE_CROPTYPEID,
-							TABLE_NAME_CROP, COLUMN_NAME_CROP_ID, false)
+							TABLE_NAME_CROPTYPE, COLUMN_NAME_CROPTYPE_ID, false)
 					+ " ); ");
 			Log.d(LOG_TAG, "Created seed type table");
 
@@ -309,12 +308,12 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONTYPE_NAME = "name";
 	public static final String COLUMN_NAME_ACTIONTYPE_RESOURCE = "resource";
 
-	public static final String COLUMN_NAME_CROP_AUDIO = "audio";
-	public static final String COLUMN_NAME_CROP_ID = "id";
-	public static final String COLUMN_NAME_CROP_NAME = "name";
-	public static final String COLUMN_NAME_CROP_RESOURCE = "resource";
-	public static final String COLUMN_NAME_CROP_RESOURCEBG = "resourceBg";
-	public static final String COLUMN_NAME_CROP_SHORTNAME = "shortName";
+	public static final String COLUMN_NAME_CROPTYPE_AUDIO = "audio";
+	public static final String COLUMN_NAME_CROPTYPE_ID = "id";
+	public static final String COLUMN_NAME_CROPTYPE_NAME = "name";
+	public static final String COLUMN_NAME_CROPTYPE_RESOURCE = "resource";
+	public static final String COLUMN_NAME_CROPTYPE_RESOURCEBG = "resourceBg";
+	public static final String COLUMN_NAME_CROPTYPE_SHORTNAME = "shortName";
 
 	public static final String COLUMN_NAME_DIALOG_AUDIO = "audio";
 	public static final String COLUMN_NAME_DIALOG_ID = "id";
@@ -422,7 +421,7 @@ public class RealFarmDatabase {
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONTYPE = "actionType";
-	public static final String TABLE_NAME_CROP = "cropType";
+	public static final String TABLE_NAME_CROPTYPE = "cropType";
 	public static final String TABLE_NAME_DIALOG_ARRAYS = "dialogArrays";
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice";
 	public static final String TABLE_NAME_PLOT = "plot";
@@ -457,7 +456,7 @@ public class RealFarmDatabase {
 		// deletes all the tables.
 		mDb.delete(TABLE_NAME_ACTION, null, null);
 		mDb.delete(TABLE_NAME_ACTIONTYPE, null, null);
-		mDb.delete(TABLE_NAME_CROP, null, null);
+		mDb.delete(TABLE_NAME_CROPTYPE, null, null);
 		mDb.delete(TABLE_NAME_DIALOG_ARRAYS, null, null);
 		mDb.delete(TABLE_NAME_MARKETPRICE, null, null);
 		mDb.delete(TABLE_NAME_PLOT, null, null);
@@ -638,39 +637,6 @@ public class RealFarmDatabase {
 		// dialogArrays
 		Object[][] dialogArrays = {
 
-				{ "01 January", "01", -1, -1, R.raw.jan, 1,
-						RESOURCE_TYPE_MONTH, -1, -1 },
-				{ "02 February", "02", -1, -1, R.raw.feb, 2,
-						RESOURCE_TYPE_MONTH, -1, -1 },
-				{ "03 March", "03", -1, -1, R.raw.mar, 3, RESOURCE_TYPE_MONTH,
-						-1, -1 },
-				{ "04 April", "04", -1, -1, R.raw.apr, 4, RESOURCE_TYPE_MONTH,
-						-1, -1 },
-				{ "05 May", "05", -1, -1, R.raw.may, 5, RESOURCE_TYPE_MONTH,
-						-1, -1 },
-				{ "06 June", "06", -1, -1, R.raw.jun, 6, RESOURCE_TYPE_MONTH,
-						-1, -1 },
-				{ "07 July", "07", -1, -1, R.raw.jul, 7, RESOURCE_TYPE_MONTH,
-						-1, -1 },
-				{ "08 August", "08", -1, -1, R.raw.aug, 8, RESOURCE_TYPE_MONTH,
-						-1, -1 },
-				{ "09 September", "09", -1, -1, R.raw.sep, 9,
-						RESOURCE_TYPE_MONTH, -1, -1 },
-				{ "10 October", "10", -1, -1, R.raw.oct, 10,
-						RESOURCE_TYPE_MONTH, -1, -1 },
-				{ "11 November", "11", -1, -1, R.raw.nov, 11,
-						RESOURCE_TYPE_MONTH, -1, -1 },
-				{ "12 December", "12", -1, -1, R.raw.dec, 12,
-						RESOURCE_TYPE_MONTH, -1, -1 },
-				{ "Treated", "Treated", R.drawable.ic_sowingseedtreated, -1,
-						R.raw.bagof10kg, 1, RESOURCE_TYPE_TREATMENT, -1, -1 },
-				{ "Not treated", "Not treated",
-						R.drawable.ic_sowingseednottreated, -1,
-						R.raw.bagof20kg, 2, RESOURCE_TYPE_TREATMENT, -1, -1 },
-				{ "Main crop", "Main crop", R.drawable.ic_maincrop, -1,
-						R.raw.bagof10kg, 1, RESOURCE_TYPE_INTERCROP, -1, -1 },
-				{ "Intercrop", "Intercrop", R.drawable.ic_intercrop, -1,
-						R.raw.bagof20kg, 2, RESOURCE_TYPE_INTERCROP, -1, -1 },
 				{ "Flooding", "Flooding", R.drawable.ic_flooding, -1,
 						R.raw.bagof10kg, 1, RESOURCE_TYPE_IRRIGATIONMETHOD, -1,
 						-1 },
@@ -774,18 +740,16 @@ public class RealFarmDatabase {
 
 		// fertilizer
 		Object[][] fertilizerData = {
-				{ "Complex", R.raw.audio1, R.drawable.whitespaceicon, "Complex" },
-				{ "Compost", R.raw.audio1, R.drawable.whitespaceicon, "Compost" },
-				{ "DAP", R.raw.audio1, R.drawable.whitespaceicon, "DAP" },
-				{ "Farm Yard Manure / FYM", R.raw.audio1,
-						R.drawable.whitespaceicon, "FYM" },
-				{ "Gypsum", R.raw.audio1, R.drawable.whitespaceicon, "Gypsum" },
-				{ "Potash", R.raw.audio1, R.drawable.whitespaceicon, "Potash" },
-				{ "Salt", R.raw.audio1, R.drawable.whitespaceicon, "Salt" },
-				{ "Super", R.raw.audio1, R.drawable.whitespaceicon, "Super" },
-				{ "Urea", R.raw.audio1, R.drawable.whitespaceicon, "Urea" },
-				{ "Not in the list", R.raw.audio1, R.drawable.whitespaceicon,
-						"Unlisted" } };
+				{ "Complex", R.raw.audio1, -1, "Complex" },
+				{ "Compost", R.raw.audio1, -1, "Compost" },
+				{ "DAP", R.raw.audio1, -1, "DAP" },
+				{ "Farm Yard Manure / FYM", R.raw.audio1, -1, "FYM" },
+				{ "Gypsum", R.raw.audio1, -1, "Gypsum" },
+				{ "Potash", R.raw.audio1, -1, "Potash" },
+				{ "Salt", R.raw.audio1, -1, "Salt" },
+				{ "Super", R.raw.audio1, -1, "Super" },
+				{ "Urea", R.raw.audio1, -1, "Urea" },
+				{ "Not in the list", R.raw.audio1, -1, "Unlisted" } };
 
 		Log.d(LOG_TAG, "fertilizer works");
 
@@ -837,7 +801,42 @@ public class RealFarmDatabase {
 				{ "Wild boar", "Wild boar", R.raw.audio1, -1, -1, -1,
 						RESOURCE_TYPE_PROBLEM },
 				{ "Problem not listed", "Pb-unlisted", R.raw.audio1, -1, -1,
-						-1, RESOURCE_TYPE_PROBLEM } };
+						-1, RESOURCE_TYPE_PROBLEM },
+				/** Treatment */
+				{ "Treated", "Treated", R.raw.audio1,
+						R.drawable.ic_sowingseedtreated, -1, -1,
+						RESOURCE_TYPE_TREATMENT },
+				{ "Not treated", "Not treated", R.raw.audio1,
+						R.drawable.ic_sowingseednottreated, -1, -1,
+						RESOURCE_TYPE_TREATMENT },
+				/** Month */
+				{ "01 January", "Jan", R.raw.jan, -1, -1, -1,
+						RESOURCE_TYPE_MONTH },
+				{ "02 February", "Feb", R.raw.feb, -1, -1, -1,
+						RESOURCE_TYPE_MONTH },
+				{ "03 March", "Mar", R.raw.mar, -1, -1, -1, RESOURCE_TYPE_MONTH },
+				{ "04 April", "Apr", R.raw.apr, -1, -1, -1, RESOURCE_TYPE_MONTH },
+				{ "05 May", "May", R.raw.may, -1, -1, -1, RESOURCE_TYPE_MONTH },
+				{ "06 June", "Jun", R.raw.jun, -1, -1, -1, RESOURCE_TYPE_MONTH },
+				{ "07 July", "Jul", R.raw.jul, -1, -1, -1, RESOURCE_TYPE_MONTH },
+				{ "08 August", "Aug", R.raw.aug, -1, -1, -1,
+						RESOURCE_TYPE_MONTH },
+				{ "09 September", "Sep", R.raw.sep, -1, -1, -1,
+						RESOURCE_TYPE_MONTH },
+				{ "10 October", "Oct", R.raw.oct, -1, -1, -1,
+						RESOURCE_TYPE_MONTH },
+				{ "11 November", "Nov", R.raw.nov, -1, -1, -1,
+						RESOURCE_TYPE_MONTH },
+				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,
+						RESOURCE_TYPE_MONTH },
+				/** Treated */
+				{ "Main crop", "Main crop", R.raw.bagof10kg,
+						R.drawable.ic_maincrop, -1, -1, RESOURCE_TYPE_INTERCROP },
+				{ "Intercrop", "Intercrop", R.raw.bagof20kg,
+						R.drawable.ic_intercrop, -1, -1,
+						RESOURCE_TYPE_INTERCROP }
+
+		};
 
 		ContentValues resource = new ContentValues();
 		for (int x = 0; x < resourceData.length; x++) {
@@ -915,11 +914,9 @@ public class RealFarmDatabase {
 
 		// inserts the current date in the database.
 		SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
-		Date now = new Date();
-		Calendar calendar = new GregorianCalendar();
-		calendar.setTime(now);
 
-		// goes back one day to test the behavior
+		// creates the calendar and substracts one day.
+		Calendar calendar = Calendar.getInstance();
 		calendar.add(Calendar.DAY_OF_MONTH, -1);
 
 		ContentValues wf = new ContentValues();
@@ -1016,12 +1013,15 @@ public class RealFarmDatabase {
 						"Sorghum" } };
 
 		for (int x = 0; x < cropData.length; x++) {
-			croptype.put(COLUMN_NAME_CROP_NAME, (String) cropData[x][0]);
-			croptype.put(COLUMN_NAME_CROP_RESOURCE, (Integer) cropData[x][1]);
-			croptype.put(COLUMN_NAME_CROP_RESOURCEBG, (Integer) cropData[x][2]);
-			croptype.put(COLUMN_NAME_CROP_AUDIO, (Integer) cropData[x][3]);
-			croptype.put(COLUMN_NAME_CROP_SHORTNAME, (String) cropData[x][4]);
-			insertEntriesIntoDatabase(TABLE_NAME_CROP, croptype, db);
+			croptype.put(COLUMN_NAME_CROPTYPE_NAME, (String) cropData[x][0]);
+			croptype.put(COLUMN_NAME_CROPTYPE_RESOURCE,
+					(Integer) cropData[x][1]);
+			croptype.put(COLUMN_NAME_CROPTYPE_RESOURCEBG,
+					(Integer) cropData[x][2]);
+			croptype.put(COLUMN_NAME_CROPTYPE_AUDIO, (Integer) cropData[x][3]);
+			croptype.put(COLUMN_NAME_CROPTYPE_SHORTNAME,
+					(String) cropData[x][4]);
+			insertEntriesIntoDatabase(TABLE_NAME_CROPTYPE, croptype, db);
 			croptype.clear();
 		}
 	}

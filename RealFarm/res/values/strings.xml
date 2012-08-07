@@ -55,6 +55,17 @@
     <string name="date_yesterday">yesterday</string>
     <string name="date_last_week">%d days ago</string>
     <string name="date_more_than_a_week">%d weeks ago</string>
+    <!-- Sowing action -->
+    <string name="sowing_variety">Variety</string>
+    <string name="sowing_amount">Amount</string>
+    <string name="sowing_no">No.</string>
+    <string name="sowing_serus">serus</string>
+    <string name="sowing_month">Month</string>
+    <string name="sowing_day">Day</string>
+    <string name="sowing_date">Date</string>
+    <string name="sowing_treatment">Treatment</string>
+    <string name="sowing_intercrop">Intercrop</string>
+    <string name="sowing_crop_type">Crop Type</string>
 
     <string-array name="array_languages">
         <item>Kannada</item>
