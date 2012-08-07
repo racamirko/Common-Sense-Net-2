@@ -487,7 +487,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		updateWidgets();
 		// adds the listeners
 		initActionListener();
-
 	}
 
 	protected void updateWidgets() {
@@ -508,7 +507,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			// sets the icon
 			weatherImage.setImageResource(wf.getTypeResourceId());
-
 		}
 	}
 
@@ -584,7 +582,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	// TODO: replace all sounds
 	public boolean onLongClick(View v) {
-		Log.i(LOG_TAG, "Long click");
 
 		if (v.getId() == R.id.hmscrn_btn_market) {
 			playAudio(R.raw.problems);
