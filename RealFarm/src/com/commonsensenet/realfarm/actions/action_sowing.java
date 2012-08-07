@@ -37,7 +37,7 @@ public class action_sowing extends DataFormActivity {
 
 		// adds the fields to validate to the map.
 		mResultsMap.put(VARIETY, -1);
-		mResultsMap.put(AMOUNT, -1);
+		mResultsMap.put(AMOUNT, "0");
 		mResultsMap.put(MONTH, "0");
 		mResultsMap.put(DAY, -1);
 		mResultsMap.put(TREATMENT, -1);
@@ -92,7 +92,6 @@ public class action_sowing extends DataFormActivity {
 						0, R.id.dlg_lbl_day_sow, R.id.day_sow_tr,
 						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo);
-
 			}
 		});
 
@@ -120,7 +119,6 @@ public class action_sowing extends DataFormActivity {
 						R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr,
 						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo);
-
 			}
 		});
 

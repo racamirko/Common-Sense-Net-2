@@ -172,7 +172,7 @@
                 android:textSize="19sp" />
 
             <ImageView
-                android:id="@+id/date_sow_img_btn"
+                android:id="@+id/treat_sow_img_btn"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -212,7 +212,7 @@
                 android:textSize="@dimen/font_large" />
 
             <ImageView
-                android:id="@+id/treat_sow_img_btn"
+                android:id="@+id/intrecrop_sow_img_btn"
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"

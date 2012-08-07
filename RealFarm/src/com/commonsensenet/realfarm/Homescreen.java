@@ -131,8 +131,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			for (int x = 0; x < plotData.length; x++) {
 				int plotId = (int) mDataProvider.addPlot(
 						(Integer) plotData[x][0], seeds.get(x).getId(),
-						(String) plotData[x][2], (Integer) plotData[x][3],
-						3.0f, 0, 0);
+						(String) plotData[x][2], (Integer) plotData[x][3], 3.0);
 				// updates the id if I am the owner
 				if ((Integer) plotData[x][0] == Global.userId) {
 					Global.plotId = plotId;
@@ -194,14 +193,15 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	protected void launchActionIntent() {
-		if (Global.selectedAction == action_selling.class) { // Temporary fix
+		// Temporary fix
+		if (Global.selectedAction == action_selling.class) {
 			this.startActivity(new Intent(this, Global.selectedAction));
 			return;
 		}
 
 		Intent intent = null;
-		int plotCount = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0).size();
+		int plotCount = mDataProvider.getPlotsByUserIdAndEnabledFlag(
+				Global.userId, 1).size();
 
 		// selects the next activity based on the amount of plots.
 		if (plotCount == 1) {
@@ -220,7 +220,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	public void onBackPressed() {
 
 		this.stopAudio();
-		// Production code, commented out for quicker development
+
+		// confirms that the user wants to leave the application.
 		new AlertDialog.Builder(this)
 				.setIcon(android.R.drawable.ic_dialog_alert)
 				.setTitle(R.string.exitTitle)
@@ -234,8 +235,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 								Homescreen.this.finish();
 							}
 						}).show();
-
-		// super.onBackPressed();
 	}
 
 	public void onClick(View v) {
@@ -784,106 +783,62 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		dialog.show();
 	};
 
-	// TODO: this should be modified since it will make the DB slower.
 	protected void writeDatabaseToSDcard() {
-
 		throw new Error("Not implemented");
-
 	}
 
-	public boolean onLongClick(View v) { // TODO: replace all sounds
+	// TODO: replace all sounds
+	public boolean onLongClick(View v) {
 		Log.i(LOG_TAG, "Long click");
 
 		if (v.getId() == R.id.hmscrn_btn_market) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_yield) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_advice) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_weather) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_video) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_fertilize) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_spray) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_sell) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_report) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_irrigate) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_harvest) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_sow) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_actions) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_lay_btn_diary) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_lay_btn_plots) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_sound) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.button_action_sow) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.button_action_fertilize) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.button_action_spray) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.button_action_report) {
 			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_advice) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_weather) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.btn_action_fertilize) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.btn_action_spray) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.btn_action_sell) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.btn_action_report) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.btn_action_irrigate) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.btn_action_harvest) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.btn_action_sow) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_actions) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_lay_btn_diary) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_sound) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.button_action_sow) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.button_action_fertilize) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.button_action_spray) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.button_action_report) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.button_action_irrigate) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.button_action_harvest) {
-			playAudio(R.raw.problems, true);
-		}
-
-		if (v.getId() == R.id.button_action_sell) {
-			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.button_action_irrigate) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.button_action_harvest) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.button_action_sell) {
+			playAudio(R.raw.problems);
+		} else {
+			return super.onLongClick(v);
 		}
 
 		return true;

@@ -55,7 +55,7 @@ public class AddPlotActivity extends DataFormActivity {
 		// adds the name of the fields to validate.
 		mResultsMap.put(SOIL_TYPE, -1);
 		mResultsMap.put(MAIN_CROP, -1);
-		mResultsMap.put(SIZE, 0.0);
+		mResultsMap.put(SIZE, "0.0");
 
 		final View plotImageRow;
 		final View soilTypeRow;

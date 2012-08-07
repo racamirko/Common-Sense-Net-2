@@ -20,7 +20,7 @@ import com.commonsensenet.realfarm.R;
  * 
  * @author Julien Freudiger
  * @author Hendrik Knoche
- * @author Oscar Bolanos <@oscarbolanos>
+ * @author Oscar Bolaños <@oscarbolanos>
  * 
  */
 public class RealFarmDatabase {
@@ -62,6 +62,10 @@ public class RealFarmDatabase {
 					+ " integer primary key autoincrement, "
 					+ references(COLUMN_NAME_ACTION_ACTIONTYPEID,
 							TABLE_NAME_ACTIONTYPE, COLUMN_NAME_ACTIONTYPE_ID)
+					+ references(COLUMN_NAME_ACTION_PLOTID, TABLE_NAME_PLOT,
+							COLUMN_NAME_PLOT_ID)
+					+ COLUMN_NAME_ACTION_DATE
+					+ " text not null, "
 					+ references(COLUMN_NAME_ACTION_SEEDTYPEID,
 							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
 					+ references(COLUMN_NAME_ACTION_CROPTYPEID,
@@ -74,18 +78,16 @@ public class RealFarmDatabase {
 							COLUMN_NAME_UNIT_ID)
 					+ references(COLUMN_NAME_ACTION_UNIT2ID, TABLE_NAME_UNIT,
 							COLUMN_NAME_UNIT_ID)
-					+ references(COLUMN_NAME_ACTION_PLOTID, TABLE_NAME_PLOT,
-							COLUMN_NAME_PLOT_ID)
 					+ references(COLUMN_NAME_ACTION_RESOURCE1ID,
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ references(COLUMN_NAME_ACTION_RESOURCE2ID,
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ COLUMN_NAME_ACTION_PRICE + " integer, "
+					+ COLUMN_NAME_ACTION_GLOBALID + " integer, "
 					+ COLUMN_NAME_ACTION_ISSENT + " boolean, "
 					+ COLUMN_NAME_ACTION_ISADMINACTION + " boolean, "
-					+ COLUMN_NAME_ACTION_DATE + " text not null, "
-					+ COLUMN_NAME_ACTION_TIMESTAMP + " integer not null, "
-					+ COLUMN_NAME_ACTION_GLOBALID + " integer " + " ); ");
+					+ COLUMN_NAME_ACTION_TIMESTAMP + " integer not null"
+					+ " ); ");
 			Log.d(LOG_TAG, "Created action table");
 
 			// actionsNames
@@ -392,22 +394,19 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_WEATHERTYPE_ID = "id";
 	public static final String COLUMN_NAME_WEATHERTYPE_NAME = "name";
 	public static final String COLUMN_NAME_WEATHERTYPE_RESOURCE = "resource";
-	/** Date format used to store the dates. */
-	public static String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+
 	/** Filename of the database. */
 	public static final String DB_NAME = "realFarm.db";
-
 	/** Current version of the database. */
-	private static final int DB_VERSION = 1;
+	public static final int DB_VERSION = 1;
 	/** Default User number. */
-	public static String DEFAULT_NUMBER = "000000000";
+	public static final String DEFAULT_NUMBER = "000000000";
 	/** Current DeviceId. */
-	public static String DEVICE_ID;
+	public static String sDeviceId;
 	/** Identifier used to debug the database. */
 	public static final String LOG_TAG = "RealFarm";
-
 	/** Identifier of the current User. */
-	public static long MAIN_USER_ID = -1;
+	public static long sUserId = -1;
 
 	public static final int RESOURCE_TYPE_FERTILIZER = 3;
 	public static final int RESOURCE_TYPE_INTERCROP = 4;
@@ -551,7 +550,7 @@ public class RealFarmDatabase {
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceId = telephonyManager.getLine1Number();
 
-		DEVICE_ID = deviceId;
+		sDeviceId = deviceId;
 
 		// sets the default value if invalid.
 		if (deviceId == null) {
@@ -913,7 +912,7 @@ public class RealFarmDatabase {
 		Log.d(LOG_TAG, "soil type works");
 
 		// inserts the current date in the database.
-		SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
+		SimpleDateFormat df = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
 
 		// creates the calendar and substracts one day.
 		Calendar calendar = Calendar.getInstance();

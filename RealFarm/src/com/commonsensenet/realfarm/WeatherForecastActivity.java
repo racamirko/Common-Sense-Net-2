@@ -10,13 +10,13 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnDataChangeListener;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnWeatherForecastDataChangeListener;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.WeatherForecastItemAdapter;
 
 public class WeatherForecastActivity extends HelpEnabledActivity implements
-		OnDataChangeListener, OnItemLongClickListener {
+		OnWeatherForecastDataChangeListener, OnItemLongClickListener {
 
 	/** Celsius indicator. */
 	public static final String CELSIUS = "¡";

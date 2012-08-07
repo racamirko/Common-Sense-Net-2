@@ -74,7 +74,7 @@ public class User {
 	public String toString() {
 
 		return String
-				.format("[User id='%s', firstName='%s', lastName='%s', deviceId='%s', imagePath='%s', deleteFlag='%d', adminFlag='%d', timestamp='%s']",
+				.format("[User id='%s', firstName='%s', lastName='%s', deviceId='%s', imagePath='%s', isEnabled='%d', isAdminAction='%d', timestamp='%s']",
 						mId, mFirstname, mLastname, mDeviceId, mImagePath,
 						mIsEnabled, mIsAdminAction, mTimestamp);
 

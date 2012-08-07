@@ -46,8 +46,8 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// gets the users from the database.
-		List<Plot> plots = mDataProvider.getPlotsByUserIdAndDeleteFlag(
-				Global.userId, 0);
+		List<Plot> plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
+				Global.userId, 1);
 
 		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 

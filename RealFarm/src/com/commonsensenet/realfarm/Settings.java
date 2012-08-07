@@ -310,16 +310,16 @@ public class Settings extends Activity {
 		if (mDeviceId != null) { // sim card exists
 
 			User user = mDataProvider
-					.getUserByDeviceId(RealFarmDatabase.DEVICE_ID);
+					.getUserByDeviceId(RealFarmDatabase.sDeviceId);
 
-			RealFarmDatabase.DEVICE_ID = mDeviceId; // update main device ID
+			RealFarmDatabase.sDeviceId = mDeviceId; // update main device ID
 
 			// if no information, try to fetch the default.
 			if (user == null || user.getFirstname() == null) {
 				// number in case user configured phone
 				// without sim card
 				user = mDataProvider
-						.getUserByDeviceId(RealFarmDatabase.DEVICE_ID);
+						.getUserByDeviceId(RealFarmDatabase.sDeviceId);
 				mIsNewSim = true;
 			}
 
@@ -329,7 +329,7 @@ public class Settings extends Activity {
 			Toast.makeText(getApplicationContext(), "Insert SIM card",
 					Toast.LENGTH_SHORT).show();
 			User user = mDataProvider
-					.getUserByDeviceId(RealFarmDatabase.DEVICE_ID);
+					.getUserByDeviceId(RealFarmDatabase.sDeviceId);
 
 			firstname.setText(user.getFirstname());
 			lastname.setText(user.getLastname());
@@ -372,7 +372,7 @@ public class Settings extends Activity {
 		tvHeader.setTextSize(30);
 		container2.addView(tvHeader);
 
-		mUserId = mDataProvider.getUserByDeviceId(RealFarmDatabase.DEVICE_ID)
+		mUserId = mDataProvider.getUserByDeviceId(RealFarmDatabase.sDeviceId)
 				.getId();
 
 		// get plot list from db

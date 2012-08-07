@@ -2,13 +2,12 @@ package com.commonsensenet.realfarm.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
 /**
  * Helper functions to handle the date.
@@ -50,13 +49,11 @@ public class DateHelper {
 
 		try {
 			// extracts the date.
-			Date dateTime = new SimpleDateFormat(RealFarmDatabase.DATE_FORMAT)
+			Date dateTime = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT)
 					.parse(date);
-			// gets current date
-			Calendar today = Calendar.getInstance();
 
 			// calculates the difference
-			long dayDif = calculateDays(dateTime, today.getTime());
+			long dayDif = calculateDays(dateTime, new Date());
 
 			if (dayDif == 0)
 				return context.getString(R.string.dateToday);
@@ -81,7 +78,7 @@ public class DateHelper {
 
 			// parses the giving date using the unified
 			// date format.
-			Date newDate = new SimpleDateFormat(RealFarmDatabase.DATE_FORMAT)
+			Date newDate = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT)
 					.parse(date);
 			// reformats the date only to extract the day of the week.
 			return new SimpleDateFormat("EEEE").format(newDate);

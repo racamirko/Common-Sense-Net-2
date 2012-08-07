@@ -25,19 +25,29 @@ import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 
 public class RealFarmProvider {
-	public abstract interface OnDataChangeListener {
+
+	/**
+	 * Detects the modification of the WeatherForecast table. When a new value
+	 * is inserted, this listener will be called with the new data.
+	 * 
+	 * @author Oscar Bola–os <@oscarbolanos>
+	 */
+	public abstract interface OnWeatherForecastDataChangeListener {
 		public abstract void onDataChanged(String date, int temperature,
 				String type);
 	}
 
 	/** Date format used throughout the application. */
-	public static String DATE_FORMAT = "yyyy-MM-dd";
+	public static final String DATE_FORMAT = "yyyy-MM-dd";
+	/** Indicates that the value is not required. */
 	public static final int NONE = -1;
+	/** Date formatter used to store dates in the database with a common format. */
+	public static SimpleDateFormat sDateFormat = new SimpleDateFormat(
+			RealFarmProvider.DATE_FORMAT);
 	/** Map used to handle different instances depending on the context. */
 	private static Map<Context, RealFarmProvider> sMapProviders = new HashMap<Context, RealFarmProvider>();
-
 	/** Listener used to detect changes in the weather forecast. */
-	private static OnDataChangeListener sWeatherForecastDataListener;
+	private static OnWeatherForecastDataChangeListener sWeatherForecastDataListener;
 
 	public static RealFarmProvider getInstance(Context ctx) {
 		if (!sMapProviders.containsKey(ctx))
@@ -50,7 +60,6 @@ public class RealFarmProvider {
 	private List<Resource> mAllActionTypes;
 	/** Cached seeds to improve performance. */
 	private List<Resource> mAllSeeds;
-
 	/** Real farm database access. */
 	private RealFarmDatabase mDatabase;
 
@@ -154,9 +163,14 @@ public class RealFarmProvider {
 		return result;
 	}
 
+	public long addPlot(int userId, int seedTypeId, String imagePath,
+			int soilType, double size) {
+		return addPlot(userId, seedTypeId, imagePath, soilType, size, 1, 0);
+	}
+
 	// main crop info corresponds to seed type id
 	public long addPlot(int userId, int seedTypeId, String imagePath,
-			int soilType, double size, int deleteFlag, int adminFlag) {
+			int soilType, double size, int isEnabled, int isAdminAction) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
@@ -164,8 +178,8 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID, soilType);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, deleteFlag);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, adminFlag);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 				new Date().getTime());
 
@@ -262,8 +276,8 @@ public class RealFarmProvider {
 		}
 
 		// if main id is undefined and result is good
-		if ((result > 0) && (RealFarmDatabase.MAIN_USER_ID == -1)) {
-			RealFarmDatabase.MAIN_USER_ID = (int) result;
+		if ((result > 0) && (RealFarmDatabase.sUserId == -1)) {
+			RealFarmDatabase.sUserId = (int) result;
 		}
 
 		mDatabase.close();
@@ -746,7 +760,7 @@ public class RealFarmProvider {
 		return p;
 	}
 
-	public List<Plot> getPlotDelete(int delete) {
+	public List<Plot> getPlotsByEnabledFlag(int isEnabled) {
 
 		mDatabase.open();
 
@@ -765,7 +779,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "=" + delete,
+				RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "=" + isEnabled,
 				null, null, null, null);
 
 		tmpList = new ArrayList<Plot>();
@@ -867,8 +881,7 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	// modified(You can take seedtypyId corresponding to the userId and plotId)
-	public List<Plot> getPlotsByUserIdAndDeleteFlag(int userId, int delete) {
+	public List<Plot> getPlotsByUserIdAndEnabledFlag(int userId, int isEnabled) {
 
 		// opens the database.
 		List<Plot> tmpList = new ArrayList<Plot>();
@@ -888,7 +901,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP },
 				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
 						+ " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED
-						+ "=" + delete + "", null, null, null, null);
+						+ "=" + isEnabled + "", null, null, null, null);
 
 		Plot p = null;
 		if (c.moveToFirst()) {
@@ -1480,10 +1493,6 @@ public class RealFarmProvider {
 		return getWeatherForecasts(sDateFormat.format(startDate));
 	}
 
-	/** Date formatter used to store dates in the database with a common format. */
-	public static SimpleDateFormat sDateFormat = new SimpleDateFormat(
-			RealFarmProvider.DATE_FORMAT);
-
 	/**
 	 * Gets the list of available WeatherForecasts based on a start date. Any
 	 * date matching the start date is included as well in the list. The given
@@ -1589,7 +1598,7 @@ public class RealFarmProvider {
 	 *            the Data Change Listener.
 	 */
 	public void setWeatherForecastDataChangeListener(
-			OnDataChangeListener listener) {
+			OnWeatherForecastDataChangeListener listener) {
 		sWeatherForecastDataListener = listener;
 	}
 }

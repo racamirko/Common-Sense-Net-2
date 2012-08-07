@@ -82,7 +82,7 @@ public class Plot {
 	public String toString() {
 
 		return String
-				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', deleteFlag='%d', adminFlag='%d', timestamp='%d']",
+				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', isEnabled='%d', isAdminAction='%d', timestamp='%d']",
 						mId, mUserId, mSeedTypeId, mImagePath, mSoilTypeId,
 						mSize, mIsEnabled, mIsAdminAction, mTimestamp);
 	}
