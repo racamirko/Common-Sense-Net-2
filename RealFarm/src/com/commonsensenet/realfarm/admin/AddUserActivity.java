@@ -11,7 +11,7 @@ import android.widget.Toast;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
-public class adminenter extends Activity {
+public class AddUserActivity extends Activity {
 
 	private RealFarmProvider mDataProvider;
 	private EditText mDeviceIdTextField, mFirstnameTextField,
@@ -30,9 +30,9 @@ public class adminenter extends Activity {
 
 	public void onBackPressed() {
 
-		Intent adminintent = new Intent(adminenter.this, admincall.class);
+		Intent adminintent = new Intent(AddUserActivity.this, UserListActivity.class);
 		startActivity(adminintent);
-		adminenter.this.finish();
+		AddUserActivity.this.finish();
 
 	}
 
@@ -52,8 +52,8 @@ public class adminenter extends Activity {
 			public void onClick(View v) {
 
 				addUserToDatabase();
-				startActivity(new Intent(adminenter.this, admincall.class));
-				adminenter.this.finish();
+				startActivity(new Intent(AddUserActivity.this, UserListActivity.class));
+				AddUserActivity.this.finish();
 			}
 		});
 

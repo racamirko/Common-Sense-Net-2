@@ -22,9 +22,13 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.actionbarsherlock.view.Menu;
+import com.actionbarsherlock.view.MenuInflater;
+import com.actionbarsherlock.view.MenuItem;
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
 import com.commonsensenet.realfarm.actions.action_selling;
 import com.commonsensenet.realfarm.actions.action_sowing;
+import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
 import com.commonsensenet.realfarm.aggregates.problem_aggregate;
@@ -49,7 +53,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	/** Tag used to log the App activity. */
 	public static String LOG_TAG = "Homescreen";
 
-	/** Database provider. */
+	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** Currently selected language. */
 	private String mSelectedLanguage;
@@ -445,8 +449,17 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// gets the data provider.
 		mDataProvider = RealFarmProvider.getInstance(this);
 
-		// gets the current user object.
-		User user = mDataProvider.getUserById(Global.userId);
+		User user = null;
+		// if there is no valid userId, the user is obtained using the deviceId.
+		if (Global.userId == -1) {
+			user = mDataProvider
+					.getUserByDeviceId(((RealFarmApp) getApplication())
+							.getDeviceId());
+			// sets the user based on the deviceId.
+			Global.userId = user.getId();
+		} else {
+			user = mDataProvider.getUserById(Global.userId);
+		}
 
 		// sets the name of the user.
 		getSupportActionBar().setTitle(
@@ -499,23 +512,25 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 	}
 
-	// public boolean onCreateOptionsMenu(Menu menu) {
-	// MenuInflater inflater = getMenuInflater();
-	// inflater.inflate(R.menu.menu, menu);
-	// return true;
-	// }
+	public boolean onCreateOptionsMenu(Menu menu) {
+		MenuInflater inflater = getSupportMenuInflater();
+		inflater.inflate(R.menu.menu, menu);
+		return super.onCreateOptionsMenu(menu);
+	}
 
-	// public boolean onOptionsItemSelected(MenuItem item) {
-	// // handle item selection
-	//
-	// System.out.println("Admin menu pressed ");
-	// Intent HomeToAdmin = new Intent(Homescreen.this, admin.class);
-	// startActivity(HomeToAdmin);
-	// // admin.this.finish();
-	//
-	// // default:
-	// return super.onOptionsItemSelected(item);
-	// }
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		// handles the item selection.
+		switch (item.getItemId()) {
+		case R.id.menu_settings:
+
+			// starts a new activity
+			startActivity(new Intent(this, LoginActivity.class));
+
+		default:
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
 	protected void selectlang() {
 

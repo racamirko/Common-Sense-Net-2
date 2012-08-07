@@ -68,4 +68,12 @@ public class WeatherForecast {
 		return typeIconId;
 	}
 
+	@Override
+	public String toString() {
+
+		return String
+				.format("[WeatherForecast id='%s', date='%s', temperature='%d', type='%s']",
+						mId, mDate, mTemperature, mType);
+	}
+
 }

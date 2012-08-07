@@ -4,12 +4,19 @@ public class Resource {
 
 	/** Audio Resource to play with the ActionType. */
 	protected int mAudio;
+	/** Background Image resource id. */
 	protected int mBackgroundResource;
+	/** Unique identifier of the Resource in the database. */
 	protected int mId;
+	/** Name of the Resource. */
 	protected String mName;
+	/** First Image resource id. */
 	protected int mResource1;
+	/** Second Image resource id. */
 	protected int mResource2;
+	/** Shortname of the resource, used mostly for displaying purposes. */
 	protected String mShortName;
+	/** Type of the resource. */
 	protected int mType;
 
 	public Resource() {
@@ -94,5 +101,15 @@ public class Resource {
 
 	public void setType(int value) {
 		mType = value;
+	}
+
+	@Override
+	public String toString() {
+
+		return String
+				.format("[Resource id='%s', name='%s', shortName='%s', audio='%s', resource1='%s', resource2='%d', background='%d', type='%d']",
+						mId, mName, mShortName, mAudio, mResource1, mResource2,
+						mBackgroundResource, mType);
+
 	}
 }

@@ -10,7 +10,6 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
@@ -22,7 +21,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.commonsensenet.realfarm.admin.admincall;
+import com.commonsensenet.realfarm.admin.UserListActivity;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
@@ -167,12 +166,12 @@ public class Settings extends Activity {
 
 		long result = 0;
 
-		// user has no sim card, use default number
+		// user has no SIM card, use default number
 		if (mDeviceId == null) {
 			mDeviceId = RealFarmDatabase.DEFAULT_NUMBER;
 		}
 
-		// user inserted a sim card and already had
+		// user inserted a SIM card and already had
 		// account => update device id information
 		if (mIsNewSim == true) {
 
@@ -193,7 +192,7 @@ public class Settings extends Activity {
 		}
 
 		// finish();
-		Intent adminintent = new Intent(Settings.this, admincall.class);
+		Intent adminintent = new Intent(Settings.this, UserListActivity.class);
 
 		startActivity(adminintent);
 		Settings.this.finish();
@@ -292,10 +291,8 @@ public class Settings extends Activity {
 		mDeviceIdTextField = (EditText) findViewById(R.id.MobileNo);
 		Button OK = (Button) findViewById(R.id.OK);
 
-		// String deviceID = RealFarmDatabase.DEVICE_ID;
-		TelephonyManager telephonyManager = (TelephonyManager) this
-				.getSystemService(Context.TELEPHONY_SERVICE);
-		mDeviceId = telephonyManager.getLine1Number();
+		// gets the deviceId from the application.
+		mDeviceId = ((RealFarmApp) getApplication()).getDeviceId();
 
 		EditText firstname = (EditText) findViewById(R.id.editText1);
 		EditText lastname = (EditText) findViewById(R.id.editText2);
@@ -306,29 +303,25 @@ public class Settings extends Activity {
 
 		mDataProvider = RealFarmProvider.getInstance(getApplicationContext());
 
-		if (mDeviceId != null) { // sim card exists
+		// SIM card exists
+		if (mDeviceId != null) {
 
-			User user = mDataProvider
-					.getUserByDeviceId(RealFarmDatabase.sDeviceId);
-
-			RealFarmDatabase.sDeviceId = mDeviceId; // update main device ID
+			User user = mDataProvider.getUserByDeviceId(mDeviceId);
 
 			// if no information, try to fetch the default.
 			if (user == null || user.getFirstname() == null) {
 				// number in case user configured phone
-				// without sim card
-				user = mDataProvider
-						.getUserByDeviceId(RealFarmDatabase.sDeviceId);
+				// without SIM card
+				user = mDataProvider.getUserByDeviceId(mDeviceId);
 				mIsNewSim = true;
 			}
 
 			firstname.setText(user.getFirstname());
 			lastname.setText(user.getLastname());
-		} else { // user must insert a sim card, use default user mode
+		} else { // user must insert a SIM card, use default user mode
 			Toast.makeText(getApplicationContext(), "Insert SIM card",
 					Toast.LENGTH_SHORT).show();
-			User user = mDataProvider
-					.getUserByDeviceId(RealFarmDatabase.sDeviceId);
+			User user = mDataProvider.getUserByDeviceId(mDeviceId);
 
 			firstname.setText(user.getFirstname());
 			lastname.setText(user.getLastname());
@@ -350,7 +343,8 @@ public class Settings extends Activity {
 				// UserDetailsDatabase();
 				System.out.println("In OK button of settings");
 				addUserToDatabase();
-				Intent adminintent = new Intent(Settings.this, admincall.class);
+				Intent adminintent = new Intent(Settings.this,
+						UserListActivity.class);
 				startActivity(adminintent);
 				Settings.this.finish();
 
@@ -371,10 +365,9 @@ public class Settings extends Activity {
 		tvHeader.setTextSize(30);
 		container2.addView(tvHeader);
 
-		mUserId = mDataProvider.getUserByDeviceId(RealFarmDatabase.sDeviceId)
-				.getId();
+		mUserId = mDataProvider.getUserByDeviceId(mDeviceId).getId();
 
-		// get plot list from db
+		// get plot list from database
 		List<Plot> poly = mDataProvider.getPlotsByUserId(mUserId);
 
 		mPlotId = poly.size();
@@ -406,5 +399,4 @@ public class Settings extends Activity {
 				Toast.LENGTH_SHORT).show();
 
 	}
-
 }

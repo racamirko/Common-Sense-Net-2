@@ -1,6 +1,8 @@
 package com.commonsensenet.realfarm;
 
 import android.app.Application;
+import android.content.Context;
+import android.telephony.TelephonyManager;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 
@@ -17,6 +19,8 @@ public class RealFarmApp extends Application {
 	public static int THEME = R.style.Theme_Sherlock_Light;
 	/** Database used by the application. */
 	private RealFarmDatabase mDatabase;
+	/** DeviceId of the current phone where the App is running. */
+	private String mDeviceId;
 
 	public RealFarmDatabase getDatabase() {
 		return mDatabase;
@@ -24,5 +28,23 @@ public class RealFarmApp extends Application {
 
 	public void setDatabase(RealFarmDatabase db) {
 		mDatabase = db;
+	}
+
+	public String getDeviceId() {
+
+		// if the value is null it is table from the database.
+		if (mDeviceId == null) {
+
+			// gets the device id of the current user
+			TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
+			mDeviceId = telephonyManager.getLine1Number();
+
+			// sets the default value if invalid.
+			if (mDeviceId == null) {
+				mDeviceId = RealFarmDatabase.DEFAULT_NUMBER;
+			}
+		}
+
+		return mDeviceId;
 	}
 }

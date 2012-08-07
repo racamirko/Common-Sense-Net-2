@@ -275,11 +275,6 @@ public class RealFarmProvider {
 					args);
 		}
 
-		// if main id is undefined and result is good
-		if ((result > 0) && (RealFarmDatabase.sUserId == -1)) {
-			RealFarmDatabase.sUserId = (int) result;
-		}
-
 		mDatabase.close();
 
 		return result;
@@ -668,8 +663,8 @@ public class RealFarmProvider {
 				RealFarmDatabase.TABLE_NAME_MARKETPRICE, new String[] {
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ID,
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_DATE,
-						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE,
-						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE }, null,
+						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE,
+						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE }, null,
 				null, null, null, null);
 
 		tmpList = new ArrayList<MarketPrice>();
@@ -677,11 +672,11 @@ public class RealFarmProvider {
 		MarketPrice mp = null;
 		if (c.moveToFirst()) {
 			do {
-				mp = new MarketPrice(c.getInt(0), c.getString(1),
-						c.getString(2), c.getInt(3));
+				mp = new MarketPrice(c.getInt(0), c.getString(1), c.getInt(2),
+						c.getString(3));
 				tmpList.add(mp);
 
-				Log.d("MP values: ", mp.toString());
+				Log.d("MarketPrice values: ", mp.toString());
 
 			} while (c.moveToNext());
 		}
@@ -766,9 +761,6 @@ public class RealFarmProvider {
 
 		List<Plot> tmpList;
 
-		// int id, int userId, int seedTypeId, String imagePath,
-		// String soilType, float size, int isEnabled, int isAdminAction,
-		// int timestamp
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
 				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
@@ -1251,6 +1243,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_LASTNAME,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
+						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP },
 
@@ -1352,7 +1345,7 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public List<User> getUsersByIsEnabled(int isEnabled) {
+	public List<User> getUsersByEnabledFlag(int isEnabled) {
 
 		mDatabase.open();
 

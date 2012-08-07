@@ -59,15 +59,15 @@
         <service android:name="com.buzzbox.mob.android.scheduler.ScheduledService" />
 
         <activity
-            android:name=".admin.admincall"
+            android:name=".admin.UserListActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".admin.admin"
+            android:name=".admin.LoginActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".admin.adminenter"
+            android:name=".admin.AddUserActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity

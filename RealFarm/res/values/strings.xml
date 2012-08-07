@@ -68,6 +68,8 @@
     <string name="sowing_treatment">Treatment</string>
     <string name="sowing_intercrop">Intercrop</string>
     <string name="sowing_crop_type">Crop Type</string>
+    <!-- Admin -->
+    <string name="admin_user_list_button_add_user">Add User</string>
 
     <string-array name="array_languages">
         <item>Kannada</item>

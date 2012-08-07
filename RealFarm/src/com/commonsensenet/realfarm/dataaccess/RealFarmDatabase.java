@@ -401,12 +401,8 @@ public class RealFarmDatabase {
 	public static final int DB_VERSION = 1;
 	/** Default User number. */
 	public static final String DEFAULT_NUMBER = "000000000";
-	/** Current DeviceId. */
-	public static String sDeviceId;
 	/** Identifier used to debug the database. */
 	public static final String LOG_TAG = "RealFarm";
-	/** Identifier of the current User. */
-	public static long sUserId = -1;
 
 	public static final int RESOURCE_TYPE_FERTILIZER = 3;
 	public static final int RESOURCE_TYPE_INTERCROP = 4;
@@ -545,12 +541,10 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "Try to fill up tables with content " + db.getVersion());
 
-		// 1
+		// gets the device id of the current user
 		TelephonyManager telephonyManager = (TelephonyManager) mContext
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		String deviceId = telephonyManager.getLine1Number();
-
-		sDeviceId = deviceId;
 
 		// sets the default value if invalid.
 		if (deviceId == null) {
@@ -573,7 +567,7 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_LASTNAME, userData[x][1]);
 			users.put(COLUMN_NAME_USER_DEVICEID, userData[x][2]);
 			users.put(COLUMN_NAME_USER_IMAGEPATH, userData[x][3]);
-			users.put(COLUMN_NAME_USER_ISENABLED, 0);
+			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
 			users.put(COLUMN_NAME_USER_TIMESTAMP, new Date().getTime());
 			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
@@ -584,19 +578,19 @@ public class RealFarmDatabase {
 
 		Object[][] actionTypeData = {
 				{ ACTION_TYPE_SOW_ID, "sow", R.drawable.sowingaction,
-						R.raw.audio1 },
+						R.raw.sowing },
 				{ ACTION_TYPE_FERTILIZE_ID, "fertilize",
-						R.drawable.fertilizingaction, R.raw.audio2 },
+						R.drawable.fertilizingaction, R.raw.fertilizing },
 				{ ACTION_TYPE_IRRIGATE_ID, "irrigate",
-						R.drawable.irrigationaction, R.raw.audio4 },
+						R.drawable.irrigationaction, R.raw.irrigate },
 				{ ACTION_TYPE_REPORT_ID, "report",
-						R.drawable.problemreportingaction, R.raw.audio6 },
+						R.drawable.problemreportingaction, R.raw.problems },
 				{ ACTION_TYPE_SPRAY_ID, "spray", R.drawable.sprayingaction,
-						R.raw.audio3 },
+						R.raw.spraying },
 				{ ACTION_TYPE_HARVEST_ID, "harvest",
-						R.drawable.harvestingaction, R.raw.audio5 },
+						R.drawable.harvestingaction, R.raw.harvest },
 				{ ACTION_TYPE_SELL_ID, "sell", R.drawable.sellingaction,
-						R.raw.audio7 }
+						R.raw.selling }
 
 		};
 
