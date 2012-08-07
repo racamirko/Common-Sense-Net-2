@@ -68,6 +68,7 @@ public class DateHelper {
 						(int) Math.floor(dayDif / 7));
 			}
 		} catch (ParseException e) {
+			e.printStackTrace();
 			return date;
 		}
 	}

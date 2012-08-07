@@ -37,7 +37,7 @@ public class WeatherForecastItemAdapter extends ArrayAdapter<WeatherForecast> {
 			wrapper = (WeatherForecastItemWrapper) row.getTag();
 		}
 
-		wrapper.populateFrom(this.getItem(position));
+		wrapper.populateFrom(getItem(position));
 		return (row);
 	}
 }

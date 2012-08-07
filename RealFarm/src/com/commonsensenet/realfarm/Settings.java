@@ -287,19 +287,18 @@ public class Settings extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
 
-		mFirstnameTextField = (EditText) findViewById(R.id.editText1); // First
-																		// name
+		mFirstnameTextField = (EditText) findViewById(R.id.editText1);
 		mLastnameTextField = (EditText) findViewById(R.id.editText2);
-		mDeviceIdTextField = (EditText) this.findViewById(R.id.MobileNo);
-		Button OK = (Button) findViewById(R.id.OK); // Prakruthi
+		mDeviceIdTextField = (EditText) findViewById(R.id.MobileNo);
+		Button OK = (Button) findViewById(R.id.OK);
 
 		// String deviceID = RealFarmDatabase.DEVICE_ID;
 		TelephonyManager telephonyManager = (TelephonyManager) this
 				.getSystemService(Context.TELEPHONY_SERVICE);
 		mDeviceId = telephonyManager.getLine1Number();
 
-		EditText firstname = (EditText) this.findViewById(R.id.editText1);
-		EditText lastname = (EditText) this.findViewById(R.id.editText2);
+		EditText firstname = (EditText) findViewById(R.id.editText1);
+		EditText lastname = (EditText) findViewById(R.id.editText2);
 
 		// hide soft keyboard by default
 		getWindow().setSoftInputMode(
@@ -345,7 +344,7 @@ public class Settings extends Activity {
 		// plot list of things
 		plotList();
 
-		OK.setOnClickListener(new View.OnClickListener() { // Prakruthi
+		OK.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 				// UserDetailsDatabase();

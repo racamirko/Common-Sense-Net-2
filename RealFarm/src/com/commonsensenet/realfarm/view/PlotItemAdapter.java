@@ -41,7 +41,7 @@ public class PlotItemAdapter extends ArrayAdapter<Plot> {
 			wrapper = (PlotItemWrapper) row.getTag();
 		}
 
-		wrapper.populateFrom(this.getItem(position), mDataProvider);
+		wrapper.populateFrom(getItem(position), mDataProvider);
 		return (row);
 	}
 }

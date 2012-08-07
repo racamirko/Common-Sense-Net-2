@@ -29,6 +29,8 @@
     <string name="mobilenumber">Mobile Number</string>
 
     <!-- orbolanos: correctly formatted names: <type>_<name> -->
+    <string name="placeholder_text">Text</string>
+    <string name="placeholder_number">1</string>
     <!-- homescreen -->
     <string name="homescreen_label_temperature">26°</string>
     <string name="homescreen_label_plots">Plots</string>

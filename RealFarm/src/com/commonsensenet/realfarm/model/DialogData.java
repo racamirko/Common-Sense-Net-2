@@ -16,36 +16,36 @@ public class DialogData {
 
 	public DialogData(int id, String name, int imgRes, int img2Res,
 			int audioRes, int backgroundRes) {
-		this.mName = name;
-		this.mResource1 = imgRes;
-		this.mResource2 = img2Res;
-		this.mAudio = audioRes;
-		this.mId = id;
-		this.mBackgroundRes = backgroundRes;
-		this.mShortName = name;
+		mName = name;
+		mResource1 = imgRes;
+		mResource2 = img2Res;
+		mAudio = audioRes;
+		mId = id;
+		mBackgroundRes = backgroundRes;
+		mShortName = name;
 	}
 
 	public DialogData(int id, String name, String shortName, int imgRes,
 			int img2Res, int audioRes, int backgroundRes, int number) {
-		this.mName = name;
-		this.mResource1 = imgRes;
-		this.mResource2 = img2Res;
-		this.mAudio = audioRes;
-		this.mId = id;
-		this.mBackgroundRes = backgroundRes;
-		this.mShortName = shortName;
-		this.mNumber = number;
+		mName = name;
+		mResource1 = imgRes;
+		mResource2 = img2Res;
+		mAudio = audioRes;
+		mId = id;
+		mBackgroundRes = backgroundRes;
+		mShortName = shortName;
+		mNumber = number;
 	}
 
-	public DialogData(int id, String name, String shortName,
-			int imgRes, int img2Res, int audioRes, int backgroundRes) {
-		this.mName = name;
-		this.mResource1 = imgRes;
-		this.mResource2 = img2Res;
-		this.mAudio = audioRes;
-		this.mId = id;
-		this.mBackgroundRes = backgroundRes;
-		this.mShortName = shortName;
+	public DialogData(int id, String name, String shortName, int imgRes,
+			int img2Res, int audioRes, int backgroundRes) {
+		mName = name;
+		mResource1 = imgRes;
+		mResource2 = img2Res;
+		mAudio = audioRes;
+		mId = id;
+		mBackgroundRes = backgroundRes;
+		mShortName = shortName;
 	}
 
 	public int getAudioRes() {
@@ -81,35 +81,35 @@ public class DialogData {
 	}
 
 	public void setAudio(int audio) {
-		this.mAudio = audio;
+		mAudio = audio;
 	}
 
 	public void setBackground(int background) {
-		this.mBackgroundRes = background;
+		mBackgroundRes = background;
 	}
 
 	public void setId(int id) {
-		this.mId = id;
+		mId = id;
 	}
 
 	public void setImage(int img) {
-		this.mResource1 = img;
+		mResource1 = img;
 	}
 
 	public void setImage2(int img) {
-		this.mResource2 = img;
+		mResource2 = img;
 	}
 
 	public void setName(String name) {
-		this.mShortName = name;
-		this.mName = name;
+		mShortName = name;
+		mName = name;
 	}
 
 	public void setNumber(int number) {
-		this.mNumber = number;
+		mNumber = number;
 	}
 
 	public void setShortName(String name) {
-		this.mShortName = name;
+		mShortName = name;
 	}
 }

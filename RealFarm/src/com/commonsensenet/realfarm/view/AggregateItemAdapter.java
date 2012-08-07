@@ -47,7 +47,7 @@ public class AggregateItemAdapter extends ArrayAdapter<AggregateItem> {
 		}
 
 		// populates the data from the AggregateItem
-		wrapper.populateFrom(this.getItem(position), mDataProvider);
+		wrapper.populateFrom(getItem(position), mDataProvider);
 		return (row);
 	}
 }

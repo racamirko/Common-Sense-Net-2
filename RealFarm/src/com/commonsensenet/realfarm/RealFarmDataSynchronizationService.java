@@ -336,7 +336,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				 * */
 
 				// ---stop the SMS message from being broadcasted---
-				this.abortBroadcast();
+				abortBroadcast();
 
 				// ---launch the SMSActivity---
 				// Intent mainActivityIntent = new Intent(context,
@@ -350,8 +350,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				// broadcastIntent.setAction("SMS_RECEIVED_ACTION");
 				// broadcastIntent.putExtra("sms", str);
 				// context.sendBroadcast(broadcastIntent);
-				/*************************************************************
-                         */
+				/***********************************************************/
 			}
 		}
 	}

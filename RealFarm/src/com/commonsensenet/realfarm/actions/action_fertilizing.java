@@ -3,7 +3,6 @@ package com.commonsensenet.realfarm.actions;
 import java.util.Calendar;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +11,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.DataFormActivity;
-import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
@@ -22,14 +20,15 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 public class action_fertilizing extends DataFormActivity implements
 		OnLongClickListener {
 
-	private String units_fert = "0";
-	private String fert_var_sel = "0";
+	public static final String LOG_TAG = "action_fertilizing";
+
 	private String day_fert_sel = "0";
 	private String day_fert_sel_1;
-	private int fert_no, day_fert_int;
+	private int fert_no;
+	private int day_fert_int;
+	private String fert_var_sel = "0";
 	private String months_fert = "0";
-
-	public static final String LOG_TAG = "action_fertilizing";
+	private String units_fert = "0";
 
 	/** Called when the activity is first created. */
 	@Override
@@ -237,23 +236,6 @@ public class action_fertilizing extends DataFormActivity implements
 		}
 
 		return true;
-	}
-
-	protected void cancelAudio() {
-
-		playAudio(R.raw.cancel);
-
-		Intent adminintent = new Intent(action_fertilizing.this,
-				Homescreen.class);
-
-		startActivity(adminintent);
-		action_fertilizing.this.finish();
-	}
-
-	protected void okAudio() {
-
-		playAudio(R.raw.ok);
-
 	}
 
 	@Override

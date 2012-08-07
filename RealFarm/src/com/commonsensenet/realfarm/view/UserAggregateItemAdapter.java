@@ -15,7 +15,7 @@ import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 public class UserAggregateItemAdapter extends ArrayAdapter<UserAggregateItem> {
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
-	
+
 	/**
 	 * Creates a new UserAggregateItemAdapter instance.
 	 */
@@ -42,8 +42,8 @@ public class UserAggregateItemAdapter extends ArrayAdapter<UserAggregateItem> {
 			wrapper = (UserAggregateItemWrapper) row.getTag();
 		}
 
-		wrapper.populateFrom(this.getItem(position), mDataProvider);
-		
+		wrapper.populateFrom(getItem(position), mDataProvider);
+
 		return (row);
 	}
 }

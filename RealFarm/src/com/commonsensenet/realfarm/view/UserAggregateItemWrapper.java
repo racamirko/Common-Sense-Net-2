@@ -30,7 +30,7 @@ public class UserAggregateItemWrapper {
 	 *            the View where the info will be presented.
 	 */
 	public UserAggregateItemWrapper(View row) {
-		this.mRow = row;
+		mRow = row;
 	}
 
 	public TextView getDate() {

@@ -40,7 +40,7 @@ public class ActionItemWrapper {
 	 *            the View where the info will be presented.
 	 */
 	public ActionItemWrapper(View row) {
-		this.mRow = row;
+		mRow = row;
 	}
 
 	public TextView getDate() {

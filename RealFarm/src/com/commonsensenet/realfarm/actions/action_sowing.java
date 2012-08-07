@@ -26,7 +26,7 @@ public class action_sowing extends DataFormActivity {
 	private int mAmount;
 	private int mDay;
 	private int mIntercrop;
-	private String mMonth;
+	private int mMonth;
 	private int mSeedType;
 	private int mTreatment;
 
@@ -191,7 +191,8 @@ public class action_sowing extends DataFormActivity {
 		// gets the current values from the map.
 		mSeedType = (Integer) mResultsMap.get(VARIETY);
 		mAmount = Integer.valueOf(mResultsMap.get(AMOUNT).toString());
-		mMonth = mResultsMap.get(MONTH).toString();
+		// month corresponds to the id in the resource table.
+		mMonth = Integer.valueOf(mResultsMap.get(MONTH).toString());
 		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
 		mTreatment = (Integer) mResultsMap.get(TREATMENT);
 		mIntercrop = (Integer) mResultsMap.get(INTERCROP);
@@ -213,7 +214,7 @@ public class action_sowing extends DataFormActivity {
 			highlightField(R.id.units_sow_tr, true);
 		}
 
-		if (!mMonth.equalsIgnoreCase("0") && mDay > 0) {
+		if (mMonth != -1 && mDay > 0) {
 			highlightField(R.id.day_sow_tr, false);
 		} else {
 			isValid = false;
@@ -234,12 +235,15 @@ public class action_sowing extends DataFormActivity {
 			highlightField(R.id.intercrop_sow_tr, true);
 		}
 
-		// creates a new calendar and sets the selected date.
-		Calendar calentar = Calendar.getInstance();
-		calentar.set(Calendar.DAY_OF_MONTH, mDay);
-
 		// if all the fields are valid the data is inserted into the database.
 		if (isValid) {
+
+			Resource monthResource = mDataProvider.getResourceById(mMonth);
+
+			// creates a new calendar and sets the selected date.
+			Calendar calentar = Calendar.getInstance();
+			calentar.set(Calendar.DAY_OF_MONTH, mDay);
+
 			mDataProvider.addSowAction(Global.plotId, mAmount, mSeedType,
 					calentar.getTime(), mTreatment, mIntercrop, 0, 0);
 			return true;

@@ -31,7 +31,7 @@ public abstract class AggregateItemWrapper {
 	 *            the View where the info will be presented.
 	 */
 	public AggregateItemWrapper(View row) {
-		this.mRow = row;
+		mRow = row;
 	}
 
 	public ImageView getTypeImage() {
@@ -62,15 +62,15 @@ public abstract class AggregateItemWrapper {
 		}
 		return (mUserCount);
 	}
-	
-	public ImageView getUserImg(){
+
+	public ImageView getUserImg() {
 		if (mUserImg == null) {
 			mUserImg = (ImageView) mRow
 					.findViewById(R.id.img_aggregate_user_count);
 		}
-		return (mUserImg);		
+		return (mUserImg);
 	}
-	
+
 	public TextView getTreatmentCount() {
 
 		if (mTreatmentCount == null) {

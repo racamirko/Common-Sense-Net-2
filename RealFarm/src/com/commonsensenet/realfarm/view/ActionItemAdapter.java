@@ -42,8 +42,7 @@ public class ActionItemAdapter extends ArrayAdapter<Action> {
 			wrapper = (ActionItemWrapper) row.getTag();
 		}
 
-		wrapper.populateFrom(this.getItem(position), mDataProvider,
-				this.getContext());
+		wrapper.populateFrom(getItem(position), mDataProvider, getContext());
 		return (row);
 	}
 }

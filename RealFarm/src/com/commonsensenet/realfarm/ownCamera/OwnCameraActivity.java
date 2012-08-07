@@ -222,8 +222,8 @@ public class OwnCameraActivity extends Activity implements
 	public void onDestroy() {
 		super.onDestroy();
 		Log.d(LOG_TAG, "Ondestroy");
-		if (this.mCamera != null)
-			this.mCamera.stopPreview();
+		if (mCamera != null)
+			mCamera.stopPreview();
 		releaseCamera();
 		Log.d(LOG_TAG, "Activity destroyed");
 	}
@@ -231,8 +231,8 @@ public class OwnCameraActivity extends Activity implements
 	@Override
 	protected void onPause() {
 		super.onPause();
-		if (this.mCamera != null)
-			this.mCamera.stopPreview();
+		if (mCamera != null)
+			mCamera.stopPreview();
 		Log.d(LOG_TAG, "Preview stoped");
 		releaseCamera();
 		Log.d(LOG_TAG, "Activity on pause");
@@ -260,18 +260,18 @@ public class OwnCameraActivity extends Activity implements
 	@Override
 	protected void onStop() {
 		super.onStop();
-		if (this.mCamera != null)
-			this.mCamera.stopPreview();
+		if (mCamera != null)
+			mCamera.stopPreview();
 		releaseCamera();
 		Log.d(LOG_TAG, "Activity stopped");
 	}
 
 	private void releaseCamera() {
-		if (this.mCamera != null) {
+		if (mCamera != null) {
 			Log.d(LOG_TAG, "Releasing camera");
 			// release the camera for other applications
-			this.mCamera.release();
-			this.mCamera = null;
+			mCamera.release();
+			mCamera = null;
 		}
 	}
 
@@ -279,7 +279,7 @@ public class OwnCameraActivity extends Activity implements
 		Intent intent = getIntent();
 		overridePendingTransition(0, 0);
 		intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-		this.finish();
+		finish();
 		overridePendingTransition(0, 0);
 		startActivity(intent);
 	}
@@ -295,13 +295,13 @@ public class OwnCameraActivity extends Activity implements
 
 		// stop preview before making changes
 		try {
-			this.mCamera.stopPreview();
+			mCamera.stopPreview();
 		} catch (Exception e) {
 			Log.d(LOG_TAG, "Unable to stop preview");
 		}
-		Parameters p = this.mCamera.getParameters();
-		this.mCamera.setDisplayOrientation(90);
-		this.mCamera.setParameters(p);
+		Parameters p = mCamera.getParameters();
+		mCamera.setDisplayOrientation(90);
+		mCamera.setParameters(p);
 		Log.d(LOG_TAG, "Surface changed");
 
 		// set preview size and make any resize, rotate or
@@ -309,8 +309,8 @@ public class OwnCameraActivity extends Activity implements
 
 		// start preview with new settings
 		try {
-			this.mCamera.setPreviewDisplay(mholder);
-			this.mCamera.startPreview();
+			mCamera.setPreviewDisplay(mholder);
+			mCamera.startPreview();
 			Log.d(LOG_TAG, "Starting camera preview ");
 		} catch (IOException e) {
 			Log.d(LOG_TAG, "Error starting camera preview " + e.getMessage());
@@ -341,9 +341,9 @@ public class OwnCameraActivity extends Activity implements
 
 		// empty. Take care of releasing the camera preview in your activity
 
-		if (this.mCamera != null) {
-			this.mCamera.stopPreview();
-			this.mCamera.release();
+		if (mCamera != null) {
+			mCamera.stopPreview();
+			mCamera.release();
 		}
 		Log.d(LOG_TAG, "Preview destroyed");
 	}

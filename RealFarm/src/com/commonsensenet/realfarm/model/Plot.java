@@ -1,7 +1,5 @@
 package com.commonsensenet.realfarm.model;
 
-import java.util.Date;
-
 /**
  * 
  * @author Oscar Bola–os <@oscarbolanos>

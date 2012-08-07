@@ -33,23 +33,24 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 		Resource res = getItem(position);
 		if (res != null) {
 			TextView tt = (TextView) v.findViewById(R.id.dialog_row_text);
-			ImageView im2 = (ImageView) v.findViewById(R.id.dialog_row_icon);
+			ImageView im = (ImageView) v.findViewById(R.id.dialog_row_icon);
 			LinearLayout ll = (LinearLayout) v
 					.findViewById(R.id.dialog_row_layout);
 			if (tt != null) {
 				tt.setText(res.getName());
 			}
-			if (im2 != null) {
-				int id = res.getResource2();
-				if (id != -1) {
-					im2.setImageResource(id);
-				}
-			}
-			if (ll != null) {
-				int id = res.getBackgroundResource();
-				if (id != -1) {
-					ll.setBackgroundResource(id);
-					tt.setTextColor(Color.parseColor("#FFFFFF"));
+
+			// only adds either the background or the icon, since both
+			// are not compatible together.
+			int resId = res.getBackgroundResource();
+			if (ll != null && resId != -1) {
+				ll.setBackgroundResource(resId);
+				tt.setTextColor(Color.parseColor("#FFFFFF"));
+			} else {
+
+				resId = res.getResource1();
+				if (resId != -1) {
+					im.setImageResource(resId);
 				}
 			}
 		}

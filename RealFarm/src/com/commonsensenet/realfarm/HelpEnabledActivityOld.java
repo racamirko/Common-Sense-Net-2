@@ -198,23 +198,13 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 
 	public void showHelp(View v) {
 
-		/*
-		 * if(mp != null) //Integration { mp.stop(); mp.release(); mp = null; }
-		 * mp = MediaPlayer.create(this, R.raw.audio1); mp.start();
-		 */
-
-		if (v.getId() == R.id.hmscrn_btn_actions) { // Integration
-
+		if (v.getId() == R.id.hmscrn_btn_actions) {
 			playAudioalways(R.raw.audio1);
-
 		}
 		if (v.getId() == R.id.hmscrn_btn_advice) {
-
 			playAudioalways(R.raw.audio2);
 		}
-		if (v.getId() == R.id.hmscrn_btn_sound
-				|| v.getId() == R.id.hmscrn_btn_sound) {
-
+		if (v.getId() == R.id.hmscrn_btn_sound) {
 			playAudioalways(R.raw.audio3);
 		}
 
@@ -223,53 +213,21 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		//
 		// playAudioalways(R.raw.audio3);
 		// }
-		if (v.getId() == R.id.hmscrn_btn_yield
-				|| v.getId() == R.id.hmscrn_btn_yield) {
-
+		if (v.getId() == R.id.hmscrn_btn_yield) {
 			playAudioalways(R.raw.audio4);
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_weather
-				|| v.getId() == R.id.hmscrn_btn_weather) {
-
+		if (v.getId() == R.id.hmscrn_btn_weather) {
 			playAudioalways(R.raw.weatherforecast);
 		}
 		// End of big icons
 
-		if (v.getId() == R.id.button_action_sow) {
-			playAudioalways(R.raw.sowing);
-
-		}
-
-		if (v.getId() == R.id.button_action_harvest) {
-			playAudioalways(R.raw.harvesting);
-		}
-
-		if (v.getId() == R.id.button_action_sell) {
-			playAudioalways(R.raw.selling);
-		}
-
-		if (v.getId() == R.id.button_action_fertilize) {
-			playAudioalways(R.raw.fertilizing);
-		}
-
-		if (v.getId() == R.id.button_action_spray) {
-			playAudioalways(R.raw.spraying);
-		}
-
-		if (v.getId() == R.id.button_action_irrigate) {
-			playAudioalways(R.raw.irrigate);
-		}
 		if (v.getId() == R.id.hmscrn_btn_market) {
 			playAudioalways(R.raw.marketprice);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_video) {
 			playAudioalways(R.raw.video);
-		}
-
-		if (v.getId() == R.id.button_action_report) {
-			playAudioalways(R.raw.problems);
 		}
 
 		// if (v.getId() == R.id.hmscrn_btn_diary) { // changes

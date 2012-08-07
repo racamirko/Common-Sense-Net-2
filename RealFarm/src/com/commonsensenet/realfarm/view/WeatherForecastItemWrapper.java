@@ -35,7 +35,7 @@ public class WeatherForecastItemWrapper {
 	 *            the View where the info will be presented.
 	 */
 	public WeatherForecastItemWrapper(View row) {
-		this.mRow = row;
+		mRow = row;
 	}
 
 	public TextView getDay() {

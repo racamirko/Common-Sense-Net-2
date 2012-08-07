@@ -583,18 +583,20 @@ public class RealFarmDatabase {
 		Log.d(LOG_TAG, "users works");
 
 		Object[][] actionTypeData = {
-				{ ACTION_TYPE_SOW_ID, "sow", R.drawable.ic_sow, R.raw.audio1 },
+				{ ACTION_TYPE_SOW_ID, "sow", R.drawable.sowingaction,
+						R.raw.audio1 },
 				{ ACTION_TYPE_FERTILIZE_ID, "fertilize",
-						R.drawable.ic_fertilize, R.raw.audio2 },
-				{ ACTION_TYPE_IRRIGATE_ID, "irrigate", R.drawable.ic_irrigate,
-						R.raw.audio4 },
-				{ ACTION_TYPE_REPORT_ID, "report", R.drawable.ic_problem,
-						R.raw.audio6 },
-				{ ACTION_TYPE_SPRAY_ID, "spray", R.drawable.ic_spray,
+						R.drawable.fertilizingaction, R.raw.audio2 },
+				{ ACTION_TYPE_IRRIGATE_ID, "irrigate",
+						R.drawable.irrigationaction, R.raw.audio4 },
+				{ ACTION_TYPE_REPORT_ID, "report",
+						R.drawable.problemreportingaction, R.raw.audio6 },
+				{ ACTION_TYPE_SPRAY_ID, "spray", R.drawable.sprayingaction,
 						R.raw.audio3 },
-				{ ACTION_TYPE_HARVEST_ID, "harvest", R.drawable.ic_harvest,
-						R.raw.audio5 },
-				{ ACTION_TYPE_SELL_ID, "sell", R.drawable.ic_sell, R.raw.audio7 }
+				{ ACTION_TYPE_HARVEST_ID, "harvest",
+						R.drawable.harvestingaction, R.raw.audio5 },
+				{ ACTION_TYPE_SELL_ID, "sell", R.drawable.sellingaction,
+						R.raw.audio7 }
 
 		};
 
