@@ -39,7 +39,7 @@ public class action_sowing extends DataFormActivity {
 		mResultsMap.put(VARIETY, -1);
 		mResultsMap.put(AMOUNT, "0");
 		mResultsMap.put(MONTH, "0");
-		mResultsMap.put(DAY, -1);
+		mResultsMap.put(DAY, "0");
 		mResultsMap.put(TREATMENT, -1);
 		mResultsMap.put(INTERCROP, -1);
 

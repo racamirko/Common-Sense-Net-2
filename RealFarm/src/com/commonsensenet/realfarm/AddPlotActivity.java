@@ -36,7 +36,7 @@ public class AddPlotActivity extends DataFormActivity {
 
 		// inserts the new action
 		Global.plotId = (int) mDataProvider.addPlot(Global.userId, mMainCrop,
-				mPlotImage, mSoilType, mSize, 0, 0);
+				mPlotImage, mSoilType, mSize);
 
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
