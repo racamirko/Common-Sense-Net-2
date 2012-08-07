@@ -42,8 +42,8 @@ public class WeatherForecast {
 
 	/**
 	 * Gets the ResourceId based on the type of WeatherForecast. Accepted values
-	 * are 'Sunny', 'Light Rain', 'Cloudy', 'Change of Rain', 'Rain' and
-	 * 'Storm'.
+	 * are 'Sunny', 'Light Rain', 'Cloudy', 'Chance of Rain', 'Rain' and
+	 * 'Partly Cloudy', 'Storm'.
 	 * 
 	 * @return the ResourceId that represents the WeatherForecast type.
 	 */
@@ -53,14 +53,14 @@ public class WeatherForecast {
 		int typeIconId = -1;
 		if (mType.toString().equalsIgnoreCase("Sunny")) {
 			typeIconId = R.drawable.wf_sunny;
-		} else if (mType.toString().equalsIgnoreCase("Light Rain")) {
+		} else if (mType.toString().equalsIgnoreCase("Chance of Light Rain")) {
 			typeIconId = R.drawable.wf_lightrain;
 		} else if (mType.toString().equalsIgnoreCase("Cloudy")) {
 			typeIconId = R.drawable.wf_cloudy;
-		} else if (mType.toString().equalsIgnoreCase("Chance of Rain")) {
-			typeIconId = R.drawable.wf_chance_of_rain;
 		} else if (mType.toString().equalsIgnoreCase("Rain")) {
 			typeIconId = R.drawable.wf_rain;
+		} else if (mType.toString().equalsIgnoreCase("Partly Cloudy")) {
+			typeIconId = R.drawable.wf_partlycloudy;
 		} else if (mType.toString().equalsIgnoreCase("Storm")) {
 			typeIconId = R.drawable.wf_storm;
 		}
