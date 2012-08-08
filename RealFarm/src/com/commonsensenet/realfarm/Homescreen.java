@@ -208,7 +208,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (plotCount == 1) {
 			intent = new Intent(this, Global.selectedAction);
 		} else if (plotCount == 0) {
-			intent = new Intent(this, PlotsActivity.class);
+			intent = new Intent(this, PlotListActivity.class);
 		} else {
 			intent = new Intent(this, ChoosePlotActivity.class);
 		}
@@ -389,7 +389,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			startActivity(new Intent(this, PlotsActivity.class));
+			startActivity(new Intent(this, PlotListActivity.class));
 			return;
 		}
 

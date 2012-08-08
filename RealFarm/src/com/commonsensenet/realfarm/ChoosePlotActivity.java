@@ -30,9 +30,7 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 
 	public void onBackPressed() {
 
-		Intent adminintent123 = new Intent(ChoosePlotActivity.this,
-				Homescreen.class);
-		startActivity(adminintent123);
+		startActivity(new Intent(this, Homescreen.class));
 		ChoosePlotActivity.this.finish();
 	}
 

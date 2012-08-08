@@ -128,7 +128,7 @@
             android:label="Diary"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".PlotsActivity"
+            android:name=".PlotListActivity"
             android:icon="@drawable/plotssection"
             android:label="Plots"
             android:screenOrientation="portrait" />

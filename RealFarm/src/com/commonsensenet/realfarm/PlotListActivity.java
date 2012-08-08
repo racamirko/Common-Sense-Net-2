@@ -22,7 +22,7 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
  * 
  * @author Oscar Bola–os <@oscarbolanos>
  */
-public class PlotsActivity extends HelpEnabledActivity implements
+public class PlotListActivity extends HelpEnabledActivity implements
 		OnItemClickListener, OnItemLongClickListener {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
@@ -101,7 +101,7 @@ public class PlotsActivity extends HelpEnabledActivity implements
 			view.getContext().startActivity(
 					new Intent(view.getContext(), Global.selectedAction));
 			// ensures that back will not reach it.
-			PlotsActivity.this.finish();
+			PlotListActivity.this.finish();
 		}
 	}
 
