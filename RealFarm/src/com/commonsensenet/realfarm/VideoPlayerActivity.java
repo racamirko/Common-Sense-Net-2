@@ -39,12 +39,6 @@ public class VideoPlayerActivity extends Activity {
 		// sets the layout of the activity.
 		setContentView(R.layout.act_video_player);
 
-		// get the VideoView from the layout file
-		mVideoView = (VideoView) findViewById(R.id.video_player_videoview);
-
-		// use this to get touch events
-		mVideoView.requestFocus();
-
 		// path where the video is located.
 		String videoPath = null;
 		// gets the video path from the Global variables.
@@ -56,6 +50,10 @@ public class VideoPlayerActivity extends Activity {
 					+ R.raw.english;
 		}
 
+		// get the VideoView from the layout file
+		mVideoView = (VideoView) findViewById(R.id.video_player_videoview);
+		// use this to get touch events
+		mVideoView.requestFocus();
 		// set the video URI, passing the video source path as an URI
 		mVideoView.setVideoURI(Uri.parse(videoPath));
 

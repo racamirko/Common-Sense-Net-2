@@ -10,6 +10,7 @@ import android.view.WindowManager;
 import com.actionbarsherlock.app.SherlockActivity;
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
@@ -29,6 +30,11 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public void onBackPressed() {
 		// stops any currently playing sound.
 		stopAudio();
+
+		// forces the application to flush its data.
+		ApplicationTracker.getInstance().flush();
+
+		// performs the system default operation.
 		super.onBackPressed();
 	}
 

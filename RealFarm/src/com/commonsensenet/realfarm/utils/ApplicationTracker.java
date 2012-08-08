@@ -16,7 +16,7 @@ import android.util.Log;
  */
 public class ApplicationTracker {
 	public enum EventType {
-		CLICK, LONG_CLICK, PAGE_VIEW, ERROR
+		CLICK, ERROR, LONG_CLICK, PAGE_VIEW
 	}
 
 	/**
@@ -28,12 +28,15 @@ public class ApplicationTracker {
 	private static final String DATA_ENTRY_FORMAT_SMALL = "[%s] %s - %s";
 	/** Format used to store the date information. */
 	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
+	/** Default value for the maximum size of the log that will force a flush. */
+	public static final int DEFAULT_MAX_LOG_SIZE = 5;
 	/** Name of the file where the log is stored. */
 	public static final String LOG_FILENAME = "UIlog.txt";
 	/** Name of the folder where the log is located. */
 	public static final String LOG_FOLDER = "/csn_app_logs";
 	/** Identifier of the class used for logging. */
 	private static final String LOG_TAG = "ApplicationTracker";
+
 	/** Singleton instance of the ActionLogger. */
 	private static ApplicationTracker sInstance = null;
 
@@ -56,61 +59,72 @@ public class ApplicationTracker {
 	private SimpleDateFormat mDateFormat;
 	/** Path where the log is stored in the SD card. */
 	private String mExternalDirectoryLog;
+	/**
+	 * Size of the log that will force the ApplicationTracker to flush its data.
+	 * Set this value to -1 to disable this feature.
+	 */
+	public int mMaxLogSize;
 
 	private ApplicationTracker() {
 		// creates the date formatter.
 		mDateFormat = new SimpleDateFormat(DATE_FORMAT);
 		// initializes the list where the data will be stored.
 		mActivityLog = new LinkedList<String>();
-	}
-
-	protected void File_Log_Create(String fileName, String data) {
-
-		File mFile;
-		FileWriter mFileWriter;
-		File folder = new File(Environment.getExternalStorageDirectory()
-				+ "/csn_app_logs");
-		if (!folder.exists()) {
-			folder.mkdir();
-		}
-
-		// LoggedData is the file to which values will be written
-		if (fileName == "value.txt") {
-			mExternalDirectoryLog = Environment.getExternalStorageDirectory()
-					.toString() + LOG_FOLDER;
-			mFile = new File(mExternalDirectoryLog, fileName);
-
-			try {
-				mFileWriter = new FileWriter(mFile, true);
-				mFileWriter.append(data);
-
-				mFileWriter.close();
-			} catch (Exception e) {
-				Log.e("WRITE TO SD", e.getMessage());
-			}
-
-		}
-		if (fileName == "UIlog.txt") {
-			mExternalDirectoryLog = Environment.getExternalStorageDirectory()
-					.toString() + LOG_FOLDER;
-			mFile = new File(mExternalDirectoryLog, fileName);
-
-			try {
-				mFileWriter = new FileWriter(mFile, true);
-				mFileWriter.append(data);
-				mFileWriter.close();
-			} catch (Exception e) {
-				Log.e("WRITE TO SD", e.getMessage());
-			}
-		}
+		// initializes the value with the default
+		mMaxLogSize = DEFAULT_MAX_LOG_SIZE;
 	}
 
 	/**
 	 * Forces the class to write the activity log
 	 */
-	// TODO: should output the content to the SD.
 	public void flush() {
 
+		// cancels the flush operation if there is nothing to flush
+		synchronized (mActivityLog) {
+			if (mActivityLog.size() == 0) {
+				return;
+			}
+		}
+
+		File mFile;
+		FileWriter mFileWriter;
+		File folder = new File(Environment.getExternalStorageDirectory()
+				+ LOG_FOLDER);
+
+		// if the folder does not exist it is created.
+		if (!folder.exists()) {
+			folder.mkdir();
+		}
+
+		// gets the path of the folder where the data will be stored.
+		mExternalDirectoryLog = folder.getAbsolutePath();
+
+		// creates the log file.
+		mFile = new File(mExternalDirectoryLog, LOG_FILENAME);
+
+		try {
+			// initializes the file writer
+			mFileWriter = new FileWriter(mFile, true);
+
+			// writes the stored files into the log file.
+			synchronized (mActivityLog) {
+				for (int x = 0; x < mActivityLog.size(); x++) {
+					mFileWriter.append(mActivityLog.get(x));
+				}
+
+				// removes all current elements of the list.
+				mActivityLog.clear();
+			}
+
+			// closes the file writer.
+			mFileWriter.close();
+		} catch (Exception e) {
+			Log.e("WRITE TO SD", e.getMessage());
+		}
+	}
+
+	public int getMaxLogSize() {
+		return mMaxLogSize;
 	}
 
 	/**
@@ -160,5 +174,17 @@ public class ApplicationTracker {
 						activityName, sb.toString()));
 			}
 		}
+
+		// if the maximum size has been exceeded, the data is flushed
+		// automatically.
+		synchronized (mActivityLog) {
+			if (mActivityLog.size() > mMaxLogSize && mMaxLogSize != -1) {
+				flush();
+			}
+		}
+	}
+
+	public void setMaxLogSize(int value) {
+		mMaxLogSize = value;
 	}
 }
