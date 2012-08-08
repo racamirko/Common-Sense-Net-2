@@ -11,7 +11,7 @@ public class User {
 	/** First name of the User. */
 	private String mFirstname;
 	/** Unique User Identifier */
-	private int mId;
+	private long mId;
 	/** Path where the image of the User is located. */
 	private String mImagePath;
 	/**
@@ -32,9 +32,10 @@ public class User {
 	/** Timestamp that indicates the creation of the User. */
 	private long mTimestamp;
 
-	public User(int id, String firstname, String lastname, String mobileNumber,
-			String deviceId, String imagePath, String location, int isSent,
-			int isEnabled, int isAdminAction, long timestamp) {
+	public User(long id, String firstname, String lastname,
+			String mobileNumber, String deviceId, String imagePath,
+			String location, int isSent, int isEnabled, int isAdminAction,
+			long timestamp) {
 		mId = id;
 		mFirstname = firstname;
 		mLastname = lastname;
@@ -56,7 +57,7 @@ public class User {
 		return mFirstname;
 	}
 
-	public int getId() {
+	public long getId() {
 		return mId;
 	}
 

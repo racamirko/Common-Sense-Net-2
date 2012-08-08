@@ -9,10 +9,10 @@ public class Action {
 	private int mActionTypeId;
 	private int mCropTypeId;
 	private String mDate;
-	private int mId;
+	private long mId;
 	private int mIsAdminAction;
 	private int mIsSent;
-	private int mPlotId;
+	private long mPlotId;
 	private int mPrice;
 	private int mQuantity1;
 	private int mQuantity2;
@@ -22,12 +22,12 @@ public class Action {
 	private long mTimestamp;
 	private int mUnit1;
 	private int mUnit2;
-	private int mUserId;
+	private long mUserId;
 
-	public Action(int id, int actionTypeId, int plotId, String date,
+	public Action(long id, int actionTypeId, long plotId, String date,
 			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
-			int userId, int isSent, int isAdminAction, long timestamp) {
+			long userId, int isSent, int isAdminAction, long timestamp) {
 
 		mId = id;
 		mActionTypeId = actionTypeId;
@@ -63,7 +63,7 @@ public class Action {
 		return mDate;
 	}
 
-	public int getId() {
+	public long getId() {
 		return mId;
 	}
 
@@ -75,7 +75,7 @@ public class Action {
 		return mIsSent;
 	}
 
-	public int getPlotId() {
+	public long getPlotId() {
 		return mPlotId;
 	}
 
@@ -115,7 +115,7 @@ public class Action {
 		return mUnit2;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return mUserId;
 	}
 

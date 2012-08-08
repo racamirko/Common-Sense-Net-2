@@ -7,7 +7,7 @@ package com.commonsensenet.realfarm.model;
 public class Plot {
 
 	/** Unique identifier of the Plot. */
-	private int mId;
+	private long mId;
 	/** Path where the image of the Plot is located. */
 	private String mImagePath;
 	/** Indicates if the Plot was added by the system administrator. */
@@ -28,9 +28,9 @@ public class Plot {
 	/** Timestamp that indicates the creation of the Plot. */
 	private long mTimestamp;
 	/** Owner of the plot. */
-	private int mUserId;
+	private long mUserId;
 
-	public Plot(int id, int userId, int seedTypeId, int soilTypeId,
+	public Plot(long id, long userId, int seedTypeId, int soilTypeId,
 			String imagePath, float size, int isSent, int isEnabled,
 			int isAdminAction, long timestamp) {
 
@@ -46,7 +46,7 @@ public class Plot {
 		mTimestamp = timestamp;
 	}
 
-	public int getId() {
+	public long getId() {
 		return mId;
 	}
 
@@ -82,7 +82,7 @@ public class Plot {
 		return mTimestamp;
 	}
 
-	public int getUserId() {
+	public long getUserId() {
 		return mUserId;
 	}
 

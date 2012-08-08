@@ -39,7 +39,7 @@ public class Settings extends Activity {
 	private String mOriginalFirstname;
 	private String mOriginalLastname;
 	private int mPlotId = 0;
-	private int mUserId;
+	private long mUserId;
 
 	private void addButton(LinearLayout plotLayout, int plotId) {
 		Button b = new Button(this);

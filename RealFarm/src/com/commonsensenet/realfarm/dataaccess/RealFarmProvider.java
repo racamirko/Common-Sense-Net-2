@@ -77,10 +77,10 @@ public class RealFarmProvider {
 		mDatabase.close();
 	}
 
-	public long addAction(int actionTypeId, int plotId, Date date,
+	public long addAction(int actionTypeId, long plotId, Date date,
 			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
-			int userId, int isAdminAction) {
+			long userId, int isAdminAction) {
 
 		return addAction(new Date().getTime(), actionTypeId, plotId, date,
 				seedTypeId, cropTypeId, quantity1, quantity2, unit1, unit2,
@@ -88,10 +88,10 @@ public class RealFarmProvider {
 				new Date().getTime());
 	}
 
-	public long addAction(long id, int actionTypeId, int plotId, Date date,
+	public long addAction(long id, int actionTypeId, long plotId, Date date,
 			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
-			int userId, int isSent, int isAdminAction, long timestamp) {
+			long userId, int isSent, int isAdminAction, long timestamp) {
 
 		ContentValues args = new ContentValues();
 
@@ -134,15 +134,15 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addFertilizeAction(int plotId, int quantity1, int fertilizerId,
-			int unit1, Date date, int isAdminAction) {
+	public long addFertilizeAction(long plotId, int quantity1,
+			int fertilizerId, int unit1, Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, fertilizerId,
 				NONE, NONE, NONE, isAdminAction);
 	}
 
-	public long addHarvestAction(int userId, int plotId, int quantity1,
+	public long addHarvestAction(long userId, long plotId, int quantity1,
 			int quantity2, int unit1, Date date, int satisfactionId,
 			int isAdminAction, int seedTypeId) {
 
@@ -152,7 +152,7 @@ public class RealFarmProvider {
 				isAdminAction);
 	}
 
-	public long addIrrigateAction(int plotId, int quantity1, int unit1,
+	public long addIrrigateAction(long plotId, int quantity1, int unit1,
 			Date date, int methodId, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
@@ -177,13 +177,13 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addPlot(int userId, int seedTypeId, int soilTypeId,
+	public long addPlot(long userId, int seedTypeId, int soilTypeId,
 			String imagePath, double size) {
 
 		return addPlot(userId, seedTypeId, soilTypeId, imagePath, size, 0);
 	}
 
-	public long addPlot(int userId, int seedTypeId, int soilTypeId,
+	public long addPlot(long userId, int seedTypeId, int soilTypeId,
 			String imagePath, double size, int isAdminAction) {
 
 		return addPlot(new Date().getTime(), userId, seedTypeId, imagePath,
@@ -191,7 +191,7 @@ public class RealFarmProvider {
 	}
 
 	// Should only be used by the sync service.
-	public long addPlot(long id, int userId, int seedTypeId, String imagePath,
+	public long addPlot(long id, long userId, int seedTypeId, String imagePath,
 			int soilType, double size, int isSent, int isEnabled,
 			int isAdminAction, long timestamp) {
 
@@ -218,7 +218,7 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addReportAction(int plotId, int seedTypeId, int problemTypeId,
+	public long addReportAction(long plotId, int seedTypeId, int problemTypeId,
 			Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_REPORT_ID, plotId, date,
@@ -227,7 +227,7 @@ public class RealFarmProvider {
 				isAdminAction);
 	}
 
-	public long addSellAction(int plotId, int seedTypeId, int quantity1,
+	public long addSellAction(long plotId, int seedTypeId, int quantity1,
 			int quantity2, int unit1, int unit2, int price, Date date,
 			int isAdminAction) {
 
@@ -236,7 +236,7 @@ public class RealFarmProvider {
 				quantity2, unit1, unit2, NONE, NONE, price, NONE, isAdminAction);
 	}
 
-	public long addSowAction(int plotId, int quantity1, int seedTypeId,
+	public long addSowAction(long plotId, int quantity1, int seedTypeId,
 			Date date, int treatmentId, int intercropId, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
@@ -245,7 +245,7 @@ public class RealFarmProvider {
 				isAdminAction);
 	}
 
-	public long addSprayAction(int userId, int plotId, int quantity1,
+	public long addSprayAction(long userId, long plotId, int quantity1,
 			int unit1, Date date, int problemId, int isAdminAction,
 			int pesticideId) {
 
@@ -377,11 +377,12 @@ public class RealFarmProvider {
 		Action a = null;
 		if (c.moveToFirst()) {
 			do {
-				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
+
+				a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
 						c.getString(3), c.getInt(4), c.getInt(5), c.getInt(6),
 						c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10),
-						c.getInt(11), c.getInt(12), c.getInt(13), c.getInt(14),
-						c.getInt(15), c.getLong(16));
+						c.getInt(11), c.getInt(12), c.getLong(13),
+						c.getInt(14), c.getInt(15), c.getLong(16));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -396,7 +397,7 @@ public class RealFarmProvider {
 	}
 
 	// TODO: sort by date
-	public List<Action> getActionsByPlotId(int plotId) {
+	public List<Action> getActionsByPlotId(long plotId) {
 
 		List<Action> tmpActions = new ArrayList<Action>();
 
@@ -426,11 +427,11 @@ public class RealFarmProvider {
 		Action a = null;
 		if (c.moveToFirst()) {
 			do {
-				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
+				a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
 						c.getString(3), c.getInt(4), c.getInt(5), c.getInt(6),
 						c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10),
-						c.getInt(11), c.getInt(12), c.getInt(13), c.getInt(14),
-						c.getInt(15), c.getLong(16));
+						c.getInt(11), c.getInt(12), c.getLong(13),
+						c.getInt(14), c.getInt(15), c.getLong(16));
 
 				// adds the action to the list.
 				tmpActions.add(a);
@@ -446,7 +447,7 @@ public class RealFarmProvider {
 	}
 
 	// TODO: should order elements properly.
-	public List<Action> getActionsByUserId(int userId) {
+	public List<Action> getActionsByUserId(long userId) {
 
 		List<Action> tmpActions = new ArrayList<Action>();
 
@@ -466,11 +467,11 @@ public class RealFarmProvider {
 		Action a = null;
 		if (c.moveToFirst()) {
 			do {
-				a = new Action(c.getInt(0), c.getInt(1), c.getInt(2),
+				a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
 						c.getString(3), c.getInt(4), c.getInt(5), c.getInt(6),
 						c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10),
-						c.getInt(11), c.getInt(12), c.getInt(13), c.getInt(14),
-						c.getInt(15), c.getLong(16));
+						c.getInt(11), c.getInt(12), c.getLong(13),
+						c.getInt(14), c.getInt(15), c.getLong(16));
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -777,7 +778,7 @@ public class RealFarmProvider {
 	 * 
 	 * @return the plot that matches the unique plotId + userId combination.
 	 */
-	public Plot getPlotById(int plotId, int userId) {
+	public Plot getPlotById(long plotId, long userId) {
 		List<Plot> plots = getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_ID + "="
 				+ plotId + " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_USERID
 				+ "=" + userId);
@@ -818,7 +819,7 @@ public class RealFarmProvider {
 		Plot p = null;
 		if (c.moveToFirst()) {
 			do {
-				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
+				p = new Plot(c.getLong(0), c.getLong(1), c.getInt(2),
 						c.getInt(3), c.getString(4), c.getFloat(5),
 						c.getInt(6), c.getInt(7), c.getInt(8), c.getLong(9));
 				tmpList.add(p);
@@ -838,11 +839,11 @@ public class RealFarmProvider {
 	 * 
 	 * @return a list of all the plots that match the given userId.
 	 */
-	public List<Plot> getPlotsByUserId(int userId) {
+	public List<Plot> getPlotsByUserId(long userId) {
 		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId);
 	}
 
-	public List<Plot> getPlotsByUserIdAndEnabledFlag(int userId, int isEnabled) {
+	public List<Plot> getPlotsByUserIdAndEnabledFlag(long userId, int isEnabled) {
 		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
 				+ " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "="
 				+ isEnabled);
@@ -1150,7 +1151,7 @@ public class RealFarmProvider {
 		User u = null;
 		if (c.moveToFirst()) {
 			do {
-				u = new User(c.getInt(0), c.getString(1), c.getString(2),
+				u = new User(c.getLong(0), c.getString(1), c.getString(2),
 						c.getString(3), c.getString(4), c.getString(5),
 						c.getString(6), c.getInt(7), c.getInt(8), c.getInt(9),
 						c.getLong(10));
@@ -1175,7 +1176,7 @@ public class RealFarmProvider {
 	 * 
 	 * @return the User with the given id.
 	 */
-	public User getUserById(int userId) {
+	public User getUserById(long userId) {
 
 		// gets the users that match the id. Since the id is unique the list can
 		// have maximum one user.
@@ -1247,7 +1248,7 @@ public class RealFarmProvider {
 		// user exists in database
 		if (c.moveToFirst()) {
 			do {
-				u = new User(c.getInt(0), c.getString(1), c.getString(2),
+				u = new User(c.getLong(0), c.getString(1), c.getString(2),
 						c.getString(3), c.getString(4), c.getString(5),
 						c.getString(6), c.getInt(7), c.getInt(8), c.getInt(9),
 						c.getLong(10));
@@ -1315,9 +1316,6 @@ public class RealFarmProvider {
 				tmpList.add(r);
 			} while (c.moveToNext());
 		}
-
-		// final String MY_QUERY3 =
-		// "SELECT name, id, resBg, audio FROM cropType WHERE cropType.id IN (SELECT cropType.id FROM cropType WHERE cropType.id NOT IN (SELECT seedType.resBg FROM seedType)) ORDER BY id ASC";
 
 		c.close();
 		mDatabase.close();
@@ -1497,7 +1495,7 @@ public class RealFarmProvider {
 	 * 
 	 * @return the number of rows modified.
 	 */
-	public long setPlotEnabled(int plotId, int userId, int isEnabled) {
+	public long setPlotEnabled(long plotId, long userId, int isEnabled) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
@@ -1515,7 +1513,7 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long setUserEnabled(int userId, int isEnabled) {
+	public long setUserEnabled(long userId, int isEnabled) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
