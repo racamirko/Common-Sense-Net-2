@@ -329,7 +329,7 @@
                     android:layout_width="80dp"
                     android:layout_height="80dp"
                     android:scaleType="fitXY"
-                    android:src="@drawable/wf_sun" />
+                    android:src="@drawable/wf_sunny" />
 
                 <TextView
                     android:id="@+id/hmscrn_lbl_weather"

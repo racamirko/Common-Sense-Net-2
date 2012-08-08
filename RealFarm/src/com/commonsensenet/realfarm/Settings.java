@@ -176,13 +176,13 @@ public class Settings extends Activity {
 		if (mIsNewSim == true) {
 
 			// TODO: indicate the image path
-			result = mDataProvider.addUser(mDeviceId, firstnameString,
-					lastnameString, "", 0, 0);
+			// result = mDataProvider.addUser(mDeviceId, firstnameString,
+			// lastnameString, "", 0, 0);
 			// detect changes
 		} else if ((!firstnameString.equalsIgnoreCase(mOriginalFirstname))
 				|| (!lastnameString.equalsIgnoreCase(mOriginalLastname))) {
-			result = mDataProvider.addUser(mDeviceId, firstnameString,
-					lastnameString, "", 0, 0);
+			// result = mDataProvider.addUser(mDeviceId, firstnameString,
+			// lastnameString, "", 0, 0);
 		}
 
 		// success
@@ -306,13 +306,13 @@ public class Settings extends Activity {
 		// SIM card exists
 		if (mDeviceId != null) {
 
-			User user = mDataProvider.getUserByDeviceId(mDeviceId);
+			User user = mDataProvider.getUsersByDeviceId(mDeviceId).get(0);
 
 			// if no information, try to fetch the default.
 			if (user == null || user.getFirstname() == null) {
 				// number in case user configured phone
 				// without SIM card
-				user = mDataProvider.getUserByDeviceId(mDeviceId);
+				user = mDataProvider.getUsersByDeviceId(mDeviceId).get(0);
 				mIsNewSim = true;
 			}
 
@@ -321,8 +321,7 @@ public class Settings extends Activity {
 		} else { // user must insert a SIM card, use default user mode
 			Toast.makeText(getApplicationContext(), "Insert SIM card",
 					Toast.LENGTH_SHORT).show();
-			User user = mDataProvider.getUserByDeviceId(mDeviceId);
-
+			User user = mDataProvider.getUsersByDeviceId(mDeviceId).get(0);
 			firstname.setText(user.getFirstname());
 			lastname.setText(user.getLastname());
 		}
@@ -365,7 +364,7 @@ public class Settings extends Activity {
 		tvHeader.setTextSize(30);
 		container2.addView(tvHeader);
 
-		mUserId = mDataProvider.getUserByDeviceId(mDeviceId).getId();
+		mUserId = mDataProvider.getUsersByDeviceId(mDeviceId).get(0).getId();
 
 		// get plot list from database
 		List<Plot> poly = mDataProvider.getPlotsByUserId(mUserId);
@@ -388,15 +387,16 @@ public class Settings extends Activity {
 
 	public void addUserToDatabase() {
 
-		String firstname = mFirstnameTextField.getText().toString();
-		String lastname = mLastnameTextField.getText().toString();
-		String deviceId = mDeviceIdTextField.getText().toString();
+		// String firstname = mFirstnameTextField.getText().toString();
+		// String lastname = mLastnameTextField.getText().toString();
+		// String deviceId = mDeviceIdTextField.getText().toString();
 
-		mDeviceId = RealFarmDatabase.DEFAULT_NUMBER;
+		mDeviceId = ((RealFarmApp) getApplication()).getDeviceId();
 
-		mDataProvider.addUser(deviceId, firstname, lastname, "", 0, 0);
-		Toast.makeText(getBaseContext(), "User Details is put to Database",
-				Toast.LENGTH_SHORT).show();
+		// TODO: add the user to the database.
+		// mDataProvider.addUser(deviceId, firstname, lastname, "", 0, 0);
+		// Toast.makeText(getBaseContext(), "User Details is put to Database",
+		// Toast.LENGTH_SHORT).show();
 
 	}
 }

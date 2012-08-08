@@ -114,7 +114,6 @@ public class action_fertilizing extends DataFormActivity implements
 						0, R.id.dlg_lbl_day_fert, R.id.day_fert_tr,
 						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo);
-
 			}
 		});
 
@@ -127,7 +126,6 @@ public class action_fertilizing extends DataFormActivity implements
 						0, 100, 1, 0.25, 2, R.id.dlg_lbl_unit_no_fert,
 						R.id.units_fert_tr, R.raw.dateinfo, R.raw.dateinfo,
 						R.raw.dateinfo, R.raw.dateinfo);
-
 			}
 		});
 
@@ -142,9 +140,7 @@ public class action_fertilizing extends DataFormActivity implements
 						R.raw.bagof50kg, R.id.dlg_lbl_month_fert,
 						R.id.day_fert_tr, 0);
 			}
-
 		});
-
 	}
 
 	public boolean onLongClick(View v) {
@@ -160,7 +156,6 @@ public class action_fertilizing extends DataFormActivity implements
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 					LOG_TAG, "type_fertilizer");
-
 		}
 
 		if (v.getId() == R.id.dlg_lbl_units_fert) {

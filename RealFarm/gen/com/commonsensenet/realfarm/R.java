@@ -1030,13 +1030,10 @@ containing a value of this type.
         public static final int video=0x7f020121;
         public static final int wf_cloudy=0x7f020122;
         public static final int wf_lightrain=0x7f020123;
-        public static final int wf_mostly_sunny=0x7f020124;
-        public static final int wf_overcast=0x7f020125;
-        public static final int wf_partlycloudy=0x7f020126;
-        public static final int wf_rain=0x7f020127;
-        public static final int wf_storm=0x7f020128;
-        public static final int wf_sun=0x7f020129;
-        public static final int wf_sunny=0x7f02012a;
+        public static final int wf_partlycloudy=0x7f020124;
+        public static final int wf_rain=0x7f020125;
+        public static final int wf_storm=0x7f020126;
+        public static final int wf_sunny=0x7f020127;
     }
     public static final class id {
         public static final int ImageView03=0x7f0600cb;

@@ -159,7 +159,6 @@ public class ApplicationTracker {
 						mDateFormat.format(new Date()), eventType,
 						activityName, sb.toString()));
 			}
-
 		}
 	}
 }

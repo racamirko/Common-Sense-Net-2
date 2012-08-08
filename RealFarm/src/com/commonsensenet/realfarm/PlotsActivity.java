@@ -20,7 +20,7 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
 /**
  * Activity that enables the selection of one plot.
  * 
- * @author Oscar Bola–os <@oscarbolanos> My_settings_plot_details, SM_
+ * @author Oscar Bola–os <@oscarbolanos>
  */
 public class PlotsActivity extends HelpEnabledActivity implements
 		OnItemClickListener, OnItemLongClickListener {

@@ -236,8 +236,9 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 								.show();
 
 						// TODO: provide the rest of the parameters.
-						mDataProvider.addUser(separated[5], separated[3],
-								separated[4], "", 0, 0);
+						// TODO: add the user correctly.
+						// mDataProvider.addUser(separated[5], separated[3],
+						// separated[4], "", 0, 0);
 
 						Toast.makeText(context, "inseted to DB",
 								Toast.LENGTH_SHORT).show();

@@ -6,36 +6,50 @@ package com.commonsensenet.realfarm.model;
  */
 public class User {
 
+	/** Identifier if the device the User has. */
+	private String mDeviceId;
 	/** First name of the User. */
-	protected String mFirstname;
+	private String mFirstname;
 	/** Unique User Identifier */
-	protected int mId;
+	private int mId;
 	/** Path where the image of the User is located. */
-	protected String mImagePath;
+	private String mImagePath;
 	/**
 	 * Flag that indicates whether the user was inserted by an administrator or
 	 * not.
 	 */
-	protected int mIsAdminAction;
+	private int mIsAdminAction;
 	/** Flag that indicates whether the user is enabled or not. */
-	protected int mIsEnabled;
+	private int mIsEnabled;
+	/** Flag that indicates whether the user data has been sent to the server. */
+	private int mIsSent;
 	/** Lastname of the User. */
-	protected String mLastname;
-	/** Identifier if the device the User has. */
-	protected String mDeviceId;
+	private String mLastname;
+	/** Location of the user. */
+	private String mLocation;
+	/** Number number used to contact the User. */
+	private String mMobileNumber;
 	/** Timestamp that indicates the creation of the User. */
-	protected long mTimestamp;
+	private long mTimestamp;
 
-	public User(int userId, String firstname, String lastname, String deviceId,
-			String imagePath, int isEnabled, int isAdminAction, long timestamp) {
-		mId = userId;
+	public User(int id, String firstname, String lastname, String mobileNumber,
+			String deviceId, String imagePath, String location, int isSent,
+			int isEnabled, int isAdminAction, long timestamp) {
+		mId = id;
 		mFirstname = firstname;
 		mLastname = lastname;
+		mMobileNumber = mobileNumber;
 		mDeviceId = deviceId;
 		mImagePath = imagePath;
+		mLocation = location;
+		mIsSent = isSent;
 		mIsEnabled = isEnabled;
 		mIsAdminAction = isAdminAction;
 		mTimestamp = timestamp;
+	}
+
+	public String getDeviceId() {
+		return mDeviceId;
 	}
 
 	public String getFirstname() {
@@ -58,12 +72,20 @@ public class User {
 		return mIsEnabled;
 	}
 
+	public int getIsSent() {
+		return mIsSent;
+	}
+
 	public String getLastname() {
 		return mLastname;
 	}
 
-	public String getDeviceId() {
-		return mDeviceId;
+	public String getLocation() {
+		return mLocation;
+	}
+
+	public String getMobileNumber() {
+		return mMobileNumber;
 	}
 
 	public long getTimestamp() {
@@ -74,9 +96,10 @@ public class User {
 	public String toString() {
 
 		return String
-				.format("[User id='%s', firstName='%s', lastName='%s', deviceId='%s', imagePath='%s', isEnabled='%d', isAdminAction='%d', timestamp='%s']",
-						mId, mFirstname, mLastname, mDeviceId, mImagePath,
-						mIsEnabled, mIsAdminAction, mTimestamp);
+				.format("[User id='%s', firstName='%s', lastName='%s', mobileNumber='%s', deviceId='%s', imagePath='%s', location='%s', isSent='%d', isEnabled='%d', isAdminAction='%d', timestamp='%s']",
+						mId, mFirstname, mLastname, mMobileNumber, mDeviceId,
+						mImagePath, mLocation, mIsSent, mIsEnabled,
+						mIsAdminAction, mTimestamp);
 
 	}
 
