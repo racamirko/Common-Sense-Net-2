@@ -39,6 +39,7 @@ import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ReminderTask;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
@@ -236,6 +237,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	@Override
 	public void onBackPressed() {
 
+		// forces a flush operation of the application could be closed.
+		ApplicationTracker.getInstance().flush();
+
+		// stops all active audio from playing.
 		stopAudio();
 
 		// confirms that the user wants to leave the application.
