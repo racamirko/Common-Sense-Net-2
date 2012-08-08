@@ -49,7 +49,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 				mDataProvider);
 
 		// gets the list from the UI.
-		mWeatherForecastListView = (ListView) findViewById(R.id.list_weather_forecast);
+		mWeatherForecastListView = (ListView) findViewById(R.id.weather_forecast_list);
 		// enables the focus on the items.
 		mWeatherForecastListView.setItemsCanFocus(true);
 		// sets the custom adapter.

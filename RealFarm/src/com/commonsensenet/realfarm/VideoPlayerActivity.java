@@ -26,11 +26,12 @@ public class VideoPlayerActivity extends Activity {
 	public void onBackPressed() {
 		SoundQueue.getInstance().stop();
 
-		Intent adminintent123 = new Intent(VideoPlayerActivity.this, VideoActivity.class);
+		Intent adminintent123 = new Intent(VideoPlayerActivity.this,
+				VideoActivity.class);
 		startActivity(adminintent123);
 		VideoPlayerActivity.this.finish();
 	}
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		// sets the Bundle
@@ -39,7 +40,7 @@ public class VideoPlayerActivity extends Activity {
 		setContentView(R.layout.act_video_player);
 
 		// get the VideoView from the layout file
-		mVideoView = (VideoView) findViewById(R.id.videoview);
+		mVideoView = (VideoView) findViewById(R.id.video_player_videoview);
 
 		// use this to get touch events
 		mVideoView.requestFocus();
@@ -76,7 +77,7 @@ public class VideoPlayerActivity extends Activity {
 		// mediaController.show(0);
 
 		// listens to the back button event.
-		final Button video_back = (Button) findViewById(R.id.button_videoplayer_back);
+		final Button video_back = (Button) findViewById(R.id.video_player_button_back);
 		video_back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 

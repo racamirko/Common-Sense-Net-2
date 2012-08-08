@@ -4,17 +4,17 @@
     android:layout_height="match_parent" >
 
     <ListView
-        android:id="@+id/admin_user_list_list"
+        android:id="@+id/admin_user_listview_list"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/admin_user_list_layout_bottom_bar"
+        android:layout_above="@+id/admin_user_list_layout_button_bar"
         android:layout_alignParentTop="true"
         android:divider="@android:color/transparent"
         android:dividerHeight="10sp" >
     </ListView>
 
     <RelativeLayout
-        android:id="@+id/admin_user_list_layout_bottom_bar"
+        android:id="@+id/admin_user_list_layout_button_bar"
         style="@android:style/ButtonBar"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

@@ -76,7 +76,7 @@ public class PlotListActivity extends HelpEnabledActivity implements
 		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 
 		// gets the list from the UI.
-		mPlotsListView = (ListView) findViewById(R.id.list_plots);
+		mPlotsListView = (ListView) findViewById(R.id.choose_plot_listview_list);
 		// enables the focus on the items.
 		mPlotsListView.setItemsCanFocus(true);
 		// sets the custom adapter.

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
-
 public class VideoActivity extends HelpEnabledActivity {
 	/** Intent that is capable of playing the selected video. */
 	private Intent mTargetIntent;
@@ -25,8 +24,8 @@ public class VideoActivity extends HelpEnabledActivity {
 		setContentView(R.layout.act_video);
 
 		// obtains the buttons from the form
-		Button video1 = (Button) findViewById(R.id.button_video1);
-		Button video2 = (Button) findViewById(R.id.button_video2);
+		Button video1 = (Button) findViewById(R.id.video_button_video1);
+		Button video2 = (Button) findViewById(R.id.video_button_video2);
 
 		// adds the button listeners
 		video1.setOnLongClickListener(this);
@@ -56,9 +55,9 @@ public class VideoActivity extends HelpEnabledActivity {
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.button_video1) {
+		if (v.getId() == R.id.video_button_video1) {
 			playAudio(R.raw.video);
-		} else if (v.getId() == R.id.button_video2) {
+		} else if (v.getId() == R.id.video_button_video2) {
 			playAudio(R.raw.video);
 		}
 

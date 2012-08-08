@@ -141,7 +141,7 @@ public class UserListActivity extends Activity {
 	public void populateUserList() {
 
 		// gets the list where the data is displayed
-		mListView = (ListView) findViewById(R.id.admin_user_list_list);
+		mListView = (ListView) findViewById(R.id.admin_user_listview_list);
 		mListView.setItemsCanFocus(true);
 
 		// creates a new list to hold the user data.

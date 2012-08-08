@@ -43,7 +43,7 @@ public class DiaryActivity extends HelpEnabledActivity implements
 		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);
 
 		// gets the list from the UI.
-		mDiaryListView = (ListView) findViewById(R.id.list_diary);
+		mDiaryListView = (ListView) findViewById(R.id.diary_listview_list);
 		// enables the focus on the items.
 		mDiaryListView.setItemsCanFocus(true);
 		// sets the custom adapter.
