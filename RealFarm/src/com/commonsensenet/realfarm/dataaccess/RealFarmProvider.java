@@ -177,17 +177,17 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addPlot(int userId, int seedTypeId, String imagePath,
-			int soilType, double size) {
+	public long addPlot(int userId, int seedTypeId, int soilTypeId,
+			String imagePath, double size) {
 
-		return addPlot(userId, seedTypeId, imagePath, soilType, size, 0);
+		return addPlot(userId, seedTypeId, soilTypeId, imagePath, size, 0);
 	}
 
-	public long addPlot(int userId, int seedTypeId, String imagePath,
-			int soilType, double size, int isAdminAction) {
+	public long addPlot(int userId, int seedTypeId, int soilTypeId,
+			String imagePath, double size, int isAdminAction) {
 
 		return addPlot(new Date().getTime(), userId, seedTypeId, imagePath,
-				soilType, size, 0, 1, isAdminAction, new Date().getTime());
+				soilTypeId, size, 0, 1, isAdminAction, new Date().getTime());
 	}
 
 	// Should only be used by the sync service.
@@ -396,7 +396,7 @@ public class RealFarmProvider {
 	}
 
 	// TODO: sort by date
-	public List<Action> getActionsByPlotId(long plotId) {
+	public List<Action> getActionsByPlotId(int plotId) {
 
 		List<Action> tmpActions = new ArrayList<Action>();
 
@@ -1246,14 +1246,15 @@ public class RealFarmProvider {
 		User u = null;
 		// user exists in database
 		if (c.moveToFirst()) {
+			do {
+				u = new User(c.getInt(0), c.getString(1), c.getString(2),
+						c.getString(3), c.getString(4), c.getString(5),
+						c.getString(6), c.getInt(7), c.getInt(8), c.getInt(9),
+						c.getLong(10));
 
-			u = new User(c.getInt(0), c.getString(1), c.getString(2),
-					c.getString(3), c.getString(4), c.getString(5),
-					c.getString(6), c.getInt(7), c.getInt(8), c.getInt(9),
-					c.getLong(10));
-
-			Log.d("user: ", u.toString());
-			tmpList.add(u);
+				Log.d("user: ", u.toString());
+				tmpList.add(u);
+			} while (c.moveToNext());
 		}
 
 		// closes the cursor and database.

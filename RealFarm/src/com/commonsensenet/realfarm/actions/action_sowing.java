@@ -15,7 +15,6 @@ import com.commonsensenet.realfarm.model.Resource;
 
 public class action_sowing extends DataFormActivity {
 	public static final String AMOUNT = "amount";
-
 	public static final String DAY = "day";
 	public static final String INTERCROP = "intercrop";
 	public static final String LOG_TAG = "action_sowing";

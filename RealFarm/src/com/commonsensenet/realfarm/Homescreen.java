@@ -121,21 +121,37 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	private void insertDemoData() {
 		if (!IS_INITIALIZED) {
-			Object[][] plotData = { { 1, 1, "farmer_90px_kiran_kumar_g", 1 },
-					{ 1, 2, "farmer_90px_adam_jones", 2 },
-					{ 2, 2, "farmer_90px_adam_jones", 2 },
-					{ 3, 1, "farmer_90px_adam_jones", 1 },
-					{ 4, 1, "farmer_90px_walmart_stores", 3 } };
 
+			List<User> users = mDataProvider.getUsers();
+			List<Resource> soilTypes = mDataProvider.getSoilTypes();
 			List<Resource> seeds = mDataProvider.getSeedTypes();
 
+			Object[][] plotData = {
+					{ users.get(0).getId(), seeds.get(0).getId(),
+							soilTypes.get(0).getId(),
+							"farmer_90px_kiran_kumar_g", 1.5 },
+					{ users.get(0).getId(), seeds.get(3).getId(),
+							soilTypes.get(1).getId(), "farmer_90px_adam_jones",
+							2.1 },
+					{ users.get(1).getId(), seeds.get(5).getId(),
+							soilTypes.get(0).getId(), "farmer_90px_adam_jones",
+							5.6 },
+					{ users.get(2).getId(), seeds.get(7).getId(),
+							soilTypes.get(2).getId(), "farmer_90px_adam_jones",
+							10.0 },
+					{ users.get(3).getId(), seeds.get(9).getId(),
+							soilTypes.get(3).getId(),
+							"farmer_90px_walmart_stores", 3.0 }
+
+			};
+
 			for (int x = 0; x < plotData.length; x++) {
-				int plotId = (int) mDataProvider.addPlot(
-						(Integer) plotData[x][0], seeds.get(x).getId(),
-						(String) plotData[x][2], (Integer) plotData[x][3], 3.0);
+				long plotId = mDataProvider.addPlot((Integer) plotData[x][0],
+						(Integer) plotData[x][1], (Integer) plotData[x][2],
+						(String) plotData[x][3], (Double) plotData[x][4]);
 				// updates the id if I am the owner
 				if ((Integer) plotData[x][0] == Global.userId) {
-					Global.plotId = plotId;
+					Global.plotId = (int) plotId;
 				}
 			}
 
@@ -467,11 +483,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// sets the name of the user.
 		getSupportActionBar().setTitle(
 				user.getFirstname() + ' ' + user.getLastname());
-		getSupportActionBar().setSubtitle("CK Pura");
+		getSupportActionBar().setSubtitle(user.getLocation());
 
 		// gets the image from the resources.
-		int resID = getResources().getIdentifier(user.getImage(), "drawable",
-				"com.commonsensenet.realfarm");
+		int resID = getResources().getIdentifier(user.getImagePath(),
+				"drawable", "com.commonsensenet.realfarm");
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))
 				.setImageResource(resID);
 

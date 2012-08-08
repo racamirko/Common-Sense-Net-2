@@ -68,7 +68,7 @@ public class UserAggregateItemWrapper {
 		getDate().setText(userAggregate.getDate());
 
 		int resId = mRow.getResources().getIdentifier(
-				userAggregate.getUser().getImage(), "drawable",
+				userAggregate.getUser().getImagePath(), "drawable",
 				"com.commonsensenet.realfarm");
 
 		getUserAvatar().setImageResource(resId);

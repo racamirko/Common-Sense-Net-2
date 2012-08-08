@@ -60,7 +60,7 @@ public class User {
 		return mId;
 	}
 
-	public String getImage() {
+	public String getImagePath() {
 		return mImagePath;
 	}
 

@@ -699,21 +699,26 @@ public class RealFarmDatabase {
 		}
 
 		String[][] userData = {
-				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g" },
-				{ "Hendrik", "Knoche", "7888446172", "farmer_90px_adam_jones" },
-				{ "Chris", "Bishop", "7882444210", "farmer_90px_neil_palmer" },
-				{ "Chris", "McDougall", "7811226720",
-						"farmer_90px_neil_palmer2" },
-				{ "Frank", "Herbert", "7881111720",
-						"farmer_90px_walmart_stores" } };
+				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g",
+						"CK Pura" },
+				{ "Hendrik", "Knoche", "0788446172", "farmer_90px_adam_jones",
+						"CK Pura" },
+				{ "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
+						"CK Pura" },
+				{ "Chris", "McDougall", "0781122672",
+						"farmer_90px_neil_palmer2", "CK Pura" },
+				{ "Frank", "Herbert", "0788111172",
+						"farmer_90px_walmart_stores", "CK Pura" } };
 
-		// users
 		ContentValues users = new ContentValues();
 		for (int x = 0; x < userData.length; x++) {
+			users.put(COLUMN_NAME_USER_ID, userData[x][2] + "1");
 			users.put(COLUMN_NAME_USER_FIRSTNAME, userData[x][0]);
 			users.put(COLUMN_NAME_USER_LASTNAME, userData[x][1]);
+			users.put(COLUMN_NAME_USER_MOBILENUMBER, userData[x][2]);
 			users.put(COLUMN_NAME_USER_DEVICEID, userData[x][2]);
 			users.put(COLUMN_NAME_USER_IMAGEPATH, userData[x][3]);
+			users.put(COLUMN_NAME_USER_LOCATION, userData[x][4]);
 			users.put(COLUMN_NAME_USER_ISSENT, 1);
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
@@ -721,12 +726,6 @@ public class RealFarmDatabase {
 			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 			users.clear();
 		}
-
-		// public static final String COLUMN_NAME_USER_DEVICEID = "deviceId";
-		// public static final String COLUMN_NAME_USER_ID = "id";
-		// public static final String COLUMN_NAME_USER_IMAGEPATH = "imagePath";
-		// public static final String COLUMN_NAME_USER_MOBILENUMBER =
-		// "mobileNumber";
 
 		Log.d(LOG_TAG, "users works");
 
@@ -764,8 +763,6 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "actionType works");
 
-		Log.d(LOG_TAG, "pesticide types works");
-
 		// pesticides
 		Object[][] pesticideData = {
 				{ "Monocrotophos", R.drawable.icon, R.raw.audio1, 1,
@@ -780,8 +777,6 @@ public class RealFarmDatabase {
 						"F-unlisted" }
 
 		};
-
-		Log.d(LOG_TAG, "pesticide works");
 
 		// dialogArrays
 		Object[][] dialogArrays = {
