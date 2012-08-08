@@ -9,7 +9,6 @@ public class Action {
 	private int mActionTypeId;
 	private int mCropTypeId;
 	private String mDate;
-	private int mGlobalId;
 	private int mId;
 	private int mIsAdminAction;
 	private int mIsSent;
@@ -23,11 +22,12 @@ public class Action {
 	private long mTimestamp;
 	private int mUnit1;
 	private int mUnit2;
+	private int mUserId;
 
 	public Action(int id, int actionTypeId, int plotId, String date,
 			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
-			int globalId, int isSent, int isAdminAction, long timestamp) {
+			int userId, int isSent, int isAdminAction, long timestamp) {
 
 		mId = id;
 		mActionTypeId = actionTypeId;
@@ -43,7 +43,7 @@ public class Action {
 		mResourceId1 = resource1Id;
 		mResourceId2 = resource2Id;
 		mPrice = price;
-		mGlobalId = globalId;
+		mUserId = userId;
 
 		mIsSent = isSent;
 		mIsAdminAction = isAdminAction;
@@ -55,20 +55,12 @@ public class Action {
 		return mActionTypeId;
 	}
 
-	public int getUserId() {
-		return -1;
-	}
-
 	public int getCropTypeId() {
 		return mCropTypeId;
 	}
 
 	public String getDate() {
 		return mDate;
-	}
-
-	public int getGlobalId() {
-		return mGlobalId;
 	}
 
 	public int getId() {
@@ -123,14 +115,18 @@ public class Action {
 		return mUnit2;
 	}
 
+	public int getUserId() {
+		return mUserId;
+	}
+
 	@Override
 	public String toString() {
 
 		return String
-				.format("[Action id='%d', actionTypeId='%d', plotId='%d', date='%s', seedTypeId='%d', cropTypeId='%d', quantity1='%d', quantity2='%d', unit1='%d', unit2='%d', resource1='%d', resource2='%d', price='%d', globalId='%d', isSent='%d', isAdminAction='%d', timestamp='%d']",
+				.format("[Action id='%d', actionTypeId='%d', plotId='%d', date='%s', seedTypeId='%d', cropTypeId='%d', quantity1='%d', quantity2='%d', unit1='%d', unit2='%d', resource1='%d', resource2='%d', price='%d', userId='%d', isSent='%d', isAdminAction='%d', timestamp='%d']",
 						mId, mActionTypeId, mPlotId, mDate, mSeedTypeId,
 						mCropTypeId, mQuantity1, mQuantity2, mUnit1, mUnit2,
-						mResourceId1, mResourceId2, mPrice, mGlobalId, mIsSent,
+						mResourceId1, mResourceId2, mPrice, mUserId, mIsSent,
 						mIsAdminAction, mTimestamp);
 	}
 }

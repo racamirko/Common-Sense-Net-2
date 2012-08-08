@@ -245,7 +245,7 @@ public class action_sowing extends DataFormActivity {
 			calentar.set(Calendar.DAY_OF_MONTH, mDay);
 
 			mDataProvider.addSowAction(Global.plotId, mAmount, mSeedType,
-					calentar.getTime(), mTreatment, mIntercrop, 0, 0);
+					calentar.getTime(), mTreatment, mIntercrop, 0);
 			return true;
 		}
 		return false;

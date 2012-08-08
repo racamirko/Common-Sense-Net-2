@@ -60,12 +60,12 @@ public class RealFarmProvider {
 
 	/** Cached ActionTypes to improve performance. */
 	private List<Resource> mActionTypes;
+	/** Real farm database access. */
+	private RealFarmDatabase mDatabase;
 	/** Cached seeds to improve performance. */
 	private List<Resource> mSeedTypes;
 	/** Cached seeds to improve performance. */
 	private HashMap<Integer, WeatherType> mWeatherTypes;
-	/** Real farm database access. */
-	private RealFarmDatabase mDatabase;
 
 	protected RealFarmProvider(RealFarmDatabase database) {
 
@@ -80,10 +80,22 @@ public class RealFarmProvider {
 	public long addAction(int actionTypeId, int plotId, Date date,
 			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
-			int globalId, int isSent, int isAdminAction) {
+			int userId, int isAdminAction) {
+
+		return addAction(new Date().getTime(), actionTypeId, plotId, date,
+				seedTypeId, cropTypeId, quantity1, quantity2, unit1, unit2,
+				resource1Id, resource2Id, price, userId, 0, isAdminAction,
+				new Date().getTime());
+	}
+
+	public long addAction(long id, int actionTypeId, int plotId, Date date,
+			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
+			int unit1, int unit2, int resource1Id, int resource2Id, int price,
+			int userId, int isSent, int isAdminAction, long timestamp) {
 
 		ContentValues args = new ContentValues();
 
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPEID, actionTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
@@ -104,13 +116,11 @@ public class RealFarmProvider {
 				resource2Id != NONE ? resource2Id : null);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
 				price != NONE ? price : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
-				globalId != NONE ? globalId : null);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_USERID, userId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, isSent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 				isAdminAction);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP,
-				new Date().getTime());
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP, timestamp);
 
 		long result;
 
@@ -125,29 +135,29 @@ public class RealFarmProvider {
 	}
 
 	public long addFertilizeAction(int plotId, int quantity1, int fertilizerId,
-			int unit1, Date date, int isSent, int isAdminAction) {
+			int unit1, Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, fertilizerId,
-				NONE, NONE, NONE, isSent, isAdminAction);
+				NONE, NONE, NONE, isAdminAction);
 	}
 
 	public long addHarvestAction(int userId, int plotId, int quantity1,
 			int quantity2, int unit1, Date date, int satisfactionId,
-			int isSent, int isAdminAction, int seedTypeId) {
+			int isAdminAction, int seedTypeId) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_HARVEST_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
 				quantity2, unit1, NONE, satisfactionId, NONE, NONE, NONE,
-				isSent, isAdminAction);
+				isAdminAction);
 	}
 
 	public long addIrrigateAction(int plotId, int quantity1, int unit1,
-			Date date, int methodId, int isSent, int isAdminAction) {
+			Date date, int methodId, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, methodId, NONE,
-				NONE, NONE, isSent, isAdminAction);
+				NONE, NONE, isAdminAction);
 	}
 
 	public long addMarketPrice(String date, int value, String type) {
@@ -169,26 +179,33 @@ public class RealFarmProvider {
 
 	public long addPlot(int userId, int seedTypeId, String imagePath,
 			int soilType, double size) {
+
 		return addPlot(userId, seedTypeId, imagePath, soilType, size, 0);
 	}
 
-	// main crop info corresponds to seed type id
 	public long addPlot(int userId, int seedTypeId, String imagePath,
 			int soilType, double size, int isAdminAction) {
 
-		// plot id is created from a timestamp, so it is unique.
+		return addPlot(new Date().getTime(), userId, seedTypeId, imagePath,
+				soilType, size, 0, 1, isAdminAction, new Date().getTime());
+	}
+
+	// Should only be used by the sync service.
+	public long addPlot(long id, int userId, int seedTypeId, String imagePath,
+			int soilType, double size, int isSent, int isEnabled,
+			int isAdminAction, long timestamp) {
+
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, new Date().getTime());
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID, soilType);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT, 0);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, 1);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT, isSent);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, isAdminAction);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
-				new Date().getTime());
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP, timestamp);
 
 		mDatabase.open();
 
@@ -202,75 +219,39 @@ public class RealFarmProvider {
 	}
 
 	public long addReportAction(int plotId, int seedTypeId, int problemTypeId,
-			Date date, int isSent, int isAdminAction) {
+			Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_REPORT_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), NONE,
-				NONE, NONE, NONE, problemTypeId, NONE, NONE, NONE, isSent,
+				NONE, NONE, NONE, problemTypeId, NONE, NONE, NONE,
 				isAdminAction);
 	}
 
 	public long addSellAction(int plotId, int seedTypeId, int quantity1,
 			int quantity2, int unit1, int unit2, int price, Date date,
-			int isSent, int isAdminAction) {
+			int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
-				quantity2, unit1, unit2, NONE, NONE, price, NONE, isSent,
-				isAdminAction);
+				quantity2, unit1, unit2, NONE, NONE, price, NONE, isAdminAction);
 	}
 
 	public long addSowAction(int plotId, int quantity1, int seedTypeId,
-			Date date, int treatmentId, int intercropId, int isSent,
-			int isAdminAction) {
+			Date date, int treatmentId, int intercropId, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
-				NONE, NONE, NONE, treatmentId, intercropId, NONE, NONE, isSent,
+				NONE, NONE, NONE, treatmentId, intercropId, NONE, NONE,
 				isAdminAction);
 	}
 
 	public long addSprayAction(int userId, int plotId, int quantity1,
-			int unit1, Date date, int problemId, int isSent, int isAdminAction,
+			int unit1, Date date, int problemId, int isAdminAction,
 			int pesticideId) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
 				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,
-				pesticideId, NONE, NONE, isSent, isAdminAction);
-	}
-
-	// should be used by the sync service.
-	public long addUser(int id, String firstname, String lastname,
-			String mobileNumber, String deviceId, String imagePath,
-			String location, int isSent, int isEnabled, int isAdminAction,
-			long timestamp) {
-
-		// creates the value container.
-		ContentValues args = new ContentValues();
-
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ID, id);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILENUMBER, mobileNumber);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_LOCATION, location);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, isSent);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP, timestamp);
-
-		long result;
-
-		mDatabase.open();
-
-		// inserts the new user.
-		result = mDatabase
-				.insertEntries(RealFarmDatabase.TABLE_NAME_USER, args);
-
-		mDatabase.close();
-
-		return result;
+				pesticideId, NONE, NONE, isAdminAction);
 	}
 
 	/**
@@ -300,22 +281,31 @@ public class RealFarmProvider {
 		// gets the number of users that share the device id.
 		int userDeviceCount = getUserCount(deviceId);
 
+		return addUser(deviceId + (userDeviceCount + 1), firstname, lastname,
+				mobileNumber, deviceId, imagePath, location, 0, 1,
+				isAdminAction, new Date().getTime());
+	}
+
+	// should be used by the sync service.
+	public long addUser(String id, String firstname, String lastname,
+			String mobileNumber, String deviceId, String imagePath,
+			String location, int isSent, int isEnabled, int isAdminAction,
+			long timestamp) {
+
 		// creates the value container.
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ID, deviceId
-				+ (userDeviceCount + 1));
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILENUMBER, mobileNumber);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LOCATION, location);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, 0);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, 1);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, isSent);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP,
-				new Date().getTime());
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP, timestamp);
 
 		long result;
 
@@ -1024,54 +1014,6 @@ public class RealFarmProvider {
 		return mSeedTypes;
 	}
 
-	/**
-	 * Gets the WeatherType that matches the given identifier.
-	 * 
-	 * @param weatherTypeId
-	 *            the id to query for.
-	 * 
-	 * @return the WeatherType that matches the given id.
-	 */
-	public WeatherType getWeatherTypeById(int weatherTypeId) {
-
-		// weather types are not in memory cache.
-		if (mWeatherTypes == null) {
-
-			// initializes the list used to cache the seeds.
-			mWeatherTypes = new LinkedHashMap<Integer, WeatherType>();
-			mDatabase.open();
-
-			Cursor c = mDatabase.getAllEntries(
-					RealFarmDatabase.TABLE_NAME_SEEDTYPE, new String[] {
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_IMAGE,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO });
-
-			WeatherType wt = null;
-			if (c.moveToFirst()) {
-				do {
-					wt = new WeatherType(c.getInt(0), c.getString(1),
-							c.getInt(2), c.getInt(3));
-
-					// adds the weather type to the hash
-					mWeatherTypes.put(wt.getId(), wt);
-
-					Log.d("weathertype: ", wt.toString());
-
-				} while (c.moveToNext());
-
-			}
-			c.close();
-			mDatabase.close();
-		}
-
-		// returns the WeatherType matching the id.
-		return mWeatherTypes.get(weatherTypeId);
-	}
-
 	public Resource getSoilTypeById(int soilTypeId) {
 
 		// opens the database.
@@ -1491,6 +1433,54 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return tmpList;
+	}
+
+	/**
+	 * Gets the WeatherType that matches the given identifier.
+	 * 
+	 * @param weatherTypeId
+	 *            the id to query for.
+	 * 
+	 * @return the WeatherType that matches the given id.
+	 */
+	public WeatherType getWeatherTypeById(int weatherTypeId) {
+
+		// weather types are not in memory cache.
+		if (mWeatherTypes == null) {
+
+			// initializes the list used to cache the seeds.
+			mWeatherTypes = new LinkedHashMap<Integer, WeatherType>();
+			mDatabase.open();
+
+			Cursor c = mDatabase.getAllEntries(
+					RealFarmDatabase.TABLE_NAME_SEEDTYPE, new String[] {
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_IMAGE,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO });
+
+			WeatherType wt = null;
+			if (c.moveToFirst()) {
+				do {
+					wt = new WeatherType(c.getInt(0), c.getString(1),
+							c.getInt(2), c.getInt(3));
+
+					// adds the weather type to the hash
+					mWeatherTypes.put(wt.getId(), wt);
+
+					Log.d("weathertype: ", wt.toString());
+
+				} while (c.moveToNext());
+
+			}
+			c.close();
+			mDatabase.close();
+		}
+
+		// returns the WeatherType matching the id.
+		return mWeatherTypes.get(weatherTypeId);
 	}
 
 	/**
