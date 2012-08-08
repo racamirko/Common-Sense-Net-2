@@ -12,6 +12,7 @@ import android.widget.ListView;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnWeatherForecastDataChangeListener;
 import com.commonsensenet.realfarm.model.WeatherForecast;
+import com.commonsensenet.realfarm.model.WeatherType;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.WeatherForecastItemAdapter;
 
@@ -59,7 +60,6 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	// TODO: this is not implemented.
 	public void onDataChanged(String date, int temperature, String type) {
-
 		// item should be added to the adapter.
 	}
 
@@ -78,23 +78,15 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 		// gets the selected forecast
 		WeatherForecast wf = mWeatherForecastItemAdapter.getItem(position);
+		WeatherType wt = mDataProvider
+				.getWeatherTypeById(wf.getWeatherTypeId());
 
 		sq.addToQueue(R.raw.todayweatherforecast);
 		sq.addToQueue(R.raw.a1);
 		sq.addToQueue(R.raw.degree);
 		sq.addToQueue(R.raw.and);
 		sq.addToQueue(R.raw.weather);
-
-		if (wf.getType().equals("Sunny")) {
-			sq.addToQueue(R.raw.sunny);
-		} else if (wf.getType().equals("Cloudy")) {
-			sq.addToQueue(R.raw.cloudy);
-		}
-
-		// sq.addToQueue(R.raw.sunny);
-		// sq.addToQueue(R.raw.lightshowers);
-		// sq.addToQueue(R.raw.overcast);
-		// sq.addToQueue(R.raw.stormy);
+		sq.addToQueue(wt.getAudio());
 
 		sq.play();
 

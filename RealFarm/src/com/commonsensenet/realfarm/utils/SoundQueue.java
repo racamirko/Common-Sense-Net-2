@@ -12,8 +12,8 @@ import android.util.Log;
  * Class that handles the Sounds. A list of sounds can be added to the Queue and
  * they will be played sequentially.
  * 
- * @author Mirko Raca <mirko.raca@epfl.ch>
  * @author Oscar Bola–os <@oscarbolanos>
+ * @author Mirko Raca <mirko.raca@epfl.ch>
  * 
  */
 public class SoundQueue implements OnCompletionListener {

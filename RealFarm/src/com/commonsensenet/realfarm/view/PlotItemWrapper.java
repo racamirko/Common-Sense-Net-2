@@ -88,6 +88,6 @@ public class PlotItemWrapper {
 		getIcon().setImageBitmap(bitmapImage);
 		getTitle().setText(soilType.getName());
 		getDescription().setText(seed.getName());
-		getCropIcon().setImageResource(seed.getResource1());
+		getCropIcon().setImageResource(seed.getImage1());
 	}
 }

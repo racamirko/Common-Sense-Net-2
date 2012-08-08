@@ -6,7 +6,9 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.WeatherForecastActivity;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.WeatherForecast;
+import com.commonsensenet.realfarm.model.WeatherType;
 import com.commonsensenet.realfarm.utils.DateHelper;
 
 /**
@@ -19,14 +21,14 @@ import com.commonsensenet.realfarm.utils.DateHelper;
 public class WeatherForecastItemWrapper {
 	/** Day of the forecast. */
 	private TextView mDay;
-	/** Forecasted temperature. */
-	private TextView mTemperature;
 	/** Forecast description. */
 	private TextView mForecast;
 	/** Icon representing the forecast. */
 	private ImageView mIcon;
 	/** The View object that represents a single row inside the ListView. */
 	private View mRow;
+	/** Forecasted temperature. */
+	private TextView mTemperature;
 
 	/**
 	 * Creates a new WeatherForecastItemWrapper instance.
@@ -46,6 +48,14 @@ public class WeatherForecastItemWrapper {
 		return (mDay);
 	}
 
+	public TextView getForecast() {
+		if (mForecast == null) {
+			mForecast = (TextView) mRow
+					.findViewById(R.id.label_weather_forecast_forecast);
+		}
+		return (mForecast);
+	}
+
 	public ImageView getIcon() {
 		if (mIcon == null) {
 			mIcon = (ImageView) mRow.findViewById(R.id.icon_weather_forecast);
@@ -61,18 +71,17 @@ public class WeatherForecastItemWrapper {
 		return (mTemperature);
 	}
 
-	public TextView getForecast() {
-		if (mForecast == null) {
-			mForecast = (TextView) mRow
-					.findViewById(R.id.label_weather_forecast_forecast);
+	public void populateFrom(WeatherForecast weatherForecast,
+			RealFarmProvider provider) {
+
+		// gets the WeatherType from the database.
+		WeatherType wt = provider.getWeatherTypeById(weatherForecast
+				.getWeatherTypeId());
+
+		if (wt != null) {
+			getIcon().setImageResource(wt.getImage());
 		}
-		return (mForecast);
-	}
-
-	public void populateFrom(WeatherForecast weatherForecast) {
-
-		getIcon().setImageResource(weatherForecast.getTypeResourceId());
-		getForecast().setText(weatherForecast.getType());
+		getForecast().setText(weatherForecast.getWeatherTypeId());
 		getTemperature().setText(
 				weatherForecast.getTemperature()
 						+ WeatherForecastActivity.CELSIUS);

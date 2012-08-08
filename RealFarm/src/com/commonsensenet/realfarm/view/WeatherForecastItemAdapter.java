@@ -14,6 +14,9 @@ import com.commonsensenet.realfarm.model.WeatherForecast;
 
 public class WeatherForecastItemAdapter extends ArrayAdapter<WeatherForecast> {
 
+	/** Database provided that used to obtain the required data. */
+	private RealFarmProvider mDataProvider;
+
 	/**
 	 * Creates a new WeatherForecasttemAdapter instance.
 	 */
@@ -21,6 +24,8 @@ public class WeatherForecastItemAdapter extends ArrayAdapter<WeatherForecast> {
 			List<WeatherForecast> weatherForecasts,
 			RealFarmProvider dataProvider) {
 		super(context, android.R.layout.simple_list_item_1, weatherForecasts);
+
+		mDataProvider = dataProvider;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
@@ -37,7 +42,7 @@ public class WeatherForecastItemAdapter extends ArrayAdapter<WeatherForecast> {
 			wrapper = (WeatherForecastItemWrapper) row.getTag();
 		}
 
-		wrapper.populateFrom(getItem(position));
+		wrapper.populateFrom(getItem(position), mDataProvider);
 		return (row);
 	}
 }

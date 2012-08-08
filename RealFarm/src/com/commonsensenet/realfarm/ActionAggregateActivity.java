@@ -117,7 +117,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 			crop.setVisibility(View.INVISIBLE);
 
 		final ImageView actionTypeImage = (ImageView) findViewById(R.id.aggr_action_img);
-		actionTypeImage.setImageResource(actionType.getResource1());
+		actionTypeImage.setImageResource(actionType.getImage1());
 
 		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
@@ -345,7 +345,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				}
 
 				actionTypeImage.setImageResource(data.get(position)
-						.getResource1());
+						.getImage1());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,

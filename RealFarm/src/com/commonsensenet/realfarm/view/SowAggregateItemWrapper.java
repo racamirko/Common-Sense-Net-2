@@ -27,7 +27,7 @@ public class SowAggregateItemWrapper extends AggregateItemWrapper {
 				.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID))));
 		getUserCount().setText(String.valueOf(aggregate.getUserCount()));
 		getTypeText().setText(seed.getShortName());
-		getTypeImage().setBackgroundResource(seed.getResource1());
+		getTypeImage().setBackgroundResource(seed.getImage1());
 
 		getTreatmentCount()
 				.setText(

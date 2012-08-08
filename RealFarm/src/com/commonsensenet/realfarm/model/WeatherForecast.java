@@ -1,7 +1,5 @@
 package com.commonsensenet.realfarm.model;
 
-import com.commonsensenet.realfarm.R;
-
 /**
  * 
  * @author Oscar Bola–os <@oscarbolanos>
@@ -14,14 +12,14 @@ public class WeatherForecast {
 	private int mId;
 	/** Temperature in Celcius. */
 	private int mTemperature;
-	/** Type of weather. It can be Sunny, Cloudy, etc. */
-	private String mType;
+	/** WeatherType id that describes the weather forecast. */
+	private int mWeatherTypeId;
 
-	public WeatherForecast(int id, String date, int temperature, String type) {
+	public WeatherForecast(int id, String date, int temperature, int type) {
 		mId = id;
 		mDate = date;
 		mTemperature = temperature;
-		mType = type;
+		mWeatherTypeId = type;
 	}
 
 	public String getDate() {
@@ -36,44 +34,16 @@ public class WeatherForecast {
 		return mTemperature;
 	}
 
-	public String getType() {
-		return mType;
-	}
-
-	/**
-	 * Gets the ResourceId based on the type of WeatherForecast. Accepted values
-	 * are 'Sunny', 'Light Rain', 'Cloudy', 'Chance of Rain', 'Rain' and
-	 * 'Partly Cloudy', 'Storm'.
-	 * 
-	 * @return the ResourceId that represents the WeatherForecast type.
-	 */
-
-	public int getTypeResourceId() {
-
-		int typeIconId = -1;
-		if (mType.toString().equalsIgnoreCase("Sunny")) {
-			typeIconId = R.drawable.wf_sunny;
-		} else if (mType.toString().equalsIgnoreCase("Chance of Light Rain")) {
-			typeIconId = R.drawable.wf_lightrain;
-		} else if (mType.toString().equalsIgnoreCase("Cloudy")) {
-			typeIconId = R.drawable.wf_cloudy;
-		} else if (mType.toString().equalsIgnoreCase("Rain")) {
-			typeIconId = R.drawable.wf_rain;
-		} else if (mType.toString().equalsIgnoreCase("Partly Cloudy")) {
-			typeIconId = R.drawable.wf_partlycloudy;
-		} else if (mType.toString().equalsIgnoreCase("Storm")) {
-			typeIconId = R.drawable.wf_storm;
-		}
-
-		return typeIconId;
+	public int getWeatherTypeId() {
+		return mWeatherTypeId;
 	}
 
 	@Override
 	public String toString() {
 
 		return String
-				.format("[WeatherForecast id='%s', date='%s', temperature='%d', type='%s']",
-						mId, mDate, mTemperature, mType);
+				.format("[WeatherForecast id='%s', date='%s', temperature='%d', weatherTypeId='%d']",
+						mId, mDate, mTemperature, mWeatherTypeId);
 	}
 
 }

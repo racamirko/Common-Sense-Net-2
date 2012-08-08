@@ -274,14 +274,14 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	protected void putBackgrounds(Resource choice, TextView textView,
 			int imageType) {
 
-		if (choice.getBackgroundResource() != -1) {
-			textView.setBackgroundResource(choice.getBackgroundResource());
+		if (choice.getBackgroundImage() != -1) {
+			textView.setBackgroundResource(choice.getBackgroundImage());
 		}
 
 		// TODO: orbolanos: what is this for?
 		if (imageType == 1 || imageType == 2) {
 			BitmapDrawable bd = (BitmapDrawable) mParentReference
-					.getResources().getDrawable(choice.getResource1());
+					.getResources().getDrawable(choice.getImage1());
 
 			// validates the maximum width.
 			int width = bd.getBitmap().getWidth();
@@ -293,7 +293,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT);
 			llp.setMargins(10, 0, 80 - width - 20, 0);
 			textView.setLayoutParams(llp);
-			textView.setBackgroundResource(choice.getResource1());
+			textView.setBackgroundResource(choice.getImage1());
 
 			if (imageType == 1) {
 				textView.setTextColor(Color.TRANSPARENT);

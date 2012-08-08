@@ -4,6 +4,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -21,6 +22,7 @@ import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
+import com.commonsensenet.realfarm.model.WeatherType;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 
@@ -57,9 +59,11 @@ public class RealFarmProvider {
 	}
 
 	/** Cached ActionTypes to improve performance. */
-	private List<Resource> mAllActionTypes;
+	private List<Resource> mActionTypes;
 	/** Cached seeds to improve performance. */
-	private List<Resource> mAllSeeds;
+	private List<Resource> mSeedTypes;
+	/** Cached seeds to improve performance. */
+	private HashMap<Integer, WeatherType> mWeatherTypes;
 	/** Real farm database access. */
 	private RealFarmDatabase mDatabase;
 
@@ -165,20 +169,23 @@ public class RealFarmProvider {
 
 	public long addPlot(int userId, int seedTypeId, String imagePath,
 			int soilType, double size) {
-		return addPlot(userId, seedTypeId, imagePath, soilType, size, 1, 0);
+		return addPlot(userId, seedTypeId, imagePath, soilType, size, 0);
 	}
 
 	// main crop info corresponds to seed type id
 	public long addPlot(int userId, int seedTypeId, String imagePath,
-			int soilType, double size, int isEnabled, int isAdminAction) {
+			int soilType, double size, int isAdminAction) {
 
+		// plot id is created from a timestamp, so it is unique.
 		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, new Date().getTime());
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID, seedTypeId);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID, soilType);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT, 0);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, 1);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
 				new Date().getTime());
@@ -232,6 +239,40 @@ public class RealFarmProvider {
 				pesticideId, NONE, NONE, isSent, isAdminAction);
 	}
 
+	// should be used by the sync service.
+	public long addUser(int id, String firstname, String lastname,
+			String mobileNumber, String deviceId, String imagePath,
+			String location, int isSent, int isEnabled, int isAdminAction,
+			long timestamp) {
+
+		// creates the value container.
+		ContentValues args = new ContentValues();
+
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ID, id);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILENUMBER, mobileNumber);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_LOCATION, location);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, isSent);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP, timestamp);
+
+		long result;
+
+		mDatabase.open();
+
+		// inserts the new user.
+		result = mDatabase
+				.insertEntries(RealFarmDatabase.TABLE_NAME_USER, args);
+
+		mDatabase.close();
+
+		return result;
+	}
+
 	/**
 	 * Adds a new User to the database. A Global id is chosen for the user,
 	 * based on the DeviceId and a sequencial number.
@@ -275,40 +316,6 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP,
 				new Date().getTime());
-
-		long result;
-
-		mDatabase.open();
-
-		// inserts the new user.
-		result = mDatabase
-				.insertEntries(RealFarmDatabase.TABLE_NAME_USER, args);
-
-		mDatabase.close();
-
-		return result;
-	}
-
-	// should be used by the sync service.
-	public long addUser(int id, String firstname, String lastname,
-			String mobileNumber, String deviceId, String imagePath,
-			String location, int isSent, int isEnabled, int isAdminAction,
-			long timestamp) {
-
-		// creates the value container.
-		ContentValues args = new ContentValues();
-
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ID, id);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME, firstname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_LASTNAME, lastname);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_MOBILENUMBER, mobileNumber);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_LOCATION, location);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, isSent);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP, timestamp);
 
 		long result;
 
@@ -514,7 +521,7 @@ public class RealFarmProvider {
 
 	public List<Resource> getActionTypes() {
 
-		if (mAllActionTypes == null) {
+		if (mActionTypes == null) {
 			// opens the database.
 			mDatabase.open();
 
@@ -527,14 +534,14 @@ public class RealFarmProvider {
 							RealFarmDatabase.COLUMN_NAME_ACTIONTYPE_AUDIO },
 					null, null, null, null, null);
 
-			mAllActionTypes = new ArrayList<Resource>();
+			mActionTypes = new ArrayList<Resource>();
 
 			ActionType at = null;
 			if (c.moveToFirst()) {
 				do {
 					at = new ActionType(c.getInt(0), c.getString(1),
 							c.getInt(2), c.getInt(3));
-					mAllActionTypes.add(at);
+					mActionTypes.add(at);
 
 					Log.d("action name values: ", at.toString());
 
@@ -546,7 +553,7 @@ public class RealFarmProvider {
 
 		}
 
-		return mAllActionTypes;
+		return mActionTypes;
 	}
 
 	public List<AggregateItem> getAggregateItems(int actionTypeId,
@@ -683,8 +690,8 @@ public class RealFarmProvider {
 				r.setName(c.getString(1));
 				r.setShortName(c.getString(2));
 				r.setAudio(c.getInt(3));
-				r.setResource1(c.getInt(4));
-				r.setBackgroundResource(c.getInt(5));
+				r.setImage1(c.getInt(4));
+				r.setBackgroundImage(c.getInt(5));
 				tmpList.add(r);
 			} while (c.moveToNext());
 		}
@@ -769,41 +776,35 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public Plot getPlotById(int plotId) {
+	/**
+	 * Gets the plot that matches the id and userId combination. These two
+	 * values make up the unique identifier of each plot.
+	 * 
+	 * @param plotId
+	 *            local identifier of the plot.
+	 * @param userId
+	 *            identifier of the user to query.
+	 * 
+	 * @return the plot that matches the unique plotId + userId combination.
+	 */
+	public Plot getPlotById(int plotId, int userId) {
+		List<Plot> plots = getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_ID + "="
+				+ plotId + " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_USERID
+				+ "=" + userId);
 
-		mDatabase.open();
-
-		// query all actions
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
-						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_PLOT_ID + "=" + plotId, null,
-				null, null, null);
-
-		Plot p = null;
-		if (c.moveToFirst()) {
-			do {
-				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getInt(4), c.getFloat(5),
-						c.getInt(6), c.getInt(7), c.getLong(8));
-
-				Log.d("plot values: ", p.toString());
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-		return p;
+		return plots.size() > 0 ? plots.get(0) : null;
 	}
 
+	/**
+	 * Queries all available plots in the database.
+	 * 
+	 * @return all the available plots.
+	 */
 	public List<Plot> getPlots() {
+		return getPlots(null);
+	}
+
+	protected List<Plot> getPlots(String selection) {
 
 		// opens the database.
 		List<Plot> tmpList = new ArrayList<Plot>();
@@ -815,147 +816,46 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
-						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP }, null,
-				null, null, null, null);
-
-		Plot p = null;
-		if (c.moveToFirst()) {
-			do {
-				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getInt(4), c.getFloat(5),
-						c.getInt(6), c.getInt(7), c.getLong(8));
-				tmpList.add(p);
-
-				Log.d("plot values: ", p.toString());
-
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-		return tmpList;
-	}
-
-	public List<Plot> getPlotsByEnabledFlag(int isEnabled) {
-
-		mDatabase.open();
-
-		List<Plot> tmpList;
-
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
+						RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "=" + isEnabled,
-				null, null, null, null);
-
-		tmpList = new ArrayList<Plot>();
+				selection, null, null, null, null);
 
 		Plot p = null;
 		if (c.moveToFirst()) {
 			do {
-
 				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getInt(4), c.getFloat(5),
-						c.getInt(6), c.getInt(7), c.getLong(8));
-
+						c.getInt(3), c.getString(4), c.getFloat(5),
+						c.getInt(6), c.getInt(7), c.getInt(8), c.getLong(9));
 				tmpList.add(p);
-
-				Log.d("plot values: ", p.toString());
-
 			} while (c.moveToNext());
-
 		}
+
 		c.close();
 		mDatabase.close();
-
 		return tmpList;
 	}
 
+	/**
+	 * Gets all plots matching the same user.
+	 * 
+	 * @param userId
+	 *            the userId to query from.
+	 * 
+	 * @return a list of all the plots that match the given userId.
+	 */
 	public List<Plot> getPlotsByUserId(int userId) {
-
-		// opens the database.
-		List<Plot> tmpList = new ArrayList<Plot>();
-
-		mDatabase.open();
-
-		// query all actions
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
-						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId, null,
-				null, null, null);
-
-		Plot p = null;
-		if (c.moveToFirst()) {
-			do {
-				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getInt(4), c.getFloat(5),
-						c.getInt(6), c.getInt(7), c.getLong(8));
-				tmpList.add(p);
-
-				Log.d("plot values: ", p.toString());
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-		return tmpList;
+		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId);
 	}
 
 	public List<Plot> getPlotsByUserIdAndEnabledFlag(int userId, int isEnabled) {
-
-		// opens the database.
-		List<Plot> tmpList = new ArrayList<Plot>();
-
-		mDatabase.open();
-
-		// query all actions
-		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
-				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_USERID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SEEDTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
-						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
-						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
-						+ " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED
-						+ "=" + isEnabled + "", null, null, null, null);
-
-		Plot p = null;
-		if (c.moveToFirst()) {
-			do {
-				p = new Plot(c.getInt(0), c.getInt(1), c.getInt(2),
-						c.getString(3), c.getInt(4), c.getFloat(5),
-						c.getInt(6), c.getInt(7), c.getLong(8));
-				tmpList.add(p);
-			} while (c.moveToNext());
-		}
-
-		c.close();
-		mDatabase.close();
-		return tmpList;
+		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
+				+ " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "="
+				+ isEnabled);
 	}
 
 	/**
@@ -993,9 +893,9 @@ public class RealFarmProvider {
 			tmpRes.setName(c.getString(1));
 			tmpRes.setShortName(c.getString(2));
 			tmpRes.setAudio(c.getInt(3));
-			tmpRes.setResource1(c.getInt(4));
-			tmpRes.setResource2(c.getInt(5));
-			tmpRes.setBackgroundResource(c.getInt(6));
+			tmpRes.setImage1(c.getInt(4));
+			tmpRes.setImage2(c.getInt(5));
+			tmpRes.setBackgroundImage(c.getInt(6));
 			tmpRes.setType(c.getInt(7));
 
 		}
@@ -1036,9 +936,9 @@ public class RealFarmProvider {
 				dd.setName(c.getString(1));
 				dd.setShortName(c.getString(2));
 				dd.setAudio(c.getInt(3));
-				dd.setResource1(c.getInt(4));
-				dd.setResource2(c.getInt(5));
-				dd.setBackgroundResource(c.getInt(6));
+				dd.setImage1(c.getInt(4));
+				dd.setImage2(c.getInt(5));
+				dd.setBackgroundImage(c.getInt(6));
 				dd.setType(c.getInt(7));
 
 				tmpList.add(dd);
@@ -1090,10 +990,10 @@ public class RealFarmProvider {
 	public List<Resource> getSeedTypes() {
 
 		// seeds are not in cache
-		if (mAllSeeds == null) {
+		if (mSeedTypes == null) {
 
 			// initializes the list used to cache the seeds.
-			mAllSeeds = new ArrayList<Resource>();
+			mSeedTypes = new ArrayList<Resource>();
 			mDatabase.open();
 
 			Cursor c = mDatabase.getAllEntries(
@@ -1110,7 +1010,7 @@ public class RealFarmProvider {
 					SeedType s = new SeedType(c.getInt(0), c.getString(1),
 							c.getString(2), c.getInt(3), c.getInt(4),
 							c.getInt(5));
-					mAllSeeds.add(s);
+					mSeedTypes.add(s);
 
 					Log.d("seed type: ", s.toString());
 
@@ -1121,7 +1021,55 @@ public class RealFarmProvider {
 			mDatabase.close();
 		}
 
-		return mAllSeeds;
+		return mSeedTypes;
+	}
+
+	/**
+	 * Gets the WeatherType that matches the given identifier.
+	 * 
+	 * @param weatherTypeId
+	 *            the id to query for.
+	 * 
+	 * @return the WeatherType that matches the given id.
+	 */
+	public WeatherType getWeatherTypeById(int weatherTypeId) {
+
+		// weather types are not in memory cache.
+		if (mWeatherTypes == null) {
+
+			// initializes the list used to cache the seeds.
+			mWeatherTypes = new LinkedHashMap<Integer, WeatherType>();
+			mDatabase.open();
+
+			Cursor c = mDatabase.getAllEntries(
+					RealFarmDatabase.TABLE_NAME_SEEDTYPE, new String[] {
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_IMAGE,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO });
+
+			WeatherType wt = null;
+			if (c.moveToFirst()) {
+				do {
+					wt = new WeatherType(c.getInt(0), c.getString(1),
+							c.getInt(2), c.getInt(3));
+
+					// adds the weather type to the hash
+					mWeatherTypes.put(wt.getId(), wt);
+
+					Log.d("weathertype: ", wt.toString());
+
+				} while (c.moveToNext());
+
+			}
+			c.close();
+			mDatabase.close();
+		}
+
+		// returns the WeatherType matching the id.
+		return mWeatherTypes.get(weatherTypeId);
 	}
 
 	public Resource getSoilTypeById(int soilTypeId) {
@@ -1147,7 +1095,7 @@ public class RealFarmProvider {
 			tmpRes.setId(c.getInt(0));
 			tmpRes.setName(c.getString(1));
 			tmpRes.setShortName(c.getString(2));
-			tmpRes.setBackgroundResource(c.getInt(2));
+			tmpRes.setBackgroundImage(c.getInt(2));
 			tmpRes.setAudio(c.getInt(4));
 
 		}
@@ -1185,7 +1133,7 @@ public class RealFarmProvider {
 				r.setId(c.getInt(0));
 				r.setName(c.getString(1));
 				r.setShortName(c.getString(2));
-				r.setBackgroundResource(c.getInt(3));
+				r.setBackgroundImage(c.getInt(3));
 				r.setAudio(c.getInt(4));
 
 				// adds it to the list.
@@ -1219,7 +1167,7 @@ public class RealFarmProvider {
 				r = new Resource();
 				r.setId(c.getInt(0));
 				r.setName(c.getString(1));
-				r.setResource1(c.getInt(2));
+				r.setImage1(c.getInt(2));
 				r.setAudio(c.getInt(3));
 
 				tmpList.add(r);
@@ -1274,17 +1222,6 @@ public class RealFarmProvider {
 		c.close();
 		mDatabase.close();
 		return tmpList;
-	}
-
-	public List<User> getUsersByDeviceId(String deviceId) {
-
-		// adds the default value if the active one is invalid.
-		if (deviceId == null) {
-			deviceId = RealFarmDatabase.DEFAULT_NUMBER;
-		}
-
-		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + "='"
-				+ deviceId + "'");
 	}
 
 	/**
@@ -1384,6 +1321,17 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public List<User> getUsersByDeviceId(String deviceId) {
+
+		// adds the default value if the active one is invalid.
+		if (deviceId == null) {
+			deviceId = RealFarmDatabase.DEFAULT_NUMBER;
+		}
+
+		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + "='"
+				+ deviceId + "'");
+	}
+
 	public List<User> getUsersByEnabledFlag(int isEnabled) {
 		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED + "="
 				+ isEnabled);
@@ -1418,9 +1366,9 @@ public class RealFarmProvider {
 				r.setId(c.getInt(0));
 				r.setName(c.getString(1));
 				r.setShortName(c.getString(2));
-				r.setResource1(c.getInt(3));
+				r.setImage1(c.getInt(3));
 				r.setAudio(c.getInt(4));
-				r.setBackgroundResource(c.getInt(6));
+				r.setBackgroundImage(c.getInt(6));
 				tmpList.add(r);
 			} while (c.moveToNext());
 		}
@@ -1465,7 +1413,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				wf = new WeatherForecast(c.getInt(0), c.getString(1),
-						c.getInt(2), c.getString(3));
+						c.getInt(2), c.getInt(3));
 				tmpList.add(wf);
 
 				Log.d("WF values: ", wf.toString());
@@ -1531,7 +1479,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				wf = new WeatherForecast(c.getInt(0), c.getString(1),
-						c.getInt(2), c.getString(3));
+						c.getInt(2), c.getInt(3));
 				tmpList.add(wf);
 
 				Log.d("WF values: ", wf.toString());
@@ -1551,11 +1499,14 @@ public class RealFarmProvider {
 	 * 
 	 * @param plotId
 	 *            the id of the plot to modify.
+	 * @param userId
+	 *            the id of the owner of the plot.
 	 * @param isEnabled
 	 *            the new state of the plot
+	 * 
 	 * @return the number of rows modified.
 	 */
-	public long setPlotEnabled(int plotId, int isEnabled) {
+	public long setPlotEnabled(int plotId, int userId, int isEnabled) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
@@ -1565,8 +1516,9 @@ public class RealFarmProvider {
 		mDatabase.open();
 
 		result = mDatabase.update(RealFarmDatabase.TABLE_NAME_PLOT, args,
-				RealFarmDatabase.COLUMN_NAME_PLOT_ID + " = '" + plotId + "'",
-				null);
+				RealFarmDatabase.COLUMN_NAME_PLOT_ID + "='" + plotId + "' AND "
+						+ RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "='"
+						+ userId + "'", null);
 
 		mDatabase.close();
 		return result;
@@ -1582,7 +1534,7 @@ public class RealFarmProvider {
 		mDatabase.open();
 
 		result = mDatabase.update(RealFarmDatabase.TABLE_NAME_USER, args,
-				RealFarmDatabase.COLUMN_NAME_USER_ID + " = '" + userId + "'",
+				RealFarmDatabase.COLUMN_NAME_USER_ID + "='" + userId + "'",
 				null);
 
 		mDatabase.close();

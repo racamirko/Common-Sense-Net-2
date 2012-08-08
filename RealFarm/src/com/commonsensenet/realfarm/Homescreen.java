@@ -38,6 +38,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
+import com.commonsensenet.realfarm.model.WeatherType;
 import com.commonsensenet.realfarm.utils.ReminderTask;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
@@ -507,8 +508,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			weatherTemp.setText(wf.getTemperature()
 					+ WeatherForecastActivity.CELSIUS);
 
+			WeatherType wt = mDataProvider.getWeatherTypeById(wf
+					.getWeatherTypeId());
+
 			// sets the icon
-			weatherImage.setImageResource(wf.getTypeResourceId());
+			if (wt != null) {
+				weatherImage.setImageResource(wt.getImage());
+			}
 		}
 	}
 

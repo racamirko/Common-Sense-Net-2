@@ -5,15 +5,15 @@ public class Resource {
 	/** Audio Resource to play with the ActionType. */
 	protected int mAudio;
 	/** Background Image resource id. */
-	protected int mBackgroundResource;
+	protected int mBackgroundImage;
 	/** Unique identifier of the Resource in the database. */
 	protected int mId;
 	/** Name of the Resource. */
 	protected String mName;
 	/** First Image resource id. */
-	protected int mResource1;
+	protected int mImage1;
 	/** Second Image resource id. */
-	protected int mResource2;
+	protected int mImage2;
 	/** Shortname of the resource, used mostly for displaying purposes. */
 	protected String mShortName;
 	/** Type of the resource. */
@@ -21,9 +21,9 @@ public class Resource {
 
 	public Resource() {
 		mAudio = -1;
-		mBackgroundResource = -1;
-		mResource1 = -1;
-		mResource2 = -1;
+		mBackgroundImage = -1;
+		mImage1 = -1;
+		mImage2 = -1;
 		mType = -1;
 	}
 
@@ -31,11 +31,11 @@ public class Resource {
 			int resource1, int resource2, int backgroundResource, int type) {
 		mName = name;
 		mShortName = shortName;
-		mResource1 = resource1;
-		mResource2 = resource2;
+		mImage1 = resource1;
+		mImage2 = resource2;
 		mAudio = audio;
 		mId = id;
-		mBackgroundResource = backgroundResource;
+		mBackgroundImage = backgroundResource;
 		mType = type;
 	}
 
@@ -43,8 +43,8 @@ public class Resource {
 		return mAudio;
 	}
 
-	public int getBackgroundResource() {
-		return mBackgroundResource;
+	public int getBackgroundImage() {
+		return mBackgroundImage;
 	}
 
 	public int getId() {
@@ -55,12 +55,12 @@ public class Resource {
 		return mName;
 	}
 
-	public int getResource1() {
-		return mResource1;
+	public int getImage1() {
+		return mImage1;
 	}
 
-	public int getResource2() {
-		return mResource2;
+	public int getImage2() {
+		return mImage2;
 	}
 
 	public String getShortName() {
@@ -75,8 +75,8 @@ public class Resource {
 		mAudio = value;
 	}
 
-	public void setBackgroundResource(int value) {
-		mBackgroundResource = value;
+	public void setBackgroundImage(int value) {
+		mBackgroundImage = value;
 	}
 
 	public void setId(int value) {
@@ -87,12 +87,12 @@ public class Resource {
 		mName = value;
 	}
 
-	public void setResource1(int value) {
-		mResource1 = value;
+	public void setImage1(int value) {
+		mImage1 = value;
 	}
 
-	public void setResource2(int value) {
-		mResource2 = value;
+	public void setImage2(int value) {
+		mImage2 = value;
 	}
 
 	public void setShortName(String value) {
@@ -107,9 +107,9 @@ public class Resource {
 	public String toString() {
 
 		return String
-				.format("[Resource id='%s', name='%s', shortName='%s', audio='%s', resource1='%s', resource2='%d', background='%d', type='%d']",
-						mId, mName, mShortName, mAudio, mResource1, mResource2,
-						mBackgroundResource, mType);
+				.format("[Resource id='%s', name='%s', shortName='%s', audio='%s', image1='%s', image2='%d', backgroundImage='%d', type='%d']",
+						mId, mName, mShortName, mAudio, mImage1, mImage2,
+						mBackgroundImage, mType);
 
 	}
 }

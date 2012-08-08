@@ -43,6 +43,15 @@ public class RealFarmDatabase {
 			super(context, DB_NAME, null, DB_VERSION);
 		}
 
+		@Override
+		public void onOpen(SQLiteDatabase db) {
+			super.onOpen(db);
+			if (!db.isReadOnly()) {
+				// enables the foreign key constraints.
+				db.execSQL("PRAGMA foreign_keys=ON;");
+			}
+		}
+
 		/**
 		 * Create the database with the table name and column names
 		 * 
@@ -59,21 +68,47 @@ public class RealFarmDatabase {
 					+ TABLE_NAME_ACTION
 					+ " ( "
 					+ COLUMN_NAME_ACTION_ID
-					+ " integer primary key autoincrement, "
-					+ references(COLUMN_NAME_ACTION_ACTIONTYPEID,
-							TABLE_NAME_ACTIONTYPE, COLUMN_NAME_ACTIONTYPE_ID)
-					+ references(COLUMN_NAME_ACTION_PLOTID, TABLE_NAME_PLOT,
-							COLUMN_NAME_PLOT_ID)
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_ACTIONTYPEID
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_PLOTID
+					+ " integer, "
 					+ COLUMN_NAME_ACTION_DATE
 					+ " text not null, "
-					+ references(COLUMN_NAME_ACTION_SEEDTYPEID,
-							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
-					+ references(COLUMN_NAME_ACTION_CROPTYPEID,
-							TABLE_NAME_CROPTYPE, COLUMN_NAME_CROPTYPE_ID)
+					+ COLUMN_NAME_ACTION_SEEDTYPEID
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_CROPTYPEID
+					+ " integer, "
 					+ COLUMN_NAME_ACTION_QUANTITY1
 					+ " integer, "
 					+ COLUMN_NAME_ACTION_QUANTITY2
 					+ " integer, "
+					+ COLUMN_NAME_ACTION_UNIT1ID
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_UNIT2ID
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_RESOURCE1ID
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_RESOURCE2ID
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_PRICE
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_USERID
+					+ " integer, "
+					+ COLUMN_NAME_ACTION_ISSENT
+					+ " boolean, "
+					+ COLUMN_NAME_ACTION_ISADMINACTION
+					+ " boolean, "
+					+ COLUMN_NAME_ACTION_TIMESTAMP
+					+ " integer not null, "
+					+ references(COLUMN_NAME_ACTION_ACTIONTYPEID,
+							TABLE_NAME_ACTIONTYPE, COLUMN_NAME_ACTIONTYPE_ID)
+					+ references(COLUMN_NAME_ACTION_PLOTID, TABLE_NAME_PLOT,
+							COLUMN_NAME_PLOT_ID)
+					+ references(COLUMN_NAME_ACTION_SEEDTYPEID,
+							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
+					+ references(COLUMN_NAME_ACTION_CROPTYPEID,
+							TABLE_NAME_CROPTYPE, COLUMN_NAME_CROPTYPE_ID)
 					+ references(COLUMN_NAME_ACTION_UNIT1ID, TABLE_NAME_UNIT,
 							COLUMN_NAME_UNIT_ID)
 					+ references(COLUMN_NAME_ACTION_UNIT2ID, TABLE_NAME_UNIT,
@@ -82,12 +117,8 @@ public class RealFarmDatabase {
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ references(COLUMN_NAME_ACTION_RESOURCE2ID,
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
-					+ COLUMN_NAME_ACTION_PRICE + " integer, "
-					+ COLUMN_NAME_ACTION_USERID + " integer, "
-					+ COLUMN_NAME_ACTION_ISSENT + " boolean, "
-					+ COLUMN_NAME_ACTION_ISADMINACTION + " boolean, "
-					+ COLUMN_NAME_ACTION_TIMESTAMP + " integer not null"
-					+ " ); ");
+					+ "PRIMARY KEY (" + COLUMN_NAME_ACTION_ID + ", "
+					+ COLUMN_NAME_ACTION_USERID + ")" + " ); ");
 			Log.d(LOG_TAG, "Created action table");
 
 			// actionsNames
@@ -159,19 +190,35 @@ public class RealFarmDatabase {
 					+ TABLE_NAME_PLOT
 					+ " ( "
 					+ COLUMN_NAME_PLOT_ID
-					+ " integer primary key autoincrement, "
+					+ " integer, "
+					+ COLUMN_NAME_PLOT_USERID
+					+ " integer, "
+					+ COLUMN_NAME_PLOT_SEEDTYPEID
+					+ " integer, "
+					+ COLUMN_NAME_PLOT_SOILTYPEID
+					+ " integer, "
+					+ COLUMN_NAME_PLOT_IMAGEPATH
+					+ " text, "
+					+ COLUMN_NAME_PLOT_SIZE
+					+ " real, "
+					+ COLUMN_NAME_PLOT_ISSENT
+					+ " boolean, "
+					+ COLUMN_NAME_PLOT_ISENABLED
+					+ " boolean, "
+					+ COLUMN_NAME_PLOT_ISADMINACTION
+					+ " boolean, "
+					+ COLUMN_NAME_PLOT_TIMESTAMP
+					+ " integer not null, "
 					+ references(COLUMN_NAME_PLOT_USERID, TABLE_NAME_USER,
 							COLUMN_NAME_USER_ID)
 					+ references(COLUMN_NAME_PLOT_SEEDTYPEID,
 							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
 					+ references(COLUMN_NAME_PLOT_SOILTYPEID,
 							TABLE_NAME_SOILTYPE, COLUMN_NAME_SOILTYPE_ID)
-					+ COLUMN_NAME_PLOT_IMAGEPATH + " text, "
-					+ COLUMN_NAME_PLOT_ISENABLED + " boolean, "
-					+ COLUMN_NAME_PLOT_ISADMINACTION + " boolean, "
-					+ COLUMN_NAME_PLOT_SIZE + " real, "
-					+ COLUMN_NAME_PLOT_TIMESTAMP + " integer not null" + " ); ");
+					+ "PRIMARY KEY (" + COLUMN_NAME_PLOT_ID + ", "
+					+ COLUMN_NAME_PLOT_USERID + ")" + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
+
 			// resource
 			db.execSQL("create table " + TABLE_NAME_RESOURCE + " ( "
 					+ COLUMN_NAME_RESOURCE_ID + " integer primary key, "
@@ -197,6 +244,8 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_SEEDTYPE_IMAGE
 					+ " integer, "
 					+ COLUMN_NAME_SEEDTYPE_AUDIO
+					+ " integer, "
+					+ COLUMN_NAME_SEEDTYPE_CROPTYPEID
 					+ " integer, "
 					+ references(COLUMN_NAME_SEEDTYPE_CROPTYPEID,
 							TABLE_NAME_CROPTYPE, COLUMN_NAME_CROPTYPE_ID, false)
@@ -251,21 +300,38 @@ public class RealFarmDatabase {
 					+ " integer, "
 					+ COLUMN_NAME_UNIT_AUDIO
 					+ " integer, "
+					+ COLUMN_NAME_UNIT_ACTIONTYPEID
+					+ " integer, "
 					+ references(COLUMN_NAME_UNIT_ACTIONTYPEID,
 							TABLE_NAME_ACTIONTYPE, COLUMN_NAME_ACTIONTYPE_ID,
 							false) + " ); ");
 			Log.d(LOG_TAG, "Created unit table");
 
 			// Weather forecast
-			db.execSQL("create table " + TABLE_NAME_WEATHERFORECAST + " ( "
+			db.execSQL("create table "
+					+ TABLE_NAME_WEATHERFORECAST
+					+ " ( "
 					+ COLUMN_NAME_WEATHERFORECAST_ID
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_WEATHERFORECAST_TEMPERATURE
-					+ " integer not null, " + COLUMN_NAME_WEATHERFORECAST_DATE
+					+ " integer not null, "
+					+ COLUMN_NAME_WEATHERFORECAST_DATE
 					+ " text unique not null, "
 					+ COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID
-					+ " text not null" + " ); ");
+					+ " integer, "
+					+ references(COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
+							TABLE_NAME_WEATHERTYPE,
+							COLUMN_NAME_WEATHERFORECAST_ID, false) + " ); ");
 			Log.d(LOG_TAG, "Created weather forecast table");
+
+			// Weather types
+			db.execSQL("create table " + TABLE_NAME_WEATHERTYPE + " ( "
+					+ COLUMN_NAME_WEATHERTYPE_ID
+					+ " integer primary key autoincrement, "
+					+ COLUMN_NAME_WEATHERTYPE_NAME + " text not null, "
+					+ COLUMN_NAME_WEATHERTYPE_IMAGE + " integer, "
+					+ COLUMN_NAME_WEATHERTYPE_AUDIO + " integer" + " ); ");
+			Log.d(LOG_TAG, "Created weather type table");
 
 			db.execSQL("create table " + TABLE_NAME_YIELDAGG + " ( "
 					+ COLUMN_NAME_YIELDAGG_ID
@@ -316,8 +382,8 @@ public class RealFarmDatabase {
 		 */
 		private String references(String fieldName, String tableName,
 				String id, boolean addComma) {
-			return String.format("%s references %s(%s)%s ", fieldName,
-					tableName, id, addComma ? "," : "");
+			return String.format("FOREIGN KEY (%s) REFERENCES %s(%s)%s ",
+					fieldName, tableName, id, addComma ? "," : "");
 		}
 	}
 
@@ -982,7 +1048,9 @@ public class RealFarmDatabase {
 				{ "Black clayey loam", "bc loam",
 						R.drawable.pic_90px_bajra_tiled, R.raw.clay },
 				{ "Jedi Maralu", "Sand", R.drawable.pic_90px_bajra_tiled,
-						R.raw.clay } };
+						R.raw.clay }
+
+		};
 
 		ContentValues soilType = new ContentValues();
 		for (int x = 0; x < soilTypes.length; x++) {
@@ -997,6 +1065,32 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "soil type works");
 
+		Object[][] weatherTypeData = {
+				{ "Sunny", R.drawable.wf_sunny, R.raw.sunny },
+				{ "Chance of Light Rain", R.drawable.wf_lightrain,
+						R.raw.lightshowers },
+				{ "Cloudy", R.drawable.wf_cloudy, R.raw.cloudy },
+				{ "Rain", R.drawable.wf_rain, R.raw.lightshowers },
+				{ "Partly Cloudy", R.drawable.wf_partlycloudy, R.raw.overcast },
+				{ "Storm", R.drawable.wf_storm, R.raw.stormy }
+
+		};
+
+		ContentValues wt = new ContentValues();
+		for (int x = 0; x < weatherTypeData.length; x++) {
+
+			wt.put(COLUMN_NAME_WEATHERTYPE_NAME, (String) weatherTypeData[x][0]);
+			wt.put(COLUMN_NAME_WEATHERTYPE_IMAGE,
+					(Integer) weatherTypeData[x][1]);
+			wt.put(COLUMN_NAME_WEATHERTYPE_AUDIO,
+					(Integer) weatherTypeData[x][2]);
+
+			insertEntriesIntoDatabase(TABLE_NAME_WEATHERTYPE, wt, db);
+			wt.clear();
+		}
+
+		Log.d(LOG_TAG, "weather type works");
+
 		// inserts the current date in the database.
 		SimpleDateFormat df = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
 
@@ -1006,15 +1100,13 @@ public class RealFarmDatabase {
 
 		ContentValues wf = new ContentValues();
 		int[] tempForecast = { 28, 30, 27, 29, 35 };
-		String[] typeForecast = { "Cloudy", "Sunny", "Chance of Rain",
-				"Light Rain", "Rain" };
 
 		for (int x = 0; x < 5; x++, calendar.add(Calendar.DAY_OF_MONTH, 1)) {
 
 			wf.put(COLUMN_NAME_WEATHERFORECAST_DATE,
 					df.format(calendar.getTime()));
 			wf.put(COLUMN_NAME_WEATHERFORECAST_TEMPERATURE, tempForecast[x]);
-			wf.put(COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID, typeForecast[x]);
+			wf.put(COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID, x);
 			insertEntriesIntoDatabase(TABLE_NAME_WEATHERFORECAST, wf, db);
 			wf.clear();
 		}

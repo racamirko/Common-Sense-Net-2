@@ -80,7 +80,8 @@ public class ActionItemWrapper {
 				.getActionTypeId());
 
 		// gets the plot from the action.
-		Plot plot = provider.getPlotById(action.getPlotId());
+		Plot plot = provider
+				.getPlotById(action.getPlotId(), action.getUserId());
 
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inTempStorage = new byte[16 * 1024];
@@ -90,7 +91,7 @@ public class ActionItemWrapper {
 				options);
 
 		// sets the parts of the view.
-		getActionIcon().setImageResource(actionType.getResource1());
+		getActionIcon().setImageResource(actionType.getImage1());
 		getTitle().setText(actionType.getName());
 		getDate().setText(DateHelper.formatDate(action.getDate(), context));
 

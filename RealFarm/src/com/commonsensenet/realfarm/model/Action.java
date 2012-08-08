@@ -55,6 +55,10 @@ public class Action {
 		return mActionTypeId;
 	}
 
+	public int getUserId() {
+		return -1;
+	}
+
 	public int getCropTypeId() {
 		return mCropTypeId;
 	}

@@ -42,13 +42,13 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 
 			// only adds either the background or the icon, since both
 			// are not compatible together.
-			int resId = res.getBackgroundResource();
+			int resId = res.getBackgroundImage();
 			if (ll != null && resId != -1) {
 				ll.setBackgroundResource(resId);
 				tt.setTextColor(Color.parseColor("#FFFFFF"));
 			} else {
 
-				resId = res.getResource1();
+				resId = res.getImage1();
 				if (resId != -1) {
 					im.setImageResource(resId);
 				}

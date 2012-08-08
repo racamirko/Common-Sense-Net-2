@@ -6,38 +6,52 @@ package com.commonsensenet.realfarm.model;
  */
 public class Plot {
 
-	/** Indicates if the Plot was added by the system administrator. */
-	protected int mIsAdminAction;
-	/** Indicates whether the Plot is enabled or not. */
-	protected int mIsEnabled;
 	/** Unique identifier of the Plot. */
-	protected int mId;
+	private int mId;
 	/** Path where the image of the Plot is located. */
-	protected String mImagePath;
+	private String mImagePath;
+	/** Indicates if the Plot was added by the system administrator. */
+	private int mIsAdminAction;
+	/** Indicates whether the Plot is enabled or not. */
+	private int mIsEnabled;
+	/**
+	 * Indicates whether the Plot information has been synchronized with the
+	 * server.
+	 */
+	private int mIsSent;
 	/** Type of seed planted in the Plot as a main crop. */
-	protected int mSeedTypeId;
+	private int mSeedTypeId;
 	/** Size in acres of the Plot. */
-	protected float mSize;
+	private float mSize;
 	/** Type of soil that the Plot has. */
-	protected int mSoilTypeId;
+	private int mSoilTypeId;
 	/** Timestamp that indicates the creation of the Plot. */
-	protected long mTimestamp;
+	private long mTimestamp;
 	/** Owner of the plot. */
-	protected int mUserId;
+	private int mUserId;
 
-	public Plot(int id, int userId, int seedTypeId, String imagePath,
-			int soilTypeId, float size, int isEnabled, int isAdminAction,
-			long timestamp) {
+	public Plot(int id, int userId, int seedTypeId, int soilTypeId,
+			String imagePath, float size, int isSent, int isEnabled,
+			int isAdminAction, long timestamp) {
 
 		mId = id;
 		mUserId = userId;
 		mSeedTypeId = seedTypeId;
-		mImagePath = imagePath;
 		mSoilTypeId = soilTypeId;
+		mImagePath = imagePath;
 		mSize = size;
+		mIsSent = isSent;
 		mIsEnabled = isEnabled;
 		mIsAdminAction = isAdminAction;
 		mTimestamp = timestamp;
+	}
+
+	public int getId() {
+		return mId;
+	}
+
+	public String getImagePath() {
+		return mImagePath;
 	}
 
 	public int getIsAdminFlag() {
@@ -48,12 +62,8 @@ public class Plot {
 		return mIsEnabled;
 	}
 
-	public int getId() {
-		return mId;
-	}
-
-	public String getImagePath() {
-		return mImagePath;
+	public int getIsSent() {
+		return mIsSent;
 	}
 
 	public int getSeedTypeId() {
@@ -80,8 +90,8 @@ public class Plot {
 	public String toString() {
 
 		return String
-				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', isEnabled='%d', isAdminAction='%d', timestamp='%d']",
+				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', isSent='%d', isEnabled='%d', isAdminAction='%d', timestamp='%d']",
 						mId, mUserId, mSeedTypeId, mImagePath, mSoilTypeId,
-						mSize, mIsEnabled, mIsAdminAction, mTimestamp);
+						mSize, mIsSent, mIsEnabled, mIsAdminAction, mTimestamp);
 	}
 }
