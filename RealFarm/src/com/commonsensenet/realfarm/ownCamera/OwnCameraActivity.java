@@ -146,8 +146,9 @@ public class OwnCameraActivity extends Activity implements
 		Bundle extras = null;
 		if (requestCode == SECONDARY_ACTIVITY_REQUEST_CODE) {
 
-			if (resultCode == RESULT_OK)
+			if (resultCode == RESULT_OK) {
 				extras = intent.getExtras();
+			}
 
 			boolean retake = false;
 			if (extras != null) {

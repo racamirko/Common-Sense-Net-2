@@ -24,20 +24,23 @@ import com.commonsensenet.realfarm.R;
 
 public class ViewPictureActivity extends Activity {
 
+	/** Property name of the extra used to store the image path. */
+	public static final String IMAGE_PATH = "imagePath";
 	/** Tag used to log the activity of the class. */
 	public static final String LOG_TAG = "ViewPictureActivity";
 	public static final int MEDIA_TYPE_IMAGE = 1;
 	private File mImageFile;
 	private Uri mImageFileUri;
+	/** Uri of the image taken by the camera. */
 	private String mImagePath;
+	/** ImageView used to display the recently taken photo. */
 	private ImageView mImageView = null;
 
 	@Override
 	public void onBackPressed() {
 
-		Intent adminintent123 = new Intent(ViewPictureActivity.this,
-				AddPlotActivity.class);
-		startActivity(adminintent123);
+		startActivity(new Intent(ViewPictureActivity.this,
+				AddPlotActivity.class));
 		ViewPictureActivity.this.finish();
 	}
 
@@ -56,7 +59,6 @@ public class ViewPictureActivity extends Activity {
 			Log.d(LOG_TAG, "Picture uri transfered to next activity"
 					+ mImageFileUri);
 		} else {
-			// setCurrentDateOnView();
 			Log.d(LOG_TAG, "No data received");
 		}
 
@@ -87,12 +89,14 @@ public class ViewPictureActivity extends Activity {
 
 		Log.d(LOG_TAG, "Image added to view" + mImageFileUri);
 
+		// creates the file with the given path.
 		mImagePath = mImageFileUri.getPath();
 		mImageFile = new File(mImagePath);
-		Global.plotImagePath = mImagePath;
 
-		// Adding listener to the retake button
 		Button retakeButton = (Button) findViewById(R.id.button_cancel);
+		Button saveButton = (Button) findViewById(R.id.button_ok);
+
+		// adds the listener to re-take the image.
 		retakeButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -101,10 +105,11 @@ public class ViewPictureActivity extends Activity {
 
 				boolean deleted = mImageFile.delete();
 
-				if (deleted)
+				if (deleted) {
 					Log.d(LOG_TAG, "Image file deleted");
-				else
+				} else {
 					Log.d(LOG_TAG, "File still in gallery");
+				}
 
 				sendBroadcast(new Intent(Intent.ACTION_MEDIA_MOUNTED, Uri
 						.parse("file://"
@@ -119,16 +124,15 @@ public class ViewPictureActivity extends Activity {
 			}
 		});
 
-		// Adding listener to the save button
-		Button saveButton = (Button) findViewById(R.id.button_ok);
+		// adds the listener to save the image.
 		saveButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 
-				Global.cameraFlag = true;
-
-				startActivity(new Intent(ViewPictureActivity.this,
-						AddPlotActivity.class));
+				Intent intent = new Intent(ViewPictureActivity.this,
+						AddPlotActivity.class);
+				intent.putExtra(IMAGE_PATH, mImagePath);
+				startActivity(intent);
 				ViewPictureActivity.this.finish();
 			}
 		});

@@ -31,7 +31,7 @@
         android:layout_height="match_parent"
         android:layout_toRightOf="@+id/icon_diary_action"
         android:gravity="center_vertical"
-        android:text="Title"
+        android:text="@string/placeholder_text"
         android:textSize="@dimen/font_large" />
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:text="Date"
+        android:text="@string/placeholder_text"
         android:textSize="@dimen/font_medium" />
 
 </RelativeLayout>

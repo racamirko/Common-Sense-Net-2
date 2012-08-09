@@ -44,18 +44,18 @@ public class action_sowing extends DataFormActivity {
 		playAudio(R.raw.thankyouclickingactionsowing);
 
 		View item1 = findViewById(R.id.dlg_var_text_sow);
+		View item2 = findViewById(R.id.dlg_lbl_unit_no_sow);
 		View item3 = findViewById(R.id.dlg_lbl_day_sow);
-		View item4 = findViewById(R.id.dlg_lbl_treat_sow);
-		View item5 = findViewById(R.id.dlg_lbl_unit_no_sow);
-		View item6 = findViewById(R.id.dlg_lbl_month_sow);
-		View item7 = findViewById(R.id.dlg_lbl_intercrop_sow);
+		View item4 = findViewById(R.id.dlg_lbl_month_sow);
+		View item5 = findViewById(R.id.dlg_lbl_treat_sow);
+		View item6 = findViewById(R.id.dlg_lbl_intercrop_sow);
 
 		item1.setOnLongClickListener(this);
+		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 		item5.setOnLongClickListener(this);
 		item6.setOnLongClickListener(this);
-		item7.setOnLongClickListener(this);
 
 		View varietyRow = findViewById(R.id.seed_type_sow_tr);
 		View amountRow = findViewById(R.id.units_sow_tr);
@@ -72,7 +72,6 @@ public class action_sowing extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety sow dialog", "in dialog");
 
 				List<Resource> m_entries = mDataProvider.getVarieties();
 				displayDialog(v, m_entries, VARIETY, "Select the variety",
@@ -84,7 +83,7 @@ public class action_sowing extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
+
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_sow, R.id.day_sow_tr,
@@ -93,10 +92,9 @@ public class action_sowing extends DataFormActivity {
 			}
 		});
 
-		item4.setOnClickListener(new View.OnClickListener() {
+		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in treatment sow dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_TREATMENT);
@@ -107,10 +105,9 @@ public class action_sowing extends DataFormActivity {
 			}
 		});
 
-		item5.setOnClickListener(new View.OnClickListener() {
+		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
 
 				displayDialogNP("Choose the number of serus", AMOUNT,
 						R.raw.dateinfo, 1, 999, 1, 1, 0,
@@ -120,24 +117,20 @@ public class action_sowing extends DataFormActivity {
 			}
 		});
 
-		item7.setOnClickListener(new View.OnClickListener() {
+		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in intercrop sow dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_INTERCROP);
 				displayDialog(v, data, INTERCROP, "Main crop or intercrop?",
 						R.raw.bagof50kg, R.id.dlg_lbl_intercrop_sow,
 						R.id.intercrop_sow_tr, 0);
-
 			}
 		});
 
-		item6.setOnClickListener(new View.OnClickListener() {
+		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Log.d("in treat sow dialog", "in dialog");
-
 				stopAudio();
 
 				List<Resource> data = mDataProvider
@@ -152,33 +145,39 @@ public class action_sowing extends DataFormActivity {
 	@Override
 	public boolean onLongClick(View v) {
 
-		showHelpIcon(v);
+		// long click sounds are always forced since they represent
+		// the helping system.
 
+		// checks which view was clicked.
 		if (v.getId() == R.id.dlg_var_text_sow) {
-			playAudio(R.raw.varietyofseedssowd);
+			playAudio(R.raw.varietyofseedssowd, true);
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_sow) {
-			playAudio(R.raw.selecttheunits);
+			playAudio(R.raw.selecttheunits, true);
 		} else if (v.getId() == R.id.dlg_lbl_month_sow) {
 			playAudio(R.raw.selectthedate, true);
 		} else if (v.getId() == R.id.dlg_lbl_treat_sow) {
-			playAudio(R.raw.treatmenttoseeds1);
+			playAudio(R.raw.treatmenttoseeds1, true);
 		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help);
+			playAudio(R.raw.help, true);
 		} else if (v.getId() == R.id.seed_type_sow_tr) {
-			playAudio(R.raw.variety);
+			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.units_sow_tr) {
-			playAudio(R.raw.amount);
+			playAudio(R.raw.amount, true);
 		} else if (v.getId() == R.id.treatment_sow_tr) {
-			playAudio(R.raw.treatment);
+			playAudio(R.raw.treatment, true);
 		} else if (v.getId() == R.id.intercrop_sow_tr) {
-			playAudio(R.raw.intercrop);
+			playAudio(R.raw.intercrop, true);
 		} else if (v.getId() == R.id.dlg_lbl_day_sow) {
-			playAudio(R.raw.choosethemonth);
+			playAudio(R.raw.choosethemonth, true);
 		} else if (v.getId() == R.id.day_sow_tr) {
-			playAudio(R.raw.date);
+			playAudio(R.raw.date, true);
 		} else {
-			return false;
+			// checks if the parent has the sound.
+			return super.onLongClick(v);
 		}
+
+		// shows the help icon.
+		showHelpIcon(v);
 
 		return true;
 	}
@@ -198,7 +197,7 @@ public class action_sowing extends DataFormActivity {
 		// flag that indicates if the form is valid.
 		boolean isValid = true;
 
-		if (mSeedType != 0) {
+		if (mSeedType != -1) {
 			highlightField(R.id.seed_type_sow_tr, false);
 		} else {
 			isValid = false;
@@ -243,13 +242,12 @@ public class action_sowing extends DataFormActivity {
 			calentar.set(Calendar.DAY_OF_MONTH, mDay);
 
 			// inserts the new plot into the table.
-			long result = mDataProvider.addSowAction(Global.plotId, mAmount,
-					mSeedType, calentar.getTime(), mTreatment, mIntercrop, 0);
+			long result = mDataProvider.addSowAction(Global.userId,
+					Global.plotId, mAmount, mSeedType, calentar.getTime(),
+					mTreatment, mIntercrop, 0);
 
 			// returns true if no error was produced.
-			if (result != -1) {
-				return true;
-			}
+			return result != -1;
 		}
 		return false;
 	}

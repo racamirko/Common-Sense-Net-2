@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm;
 import java.util.List;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
+import com.commonsensenet.realfarm.ownCamera.ViewPictureActivity;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
@@ -76,13 +78,13 @@ public class AddPlotActivity extends DataFormActivity {
 		View plotcrop = findViewById(R.id.dlg_lbl_crop_plot);
 		View plotsize = findViewById(R.id.size_txt);
 
-		// if an image is available it is set to the view.
-		if (Global.cameraFlag) {
-			// saves the image path
-			mPlotImage = Global.plotImagePath;
-			((ImageView) plotimage).setImageBitmap(Global.rotated);
+		// checks if the image path is present.
+		Bundle extras = getIntent().getExtras();
 
-			Global.cameraFlag = false;
+		if (extras != null
+				&& extras.containsKey(ViewPictureActivity.IMAGE_PATH)) {
+			mPlotImage = (String) extras.get(ViewPictureActivity.IMAGE_PATH);
+			((ImageView) plotimage).setImageBitmap(Global.rotated);
 		}
 
 		// adds the long click listeners to enable the help function.

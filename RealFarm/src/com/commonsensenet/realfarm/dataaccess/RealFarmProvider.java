@@ -99,22 +99,54 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
 				sDateFormat.format(date));
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
-				seedTypeId != NONE ? seedTypeId : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
-				cropTypeId != NONE ? cropTypeId : null);
+
+		if (seedTypeId != NONE) {
+			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID, seedTypeId);
+		} else {
+			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID);
+		}
+
+		if (cropTypeId != NONE) {
+			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID, cropTypeId);
+		} else {
+			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID);
+		}
+
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1, quantity1);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2, quantity2);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
-				unit1 != NONE ? unit1 : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
-				unit2 != NONE ? unit2 : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
-				resource1Id != NONE ? resource1Id : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
-				resource2Id != NONE ? resource2Id : null);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
-				price != NONE ? price : null);
+
+		if (unit1 != NONE) {
+			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID, unit1);
+		} else {
+			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID);
+		}
+
+		if (unit2 != NONE) {
+			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT2ID, unit2);
+		} else {
+			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_UNIT2ID);
+		}
+
+		if (resource1Id != NONE) {
+			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
+					resource1Id);
+		} else {
+			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID);
+		}
+
+		if (resource1Id != NONE) {
+			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
+					resource2Id);
+		} else {
+			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID);
+		}
+
+		if (price != NONE) {
+			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE, price);
+		} else {
+			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_PRICE);
+		}
+
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_USERID, userId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, isSent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
@@ -235,12 +267,13 @@ public class RealFarmProvider {
 				quantity2, unit1, unit2, NONE, NONE, price, NONE, isAdminAction);
 	}
 
-	public long addSowAction(long plotId, int quantity1, int seedTypeId,
-			Date date, int treatmentId, int intercropId, int isAdminAction) {
+	public long addSowAction(long userId, long plotId, int quantity1,
+			int seedTypeId, Date date, int treatmentId, int intercropId,
+			int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
-				NONE, NONE, NONE, treatmentId, intercropId, NONE, NONE,
+				NONE, NONE, NONE, treatmentId, intercropId, NONE, userId,
 				isAdminAction);
 	}
 
