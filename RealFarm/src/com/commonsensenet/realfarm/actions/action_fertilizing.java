@@ -46,7 +46,7 @@ public class action_fertilizing extends DataFormActivity implements
 		playAudio(R.raw.clickingfertilising);
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
+		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW, LOG_TAG);
 
 		final View item1;
 		final View item2;

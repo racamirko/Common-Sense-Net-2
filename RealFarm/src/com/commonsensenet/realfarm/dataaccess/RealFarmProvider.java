@@ -1450,13 +1450,11 @@ public class RealFarmProvider {
 			mDatabase.open();
 
 			Cursor c = mDatabase.getAllEntries(
-					RealFarmDatabase.TABLE_NAME_SEEDTYPE, new String[] {
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_IMAGE,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO });
+					RealFarmDatabase.TABLE_NAME_WEATHERTYPE, new String[] {
+							RealFarmDatabase.COLUMN_NAME_WEATHERTYPE_ID,
+							RealFarmDatabase.COLUMN_NAME_WEATHERTYPE_NAME,
+							RealFarmDatabase.COLUMN_NAME_WEATHERTYPE_IMAGE,
+							RealFarmDatabase.COLUMN_NAME_WEATHERTYPE_AUDIO });
 
 			WeatherType wt = null;
 			if (c.moveToFirst()) {

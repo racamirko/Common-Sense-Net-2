@@ -80,8 +80,9 @@ public class WeatherForecastItemWrapper {
 
 		if (wt != null) {
 			getIcon().setImageResource(wt.getImage());
+			getForecast().setText(wt.getName());
 		}
-		getForecast().setText(weatherForecast.getWeatherTypeId());
+
 		getTemperature().setText(
 				weatherForecast.getTemperature()
 						+ WeatherForecastActivity.CELSIUS);

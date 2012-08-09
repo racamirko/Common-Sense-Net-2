@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.utils;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.io.PrintWriter;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.LinkedList;
@@ -16,7 +17,7 @@ import android.util.Log;
  */
 public class ApplicationTracker {
 	public enum EventType {
-		CLICK, ERROR, LONG_CLICK, PAGE_VIEW
+		CLICK, ERROR, LONG_CLICK, ACTIVITY_VIEW
 	}
 
 	/**
@@ -105,11 +106,13 @@ public class ApplicationTracker {
 		try {
 			// initializes the file writer
 			mFileWriter = new FileWriter(mFile, true);
+			// forces every line to be a log entry.
+			PrintWriter pw = new PrintWriter(mFileWriter);
 
 			// writes the stored files into the log file.
 			synchronized (mActivityLog) {
 				for (int x = 0; x < mActivityLog.size(); x++) {
-					mFileWriter.append(mActivityLog.get(x));
+					pw.println(mActivityLog.get(x));
 				}
 
 				// removes all current elements of the list.

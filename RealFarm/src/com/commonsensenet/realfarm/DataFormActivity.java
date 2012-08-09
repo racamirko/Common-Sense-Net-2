@@ -216,7 +216,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		LOG_TAG = logTag;
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.PAGE_VIEW, LOG_TAG);
+		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW, LOG_TAG);
 
 		// sets the layout
 		setContentView(layoutId);
