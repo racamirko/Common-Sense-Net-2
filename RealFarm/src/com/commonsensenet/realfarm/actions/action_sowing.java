@@ -1,9 +1,13 @@
 package com.commonsensenet.realfarm.actions;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.util.Log;
 import android.view.View;
 
@@ -237,13 +241,22 @@ public class action_sowing extends DataFormActivity {
 
 			Resource monthResource = mDataProvider.getResourceById(mMonth);
 
+			SimpleDateFormat df = new SimpleDateFormat("MMM");
+			Date date;
+			try {
+				date = df.parse(monthResource.getShortName());
+			} catch (ParseException e) {
+				date = null;
+			}
+
 			// creates a new calendar and sets the selected date.
-			Calendar calentar = Calendar.getInstance();
-			calentar.set(Calendar.DAY_OF_MONTH, mDay);
+			Calendar calendar = Calendar.getInstance();
+			calendar.set(Calendar.DAY_OF_MONTH, mDay);
+			calendar.set(Calendar.MONDAY, date.getMonth());
 
 			// inserts the new plot into the table.
 			long result = mDataProvider.addSowAction(Global.userId,
-					Global.plotId, mAmount, mSeedType, calentar.getTime(),
+					Global.plotId, mAmount, mSeedType, calendar.getTime(),
 					mTreatment, mIntercrop, 0);
 
 			// returns true if no error was produced.
