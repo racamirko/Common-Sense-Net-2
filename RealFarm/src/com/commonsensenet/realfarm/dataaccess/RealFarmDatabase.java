@@ -686,15 +686,15 @@ public class RealFarmDatabase {
 		}
 
 		String[][] userData = {
-				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g",
+				{ "John", "Doe", deviceId, deviceId, "farmer_90px_kiran_kumar_g",
 						"CK Pura" },
-				{ "Hendrik", "Knoche", "0788446172", "farmer_90px_adam_jones",
+				{ "Hendrik", "Knoche", "0788446172", deviceId, "farmer_90px_adam_jones",
 						"CK Pura" },
-				{ "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
+				{ "Chris", "Bishop", "0788244421", deviceId, "farmer_90px_neil_palmer",
 						"CK Pura" },
-				{ "Chris", "McDougall", "0781122672",
+				{ "Chris", "McDougall", "0781122672", deviceId,
 						"farmer_90px_neil_palmer2", "CK Pura" },
-				{ "Frank", "Herbert", "0788111172",
+				{ "Frank", "Herbert", "0788111172", deviceId,
 						"farmer_90px_walmart_stores", "CK Pura" } };
 
 		ContentValues users = new ContentValues();
@@ -703,9 +703,9 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_FIRSTNAME, userData[x][0]);
 			users.put(COLUMN_NAME_USER_LASTNAME, userData[x][1]);
 			users.put(COLUMN_NAME_USER_MOBILENUMBER, userData[x][2]);
-			users.put(COLUMN_NAME_USER_DEVICEID, userData[x][2]);
-			users.put(COLUMN_NAME_USER_IMAGEPATH, userData[x][3]);
-			users.put(COLUMN_NAME_USER_LOCATION, userData[x][4]);
+			users.put(COLUMN_NAME_USER_DEVICEID, userData[x][3]);
+			users.put(COLUMN_NAME_USER_IMAGEPATH, userData[x][4]);
+			users.put(COLUMN_NAME_USER_LOCATION, userData[x][5]);
 			users.put(COLUMN_NAME_USER_ISSENT, 1);
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
