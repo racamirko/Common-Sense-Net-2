@@ -73,7 +73,7 @@
         <activity
             android:name=".WeatherForecastActivity"
             android:icon="@drawable/wf_cloudy"
-            android:label="Weather"
+            android:label="Weather Forecast"
             android:screenOrientation="portrait" />
         <activity
             android:name="Marketprice_details"

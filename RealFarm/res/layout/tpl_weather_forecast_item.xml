@@ -11,16 +11,20 @@
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:text="TUESDAY"
+        android:text="@string/placeholder_text"
         android:textColor="@android:color/black"
         android:textSize="@dimen/font_medium"
         android:textStyle="bold" />
 
     <ImageView
         android:id="@+id/icon_weather_forecast"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true" />
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:scaleType="fitXY"
+        android:src="@drawable/wf_sunny" />
 
     <TextView
         android:id="@+id/label_weather_forecast_temperature"
@@ -30,7 +34,7 @@
         android:layout_alignParentTop="true"
         android:layout_marginRight="65dp"
         android:layout_marginTop="-13dp"
-        android:text="23°"
+        android:text="@string/placeholder_number"
         android:textColor="#A7A9AC"
         android:textSize="48sp" />
 
@@ -41,7 +45,7 @@
         android:layout_alignLeft="@+id/label_weather_forecast_temperature"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="-4dp"
-        android:text="Chance of rain"
+        android:text="@string/placeholder_text"
         android:textColor="#D1D2D4"
         android:textSize="@dimen/font_weather_forecast" />
 

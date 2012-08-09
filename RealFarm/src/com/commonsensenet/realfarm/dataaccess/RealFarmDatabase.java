@@ -1062,8 +1062,7 @@ public class RealFarmDatabase {
 
 		Object[][] weatherTypeData = {
 				{ "Sunny", R.drawable.wf_sunny, R.raw.sunny },
-				{ "Chance of Light Rain", R.drawable.wf_lightrain,
-						R.raw.lightshowers },
+				{ "Chance of Rain", R.drawable.wf_lightrain, R.raw.lightshowers },
 				{ "Cloudy", R.drawable.wf_cloudy, R.raw.cloudy },
 				{ "Rain", R.drawable.wf_rain, R.raw.lightshowers },
 				{ "Partly Cloudy", R.drawable.wf_partlycloudy, R.raw.overcast },
