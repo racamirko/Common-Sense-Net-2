@@ -951,8 +951,6 @@ public class RealFarmProvider {
 		SeedType res = null;
 		mDatabase.open();
 
-		seedId = 1;
-
 		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_SEEDTYPE,
 				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,

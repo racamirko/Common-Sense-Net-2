@@ -7,7 +7,7 @@
     <LinearLayout
         android:id="@+id/linearLayout1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:gravity="top"
         android:orientation="vertical" >
 
@@ -54,16 +54,10 @@
             android:textSize="28sp"
             android:textStyle="bold" />
 
-        <!--
-             <ImageView android:maxWidth="50px" android:layout_width="100dp" android:src="@drawable/male" 
-			android:layout_height="100dp" android:id="@+id/profileImage" android:maxHeight="50px" 
-			/>
-        -->
-
         <LinearLayout
             android:id="@+id/linearLayout2"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="0dip"
             android:layout_weight="1"
             android:orientation="vertical" >
         </LinearLayout>

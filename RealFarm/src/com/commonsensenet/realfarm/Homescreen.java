@@ -147,11 +147,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			};
 
 			for (int x = 0; x < plotData.length; x++) {
-				long plotId = mDataProvider.addPlot((Integer) plotData[x][0],
+				long plotId = mDataProvider.addPlot((Long) plotData[x][0],
 						(Integer) plotData[x][1], (Integer) plotData[x][2],
 						(String) plotData[x][3], (Double) plotData[x][4]);
 				// updates the id if I am the owner
-				if ((Integer) plotData[x][0] == Global.userId) {
+				if ((Long) plotData[x][0] == Global.userId) {
 					Global.plotId = (int) plotId;
 				}
 			}

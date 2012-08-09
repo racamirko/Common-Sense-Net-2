@@ -73,11 +73,10 @@ public class PlotItemWrapper {
 
 	public void populateFrom(Plot plot, RealFarmProvider provider) {
 
-		// TODO: this shouldn't be done here due to performance issues!!!
 		SeedType seed = provider.getSeedById(plot.getSeedTypeId());
 		Resource soilType = provider.getSoilTypeById(plot.getSoilTypeId());
 
-		// Bitmap bitmap = BitmapFactory.decodeFile(plot.getImageName());
+		// gets the image from the file system.
 		BitmapFactory.Options options = new BitmapFactory.Options();
 		options.inTempStorage = new byte[16 * 1024];
 		options.inSampleSize = 12;
