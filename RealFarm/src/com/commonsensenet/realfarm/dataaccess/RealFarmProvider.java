@@ -15,7 +15,6 @@ import android.util.Log;
 
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
-import com.commonsensenet.realfarm.model.DialogData;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
@@ -733,17 +732,17 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public List<DialogData> getPesticide() {
+	public List<Resource> getPesticide() {
 
 		final String MY_QUERY = "SELECT name, audio, type, shortName, id FROM pesticide ORDER BY type, id ASC";
 
-		List<DialogData> tmpList = new ArrayList<DialogData>();
+		List<Resource> tmpList = new ArrayList<Resource>();
 
 		mDatabase.open();
 
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
-		DialogData dd = null;
+		Resource dd = null;
 		if (c.moveToFirst()) {
 			do {
 				final String MY_QUERY2 = "SELECT res FROM pesticideType WHERE id = "
@@ -751,10 +750,10 @@ public class RealFarmProvider {
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 				c2.moveToFirst();
 
-				dd = new DialogData();
+				dd = new Resource();
 				dd.setName(c.getString(0));
 				dd.setShortName(c.getString(3));
-				dd.setImage(c2.getInt(0));
+				dd.setImage1(c2.getInt(0));
 				dd.setAudio(c.getInt(1));
 				dd.setId(c.getInt(4));
 				tmpList.add(dd);

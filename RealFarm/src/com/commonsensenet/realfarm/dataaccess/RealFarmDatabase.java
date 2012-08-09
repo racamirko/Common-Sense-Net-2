@@ -150,21 +150,6 @@ public class RealFarmDatabase {
 					+ " integer" + " ); ");
 			Log.d(LOG_TAG, "Created advice table");
 
-			// dialogArrays
-			db.execSQL("create table " + TABLE_NAME_DIALOG_ARRAYS + " ( "
-					+ COLUMN_NAME_DIALOG_ID
-					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_DIALOG_NAME + " text, "
-					+ COLUMN_NAME_DIALOG_SHORTNAME + " text, "
-					+ COLUMN_NAME_DIALOG_RES + " integer, "
-					+ COLUMN_NAME_DIALOG_RES2 + " integer, "
-					+ COLUMN_NAME_DIALOG_AUDIO + " integer, "
-					+ COLUMN_NAME_DIALOG_VALUE + " integer, "
-					+ COLUMN_NAME_DIALOG_TYPE + " integer, "
-					+ COLUMN_NAME_DIALOG_NUMBER + " integer, "
-					+ COLUMN_NAME_DIALOG_RES_BG + " integer " + " ); ");
-			Log.d(LOG_TAG, "Created dialogArrays table");
-
 			// cropTypes
 			db.execSQL("create table " + TABLE_NAME_CROPTYPE + " ( "
 					+ COLUMN_NAME_CROPTYPE_ID
@@ -561,7 +546,6 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_ADVICE = "advice";
 	public static final String TABLE_NAME_ADVICEPIECE = "advicePiece";
 	public static final String TABLE_NAME_CROPTYPE = "cropType";
-	public static final String TABLE_NAME_DIALOG_ARRAYS = "dialogArrays";
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice";
 	public static final String TABLE_NAME_PLOT = "plot";
 	public static final String TABLE_NAME_RESOURCE = "resource";
@@ -599,7 +583,6 @@ public class RealFarmDatabase {
 		mDb.delete(TABLE_NAME_ADVICE, null, null);
 		mDb.delete(TABLE_NAME_ADVICEPIECE, null, null);
 		mDb.delete(TABLE_NAME_CROPTYPE, null, null);
-		mDb.delete(TABLE_NAME_DIALOG_ARRAYS, null, null);
 		mDb.delete(TABLE_NAME_MARKETPRICE, null, null);
 		mDb.delete(TABLE_NAME_PLOT, null, null);
 		mDb.delete(TABLE_NAME_RESOURCE, null, null);
@@ -876,7 +859,8 @@ public class RealFarmDatabase {
 					(Integer) dialogArrays[x][7]);
 			dialogArray.put(COLUMN_NAME_DIALOG_RES_BG,
 					(Integer) dialogArrays[x][8]);
-			insertEntriesIntoDatabase(TABLE_NAME_DIALOG_ARRAYS, dialogArray, db);
+			// insertEntriesIntoDatabase(TABLE_NAME_DIALOG_ARRAYS, dialogArray,
+			// db);
 			dialogArray.clear();
 		}
 

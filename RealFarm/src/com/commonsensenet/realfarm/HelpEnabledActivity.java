@@ -12,6 +12,7 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 /**
  * Activity that enables the contains the ActionBar and the Help button.
@@ -26,6 +27,9 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	/** MenuItem that represents the help button. */
 	protected MenuItem mHelpItem;
 
+	/** Name used to log the activity of the class. */
+	public static String LOG_TAG;
+
 	@Override
 	public void onBackPressed() {
 		// stops any currently playing sound.
@@ -38,11 +42,14 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		super.onBackPressed();
 	}
 
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
+	protected void onCreate(Bundle savedInstanceState, String logTag) {
 		// sets the global style of the application.
 		setTheme(RealFarmApp.THEME);
 		super.onCreate(savedInstanceState);
+
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW,
+				LOG_TAG);
 
 		// enables full screen mode
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

@@ -443,8 +443,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		super.onCreate(savedInstanceState);
 
-		Log.i(LOG_TAG, "App started");
-
 		// clears the navigation to an action.
 		Global.selectedAction = null;
 

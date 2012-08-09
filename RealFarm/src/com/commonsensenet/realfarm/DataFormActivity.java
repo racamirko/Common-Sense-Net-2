@@ -28,9 +28,6 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
 
 public abstract class DataFormActivity extends HelpEnabledActivity {
 
-	/** Name used to log the activity of the class. */
-	public static String LOG_TAG;
-
 	/** Access to the underlying database of the application. */
 	protected RealFarmProvider mDataProvider;
 	/** Reference to the current class used in internal classes. */
@@ -210,13 +207,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	}
 
 	public void onCreate(Bundle savedInstanceState, int layoutId, String logTag) {
-		super.onCreate(savedInstanceState);
-
-		// tag used to log the events.
-		LOG_TAG = logTag;
-
-		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW, LOG_TAG);
+		super.onCreate(savedInstanceState, logTag);
 
 		// sets the layout
 		setContentView(layoutId);

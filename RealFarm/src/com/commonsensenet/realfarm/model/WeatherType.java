@@ -42,7 +42,7 @@ public class WeatherType {
 	public String toString() {
 
 		return String.format(
-				"[SeedType id='%s', name='%s', image='%d', audio='%d']", mId,
-				mName, mImage, mAudio);
+				"[WeatherType id='%s', name='%s', image='%d', audio='%d']",
+				mId, mName, mImage, mAudio);
 	}
 }
