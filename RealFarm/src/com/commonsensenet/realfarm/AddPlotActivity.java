@@ -16,9 +16,6 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class AddPlotActivity extends DataFormActivity {
 
-	/** Name used to log the activity of the class. */
-	public static final String LOG_TAG = "AddPlotActivity";
-
 	public static final String MAIN_CROP = "mainCrop";
 	public static final String PLOT_IMAGE = "plotImage";
 	public static final String SIZE = "size";
@@ -35,11 +32,11 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 
 		// inserts the new action
-		Global.plotId = (int) mDataProvider.addPlot(Global.userId, mMainCrop,
+		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize);
 
 		// logs the event
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
 				"add plot to database");
 
 		// shows the name of the added plot.
@@ -50,7 +47,7 @@ public class AddPlotActivity extends DataFormActivity {
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, R.layout.act_add_plot, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.act_add_plot);
 
 		// adds the name of the fields to validate.
 		mResultsMap.put(SOIL_TYPE, -1);

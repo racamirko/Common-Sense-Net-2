@@ -20,13 +20,11 @@ public class action_problem extends DataFormActivity {
 	private String months_prob = "0";
 	private int prob_day_int;
 
-	public static final String LOG_TAG = "action_problem";
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.problem_dialog, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.problem_dialog);
 
 		playAudio(R.raw.clickingfertilising);
 

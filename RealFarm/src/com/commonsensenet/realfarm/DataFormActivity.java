@@ -68,7 +68,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, propertyKey, choice.getId());
+						getLogTag(), propertyKey, choice.getId());
 
 				// sets the short name of the resource.
 				TextView var_text = (TextView) findViewById(textFieldId);
@@ -160,7 +160,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				dialog.cancel();
 				playAudio(cancelAudio);
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "amount", "cancel");
+						getLogTag(), "amount", "cancel");
 			}
 		});
 		ok.setOnLongClickListener(new View.OnLongClickListener() {
@@ -206,8 +206,8 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		playAudio(R.raw.missinginfo);
 	}
 
-	public void onCreate(Bundle savedInstanceState, int layoutId, String logTag) {
-		super.onCreate(savedInstanceState, logTag);
+	public void onCreate(Bundle savedInstanceState, int layoutId) {
+		super.onCreate(savedInstanceState);
 
 		// sets the layout
 		setContentView(layoutId);

@@ -14,7 +14,6 @@ import com.commonsensenet.realfarm.model.Resource;
 
 public class action_selling extends DataFormActivity {
 
-	public static final String LOG_TAG = "action_selling";
 	private String crop_sell = "0";
 	private int date_sel;
 	private String months_harvest = "0";
@@ -29,7 +28,7 @@ public class action_selling extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.selling_dialog, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.selling_dialog);
 
 		System.out.println("selling done");
 

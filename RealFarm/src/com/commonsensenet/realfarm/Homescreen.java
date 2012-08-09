@@ -52,8 +52,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Indicates whether the demo data has been inserted or not. */
 	public static boolean IS_INITIALIZED = false;
-	/** Tag used to log the App activity. */
-	public static String LOG_TAG = "Homescreen";
 
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
@@ -116,7 +114,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	protected void initDb() {
-		Log.i(LOG_TAG, "Resetting database");
+		Log.i(getLogTag(), "Resetting database");
 		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
 	}
 
@@ -156,7 +154,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				}
 			}
 
-			Log.d(LOG_TAG, "plot works");
+			Log.d(getLogTag(), "plot works");
 
 			// sowing
 			// mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
@@ -260,7 +258,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
-		Log.i(LOG_TAG, "Button clicked!");
+		Log.i(getLogTag(), "Button clicked!");
 		String toastText = "";
 		Intent intent = null;
 
@@ -284,7 +282,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		/** aggregate action descriptions */
 		if (v.getId() == R.id.btn_action_fertilize) {
-			Log.d(LOG_TAG, "Starting Fertilize aggregate info");
+			Log.d(getLogTag(), "Starting Fertilize aggregate info");
 			intent = new Intent(this, fertilize_aggregate.class);
 			intent.putExtra("type", "yield");
 			startActivity(intent);
@@ -293,7 +291,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_sell) {
-			Log.d(LOG_TAG, "Starting Selling aggregate info");
+			Log.d(getLogTag(), "Starting Selling aggregate info");
 			intent = new Intent(this, selling_aggregate.class);
 			intent.putExtra("type", "yield");
 			startActivity(intent);
@@ -302,7 +300,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_report) {
-			Log.d(LOG_TAG, "Starting Problem aggregate info");
+			Log.d(getLogTag(), "Starting Problem aggregate info");
 			intent = new Intent(this, problem_aggregate.class);
 			intent.putExtra("type", "yield");
 			startActivity(intent);
@@ -319,7 +317,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 
 		if (v.getId() == R.id.btn_action_harvest) {
-			Log.d(LOG_TAG, "Starting harvest aggregate info");
+			Log.d(getLogTag(), "Starting harvest aggregate info");
 			intent = new Intent(this, harvest_aggregate.class);
 			intent.putExtra("type", "yield");
 			startActivity(intent);
@@ -494,7 +492,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))
 				.setImageResource(resID);
 
-		Log.i(LOG_TAG, "scheduler activated");
+		Log.i(getLogTag(), "scheduler activated");
 		SchedulerManager.getInstance().saveTask(getApplicationContext(),
 				"*/1 * * * *", // a cron string
 				ReminderTask.class);

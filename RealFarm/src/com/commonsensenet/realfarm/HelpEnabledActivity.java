@@ -27,8 +27,9 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	/** MenuItem that represents the help button. */
 	protected MenuItem mHelpItem;
 
-	/** Name used to log the activity of the class. */
-	public static String LOG_TAG;
+	public String getLogTag() {
+		return this.getClass().getSimpleName();
+	}
 
 	@Override
 	public void onBackPressed() {
@@ -42,14 +43,14 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		super.onBackPressed();
 	}
 
-	protected void onCreate(Bundle savedInstanceState, String logTag) {
+	protected void onCreate(Bundle savedInstanceState) {
 		// sets the global style of the application.
 		setTheme(RealFarmApp.THEME);
 		super.onCreate(savedInstanceState);
 
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW,
-				LOG_TAG);
+				getLogTag());
 
 		// enables full screen mode
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,

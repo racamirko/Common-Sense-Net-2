@@ -34,7 +34,7 @@ public class ApplicationTracker {
 	/** Name of the file where the log is stored. */
 	public static final String LOG_FILENAME = "UIlog.txt";
 	/** Name of the folder where the log is located. */
-	public static final String LOG_FOLDER = "/csn_app_logs";
+	public static final String LOG_FOLDER = "/.csn_app_logs";
 	/** Identifier of the class used for logging. */
 	private static final String LOG_TAG = "ApplicationTracker";
 

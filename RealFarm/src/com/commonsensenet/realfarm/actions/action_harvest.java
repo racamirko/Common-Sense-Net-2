@@ -24,13 +24,11 @@ public class action_harvest extends DataFormActivity {
 	private String final_day_harvest;
 	private String mSelectedMonth;
 
-	public static final String LOG_TAG = "action_harvest";
-
 	/** Called when the activity is first created. */
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.harvest_dialog, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.harvest_dialog);
 
 		playAudio(R.raw.clickingharvest);
 
@@ -179,7 +177,7 @@ public class action_harvest extends DataFormActivity {
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "help");
+					getLogTag(), "help");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_unit_no_harvest
@@ -190,7 +188,7 @@ public class action_harvest extends DataFormActivity {
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "units");
+					getLogTag(), "units");
 		}
 		if (v.getId() == R.id.dlg_lbl_day_harvest) {
 
@@ -249,7 +247,7 @@ public class action_harvest extends DataFormActivity {
 		// to obtain the + - values
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
 				"ok_button");
 
 		if (feedback_sel == 0) {
@@ -258,7 +256,7 @@ public class action_harvest extends DataFormActivity {
 			View tr_feedback = (View) findViewById(R.id.satisfaction_harvest_tr);
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"feedback");
 		} else {
 			flag1 = 0;
@@ -275,7 +273,7 @@ public class action_harvest extends DataFormActivity {
 			tr_units.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"units");
 		} else {
 			flag2 = 0;
@@ -292,7 +290,7 @@ public class action_harvest extends DataFormActivity {
 			tr_months.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"date");
 		} else {
 			flag3 = 0;
@@ -311,7 +309,7 @@ public class action_harvest extends DataFormActivity {
 			tr_months.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"date");
 		} else {
 			flag4 = 0;

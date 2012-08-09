@@ -17,6 +17,11 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public abstract class HelpEnabledActivityOld extends Activity implements
 		OnLongClickListener, OnTouchListener {
+
+	public String getLogTag() {
+		return this.getClass().getSimpleName();
+	}
+
 	public class HelpAnimation extends AlphaAnimation {
 		protected View mViewAnimated; // animation icon
 		protected View mViewAssociated; // associated view on which we're
@@ -64,8 +69,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		}
 
 	}
-
-	private static final String LOG_TAG = "HelpEnabledActivity";
 
 	protected HelpAnimation mAnimFadeIn;
 	protected View mHelpIcon;
@@ -119,7 +122,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		mHelpMode = false;
 
 		mAnimFadeIn = new HelpAnimation(0.0f, 1.0f);
-		Log.i(LOG_TAG, "created");
 
 		setContentView(resLayoutId);
 	}
@@ -133,7 +135,7 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
 		mHelpIcon.setPadding(loc[0] + v.getWidth() / 2 - iconWidth / 2, loc[1]
 				- iconHeight - 20, 0, 0);
-		Log.d(LOG_TAG, "Showing help at: " + loc[0] + " , " + loc[1]);
+		Log.d(getLogTag(), "Showing help at: " + loc[0] + " , " + loc[1]);
 
 		mAnimFadeIn.setViewAssociated(v);
 		mAnimFadeIn.setDuration(500);
@@ -249,7 +251,7 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		int iconHeight = mHelpIcon.getHeight() - mHelpIcon.getPaddingTop();
 		mHelpIcon.setPadding(loc[0] + v.getWidth() / 2 - iconWidth / 2, loc[1]
 				- iconHeight - 20, 0, 0);
-		Log.d(LOG_TAG, "Showing help at: " + loc[0] + " , " + loc[1]);
+		Log.d(getLogTag(), "Showing help at: " + loc[0] + " , " + loc[1]);
 
 		mAnimFadeIn.setViewAssociated(v);
 		mAnimFadeIn.setDuration(500);

@@ -24,15 +24,13 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 	private boolean liked;
 	private int aggr_action_no;
 
-	public static final String LOG_TAG = "fertilize_aggregate";
-
 	public void onBackPressed() {
 
 		// stops all active audio.
 		stopAudio();
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
 				"back");
 
 		Intent adminintent = new Intent(fertilize_aggregate.this,
@@ -73,7 +71,7 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "home");
+						getLogTag(), "home");
 
 			}
 		});
@@ -397,7 +395,7 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "back");
+						getLogTag(), "back");
 			}
 
 		});

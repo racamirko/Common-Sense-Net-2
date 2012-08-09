@@ -36,8 +36,6 @@ import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
 public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		OnItemClickListener, OnLongClickListener, OnItemLongClickListener {
-	/** Name used to log the activity of the class. */
-	public static final String LOG_TAG = "sowing_aggregate";
 
 	/** Indicates the id of the activity that is being displayed. */
 	private int mActionActionTypeId;
@@ -68,7 +66,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		stopAudio();
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
 				"back");
 
 		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
@@ -133,7 +131,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "home");
+						getLogTag(), "home");
 			}
 		});
 
@@ -143,7 +141,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, "back");
+						getLogTag(), "back");
 
 			}
 		});
@@ -349,7 +347,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						LOG_TAG, title, choice.getId());
+						getLogTag(), title, choice.getId());
 
 				Toast.makeText(mParentReference, data.get(position).getName(),
 						Toast.LENGTH_SHORT).show();

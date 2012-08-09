@@ -16,8 +16,6 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class action_spraying extends DataFormActivity {
 
-	public static final String LOG_TAG = "action_spraying";
-
 	private String day_sel_spray = "0";
 	private int day_spray_int;
 	private String months_spray = "0";
@@ -30,7 +28,7 @@ public class action_spraying extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.spraying_dialog, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.spraying_dialog);
 
 		playAudio(R.raw.clickingspraying);
 
@@ -169,7 +167,7 @@ public class action_spraying extends DataFormActivity {
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "problem");
+					getLogTag(), "problem");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_pest_spray) {
@@ -178,7 +176,7 @@ public class action_spraying extends DataFormActivity {
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "pest");
+					getLogTag(), "pest");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_unit_no_spray
@@ -188,7 +186,7 @@ public class action_spraying extends DataFormActivity {
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "units");
+					getLogTag(), "units");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_day_spray) {
@@ -197,7 +195,7 @@ public class action_spraying extends DataFormActivity {
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "day");
+					getLogTag(), "day");
 		}
 
 		if (v.getId() == R.id.spray_ok) {
@@ -217,7 +215,7 @@ public class action_spraying extends DataFormActivity {
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "help");
+					getLogTag(), "help");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_month_spray) {
@@ -250,7 +248,7 @@ public class action_spraying extends DataFormActivity {
 	@Override
 	protected Boolean validateForm() {
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, LOG_TAG,
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
 				"ok");
 
 		unit_sel_spray = mResultsMap.get("unit_sel_spray").toString();
@@ -270,7 +268,7 @@ public class action_spraying extends DataFormActivity {
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"units");
 
 		} else {
@@ -291,7 +289,7 @@ public class action_spraying extends DataFormActivity {
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"pesticide");
 		} else {
 
@@ -311,7 +309,7 @@ public class action_spraying extends DataFormActivity {
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"problems");
 		} else {
 
@@ -331,7 +329,7 @@ public class action_spraying extends DataFormActivity {
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"month");
 		} else {
 

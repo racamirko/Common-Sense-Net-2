@@ -14,7 +14,6 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
 public class action_irrigate extends DataFormActivity {
-	public static final String LOG_TAG = "action_irrigate";
 	private int hrs_irrigate = 0;
 	private int irr_day_int;
 	private String irr_day_sel;
@@ -25,7 +24,7 @@ public class action_irrigate extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.irrigate_dialog, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.irrigate_dialog);
 
 		System.out.println("plant done");
 

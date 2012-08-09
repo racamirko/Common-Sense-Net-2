@@ -20,8 +20,6 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 public class action_fertilizing extends DataFormActivity implements
 		OnLongClickListener {
 
-	public static final String LOG_TAG = "action_fertilizing";
-
 	private String day_fert_sel = "0";
 	private String day_fert_sel_1;
 	private int fert_no;
@@ -34,7 +32,7 @@ public class action_fertilizing extends DataFormActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.fertilizing_dialog, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.fertilizing_dialog);
 
 		// adds the values that need to be validated.
 		mResultsMap.put("units_fert", "0");
@@ -46,7 +44,8 @@ public class action_fertilizing extends DataFormActivity implements
 		playAudio(R.raw.clickingfertilising);
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW, LOG_TAG);
+		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW,
+				getLogTag());
 
 		final View item1;
 		final View item2;
@@ -155,7 +154,7 @@ public class action_fertilizing extends DataFormActivity implements
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "type_fertilizer");
+					getLogTag(), "type_fertilizer");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_units_fert) {
@@ -165,7 +164,7 @@ public class action_fertilizing extends DataFormActivity implements
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "units_fertilizer");
+					getLogTag(), "units_fertilizer");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_unit_no_fert) {
@@ -175,7 +174,7 @@ public class action_fertilizing extends DataFormActivity implements
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "units_fertilizer");
+					getLogTag(), "units_fertilizer");
 		}
 
 		if (v.getId() == R.id.dlg_lbl_day_fert) {
@@ -185,7 +184,7 @@ public class action_fertilizing extends DataFormActivity implements
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "day_fertilizer");
+					getLogTag(), "day_fertilizer");
 		}
 
 		if (v.getId() == R.id.button_ok) {
@@ -207,7 +206,7 @@ public class action_fertilizing extends DataFormActivity implements
 
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					LOG_TAG, "help_fertilizer");
+					getLogTag(), "help_fertilizer");
 		}
 
 		if (v.getId() == R.id.var_fert_tr) {
@@ -253,7 +252,7 @@ public class action_fertilizing extends DataFormActivity implements
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"units_fertilizer");
 
 		} else {
@@ -272,7 +271,7 @@ public class action_fertilizing extends DataFormActivity implements
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"type_fertilizer");
 
 		} else {
@@ -292,7 +291,7 @@ public class action_fertilizing extends DataFormActivity implements
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, LOG_TAG,
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"type_fertilizer");
 
 		} else {

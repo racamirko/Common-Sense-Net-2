@@ -17,7 +17,6 @@ public class action_sowing extends DataFormActivity {
 	public static final String AMOUNT = "amount";
 	public static final String DAY = "day";
 	public static final String INTERCROP = "intercrop";
-	public static final String LOG_TAG = "action_sowing";
 	public static final String MONTH = "month";
 	public static final String TREATMENT = "treatment";
 	public static final String VARIETY = "variety";
@@ -32,7 +31,7 @@ public class action_sowing extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.sowing_dialog, LOG_TAG);
+		super.onCreate(savedInstanceState, R.layout.sowing_dialog);
 
 		// adds the fields to validate to the map.
 		mResultsMap.put(VARIETY, -1);
@@ -243,9 +242,14 @@ public class action_sowing extends DataFormActivity {
 			Calendar calentar = Calendar.getInstance();
 			calentar.set(Calendar.DAY_OF_MONTH, mDay);
 
-			mDataProvider.addSowAction(Global.plotId, mAmount, mSeedType,
-					calentar.getTime(), mTreatment, mIntercrop, 0);
-			return true;
+			// inserts the new plot into the table.
+			long result = mDataProvider.addSowAction(Global.plotId, mAmount,
+					mSeedType, calentar.getTime(), mTreatment, mIntercrop, 0);
+
+			// returns true if no error was produced.
+			if (result != -1) {
+				return true;
+			}
 		}
 		return false;
 	}
