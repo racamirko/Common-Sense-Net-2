@@ -750,30 +750,9 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "actionType works");
 
-		// pesticides
-		Object[][] pesticideData = {
-				{ "Monocrotophos", R.drawable.icon, R.raw.audio1, 1,
-						"Monocrotopho" },
-				{ "Dimethoate", R.drawable.icon, R.raw.audio1, 1, "Dimethoate" },
-				{ "Pesticide not listed", R.drawable.icon, R.raw.audio1, 1,
-						"P-unlisted" },
-				{ "Dithane M-45", R.drawable.icon, R.raw.audio1, 2,
-						"Dithane M-45" },
-				{ "Triazole", R.drawable.icon, R.raw.audio1, 2, "Triazole" },
-				{ "Fungicide not listed", R.drawable.icon, R.raw.audio1, 2,
-						"F-unlisted" }
-
-		};
-
 		// dialogArrays
 		Object[][] dialogArrays = {
 
-				{ "Flooding", "Flooding", R.drawable.ic_flooding, -1,
-						R.raw.bagof10kg, 1, RESOURCE_TYPE_IRRIGATIONMETHOD, -1,
-						-1 },
-				{ "Sprinkling", "Sprinkling", R.drawable.ic_sprinkling, -1,
-						R.raw.bagof20kg, 2, RESOURCE_TYPE_IRRIGATIONMETHOD, -1,
-						-1 },
 				{ "Good", "", R.drawable.smiley_good, -1, R.raw.feedbackgood,
 						1, RESOURCE_TYPE_SMILEY, -1, -1 },
 				{ "Moderate", "", R.drawable.smiley_medium, -1,
@@ -842,33 +821,6 @@ public class RealFarmDatabase {
 						R.raw.bagof10kg, 49, RESOURCE_TYPE_UNIT, 49, -1 },
 				{ "bag of 50 kgs", "50", R.drawable.ic_genericbaglarger, -1,
 						R.raw.bagof10kg, 50, RESOURCE_TYPE_UNIT, 50, -1 } };
-
-		ContentValues dialogArray = new ContentValues();
-		for (int x = 0; x < dialogArrays.length; x++) {
-			dialogArray.put(COLUMN_NAME_DIALOG_NAME,
-					(String) dialogArrays[x][0]);
-			dialogArray.put(COLUMN_NAME_DIALOG_SHORTNAME,
-					(String) dialogArrays[x][1]);
-			dialogArray.put(COLUMN_NAME_DIALOG_RES,
-					(Integer) dialogArrays[x][2]);
-			dialogArray.put(COLUMN_NAME_DIALOG_RES2,
-					(Integer) dialogArrays[x][3]);
-			dialogArray.put(COLUMN_NAME_DIALOG_AUDIO,
-					(Integer) dialogArrays[x][4]);
-			dialogArray.put(COLUMN_NAME_DIALOG_VALUE,
-					(Integer) dialogArrays[x][5]);
-			dialogArray.put(COLUMN_NAME_DIALOG_TYPE,
-					(Integer) dialogArrays[x][6]);
-			dialogArray.put(COLUMN_NAME_DIALOG_NUMBER,
-					(Integer) dialogArrays[x][7]);
-			dialogArray.put(COLUMN_NAME_DIALOG_RES_BG,
-					(Integer) dialogArrays[x][8]);
-			// insertEntriesIntoDatabase(TABLE_NAME_DIALOG_ARRAYS, dialogArray,
-			// db);
-			dialogArray.clear();
-		}
-
-		Log.d(LOG_TAG, "dialog arrays works");
 
 		// problem types
 		// Object[][] problemTypeData = {
@@ -973,6 +925,26 @@ public class RealFarmDatabase {
 						RESOURCE_TYPE_FERTILIZER },
 				{ "Unlisted", "Not in the list", R.raw.audio1, -1, -1, -1,
 						RESOURCE_TYPE_FERTILIZER },
+				/** Pesticide */
+				{ "Monocrotophos", "Monocrotopho", R.raw.audio1,
+						R.drawable.icon, -1, -1, RESOURCE_TYPE_PESTICIDE },
+				{ "Dimethoate", "Dimethoate", R.raw.audio1, R.drawable.icon,
+						-1, -1, RESOURCE_TYPE_PESTICIDE },
+				{ "Pesticide not listed", "P-unlisted", R.raw.audio1,
+						R.drawable.icon, -1, -1, RESOURCE_TYPE_PESTICIDE },
+				{ "Dithane M-45", "Dithane M-45", R.raw.audio1,
+						R.drawable.icon, -1, -1, RESOURCE_TYPE_PESTICIDE },
+				{ "Triazole", "Triazole", R.raw.audio1, R.drawable.icon, -1,
+						-1, RESOURCE_TYPE_PESTICIDE },
+				{ "Fungicide not listed", "F-unlisted", R.raw.audio1,
+						R.drawable.icon, -1, -1, RESOURCE_TYPE_PESTICIDE },
+				/** Irrigation Method. */
+				{ "Flooding", "Flooding", R.raw.bagof10kg,
+						R.drawable.ic_flooding, -1, -1,
+						RESOURCE_TYPE_IRRIGATIONMETHOD },
+				{ "Sprinkling", "Sprinkling", R.raw.bagof20kg,
+						R.drawable.ic_sprinkling, -1, -1,
+						RESOURCE_TYPE_IRRIGATIONMETHOD }
 
 		};
 

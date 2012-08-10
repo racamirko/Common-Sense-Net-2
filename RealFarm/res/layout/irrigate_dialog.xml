@@ -9,51 +9,6 @@
         android:orientation="vertical" >
 
         <LinearLayout
-            android:id="@+id/linearLayout19"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:background="@drawable/header" >
-
-            <ImageView
-                android:id="@+id/aggr_img_icon"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="5dp"
-                android:background="@drawable/circular_btn_normal"
-                android:src="@drawable/ic_irrigate" />
-
-            <ImageView
-                android:id="@+id/aggr_img_icon"
-                android:layout_width="60dip"
-                android:layout_height="match_parent"
-                android:layout_margin="5dp"
-                android:src="@drawable/plot" />
-
-            <Button
-                android:id="@+id/button123"
-                android:layout_width="90dip"
-                android:layout_height="wrap_content"
-                android:text="Button"
-                android:visibility="invisible" />
-
-            <ImageButton
-                android:id="@+id/aggr_img_home"
-                android:layout_width="50dip"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:background="@drawable/home"
-                android:src="@drawable/square_btn_transp" />
-
-            <ImageButton
-                android:id="@+id/aggr_img_help"
-                android:layout_width="50dip"
-                android:layout_height="match_parent"
-                android:layout_margin="3dp"
-                android:background="@drawable/ic_54px_help"
-                android:src="@drawable/square_btn_transp" />
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/method_irr_tr"
             android:layout_width="fill_parent"
             android:layout_height="50dp"
@@ -89,6 +44,7 @@
                 android:paddingLeft="10dp"
                 android:text="Method"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
                 android:textSize="22sp" />
         </LinearLayout>
 
@@ -128,6 +84,7 @@
                 android:paddingLeft="10dp"
                 android:text="Hours"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
                 android:textSize="22sp" />
         </LinearLayout>
 
@@ -167,6 +124,7 @@
                 android:paddingLeft="10dp"
                 android:text="Day"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
                 android:textSize="22sp" />
 
             <TextView
@@ -179,6 +137,7 @@
                 android:paddingLeft="10dp"
                 android:text="Month"
                 android:textAppearance="?android:attr/textAppearanceMedium"
+                android:textColor="@android:color/white"
                 android:textSize="22sp" />
         </LinearLayout>
     </LinearLayout>

@@ -4,27 +4,25 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 
 import com.commonsensenet.realfarm.DataFormActivity;
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
 public class action_irrigate extends DataFormActivity {
-	private int hrs_irrigate = 0;
-	private int irr_day_int;
-	private String irr_day_sel;
-	private String irr_method_sel = "0";
-	private String months_irr = "0";
 
-	public static final String AMOUNT = "amount";
 	public static final String DAY = "day";
-	public static final String INTERCROP = "intercrop";
+	public static final String HOURS = "hours";
+	public static final String METHOD = "method";
 	public static final String MONTH = "month";
-	public static final String TREATMENT = "treatment";
-	public static final String VARIETY = "variety";
+
+	private int mDay;
+	private int mHours;
+	private int mMethod;
+	private int mMonth;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -36,36 +34,24 @@ public class action_irrigate extends DataFormActivity {
 		playAudio(R.raw.clickingfertilising);
 
 		// adds the values that need to be validated.
-		mResultsMap.put("irr_method_sel", "0");
-		mResultsMap.put("months_irr", "0");
-		mResultsMap.put("irr_day_int", "0");
-		mResultsMap.put("hrs_irrigate", "0");
+		mResultsMap.put(METHOD, -1);
+		mResultsMap.put(HOURS, "0");
+		mResultsMap.put(DAY, "0");
+		mResultsMap.put(MONTH, -1);
 
-		// bg_day_irr.setImageResource(R.drawable.empty_not);
-		final View item1;
-		final View item2;
-		final View item3;
-		final View item4;
-
-		item1 = (View) findViewById(R.id.dlg_lbl_method_irr);
-
-		item3 = (View) findViewById(R.id.dlg_lbl_day_irr);
-		item2 = (View) findViewById(R.id.dlg_lbl_unit_no_irr);
-		item4 = (View) findViewById(R.id.dlg_lbl_month_irr);
+		View item1 = findViewById(R.id.dlg_lbl_method_irr);
+		View item2 = findViewById(R.id.dlg_lbl_unit_no_irr);
+		View item3 = findViewById(R.id.dlg_lbl_day_irr);
+		View item4 = findViewById(R.id.dlg_lbl_month_irr);
 
 		item1.setOnLongClickListener(this);
-
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
 
-		final View method;
-		final View duration;
-		final View Date;
-
-		method = (View) findViewById(R.id.method_irr_tr);
-		duration = (View) findViewById(R.id.units_irr_tr);
-		Date = (View) findViewById(R.id.day_irr_tr);
+		View method = findViewById(R.id.method_irr_tr);
+		View duration = findViewById(R.id.units_irr_tr);
+		View Date = findViewById(R.id.day_irr_tr);
 
 		method.setOnLongClickListener(this);
 		duration.setOnLongClickListener(this);
@@ -74,23 +60,32 @@ public class action_irrigate extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in irrigation method dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD);
-				displayDialog(v, data, "irr_method_sel",
-						"Select the irrigation method", R.raw.problems,
-						R.id.dlg_lbl_method_irr, R.id.method_irr_tr, 0);
+				displayDialog(v, data, METHOD, "Select the irrigation method",
+						R.raw.problems, R.id.dlg_lbl_method_irr,
+						R.id.method_irr_tr, 0);
+			}
+		});
+
+		item2.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopAudio();
+
+				displayDialogNP("Choose the irrigation duration", HOURS,
+						R.raw.dateinfo, 0, 24, 0, 1, 0,
+						R.id.dlg_lbl_unit_no_irr, R.id.units_irr_tr,
+						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
+						R.raw.dateinfo);
 			}
 		});
 
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
 
-				displayDialogNP("Choose the day", "irr_day_int",
-						R.raw.dateinfo, 1, 31,
+				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_irr, R.id.day_irr_tr,
 						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
@@ -99,27 +94,13 @@ public class action_irrigate extends DataFormActivity {
 			}
 		});
 
-		item2.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
-
-				displayDialogNP("Choose the irrigation duration",
-						"hrs_irrigate", R.raw.dateinfo, 0, 24, 0, 1, 0,
-						R.id.dlg_lbl_unit_no_irr, R.id.units_irr_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
-			}
-		});
-
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, "months_irr", "Select the month",
+				displayDialog(v, data, MONTH, "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_irr,
 						R.id.day_irr_tr, 0);
 			}
@@ -128,6 +109,9 @@ public class action_irrigate extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
+
+		// long click sounds are forced played, since they are part of a help
+		// feature.
 
 		if (v.getId() == R.id.dlg_lbl_method_irr) {
 			playAudio(R.raw.method, true);
@@ -157,68 +141,42 @@ public class action_irrigate extends DataFormActivity {
 
 	@Override
 	protected Boolean validateForm() {
-		irr_method_sel = mResultsMap.get("irr_method_sel").toString();
-		months_irr = mResultsMap.get("months_irr").toString();
-		irr_day_int = Integer.parseInt(mResultsMap.get("irr_day_int")
-				.toString());
-		hrs_irrigate = Integer.parseInt(mResultsMap.get("hrs_irrigate")
-				.toString());
 
-		int flag1, flag2, flag3;
-		if (hrs_irrigate == 0) {
-			flag1 = 1;
+		// gets the values from the hash map.
+		mMethod = (Integer) mResultsMap.get(METHOD);
+		mHours = Integer.valueOf(mResultsMap.get(HOURS).toString());
+		mMonth = (Integer) mResultsMap.get(MONTH);
+		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
 
-			View tr_feedback = (View) findViewById(R.id.units_irr_tr);
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
+		// flag used to indicate the validity of the form.
+		boolean isValid = true;
 
+		if (mMethod != -1) {
+			highlightField(R.id.method_irr_tr, false);
 		} else {
-			flag1 = 0;
-
-			View tr_feedback = (View) findViewById(R.id.units_irr_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.method_irr_tr, true);
 		}
 
-		if (irr_method_sel.toString().equalsIgnoreCase("0")) {
-
-			flag2 = 1;
-
-			View tr_feedback = (View) findViewById(R.id.method_irr_tr);
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
+		if (mHours > 0) {
+			highlightField(R.id.units_irr_tr, false);
 		} else {
-
-			flag2 = 0;
-
-			View tr_feedback = (View) findViewById(R.id.method_irr_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.units_irr_tr, true);
 		}
 
-		if (months_irr.toString().equalsIgnoreCase("0") || irr_day_int == 0) {
-
-			flag3 = 1;
-
-			View tr_feedback = (View) findViewById(R.id.day_irr_tr);
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
+		if (mMonth != -1 && mDay > 0) {
+			highlightField(R.id.day_irr_tr, false);
 		} else {
-
-			flag3 = 0;
-
-			irr_day_sel = irr_day_int + "." + months_irr;
-			View tr_feedback = (View) findViewById(R.id.day_irr_tr);
-
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = true;
+			highlightField(R.id.day_irr_tr, true);
 		}
 
-		if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
-			// mDataProvider.setIrrigation(Global.plotId, hrs_irrigate,
-			// "hours", irr_day_sel, irr_method_sel, 0, 0);
+		if (isValid) {
+			long result = mDataProvider.addIrrigateAction(Global.userId,
+					Global.plotId, mHours, getDate(mDay, mMonth), mMethod, 0);
 
-			return true;
-
+			return result != -1;
 		}
 		return false;
 	}

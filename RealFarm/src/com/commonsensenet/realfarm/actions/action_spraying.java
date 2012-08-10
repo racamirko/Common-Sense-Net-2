@@ -46,12 +46,12 @@ public class action_spraying extends DataFormActivity {
 		final View item4;
 		final View item5;
 
-		item1 = (View) findViewById(R.id.dlg_lbl_prob_spray);
-		item2 = (View) findViewById(R.id.dlg_lbl_pest_spray);
-		item3 = (View) findViewById(R.id.dlg_lbl_units_spray);
-		item4 = (View) findViewById(R.id.dlg_lbl_day_spray);
-		item5 = (View) findViewById(R.id.dlg_lbl_unit_no_spray);
-		final View item6 = (View) findViewById(R.id.dlg_lbl_month_spray);
+		item1 =  findViewById(R.id.dlg_lbl_prob_spray);
+		item2 =  findViewById(R.id.dlg_lbl_pest_spray);
+		item3 =  findViewById(R.id.dlg_lbl_units_spray);
+		item4 =  findViewById(R.id.dlg_lbl_day_spray);
+		item5 =  findViewById(R.id.dlg_lbl_unit_no_spray);
+		final View item6 =  findViewById(R.id.dlg_lbl_month_spray);
 
 		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
@@ -65,10 +65,10 @@ public class action_spraying extends DataFormActivity {
 		final View Date;
 		final View PestName;
 
-		Problems = (View) findViewById(R.id.prob_spray_tr);
-		PestName = (View) findViewById(R.id.pest_spray_tr);
-		Amount = (View) findViewById(R.id.units_spray_tr);
-		Date = (View) findViewById(R.id.day_spray_tr);
+		Problems =  findViewById(R.id.prob_spray_tr);
+		PestName =  findViewById(R.id.pest_spray_tr);
+		Amount =  findViewById(R.id.units_spray_tr);
+		Date =  findViewById(R.id.day_spray_tr);
 
 		Problems.setOnLongClickListener(this);
 		PestName.setOnLongClickListener(this);
@@ -263,7 +263,7 @@ public class action_spraying extends DataFormActivity {
 		if (unit_sel_spray.toString().equalsIgnoreCase("0") || spray_no == 0) {
 			flag1 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.units_spray_tr);
+			View tr_feedback =  findViewById(R.id.units_spray_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -274,7 +274,7 @@ public class action_spraying extends DataFormActivity {
 		} else {
 			flag1 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.units_spray_tr);
+			View tr_feedback =  findViewById(R.id.units_spray_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -284,7 +284,7 @@ public class action_spraying extends DataFormActivity {
 
 			flag2 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.pest_spray_tr);
+			View tr_feedback =  findViewById(R.id.pest_spray_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -295,7 +295,7 @@ public class action_spraying extends DataFormActivity {
 
 			flag2 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.pest_spray_tr);
+			View tr_feedback =  findViewById(R.id.pest_spray_tr);
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
 		}
@@ -304,7 +304,7 @@ public class action_spraying extends DataFormActivity {
 
 			flag3 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.prob_spray_tr);
+			View tr_feedback =  findViewById(R.id.prob_spray_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -315,7 +315,7 @@ public class action_spraying extends DataFormActivity {
 
 			flag3 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.prob_spray_tr);
+			View tr_feedback =  findViewById(R.id.prob_spray_tr);
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
 		}
@@ -324,7 +324,7 @@ public class action_spraying extends DataFormActivity {
 
 			flag4 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.day_spray_tr);
+			View tr_feedback =  findViewById(R.id.day_spray_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -337,7 +337,7 @@ public class action_spraying extends DataFormActivity {
 
 			day_sel_spray = day_spray_int + "." + months_spray;
 
-			View tr_feedback = (View) findViewById(R.id.day_spray_tr);
+			View tr_feedback =  findViewById(R.id.day_spray_tr);
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
 		}

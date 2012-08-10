@@ -37,10 +37,10 @@ public class action_problem extends DataFormActivity {
 		final View item1;
 		final View item4;
 
-		item1 = (View) findViewById(R.id.dlg_lbl_var_prob);
-		item4 = (View) findViewById(R.id.dlg_lbl_var_prob4);
-		final View item2 = (View) findViewById(R.id.dlg_lbl_day_prob);
-		final View item3 = (View) findViewById(R.id.dlg_lbl_month_prob);
+		item1 =  findViewById(R.id.dlg_lbl_var_prob);
+		item4 =  findViewById(R.id.dlg_lbl_var_prob4);
+		final View item2 =  findViewById(R.id.dlg_lbl_day_prob);
+		final View item3 =  findViewById(R.id.dlg_lbl_month_prob);
 
 		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
@@ -51,9 +51,9 @@ public class action_problem extends DataFormActivity {
 		final View crop;
 		final View Date;
 
-		problem = (View) findViewById(R.id.var_prob_tr);
-		crop = (View) findViewById(R.id.var_prob_tr4);
-		Date = (View) findViewById(R.id.day_prob_tr);
+		problem =  findViewById(R.id.var_prob_tr);
+		crop =  findViewById(R.id.var_prob_tr4);
+		Date =  findViewById(R.id.day_prob_tr);
 
 		problem.setOnLongClickListener(this);
 		crop.setOnLongClickListener(this);
@@ -187,14 +187,14 @@ public class action_problem extends DataFormActivity {
 		if (prob_var_sel.toString().equalsIgnoreCase("0")) {
 			flag1 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.var_prob_tr);
+			View tr_feedback =  findViewById(R.id.var_prob_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 		} else {
 			flag1 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.var_prob_tr);
+			View tr_feedback =  findViewById(R.id.var_prob_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -203,7 +203,7 @@ public class action_problem extends DataFormActivity {
 		if (months_prob.toString().equalsIgnoreCase("0") || prob_day_int == 0) {
 			flag2 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.day_prob_tr);
+			View tr_feedback =  findViewById(R.id.day_prob_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -211,7 +211,7 @@ public class action_problem extends DataFormActivity {
 			flag2 = 0;
 
 			prob_day_sel = prob_day_int + "." + months_prob;
-			View tr_feedback = (View) findViewById(R.id.day_prob_tr);
+			View tr_feedback =  findViewById(R.id.day_prob_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -220,14 +220,14 @@ public class action_problem extends DataFormActivity {
 		if (prob_crop_sel.toString().equalsIgnoreCase("0")) {
 			flag4 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.var_prob_tr4);
+			View tr_feedback =  findViewById(R.id.var_prob_tr4);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 		} else {
 			flag4 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.var_prob_tr4);
+			View tr_feedback =  findViewById(R.id.var_prob_tr4);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);

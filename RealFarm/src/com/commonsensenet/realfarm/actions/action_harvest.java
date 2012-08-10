@@ -64,8 +64,8 @@ public class action_harvest extends DataFormActivity {
 		final View harvest_date;
 		final View Amount;
 
-		harvest_date = (View) findViewById(R.id.harvest_date_tr);
-		Amount = (View) findViewById(R.id.units_harvest_tr);
+		harvest_date =  findViewById(R.id.harvest_date_tr);
+		Amount =  findViewById(R.id.units_harvest_tr);
 
 		harvest_date.setOnLongClickListener(this);
 		Amount.setOnLongClickListener(this);
@@ -253,14 +253,14 @@ public class action_harvest extends DataFormActivity {
 		if (feedback_sel == 0) {
 			flag1 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.satisfaction_harvest_tr);
+			View tr_feedback =  findViewById(R.id.satisfaction_harvest_tr);
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
 					"feedback");
 		} else {
 			flag1 = 0;
-			View tr_feedback = (View) findViewById(R.id.satisfaction_harvest_tr);
+			View tr_feedback =  findViewById(R.id.satisfaction_harvest_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -269,7 +269,7 @@ public class action_harvest extends DataFormActivity {
 		if (units_harvest.toString().equalsIgnoreCase("0") || harvest_no == 0) {
 			flag2 = 1;
 
-			View tr_units = (View) findViewById(R.id.units_harvest_tr);
+			View tr_units =  findViewById(R.id.units_harvest_tr);
 			tr_units.setBackgroundResource(R.drawable.def_img_not);
 
 			// tracks the application usage.
@@ -277,7 +277,7 @@ public class action_harvest extends DataFormActivity {
 					"units");
 		} else {
 			flag2 = 0;
-			View tr_units = (View) findViewById(R.id.units_harvest_tr);
+			View tr_units =  findViewById(R.id.units_harvest_tr);
 			tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
 		}
 
@@ -285,7 +285,7 @@ public class action_harvest extends DataFormActivity {
 				|| day_harvest_int == 0) {
 			flag3 = 1;
 
-			View tr_months = (View) findViewById(R.id.harvest_date_tr);
+			View tr_months =  findViewById(R.id.harvest_date_tr);
 
 			tr_months.setBackgroundResource(R.drawable.def_img_not);
 
@@ -297,14 +297,14 @@ public class action_harvest extends DataFormActivity {
 
 			final_day_harvest = day_harvest_int + "." + months_harvest;
 
-			View tr_units = (View) findViewById(R.id.harvest_date_tr);
+			View tr_units =  findViewById(R.id.harvest_date_tr);
 			tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
 		}
 
 		if (crop_harvest == 0) {
 			flag4 = 1;
 
-			View tr_months = (View) findViewById(R.id.var_harvest_crop);
+			View tr_months =  findViewById(R.id.var_harvest_crop);
 
 			tr_months.setBackgroundResource(R.drawable.def_img_not);
 
@@ -314,7 +314,7 @@ public class action_harvest extends DataFormActivity {
 		} else {
 			flag4 = 0;
 
-			View tr_units = (View) findViewById(R.id.var_harvest_crop);
+			View tr_units =  findViewById(R.id.var_harvest_crop);
 			tr_units.setBackgroundResource(android.R.drawable.list_selector_background);
 		}
 

@@ -201,8 +201,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 		// inserts the action if all fields are valid.
 		if (isValid) {
-			long result = mDataProvider.addFertilizeAction(Global.userId, Global.plotId,
-					mAmount, mFertilizer, mUnit, getDate(mDay, mMonth), 0);
+			long result = mDataProvider.addFertilizeAction(Global.userId,
+					Global.plotId, mAmount, mFertilizer, mUnit,
+					getDate(mDay, mMonth), 0);
 
 			return result != -1;
 		}

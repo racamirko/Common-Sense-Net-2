@@ -13,6 +13,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
 public class SowActionActivity extends DataFormActivity {
+
 	public static final String AMOUNT = "amount";
 	public static final String DAY = "day";
 	public static final String INTERCROP = "intercrop";

@@ -46,14 +46,14 @@ public class action_selling extends DataFormActivity {
 
 		// bg_day_sow.setImageResource(R.drawable.empty_not);
 
-		final View item1 = (View) findViewById(R.id.dlg_lbl_crop_sell);
-		final View item2 = (View) findViewById(R.id.dlg_lbl_date_sell);
-		final View item3 = (View) findViewById(R.id.dlg_lbl_month_sell);
-		final View item4 = (View) findViewById(R.id.dlg_lbl_unit_no_sell);
-		final View item5 = (View) findViewById(R.id.dlg_lbl_unit_sell);
-		final View item6 = (View) findViewById(R.id.dlg_lbl_price_sell);
-		final View item7 = (View) findViewById(R.id.dlg_lbl_unit_no_rem_sell);
-		final View item8 = (View) findViewById(R.id.dlg_lbl_unit_rem_sell);
+		final View item1 =  findViewById(R.id.dlg_lbl_crop_sell);
+		final View item2 =  findViewById(R.id.dlg_lbl_date_sell);
+		final View item3 =  findViewById(R.id.dlg_lbl_month_sell);
+		final View item4 =  findViewById(R.id.dlg_lbl_unit_no_sell);
+		final View item5 =  findViewById(R.id.dlg_lbl_unit_sell);
+		final View item6 =  findViewById(R.id.dlg_lbl_price_sell);
+		final View item7 =  findViewById(R.id.dlg_lbl_unit_no_rem_sell);
+		final View item8 =  findViewById(R.id.dlg_lbl_unit_rem_sell);
 
 		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
@@ -70,12 +70,12 @@ public class action_selling extends DataFormActivity {
 		final View priceperquint;
 		final View remain;
 
-		crop = (View) findViewById(R.id.crop_sell_tr);
-		date = (View) findViewById(R.id.date_sell_tr);
+		crop =  findViewById(R.id.crop_sell_tr);
+		date =  findViewById(R.id.date_sell_tr);
 
-		quantity = (View) findViewById(R.id.quant_sell_tr);
-		priceperquint = (View) findViewById(R.id.price_sell_tr);
-		remain = (View) findViewById(R.id.rem_quant_sell_tr);
+		quantity =  findViewById(R.id.quant_sell_tr);
+		priceperquint =  findViewById(R.id.price_sell_tr);
+		remain =  findViewById(R.id.rem_quant_sell_tr);
 
 		crop.setOnLongClickListener(this);
 		date.setOnLongClickListener(this);
@@ -318,7 +318,7 @@ public class action_selling extends DataFormActivity {
 
 			flag1 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.crop_sell_tr);
+			View tr_feedback =  findViewById(R.id.crop_sell_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -326,7 +326,7 @@ public class action_selling extends DataFormActivity {
 
 			flag1 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.crop_sell_tr);
+			View tr_feedback =  findViewById(R.id.crop_sell_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -336,7 +336,7 @@ public class action_selling extends DataFormActivity {
 
 			flag2 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.date_sell_tr);
+			View tr_feedback =  findViewById(R.id.date_sell_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -344,7 +344,7 @@ public class action_selling extends DataFormActivity {
 
 			flag2 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.date_sell_tr);
+			View tr_feedback =  findViewById(R.id.date_sell_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -354,7 +354,7 @@ public class action_selling extends DataFormActivity {
 
 			flag3 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.quant_sell_tr);
+			View tr_feedback =  findViewById(R.id.quant_sell_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -362,7 +362,7 @@ public class action_selling extends DataFormActivity {
 
 			flag3 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.quant_sell_tr);
+			View tr_feedback =  findViewById(R.id.quant_sell_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -371,14 +371,14 @@ public class action_selling extends DataFormActivity {
 		if (sell_price == 0) {
 			flag4 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.price_sell_tr);
+			View tr_feedback =  findViewById(R.id.price_sell_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
 		} else {
 			flag4 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.price_sell_tr);
+			View tr_feedback =  findViewById(R.id.price_sell_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);
@@ -389,7 +389,7 @@ public class action_selling extends DataFormActivity {
 
 			flag5 = 1;
 
-			View tr_feedback = (View) findViewById(R.id.rem_quant_sell_tr);
+			View tr_feedback =  findViewById(R.id.rem_quant_sell_tr);
 
 			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
 
@@ -397,7 +397,7 @@ public class action_selling extends DataFormActivity {
 
 			flag5 = 0;
 
-			View tr_feedback = (View) findViewById(R.id.rem_quant_sell_tr);
+			View tr_feedback =  findViewById(R.id.rem_quant_sell_tr);
 
 			tr_feedback
 					.setBackgroundResource(android.R.drawable.list_selector_background);

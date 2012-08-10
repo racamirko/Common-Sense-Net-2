@@ -184,10 +184,10 @@ public class RealFarmProvider {
 	}
 
 	public long addIrrigateAction(long userId, long plotId, int quantity1,
-			int unit1, Date date, int methodId, int isAdminAction) {
+			Date date, int methodId, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
-				date, NONE, NONE, quantity1, NONE, unit1, NONE, methodId, NONE,
+				date, NONE, NONE, quantity1, NONE, NONE, NONE, methodId, NONE,
 				NONE, userId, isAdminAction);
 	}
 
