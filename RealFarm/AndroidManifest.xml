@@ -84,7 +84,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".actions.action_fertilizing"
+            android:name=".actions.FertilizeActionActivity"
             android:icon="@drawable/fertilizingaction"
             android:label="Fertilize"
             android:screenOrientation="portrait" />

@@ -26,9 +26,13 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
-import com.commonsensenet.realfarm.actions.action_fertilizing;
+import com.commonsensenet.realfarm.actions.FertilizeActionActivity;
+import com.commonsensenet.realfarm.actions.action_harvest;
+import com.commonsensenet.realfarm.actions.action_irrigate;
+import com.commonsensenet.realfarm.actions.action_problem;
 import com.commonsensenet.realfarm.actions.action_selling;
 import com.commonsensenet.realfarm.actions.SowActionActivity;
+import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
@@ -402,14 +406,22 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						Global.selectedAction = SowActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
-						Global.selectedAction = action_fertilizing.class;
+						Global.selectedAction = FertilizeActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
+						Global.selectedAction = action_irrigate.class;
+						break;
 					case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
+						Global.selectedAction = action_problem.class;
+						break;
 					case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
+						Global.selectedAction = action_spraying.class;
+						break;
 					case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
+						Global.selectedAction = action_harvest.class;
+						break;
 					case RealFarmDatabase.ACTION_TYPE_SELL_ID:
-						Global.selectedAction = SowActionActivity.class;
+						Global.selectedAction = action_selling.class;
 						break;
 					default:
 						return;
@@ -540,41 +552,45 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	// TODO: replace all sounds
 	public boolean onLongClick(View v) {
 
+		// long click sounds are always played, no matter the audio setting.
 		if (v.getId() == R.id.hmscrn_btn_market) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_btn_weather) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.btn_action_spray) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.btn_action_sell) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.btn_action_report) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.btn_action_irrigate) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.btn_action_harvest) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.btn_action_sow) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_lay_btn_diary) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.hmscrn_btn_sound) {
-			playAudio(R.raw.problems);
+			playAudio(R.raw.problems, true);
 		} else {
 			return super.onLongClick(v);
 		}
+
+		// shows the help icon for the view.
+		showHelpIcon(v);
 
 		return true;
 	}

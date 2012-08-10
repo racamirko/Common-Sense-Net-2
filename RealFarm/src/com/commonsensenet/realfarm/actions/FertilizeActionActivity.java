@@ -15,7 +15,7 @@ import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
-public class action_fertilizing extends DataFormActivity implements
+public class FertilizeActionActivity extends DataFormActivity implements
 		OnLongClickListener {
 
 	public static final String AMOUNT = "amount";

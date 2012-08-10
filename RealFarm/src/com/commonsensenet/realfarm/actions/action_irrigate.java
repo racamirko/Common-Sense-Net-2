@@ -6,7 +6,6 @@ import java.util.List;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
-import android.widget.ImageButton;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.R;
@@ -20,7 +19,13 @@ public class action_irrigate extends DataFormActivity {
 	private String irr_method_sel = "0";
 	private String months_irr = "0";
 
-	/** Called when the activity is first created. */
+	public static final String AMOUNT = "amount";
+	public static final String DAY = "day";
+	public static final String INTERCROP = "intercrop";
+	public static final String MONTH = "month";
+	public static final String TREATMENT = "treatment";
+	public static final String VARIETY = "variety";
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -41,22 +46,18 @@ public class action_irrigate extends DataFormActivity {
 		final View item2;
 		final View item3;
 		final View item4;
-		ImageButton home;
-		ImageButton help;
+
 		item1 = (View) findViewById(R.id.dlg_lbl_method_irr);
 
 		item3 = (View) findViewById(R.id.dlg_lbl_day_irr);
 		item2 = (View) findViewById(R.id.dlg_lbl_unit_no_irr);
 		item4 = (View) findViewById(R.id.dlg_lbl_month_irr);
-		home = (ImageButton) findViewById(R.id.aggr_img_home);
-		help = (ImageButton) findViewById(R.id.aggr_img_help);
 
 		item1.setOnLongClickListener(this);
 
 		item2.setOnLongClickListener(this);
 		item3.setOnLongClickListener(this);
 		item4.setOnLongClickListener(this);
-		help.setOnLongClickListener(this);
 
 		final View method;
 		final View duration;
@@ -129,53 +130,27 @@ public class action_irrigate extends DataFormActivity {
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.dlg_lbl_method_irr) {
-			playAudio(R.raw.method);
-			showHelpIcon(v);
+			playAudio(R.raw.method, true);
+		} else if (v.getId() == R.id.dlg_lbl_unit_no_irr) {
+			playAudio(R.raw.noofhours, true);
+		} else if (v.getId() == R.id.dlg_lbl_day_irr) {
+			playAudio(R.raw.selectthedate, true);
+		} else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.help, true);
+		} else if (v.getId() == R.id.dlg_lbl_month_irr) {
+			playAudio(R.raw.choosethemonth, true);
+		} else if (v.getId() == R.id.method_irr_tr) {
+			playAudio(R.raw.method, true);
+		} else if (v.getId() == R.id.units_irr_tr) {
+			playAudio(R.raw.duration, true);
+		} else if (v.getId() == R.id.day_irr_tr) {
+			playAudio(R.raw.date, true);
+		} else {
+			return onLongClick(v);
 		}
 
-		if (v.getId() == R.id.dlg_lbl_unit_no_irr) {
-			playAudio(R.raw.noofhours);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.dlg_lbl_day_irr) {
-			playAudio(R.raw.selectthedate);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.irr_ok) {
-			playAudio(R.raw.ok);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.irr_cancel) {
-			playAudio(R.raw.cancel);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.dlg_lbl_month_irr) {
-			playAudio(R.raw.choosethemonth);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.method_irr_tr) {
-			playAudio(R.raw.method);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.units_irr_tr) {
-			playAudio(R.raw.duration);
-			showHelpIcon(v);
-		}
-		if (v.getId() == R.id.day_irr_tr) {
-			playAudio(R.raw.date);
-			showHelpIcon(v);
-		}
+		// shows the help icon
+		showHelpIcon(v);
 
 		return true;
 	}
@@ -239,7 +214,6 @@ public class action_irrigate extends DataFormActivity {
 		}
 
 		if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
-			System.out.println("Irrigting Writing");
 			// mDataProvider.setIrrigation(Global.plotId, hrs_irrigate,
 			// "hours", irr_day_sel, irr_method_sel, 0, 0);
 
