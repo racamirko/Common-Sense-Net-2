@@ -134,7 +134,7 @@ public class RealFarmProvider {
 			args.putNull(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID);
 		}
 
-		if (resource1Id != NONE) {
+		if (resource2Id != NONE) {
 			args.put(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
 					resource2Id);
 		} else {

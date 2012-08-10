@@ -123,7 +123,7 @@ public class Action {
 	public String toString() {
 
 		return String
-				.format("[Action id='%d', actionTypeId='%d', plotId='%d', date='%s', seedTypeId='%d', cropTypeId='%d', quantity1='%d', quantity2='%d', unit1='%d', unit2='%d', resource1='%d', resource2='%d', price='%d', userId='%d', isSent='%d', isAdminAction='%d', timestamp='%d']",
+				.format("[Action id='%d', actionTypeId='%d', plotId='%d', date='%s', seedTypeId='%d', cropTypeId='%d', quantity1='%.2f', quantity2='%.2f', unit1='%d', unit2='%d', resource1='%d', resource2='%d', price='%d', userId='%d', isSent='%d', isAdminAction='%d', timestamp='%d']",
 						mId, mActionTypeId, mPlotId, mDate, mSeedTypeId,
 						mCropTypeId, mQuantity1, mQuantity2, mUnit1, mUnit2,
 						mResourceId1, mResourceId2, mPrice, mUserId, mIsSent,
