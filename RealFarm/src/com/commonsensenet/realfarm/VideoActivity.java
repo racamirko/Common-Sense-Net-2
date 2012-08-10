@@ -17,6 +17,8 @@ public class VideoActivity extends HelpEnabledActivity {
 		super.onBackPressed();
 	}
 
+	public static final String SELECTED_VIDEO = "selectedVideo";
+
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
@@ -37,7 +39,12 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Global.selectedVideo = 1;
+
+				// passes the selected video.
+				mTargetIntent.putExtra(SELECTED_VIDEO,
+						"android.resource://com.commonsensenet.realfarm/"
+								+ R.raw.kannada);
+
 				startActivity(mTargetIntent);
 				VideoActivity.this.finish();
 			}
@@ -46,7 +53,12 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				Global.selectedVideo = 2;
+
+				// passes the selected video.
+				mTargetIntent.putExtra(SELECTED_VIDEO,
+						"android.resource://com.commonsensenet.realfarm/"
+								+ R.raw.english);
+
 				startActivity(mTargetIntent);
 				VideoActivity.this.finish();
 			}

@@ -81,8 +81,9 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".actions.action_harvest"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:icon="@drawable/harvestingaction"
+            android:label="Harvest"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actions.FertilizeActionActivity"
             android:icon="@drawable/fertilizingaction"
@@ -102,7 +103,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".actions.action_irrigate"
+            android:name=".actions.IrrigateActionActivity"
             android:icon="@drawable/irrigationaction"
             android:label="Irrigate"
             android:screenOrientation="portrait" />

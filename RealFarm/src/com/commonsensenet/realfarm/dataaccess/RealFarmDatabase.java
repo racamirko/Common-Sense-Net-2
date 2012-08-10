@@ -430,17 +430,6 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_CROPTYPE_NAME = "name";
 	public static final String COLUMN_NAME_CROPTYPE_SHORTNAME = "shortName";
 
-	public static final String COLUMN_NAME_DIALOG_AUDIO = "audio";
-	public static final String COLUMN_NAME_DIALOG_ID = "id";
-	public static final String COLUMN_NAME_DIALOG_NAME = "name";
-	public static final String COLUMN_NAME_DIALOG_NUMBER = "number";
-	public static final String COLUMN_NAME_DIALOG_RES = "resource";
-	public static final String COLUMN_NAME_DIALOG_RES_BG = "resourceBg";
-	public static final String COLUMN_NAME_DIALOG_RES2 = "resource2";
-	public static final String COLUMN_NAME_DIALOG_SHORTNAME = "shortName";
-	public static final String COLUMN_NAME_DIALOG_TYPE = "type";
-	public static final String COLUMN_NAME_DIALOG_VALUE = "value";
-
 	public static final String COLUMN_NAME_MARKETPRICE_DATE = "date";
 	public static final String COLUMN_NAME_MARKETPRICE_ID = "id";
 	public static final String COLUMN_NAME_MARKETPRICE_TYPE = "type";
@@ -541,7 +530,7 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_MONTH = 6;
 	public static final int RESOURCE_TYPE_PESTICIDE = 2;
 	public static final int RESOURCE_TYPE_PROBLEM = 0;
-	public static final int RESOURCE_TYPE_SMILEY = 7;
+	public static final int RESOURCE_TYPE_SATISFACTION = 7;
 	public static final int RESOURCE_TYPE_TREATMENT = 8;
 	public static final int RESOURCE_TYPE_UNIT = 9;
 
@@ -750,78 +739,6 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "actionType works");
 
-		// dialogArrays
-		Object[][] dialogArrays = {
-
-				{ "Good", "", R.drawable.smiley_good, -1, R.raw.feedbackgood,
-						1, RESOURCE_TYPE_SMILEY, -1, -1 },
-				{ "Moderate", "", R.drawable.smiley_medium, -1,
-						R.raw.feedbackmoderate, 2, RESOURCE_TYPE_SMILEY, -1, -1 },
-				{ "Bad", "", R.drawable.smiley_bad, -1, R.raw.feedbackbad, 3,
-						RESOURCE_TYPE_SMILEY, -1, -1 },
-				{ "bag of 20 kgs", "20", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 20, RESOURCE_TYPE_UNIT, 20, -1 },
-				{ "bag of 21 kgs", "21", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 21, RESOURCE_TYPE_UNIT, 21, -1 },
-				{ "bag of 22 kgs", "22", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 22, RESOURCE_TYPE_UNIT, 22, -1 },
-				{ "bag of 23 kgs", "23", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 23, RESOURCE_TYPE_UNIT, 23, -1 },
-				{ "bag of 24 kgs", "24", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 24, RESOURCE_TYPE_UNIT, 24, -1 },
-				{ "bag of 25 kgs", "25", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 25, RESOURCE_TYPE_UNIT, 25, -1 },
-				{ "bag of 26 kgs", "26", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 26, RESOURCE_TYPE_UNIT, 26, -1 },
-				{ "bag of 27 kgs", "27", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 27, RESOURCE_TYPE_UNIT, 27, -1 },
-				{ "bag of 28 kgs", "28", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 28, RESOURCE_TYPE_UNIT, 28, -1 },
-				{ "bag of 29 kgs", "29", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 29, RESOURCE_TYPE_UNIT, 29, -1 },
-				{ "bag of 30 kgs", "30", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 30, RESOURCE_TYPE_UNIT, 30, -1 },
-				{ "bag of 31 kgs", "31", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 31, RESOURCE_TYPE_UNIT, 31, -1 },
-				{ "bag of 32 kgs", "32", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 32, RESOURCE_TYPE_UNIT, 32, -1 },
-				{ "bag of 33 kgs", "33", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 33, RESOURCE_TYPE_UNIT, 33, -1 },
-				{ "bag of 34 kgs", "34", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 34, RESOURCE_TYPE_UNIT, 34, -1 },
-				{ "bag of 35 kgs", "35", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 35, RESOURCE_TYPE_UNIT, 35, -1 },
-				{ "bag of 36 kgs", "36", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 36, RESOURCE_TYPE_UNIT, 36, -1 },
-				{ "bag of 37 kgs", "37", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 37, RESOURCE_TYPE_UNIT, 37, -1 },
-				{ "bag of 38 kgs", "38", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 38, RESOURCE_TYPE_UNIT, 38, -1 },
-				{ "bag of 39 kgs", "39", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 39, RESOURCE_TYPE_UNIT, 39, -1 },
-				{ "bag of 40 kgs", "40", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 40, RESOURCE_TYPE_UNIT, 40, -1 },
-				{ "bag of 41 kgs", "41", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 41, RESOURCE_TYPE_UNIT, 41, -1 },
-				{ "bag of 42 kgs", "42", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 42, RESOURCE_TYPE_UNIT, 42, -1 },
-				{ "bag of 43 kgs", "43", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 43, RESOURCE_TYPE_UNIT, 43, -1 },
-				{ "bag of 44 kgs", "44", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 44, RESOURCE_TYPE_UNIT, 44, -1 },
-				{ "bag of 45 kgs", "45", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 45, RESOURCE_TYPE_UNIT, 45, -1 },
-				{ "bag of 46 kgs", "46", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 46, RESOURCE_TYPE_UNIT, 46, -1 },
-				{ "bag of 47 kgs", "47", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 47, RESOURCE_TYPE_UNIT, 47, -1 },
-				{ "bag of 48 kgs", "48", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 48, RESOURCE_TYPE_UNIT, 48, -1 },
-				{ "bag of 49 kgs", "49", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 49, RESOURCE_TYPE_UNIT, 49, -1 },
-				{ "bag of 50 kgs", "50", R.drawable.ic_genericbaglarger, -1,
-						R.raw.bagof10kg, 50, RESOURCE_TYPE_UNIT, 50, -1 } };
-
 		// problem types
 		// Object[][] problemTypeData = {
 		// { "Disease", R.raw.audio1, R.drawable.ic_diseasecategory },
@@ -944,7 +861,15 @@ public class RealFarmDatabase {
 						RESOURCE_TYPE_IRRIGATIONMETHOD },
 				{ "Sprinkling", "Sprinkling", R.raw.bagof20kg,
 						R.drawable.ic_sprinkling, -1, -1,
-						RESOURCE_TYPE_IRRIGATIONMETHOD }
+						RESOURCE_TYPE_IRRIGATIONMETHOD },
+				/** Satisfaction */
+				{ "Good", "Good", R.raw.feedbackgood, R.drawable.smiley_good,
+						-1, -1, RESOURCE_TYPE_SATISFACTION },
+				{ "Moderate", "Moderate", R.raw.feedbackmoderate,
+						R.drawable.smiley_medium, -1, -1,
+						RESOURCE_TYPE_SATISFACTION },
+				{ "Bad", "Bad", R.raw.feedbackbad, R.drawable.smiley_bad, -1,
+						-1, RESOURCE_TYPE_SATISFACTION }
 
 		};
 
@@ -969,8 +894,6 @@ public class RealFarmDatabase {
 
 		// units
 		Object[][] unitData = {
-				{ "seru(s)", R.drawable.ic_seruunit, R.raw.audio1,
-						ACTION_TYPE_HARVEST_ID },
 				{ "1L can(s)", R.drawable.ic_pesticideherbicidecan,
 						R.raw.audio1, ACTION_TYPE_SPRAY_ID },
 				{ "bag(s) of 1 kg", R.drawable.onekgbagpesticides,
@@ -981,6 +904,68 @@ public class RealFarmDatabase {
 						ACTION_TYPE_FERTILIZE_ID },
 				{ "tractor load(s)", R.drawable.ic_tractorload, R.raw.audio1,
 						ACTION_TYPE_FERTILIZE_ID },
+				{ "bag of 20 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 21 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 22 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 23 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 24 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 25 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 26 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 27 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 28 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 29 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 30 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 31 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 32 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 33 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 34 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 35 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 36 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 37 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 38 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 39 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 40 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 41 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 42 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 43 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 44 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 45 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 46 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 47 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 48 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 49 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
+				{ "bag of 50 kgs", R.drawable.ic_genericbaglarger,
+						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID },
 				{ "unknown", R.drawable.icon, R.raw.audio1, ACTION_TYPE_ALL_ID },
 				{ "none", R.drawable.icon, R.raw.audio1, ACTION_TYPE_ALL_ID }
 

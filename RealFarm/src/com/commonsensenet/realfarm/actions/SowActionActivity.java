@@ -237,8 +237,8 @@ public class SowActionActivity extends DataFormActivity {
 
 			// inserts the new plot into the table.
 			long result = mDataProvider.addSowAction(Global.userId,
-					Global.plotId, mAmount, mSeedType, getDate(mDay, mMonth),
-					mTreatment, mIntercrop, 0);
+					Global.plotId, mAmount, mSeedType, mTreatment, mIntercrop,
+					getDate(mDay, mMonth), 0);
 
 			// returns true if no error was produced.
 			return result != -1;

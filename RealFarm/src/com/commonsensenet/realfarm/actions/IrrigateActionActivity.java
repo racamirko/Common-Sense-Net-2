@@ -12,7 +12,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
-public class action_irrigate extends DataFormActivity {
+public class IrrigateActionActivity extends DataFormActivity {
 
 	public static final String DAY = "day";
 	public static final String HOURS = "hours";
@@ -174,7 +174,7 @@ public class action_irrigate extends DataFormActivity {
 
 		if (isValid) {
 			long result = mDataProvider.addIrrigateAction(Global.userId,
-					Global.plotId, mHours, getDate(mDay, mMonth), mMethod, 0);
+					Global.plotId, mHours, mMethod, getDate(mDay, mMonth), 0);
 
 			return result != -1;
 		}

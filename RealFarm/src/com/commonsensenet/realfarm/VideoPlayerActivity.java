@@ -39,15 +39,14 @@ public class VideoPlayerActivity extends Activity {
 		// sets the layout of the activity.
 		setContentView(R.layout.act_video_player);
 
-		// path where the video is located.
+		// gets the extras to extract the select video from there.
+		Bundle extras = getIntent().getExtras();
+
+		// determines the path of the video to load based on the passed
+		// parameters.
 		String videoPath = null;
-		// gets the video path from the Global variables.
-		if (Global.selectedVideo == 1) {
-			videoPath = "android.resource://com.commonsensenet.realfarm/"
-					+ R.raw.kannada;
-		} else if (Global.selectedVideo == 2) {
-			videoPath = "android.resource://com.commonsensenet.realfarm/"
-					+ R.raw.english;
+		if (extras.containsKey(VideoActivity.SELECTED_VIDEO)) {
+			videoPath = extras.getString(VideoActivity.SELECTED_VIDEO);
 		}
 
 		// get the VideoView from the layout file

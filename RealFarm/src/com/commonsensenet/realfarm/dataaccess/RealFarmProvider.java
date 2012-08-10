@@ -173,18 +173,18 @@ public class RealFarmProvider {
 				NONE, NONE, userId, isAdminAction);
 	}
 
-	public long addHarvestAction(long userId, long plotId, int quantity1,
-			int quantity2, int unit1, Date date, int satisfactionId,
-			int isAdminAction, int seedTypeId) {
+	public long addHarvestAction(long userId, long plotId, int seedTypeId,
+			int quantity1, int unit1, int satisfactionId, Date date,
+			int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_HARVEST_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
-				quantity2, unit1, NONE, satisfactionId, NONE, NONE, userId,
+				NONE, unit1, NONE, satisfactionId, NONE, NONE, userId,
 				isAdminAction);
 	}
 
 	public long addIrrigateAction(long userId, long plotId, int quantity1,
-			Date date, int methodId, int isAdminAction) {
+			int methodId, Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, NONE, NONE, methodId, NONE,
@@ -269,7 +269,7 @@ public class RealFarmProvider {
 	}
 
 	public long addSowAction(long userId, long plotId, int quantity1,
-			int seedTypeId, Date date, int treatmentId, int intercropId,
+			int seedTypeId, int treatmentId, int intercropId, Date date,
 			int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SOW_ID, plotId, date,
