@@ -85,18 +85,18 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".actions.action_fertilizing"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:icon="@drawable/fertilizingaction"
+            android:label="Fertilize"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actions.action_selling"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".actions.action_sowing"
+            android:name=".actions.SowActionActivity"
             android:icon="@drawable/sowingaction"
             android:label="Sow"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actions.action_spraying"
             android:screenOrientation="portrait"

@@ -4,13 +4,11 @@ import java.util.Calendar;
 import java.util.List;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.DataFormActivity;
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
@@ -20,43 +18,37 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 public class action_fertilizing extends DataFormActivity implements
 		OnLongClickListener {
 
-	private String day_fert_sel = "0";
-	private String day_fert_sel_1;
-	private int fert_no;
-	private int day_fert_int;
-	private String fert_var_sel = "0";
-	private String months_fert = "0";
-	private String units_fert = "0";
+	public static final String AMOUNT = "amount";
+	public static final String DAY = "day";
+	public static final String FERTILIZER = "fertilizer";
+	public static final String MONTH = "month";
+	public static final String UNIT = "unit";
 
-	/** Called when the activity is first created. */
+	private double mAmount;
+	private int mDay;
+	private int mFertilizer;
+	private int mMonth;
+	private int mUnit;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.fertilizing_dialog);
+		super.onCreate(savedInstanceState, R.layout.act_fertilize_action);
 
 		// adds the values that need to be validated.
-		mResultsMap.put("units_fert", "0");
-		mResultsMap.put("months_fert", "0");
-		mResultsMap.put("fert_var_sel", "0");
-		mResultsMap.put("day_fert_int", "0");
-		mResultsMap.put("fert_no", "0");
+		mResultsMap.put(FERTILIZER, -1);
+		mResultsMap.put(AMOUNT, "0");
+		mResultsMap.put(UNIT, -1);
+		mResultsMap.put(DAY, "0");
+		mResultsMap.put(MONTH, -1);
 
 		playAudio(R.raw.clickingfertilising);
 
-		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW,
-				getLogTag());
-
-		final View item1;
-		final View item2;
-		final View item3;
-		final View item4;
-		final View item5;
-		item1 = findViewById(R.id.dlg_lbl_var_fert);
-		item2 = findViewById(R.id.dlg_lbl_units_fert);
-		item3 = findViewById(R.id.dlg_lbl_day_fert);
-		item4 = findViewById(R.id.dlg_lbl_unit_no_fert);
-		item5 = findViewById(R.id.dlg_lbl_month_fert);
+		View item1 = findViewById(R.id.dlg_lbl_var_fert);
+		View item2 = findViewById(R.id.dlg_lbl_unit_no_fert);
+		View item3 = findViewById(R.id.dlg_lbl_units_fert);
+		View item4 = findViewById(R.id.dlg_lbl_day_fert);
+		View item5 = findViewById(R.id.dlg_lbl_month_fert);
 
 		item1.setOnLongClickListener(this);
 		item2.setOnLongClickListener(this);
@@ -68,9 +60,9 @@ public class action_fertilizing extends DataFormActivity implements
 		final View amount;
 		final View date;
 
-		fertilizerName = (View) findViewById(R.id.var_fert_tr);
-		amount = (View) findViewById(R.id.units_fert_tr);
-		date = (View) findViewById(R.id.day_fert_tr);
+		fertilizerName = findViewById(R.id.var_fert_tr);
+		amount = findViewById(R.id.units_fert_tr);
+		date = findViewById(R.id.day_fert_tr);
 
 		amount.setOnLongClickListener(this);
 		date.setOnLongClickListener(this);
@@ -79,11 +71,10 @@ public class action_fertilizing extends DataFormActivity implements
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety fert dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZER);
-				displayDialog(v, data, "fert_var_sel", "Choose the fertilizer",
+				displayDialog(v, data, FERTILIZER, "Choose the fertilizer",
 						R.raw.problems, R.id.dlg_lbl_var_fert,
 						R.id.var_fert_tr, 0);
 			}
@@ -92,23 +83,30 @@ public class action_fertilizing extends DataFormActivity implements
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in units fert dialog", "in dialog");
 
-				List<Resource> data = mDataProvider
-						.getUnits(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
-				displayDialog(v, data, "units_fert", "Choose the unit",
-						R.raw.problems, R.id.dlg_lbl_units_fert,
-						R.id.units_fert_tr, 1);
+				displayDialogNP("Choose the amount", AMOUNT, R.raw.dateinfo, 0,
+						100, 1, 0.25, 2, R.id.dlg_lbl_unit_no_fert,
+						R.id.units_fert_tr, R.raw.dateinfo, R.raw.dateinfo,
+						R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
 
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
 
-				displayDialogNP("Choose the day", "day_fert_int",
-						R.raw.dateinfo, 1, 31,
+				List<Resource> data = mDataProvider
+						.getUnits(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
+				displayDialog(v, data, UNIT, "Choose the unit", R.raw.problems,
+						R.id.dlg_lbl_units_fert, R.id.units_fert_tr, 1);
+			}
+		});
+
+		item4.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopAudio();
+
+				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_fert, R.id.day_fert_tr,
 						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
@@ -116,26 +114,13 @@ public class action_fertilizing extends DataFormActivity implements
 			}
 		});
 
-		item4.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
-
-				displayDialogNP("Choose the amount", "fert_no", R.raw.dateinfo,
-						0, 100, 1, 0.25, 2, R.id.dlg_lbl_unit_no_fert,
-						R.id.units_fert_tr, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo, R.raw.dateinfo);
-			}
-		});
-
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				Log.d("in variety sowing dialog", "in dialog");
 
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, "months_fert", "Select the month",
+				displayDialog(v, data, MONTH, "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_fert,
 						R.id.day_fert_tr, 0);
 			}
@@ -145,178 +130,82 @@ public class action_fertilizing extends DataFormActivity implements
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.dlg_lbl_var_fert) {
-
-			Toast.makeText(action_fertilizing.this, ((TextView) (v)).getText(),
-					Toast.LENGTH_LONG).show();
-
 			playAudio(R.raw.selecttypeoffertilizer);
-			showHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					getLogTag(), "type_fertilizer");
-		}
-
-		if (v.getId() == R.id.dlg_lbl_units_fert) {
-
+		} else if (v.getId() == R.id.dlg_lbl_units_fert) {
 			playAudio(R.raw.selecttheunits);
-			showHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					getLogTag(), "units_fertilizer");
-		}
-
-		if (v.getId() == R.id.dlg_lbl_unit_no_fert) {
-
+		} else if (v.getId() == R.id.dlg_lbl_unit_no_fert) {
 			playAudio(R.raw.selecttheunits);
-			showHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					getLogTag(), "units_fertilizer");
-		}
-
-		if (v.getId() == R.id.dlg_lbl_day_fert) {
-
+		} else if (v.getId() == R.id.dlg_lbl_day_fert) {
 			playAudio(R.raw.selectthedate);
-			showHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					getLogTag(), "day_fertilizer");
-		}
-
-		if (v.getId() == R.id.button_ok) {
-
+		} else if (v.getId() == R.id.button_ok) {
 			playAudio(R.raw.ok);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.button_cancel) {
-
+		} else if (v.getId() == R.id.button_cancel) {
 			playAudio(R.raw.cancel);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.aggr_img_help) {
-
+		} else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.help);
-			showHelpIcon(v);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-					getLogTag(), "help_fertilizer");
-		}
-
-		if (v.getId() == R.id.var_fert_tr) {
+		} else if (v.getId() == R.id.var_fert_tr) {
 			playAudio(R.raw.amount);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.day_fert_tr) {
+		} else if (v.getId() == R.id.day_fert_tr) {
 			playAudio(R.raw.date);
-			showHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.units_fert_tr) {
+		} else if (v.getId() == R.id.units_fert_tr) {
 			playAudio(R.raw.fertilizername);
-			showHelpIcon(v);
+		} else if (v.getId() == R.id.dlg_lbl_month_fert) {
+			playAudio(R.raw.choosethemonth);
+		} else {
+			return super.onLongClick(v);
 		}
 
-		if (v.getId() == R.id.dlg_lbl_month_fert) {
-			playAudio(R.raw.choosethemonth);
-			showHelpIcon(v);
-		}
+		// shows the help icon.
+		showHelpIcon(v);
+
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				getLogTag(), v.getId());
 
 		return true;
 	}
 
 	@Override
 	protected Boolean validateForm() {
-		units_fert = mResultsMap.get("units_fert").toString();
 
-		months_fert = mResultsMap.get("months_fert").toString();
-		fert_var_sel = mResultsMap.get("fert_var_sel").toString();
-		day_fert_int = Integer.parseInt(mResultsMap.get("day_fert_int")
-				.toString());
-		fert_no = (int) (Double.parseDouble(mResultsMap.get("fert_no")
-				.toString()));
+		// gets the current values from the hash
+		mFertilizer = (Integer) mResultsMap.get(FERTILIZER);
+		mAmount = Double.valueOf(mResultsMap.get(AMOUNT).toString());
+		mUnit = (Integer) mResultsMap.get(UNIT);
+		mDay = Integer.parseInt(mResultsMap.get(DAY).toString());
+		mMonth = (Integer) mResultsMap.get(MONTH);
 
-		int flag1, flag2, flag3;
-		if (units_fert.toString().equalsIgnoreCase("0") || fert_no == 0) {
-			flag1 = 1;
+		// flag to indicate the validity of the form.
+		boolean isValid = true;
 
-			View tr_feedback = (View) findViewById(R.id.units_fert_tr);
-
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
-					"units_fertilizer");
-
+		if (mUnit != -1 && mAmount > 0) {
+			highlightField(R.id.units_fert_tr, false);
 		} else {
-			flag1 = 0;
-			View tr_feedback = (View) findViewById(R.id.units_fert_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.units_fert_tr, true);
 		}
 
-		if (fert_var_sel.toString().equalsIgnoreCase("0")) {
-
-			flag2 = 1;
-
-			View tr_feedback = (View) findViewById(R.id.var_fert_tr);
-
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
-					"type_fertilizer");
-
+		if (mFertilizer != -1) {
+			highlightField(R.id.units_fert_tr, false);
 		} else {
-
-			flag2 = 0;
-			View tr_feedback = (View) findViewById(R.id.var_fert_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.var_fert_tr, true);
 		}
 
-		if (months_fert.toString().equalsIgnoreCase("0") || day_fert_int == 0) {
-
-			flag3 = 1;
-
-			View tr_feedback = (View) findViewById(R.id.day_fert_tr);
-
-			tr_feedback.setBackgroundResource(R.drawable.def_img_not);
-
-			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, getLogTag(),
-					"type_fertilizer");
-
+		if (mMonth != -1 && mDay > 0) {
+			highlightField(R.id.day_fert_tr, false);
 		} else {
-
-			flag3 = 0;
-			day_fert_sel = day_fert_sel_1 + "." + months_fert;
-			View tr_feedback = (View) findViewById(R.id.var_fert_tr);
-			tr_feedback
-					.setBackgroundResource(android.R.drawable.list_selector_background);
+			isValid = false;
+			highlightField(R.id.day_fert_tr, true);
 		}
 
-		if (flag1 == 0 && flag2 == 0 && flag3 == 0) {
-			//
-			// System.out.println("fertilizing writing");
-			// mDataProvider.setFertilizing(Global.plotId, fert_no,
-			// fert_var_sel, units_fert, day_fert_sel, 1, 0);
+		// inserts the action if all fields are valid.
+		if (isValid) {
+			long result = mDataProvider.addFertilizeAction(Global.userId, Global.plotId,
+					mAmount, mFertilizer, mUnit, getDate(mDay, mMonth), 0);
 
-			// System.out.println("fertilizing reading");
-			// mDataProvider.getfertizing();
-
-			return true;
-
+			return result != -1;
 		}
-
 		return false;
 	}
-
 }

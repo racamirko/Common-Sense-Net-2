@@ -77,7 +77,7 @@ public class RealFarmProvider {
 	}
 
 	public long addAction(int actionTypeId, long plotId, Date date,
-			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
+			int seedTypeId, int cropTypeId, double quantity1, double quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
 			long userId, int isAdminAction) {
 
@@ -88,7 +88,7 @@ public class RealFarmProvider {
 	}
 
 	public long addAction(long id, int actionTypeId, long plotId, Date date,
-			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
+			int seedTypeId, int cropTypeId, double quantity1, double quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
 			long userId, int isSent, int isAdminAction, long timestamp) {
 
@@ -165,12 +165,12 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addFertilizeAction(long plotId, int quantity1,
+	public long addFertilizeAction(long userId, long plotId, double quantity1,
 			int fertilizerId, int unit1, Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, fertilizerId,
-				NONE, NONE, NONE, isAdminAction);
+				NONE, NONE, userId, isAdminAction);
 	}
 
 	public long addHarvestAction(long userId, long plotId, int quantity1,
@@ -179,16 +179,16 @@ public class RealFarmProvider {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_HARVEST_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
-				quantity2, unit1, NONE, satisfactionId, NONE, NONE, NONE,
+				quantity2, unit1, NONE, satisfactionId, NONE, NONE, userId,
 				isAdminAction);
 	}
 
-	public long addIrrigateAction(long plotId, int quantity1, int unit1,
-			Date date, int methodId, int isAdminAction) {
+	public long addIrrigateAction(long userId, long plotId, int quantity1,
+			int unit1, Date date, int methodId, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID, plotId,
 				date, NONE, NONE, quantity1, NONE, unit1, NONE, methodId, NONE,
-				NONE, NONE, isAdminAction);
+				NONE, userId, isAdminAction);
 	}
 
 	public long addMarketPrice(String date, int value, String type) {
@@ -249,22 +249,23 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addReportAction(long plotId, int seedTypeId, int problemTypeId,
-			Date date, int isAdminAction) {
+	public long addReportAction(long userId, long plotId, int seedTypeId,
+			int problemTypeId, Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_REPORT_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), NONE,
-				NONE, NONE, NONE, problemTypeId, NONE, NONE, NONE,
+				NONE, NONE, NONE, problemTypeId, NONE, NONE, userId,
 				isAdminAction);
 	}
 
-	public long addSellAction(long plotId, int seedTypeId, int quantity1,
-			int quantity2, int unit1, int unit2, int price, Date date,
-			int isAdminAction) {
+	public long addSellAction(long userId, long plotId, int seedTypeId,
+			int quantity1, int quantity2, int unit1, int unit2, int price,
+			Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
 				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
-				quantity2, unit1, unit2, NONE, NONE, price, NONE, isAdminAction);
+				quantity2, unit1, unit2, NONE, NONE, price, userId,
+				isAdminAction);
 	}
 
 	public long addSowAction(long userId, long plotId, int quantity1,
@@ -283,12 +284,12 @@ public class RealFarmProvider {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
 				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,
-				pesticideId, NONE, NONE, isAdminAction);
+				pesticideId, NONE, userId, isAdminAction);
 	}
 
 	/**
 	 * Adds a new User to the database. A Global id is chosen for the user,
-	 * based on the DeviceId and a sequencial number.
+	 * based on the DeviceId and a sequential number.
 	 * 
 	 * @param firstname
 	 *            firstname of the user.
@@ -411,10 +412,13 @@ public class RealFarmProvider {
 			do {
 
 				a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
-						c.getString(3), c.getInt(4), c.getInt(5), c.getInt(6),
-						c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10),
-						c.getInt(11), c.getInt(12), c.getLong(13),
-						c.getInt(14), c.getInt(15), c.getLong(16));
+						c.getString(3), c.getInt(4), c.getInt(5),
+						c.getDouble(6), c.getDouble(7), c.getInt(8),
+						c.getInt(9), c.getInt(10), c.getInt(11), c.getInt(12),
+						c.getLong(13), c.getInt(14), c.getInt(15),
+						c.getLong(16));
+
+				// adds the plot to the list
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());
@@ -460,10 +464,11 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
-						c.getString(3), c.getInt(4), c.getInt(5), c.getInt(6),
-						c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10),
-						c.getInt(11), c.getInt(12), c.getLong(13),
-						c.getInt(14), c.getInt(15), c.getLong(16));
+						c.getString(3), c.getInt(4), c.getInt(5),
+						c.getDouble(6), c.getDouble(7), c.getInt(8),
+						c.getInt(9), c.getInt(10), c.getInt(11), c.getInt(12),
+						c.getLong(13), c.getInt(14), c.getInt(15),
+						c.getLong(16));
 
 				// adds the action to the list.
 				tmpActions.add(a);
@@ -500,10 +505,13 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
-						c.getString(3), c.getInt(4), c.getInt(5), c.getInt(6),
-						c.getInt(7), c.getInt(8), c.getInt(9), c.getInt(10),
-						c.getInt(11), c.getInt(12), c.getLong(13),
-						c.getInt(14), c.getInt(15), c.getLong(16));
+						c.getString(3), c.getInt(4), c.getInt(5),
+						c.getDouble(6), c.getDouble(7), c.getInt(8),
+						c.getInt(9), c.getInt(10), c.getInt(11), c.getInt(12),
+						c.getLong(13), c.getInt(14), c.getInt(15),
+						c.getLong(16));
+
+				// adds the action to the list
 				tmpActions.add(a);
 
 				Log.d("values: ", a.toString());

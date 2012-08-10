@@ -1,5 +1,9 @@
 package com.commonsensenet.realfarm;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 
@@ -183,6 +187,26 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		});
 
 		dialog.show();
+	}
+
+	protected Date getDate(int day, int monthId) {
+		Resource monthResource = mDataProvider.getResourceById(monthId);
+
+		SimpleDateFormat df = new SimpleDateFormat("MMM");
+		Date date;
+		try {
+			date = df.parse(monthResource.getShortName());
+		} catch (ParseException e) {
+			date = null;
+		}
+
+		// creates a new calendar and sets the selected date.
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH, day);
+		calendar.set(Calendar.MONDAY, date.getMonth());
+
+		// returns the date that represents the calendar.
+		return calendar.getTime();
 	}
 
 	/**

@@ -1,14 +1,9 @@
 package com.commonsensenet.realfarm.actions;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
-import android.text.format.DateFormat;
-import android.util.Log;
 import android.view.View;
 
 import com.commonsensenet.realfarm.DataFormActivity;
@@ -17,7 +12,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
-public class action_sowing extends DataFormActivity {
+public class SowActionActivity extends DataFormActivity {
 	public static final String AMOUNT = "amount";
 	public static final String DAY = "day";
 	public static final String INTERCROP = "intercrop";
@@ -35,13 +30,13 @@ public class action_sowing extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.sowing_dialog);
+		super.onCreate(savedInstanceState, R.layout.act_sow_action);
 
 		// adds the fields to validate to the map.
 		mResultsMap.put(VARIETY, -1);
 		mResultsMap.put(AMOUNT, "0");
-		mResultsMap.put(MONTH, "0");
 		mResultsMap.put(DAY, "0");
+		mResultsMap.put(MONTH, -1);
 		mResultsMap.put(TREATMENT, -1);
 		mResultsMap.put(INTERCROP, -1);
 
@@ -193,7 +188,7 @@ public class action_sowing extends DataFormActivity {
 		mSeedType = (Integer) mResultsMap.get(VARIETY);
 		mAmount = Integer.valueOf(mResultsMap.get(AMOUNT).toString());
 		// month corresponds to the id in the resource table.
-		mMonth = Integer.valueOf(mResultsMap.get(MONTH).toString());
+		mMonth = (Integer) mResultsMap.get(MONTH);
 		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
 		mTreatment = (Integer) mResultsMap.get(TREATMENT);
 		mIntercrop = (Integer) mResultsMap.get(INTERCROP);
@@ -239,24 +234,9 @@ public class action_sowing extends DataFormActivity {
 		// if all the fields are valid the data is inserted into the database.
 		if (isValid) {
 
-			Resource monthResource = mDataProvider.getResourceById(mMonth);
-
-			SimpleDateFormat df = new SimpleDateFormat("MMM");
-			Date date;
-			try {
-				date = df.parse(monthResource.getShortName());
-			} catch (ParseException e) {
-				date = null;
-			}
-
-			// creates a new calendar and sets the selected date.
-			Calendar calendar = Calendar.getInstance();
-			calendar.set(Calendar.DAY_OF_MONTH, mDay);
-			calendar.set(Calendar.MONDAY, date.getMonth());
-
 			// inserts the new plot into the table.
 			long result = mDataProvider.addSowAction(Global.userId,
-					Global.plotId, mAmount, mSeedType, calendar.getTime(),
+					Global.plotId, mAmount, mSeedType, getDate(mDay, mMonth),
 					mTreatment, mIntercrop, 0);
 
 			// returns true if no error was produced.

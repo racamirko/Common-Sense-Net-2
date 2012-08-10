@@ -3,6 +3,7 @@
     <issue id="ContentDescription">
         <ignore path="res/layout/act_add_plot.xml" />
         <ignore path="res/layout/act_diary.xml" />
+        <ignore path="res/layout/act_fertilize_action.xml" />
         <ignore path="res/layout/act_homescreen.xml" />
         <ignore path="res/layout/action_aggr_sel_dialog.xml" />
         <ignore path="res/layout/dialog_action.xml" />

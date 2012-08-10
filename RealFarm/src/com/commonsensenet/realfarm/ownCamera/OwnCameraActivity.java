@@ -213,10 +213,8 @@ public class OwnCameraActivity extends Activity implements
 				Log.d(LOG_TAG, "Picture taken");
 				Toast.makeText(OwnCameraActivity.this, "Picture taken.",
 						Toast.LENGTH_SHORT).show();
-
 			}
 		});
-
 	}
 
 	@Override
@@ -318,7 +316,6 @@ public class OwnCameraActivity extends Activity implements
 		} catch (Exception e) {
 			Log.d(LOG_TAG, "Error 2 starting camera preview " + e.getMessage());
 		}
-
 	}
 
 	// Camera preview methods
@@ -335,13 +332,11 @@ public class OwnCameraActivity extends Activity implements
 		} catch (Exception e) {
 			Log.d(LOG_TAG, "Error - surfaceCreated: " + e.getMessage());
 		}
-
 	}
 
 	public void surfaceDestroyed(SurfaceHolder mholder) {
 
 		// empty. Take care of releasing the camera preview in your activity
-
 		if (mCamera != null) {
 			mCamera.stopPreview();
 			mCamera.release();

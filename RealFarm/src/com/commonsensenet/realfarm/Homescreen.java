@@ -26,8 +26,9 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
+import com.commonsensenet.realfarm.actions.action_fertilizing;
 import com.commonsensenet.realfarm.actions.action_selling;
-import com.commonsensenet.realfarm.actions.action_sowing;
+import com.commonsensenet.realfarm.actions.SowActionActivity;
 import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
@@ -380,7 +381,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			// gets the available action types.
 			List<Resource> data = mDataProvider.getActionTypes();
 			// creates an adapter that handles the data.
-			DialogAdapter adapter = new DialogAdapter(v.getContext(),
+			final DialogAdapter adapter = new DialogAdapter(v.getContext(),
 					R.layout.mc_dialog_row, data);
 			ListView dialogList = (ListView) dialog
 					.findViewById(R.id.dialog_list);
@@ -393,7 +394,28 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					Global.selectedAction = action_sowing.class;
+
+					Resource selectedAction = adapter.getItem(position);
+
+					switch (selectedAction.getId()) {
+					case RealFarmDatabase.ACTION_TYPE_SOW_ID:
+						Global.selectedAction = SowActionActivity.class;
+						break;
+					case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
+						Global.selectedAction = action_fertilizing.class;
+						break;
+					case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
+					case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
+					case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
+					case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
+					case RealFarmDatabase.ACTION_TYPE_SELL_ID:
+						Global.selectedAction = SowActionActivity.class;
+						break;
+					default:
+						return;
+					}
+
+					// opens the selected activity.
 					launchActionIntent();
 
 				}
@@ -509,36 +531,52 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		initActionListener();
 	}
 
-	protected void updateWidgets() {
-
-		// gets the forecast from the database.
-		List<WeatherForecast> forecastList = mDataProvider
-				.getWeatherForecasts(new Date());
-
-		// if there is at least one value
-		if (forecastList.size() != 0) {
-
-			// sets the first forecast
-			WeatherForecast wf = forecastList.get(0);
-			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
-			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
-			weatherTemp.setText(wf.getTemperature()
-					+ WeatherForecastActivity.CELSIUS);
-
-			WeatherType wt = mDataProvider.getWeatherTypeById(wf
-					.getWeatherTypeId());
-
-			// sets the icon
-			if (wt != null) {
-				weatherImage.setImageResource(wt.getImage());
-			}
-		}
-	}
-
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
 		return super.onCreateOptionsMenu(menu);
+	}
+
+	// TODO: replace all sounds
+	public boolean onLongClick(View v) {
+
+		if (v.getId() == R.id.hmscrn_btn_market) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_yield) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_advice) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_weather) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_video) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_fertilize) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_spray) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_sell) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_report) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_irrigate) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_harvest) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.btn_action_sow) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_actions) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_lay_btn_diary) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_lay_btn_plots) {
+			playAudio(R.raw.problems);
+		} else if (v.getId() == R.id.hmscrn_btn_sound) {
+			playAudio(R.raw.problems);
+		} else {
+			return super.onLongClick(v);
+		}
+
+		return true;
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -601,49 +639,33 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		dialog.show();
 	};
 
-	protected void writeDatabaseToSDcard() {
-		throw new Error("Not implemented");
+	protected void updateWidgets() {
+
+		// gets the forecast from the database.
+		List<WeatherForecast> forecastList = mDataProvider
+				.getWeatherForecasts(new Date());
+
+		// if there is at least one value
+		if (forecastList.size() != 0) {
+
+			// sets the first forecast
+			WeatherForecast wf = forecastList.get(0);
+			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
+			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
+			weatherTemp.setText(wf.getTemperature()
+					+ WeatherForecastActivity.CELSIUS);
+
+			WeatherType wt = mDataProvider.getWeatherTypeById(wf
+					.getWeatherTypeId());
+
+			// sets the icon
+			if (wt != null) {
+				weatherImage.setImageResource(wt.getImage());
+			}
+		}
 	}
 
-	// TODO: replace all sounds
-	public boolean onLongClick(View v) {
-
-		if (v.getId() == R.id.hmscrn_btn_market) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_btn_advice) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_btn_weather) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.btn_action_fertilize) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.btn_action_spray) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.btn_action_sell) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.btn_action_report) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.btn_action_irrigate) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.btn_action_harvest) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.btn_action_sow) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_btn_actions) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_lay_btn_diary) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			playAudio(R.raw.problems);
-		} else if (v.getId() == R.id.hmscrn_btn_sound) {
-			playAudio(R.raw.problems);
-		} else {
-			return super.onLongClick(v);
-		}
-
-		return true;
+	protected void writeDatabaseToSDcard() {
+		throw new Error("Not implemented");
 	}
 }

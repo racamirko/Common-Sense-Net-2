@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.view;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -81,10 +82,21 @@ public class PlotItemWrapper {
 		options.inTempStorage = new byte[16 * 1024];
 		options.inSampleSize = 12;
 
+		// gets the bitmap from the file system.
 		Bitmap bitmapImage = BitmapFactory.decodeFile(plot.getImagePath(),
 				options);
+		Bitmap rotatedImage = null;
 
-		getIcon().setImageBitmap(bitmapImage);
+		// rotates the image 90 degrees.
+		if (bitmapImage != null) {
+			Matrix matrix = new Matrix();
+			matrix.postRotate(90);
+			rotatedImage = Bitmap.createBitmap(bitmapImage, 0, 0,
+					bitmapImage.getWidth(), bitmapImage.getHeight(), matrix,
+					true);
+		}
+
+		getIcon().setImageBitmap(rotatedImage);
 		getTitle().setText(soilType.getName());
 		getDescription().setText(seed.getName());
 		getCropIcon().setImageResource(seed.getImage1());

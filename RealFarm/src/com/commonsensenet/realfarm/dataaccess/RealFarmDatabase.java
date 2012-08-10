@@ -80,9 +80,9 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_CROPTYPEID
 					+ " integer, "
 					+ COLUMN_NAME_ACTION_QUANTITY1
-					+ " integer, "
+					+ " real, "
 					+ COLUMN_NAME_ACTION_QUANTITY2
-					+ " integer, "
+					+ " real, "
 					+ COLUMN_NAME_ACTION_UNIT1ID
 					+ " integer, "
 					+ COLUMN_NAME_ACTION_UNIT2ID
@@ -870,21 +870,6 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "dialog arrays works");
 
-		// fertilizer
-		Object[][] fertilizerData = {
-				{ "Complex", R.raw.audio1, -1, "Complex" },
-				{ "Compost", R.raw.audio1, -1, "Compost" },
-				{ "DAP", R.raw.audio1, -1, "DAP" },
-				{ "Farm Yard Manure / FYM", R.raw.audio1, -1, "FYM" },
-				{ "Gypsum", R.raw.audio1, -1, "Gypsum" },
-				{ "Potash", R.raw.audio1, -1, "Potash" },
-				{ "Salt", R.raw.audio1, -1, "Salt" },
-				{ "Super", R.raw.audio1, -1, "Super" },
-				{ "Urea", R.raw.audio1, -1, "Urea" },
-				{ "Not in the list", R.raw.audio1, -1, "Unlisted" } };
-
-		Log.d(LOG_TAG, "fertilizer works");
-
 		// problem types
 		// Object[][] problemTypeData = {
 		// { "Disease", R.raw.audio1, R.drawable.ic_diseasecategory },
@@ -966,7 +951,28 @@ public class RealFarmDatabase {
 						R.drawable.ic_maincrop, -1, -1, RESOURCE_TYPE_INTERCROP },
 				{ "Intercrop", "Intercrop", R.raw.bagof20kg,
 						R.drawable.ic_intercrop, -1, -1,
-						RESOURCE_TYPE_INTERCROP }
+						RESOURCE_TYPE_INTERCROP },
+				/** Fertilizer */
+				{ "Complex", "Complex", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "Compost", "Compost", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "DAP", "DAP", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "FYM", "Farm Yard Manure / FYM", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "Gypsum", "Gypsum", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "Potash", "Potash", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "Salt", "Salt", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "Super", "Super", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "Super", "Urea", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
+				{ "Unlisted", "Not in the list", R.raw.audio1, -1, -1, -1,
+						RESOURCE_TYPE_FERTILIZER },
 
 		};
 
@@ -1215,7 +1221,7 @@ public class RealFarmDatabase {
 			try {
 				result = database.insertOrThrow(tableName, null, values);
 			} catch (SQLException e) {
-				Log.d(LOG_TAG, "Exception" + e);
+				Log.d(LOG_TAG, "Exception: " + e);
 			}
 		}
 		return result;

@@ -14,8 +14,8 @@ public class Action {
 	private int mIsSent;
 	private long mPlotId;
 	private int mPrice;
-	private int mQuantity1;
-	private int mQuantity2;
+	private double mQuantity1;
+	private double mQuantity2;
 	private int mResourceId1;
 	private int mResourceId2;
 	private int mSeedTypeId;
@@ -25,7 +25,7 @@ public class Action {
 	private long mUserId;
 
 	public Action(long id, int actionTypeId, long plotId, String date,
-			int seedTypeId, int cropTypeId, int quantity1, int quantity2,
+			int seedTypeId, int cropTypeId, double quantity1, double quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
 			long userId, int isSent, int isAdminAction, long timestamp) {
 
@@ -83,11 +83,11 @@ public class Action {
 		return mPrice;
 	}
 
-	public int getQuantity1() {
+	public double getQuantity1() {
 		return mQuantity1;
 	}
 
-	public int getQuantity2() {
+	public double getQuantity2() {
 		return mQuantity2;
 	}
 
