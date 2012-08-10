@@ -27,7 +27,7 @@ import com.actionbarsherlock.view.MenuInflater;
 import com.actionbarsherlock.view.MenuItem;
 import com.buzzbox.mob.android.scheduler.SchedulerManager;
 import com.commonsensenet.realfarm.actions.FertilizeActionActivity;
-import com.commonsensenet.realfarm.actions.action_harvest;
+import com.commonsensenet.realfarm.actions.HarvestActionActivity;
 import com.commonsensenet.realfarm.actions.IrrigateActionActivity;
 import com.commonsensenet.realfarm.actions.action_problem;
 import com.commonsensenet.realfarm.actions.action_selling;
@@ -418,7 +418,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						Global.selectedAction = action_spraying.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
-						Global.selectedAction = action_harvest.class;
+						Global.selectedAction = HarvestActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_SELL_ID:
 						Global.selectedAction = action_selling.class;

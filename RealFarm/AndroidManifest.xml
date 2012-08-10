@@ -80,7 +80,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".actions.action_harvest"
+            android:name=".actions.HarvestActionActivity"
             android:icon="@drawable/harvestingaction"
             android:label="Harvest"
             android:screenOrientation="portrait" />
@@ -109,8 +109,9 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".actions.action_problem"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:icon="@drawable/problemreportingaction"
+            android:label="Report"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".My_setting_plot_info"
             android:screenOrientation="portrait"
