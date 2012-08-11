@@ -27,6 +27,12 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	/** MenuItem that represents the help button. */
 	protected MenuItem mHelpItem;
 
+	/**
+	 * Gets the tag used to log the actions performed by the user. The tag is
+	 * obtained from the name of the class.
+	 * 
+	 * @return the tag that represents the class.
+	 */
 	public String getLogTag() {
 		return this.getClass().getSimpleName();
 	}
@@ -35,6 +41,10 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public void onBackPressed() {
 		// stops any currently playing sound.
 		stopAudio();
+
+		// tracks the back button.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
+				"back");
 
 		// forces the application to flush its data.
 		ApplicationTracker.getInstance().flush();
@@ -46,6 +56,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		// sets the global style of the application.
 		setTheme(RealFarmApp.THEME);
+
 		super.onCreate(savedInstanceState);
 
 		// tracks the application usage.
@@ -82,6 +93,11 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	}
 
 	public boolean onLongClick(View v) {
+
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				getLogTag(), v.getId());
+
 		return true;
 	}
 
@@ -89,15 +105,26 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.equals(mHelpItem)) {
-			playAudio(R.raw.help);
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					getLogTag(), "help");
+
+			playAudio(R.raw.help, true);
 			return true;
 		}
+
 		switch (item.getItemId()) {
 		case android.R.id.home:
 			// goes back to the Homescreen since the back was clicked.
 			Intent intent = new Intent(this, Homescreen.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
 			startActivity(intent);
+
+			// tracks the application usage.
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					getLogTag(), "home");
+
 			return true;
 		default:
 			return super.onOptionsItemSelected(item);
@@ -146,7 +173,12 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 	}
 
+	/**
+	 * Stops any active sound.
+	 */
 	protected void stopAudio() {
+
+		// stops the sounds being played by the SoundQueue.
 		SoundQueue.getInstance().stop();
 	}
 }

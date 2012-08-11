@@ -13,10 +13,10 @@ import android.util.Log;
  * they will be played sequentially.
  * 
  * @author Oscar Bola–os <@oscarbolanos>
- * @author Mirko Raca <mirko.raca@epfl.ch>
  * 
  */
 public class SoundQueue implements OnCompletionListener {
+
 	/** Identifier of the class used for logging. */
 	private static final String LOG_TAG = "SoundQueue";
 	/** Singleton instance of the SoundQueue. ` */

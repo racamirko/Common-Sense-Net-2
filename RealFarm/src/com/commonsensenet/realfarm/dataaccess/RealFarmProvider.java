@@ -278,9 +278,9 @@ public class RealFarmProvider {
 				isAdminAction);
 	}
 
-	public long addSprayAction(long userId, long plotId, int quantity1,
-			int unit1, Date date, int problemId, int isAdminAction,
-			int pesticideId) {
+	public long addSprayAction(long userId, long plotId, int problemId,
+			int pesticideId, int quantity1, int unit1, Date date,
+			int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
 				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,

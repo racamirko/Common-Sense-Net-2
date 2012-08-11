@@ -12,7 +12,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
-public class action_problem extends DataFormActivity {
+public class ReportActionActivity extends DataFormActivity {
 
 	public static final String DAY = "day";
 	public static final String MONTH = "month";
@@ -27,7 +27,7 @@ public class action_problem extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.problem_dialog);
+		super.onCreate(savedInstanceState, R.layout.act_report_action);
 
 		playAudio(R.raw.clickingfertilising);
 

@@ -29,9 +29,9 @@ import com.buzzbox.mob.android.scheduler.SchedulerManager;
 import com.commonsensenet.realfarm.actions.FertilizeActionActivity;
 import com.commonsensenet.realfarm.actions.HarvestActionActivity;
 import com.commonsensenet.realfarm.actions.IrrigateActionActivity;
-import com.commonsensenet.realfarm.actions.action_problem;
-import com.commonsensenet.realfarm.actions.action_selling;
+import com.commonsensenet.realfarm.actions.ReportActionActivity;
 import com.commonsensenet.realfarm.actions.SowActionActivity;
+import com.commonsensenet.realfarm.actions.action_selling;
 import com.commonsensenet.realfarm.actions.action_spraying;
 import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
@@ -45,6 +45,7 @@ import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.utils.ReminderTask;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
@@ -63,6 +64,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	/** Currently selected language. */
 	private String mSelectedLanguage;
 
+	/**
+	 * Adds the Click and LongClick events to the buttons in the UI.
+	 */
 	protected void initActionListener() {
 
 		// sets up the listeners in the home screen.
@@ -214,13 +218,16 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	protected void launchActionIntent() {
-		// Temporary fix
+
+		// selling does not require a plot to be done.
 		if (Global.selectedAction == action_selling.class) {
 			startActivity(new Intent(this, Global.selectedAction));
 			return;
 		}
 
 		Intent intent = null;
+
+		// gets the total number of plots owned by the user.
 		int plotCount = mDataProvider.getPlotsByUserIdAndEnabledFlag(
 				Global.userId, 1).size();
 
@@ -240,6 +247,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	@Override
 	public void onBackPressed() {
 
+		// tracks the back button.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
+				"back");
+
 		// forces a flush operation of the application could be closed.
 		ApplicationTracker.getInstance().flush();
 
@@ -256,123 +267,54 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						new DialogInterface.OnClickListener() {
 							public void onClick(DialogInterface dialog,
 									int which) {
-								// Exit the activity
+								// exits the application.
 								Homescreen.this.finish();
 							}
 						}).show();
 	}
 
 	public void onClick(View v) {
-		Log.i(getLogTag(), "Button clicked!");
-		String toastText = "";
+
+		// activity that will be opened.
 		Intent intent = null;
 
 		if (v.getId() == R.id.hmscrn_btn_weather) {
-			startActivity(new Intent(this, WeatherForecastActivity.class));
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_advice) {
-			// Log.d(LOG_TAG, "Starting warn info");
-			// inte = new Intent(this, fertilize_aggregate.class);
-			// inte.putExtra("type", "warn");
-			// startActivity(inte);
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_video) {
-			startActivity(new Intent(this, VideoActivity.class));
-			return;
-		}
-
-		/** aggregate action descriptions */
-		if (v.getId() == R.id.btn_action_fertilize) {
-			Log.d(getLogTag(), "Starting Fertilize aggregate info");
+			intent = new Intent(this, WeatherForecastActivity.class);
+		} else if (v.getId() == R.id.hmscrn_btn_advice) {
+			// startActivity(new Intent(this, fertilize_aggregate.class));
+		} else if (v.getId() == R.id.hmscrn_btn_video) {
+			intent = new Intent(this, VideoActivity.class);
+		} else if (v.getId() == R.id.btn_action_fertilize) {
 			intent = new Intent(this, fertilize_aggregate.class);
 			intent.putExtra("type", "yield");
-			startActivity(intent);
-			finish();
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_sell) {
-			Log.d(getLogTag(), "Starting Selling aggregate info");
+		} else if (v.getId() == R.id.btn_action_sell) {
 			intent = new Intent(this, selling_aggregate.class);
 			intent.putExtra("type", "yield");
-			startActivity(intent);
-			finish();
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_report) {
-			Log.d(getLogTag(), "Starting Problem aggregate info");
+		} else if (v.getId() == R.id.btn_action_report) {
 			intent = new Intent(this, problem_aggregate.class);
 			intent.putExtra("type", "yield");
-			startActivity(intent);
-			finish();
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_irrigate) {
+		} else if (v.getId() == R.id.btn_action_irrigate) {
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID);
-			startActivity(intent);
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_harvest) {
-			Log.d(getLogTag(), "Starting harvest aggregate info");
+		} else if (v.getId() == R.id.btn_action_harvest) {
 			intent = new Intent(this, harvest_aggregate.class);
 			intent.putExtra("type", "yield");
-			startActivity(intent);
-			finish();
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_sow) {
+		} else if (v.getId() == R.id.btn_action_sow) {
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_SOW_ID);
-			startActivity(intent);
-			return;
-		}
-
-		if (v.getId() == R.id.btn_action_spray) {/*
-												 * TODO inte = new Intent(this,
-												 * ActionAggregateActivity
-												 * .class);
-												 * inte.putExtra(RealFarmDatabase
-												 * .TABLE_NAME_ACTIONTYPE,
-												 * RealFarmDatabase
-												 * .ACTION_NAME_SOW_ID);
-												 * startActivity(inte);
-												 */
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_yield) { /*
-												 * TODO Log.d(LOG_TAG,
-												 * "Starting yield info"); inte
-												 * = new Intent(this,
-												 * yielddetails.class);
-												 * inte.putExtra("type",
-												 * "yield");
-												 * startActivity(inte);
-												 * finish();
-												 */
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_market) {
+		} else if (v.getId() == R.id.btn_action_spray) {
+			intent = new Intent(this, ActionAggregateActivity.class);
+			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+					RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
+		} else if (v.getId() == R.id.hmscrn_btn_yield) {
+			intent = new Intent(this, yielddetails.class);
+			intent.putExtra("type", "yield");
+		} else if (v.getId() == R.id.hmscrn_btn_market) {
 			intent = new Intent(this, Marketprice_details.class);
 			intent.putExtra("type", "yield");
-			startActivity(intent);
-
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_actions) {
+		} else if (v.getId() == R.id.hmscrn_btn_actions) {
 
 			// creates a new dialog and configures it.
 			final Dialog dialog = new Dialog(this);
@@ -412,7 +354,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						Global.selectedAction = IrrigateActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
-						Global.selectedAction = action_problem.class;
+						Global.selectedAction = ReportActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
 						Global.selectedAction = action_spraying.class;
@@ -433,20 +375,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				}
 			});
 
+			// no need to start an intent.
 			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_lay_btn_diary) {
-			startActivity(new Intent(this, DiaryActivity.class));
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			startActivity(new Intent(this, PlotListActivity.class));
-			return;
-		}
-
-		if (v.getId() == R.id.hmscrn_btn_sound) {
+		} else if (v.getId() == R.id.hmscrn_lay_btn_diary) {
+			intent = new Intent(this, DiaryActivity.class);
+		} else if (v.getId() == R.id.hmscrn_lay_btn_plots) {
+			intent = new Intent(this, PlotListActivity.class);
+		} else if (v.getId() == R.id.hmscrn_btn_sound) {
 
 			if (!Global.isAudioEnabled) {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
@@ -460,13 +395,17 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				Global.isAudioEnabled = false;
 			}
 
+			// no need to start an intent
 			return;
 		}
 
-		// if the text is valid it is shown as a toast.
-		if (!toastText.equals("")) {
-			Toast.makeText(getApplicationContext(), toastText,
-					Toast.LENGTH_SHORT).show();
+		// trackes the button click.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
+				intent.getComponent().getShortClassName());
+
+		// starts the intent if valid.
+		if (intent != null) {
+			startActivity(intent);
 		}
 	}
 
