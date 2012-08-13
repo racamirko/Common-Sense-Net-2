@@ -217,27 +217,32 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	}
 
+	/**
+	 * Selects the activity to launch based on the selected activity.
+	 * 
+	 */
 	protected void launchActionIntent() {
+
+		// intent to launch
+		Intent intent = null;
 
 		// selling does not require a plot to be done.
 		if (Global.selectedAction == action_selling.class) {
-			startActivity(new Intent(this, Global.selectedAction));
-			return;
-		}
-
-		Intent intent = null;
-
-		// gets the total number of plots owned by the user.
-		int plotCount = mDataProvider.getPlotsByUserIdAndEnabledFlag(
-				Global.userId, 1).size();
-
-		// selects the next activity based on the amount of plots.
-		if (plotCount == 1) {
 			intent = new Intent(this, Global.selectedAction);
-		} else if (plotCount == 0) {
-			intent = new Intent(this, PlotListActivity.class);
 		} else {
-			intent = new Intent(this, ChoosePlotActivity.class);
+
+			// gets the total number of plots owned by the user.
+			int plotCount = mDataProvider.getPlotsByUserIdAndEnabledFlag(
+					Global.userId, 1).size();
+
+			// selects the next activity based on the amount of plots.
+			if (plotCount == 1) {
+				intent = new Intent(this, Global.selectedAction);
+			} else if (plotCount == 0) {
+				intent = new Intent(this, PlotListActivity.class);
+			} else {
+				intent = new Intent(this, ChoosePlotActivity.class);
+			}
 		}
 
 		// starts the new activity
@@ -369,6 +374,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						return;
 					}
 
+					// closes the dialog.
+					dialog.dismiss();
+
 					// opens the selected activity.
 					launchActionIntent();
 
@@ -399,7 +407,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return;
 		}
 
-		// trackes the button click.
+		// tracks the button click.
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
 				intent.getComponent().getShortClassName());
 
@@ -456,7 +464,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// sets the name of the user.
 		getSupportActionBar().setTitle(
-				user.getFirstname() + ' ' + user.getLastname());
+				user.getFirstname() + " " + user.getLastname());
 		getSupportActionBar().setSubtitle(user.getLocation());
 
 		// gets the image from the resources.

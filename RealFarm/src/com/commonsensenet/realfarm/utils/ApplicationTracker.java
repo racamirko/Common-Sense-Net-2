@@ -17,7 +17,7 @@ import android.util.Log;
  */
 public class ApplicationTracker {
 	public enum EventType {
-		CLICK, ERROR, LONG_CLICK, ACTIVITY_VIEW
+		ACTIVITY_VIEW, CLICK, ERROR, LONG_CLICK
 	}
 
 	/**

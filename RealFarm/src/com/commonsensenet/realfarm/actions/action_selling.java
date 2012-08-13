@@ -131,7 +131,7 @@ public class action_selling extends DataFormActivity {
 				stopAudio();
 
 				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_UNIT);
+						.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
 				displayDialog(v, data, UNIT, "Select the unit", R.raw.problems,
 						R.id.dlg_lbl_unit_sell, R.id.quant_sell_tr, 2);
 			}
@@ -165,7 +165,7 @@ public class action_selling extends DataFormActivity {
 				stopAudio();
 
 				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_UNIT);
+						.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
 				displayDialog(v, data, UNIT2, "Select the unit",
 						R.raw.problems, R.id.dlg_lbl_unit_rem_sell,
 						R.id.rem_quant_sell_tr, 2);

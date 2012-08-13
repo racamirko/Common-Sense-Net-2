@@ -258,14 +258,13 @@ public class RealFarmProvider {
 				isAdminAction);
 	}
 
-	public long addSellAction(long userId, long plotId, int seedTypeId,
+	public long addSellAction(long userId, long plotId, int cropTypeId,
 			int quantity1, int quantity2, int unit1, int unit2, int price,
 			Date date, int isAdminAction) {
 
 		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
-				seedTypeId, getCropTypeIdFromSeedTypeId(seedTypeId), quantity1,
-				quantity2, unit1, unit2, NONE, NONE, price, userId,
-				isAdminAction);
+				NONE, cropTypeId, quantity1, quantity2, unit1, unit2, NONE,
+				NONE, price, userId, isAdminAction);
 	}
 
 	public long addSowAction(long userId, long plotId, int quantity1,
@@ -282,7 +281,7 @@ public class RealFarmProvider {
 			int pesticideId, int quantity1, int unit1, Date date,
 			int isAdminAction) {
 
-		return addAction(RealFarmDatabase.ACTION_TYPE_SELL_ID, plotId, date,
+		return addAction(RealFarmDatabase.ACTION_TYPE_SPRAY_ID, plotId, date,
 				NONE, NONE, quantity1, NONE, unit1, NONE, problemId,
 				pesticideId, NONE, userId, isAdminAction);
 	}
