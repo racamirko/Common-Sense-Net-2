@@ -553,45 +553,27 @@ public class problem_aggregate extends HelpEnabledActivityOld implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.aggr_problem1) { // audio integration
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
+		if (v.getId() == R.id.aggr_problem1) {
+			playAudio(R.raw.fertilizer1, true);
+		} else if (v.getId() == R.id.aggr_problem2) {
+			playAudio(R.raw.fertilizer2, true);
+		} else if (v.getId() == R.id.aggr_problem3) {
+			playAudio(R.raw.fertilizer3, true);
+		} else if (v.getId() == R.id.aggr_problem4) {
+			playAudio(R.raw.bagof10kg, true);
+		} else if (v.getId() == R.id.txt_btn_prob_1) {
+			playAudio(R.raw.bagof20kg, true);
+		} else if (v.getId() == R.id.txt_btn_prob_2) {
+			playAudio(R.raw.bagof50kg, true);
+		} else if (v.getId() == R.id.txt_btn_prob_3) {
+			playAudio(R.raw.bagof20kg, true);
+		} else if (v.getId() == R.id.txt_btn_prob_4) {
+			playAudio(R.raw.bagof50kg, true);
+		} else {
+			return super.onLongClick(v);
 		}
 
-		if (v.getId() == R.id.aggr_problem2) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.aggr_problem3) {
-			playAudioalways(R.raw.fertilizer3);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.aggr_problem4) {
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.txt_btn_prob_1) {
-			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.txt_btn_prob_2) {
-			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.txt_btn_prob_3) {
-			playAudioalways(R.raw.bagof20kg);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.txt_btn_prob_4) {
-			playAudioalways(R.raw.bagof50kg);
-			ShowHelpIcon(v);
-		}
+		showHelpIcon(v);
 
 		return true;
 	}
@@ -603,9 +585,5 @@ public class problem_aggregate extends HelpEnabledActivityOld implements
 
 		startActivity(adminintent);
 		problem_aggregate.this.finish();
-	}
-
-	protected void okAudio() {
-		playAudio(R.raw.ok);
 	}
 }

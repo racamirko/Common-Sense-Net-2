@@ -90,7 +90,7 @@
             android:label="Fertilize"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".actions.action_selling"
+            android:name=".actions.SellActionActivity"
             android:icon="@drawable/sellingaction"
             android:label="Sell"
             android:screenOrientation="portrait" />
@@ -100,7 +100,7 @@
             android:label="Sow"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".actions.action_spraying"
+            android:name=".actions.SprayActionActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity

@@ -161,10 +161,32 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		return false;
 	}
 
-	protected void playAudio(int resid) {
+	/**
+	 * Plays the given resourceId. The sound is only played if
+	 * Global.enabledAudio is true, otherwise it is not played.
+	 * 
+	 * @param resourceId
+	 *            id of the audio.
+	 */
+	protected void playAudio(int resourceId) {
+		// plays the sound if the id is valid.
+		if (resourceId != -1) {
+			playAudio(resourceId, false);
+		}
+	}
 
+	/**
+	 * Plays the given resourceId. The forcePlay flag can be use to play an
+	 * audio no matter the Global.enableAudio setting.
+	 * 
+	 * @param resid
+	 *            id of the audio to play.
+	 * @param forcePlay
+	 *            whether the Global.enableAudio setting is respected or not.
+	 */
+	protected void playAudio(int resid, Boolean forcePlay) {
 		// checking for audio enable
-		if (Global.isAudioEnabled) {
+		if (Global.isAudioEnabled || forcePlay) {
 			// gets the singleton queue
 			SoundQueue sq = SoundQueue.getInstance();
 			// cleans any possibly playing sound
@@ -174,19 +196,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 			// plays the sound
 			sq.play();
 		}
-
-	}
-
-	protected void playAudioalways(int resid) {
-		// gets the singleton queue
-		SoundQueue sq = SoundQueue.getInstance();
-		// cleans any possibly playing sound
-		sq.clean();
-		// adds the sound to the queue
-		sq.addToQueue(resid);
-		// plays the sound
-		sq.play();
-
 	}
 
 	public void setHelpIcon(View helpIcon) {
@@ -201,13 +210,13 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 	public void showHelp(View v) {
 
 		if (v.getId() == R.id.hmscrn_btn_actions) {
-			playAudioalways(R.raw.audio1);
+			playAudio(R.raw.audio1, true);
 		}
 		if (v.getId() == R.id.hmscrn_btn_advice) {
-			playAudioalways(R.raw.audio2);
+			playAudio(R.raw.audio2, true);
 		}
 		if (v.getId() == R.id.hmscrn_btn_sound) {
-			playAudioalways(R.raw.audio3);
+			playAudio(R.raw.audio3, true);
 		}
 
 		// if (v.getId() == R.id.hmscrn_help_button || v.getId() ==
@@ -216,20 +225,20 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		// playAudioalways(R.raw.audio3);
 		// }
 		if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudioalways(R.raw.audio4);
+			playAudio(R.raw.audio4, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_weather) {
-			playAudioalways(R.raw.weatherforecast);
+			playAudio(R.raw.weatherforecast, true);
 		}
 		// End of big icons
 
 		if (v.getId() == R.id.hmscrn_btn_market) {
-			playAudioalways(R.raw.marketprice);
+			playAudio(R.raw.marketprice, true);
 		}
 
 		if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudioalways(R.raw.video);
+			playAudio(R.raw.video, true);
 		}
 
 		// if (v.getId() == R.id.hmscrn_btn_diary) { // changes
@@ -243,7 +252,7 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		// TODO: make a table mapping IDs to sound files
 	}
 
-	public void ShowHelpIcon(View v) {
+	public void showHelpIcon(View v) {
 
 		int loc[] = new int[2];
 		v.getLocationOnScreen(loc);
@@ -259,10 +268,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		mHelpIcon.startAnimation(mAnimFadeIn);
 		setHelpMode(true);
 
-	}
-
-	protected void stopaudio() {
-		SoundQueue.getInstance().stop();
 	}
 
 	protected void stopAudio() {

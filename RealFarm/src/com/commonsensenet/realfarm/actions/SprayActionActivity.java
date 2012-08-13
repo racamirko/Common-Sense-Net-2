@@ -12,7 +12,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
-public class action_spraying extends DataFormActivity {
+public class SprayActionActivity extends DataFormActivity {
 
 	public static final String AMOUNT = "amount";
 	public static final String DAY = "day";
@@ -31,7 +31,7 @@ public class action_spraying extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.spraying_dialog);
+		super.onCreate(savedInstanceState, R.layout.act_spray_action);
 
 		playAudio(R.raw.clickingspraying);
 

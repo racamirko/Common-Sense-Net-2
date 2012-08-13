@@ -441,19 +441,17 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.variety_fert1_aggr_btn) { // audio integration
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
+		if (v.getId() == R.id.variety_fert1_aggr_btn) {
+			playAudio(R.raw.fertilizer1, true);
+		} else if (v.getId() == R.id.variety_fert2_aggr_btn) {
+			playAudio(R.raw.fertilizer2, true);
+		} else if (v.getId() == R.id.txt_btn_1) {
+			playAudio(R.raw.fertilizer1, true);
+		} else {
+			return super.onLongClick(v);
 		}
 
-		if (v.getId() == R.id.variety_fert2_aggr_btn) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-		if (v.getId() == R.id.txt_btn_1) { // audio integration
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
-		}
+		showHelpIcon(v);
 
 		return true;
 	}
@@ -465,9 +463,5 @@ public class fertilize_aggregate extends HelpEnabledActivityOld implements
 
 		startActivity(adminintent);
 		fertilize_aggregate.this.finish();
-	}
-
-	protected void okAudio() {
-		playAudio(R.raw.ok);
 	}
 }

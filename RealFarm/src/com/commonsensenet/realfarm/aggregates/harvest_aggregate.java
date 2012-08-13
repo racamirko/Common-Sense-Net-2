@@ -432,25 +432,19 @@ public class harvest_aggregate extends HelpEnabledActivityOld implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.txt_btn_harvest_1) { // audio integration
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
+		if (v.getId() == R.id.txt_btn_harvest_1) {
+			playAudio(R.raw.fertilizer1, true);
+		} else if (v.getId() == R.id.txt_btn_harvest_2) {
+			playAudio(R.raw.fertilizer2, true);
+		} else if (v.getId() == R.id.aggr_har1) {
+			playAudio(R.raw.fertilizer3, true);
+		} else if (v.getId() == R.id.aggr_har2) {
+			playAudio(R.raw.bagof10kg, true);
+		} else {
+			return super.onLongClick(v);
 		}
 
-		if (v.getId() == R.id.txt_btn_harvest_2) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.aggr_har1) {
-			playAudioalways(R.raw.fertilizer3);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.aggr_har2) {
-			playAudioalways(R.raw.bagof10kg);
-			ShowHelpIcon(v);
-		}
+		showHelpIcon(v);
 
 		return true;
 	}
@@ -462,9 +456,5 @@ public class harvest_aggregate extends HelpEnabledActivityOld implements
 
 		startActivity(adminintent);
 		harvest_aggregate.this.finish();
-	}
-
-	protected void okAudio() {
-		playAudio(R.raw.ok);
 	}
 }

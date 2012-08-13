@@ -27,9 +27,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.irrigate_dialog);
-
-		System.out.println("plant done");
+		super.onCreate(savedInstanceState, R.layout.act_irrigate_action);
 
 		playAudio(R.raw.clickingfertilising);
 

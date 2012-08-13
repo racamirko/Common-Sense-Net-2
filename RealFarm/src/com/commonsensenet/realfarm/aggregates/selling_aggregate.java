@@ -446,25 +446,19 @@ public class selling_aggregate extends HelpEnabledActivityOld implements
 
 	public boolean onLongClick(View v) {
 
-		if (v.getId() == R.id.aggr_sellprice_1) { // audio integration
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
+		if (v.getId() == R.id.aggr_sellprice_1) {
+			playAudio(R.raw.fertilizer1, true);
+		} else if (v.getId() == R.id.aggr_sellprice_2) {
+			playAudio(R.raw.fertilizer1, true);
+		} else if (v.getId() == R.id.txt_btn_sell_1) {
+			playAudio(R.raw.fertilizer1, true);
+		} else if (v.getId() == R.id.txt_btn_sell_2) {
+			playAudio(R.raw.fertilizer2, true);
+		} else {
+			return super.onLongClick(v);
 		}
 
-		if (v.getId() == R.id.aggr_sellprice_2) { // audio integration
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.txt_btn_sell_1) { // audio integration
-			playAudioalways(R.raw.fertilizer1);
-			ShowHelpIcon(v);
-		}
-
-		if (v.getId() == R.id.txt_btn_sell_2) {
-			playAudioalways(R.raw.fertilizer2);
-			ShowHelpIcon(v);
-		}
+		showHelpIcon(v);
 
 		return true;
 	}
@@ -476,9 +470,5 @@ public class selling_aggregate extends HelpEnabledActivityOld implements
 
 		startActivity(adminintent);
 		selling_aggregate.this.finish();
-	}
-
-	protected void okAudio() {
-		playAudio(R.raw.ok);
 	}
 }

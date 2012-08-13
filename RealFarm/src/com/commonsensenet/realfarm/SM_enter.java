@@ -15,7 +15,7 @@ public class SM_enter extends HelpEnabledActivityOld {
 
 	public void onBackPressed() {
 
-		stopaudio();
+		stopAudio();
 		Intent adminintent123 = new Intent(SM_enter.this,
 				ChoosePlotActivity.class);
 

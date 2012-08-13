@@ -96,13 +96,6 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		ActionType actionType = mDataProvider
 				.getActionTypeById(mActionActionTypeId);
 
-		/*
-		 * Toast toast = Toast.makeText(getApplicationContext(),
-		 * actionType.getName(), Toast.LENGTH_SHORT); toast.show(); toast =
-		 * Toast.makeText(getApplicationContext(), actionType.getRes(),
-		 * Toast.LENGTH_SHORT); toast.show();
-		 */
-
 		setList(0);
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
@@ -162,8 +155,6 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 				List<Resource> data = mDataProvider.getSeedTypes();
 
-				// data.add(new SeedType(-1, "All", "", "All", -1,
-				// R.drawable.icon, R.raw.problems));
 				displayDialog(v, data, "Select the variety", R.raw.problems,
 						img_1, 2);
 			}
@@ -270,7 +261,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		// gets the selected view using the position
-		playAudioalways(R.raw.problems);
+		playAudio(R.raw.problems, true);
 		// TODO: Add the audio. See WeatherForecastActivity?
 
 		switch (mActionActionTypeId) {
@@ -283,28 +274,19 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		return true;
 	}
 
-	// TODO: put audios
+	// TODO: put audio
 	public boolean onLongClick(View v) {
-		playAudioalways(R.raw.problems);
 
 		if (v.getId() == R.id.aggr_img_home) {
-			playAudioalways(R.raw.problems);
-		}
-		if (v.getId() == R.id.aggr_action) {
-
-			playAudioalways(R.raw.problems);
-		}
-		if (v.getId() == R.id.aggr_crop) {
-
-			playAudioalways(R.raw.problems);
-		}
-		if (v.getId() == R.id.aggr_img_help) {
-
-			playAudioalways(R.raw.problems);
-		}
-		if (v.getId() == R.id.button_back) {
-
-			playAudioalways(R.raw.problems);
+			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.aggr_action) {
+			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.aggr_crop) {
+			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.button_back) {
+			playAudio(R.raw.problems, true);
 		}
 
 		return true;
@@ -325,7 +307,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		mList.setAdapter(m_adapter);
 
 		dialog.show();
-		playAudio(entryAudio); // TODO: onOpen
+		playAudio(entryAudio);
 
 		// TODO: adapt the audio in the database.
 		mList.setOnItemClickListener(new OnItemClickListener() {
@@ -342,8 +324,8 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 					mActionActionTypeId = data.get(position).getId();
 				}
 
-				actionTypeImage.setImageResource(data.get(position)
-						.getImage1());
+				actionTypeImage
+						.setImageResource(data.get(position).getImage1());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
@@ -361,9 +343,9 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
 
+			// TODO: adapt the audio in the database
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) { // TODO: adapt the audio in the
-												// database
+					int position, long id) {
 				int iden = data.get(position).getAudio();
 				playAudio(iden);
 				return true;

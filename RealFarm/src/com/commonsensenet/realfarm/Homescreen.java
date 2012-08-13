@@ -31,8 +31,8 @@ import com.commonsensenet.realfarm.actions.HarvestActionActivity;
 import com.commonsensenet.realfarm.actions.IrrigateActionActivity;
 import com.commonsensenet.realfarm.actions.ReportActionActivity;
 import com.commonsensenet.realfarm.actions.SowActionActivity;
-import com.commonsensenet.realfarm.actions.action_selling;
-import com.commonsensenet.realfarm.actions.action_spraying;
+import com.commonsensenet.realfarm.actions.SellActionActivity;
+import com.commonsensenet.realfarm.actions.SprayActionActivity;
 import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
 import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
@@ -227,7 +227,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		Intent intent = null;
 
 		// selling does not require a plot to be done.
-		if (Global.selectedAction == action_selling.class) {
+		if (Global.selectedAction == SellActionActivity.class) {
 			intent = new Intent(this, Global.selectedAction);
 		} else {
 
@@ -362,13 +362,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						Global.selectedAction = ReportActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
-						Global.selectedAction = action_spraying.class;
+						Global.selectedAction = SprayActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
 						Global.selectedAction = HarvestActionActivity.class;
 						break;
 					case RealFarmDatabase.ACTION_TYPE_SELL_ID:
-						Global.selectedAction = action_selling.class;
+						Global.selectedAction = SellActionActivity.class;
 						break;
 					default:
 						return;

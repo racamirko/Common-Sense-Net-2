@@ -12,7 +12,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
-public class action_selling extends DataFormActivity {
+public class SellActionActivity extends DataFormActivity {
 
 	public static final String AMOUNT = "amount";
 	public static final String CROP = "crop";
@@ -35,7 +35,7 @@ public class action_selling extends DataFormActivity {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.selling_dialog);
+		super.onCreate(savedInstanceState, R.layout.act_sell_action);
 
 		playAudio(R.raw.clickingselling);
 
