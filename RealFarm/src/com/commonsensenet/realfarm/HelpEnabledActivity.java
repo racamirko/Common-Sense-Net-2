@@ -26,6 +26,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 	/** MenuItem that represents the help button. */
 	protected MenuItem mHelpItem;
+	/** MenuItem that represents the home button. */
+	protected MenuItem mHomeItem;
 
 	/**
 	 * Gets the tag used to log the actions performed by the user. The tag is
@@ -67,11 +69,9 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
 				WindowManager.LayoutParams.FLAG_FULLSCREEN);
 
-		// enables the home button arrow.
-		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+		// adds the extended background as default.
 		BitmapDrawable bg = (BitmapDrawable) getResources().getDrawable(
-				R.drawable.bg_curved);
+				R.drawable.bg_curved_extended);
 		getSupportActionBar().setBackgroundDrawable(bg);
 
 		// ArrayAdapter<CharSequence> listAdapter = ArrayAdapter
@@ -85,6 +85,11 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// adds the home button.
+		mHomeItem = menu.add("Home").setIcon(R.drawable.home)
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
 		// adds the help button.
 		mHelpItem = menu.add("Help").setIcon(R.drawable.ic_54px_help)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -112,10 +117,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 			playAudio(R.raw.help, true);
 			return true;
-		}
-
-		switch (item.getItemId()) {
-		case android.R.id.home:
+		} else if (item.equals(mHomeItem)) {
 			// goes back to the Homescreen since the back was clicked.
 			Intent intent = new Intent(this, Homescreen.class);
 			intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -126,7 +128,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 					getLogTag(), "home");
 
 			return true;
-		default:
+		} else { // asks the parent.
 			return super.onOptionsItemSelected(item);
 		}
 	}

@@ -50,14 +50,11 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	/** Reference to the current instance. */
 	private final ActionAggregateActivity mParentReference = this;
 
-	private List<AggregateItem> aggregates;
+	private List<AggregateItem> mAggregateItems;
 
 	protected void cancelAudio() {
 
-		Intent adminintent = new Intent(ActionAggregateActivity.this,
-				Homescreen.class);
-
-		startActivity(adminintent);
+		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
 	}
 
 	public void onBackPressed() {
@@ -163,10 +160,10 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 	public void setList(int seedTypeId) {
 		// gets the list of aggregate data.
-		aggregates = ActionDataFactory.getAggregateData(mActionActionTypeId,
-				mDataProvider, seedTypeId);
+		mAggregateItems = ActionDataFactory.getAggregateData(
+				mActionActionTypeId, mDataProvider, seedTypeId);
 		// creates the data adapter.
-		mAggregateItemAdapter = new AggregateItemAdapter(this, aggregates,
+		mAggregateItemAdapter = new AggregateItemAdapter(this, mAggregateItems,
 				mActionActionTypeId, mDataProvider);
 
 		// gets the list from the UI.
