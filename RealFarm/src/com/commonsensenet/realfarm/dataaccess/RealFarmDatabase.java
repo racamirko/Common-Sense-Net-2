@@ -706,19 +706,19 @@ public class RealFarmDatabase {
 		Log.d(LOG_TAG, "users works");
 
 		Object[][] actionTypeData = {
-				{ ACTION_TYPE_SOW_ID, "sow", R.drawable.sowingaction,
+				{ ACTION_TYPE_SOW_ID, "Sow", R.drawable.sowingaction,
 						R.raw.sowing },
-				{ ACTION_TYPE_FERTILIZE_ID, "fertilize",
+				{ ACTION_TYPE_FERTILIZE_ID, "Fertilize",
 						R.drawable.fertilizingaction, R.raw.fertilizing },
-				{ ACTION_TYPE_IRRIGATE_ID, "irrigate",
+				{ ACTION_TYPE_IRRIGATE_ID, "Irrigate",
 						R.drawable.irrigationaction, R.raw.irrigate },
-				{ ACTION_TYPE_REPORT_ID, "report",
+				{ ACTION_TYPE_REPORT_ID, "Report",
 						R.drawable.problemreportingaction, R.raw.problems },
-				{ ACTION_TYPE_SPRAY_ID, "spray", R.drawable.sprayingaction,
+				{ ACTION_TYPE_SPRAY_ID, "Spray", R.drawable.sprayingaction,
 						R.raw.spraying },
-				{ ACTION_TYPE_HARVEST_ID, "harvest",
+				{ ACTION_TYPE_HARVEST_ID, "Harvest",
 						R.drawable.harvestingaction, R.raw.harvest },
-				{ ACTION_TYPE_SELL_ID, "sell", R.drawable.sellingaction,
+				{ ACTION_TYPE_SELL_ID, "Sell", R.drawable.sellingaction,
 						R.raw.selling }
 
 		};

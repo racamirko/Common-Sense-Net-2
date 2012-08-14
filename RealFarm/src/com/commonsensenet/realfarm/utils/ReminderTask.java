@@ -9,7 +9,10 @@ import android.telephony.SmsManager;
 
 import com.buzzbox.mob.android.scheduler.Task;
 import com.buzzbox.mob.android.scheduler.TaskResult;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.User;
 
 /**
  * Recurring Task that implements your business logic. The BuzzBox SDK Scheduler
@@ -19,10 +22,20 @@ import com.commonsensenet.realfarm.model.Action;
 public class ReminderTask implements Task {
 	protected PendingIntent sentPI;
 	protected PendingIntent deliveredPI;
-	// private RealFarmProvider mDataProvider;
-	public List<Action> tmpList;
+	private RealFarmProvider mDataProvider;
+	
+	public List<Action> ActionList;
+	public List<Plot> PlotList;
+	public List<User> UserList;
+	
 	ArrayList<String> action_list = new ArrayList<String>();
-	String tempstr = "";
+	ArrayList<String> plot_list = new ArrayList<String>();
+	ArrayList<String> users_list = new ArrayList<String>();
+	String ActionStr = "%1000%";             //Indicates message type--"action"  
+	String PlotStr = "%1001%";				 //Indicates message type--"plot" 
+	String UserStr = "%1002%";				 //Indicates message type--"users" 
+	String number = "9900917284";              //Server number
+
 
 	public String getTitle() {
 		return "Reminder";
@@ -34,56 +47,157 @@ public class ReminderTask implements Task {
 
 	public TaskResult doWork(ContextWrapper ctx) {
 		TaskResult res = new TaskResult();
-		// mDataProvider = RealFarmProvider.getInstance(ctx);
+		 mDataProvider = RealFarmProvider.getInstance(ctx);
 
-		System.out.println("Action table called from ReminderTask");
-		// tmpList=mDataProvider.getActionBySentFlag(0);
+		System.out.println("All actions read , called from ReminderTask");
 
-		/*
-		 * for(int x = 0; x < tmpList.size(); x++) { action_list.add(" "+
-		 * tmpList.get(x).getId()+ " " +tmpList.get(x).getActionTypeId()+ " " +
-		 * tmpList.get(x).getSeedTypeId()+ " " + tmpList.get(x).getQuantity1()+
-		 * " " + tmpList.get(x).getQuantity2()+ " " + tmpList.get(x).getUnits()+
-		 * " " + tmpList.get(x).getPlotId()+ " " + tmpList.get(x).getTypeFert()+
-		 * " " + tmpList.get(x).getProblemType()+ " " +
-		 * tmpList.get(x).getHarvestFeedback()+ " " +
-		 * tmpList.get(x).getSellingPrice()+ " " +
-		 * tmpList.get(x).getQualityOfSeed()+ " " +
-		 * tmpList.get(x).getSellType()+ " " + tmpList.get(x).getSent()+ " " +
-		 * tmpList.get(x).getIsAdmin()+ " " + tmpList.get(x).getDate()+ " " +
-		 * tmpList.get(x).getTreatment()+ " " +
-		 * tmpList.get(x).getPesticideType()+ " " +
-		 * tmpList.get(x).getIrrigateMethod()+ " " +
-		 * tmpList.get(x).getTimestamp()+ " " + tmpList.get(x).getInterCrop()+
-		 * " "+"%"); }
-		 * 
-		 * String[] actionArr = new String[action_list.size()]; actionArr =
-		 * action_list.toArray(actionArr);
-		 * 
-		 * // System.out.println(actionArr); System.out.println(
-		 * "**************DISPLAYING STRING ONLY IN REMINDERTASK*************************"
-		 * );
-		 * 
-		 * for(int i=0;i<actionArr.length;i++) { tempstr+=actionArr[i]; }
-		 * System.out.println(tempstr);
-		 */
-		// String
-		// actions="1#5#4#1#2#0#0#24.12#1#1%2#5#1#1#2#1#0#24.12%3#5#4#1#2#0#0#24.12#1#1%4#5#4#1#2#0#0#24.12#1#1%";
-		// String plots="1#35#2#3#3#0#0#10:30#10.3%2#35#2#3#3#0#0#10:30#10.3%";
-		// String
-		// user="1#35#4#Hendrik Knoche#1234567891#0#0#10:30%2#35#4#Hendrik Knoche#1234567891#0#0#10:30";
+		
+		ActionList=mDataProvider.getActionsBySentFlag(0);
+		PlotList=mDataProvider.getPlotsBySentFlag(0);
+		UserList=mDataProvider.getUsersBySentFlag(0);
+		
+		 
+		 for(int x = 0; x < ActionList.size(); x++) {                //Putting actions together
+				 
+				 int seedTypeId=ActionList.get(x).getSeedTypeId();
+				 if(Integer.valueOf(seedTypeId) == null)
+				 {
+					 seedTypeId=0;
+				 }
+				 int cropTypeId=ActionList.get(x).getCropTypeId();
+				 if(Integer.valueOf(cropTypeId)==null)
+				 {
+					 cropTypeId=0;
+				 }
+				 
+				 double quantity1=ActionList.get(x).getQuantity1();
+				 if(Double.valueOf(quantity1)==null)
+				 {
+					 quantity1=0;
+				 }
+				 double quantity2=ActionList.get(x).getQuantity2();
+				 if(Double.valueOf(quantity2)==null)
+				 {
+					 quantity2=0;
+				 }
+				 int unit1=ActionList.get(x).getUnit1();
+				 if(Integer.valueOf(unit1)==null)
+				 {
+					 unit1=0;
+				 }
+				 int unit2=ActionList.get(x).getUnit2();
+				 if(Integer.valueOf(unit2)==null)
+				 {
+					 unit2=0;
+				 }
+				 int res1=ActionList.get(x).getResource1Id();
+				 if(Integer.valueOf(res1)==null)
+				 {
+					 res1=0;
+				 }
+				 int res2=ActionList.get(x).getResource2Id();
+				 if(Integer.valueOf(res2)==null)
+				 {
+					 res2=0;
+				 }
+				 int price=ActionList.get(x).getPrice();
+				 if(Integer.valueOf(price)==null)
+				 {
+					 price=0;
+				 }
+				 
+				
+				 action_list.add(
+				 ActionList.get(x).getId()+"#"+ActionList.get(x).getActionTypeId()+ "#"
+				 +ActionList.get(x).getPlotId()+ "#" +
+				 ActionList.get(x).getDate()+ "#"+ seedTypeId + 
+				 "#" + cropTypeId+
+				 "#" + quantity1+ "#" + quantity2+
+				 "#" + unit1+ "#" +unit2+ "#" +
+				 res1+ "#" + res2 + "#" +
+		 price+ "#" + ActionList.get(x).getUserId() + "#" +
+				 ActionList.get(x).getIsAdminAction()+ "#" + ActionList.get(x).getTimetamp()
+		+ "%"); }
+		
+		
+		 
+		 for(int x = 0; x < PlotList.size(); x++) { plot_list.add(                //Putting plots together
+				 PlotList.get(x).getId()+ "#"+ PlotList.get(x).getUserId()+ "#" +PlotList.get(x).getSeedTypeId()+ "#" +
+				 PlotList.get(x).getSoilTypeId()+ "#" + PlotList.get(x).getImagePath()+
+		  "#" + PlotList.get(x).getSize()+ "#" + PlotList.get(x).getIsEnabled()+
+		  "#" + PlotList.get(x).getIsAdminFlag()+ "#" + PlotList.get(x).getTimestamp()+
+		 "%"); }
+		 
+		 for(int x = 0; x < UserList.size(); x++) { users_list.add(                //Putting users together
+				 UserList.get(x).getId()+ "#" +UserList.get(x).getFirstname()+ "#" +
+				 UserList.get(x).getLastname()+ "#" + UserList.get(x).getMobileNumber()+
+		  "#" + UserList.get(x).getDeviceId()+ "#" + UserList.get(x).getImagePath()+
+		  "#" + UserList.get(x).getLocation()+ "#" + UserList.get(x).getIsEnabled()+
+		  "#" + UserList.get(x).getIsAdminAction()+
+		  "#" + UserList.get(x).getTimestamp()+"%"); }
 
-		// String actions1 =
-		// "2000#1000%1#5#7#2#2#0#24.12#2#1#20%2#5#1#1#2#0#24.12#21%4#5#1#2#2#0#24.12#2#3#22%7#3#2#0#24.12#2#23%3#10#1#4#0#24.12#2#24%5#2#1#3#1#0#24.12#25%";
-		// String actions2 = "2000#1000%6#2#4#1#2000#1#0#24.12#26%";
-		// String plots =
-		// "2000#1001%1#35#2#3#3#0#0#10:3024.12#10.3#1%2#36#3#4#4#0#0#10:3524.12#11.3#2%";
-		// String users =
-		// "2000#1002%1#124567891#1#Hendrik#Knoche#124567891#0#1#10:3024.12%2#124567892#2#John#Doe#124567892#0#1#10:3524.12%";
-		// Send_message(actions1);
-		// Send_message(actions2);
-		// Send_message(plots);
-		// Send_message(users);
+		 String[] actionArr = new String[action_list.size()];    //Has unsent  actions from database 
+		  actionArr = action_list.toArray(actionArr);
+	 
+		 
+					
+		 // System.out.println(actionArr);
+				  
+		
+		
+			 for(int i=1;i<=actionArr.length;i++) {
+				 System.out.println("Length: \n"+actionArr.length);
+				 System.out.println(actionArr[i-1]);
+				 ActionStr+=actionArr[i-1];
+				 System.out.println("Actions log "+ActionStr);
+				//Send_message(ActionStr);                                  //Send actions to server via SMS
+				 ActionStr = "%1000%";
+				}
+			
+			
+			 //*************End of actions sent******************
+			
+			 String[] plotArr = new String[plot_list.size()];    //Has unsent  plots from database 
+			 plotArr = plot_list.toArray(plotArr);
+		 
+			
+						
+			 // System.out.println(plotArr);
+					  
+			 System.out.println( "**************DISPLAYING PLOTS ONLY IN REMINDERTASK************");
+			
+				 for(int i=1;i<=plotArr.length;i++) {
+					 System.out.println("Length: \n"+plotArr.length);
+					 System.out.println(plotArr[i-1]);
+					 PlotStr+=plotArr[i-1];
+					 System.out.println("plots log "+PlotStr);
+					 //Send_message(PlotStr);		//Send plots to server via SMS
+					 PlotStr = "%1001%";
+					}
+				
+				 
+				 //End of plots  sent
+				 
+				 String[] userArr = new String[users_list.size()];    //Has unsent  users from database 
+				 userArr = users_list.toArray(userArr);
+			 				
+				//  System.out.println(userArr);
+						  
+			
+					 for(int i=1;i<=userArr.length;i++) {
+						 System.out.println("Length: \n"+userArr.length);
+						 System.out.println(userArr[i-1]);
+						 UserStr+=userArr[i-1];
+						 System.out.println("users log "+UserStr);
+						// Send_message(UserStr);		//Send users to server via SMS
+						 UserStr = "%1002%";
+						}
+					 //System.out.println("users log "+UserStr);
+		
+					 
+					 //End of users
+	
+	
 		return res;
 	}
 
@@ -91,11 +205,10 @@ public class ReminderTask implements Task {
 
 		SmsManager sm = SmsManager.getDefault();
 		// here is where the destination of the text should go
-		String number = "9900917284";
+		//String number = "9900917284";
 		sm.sendTextMessage(number, null, send, null, null);
 		// sm.sendMultipartTextMessage(number, null,action_list , null, null);
-		System.out
-				.println("/*******************MESSAGE SENT FROM REMINDERTASK**************/");
+		System.out.println("/*******************MESSAGE SENT FROM REMINDERTASK**************/");
 		// Log.d("Msg Sent: ", "MSG sent ..");
 		// TODO implement your business logic here
 		// i.e. query the DB, connect to a web service using HttpUtils, etc..

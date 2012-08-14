@@ -1,6 +1,7 @@
 package com.commonsensenet.realfarm.actions;
 
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
@@ -166,7 +167,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 		if (mMonth != -1 && mDay > 0) {
 			highlightField(R.id.day_irr_tr, false);
 		} else {
-			isValid = true;
+			isValid = false;
 			highlightField(R.id.day_irr_tr, true);
 		}
 

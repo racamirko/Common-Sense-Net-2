@@ -81,6 +81,7 @@ public class RealFarmProvider {
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
 			long userId, int isAdminAction) {
 
+
 		return addAction(new Date().getTime(), actionTypeId, plotId, date,
 				seedTypeId, cropTypeId, quantity1, quantity2, unit1, unit2,
 				resource1Id, resource2Id, price, userId, 0, isAdminAction,
@@ -91,7 +92,7 @@ public class RealFarmProvider {
 			int seedTypeId, int cropTypeId, double quantity1, double quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
 			long userId, int isSent, int isAdminAction, long timestamp) {
-
+		
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ID, id);
@@ -1576,4 +1577,66 @@ public class RealFarmProvider {
 			OnWeatherForecastDataChangeListener listener) {
 		sWeatherForecastDataListener = listener;
 	}
+	
+	// To get the plots based on sent flag
+	public List<Plot> getPlotsBySentFlag(int sent) {
+		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT + "=" + sent);
+	}
+	
+	// To get the users based on sent flag
+	public List<User> getUsersBySentFlag(int sent) {                            
+		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_ISSENT + "="
+				+ sent);
+	}
+	
+	// To get the actions based on sent flag
+		public List<Action> getActionsBySentFlag(int sent) {
+
+			List<Action> tmpActions = new ArrayList<Action>();
+
+			mDatabase.open();
+
+			Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
+					new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPEID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+							RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
+							RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
+							RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_UNIT2ID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
+							RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
+							RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+							RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
+							RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
+					RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT + " = " + sent
+							+ "", null, null, null, null);
+
+			Action a = null;
+			if (c.moveToFirst()) {
+				do {
+					a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
+							c.getString(3), c.getInt(4), c.getInt(5),
+							c.getDouble(6), c.getDouble(7), c.getInt(8),
+							c.getInt(9), c.getInt(10), c.getInt(11), c.getInt(12),
+							c.getLong(13), c.getInt(14), c.getInt(15),
+							c.getLong(16));
+
+					// adds the action to the list.
+					tmpActions.add(a);
+
+					Log.d("values: ", a.toString());
+				} while (c.moveToNext());
+
+			}
+			c.close();
+			mDatabase.close();
+
+			return tmpActions;
+		}
 }

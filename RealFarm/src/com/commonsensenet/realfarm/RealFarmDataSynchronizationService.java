@@ -1,5 +1,10 @@
 package com.commonsensenet.realfarm;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.text.ParseException;
+
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -14,11 +19,13 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 	private static final String DELIVERED = "SMS_DELIVERED";
 	private static final String SENT = "SMS_SENT";
+	SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd"); 
 
 	private RealFarmProvider mDataProvider;
 	private BroadcastReceiver mSmsDeliveredReceiver;
 	private BroadcastReceiver mSmsSentReceiver;
 
+	@SuppressLint("ParserError")
 	@Override
 	public void onReceive(Context context, Intent intent) {
 		// RealFarmDatabase db = new RealFarmDatabase(context);
@@ -52,7 +59,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 
 			Log.d("Processing Msg : ", "Begining to Process ..");
 
-			String[] separated = str.split(" ");
+		/*	String[] separated = str.split(" ");
 			String phonesent = separated[0];
 			// int phonerecvd= new Integer(phonesent);
 			Log.d("Senders number: ", phonesent);
@@ -147,7 +154,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 					 */
 
 					// Msg to display from www.tititudorancea.com
-					String wfmsg = "Today's forecast in CKP is " + type1
+		/*			String wfmsg = "Today's forecast in CKP is " + type1
 							+ " with Max Temperature around " + separated[3]
 							+ "\u00b0 C and Tomorrow's forecast is " + type2
 							+ " with temperature around" + separated[6]
@@ -178,6 +185,10 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 
 					mDataProvider.addWeatherForecast(separated[2], temperature,
 							type1);
+
+					Log.d("inserted to DB ", "inserrted data");
+					mDataProvider.getWeatherForecasts();
+					Log.d("inserted to DB ", "after inserting data");
 				}
 
 				if (typeval == 2) {
@@ -217,7 +228,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				if (typeval == 5) {
 					// For updating users, action types, units, plots,
 					// pesticides, fertilizer, seeds, stages...
-					// users= subtype, first name, last name, deviceId, plotid,
+					// users= subtype, first name, last name, mobileno, plotid,
 					// long, lat ( users, plots)
 					// actions= subtype, action name,
 					// units= subtype, name, value
@@ -231,16 +242,26 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 						Log.d("subtype: ", "in US");
 						String usmsg = "Updation to user table Firstname: "
 								+ separated[3] + " Last Name: " + separated[4]
-								+ " DeviceId: " + separated[5];
+								+ " Mobile No: " + separated[5];// +
+																// " and his plot longitude and latitude values are "
+																// +
+																// separated[6]
+																// + ", " +
+																// separated[7];
 						Toast.makeText(context, usmsg, Toast.LENGTH_SHORT)
 								.show();
 
-						// TODO: provide the rest of the parameters.
-						// TODO: add the user correctly.
-						// mDataProvider.addUser(separated[5], separated[3],
-						// separated[4], "", 0, 0);
+						mDataProvider.setUserInfo(separated[5], separated[3],
+								separated[4]);
+						// TODO: why the return value is not stored?
+						mDataProvider.getUsers();
 
-						Toast.makeText(context, "inseted to DB",
+						System.out.println("User details is put to database");
+						// mDataProvider.setUserInfo(separated[5] ,separated[3],
+						// separated[4]);
+						// mDataProvider.getUser();
+						String insertedtodb = "inseted to DB";
+						Toast.makeText(context, insertedtodb,
 								Toast.LENGTH_SHORT).show();
 					}
 					// For Action type updates
@@ -300,7 +321,154 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 						Toast.makeText(context, stmsg, Toast.LENGTH_SHORT)
 								.show();
 					}
+					/********************************************************************************************/
+
+			String[] separated1 = str.split("%");
+			
+			//System.out.println("Displaying separated1 of 3 split after %"+separated1[3]);
+			
+			//String[] separated2 = separated1[3].split("#"); 
+			//System.out.println("Displaying separated2 split after #"+separated2[0]);
+			
+			String message_type=separated1[1];
+			System.out.println("Displaying length:"+separated1.length);
+			for(int i=2;i<separated1.length;i++)
+			{    
+				//System.out.println("Displaying i:"+i);
+				
+				String[] separated2 = separated1[i].split("#"); 
+				
+				
+				
+				
+				//System.out.println("Displaying length:"+message_type);
+				
+				//System.out.println("Displaying msg length:"+Integer.valueOf(message_type));
+			
+			
+			
+				if(Integer.valueOf(message_type)==1000)
+				{
+					  //actions insertions
+					
+					System.out.println("In AT \n");
+					Date date1 = null;
+					try {
+						date1 = dateFormat.parse(separated2[3]);
+						
+						System.out.println("try in date"+date1);
+					} catch (ParseException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+						System.out.println("catch in date");
+						
+					}
+			
+					//Long.valueOf(separated2[0]),Long.valueOf(separated2[13]),
+					
+					System.out.println("date displayed in actions:"+date1);
+				long result=mDataProvider.addAction( Long.valueOf(separated2[0]),Integer.valueOf(separated2[1]), Long.valueOf(separated2[2]),
+						    date1,Integer.valueOf(separated2[4]),Integer.valueOf(separated2[5]), 
+							Double.valueOf(separated2[6]),Double.valueOf(separated2[7]),
+							Integer.valueOf(separated2[8]), Integer.valueOf(separated2[9]),
+							Integer.valueOf(separated2[10]),Integer.valueOf(separated2[11]),
+							Integer.valueOf(separated2[12]),Long.valueOf(separated2[13]),0, 
+							Integer.valueOf(separated2[14]),Long.valueOf(separated2[15]));
+				
+				/*System.out.println(Long.valueOf(separated2[0])+"\n");
+				System.out.println(Integer.valueOf(separated2[1])+"\n");
+				System.out.println(Long.valueOf(separated2[2])+"\n");
+				System.out.println(date1+"\n");
+				System.out.println(Integer.valueOf(separated2[4])+"\n");
+				System.out.println(Integer.valueOf(separated2[5])+"\n");
+				System.out.println(Double.valueOf(separated2[6])+"\n");
+				System.out.println(Double.valueOf(separated2[7])+"\n");
+				System.out.println(Integer.valueOf(separated2[8])+"\n");
+				System.out.println(Integer.valueOf(separated2[9])+"\n");
+				System.out.println(Integer.valueOf(separated2[10])+"\n");
+				System.out.println(Integer.valueOf(separated2[11])+"\n");
+				System.out.println(Integer.valueOf(separated2[12])+"\n");
+				System.out.println(Long.valueOf(separated2[13])+"\n");
+				System.out.println(Integer.valueOf(separated2[14])+"\n");
+				System.out.println(Long.valueOf(separated2[15])+"\n");*/
+				
+				
+				System.out.println("result displayed in actions:"+result);	
+				
+				}  //end of actions
+				
+				
+				if(Integer.valueOf(message_type)==1001)
+				{
+					  //plots insertions
+					System.out.println("In PT \n");	
+					
+					
+					mDataProvider.addPlot( Long.valueOf(separated2[0]), Long.valueOf(separated2[1]), Integer.valueOf(separated2[2]),
+							separated2[4], Integer.valueOf(separated2[3]), Double.valueOf(separated2[5]), 0,
+							 Integer.valueOf(separated2[6]), Integer.valueOf(separated2[7]), Long.valueOf(separated2[8]));
+					
+					
 				}
+				
+				if(Integer.valueOf(message_type)==1002)
+				{
+					  //users insertions
+					
+					System.out.println("In US \n");
+						
+					mDataProvider.addUser(separated2[0], separated2[1], separated2[2],
+							separated2[3],separated2[4],separated2[5],
+							separated2[6],0, Integer.valueOf(separated2[7]), Integer.valueOf(separated2[8]),
+							 Long.valueOf(separated2[9]));
+				}
+				
+				if(Integer.valueOf(message_type)==1003)
+				{
+					  //wf insertions
+					System.out.println("In WF \n");
+					mDataProvider.addWeatherForecast(separated2[0],Integer.valueOf(separated2[1]),separated2[2]);
+					
+				}
+				
+				if(Integer.valueOf(message_type)==1004)
+				{
+					  //mp insertions
+					System.out.println("In MP \n");
+					mDataProvider.addMarketPrice(separated2[0],Integer.valueOf(separated2[1]),separated2[2]);
+				
+					
+				}
+				
+			
+				
+			}  //End of for loop
+			
+			System.out.println("##################DISPLAYING ACTIONS############################");
+			mDataProvider.getActions();
+			System.out.println("##################FINISHED ACTIONS############################");
+			
+			System.out.println("##################DISPLAYING PLOTS############################");
+			mDataProvider.getPlots();
+			System.out.println("##################FINISHED PLOTS############################");
+			
+			
+			System.out.println("##################DISPLAYING USERS############################");
+			mDataProvider.getUsers();
+			System.out.println("##################FINISHED USERS############################");
+			
+			System.out.println("##################DISPLAYING WF############################");
+			mDataProvider.getWeatherForecasts();
+			System.out.println("##################FINISHED WF############################");
+			
+			System.out.println("##################DISPLAYING MP############################");
+			mDataProvider.getMarketPrices();
+			System.out.println("##################FINISHED MP############################");
+					
+					
+					/*******************************************************************************************/
+					
+				//}
 				/*
 				 * if(separated[2].toString().equalsIgnoreCase("WF")) { String
 				 * et=separated[4]; int typeval= new Integer(et);
@@ -337,7 +505,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				 * */
 
 				// ---stop the SMS message from being broadcasted---
-				abortBroadcast();
+				this.abortBroadcast();
 
 				// ---launch the SMSActivity---
 				// Intent mainActivityIntent = new Intent(context,
@@ -351,10 +519,13 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				// broadcastIntent.setAction("SMS_RECEIVED_ACTION");
 				// broadcastIntent.putExtra("sms", str);
 				// context.sendBroadcast(broadcastIntent);
-				/***********************************************************/
-			}
-		}
-	}
+				/*************************************************************
+                         */
+				}
+	
+}
+
+
 
 	public void onResume() {
 		// super.onResume();

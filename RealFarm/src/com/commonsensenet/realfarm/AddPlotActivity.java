@@ -53,7 +53,7 @@ public class AddPlotActivity extends DataFormActivity {
 		// adds the name of the fields to validate.
 		mResultsMap.put(SOIL_TYPE, -1);
 		mResultsMap.put(MAIN_CROP, -1);
-		mResultsMap.put(SIZE, "0.0");
+		mResultsMap.put(SIZE, "-1");
 
 		final View plotImageRow;
 		final View soilTypeRow;
@@ -199,7 +199,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.maincrop_tr, true);
 		}
 
-		if (mSize != -1) {
+		if (mSize > 0) {
 			highlightField(R.id.size_tr, false);
 		} else {
 			isValid = false;

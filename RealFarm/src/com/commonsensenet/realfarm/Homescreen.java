@@ -314,8 +314,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
 		} else if (v.getId() == R.id.hmscrn_btn_yield) {
-			intent = new Intent(this, yielddetails.class);
-			intent.putExtra("type", "yield");
+			/*intent = new Intent(this, yielddetails.class);
+			intent.putExtra("type", "yield");*/
 		} else if (v.getId() == R.id.hmscrn_btn_market) {
 			intent = new Intent(this, Marketprice_details.class);
 			intent.putExtra("type", "yield");
@@ -406,13 +406,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			// no need to start an intent
 			return;
 		}
-
-		// tracks the button click.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
-				intent.getComponent().getShortClassName());
-
 		// starts the intent if valid.
 		if (intent != null) {
+			// tracks the button click.
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
+					intent.getComponent().getShortClassName());
+			
 			startActivity(intent);
 		}
 	}

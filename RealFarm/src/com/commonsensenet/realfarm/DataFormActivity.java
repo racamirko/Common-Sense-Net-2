@@ -254,6 +254,8 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public void onClick(View v) {
 
 				if (validateForm()) {
+					playAudio(R.raw.ok); // TODO: say something here?
+
 					startActivity(new Intent(DataFormActivity.this,
 							Homescreen.class));
 					DataFormActivity.this.finish();
@@ -265,7 +267,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 		cancelButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-
+				playAudio(R.raw.cancel); // TODO: say something here?
 				// equivalent to pressing the back button.
 				onBackPressed();
 			}

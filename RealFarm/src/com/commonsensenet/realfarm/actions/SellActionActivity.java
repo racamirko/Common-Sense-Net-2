@@ -252,10 +252,10 @@ public class SellActionActivity extends DataFormActivity {
 		}
 
 		if (mPrice > 0) {
-			highlightField(R.id.quant_sell_tr, false);
+			highlightField(R.id.price_sell_tr, false);
 		} else {
 			isValid = false;
-			highlightField(R.id.quant_sell_tr, true);
+			highlightField(R.id.price_sell_tr, true);
 		}
 
 		if (mUnit2 != -1 && mRemaining > -1) {
