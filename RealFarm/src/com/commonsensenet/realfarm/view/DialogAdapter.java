@@ -45,16 +45,18 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 			if (tt != null) {
 				tt.setText(res.getName());
 				// if this month, set to bold
-				SimpleDateFormat df = new SimpleDateFormat("MMM");
-				Date date;
-				try {
-					date = df.parse(res.getShortName());
-					if(res.getType() == RealFarmDatabase.RESOURCE_TYPE_MONTH && date.getMonth() == Calendar.getInstance().get(Calendar.MONTH)){
-						tt.setTypeface(null,Typeface.BOLD);
-					} else{
-						tt.setTypeface(null,Typeface.NORMAL);
-					}
-				} catch (ParseException e) { }	
+				if(res.getType() == RealFarmDatabase.RESOURCE_TYPE_MONTH){
+					SimpleDateFormat df = new SimpleDateFormat("MMM");
+					Date date;
+					try {
+						date = df.parse(res.getShortName());
+						if(date.getMonth() == Calendar.getInstance().get(Calendar.MONTH)){
+							tt.setTypeface(null,Typeface.BOLD);
+						} else{
+							tt.setTypeface(null,Typeface.NORMAL);
+						}
+					} catch (ParseException e) { }
+				}	
 			}
 
 			// only adds either the background or the icon, since both

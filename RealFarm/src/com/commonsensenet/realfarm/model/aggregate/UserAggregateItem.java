@@ -9,20 +9,50 @@ import com.commonsensenet.realfarm.model.User;
 public class UserAggregateItem {
 
 	private String mDate;
+	private String mName;
+	private String mTelNumber;
+	private String mAvatarImg;
+	private String mRightText;
+	private int mRightImg;
 
-	private User mUser;
+	//private User mUser;
 
-	public UserAggregateItem(User user, String date) {
-		mUser = user;
+	public UserAggregateItem(String name, String date, String telNumber, String avatarImg, String rightText, int rightImg) {
+	//	mUser = user;
 		mDate = date;
+		mName = name;
+		mTelNumber = telNumber;
+		mAvatarImg = avatarImg;
+		mRightImg = rightImg;
+		mRightText = rightText;
 	}
 
 	public String getDate() {
 		return mDate;
 	}
 
-	public User getUser() {
-		return mUser;
+	public String getName() {
+		return mName;
 	}
+
+	public String getTel() {
+		return mTelNumber;
+	}
+	
+	public String getAvatar() {
+		return mAvatarImg;
+	}
+	
+	public String getRightText() {
+		return mRightText;
+	}
+	
+	public int getRightImg() {
+		return mRightImg;
+	}
+	
+/*	public User getUser() {
+		return mUser;
+	}*/
 
 }

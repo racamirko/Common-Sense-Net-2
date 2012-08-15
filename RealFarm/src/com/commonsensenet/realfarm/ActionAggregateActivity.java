@@ -4,6 +4,8 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -101,7 +103,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		final View crop = findViewById(R.id.aggr_crop);
 		Button back = (Button) findViewById(R.id.button_back);
 
-		if (mActionActionTypeId == RealFarmDatabase.ACTION_TYPE_SOW_ID)
+		if (mActionActionTypeId == RealFarmDatabase.ACTION_TYPE_SOW_ID || mActionActionTypeId == RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID)
 			crop.setVisibility(View.INVISIBLE);
 
 		final ImageView actionTypeImage = (ImageView) findViewById(R.id.aggr_action_img);
@@ -156,12 +158,16 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 						img_1, 2);
 			}
 		});
+		
 	}
 
 	public void setList(int seedTypeId) {
 		// gets the list of aggregate data.
 		mAggregateItems = ActionDataFactory.getAggregateData(
 				mActionActionTypeId, mDataProvider, seedTypeId);
+		
+		if(mAggregateItems == null || mAggregateItems.size() < 1) playAudio(R.raw.problems, true);
+		
 		// creates the data adapter.
 		mAggregateItemAdapter = new AggregateItemAdapter(this, mAggregateItems,
 				mActionActionTypeId, mDataProvider);
@@ -193,12 +199,6 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		View layout = mLayoutInflater.inflate(
 				R.layout.dialog_aggregate_details, null);
 
-		// gets the ListView from the layout
-		ListView userListView = (ListView) layout
-				.findViewById(R.id.list_dialog_aggregate);
-
-		userListView.setItemsCanFocus(false);
-
 		// adds the event to dismiss the dialog.
 		layout.findViewById(R.id.button_back).setOnClickListener(
 				new View.OnClickListener() {
@@ -210,16 +210,17 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				});
 
 		// sets the data of the header using the old view.
-		((ImageView) layout.findViewById(R.id.icon_dialog_aggregate_crop))
-				.setImageDrawable(selectedItemView.getTypeImage().getDrawable());
+		if(selectedItem.getCenterBackground() != -1) ((ImageView) layout.findViewById(R.id.icon_dialog_aggregate_crop)).setBackgroundResource(selectedItem.getCenterBackground());
+		else ((TextView) layout.findViewById(R.id.label_dialog_aggregate_type)).setTextColor(Color.BLACK);
 		((TextView) layout.findViewById(R.id.label_dialog_aggregate_type))
-				.setText(selectedItemView.getTypeText().getText());
+				.setText(selectedItem.getCenterText());
 
 		// gets the detail container
-		View detailCount = selectedItemView.getRow().findViewById(
-				R.id.button_aggregate_detail);
+		if(selectedItem.getRightBackground() != -1) ((ImageView) layout.findViewById(R.id.icon_dialog_aggregate_detail)).setBackgroundResource(selectedItem.getRightBackground());
+		((TextView) layout.findViewById(R.id.label_dialog_aggregate_detail_count))
+				.setText(selectedItem.getRightText());
 
-		if (detailCount != null && detailCount.getVisibility() == View.VISIBLE) {
+	/*	if (detailCount != null && detailCount.getVisibility() == View.VISIBLE) {
 			// gets the TextView that contains the value.
 			detailCount = selectedItemView.getRow().findViewById(
 					R.id.label_aggregate_detail_count);
@@ -230,11 +231,16 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 			layout.findViewById(R.id.button_dialog_aggregate_detail)
 					.setVisibility(View.INVISIBLE);
 
-		}
+		}*/
 
 		// gets the data and data adapter.
-		List<UserAggregateItem> list = ActionDataFactory.getUserAggregateData(
+		final List<UserAggregateItem> list = ActionDataFactory.getUserAggregateData(
 				selectedItem, mDataProvider);
+		
+		if(list == null || list.size() < 1) playAudio(R.raw.problems, true);
+
+		// gets the ListView from the layout
+		ListView userListView = (ListView) layout.findViewById(R.id.list_dialog_aggregate);
 
 		// selectedItem.getSeedTypeId()
 		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
@@ -252,6 +258,35 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		// displays the dialog.
 		dialog.show();
+		playAudio(R.raw.problems, true);
+		
+		userListView.setOnItemClickListener(new OnItemClickListener() {
+
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				
+				// TODO: calling Mr ...
+				playAudio(R.raw.problems, true);
+				UserAggregateItem choice = list.get(position);
+				String phoneNumber = choice.getTel();
+				
+				Intent intent = new Intent(Intent.ACTION_CALL);
+				intent.setData(Uri.parse("tel:" + phoneNumber));
+				startActivity(intent);
+			}
+		});
+
+		userListView.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+				
+				// TODO: audio
+				UserAggregateItem choice = list.get(position);
+				playAudio(R.raw.problems, true);
+				
+				return true;
+			}
+		});
 
 	}
 

@@ -290,14 +290,16 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		} else if (v.getId() == R.id.hmscrn_btn_video) {
 			intent = new Intent(this, VideoActivity.class);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
-			intent = new Intent(this, fertilize_aggregate.class);
-			intent.putExtra("type", "yield");
+			intent = new Intent(this, ActionAggregateActivity.class);
+			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+					RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
 		} else if (v.getId() == R.id.btn_action_sell) {
 			intent = new Intent(this, selling_aggregate.class);
 			intent.putExtra("type", "yield");
 		} else if (v.getId() == R.id.btn_action_report) {
-			intent = new Intent(this, problem_aggregate.class);
-			intent.putExtra("type", "yield");
+			intent = new Intent(this, ActionAggregateActivity.class);
+			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+					RealFarmDatabase.ACTION_TYPE_REPORT_ID);
 		} else if (v.getId() == R.id.btn_action_irrigate) {
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
@@ -317,8 +319,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			/*intent = new Intent(this, yielddetails.class);
 			intent.putExtra("type", "yield");*/
 		} else if (v.getId() == R.id.hmscrn_btn_market) {
-			intent = new Intent(this, Marketprice_details.class);
-			intent.putExtra("type", "yield");
+			/*intent = new Intent(this, Marketprice_details.class);
+			intent.putExtra("type", "yield");*/
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
 
 			// creates a new dialog and configures it.

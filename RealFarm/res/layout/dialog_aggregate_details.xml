@@ -19,18 +19,19 @@
                 android:id="@+id/icon_dialog_aggregate_crop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                android:src="@drawable/pic_90px_groundnut_tiled" />
+                android:scaleType="centerCrop"  />
 
             <TextView
                 android:id="@+id/label_dialog_aggregate_type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
+                android:layout_alignParentLeft="true"
                 android:layout_centerVertical="true"
+                android:layout_marginLeft="5dp"
                 android:text="@string/placeholder_text"
                 android:textAppearance="?android:attr/textAppearanceLarge"
                 android:textColor="@android:color/white" />
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -46,8 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:layout_margin="@dimen/margin"
-                android:src="@drawable/treatment" />
+                android:layout_margin="@dimen/margin" />
 
             <TextView
                 android:id="@+id/label_dialog_aggregate_detail_count"

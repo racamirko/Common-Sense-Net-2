@@ -23,6 +23,7 @@ public abstract class AggregateItemWrapper {
 	protected TextView mUserCount;
 	protected TextView mTreatmentCount;
 	protected ImageView mUserImg;
+	protected ImageView mTreatmentImg;
 
 	/**
 	 * Creates a new AggregateItemWrapper instance.
@@ -78,8 +79,19 @@ public abstract class AggregateItemWrapper {
 					.findViewById(R.id.label_aggregate_detail_count);
 		}
 		return (mTreatmentCount);
-	}
 
+	}
+	
+	public ImageView getTreatmentImg() {
+
+		if (mTreatmentImg == null) {
+			mTreatmentImg = (ImageView) mRow
+					.findViewById(R.id.icon_aggregate_detail);
+		}
+		return (mTreatmentImg);
+
+	}
+	
 	public abstract void populateFrom(AggregateItem aggregate,
 			RealFarmProvider provider);
 }

@@ -822,7 +822,7 @@ public class RealFarmDatabase {
 						RESOURCE_TYPE_FERTILIZER },
 				{ "DAP", "DAP", R.raw.audio1, -1, -1, -1,
 						RESOURCE_TYPE_FERTILIZER },
-				{ "FYM", "Farm Yard Manure / FYM", R.raw.audio1, -1, -1, -1,
+				{ "Farm Yard Manure / FYM", "FYM", R.raw.audio1, -1, -1, -1,
 						RESOURCE_TYPE_FERTILIZER },
 				{ "Gypsum", "Gypsum", R.raw.audio1, -1, -1, -1,
 						RESOURCE_TYPE_FERTILIZER },
@@ -837,7 +837,7 @@ public class RealFarmDatabase {
 				{ "Unlisted", "Not in the list", R.raw.audio1, -1, -1, -1,
 						RESOURCE_TYPE_FERTILIZER },
 				/** Pesticide */
-				{ "Monocrotophos", "Monocrotopho", R.raw.audio1,
+				{ "Monocrotophos", "Monocrotophos", R.raw.audio1,
 							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE },
 				{ "Dimethoate", "Dimethoate", R.raw.audio1, R.drawable.pesticide,
 						-1, -1, RESOURCE_TYPE_PESTICIDE },

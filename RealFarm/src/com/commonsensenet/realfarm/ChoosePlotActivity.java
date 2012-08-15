@@ -55,7 +55,6 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 		}
 
 		if(plots == null || plots.size() == 0) 	playAudio(R.raw.problems, true);
-
 		
 		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 

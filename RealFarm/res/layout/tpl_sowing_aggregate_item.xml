@@ -13,9 +13,7 @@
         <ImageView
             android:id="@+id/img_aggregate_user_count"
             android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:scaleType="centerCrop"
-            android:src="@drawable/irrigatingaggsection" />
+            android:layout_height="30dp" />
 
         <TextView
             android:id="@+id/label_aggregate_user_count"
@@ -23,8 +21,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
-            android:text="9"
-            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/black" />
     </RelativeLayout>
 
@@ -48,7 +45,6 @@
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
             android:layout_marginLeft="10px"
-            android:text="TMV 2"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="@android:color/white" />
     </RelativeLayout>
@@ -65,15 +61,15 @@
             android:id="@+id/icon_aggregate_detail"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:src="@drawable/treatment" />
+            android:layout_margin="@dimen/margin" />
 
         <TextView
             android:id="@+id/label_aggregate_detail_count"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="fill_parent"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="20dp"
+            android:gravity="bottom|right"
             android:text="0"
             android:textAppearance="?android:attr/textAppearanceLarge"
             android:textColor="#000000" />

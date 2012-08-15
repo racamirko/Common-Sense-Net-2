@@ -118,6 +118,7 @@ public class HarvestActionActivity extends DataFormActivity {
 
 				List<Resource> data = mDataProvider
 						.getUnits(RealFarmDatabase.ACTION_TYPE_HARVEST_ID);
+
 				displayDialog(v, data, UNIT, "Select the unit", R.raw.problems,
 						R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr, 2);
 

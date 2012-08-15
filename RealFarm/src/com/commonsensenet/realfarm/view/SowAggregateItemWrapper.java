@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm.view;
 
+import android.graphics.Color;
 import android.view.View;
 
 import com.commonsensenet.realfarm.R;
@@ -22,18 +23,15 @@ public class SowAggregateItemWrapper extends AggregateItemWrapper {
 	}
 
 	public void populateFrom(AggregateItem aggregate, RealFarmProvider provider) {
-
-		SeedType seed = provider.getSeedById((Integer.valueOf(aggregate
-				.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID))));
 		getUserCount().setText(String.valueOf(aggregate.getUserCount()));
-		getTypeText().setText(seed.getShortName());
-		getTypeImage().setBackgroundResource(seed.getImage1());
-
-		getTreatmentCount()
-				.setText(
-						aggregate
-								.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
-		getUserImg().setImageResource(R.drawable.sowingaggsection);
+		getTypeText().setText(aggregate.getCenterText());
+		if(aggregate.getCenterBackground() != -1) getTypeImage().setBackgroundResource(aggregate.getCenterBackground());
+		else getTypeText().setTextColor(Color.BLACK);
+		getTreatmentCount().setText(aggregate.getRightText());
+		if(aggregate.getRightBackground() != -1) getTreatmentImg().setImageResource(aggregate.getRightBackground());
+		
+		// TODO: adapt this to all sections
+		if(aggregate.getUserImage() != -1) getUserImg().setImageResource(aggregate.getUserImage());
 
 	}
 }
