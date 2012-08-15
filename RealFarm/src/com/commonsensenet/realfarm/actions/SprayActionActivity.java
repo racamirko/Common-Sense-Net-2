@@ -217,8 +217,7 @@ public class SprayActionActivity extends DataFormActivity {
 		}
 
 		// inserts the action if the form is valid.
-		if (isValid) {
-
+		if (isValid) {			
 			long result = mDataProvider.addSprayAction(Global.userId,
 					Global.plotId, mProblem, mPesticide, mAmount, mUnit,
 					getDate(mDay, mMonth), 0);

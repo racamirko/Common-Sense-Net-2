@@ -67,7 +67,8 @@ public class HarvestActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider.getVarieties();
+				List<Resource> data = mDataProvider.getVarietiesByPlotAndSeason(Global.plotId);
+
 				displayDialog(v, data, VARIETY, "Select the variety",
 						R.raw.problems, R.id.dlg_lbl_harvest_crop,
 						R.id.var_harvest_crop, 0);

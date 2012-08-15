@@ -38,6 +38,8 @@ public class DiaryActivity extends HelpEnabledActivity implements
 
 		// gets the actions from the database
 		List<Action> actions = mDataProvider.getActionsByUserId(Global.userId);
+		
+		if(actions == null || actions.size() == 0) 	playAudio(R.raw.problems, true);
 
 		// creates the custom adapter.
 		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);

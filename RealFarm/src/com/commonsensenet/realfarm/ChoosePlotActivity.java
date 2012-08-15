@@ -9,6 +9,9 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.commonsensenet.realfarm.actions.HarvestActionActivity;
+import com.commonsensenet.realfarm.actions.ReportActionActivity;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.PlotItemAdapter;
@@ -46,7 +49,14 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 		// gets the users from the database.
 		List<Plot> plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
 				Global.userId, 1);
+		if(Global.selectedAction == HarvestActionActivity.class || Global.selectedAction == ReportActionActivity.class){
+			plots = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
+				Global.userId, 1);
+		}
 
+		if(plots == null || plots.size() == 0) 	playAudio(R.raw.problems, true);
+
+		
 		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 
 		// gets the list from the UI.

@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.dataaccess;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
@@ -13,6 +14,7 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
+import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.MarketPrice;
@@ -870,7 +872,7 @@ public class RealFarmProvider {
 		mDatabase.close();
 		return tmpList;
 	}
-
+	
 	/**
 	 * Gets all plots matching the same user.
 	 * 
@@ -887,6 +889,31 @@ public class RealFarmProvider {
 		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_USERID + "=" + userId
 				+ " AND " + RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED + "="
 				+ isEnabled);
+	}
+	
+	
+	// TODO: Redo the function. Currently a dirty hack
+	// TODO: optimise date test
+	public List<Plot> getPlotsByUserIdAndEnabledFlagAndHasCrops(long userId, int isEnabled) {
+		
+		List<Plot> tmpList = getPlotsByUserIdAndEnabledFlag(userId, isEnabled);
+		ArrayList<Plot> tmpList2 = new ArrayList<Plot>();
+		
+		for (Plot p : tmpList){
+			long id = p.getId();
+			final String MY_QUERY = "SELECT COUNT(id) FROM action a WHERE plotId = "+id+" AND date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SOW_ID;
+			mDatabase.open();
+			Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+			if (cursor.moveToFirst()) {	
+				if(cursor.getInt(0) > 0)
+					tmpList2.add(p);
+			}
+			cursor.close();
+			mDatabase.close();
+		}
+
+		return tmpList2;
 	}
 
 	/**
@@ -1360,6 +1387,56 @@ public class RealFarmProvider {
 
 		return tmpList;
 	}
+	
+	// TODO: add optimization
+	// TODO: optimise date selector
+		public List<Resource> getVarietiesByPlotAndSeason(long plotId) {
+
+			// creates the result list.
+			List<Resource> tmpList = new ArrayList<Resource>();
+			final String MY_QUERY = "SELECT DISTINCT seedTypeId FROM action WHERE plotId = "+plotId+" AND date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SOW_ID+" ORDER BY seedTypeId ASC";
+			mDatabase.open();
+			Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
+			System.out.println(Global.plotId);
+
+			if (cursor.moveToFirst()) {	
+
+				do {					
+					// raw query.
+					final String RAW_QUERY = "SELECT st.*, ct.%s FROM %s st INNER JOIN %s ct ON st.%s = ct.%s WHERE st.id = "+cursor.getInt(0);
+					// substitutes values in the query.
+					String processedQuery = String.format(RAW_QUERY,
+							RealFarmDatabase.COLUMN_NAME_CROPTYPE_BACKGROUNDIMAGE,
+							RealFarmDatabase.TABLE_NAME_SEEDTYPE,
+							RealFarmDatabase.TABLE_NAME_CROPTYPE,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
+							RealFarmDatabase.COLUMN_NAME_CROPTYPE_ID,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID);
+
+					// opens the database and executes the query
+					Cursor c = mDatabase.rawQuery(processedQuery, new String[] {});
+
+					Resource r = null;
+					if (c.moveToFirst()) {
+						r = new Resource();
+						r.setId(c.getInt(0));
+						r.setName(c.getString(1));
+						r.setShortName(c.getString(2));
+						r.setImage1(c.getInt(3));
+						r.setAudio(c.getInt(4));
+						r.setBackgroundImage(c.getInt(6));
+						tmpList.add(r);
+					}
+					c.close();
+
+				} while (cursor.moveToNext());
+			}
+
+			cursor.close();
+			mDatabase.close();
+
+			return tmpList;
+		}
 
 	/**
 	 * Gets all the available WeatherForecasts, sorted by date. Old forecasts
@@ -1577,66 +1654,66 @@ public class RealFarmProvider {
 			OnWeatherForecastDataChangeListener listener) {
 		sWeatherForecastDataListener = listener;
 	}
-	
+
 	// To get the plots based on sent flag
 	public List<Plot> getPlotsBySentFlag(int sent) {
 		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT + "=" + sent);
 	}
-	
+
 	// To get the users based on sent flag
 	public List<User> getUsersBySentFlag(int sent) {                            
 		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_ISSENT + "="
 				+ sent);
 	}
-	
+
 	// To get the actions based on sent flag
-		public List<Action> getActionsBySentFlag(int sent) {
+	public List<Action> getActionsBySentFlag(int sent) {
 
-			List<Action> tmpActions = new ArrayList<Action>();
+		List<Action> tmpActions = new ArrayList<Action>();
 
-			mDatabase.open();
+		mDatabase.open();
 
-			Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
-					new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPEID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
-							RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
-							RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
-							RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_UNIT2ID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
-							RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
-							RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
-							RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
-							RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
-					RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT + " = " + sent
-							+ "", null, null, null, null);
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
+				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPEID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+				RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
+				RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
+				RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_UNIT2ID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
+				RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
+				RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+				RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
+				RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
+				RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT + " = " + sent
+				+ "", null, null, null, null);
 
-			Action a = null;
-			if (c.moveToFirst()) {
-				do {
-					a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
-							c.getString(3), c.getInt(4), c.getInt(5),
-							c.getDouble(6), c.getDouble(7), c.getInt(8),
-							c.getInt(9), c.getInt(10), c.getInt(11), c.getInt(12),
-							c.getLong(13), c.getInt(14), c.getInt(15),
-							c.getLong(16));
+		Action a = null;
+		if (c.moveToFirst()) {
+			do {
+				a = new Action(c.getLong(0), c.getInt(1), c.getLong(2),
+						c.getString(3), c.getInt(4), c.getInt(5),
+						c.getDouble(6), c.getDouble(7), c.getInt(8),
+						c.getInt(9), c.getInt(10), c.getInt(11), c.getInt(12),
+						c.getLong(13), c.getInt(14), c.getInt(15),
+						c.getLong(16));
 
-					// adds the action to the list.
-					tmpActions.add(a);
+				// adds the action to the list.
+				tmpActions.add(a);
 
-					Log.d("values: ", a.toString());
-				} while (c.moveToNext());
+				Log.d("values: ", a.toString());
+			} while (c.moveToNext());
 
-			}
-			c.close();
-			mDatabase.close();
-
-			return tmpActions;
 		}
+		c.close();
+		mDatabase.close();
+
+		return tmpActions;
+	}
 }

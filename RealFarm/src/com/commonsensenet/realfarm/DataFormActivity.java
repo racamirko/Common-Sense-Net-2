@@ -204,7 +204,12 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, day);
 		calendar.set(Calendar.MONDAY, date.getMonth());
-
+		
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+				
+		if(date.getMonth() > Calendar.getInstance().get(Calendar.MONTH) || (date.getMonth() == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)))
+			calendar.set(Calendar.YEAR, (year-1));
+		
 		// returns the date that represents the calendar.
 		return calendar.getTime();
 	}

@@ -1,9 +1,14 @@
 package com.commonsensenet.realfarm.view;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 
 public class DialogAdapter extends ArrayAdapter<Resource> {
@@ -38,6 +44,17 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 					.findViewById(R.id.dialog_row_layout);
 			if (tt != null) {
 				tt.setText(res.getName());
+				// if this month, set to bold
+				SimpleDateFormat df = new SimpleDateFormat("MMM");
+				Date date;
+				try {
+					date = df.parse(res.getShortName());
+					if(res.getType() == RealFarmDatabase.RESOURCE_TYPE_MONTH && date.getMonth() == Calendar.getInstance().get(Calendar.MONTH)){
+						tt.setTypeface(null,Typeface.BOLD);
+					} else{
+						tt.setTypeface(null,Typeface.NORMAL);
+					}
+				} catch (ParseException e) { }	
 			}
 
 			// only adds either the background or the icon, since both
@@ -52,7 +69,10 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 				if (resId != -1) {
 					im.setImageResource(resId);
 				}
-			}
+			}			
+			
+			// TODO: add second image when needed
+			
 		}
 		return v;
 	}
