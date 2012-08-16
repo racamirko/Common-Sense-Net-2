@@ -75,7 +75,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZER);
 				displayDialog(v, data, FERTILIZER, "Choose the fertilizer",
-						R.raw.problems, R.id.dlg_lbl_var_fert,
+						R.raw.selecttypeoffertilizer, R.id.dlg_lbl_var_fert,
 						R.id.var_fert_tr, 0);
 			}
 		});
@@ -84,10 +84,10 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			public void onClick(View v) {
 				stopAudio();
 
-				displayDialogNP("Choose the amount", AMOUNT, R.raw.dateinfo, 0,
+				displayDialogNP("Choose the amount", AMOUNT, R.raw.select_unit_number, 0,
 						100, 1, 0.25, 2, R.id.dlg_lbl_unit_no_fert,
-						R.id.units_fert_tr, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo, R.raw.dateinfo);
+						R.id.units_fert_tr, R.raw.ok, R.raw.cancel,
+						R.raw.fert_ok, R.raw.fert_cancel);
 			}
 		});
 
@@ -109,8 +109,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_fert, R.id.day_fert_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok,
+						R.raw.day_cancel);
 			}
 		});
 
@@ -121,8 +121,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, MONTH, "Select the month",
-						R.raw.bagof50kg, R.id.dlg_lbl_month_fert,
-						R.id.day_fert_tr, 0);
+						R.raw.choosethemonth, R.id.dlg_lbl_month_fert,
+						R.id.day_fert_tr, 0); 
 			}
 		});
 	}
@@ -134,7 +134,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		} else if (v.getId() == R.id.dlg_lbl_units_fert) {
 			playAudio(R.raw.selecttheunits);
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_fert) {
-			playAudio(R.raw.selecttheunits);
+			playAudio(R.raw.select_unit_number);
 		} else if (v.getId() == R.id.dlg_lbl_day_fert) {
 			playAudio(R.raw.selectthedate);
 		} else if (v.getId() == R.id.button_ok) {
@@ -142,13 +142,13 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		} else if (v.getId() == R.id.button_cancel) {
 			playAudio(R.raw.cancel);
 		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help);
+			playAudio(R.raw.fert_help);
 		} else if (v.getId() == R.id.var_fert_tr) {
-			playAudio(R.raw.amount);
+			playAudio(R.raw.fertilizername);
 		} else if (v.getId() == R.id.day_fert_tr) {
 			playAudio(R.raw.date);
 		} else if (v.getId() == R.id.units_fert_tr) {
-			playAudio(R.raw.fertilizername);
+			playAudio(R.raw.amount);
 		} else if (v.getId() == R.id.dlg_lbl_month_fert) {
 			playAudio(R.raw.choosethemonth);
 		} else {

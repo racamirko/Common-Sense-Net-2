@@ -95,10 +95,10 @@ public class SprayActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				displayDialogNP("Choose the quantity", AMOUNT, R.raw.dateinfo,
+				displayDialogNP("Choose the quantity", AMOUNT, R.raw.selecttheunits,
 						1, 20, 1, 1, 0, R.id.dlg_lbl_unit_no_spray,
-						R.id.units_spray_tr, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo, R.raw.dateinfo);
+						R.id.units_spray_tr, R.raw.ok, R.raw.cancel,
+						R.raw.quantity_ok, R.raw.quantity_cancel);
 			}
 		});
 
@@ -120,8 +120,8 @@ public class SprayActionActivity extends DataFormActivity {
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_spray, R.id.day_spray_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok,
+						R.raw.day_cancel);
 			}
 		});
 
@@ -132,7 +132,7 @@ public class SprayActionActivity extends DataFormActivity {
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, MONTH, "Select the month",
-						R.raw.bagof50kg, R.id.dlg_lbl_month_spray,
+						R.raw.choosethemonth, R.id.dlg_lbl_month_spray,
 						R.id.day_spray_tr, 0);
 			}
 		});
@@ -153,7 +153,7 @@ public class SprayActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_day_spray) {
 			playAudio(R.raw.selectthedate, true);
 		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help, true);
+			playAudio(R.raw.spray_help, true);
 		} else if (v.getId() == R.id.dlg_lbl_month_spray) {
 			playAudio(R.raw.choosethemonth, true);
 		} else if (v.getId() == R.id.prob_spray_tr) {

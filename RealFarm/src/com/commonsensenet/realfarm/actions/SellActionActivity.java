@@ -97,8 +97,8 @@ public class SellActionActivity extends DataFormActivity {
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_date_sell, R.id.date_sell_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok,
+						R.raw.day_cancel);
 			}
 		});
 
@@ -109,7 +109,7 @@ public class SellActionActivity extends DataFormActivity {
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, MONTH, "Select the month",
-						R.raw.bagof50kg, R.id.dlg_lbl_month_sell,
+						R.raw.choosethemonth, R.id.dlg_lbl_month_sell,
 						R.id.date_sell_tr, 0);
 			}
 		});
@@ -119,10 +119,10 @@ public class SellActionActivity extends DataFormActivity {
 				stopAudio();
 
 				displayDialogNP("Choose the number of bags", AMOUNT,
-						R.raw.dateinfo, 0, 200, 0, 1, 0,
+						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_sell, R.id.quant_sell_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.dateinfo, R.raw.dateinfo, R.raw.bag_ok,
+						R.raw.bag_cancel);
 			}
 		});
 
@@ -141,10 +141,10 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				displayDialogNP("Enter the price", PRICE, R.raw.dateinfo, 0,
+				displayDialogNP("Enter the price", PRICE, R.raw.enterpricedetails, 0,
 						9999, 3200, 50, 0, R.id.dlg_lbl_price_sell,
-						R.id.price_sell_tr, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo, R.raw.dateinfo);
+						R.id.price_sell_tr, R.raw.ok, R.raw.cancel,
+						R.raw.pricesaved, R.raw.pricenotsaved);
 			}
 		});
 
@@ -153,10 +153,10 @@ public class SellActionActivity extends DataFormActivity {
 				stopAudio();
 
 				displayDialogNP("Choose the number of bags", REMAINING,
-						R.raw.dateinfo, 0, 200, 0, 1, 0,
+						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_rem_sell, R.id.rem_quant_sell_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.bag_ok,
+						R.raw.bag_cancel);
 			}
 		});
 
@@ -207,7 +207,7 @@ public class SellActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
 			playAudio(R.raw.keygis, true);
 		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help, true);
+			playAudio(R.raw.sell_help, true);
 		} else {
 			return super.onLongClick(v);
 		}

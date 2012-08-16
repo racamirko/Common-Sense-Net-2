@@ -57,7 +57,7 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Indicates whether the demo data has been inserted or not. */
-	public static boolean IS_INITIALIZED = false;
+	public static boolean IS_INITIALIZED = true;
 
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
@@ -502,37 +502,37 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// long click sounds are always played, no matter the audio setting.
 		if (v.getId() == R.id.hmscrn_btn_market) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.ckpura_avgmarketprice, true);
 		} else if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.ckpura_avgyield, true);
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.advice_maincrop, true);
 		} else if (v.getId() == R.id.hmscrn_btn_weather) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.weather_today, true);
 		} else if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.new_video, true);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.fertilizing_lastweek, true);
 		} else if (v.getId() == R.id.btn_action_spray) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.spraying_lastweek, true);
 		} else if (v.getId() == R.id.btn_action_sell) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.selling_lastweek, true);
 		} else if (v.getId() == R.id.btn_action_report) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.report_lastweek, true);
 		} else if (v.getId() == R.id.btn_action_irrigate) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.irrigation_lastweek, true);
 		} else if (v.getId() == R.id.btn_action_harvest) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.harvest_lastweek, true);
 		} else if (v.getId() == R.id.btn_action_sow) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.sowing_lastweek, true);
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.latestfarm, true);
 		} else if (v.getId() == R.id.hmscrn_lay_btn_diary) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.your_diary, true);
 		} else if (v.getId() == R.id.hmscrn_lay_btn_plots) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.your_plot, true);
 		} else if (v.getId() == R.id.hmscrn_btn_sound) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.sound22, true);
 		} else {
 			return super.onLongClick(v);
 		}

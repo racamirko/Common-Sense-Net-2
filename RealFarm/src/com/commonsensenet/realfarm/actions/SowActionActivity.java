@@ -75,7 +75,7 @@ public class SowActionActivity extends DataFormActivity {
 
 				List<Resource> m_entries = mDataProvider.getVarieties();
 				displayDialog(v, m_entries, VARIETY, "Select the variety",
-						R.raw.problems, R.id.dlg_var_text_sow,
+						R.raw.select_the_variety, R.id.dlg_var_text_sow,
 						R.id.seed_type_sow_tr, 0);
 			}
 		});
@@ -87,8 +87,8 @@ public class SowActionActivity extends DataFormActivity {
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_sow, R.id.day_sow_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok,
+						R.raw.day_cancel);
 			}
 		});
 
@@ -99,7 +99,7 @@ public class SowActionActivity extends DataFormActivity {
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_TREATMENT);
 				displayDialog(v, data, TREATMENT,
-						"Select if the seeds were treated", R.raw.bagof50kg,
+						"Select if the seeds were treated", R.raw.treatmenttoseeds1,
 						R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
 
 			}
@@ -110,10 +110,10 @@ public class SowActionActivity extends DataFormActivity {
 				stopAudio();
 
 				displayDialogNP("Choose the number of serus", AMOUNT,
-						R.raw.dateinfo, 1, 999, 1, 1, 0,
+						R.raw.choose_serus, 1, 999, 1, 1, 0,
 						R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.serus_ok,
+						R.raw.serus_cancel);
 			}
 		});
 
@@ -124,7 +124,7 @@ public class SowActionActivity extends DataFormActivity {
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_INTERCROP);
 				displayDialog(v, data, INTERCROP, "Main crop or intercrop?",
-						R.raw.bagof50kg, R.id.dlg_lbl_intercrop_sow,
+						R.raw.maincrop_intercrop, R.id.dlg_lbl_intercrop_sow,
 						R.id.intercrop_sow_tr, 0);
 			}
 		});
@@ -136,7 +136,7 @@ public class SowActionActivity extends DataFormActivity {
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, MONTH, "Select the month",
-						R.raw.bagof50kg, R.id.dlg_lbl_month_sow,
+						R.raw.choosethemonth, R.id.dlg_lbl_month_sow,
 						R.id.day_sow_tr, 0);
 			}
 		});
@@ -157,14 +157,16 @@ public class SowActionActivity extends DataFormActivity {
 			playAudio(R.raw.selectthedate, true);
 		} else if (v.getId() == R.id.dlg_lbl_treat_sow) {
 			playAudio(R.raw.treatmenttoseeds1, true);
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help, true);
+		}else if (v.getId() == R.id.dlg_lbl_intercrop_sow) {
+			playAudio(R.raw.croptype, true);
+		} 	else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.data_sow_help, true);
 		} else if (v.getId() == R.id.seed_type_sow_tr) {
 			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.units_sow_tr) {
 			playAudio(R.raw.amount, true);
 		} else if (v.getId() == R.id.treatment_sow_tr) {
-			playAudio(R.raw.treatment, true);
+			playAudio(R.raw.treatmentdone, true);
 		} else if (v.getId() == R.id.intercrop_sow_tr) {
 			playAudio(R.raw.intercrop, true);
 		} else if (v.getId() == R.id.dlg_lbl_day_sow) {

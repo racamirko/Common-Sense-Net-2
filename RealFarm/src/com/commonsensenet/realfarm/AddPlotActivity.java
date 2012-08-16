@@ -130,6 +130,7 @@ public class AddPlotActivity extends DataFormActivity {
 		plotsize.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+
 				displayDialogNP("Enter the plot size in acres", SIZE,
 						R.raw.dateinfo, 0.0, 30.0, 2.0, 0.1, 1, R.id.size_txt,
 						R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo,

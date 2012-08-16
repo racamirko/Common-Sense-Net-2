@@ -63,7 +63,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD);
 				displayDialog(v, data, METHOD, "Select the irrigation method",
-						R.raw.problems, R.id.dlg_lbl_method_irr,
+						R.raw.selecttheirrigationmethod, R.id.dlg_lbl_method_irr,
 						R.id.method_irr_tr, 0);
 			}
 		});
@@ -73,10 +73,10 @@ public class IrrigateActionActivity extends DataFormActivity {
 				stopAudio();
 
 				displayDialogNP("Choose the irrigation duration", HOURS,
-						R.raw.dateinfo, 0, 24, 0, 1, 0,
+						R.raw.select_irr_duration, 0, 24, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_irr, R.id.units_irr_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.irr_dur_ok,
+						R.raw.irr_dur_cancel);
 			}
 		});
 
@@ -87,8 +87,8 @@ public class IrrigateActionActivity extends DataFormActivity {
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_irr, R.id.day_irr_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok,
+						R.raw.day_cancel);
 
 			}
 		});
@@ -100,7 +100,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 				displayDialog(v, data, MONTH, "Select the month",
-						R.raw.bagof50kg, R.id.dlg_lbl_month_irr,
+						R.raw.choosethemonth, R.id.dlg_lbl_month_irr,
 						R.id.day_irr_tr, 0);
 			}
 		});
@@ -119,7 +119,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_day_irr) {
 			playAudio(R.raw.selectthedate, true);
 		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help, true);
+			playAudio(R.raw.irr_help, true);
 		} else if (v.getId() == R.id.dlg_lbl_month_irr) {
 			playAudio(R.raw.choosethemonth, true);
 		} else if (v.getId() == R.id.method_irr_tr) {
