@@ -11,7 +11,7 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
-public class yielddetails extends HelpEnabledActivityOld {
+public class yielddetails extends HelpEnabledActivity {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;

@@ -3,65 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content" >
 
-    <RelativeLayout
+    <LinearLayout
+        android:orientation="horizontal"
         android:id="@+id/dialog_aggregate_header"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
-        android:background="@android:color/white"
-        android:padding="@dimen/margin" >
-
+        android:background="#CCCCCC" >
+	
         <RelativeLayout
-            android:id="@+id/button_dialog_aggregate_type"
-            android:layout_width="120dp"
+            android:id="@+id/top_user_info"
+            android:layout_width="235dp"
             android:layout_height="match_parent" >
-
-            <ImageView
-                android:id="@+id/icon_dialog_aggregate_crop"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"  />
-
-            <TextView
-                android:id="@+id/label_dialog_aggregate_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="5dp"
-                android:text="@string/placeholder_text"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/white" />
-
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/button_dialog_aggregate_detail"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="@dimen/margin"
-            android:layout_marginRight="@dimen/margin"
-            android:layout_toRightOf="@+id/button_dialog_aggregate_type" >
-
-            <ImageView
-                android:id="@+id/icon_dialog_aggregate_detail"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_centerVertical="true"
-                android:layout_margin="@dimen/margin" />
-
-            <TextView
-                android:id="@+id/label_dialog_aggregate_detail_count"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="50dp"
-                android:text="@string/placeholder_number"
-                android:textAppearance="?android:attr/textAppearanceLarge"
-                android:textColor="@android:color/black" />
-        </RelativeLayout>
-    </RelativeLayout>
+       
+        <ImageView
+            android:id="@+id/aggr_details_img_help"
+            android:layout_width="54dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="3dp"
+            android:background="@drawable/ic_54px_help" />
+    </LinearLayout>
 
     <View
         android:id="@+id/dialog_aggregate_header_divider"
@@ -74,6 +35,7 @@
         android:id="@+id/list_dialog_aggregate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="#FFFFFF"
         android:layout_below="@+id/dialog_aggregate_header_divider" >
     </ListView>
 

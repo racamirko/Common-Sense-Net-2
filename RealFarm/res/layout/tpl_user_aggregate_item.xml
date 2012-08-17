@@ -1,65 +1,99 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:layout_height="80dp"
     android:background="@drawable/square_btn"
-    android:padding="@dimen/margin" >
+    android:paddingTop="@dimen/margin"
+    android:paddingRight="@dimen/margin"
+    android:paddingLeft="@dimen/margin">
+    
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="80dp" >
+
+    <ImageView
+        android:id="@+id/icon_user_aggregate_call"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:background="@android:color/transparent"
+        android:src="@drawable/call" />
 
     <ImageView
         android:id="@+id/icon_user_aggregate_user_avatar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_marginRight="@dimen/margin"
-        android:scaleType="centerCrop"
-        android:src="@drawable/farmer_90px_adam_jones" />
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginRight="5dp"
+        android:layout_toLeftOf="@+id/icon_user_aggregate_call"
+        android:layout_alignTop="@+id/icon_user_aggregate_call"
+        android:scaleType="centerCrop"/>
 
     <TextView
         android:id="@+id/label_user_aggregate_user_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/icon_user_aggregate_user_avatar"
-        android:layout_marginRight="@dimen/margin"
-        android:layout_toRightOf="@+id/icon_user_aggregate_user_avatar"
-        android:text="@string/user_aggregate_label_user_name"
+        android:layout_alignParentBottom="true"
+        android:layout_alignBottom="@+id/icon_user_aggregate_call"
+        android:layout_alignParentRight="true"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="@android:color/black" />
-
-    <ImageView
-        android:id="@+id/icon_user_aggregate_call"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@android:color/transparent"
-        android:src="@drawable/call" />
 
     <TextView
         android:id="@+id/label_user_aggregate_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignLeft="@+id/label_user_aggregate_user_name"
-        android:layout_below="@+id/label_user_aggregate_user_name"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
         android:gravity="center_vertical"
-        android:text="@string/user_aggregate_label_date"
         android:textAppearance="?android:attr/textAppearanceSmall"
         android:textColor="#9D9D9D" />
 
-    <ImageView
-        android:id="@+id/icon_user_detail"
-        android:layout_width="wrap_content"
-        android:layout_height="match_parent"
-        android:layout_alignTop="@+id/icon_user_aggregate_call"
-        android:layout_marginRight="15dp"
-        android:layout_toLeftOf="@+id/icon_user_aggregate_call" />
-
-    <TextView
-        android:id="@+id/label_user_detail"
+    <LinearLayout
+        android:id="@+id/label_user_aggregate_differentiators"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBottom="@+id/icon_user_detail"
-        android:layout_toLeftOf="@+id/icon_user_detail"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#9D9D9D" />
+        android:layout_marginBottom="1dp"
+        android:layout_above="@+id/label_user_aggregate_date"
+        android:layout_alignLeft="@+id/label_user_aggregate_date"
+        android:layout_alignTop="@+id/icon_user_aggregate_user_avatar"
+        android:layout_toLeftOf="@+id/icon_user_aggregate_user_avatar"
+        android:orientation="horizontal"
+        android:gravity="center|left" >
+
+        <ImageView
+            android:id="@+id/label_user_aggregate_differentiator_left_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageView
+            android:id="@+id/label_user_aggregate_differentiator_center_image"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:id="@+id/label_user_aggregate_differentiator_left_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000000" />
+
+        <ImageView
+            android:id="@+id/label_user_aggregate_differentiator_right_image"
+            android:layout_width="wrap_content"
+            android:layout_height="35dp"
+            android:paddingLeft="2dp" />
+        
+        <TextView
+            android:id="@+id/label_user_aggregate_differentiator_right_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingLeft="2dp"    
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000000" />
+        
+    </LinearLayout>
 
 </RelativeLayout>
+</LinearLayout>

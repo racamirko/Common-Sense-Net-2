@@ -18,7 +18,9 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +28,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
@@ -75,7 +78,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.sowing_aggregate);
+		super.onCreate(savedInstanceState, R.layout.tpl_aggregate);
 
 		// gets the data provider
 		mDataProvider = RealFarmProvider.getInstance(this);
@@ -91,28 +94,20 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONTYPE);
 		}
 
-		// gets the action name object.
-		ActionType actionType = mDataProvider
-				.getActionTypeById(mActionActionTypeId);
-
-		setList(0);
+		// default seed/crop type id
+		// TODO: if user doesn't have a plot
+		Resource topSelectorData = ActionDataFactory.getTopSelectorData(mActionActionTypeId, mDataProvider, Global.userId);
+		setList(topSelectorData);
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
 		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
-		final View action = findViewById(R.id.aggr_action);
 		final View crop = findViewById(R.id.aggr_crop);
 		Button back = (Button) findViewById(R.id.button_back);
 
-		if (mActionActionTypeId == RealFarmDatabase.ACTION_TYPE_SOW_ID || mActionActionTypeId == RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID)
-			crop.setVisibility(View.INVISIBLE);
-
-		final ImageView actionTypeImage = (ImageView) findViewById(R.id.aggr_action_img);
-		actionTypeImage.setImageResource(actionType.getImage1());
 
 		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
-		action.setOnLongClickListener(this);
 		crop.setOnLongClickListener(this);
 
 		home.setOnClickListener(new View.OnClickListener() {
@@ -138,30 +133,20 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 			}
 		});
 
-		action.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				List<Resource> data = mDataProvider.getActionTypes();
-				displayDialog(v, data, "Select the action", R.raw.problems,
-						actionTypeImage, 1);
-			}
-		});
-
 		crop.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
-
-				List<Resource> data = mDataProvider.getSeedTypes();
-
-				displayDialog(v, data, "Select the variety", R.raw.problems,
-						img_1, 2);
+				List<Resource> data = ActionDataFactory.getTopSelectorList(mActionActionTypeId, mDataProvider);
+				displayDialog(v, data, "Select the variety", R.raw.problems,img_1, 2);
 			}
 		});
 		
 	}
 
-	public void setList(int seedTypeId) {
+	public void setList(Resource topSelectorData) {		
+		int seedTypeId = topSelectorData.getId();
+		
 		// gets the list of aggregate data.
 		mAggregateItems = ActionDataFactory.getAggregateData(
 				mActionActionTypeId, mDataProvider, seedTypeId);
@@ -182,6 +167,15 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		mAggregatesListView.setOnItemClickListener(this);
 		// sets the listener for the sound
 		mAggregatesListView.setOnItemLongClickListener(this);
+
+		// sets the top selector
+		ActionType actionType = mDataProvider.getActionTypeById(mActionActionTypeId);
+		final ImageView actionImg = (ImageView) findViewById(R.id.aggr_action);
+		actionImg.setImageResource(actionType.getImage1());
+		final ImageView selectorImg = (ImageView) findViewById(R.id.aggr_crop_img);
+		selectorImg.setBackgroundResource(topSelectorData.getBackgroundImage());
+		final TextView selectorText = (TextView) findViewById(R.id.textView1);
+		selectorText.setText(topSelectorData.getShortName());
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -210,28 +204,10 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				});
 
 		// sets the data of the header using the old view.
-		if(selectedItem.getCenterBackground() != -1) ((ImageView) layout.findViewById(R.id.icon_dialog_aggregate_crop)).setBackgroundResource(selectedItem.getCenterBackground());
-		else ((TextView) layout.findViewById(R.id.label_dialog_aggregate_type)).setTextColor(Color.BLACK);
-		((TextView) layout.findViewById(R.id.label_dialog_aggregate_type))
-				.setText(selectedItem.getCenterText());
-
-		// gets the detail container
-		if(selectedItem.getRightBackground() != -1) ((ImageView) layout.findViewById(R.id.icon_dialog_aggregate_detail)).setBackgroundResource(selectedItem.getRightBackground());
-		((TextView) layout.findViewById(R.id.label_dialog_aggregate_detail_count))
-				.setText(selectedItem.getRightText());
-
-	/*	if (detailCount != null && detailCount.getVisibility() == View.VISIBLE) {
-			// gets the TextView that contains the value.
-			detailCount = selectedItemView.getRow().findViewById(
-					R.id.label_aggregate_detail_count);
-			((TextView) layout
-					.findViewById(R.id.label_dialog_aggregate_detail_count))
-					.setText(((TextView) detailCount).getText());
-		} else { // hides the element.
-			layout.findViewById(R.id.button_dialog_aggregate_detail)
-					.setVisibility(View.INVISIBLE);
-
-		}*/
+		RelativeLayout rl = (RelativeLayout)layout.findViewById(R.id.top_user_info);
+		View tmpView = mLayoutInflater.inflate(R.layout.tpl_aggregate_item, null);
+		selectedItemView.copyView(selectedItem, tmpView);
+		rl.addView(tmpView);
 
 		// gets the data and data adapter.
 		final List<UserAggregateItem> list = ActionDataFactory.getUserAggregateData(
@@ -259,6 +235,24 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 		// displays the dialog.
 		dialog.show();
 		playAudio(R.raw.problems, true);
+		
+		ImageView helpDetail = (ImageView)layout.findViewById(R.id.aggr_details_img_help);
+		LinearLayout dialogAggregateHeader = (LinearLayout)layout.findViewById(R.id.dialog_aggregate_header);
+		
+		helpDetail.setOnLongClickListener(new View.OnLongClickListener() {
+			public boolean onLongClick(View v) {
+				playAudio(R.raw.a10, true);
+				return false;
+			}
+		});
+		
+		dialogAggregateHeader.setOnLongClickListener(new View.OnLongClickListener() {
+			public boolean onLongClick(View v) {
+				// TODO; say something according to the layout's contents. This is the top header of the dialog to call people in the aggregates
+				playAudio(R.raw.problems, true);
+				return false;
+			}
+		});
 		
 		userListView.setOnItemClickListener(new OnItemClickListener() {
 
@@ -311,8 +305,6 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.problems, true);
-		} else if (v.getId() == R.id.aggr_action) {
-			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.aggr_crop) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.aggr_img_help) {
@@ -351,13 +343,13 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 
 				// TODO: this won't work.
 				if (type == 2) { // change the query
-					setList(data.get(position).getId());
+					setList(data.get(position));
 				} else if (type == 1) { // change the action
 					mActionActionTypeId = data.get(position).getId();
 				}
 
 				actionTypeImage
-						.setImageResource(data.get(position).getImage1());
+						.setBackgroundResource(data.get(position).getBackgroundImage());
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,

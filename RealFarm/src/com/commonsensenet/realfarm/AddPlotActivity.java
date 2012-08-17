@@ -41,10 +41,10 @@ public class AddPlotActivity extends DataFormActivity {
 				"add plot to database");
 
 		// shows the name of the added plot.
-		Toast.makeText(
+		/*Toast.makeText(
 				getBaseContext(),
 				"Plot Details is put to Database " + mPlotImage + " "
-						+ mSoilType, Toast.LENGTH_SHORT).show();
+						+ mSoilType, Toast.LENGTH_SHORT).show();*/
 	}
 
 	public void onCreate(Bundle savedInstanceState) {

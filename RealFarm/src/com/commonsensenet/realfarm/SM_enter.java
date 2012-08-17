@@ -11,7 +11,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
 
-public class SM_enter extends HelpEnabledActivityOld {
+public class SM_enter extends HelpEnabledActivity {
 
 	public void onBackPressed() {
 
@@ -85,7 +85,7 @@ public class SM_enter extends HelpEnabledActivityOld {
 					SM_enter.this.finish();
 
 				} else {
-					initmissingval();
+					playAudio(R.raw.missinginfo);
 				}
 			}
 		});

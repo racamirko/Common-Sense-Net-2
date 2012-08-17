@@ -9,29 +9,24 @@ import java.util.Hashtable;
 public class AggregateItem {
 
 	private int mActionTypeId;
-	private int selectorId;
+	private long selector1 = -1;
+	private long selector2 = -1;
 	private Hashtable<String, String> mAggregateValues;
-	private int mUserCount = 0;
-	private String rightText = "";
-	private int rightBackground = -1;
-	private String centerText = "";
+	
+	private int leftBackground = -1;
 	private int centerBackground = -1;
-	private int userImage = -1;
+	private int rightBackground = -1;
+	private String leftText = "";
+	private String centerText = "";
+	private String rightText = "";
+	private String newsText = "";
+	private int leftImage = -1;
+	private int centerImage = -1;
+	private int leftBottomImage = -1;
 	
 
 	public AggregateItem(int actionTypeId) {
-		mUserCount = 0;
 		mActionTypeId = actionTypeId;
-
-		// initializes the data structure
-		mAggregateValues = new Hashtable<String, String>();
-
-	}
-	
-	public AggregateItem(int actionTypeId, int userCount) {
-		mUserCount = userCount;
-		mActionTypeId = actionTypeId;
-
 		// initializes the data structure
 		mAggregateValues = new Hashtable<String, String>();
 
@@ -44,21 +39,12 @@ public class AggregateItem {
 	public int getActionTypeId() {
 		return mActionTypeId;
 	}
-
-	public int getUserCount() {
-		return mUserCount;
-	}
-
 	public String getValue(String key) {
 		return mAggregateValues.get(key);
 	}
 
 	public void setActionTypeId(int value) {
 		mActionTypeId = value;
-	}
-
-	public void setUserCount(int value) {
-		mUserCount = value;
 	}
 	
 	public void setRightText(String text){
@@ -77,12 +63,12 @@ public class AggregateItem {
 		return rightBackground;
 	}
 	
-	public void setCenterText(String text){
-		centerText = text;
+	public void setLeftBackground(int res){
+		leftBackground = res;
 	}
 	
-	public String getCenterText(){
-		return centerText;
+	public int getLeftBackground(){
+		return leftBackground;
 	}
 	
 	public void setCenterBackground(int res){
@@ -93,20 +79,67 @@ public class AggregateItem {
 		return centerBackground;
 	}
 	
-	public void setSelectorId(int id){
-		selectorId = id;
+	public void setCenterText(String text){
+		centerText = text;
 	}
 	
-	public int getSelectorId(){
-		return selectorId;
+	public String getCenterText(){
+		return centerText;
 	}
 	
-	public void setUserImage(int img){
-		userImage = img;
+	public void setLeftText(String text){
+		leftText = text;
 	}
 	
-	public int getUserImage(){
-		return userImage;
+	public String getLeftText(){
+		return leftText;
 	}
+	
+	public void setNewsText(String text){
+		newsText = text;
+	}
+	
+	public String getNewsText(){
+		return newsText;
+	}
+	
+	public void setLeftImage(int img){
+		leftImage = img;
+	}
+	
+	public int getLeftImage(){
+		return leftImage;
+	}	
+	
+	public void setCenterImage(int img){
+		centerImage = img;
+	}
+	
+	public int getCenterImage(){
+		return centerImage;
+	}	
+	
+	public void setLeftBottomImage(int img){
+		leftBottomImage = img;
+	}
+	
+	public int getLeftBottomImage(){
+		return leftBottomImage;
+	}	
 
+	public void setSelector1(long sel1) {
+		selector1 = sel1;
+	}
+	
+	public long getSelector1() {
+		return selector1;
+	}	
+	
+	public void setSelector2(long sel2) {
+		selector2 = sel2;
+	}	
+	
+	public long getSelector2() {
+		return selector2;
+	}	
 }

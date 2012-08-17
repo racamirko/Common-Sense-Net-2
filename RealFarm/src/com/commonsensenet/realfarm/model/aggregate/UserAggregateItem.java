@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm.model.aggregate;
 
+import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.model.User;
 
 /**
@@ -7,52 +8,91 @@ import com.commonsensenet.realfarm.model.User;
  * @author Oscar Bola–os <@oscarbolanos>
  */
 public class UserAggregateItem {
+	
+	String name = "";
+	String date = "";
+	String tel = "";
+	String leftText = "";
+	String rightText = "";
+	int leftImage = -1;
+	int centerImage = -1;
+	int rightImage = -1;
+	String avatarPath = "";
 
-	private String mDate;
-	private String mName;
-	private String mTelNumber;
-	private String mAvatarImg;
-	private String mRightText;
-	private int mRightImg;
 
-	//private User mUser;
-
-	public UserAggregateItem(String name, String date, String telNumber, String avatarImg, String rightText, int rightImg) {
-	//	mUser = user;
-		mDate = date;
-		mName = name;
-		mTelNumber = telNumber;
-		mAvatarImg = avatarImg;
-		mRightImg = rightImg;
-		mRightText = rightText;
+	public UserAggregateItem() {
+		
 	}
 
-	public String getDate() {
-		return mDate;
+	public void setName(String name) {
+		this.name = name;
 	}
-
+	
 	public String getName() {
-		return mName;
+		return name;
 	}
 
+	public void setDate(String date) {
+		this.date = date;
+	}
+	
+	public String getDate() {
+		return date;
+	}
+	
+	public void setTel(String tel) {
+		this.tel = tel;
+	}
+	
 	public String getTel() {
-		return mTelNumber;
+		return tel;
+	}
+
+	public void setAvatar(String avatarPath) {
+		this.avatarPath = avatarPath;
 	}
 	
 	public String getAvatar() {
-		return mAvatarImg;
+		return avatarPath;
 	}
-	
-	public String getRightText() {
-		return mRightText;
-	}
-	
-	public int getRightImg() {
-		return mRightImg;
-	}
-	
-/*	public User getUser() {
-		return mUser;
-	}*/
 
+	public void setCenterImage(int img) {
+		centerImage = img;
+	}
+	
+	public int getCenterImage() {
+		return centerImage;
+	}
+	
+	public void setLeftImage(int img) {
+		leftImage = img;
+	}
+	
+	public int getLeftImage() {
+		return leftImage;
+	}
+	
+	public void setRightImage(int img) {
+		rightImage = img;
+	}
+	
+	public int getRightImage() {
+		return rightImage;
+	}
+	
+	public void setLeftText(String txt) {
+		leftText = txt;
+	}
+	
+	public String getLeftText() {
+		return leftText;
+	}
+	
+	public void setRightText(String txt) {
+		rightText = txt;
+	}
+
+	public String getRightText() {
+		return rightText;
+	}
 }

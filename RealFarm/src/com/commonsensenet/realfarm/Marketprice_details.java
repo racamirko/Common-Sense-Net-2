@@ -11,7 +11,7 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
-public class Marketprice_details extends HelpEnabledActivityOld {
+public class Marketprice_details extends HelpEnabledActivity {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;

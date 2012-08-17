@@ -242,7 +242,9 @@ public class SowActionActivity extends DataFormActivity {
 					Global.plotId, mAmount, mSeedType, mTreatment, mIntercrop,
 					getDate(mDay, mMonth), 0);
 
-
+System.out.println(Global.userId+" "+
+		Global.plotId+" "+ mAmount+" "+ mSeedType+" "+ mTreatment+" "+ mIntercrop+" "+
+		getDate(mDay, mMonth)+" "+ 0);
 			// returns true if no error was produced.
 			return result != -1;
 		}

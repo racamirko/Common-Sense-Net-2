@@ -34,12 +34,9 @@ import com.commonsensenet.realfarm.actions.SowActionActivity;
 import com.commonsensenet.realfarm.actions.SellActionActivity;
 import com.commonsensenet.realfarm.actions.SprayActionActivity;
 import com.commonsensenet.realfarm.admin.LoginActivity;
-import com.commonsensenet.realfarm.aggregates.fertilize_aggregate;
-import com.commonsensenet.realfarm.aggregates.harvest_aggregate;
-import com.commonsensenet.realfarm.aggregates.problem_aggregate;
-import com.commonsensenet.realfarm.aggregates.selling_aggregate;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
@@ -231,12 +228,20 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			intent = new Intent(this, Global.selectedAction);
 		} else {
 
-			// gets the total number of plots owned by the user.
-			int plotCount = mDataProvider.getPlotsByUserIdAndEnabledFlag(
-					Global.userId, 1).size();
-
+			List<Plot> plotList;
+			// harvest and report require the plot to have been sown
+			if(Global.selectedAction == HarvestActionActivity.class || Global.selectedAction == ReportActionActivity.class){
+				plotList = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
+					Global.userId, 1);
+			} else {
+				plotList = mDataProvider.getPlotsByUserIdAndEnabledFlag(
+						Global.userId, 1);
+			}
+			int plotCount = plotList.size();
+			
 			// selects the next activity based on the amount of plots.
 			if (plotCount == 1) {
+				Global.plotId = plotList.get(0).getId();
 				intent = new Intent(this, Global.selectedAction);
 			} else if (plotCount == 0) {
 				intent = new Intent(this, PlotListActivity.class);
@@ -294,8 +299,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
 		} else if (v.getId() == R.id.btn_action_sell) {
-			intent = new Intent(this, selling_aggregate.class);
-			intent.putExtra("type", "yield");
+			//intent = new Intent(this, selling_aggregate.class);
+			//intent.putExtra("type", "yield");
 		} else if (v.getId() == R.id.btn_action_report) {
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
@@ -305,8 +310,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID);
 		} else if (v.getId() == R.id.btn_action_harvest) {
-			intent = new Intent(this, harvest_aggregate.class);
-			intent.putExtra("type", "yield");
+			intent = new Intent(this, ActionAggregateActivity.class);
+			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+					RealFarmDatabase.ACTION_TYPE_HARVEST_ID);
 		} else if (v.getId() == R.id.btn_action_sow) {
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,

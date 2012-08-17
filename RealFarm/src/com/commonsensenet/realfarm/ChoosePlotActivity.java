@@ -47,11 +47,13 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// gets the users from the database.
-		List<Plot> plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
-				Global.userId, 1);
+		List<Plot> plots;
 		if(Global.selectedAction == HarvestActionActivity.class || Global.selectedAction == ReportActionActivity.class){
 			plots = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
 				Global.userId, 1);
+		} else {
+			plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
+					Global.userId, 1);
 		}
 
 		if(plots == null || plots.size() == 0) 	playAudio(R.raw.problems, true);

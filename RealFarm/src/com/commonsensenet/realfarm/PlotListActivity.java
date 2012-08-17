@@ -12,6 +12,8 @@ import android.widget.ListView;
 
 import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
+import com.commonsensenet.realfarm.actions.HarvestActionActivity;
+import com.commonsensenet.realfarm.actions.ReportActionActivity;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.PlotItemAdapter;
@@ -64,8 +66,15 @@ public class PlotListActivity extends HelpEnabledActivity implements
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// gets the users from the database.
-		List<Plot> plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
+		List<Plot> plots;
+		// harvest and report require the plot to have been sown
+		if(Global.selectedAction == HarvestActionActivity.class || Global.selectedAction == ReportActionActivity.class){
+			plots = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
 				Global.userId, 1);
+		} else {
+			plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
+					Global.userId, 1);
+		}
 
 		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 

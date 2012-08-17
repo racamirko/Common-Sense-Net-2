@@ -88,9 +88,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				// the resize
 				putBackgrounds(choice, var_text, imageType);
 
-				Toast.makeText(mParentReference,
+				/*Toast.makeText(mParentReference,
 						mResultsMap.get(propertyKey).toString(),
-						Toast.LENGTH_SHORT).show();
+						Toast.LENGTH_SHORT).show();*/
 
 				// plays the name of the chosen option.
 				int iden = choice.getAudio();
@@ -153,8 +153,8 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				tw_sow.setText(result);
 				feedbackRow
 						.setBackgroundResource(android.R.drawable.list_selector_background);
-				Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
-						.show();
+				/*Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
+						.show();*/
 				dialog.cancel();
 				playAudio(okAudio);
 			}
