@@ -98,6 +98,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
+        
+              
+        
 
         <!-- First Block -->
 
@@ -107,47 +110,82 @@
             android:layout_marginBottom="@dimen/margin"
             android:background="#f5eb5f"
             android:orientation="vertical" >
-
             <!-- first row -->
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin" >
 
                 <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:id="@+id/img_aggregates"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/ic_48px_news" />
 
                 <ImageButton
                     android:id="@+id/btn_action_sow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/img_aggregates"
                     android:background="@drawable/circular_btn"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/sowingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_fertilize"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/btn_action_sow"
                     android:background="@drawable/circular_btn"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/fertilizingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_irrigate"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/btn_action_fertilize"
+                    android:background="@drawable/circular_btn"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/irrigationsection" />
+
+                <TextView
+                    android:id="@+id/news_sow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/circular_btn"
-                    android:src="@drawable/irrigationsection" />
-            </LinearLayout>
+                    android:layout_marginRight="15dp"
+                    android:layout_alignRight="@+id/btn_action_sow"
+                    android:layout_alignTop="@+id/btn_action_sow"
+                    android:background="#CCCCCC"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:id="@+id/news_fertilize"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignRight="@+id/btn_action_fertilize"
+                    android:layout_alignTop="@+id/btn_action_fertilize"
+                    android:background="#CCCCCC"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:id="@+id/news_irrigate"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignRight="@+id/btn_action_irrigate"
+                    android:layout_alignTop="@+id/btn_action_irrigate"
+                    android:background="#CCCCCC"
+                    android:textColor="#000000" />
+
+            </RelativeLayout>
+            
             <!-- second row -->
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dip"
                 android:layout_weight="1"
@@ -155,36 +193,80 @@
 
                 <ImageButton
                     android:id="@+id/btn_action_report"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
                     android:background="@drawable/circular_btn"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/problemsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_spray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/btn_action_report"
                     android:background="@drawable/circular_btn"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/sprayingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_harvest"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/btn_action_spray"
                     android:background="@drawable/circular_btn"
+                    android:layout_centerVertical="true"
                     android:src="@drawable/harvestingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_sell"
+                    android:layout_width="75dp"
+                    android:layout_height="50dp"
+                    android:layout_toRightOf="@+id/btn_action_harvest"
+                    android:background="@drawable/circular_btn"
+                    android:layout_centerVertical="true"
+                    android:src="@drawable/sellingsection" />
+                
+                <TextView
+                    android:id="@+id/news_problem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:background="@drawable/circular_btn"
-                    android:src="@drawable/sellingsection" />
-            </LinearLayout>
+                    android:layout_marginRight="15dp"
+                    android:layout_alignRight="@+id/btn_action_report"
+                    android:layout_alignTop="@+id/btn_action_report"
+                    android:background="#CCCCCC"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:id="@+id/news_spray"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignRight="@+id/btn_action_spray"
+                    android:layout_alignTop="@+id/btn_action_spray"
+                    android:background="#CCCCCC"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:id="@+id/news_harvest"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_alignRight="@+id/btn_action_harvest"
+                    android:layout_alignTop="@+id/btn_action_harvest"
+                    android:background="#CCCCCC"
+                    android:textColor="#000000" />
+                
+                <TextView
+                    android:id="@+id/news_sell"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="5dp"
+                    android:layout_alignRight="@+id/btn_action_sell"
+                    android:layout_alignTop="@+id/btn_action_sell"
+                    android:background="#CCCCCC"
+                    android:textColor="#000000" />
+                
+            </RelativeLayout>
         </LinearLayout>
 
         <!-- Second Block -->

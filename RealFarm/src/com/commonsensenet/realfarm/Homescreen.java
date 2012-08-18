@@ -299,8 +299,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
 		} else if (v.getId() == R.id.btn_action_sell) {
-			//intent = new Intent(this, selling_aggregate.class);
-			//intent.putExtra("type", "yield");
+			intent = new Intent(this, ActionAggregateActivity.class);
+			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
+					RealFarmDatabase.ACTION_TYPE_SELL_ID);
 		} else if (v.getId() == R.id.btn_action_report) {
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
@@ -490,11 +491,31 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// clears the database
 		// initDb();
 		insertDemoData();
-
+		
+		// updates the news indicators for the aggregates
+		updateAggregatesNumbers();
+		
 		// adds the widgets
 		updateWidgets();
 		// adds the listeners
 		initActionListener();
+	}
+
+	private void updateAggregatesNumbers() {
+		TextView tw = (TextView)findViewById(R.id.news_sow);
+		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SOW_ID));
+		tw = (TextView)findViewById(R.id.news_fertilize);
+		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID));
+		tw = (TextView)findViewById(R.id.news_irrigate);
+		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID));
+		tw = (TextView)findViewById(R.id.news_problem);
+		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_REPORT_ID));
+		tw = (TextView)findViewById(R.id.news_spray);
+		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SPRAY_ID));
+		tw = (TextView)findViewById(R.id.news_harvest);
+		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_HARVEST_ID));
+		tw = (TextView)findViewById(R.id.news_sell);
+		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {

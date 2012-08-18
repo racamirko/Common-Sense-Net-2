@@ -6,11 +6,12 @@
 
     <RelativeLayout
         android:id="@+id/relative_layout_left"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_marginTop="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
         android:layout_marginLeft="@dimen/margin"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="#CFFFFF" >
         
         <TextView
             android:id="@+id/label_left"
@@ -19,23 +20,23 @@
             android:layout_marginLeft="2dp"
             android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ImageView
             android:id="@+id/image_left"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_center"
-        android:layout_width="100dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
-        android:layout_marginLeft="20dp"
+        android:layout_marginLeft="10dp"
         android:layout_toRightOf="@+id/relative_layout_left"  >
 
         <TextView
@@ -45,19 +46,19 @@
             android:layout_marginLeft="2dp"
             android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
-            android:textAppearance="?android:attr/textAppearanceMedium" />
+            android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ImageView
             android:id="@+id/image_center"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
+            android:layout_width="35dp"
+            android:layout_height="35dp"
             android:layout_alignParentTop="true" />
 
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_right"
-        android:layout_width="80dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
         android:layout_marginTop="@dimen/margin"
         android:layout_marginBottom="@dimen/margin"
@@ -71,7 +72,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
 
     </RelativeLayout>
@@ -91,18 +92,15 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="90dp"
+        android:layout_marginLeft="70dp"
         android:padding="1dp"
-        android:layout_toRightOf="@+id/news"
         android:orientation="vertical" >
 
         <TextView
             android:id="@+id/label_news"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFCC"
-            android:padding="2dp"
-            android:text="12"
+            android:background="#CCCCCC"
             android:textColor="#000000" />
 
         <ImageView

@@ -9,8 +9,10 @@ import java.util.Hashtable;
 public class AggregateItem {
 
 	private int mActionTypeId;
+	// selectors in a list?
 	private long selector1 = -1;
 	private long selector2 = -1;
+	private long selector3 = -1;
 	private Hashtable<String, String> mAggregateValues;
 	
 	private int leftBackground = -1;
@@ -142,4 +144,12 @@ public class AggregateItem {
 	public long getSelector2() {
 		return selector2;
 	}	
+	
+	public void setSelector3(long sel3) {
+		selector3 = sel3;
+	}	
+	
+	public long getSelector3() {
+		return selector3;
+	}
 }

@@ -15,7 +15,7 @@ import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.view.AggregateItemWrapper;
-import com.commonsensenet.realfarm.view.SowAggregateItemWrapper;
+import com.commonsensenet.realfarm.view.GeneralAggregateItemWrapper;
 
 /**
  * 
@@ -62,8 +62,10 @@ public final class ActionDataFactory {
 				return dataProvider.getAggregateItemsReport(actionTypeId, seedTypeId);
 			case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
 				return dataProvider.getAggregateItemsHarvest(actionTypeId, seedTypeId);
+			case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
+				return dataProvider.getAggregateItemsSpray(actionTypeId, seedTypeId);
 			case RealFarmDatabase.ACTION_TYPE_SELL_ID:
-				return dataProvider.getAggregateItems(actionTypeId, -1);
+				return dataProvider.getAggregateItemsSell(actionTypeId, seedTypeId); // here, seedTypeId is cropTypeId
 
 			default:
 				return null;
@@ -75,20 +77,20 @@ public final class ActionDataFactory {
 		switch (aggregateItem.getActionTypeId()) {
 		case RealFarmDatabase.ACTION_TYPE_SOW_ID:			
 			return dataProvider.getUserAggregateItemSow(aggregateItem.getActionTypeId(), aggregateItem.getSelector1(), aggregateItem.getSelector2());
-			//return dataProvider.getUserAggregateItem(aggregateItem.getActionTypeId(), aggregateItem.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID));
 		case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:	
 			return dataProvider.getUserAggregateItemFertilize(aggregateItem.getActionTypeId(), aggregateItem.getSelector1(), aggregateItem.getSelector2());
-			//return dataProvider.getUserAggregateItem(aggregateItem.getActionTypeId(), aggregateItem.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID));
 		case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
 			return dataProvider.getUserAggregateItemIrrigate(aggregateItem.getActionTypeId(), aggregateItem.getSelector1(), aggregateItem.getSelector2());
-			// return dataProvider.getUserAggregateItem(aggregateItem.getActionTypeId(), aggregateItem.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
 		case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
 			return dataProvider.getUserAggregateItemReport(aggregateItem.getActionTypeId(), aggregateItem.getSelector1(), aggregateItem.getSelector2());
 			//return dataProvider.getUserAggregateItem(aggregateItem.getActionTypeId(), aggregateItem.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
 			// TODO: Resource1ID has a satisfaction type, is this what we want?
 		case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
 			return dataProvider.getUserAggregateItemHarvest(aggregateItem.getActionTypeId(), aggregateItem.getSelector1());
-			//return dataProvider.getUserAggregateItem(aggregateItem.getActionTypeId(), aggregateItem.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
+		case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
+			return dataProvider.getUserAggregateItemSpray(aggregateItem.getActionTypeId(), aggregateItem.getSelector1(), aggregateItem.getSelector2(), aggregateItem.getSelector3());
+		case RealFarmDatabase.ACTION_TYPE_SELL_ID:
+			return dataProvider.getUserAggregateItemSell(aggregateItem.getActionTypeId(), aggregateItem.getSelector1(), aggregateItem.getSelector2());
 		default:
 			return null;
 		}
@@ -128,7 +130,7 @@ public final class ActionDataFactory {
 			return new SowAggregateItemWrapper(row);
 			//return new IrrigateAggregateItemWrapper(row);*/
 		default:
-			return new SowAggregateItemWrapper(row);
+			return new GeneralAggregateItemWrapper(row);
 		}
 	}
 

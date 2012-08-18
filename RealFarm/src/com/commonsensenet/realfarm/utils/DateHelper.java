@@ -2,6 +2,7 @@ package com.commonsensenet.realfarm.utils;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import android.content.Context;
@@ -87,5 +88,20 @@ public class DateHelper {
 		} catch (ParseException e) {
 			return date;
 		}
+	}
+	
+	public static String getDateNow() {
+		Calendar currentDate = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		formatter.setLenient(true);
+		return formatter.format(currentDate.getTime())+" 00:00:00";
+	}
+	
+	public static String getDatePast(int offsetDays) {
+		Calendar currentDate = Calendar.getInstance();
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		formatter.setLenient(true);
+		currentDate.add(Calendar.DATE, -14);
+		return formatter.format(currentDate.getTime())+" 00:00:00";
 	}
 }

@@ -53,7 +53,7 @@ public abstract class AggregateItemWrapper {
 	public RelativeLayout getRelativeLayoutRight() {
 		if (relativeLayoutRight == null) {
 			relativeLayoutRight = (RelativeLayout) mRow
-					.findViewById(R.id.relative_layout_center);
+					.findViewById(R.id.relative_layout_right);
 		}
 		return (relativeLayoutRight);
 	}
@@ -134,6 +134,7 @@ public abstract class AggregateItemWrapper {
 		
 		TextView tw = (TextView)destination.findViewById(R.id.label_news);
 		tw.setText(aggregate.getNewsText());
+		tw.setBackgroundColor(Color.parseColor("#FFFFCC"));		
 		
 		tw = (TextView)destination.findViewById(R.id.label_left);
 		tw.setText(aggregate.getLeftText());
@@ -141,18 +142,29 @@ public abstract class AggregateItemWrapper {
 		RelativeLayout rl = (RelativeLayout)destination.findViewById(R.id.relative_layout_left);
 		if(aggregate.getLeftBackground() != -1) rl.setBackgroundResource(aggregate.getLeftBackground());
 		else tw.setTextColor(Color.BLACK);
-		
-		rl = (RelativeLayout)destination.findViewById(R.id.relative_layout_center);
-		if(aggregate.getCenterBackground() != -1) rl.setBackgroundResource(aggregate.getCenterBackground());
-		
+
 		tw = (TextView)destination.findViewById(R.id.label_center);
 		tw.setText(aggregate.getCenterText());
 		
+		rl = (RelativeLayout)destination.findViewById(R.id.relative_layout_center);
+		if(aggregate.getCenterBackground() != -1) rl.setBackgroundResource(aggregate.getCenterBackground());
+		else {
+			tw.setTextColor(Color.BLACK);
+			// hack
+			rl.getLayoutParams().width = 200;
+			tw.setTextSize(20);
+		}
+		
 		ImageView iw = (ImageView)destination.findViewById(R.id.image_center);
 		if(aggregate.getCenterImage() != -1) iw.setImageResource(aggregate.getCenterImage());
-		else tw.setTextColor(Color.BLACK);
 
+		tw = (TextView)destination.findViewById(R.id.label_right);
+		tw.setText(aggregate.getRightText());
+		
 		iw = (ImageView)destination.findViewById(R.id.image_left);
 		if(aggregate.getLeftImage() != -1) iw.setImageResource(aggregate.getLeftImage());
+		
+		iw = (ImageView)destination.findViewById(R.id.image_left_bottom);
+		if(aggregate.getLeftBottomImage() != -1) iw.setImageResource(aggregate.getLeftBottomImage());
 	}
 }
