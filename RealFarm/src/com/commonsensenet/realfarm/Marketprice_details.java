@@ -1,20 +1,57 @@
 package com.commonsensenet.realfarm;
 
+import java.util.List;
+
+import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.view.Window;
+import android.view.View.OnLongClickListener;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.ActionType;
+import com.commonsensenet.realfarm.model.MarketItem;
+import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
+import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
+import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.view.AggregateItemAdapter;
+import com.commonsensenet.realfarm.view.AggregateItemWrapper;
+import com.commonsensenet.realfarm.view.DialogAdapter;
+import com.commonsensenet.realfarm.view.MarketItemAdapter;
+import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
-public class Marketprice_details extends HelpEnabledActivity {
+public class Marketprice_details extends HelpEnabledActivityOld implements
+OnItemClickListener, OnLongClickListener, OnItemLongClickListener {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;
+	private int mActionActionTypeId = RealFarmDatabase.ACTION_TYPE_SELL_ID;
+	private final Marketprice_details mParentReference = this;
+	private List<MarketItem> mMarketItems;
+	private ListView mMarketListView;
+	private MarketItemAdapter mMarketItemAdapter;
+	// TODO: set second selector
+	private int daySpan = 14;
 
 	public void onBackPressed() {
 
@@ -36,18 +73,60 @@ public class Marketprice_details extends HelpEnabledActivity {
 		super.onCreate(savedInstanceState);
 		mDataProvider = RealFarmProvider.getInstance(context);
 		setContentView(R.layout.marketdetails);
+		
+		TextView tw = (TextView)findViewById(R.id.max_price);
+		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 
+
+		// default seed/crop type id
+		// TODO: if user doesn't have a plot
+		Resource topSelectorData = ActionDataFactory.getTopSelectorData(mActionActionTypeId, mDataProvider, Global.userId);
+		setList(topSelectorData);
+
+		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
+		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
+		final View crop = findViewById(R.id.aggr_crop);
+		final View marketInfo = findViewById(R.id.market_info);
+		final View daysSelector = findViewById(R.id.days_selector);
 		Button back = (Button) findViewById(R.id.button_back);
+
+		daysSelector.setOnLongClickListener(this);
+		marketInfo.setOnLongClickListener(this);
+		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
+		help.setOnLongClickListener(this);
+		crop.setOnLongClickListener(this);
+		
+		home.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				startActivity(new Intent(Marketprice_details.this,
+						Homescreen.class));
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						getLogTag(), "home");
+			}
+		});
 
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				cancelaudio();
+				cancelAudio();
 
+				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						"Marketprice_details", "back");
-			}
+						getLogTag(), "back");
 
+			}
+		});
+
+		crop.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
+				List<Resource> data = ActionDataFactory.getTopSelectorList(mActionActionTypeId, mDataProvider);
+				displayDialog(v, data, "Select the variety", R.raw.problems,img_1, 2);
+			}
 		});
 
 		/*
@@ -261,14 +340,140 @@ public class Marketprice_details extends HelpEnabledActivity {
 		 * } } }
 		 */
 	}
-
-	protected void cancelaudio() {
+	
+	protected void cancelAudio() {
 
 		Intent adminintent = new Intent(Marketprice_details.this,
 				Homescreen.class);
 
 		startActivity(adminintent);
 		Marketprice_details.this.finish();
+	}
+
+	public void setList(Resource topSelectorData) {		
+		int cropTypeId = topSelectorData.getId();
+		
+		// gets the list of aggregate data.
+		mMarketItems = mDataProvider.getMarketData(cropTypeId, daySpan);
+
+		if(mMarketItems == null || mMarketItems.size() < 1) playAudio(R.raw.problems, true);
+
+		// creates the data adapter.
+		mMarketItemAdapter = new MarketItemAdapter(this, mMarketItems, mDataProvider);
+
+		// gets the list from the UI.
+		mMarketListView = (ListView) findViewById(R.id.list_market_prices);
+		// enables the focus on the items.
+		mMarketListView.setItemsCanFocus(false);
+		// sets the custom adapter.
+		mMarketListView.setAdapter(mMarketItemAdapter);
+		// sets the listener
+		mMarketListView.setOnItemClickListener(this);
+		// sets the listener for the sound
+		mMarketListView.setOnItemLongClickListener(this);
+
+		// sets the top selector
+		ActionType actionType = mDataProvider.getActionTypeById(mActionActionTypeId);
+		final ImageView actionImg = (ImageView) findViewById(R.id.aggr_action);
+		actionImg.setImageResource(actionType.getImage1());
+		final ImageView selectorImg = (ImageView) findViewById(R.id.aggr_crop_img);
+		selectorImg.setBackgroundResource(topSelectorData.getBackgroundImage());
+		final TextView selectorText = (TextView) findViewById(R.id.textView1);
+		selectorText.setText(topSelectorData.getShortName());
+	}
+
+	
+	
+	// TODO: put audio
+		public boolean onLongClick(View v) {
+
+			if (v.getId() == R.id.market_info) {
+				playAudio(R.raw.problems, true);
+			} else if(v.getId() == R.id.days_selector) {
+				playAudio(R.raw.problems, true);
+			}
+			return true;
+		}
+	
+	private void displayDialog(View v, final List<Resource> data,
+			final String title, int entryAudio,
+			final ImageView actionTypeImage, final int type) {
+		final Dialog dialog = new Dialog(v.getContext());
+		dialog.setContentView(R.layout.mc_dialog);
+		dialog.setTitle(title);
+		dialog.setCancelable(true);
+		dialog.setCanceledOnTouchOutside(true);
+
+		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
+				R.layout.mc_dialog_row, data);
+		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
+		mList.setAdapter(m_adapter);
+
+		dialog.show();
+		playAudio(entryAudio);
+
+		// TODO: adapt the audio in the database.
+		mList.setOnItemClickListener(new OnItemClickListener() {
+			public void onItemClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				// Does whatever is specific to the application
+				Log.d("var " + position + " picked ", "in dialog");
+				Resource choice = data.get(position);
+
+				// TODO: this won't work.
+				if (type == 2) { // change the query
+					setList(data.get(position));
+				} else if (type == 1) { // change the action
+					mActionActionTypeId = data.get(position).getId();
+				}
+
+				actionTypeImage
+						.setBackgroundResource(data.get(position).getBackgroundImage());
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						getLogTag(), title, choice.getId());
+
+				/*Toast.makeText(mParentReference, data.get(position).getName(),
+						Toast.LENGTH_SHORT).show();*/
+
+				// onClose
+				dialog.cancel();
+				int iden = choice.getAudio();
+				playAudio(iden);
+			}
+		});
+
+		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+			// TODO: adapt the audio in the database
+			public boolean onItemLongClick(AdapterView<?> parent, View view,
+					int position, long id) {
+				int iden = data.get(position).getAudio();
+				playAudio(iden);
+				return true;
+			}
+		});
+	}
+
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		// gets the selected view using the position
+		playAudio(R.raw.problems, true);
+		// TODO: Add the audio. 
+
+		switch (mActionActionTypeId) {
+		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
+			// retrieve what you need and say something.
+			// int nbUsers = aggregates.get(position).getUserCount();
+			break;
+
+		}
+		return true;
+	}
+
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
 	}
 
 }

@@ -19,6 +19,7 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
+import com.commonsensenet.realfarm.model.MarketItem;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
@@ -197,11 +198,12 @@ public class RealFarmProvider {
 				NONE, userId, isAdminAction);
 	}
 
-	public long addMarketPrice(String date, int value, String type) {
+	public long addMarketPrice(String date, int min, int max, String type) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_DATE, date);
-		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE, value);
+		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN, min);
+		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX, max);
 		args.put(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE, type);
 
 		mDatabase.open();
@@ -1053,7 +1055,8 @@ public class RealFarmProvider {
 				RealFarmDatabase.TABLE_NAME_MARKETPRICE, new String[] {
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_ID,
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_DATE,
-						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_VALUE,
+						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN,
+						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX,
 						RealFarmDatabase.COLUMN_NAME_MARKETPRICE_TYPE }, null,
 				null, null, null, null);
 
@@ -1062,8 +1065,8 @@ public class RealFarmProvider {
 		MarketPrice mp = null;
 		if (c.moveToFirst()) {
 			do {
-				mp = new MarketPrice(c.getInt(0), c.getString(1), c.getInt(2),
-						c.getString(3));
+				mp = new MarketPrice(c.getInt(0), c.getString(1), c.getInt(2),c.getInt(3),
+						c.getString(4));
 				tmpList.add(mp);
 
 				Log.d("MarketPrice values: ", mp.toString());
@@ -2291,5 +2294,45 @@ public class RealFarmProvider {
 		System.out.println(dateNow+" "+stopDate+" "+res);
 		if(res<1) return "";
 		else return String.valueOf(res);
+	}
+	
+	public int getLimitPrice(String column) {
+		int res = 0;
+		final String MY_QUERY = "SELECT "+column+" FROM marketPrice ORDER BY date LIMIT 1";
+		mDatabase.open();
+		Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		if (cursor.moveToFirst()) {	
+			res = cursor.getInt(0);
+		}
+		cursor.close();
+		mDatabase.close();
+		return res;
+	}
+
+	public List<MarketItem> getMarketData(int cropTypeId, int daySpan) {
+		List<MarketItem> tmpList = new ArrayList<MarketItem>();
+		
+		String dateNow = DateHelper.getDateNow();
+		String stopDate = DateHelper.getDatePast(daySpan);
+		
+		final String MY_QUERY = "SELECT id, image FROM unit WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID;
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		
+		if (c.moveToFirst()) {
+			do {				
+				final String MY_QUERY2 = "SELECT MIN(price) as min, MAX(price) as max, COUNT(price) as cou FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND date >= "+stopDate+" AND date <= "+dateNow+" AND unit1Id = "+c.getInt(0)+" AND cropTypeId = "+cropTypeId;
+				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+				if (c2.moveToFirst() && c2.getInt(1)>0) {
+					MarketItem mi = new MarketItem(c.getInt(1), c2.getInt(2), c2.getInt(0), c2.getInt(1));
+					tmpList.add(mi);
+				}
+				c2.close();
+			} while (c.moveToNext());
+		}
+		
+		c.close();
+		mDatabase.close();
+		return tmpList;
 	}
 }

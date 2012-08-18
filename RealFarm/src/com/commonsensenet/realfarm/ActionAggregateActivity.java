@@ -288,7 +288,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 			int position, long id) {
 		// gets the selected view using the position
 		playAudio(R.raw.problems, true);
-		// TODO: Add the audio. See WeatherForecastActivity?
+		// TODO: Add the audio.
 
 		switch (mActionActionTypeId) {
 		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
@@ -355,8 +355,8 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						getLogTag(), title, choice.getId());
 
-				Toast.makeText(mParentReference, data.get(position).getName(),
-						Toast.LENGTH_SHORT).show();
+			/*	Toast.makeText(mParentReference, data.get(position).getName(),
+						Toast.LENGTH_SHORT).show();*/
 
 				// onClose
 				dialog.cancel();

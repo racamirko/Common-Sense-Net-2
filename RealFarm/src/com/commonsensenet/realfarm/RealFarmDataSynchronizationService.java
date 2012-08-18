@@ -433,9 +433,13 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 				
 				if(Integer.valueOf(message_type)==1004)
 				{
+					// TODO: min, max
 					  //mp insertions
 					System.out.println("In MP \n");
-					mDataProvider.addMarketPrice(separated2[0],Integer.valueOf(separated2[1]),separated2[2]);
+					String sep0 = separated2[0];
+					int sep1 = Integer.valueOf(separated2[1]);
+					String sep2 = separated2[2];
+					mDataProvider.addMarketPrice(sep0,sep1, sep1,sep2);
 				
 					
 				}

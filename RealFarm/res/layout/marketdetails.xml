@@ -5,13 +5,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
-  <LinearLayout
+    
+        <include
+            android:id="@+id/top_bar"
+            layout="@layout/tpl_top_bar_selector" />
+        
+ <!-- <LinearLayout
         android:id="@+id/linearLayout19"
         android:layout_width="match_parent"
         android:layout_height="60dp"
         android:background="@drawable/header" >
 
-        <RelativeLayout
+         <RelativeLayout
             android:id="@+id/RelativeLayoutwf_2"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -26,7 +31,6 @@
                 android:layout_marginLeft="15dp"
                 android:src="@drawable/market" />
 
-     
 
         </RelativeLayout>
         
@@ -64,7 +68,7 @@
                   android:layout_alignParentTop="true"
                   android:background="@drawable/square_btn_transp" />
 
-        </RelativeLayout>
+        </RelativeLayout>-->
 
    <!--  <Spinner
         android:id="@+id/spinner1"
@@ -72,7 +76,7 @@
         android:layout_height="wrap_content"
        />
 -->
-        <Button
+        <!--<Button
             android:id="@+id/button123"
             android:layout_width="45dip"
             android:layout_height="wrap_content"
@@ -95,7 +99,7 @@
             android:layout_margin="3dp"
             android:background="@drawable/ic_54px_help"
             android:src="@drawable/square_btn_transp" />
-    </LinearLayout>
+    </LinearLayout>-->
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -114,10 +118,10 @@
              android:orientation="horizontal" >
 
             <TableRow
-                android:id="@+id/var_fert_tr"
+                android:id="@+id/market_info"
                 android:layout_width="match_parent"
                 android:layout_height="40dp"
-                android:background="@drawable/def_img"
+            	android:background="@android:drawable/list_selector_background"
                 android:paddingBottom="5dip"
                 android:paddingTop="4dip" >
 
@@ -177,7 +181,8 @@
                 </RelativeLayout>
 
                 <ImageView
-                    android:id="@+id/img_bg_var_fert"
+                    android:id="@+id/market_name"
+                    android:text="Market Challekere"
                     android:layout_width="wrap_content"
                     android:layout_height="15dp"
                     android:layout_marginTop="10dp"
@@ -199,7 +204,7 @@
                     android:gravity="right" >
 
                    <TextView
-                       android:id="@+id/dlg_lbl_var_fert"
+                       android:id="@+id/max_price"
                        android:layout_width="wrap_content"
                        android:layout_height="wrap_content"
                        android:layout_alignParentLeft="true"
@@ -215,13 +220,13 @@
         </LinearLayout>
         
         
-           <LinearLayout
+          <!-- <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:orientation="horizontal" >
 
-            <TableRow
+             <TableRow
                 android:id="@+id/var_fert_tr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -314,7 +319,7 @@
                     android:layout_margin="5dip"
                     android:gravity="right" >
                 </RelativeLayout>
-            </TableRow>
+            </TableRow> 
 
         </LinearLayout>
          <LinearLayout
@@ -323,7 +328,7 @@
             android:layout_height="30dp"
             android:orientation="horizontal" >
 
-            <TableRow
+             <TableRow
                 android:id="@+id/var_fert_tr"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -417,21 +422,22 @@
                     android:gravity="right" >
                 </RelativeLayout>
             </TableRow>
-        </LinearLayout>
+        </LinearLayout> -->
         
           <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
             android:layout_height="30dp"
+            android:layout_marginTop="5dip"
             android:orientation="horizontal" >
 
             <TableRow
-                android:id="@+id/var_fert_tr"
+                android:id="@+id/days_selector"
                 android:layout_width="match_parent"
                 android:layout_height="30dp"
-                android:background="@drawable/def_img"
+            	android:background="#CCCCCC"
                 android:paddingBottom="5dip"
-                android:paddingTop="4dip" >
+                android:paddingTop="5dip" >
 
                 <RelativeLayout
                     android:id="@+id/RelativeLayoutwf_2"
@@ -486,7 +492,16 @@
             </TableRow>
         </LinearLayout>
         
-        
+        <ListView
+            android:id="@+id/list_market_prices"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_above="@+id/include1"
+            android:layout_below="@+id/dialog_aggregate_header_divider"
+            android:background="#FFFFFF" >
+        </ListView>
+
+                <!--
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             android:layout_width="match_parent"
@@ -924,8 +939,10 @@
              
             </TableRow>
         </LinearLayout>
-       
+       -->
     </LinearLayout>
+               
+
 
     <include layout="@layout/layout_back_bar" />
 

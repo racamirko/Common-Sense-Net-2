@@ -389,9 +389,8 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentRight="true"
                         android:layout_centerVertical="true"
-                        android:text="@string/homescreen_label_market_price"
                         android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_large" />
+                        android:textSize="@dimen/font_medium" />
                 </RelativeLayout>
             </LinearLayout>
 

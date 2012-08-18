@@ -54,7 +54,7 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Indicates whether the demo data has been inserted or not. */
-	public static boolean IS_INITIALIZED = true;
+	public static boolean IS_INITIALIZED = false;
 
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
@@ -126,8 +126,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	private void insertDemoData() {
 		if (!IS_INITIALIZED) {
+			
+			mDataProvider.addMarketPrice("2012-08-18",3200, 4900,"");
 
-			List<User> users = mDataProvider.getUsers();
+			/*List<User> users = mDataProvider.getUsers();
 			List<Resource> soilTypes = mDataProvider.getSoilTypes();
 			List<Resource> seeds = mDataProvider.getSeedTypes();
 
@@ -160,7 +162,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				}
 			}
 
-			Log.d(getLogTag(), "plot works");
+			Log.d(getLogTag(), "plot works");*/
 
 			// sowing
 			// mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
@@ -326,8 +328,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			/*intent = new Intent(this, yielddetails.class);
 			intent.putExtra("type", "yield");*/
 		} else if (v.getId() == R.id.hmscrn_btn_market) {
-			/*intent = new Intent(this, Marketprice_details.class);
-			intent.putExtra("type", "yield");*/
+			intent = new Intent(this, Marketprice_details.class);
+			intent.putExtra("type", "yield");
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
 
 			// creates a new dialog and configures it.
@@ -495,10 +497,18 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// updates the news indicators for the aggregates
 		updateAggregatesNumbers();
 		
+		// updates the market prices
+		updateMarketPrices();
+		
 		// adds the widgets
 		updateWidgets();
 		// adds the listeners
 		initActionListener();
+	}
+
+	private void updateMarketPrices() {
+		TextView tw = (TextView)findViewById(R.id.hmscrn_lbl_market_price);
+		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN))+"-"+String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 	}
 
 	private void updateAggregatesNumbers() {

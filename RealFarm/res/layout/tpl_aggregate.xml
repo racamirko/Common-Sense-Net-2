@@ -4,68 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/header" >
-
-        <RelativeLayout
-            android:id="@+id/aggr_crop"
-            android:layout_width="160dp"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin"
-            android:layout_toRightOf="@+id/aggr_action" >
-
-            <ImageView
-                android:id="@+id/aggr_crop_img"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent" />
-
-            <ImageView
-                android:id="@+id/aggr_crop_dropdwn"
-                android:layout_width="20dp"
-                android:layout_height="fill_parent"
-                android:layout_alignParentTop="true"
-            	android:layout_alignParentRight="true"
-                android:scaleType="fitXY"
-                android:src="@drawable/dropdown" />
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="25dp"
-                android:layout_centerVertical="true"
-                android:textColor="#FFFFFF"
-                android:text="TMV2" />
-           
-            <ImageView
-                android:id="@+id/aggr_action"
-                android:layout_margin="2dp"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_alignParentLeft="true"
-                android:layout_centerVertical="true" />
-
-        </RelativeLayout>
-
-        <ImageButton
-            android:id="@+id/aggr_img_home"
-            android:layout_width="40dp"
-            android:layout_height="50dp"
-            android:layout_margin="3dp"
-            android:layout_toLeftOf="@+id/aggr_img_help"
-            android:background="@drawable/home" />
-
-        <ImageButton
-            android:id="@+id/aggr_img_help"
-            android:layout_width="54dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_margin="3dp"
-            android:background="@drawable/ic_54px_help" />
-    </RelativeLayout>
+   <include
+            android:id="@+id/top_bar"
+            layout="@layout/tpl_top_bar_selector" />
 
     <RelativeLayout
         android:layout_width="match_parent"

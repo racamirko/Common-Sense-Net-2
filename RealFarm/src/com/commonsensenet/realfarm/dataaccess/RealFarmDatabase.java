@@ -169,7 +169,8 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_MARKETPRICE + " ( "
 					+ COLUMN_NAME_MARKETPRICE_ID
 					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_MARKETPRICE_VALUE + " integer, "
+					+ COLUMN_NAME_MARKETPRICE_MIN + " integer, "
+					+ COLUMN_NAME_MARKETPRICE_MAX + " integer, "
 					+ COLUMN_NAME_MARKETPRICE_DATE + " text, "
 					+ COLUMN_NAME_MARKETPRICE_TYPE + " integer" + " ); ");
 			Log.d(LOG_TAG, "Created market price table");
@@ -432,7 +433,8 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_MARKETPRICE_DATE = "date";
 	public static final String COLUMN_NAME_MARKETPRICE_ID = "id";
 	public static final String COLUMN_NAME_MARKETPRICE_TYPE = "type";
-	public static final String COLUMN_NAME_MARKETPRICE_VALUE = "value";
+	public static final String COLUMN_NAME_MARKETPRICE_MIN = "min";
+	public static final String COLUMN_NAME_MARKETPRICE_MAX = "max";
 
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_IMAGEPATH = "imagePath";
@@ -1202,6 +1204,7 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "seedtype works");
+
 	}
 
 	/**
