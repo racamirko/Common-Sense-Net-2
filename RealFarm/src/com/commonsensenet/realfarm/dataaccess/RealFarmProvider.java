@@ -2321,7 +2321,7 @@ public class RealFarmProvider {
 		
 		if (c.moveToFirst()) {
 			do {				
-				final String MY_QUERY2 = "SELECT MIN(price) as min, MAX(price) as max, COUNT(price) as cou FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND date >= "+stopDate+" AND date <= "+dateNow+" AND unit1Id = "+c.getInt(0)+" AND cropTypeId = "+cropTypeId;
+				final String MY_QUERY2 = "SELECT MIN(price) as min, MAX(price) as max, COUNT(price) as cou FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND date >= '"+stopDate+"' AND date <= '"+dateNow+"' AND unit1Id = "+c.getInt(0)+" AND cropTypeId = "+cropTypeId;
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 				if (c2.moveToFirst() && c2.getInt(1)>0) {
 					MarketItem mi = new MarketItem(c.getInt(1), c2.getInt(2), c2.getInt(0), c2.getInt(1));
