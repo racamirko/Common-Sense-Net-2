@@ -128,8 +128,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (!IS_INITIALIZED) {
 			
 			mDataProvider.addMarketPrice("2012-08-18",3200, 4900,"");
+			mDataProvider.addMarketPrice("2012-08-19",4000, 5200,"");
+			
+			/*mDataProvider.addPlot(0, 1, 3, "", 2, 2.0, 1, 1, 0, 2);
 
-			/*List<User> users = mDataProvider.getUsers();
+			List<User> users = mDataProvider.getUsers();
 			List<Resource> soilTypes = mDataProvider.getSoilTypes();
 			List<Resource> seeds = mDataProvider.getSeedTypes();
 

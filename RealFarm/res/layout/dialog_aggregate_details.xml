@@ -35,7 +35,6 @@
         android:id="@+id/list_dialog_aggregate"
         android:layout_width="match_parent"
         android:layout_height="275dp"
-        android:layout_above="@+id/include1"
         android:layout_below="@+id/dialog_aggregate_header_divider"
         android:background="#FFFFFF" >
     </ListView>

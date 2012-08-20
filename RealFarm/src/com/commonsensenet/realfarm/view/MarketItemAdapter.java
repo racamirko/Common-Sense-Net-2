@@ -12,9 +12,9 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.MarketItem;
+import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 
-public class MarketItemAdapter extends ArrayAdapter<MarketItem> {
+public class MarketItemAdapter extends ArrayAdapter<AggregateItem> {
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
 
@@ -22,7 +22,7 @@ public class MarketItemAdapter extends ArrayAdapter<MarketItem> {
 	 * Creates a new UserAggregateItemAdapter instance.
 	 */
 	public MarketItemAdapter(Context context,
-			List<MarketItem> marketItems,
+			List<AggregateItem> marketItems,
 			RealFarmProvider dataProvider) {
 		super(context, android.R.layout.simple_list_item_1, marketItems);
 
@@ -38,16 +38,16 @@ public class MarketItemAdapter extends ArrayAdapter<MarketItem> {
 			v = vi.inflate(R.layout.tpl_market_item, null);
 		}
 		
-		MarketItem marketData = getItem(position);
+		AggregateItem marketData = getItem(position);
 		if (marketData != null) {
 			ImageView bagImage = (ImageView) v.findViewById(R.id.imageLeft);
-			if(marketData.getWeight() != -1) bagImage.setImageResource(marketData.getWeight());
+			if(marketData.getCenterImage() != -1) bagImage.setImageResource(marketData.getCenterImage());
 			
 			TextView userCount = (TextView) v.findViewById(R.id.number);
-			userCount.setText(String.valueOf(marketData.getUserCount()));
+			userCount.setText(String.valueOf(marketData.getNewsText()));
 			
 			TextView minMax = (TextView) v.findViewById(R.id.textRight);
-			minMax.setText(String.valueOf(marketData.getMin()+" - "+marketData.getMax()+" /qt"));
+			minMax.setText(marketData.getRightText());
 
 		}
 		return v;

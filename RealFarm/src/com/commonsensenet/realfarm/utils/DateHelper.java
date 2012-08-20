@@ -101,7 +101,7 @@ public class DateHelper {
 		Calendar currentDate = Calendar.getInstance();
 		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
 		formatter.setLenient(true);
-		currentDate.add(Calendar.DATE, -14);
+		currentDate.add(Calendar.DATE, offsetDays);
 		return formatter.format(currentDate.getTime())+" 00:00:00";
 	}
 }

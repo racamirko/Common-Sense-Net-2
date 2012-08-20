@@ -151,8 +151,14 @@ public abstract class AggregateItemWrapper {
 		else {
 			tw.setTextColor(Color.BLACK);
 			// hack
-			rl.getLayoutParams().width = 200;
-			tw.setTextSize(20);
+			if(!aggregate.getCenterText().equals("")){
+				rl.getLayoutParams().width = 200;
+				tw.setTextSize(20);
+			} else{
+				rl.getLayoutParams().width = 20;
+				rl = (RelativeLayout)destination.findViewById(R.id.relative_layout_right);
+				rl.getLayoutParams().width = 300;
+			}
 		}
 		
 		ImageView iw = (ImageView)destination.findViewById(R.id.image_center);

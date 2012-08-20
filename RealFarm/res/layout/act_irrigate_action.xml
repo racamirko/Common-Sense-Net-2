@@ -14,7 +14,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
+            android:gravity="left|center"
             android:orientation="horizontal"
             android:paddingRight="5dp" >
 
@@ -54,12 +54,11 @@
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
+            android:gravity="left|center"
             android:orientation="horizontal"
             android:paddingRight="5dp" >
 
             <TextView
-                android:id="@+id/amount_sow_txt"
                 android:layout_width="90dp"
                 android:layout_height="wrap_content"
                 android:gravity="left"
@@ -94,7 +93,7 @@
             android:layout_height="50dp"
             android:layout_marginTop="5dp"
             android:background="@android:drawable/list_selector_background"
-            android:gravity="center"
+            android:gravity="left|center"
             android:orientation="horizontal"
             android:paddingRight="5dp" >
 

@@ -15,11 +15,9 @@ import android.content.Context;
 import android.database.Cursor;
 import android.util.Log;
 
-import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
-import com.commonsensenet.realfarm.model.MarketItem;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
@@ -233,7 +231,7 @@ public class RealFarmProvider {
 	public long addPlot(long id, long userId, int seedTypeId, String imagePath,
 			int soilType, double size, int isSent, int isEnabled,
 			int isAdminAction, long timestamp) {
-
+				
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId);
@@ -824,71 +822,29 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			final String MY_QUERY3 = "SELECT AVG((a.quantity1*u.value)/(100*p.size)), SUM(CASE WHEN (a.date <= '"+dateNow+"' AND date >= '"+stopDate+"') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p, unit u WHERE a.plotId = p.id AND a.unit1Id = u.id AND a.actionTypeId= "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
-			//final String MY_QUERY3 = "SELECT a.quantity1, u.value, p.size, a.date FROM action a, plot p, unit u WHERE a.plotId = p.id AND a.unit1Id = u.id AND a.actionTypeId= "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
 			Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
 
 			if (c3.moveToFirst()) {
 				String result = String.valueOf(round(c3.getDouble(0), 2, BigDecimal.ROUND_HALF_UP));
-				
-				AggregateItem a = new AggregateItem(actionTypeId);
-				a.setLeftBackground(c.getInt(1));
-				a.setCenterText(result+" qt/acre");
-				a.setLeftText(c.getString(0));
-				String news = String.valueOf(c3.getInt(1));
-				if(news.equals("0")) news = "";
-				a.setNewsText(news);
-				a.setLeftImage(R.drawable.harvestingaction);
-				a.setSelector1(seedTypeId);
-				
-				tmpList.add(a);
+				if(!result.equals(0.0)) {
+					AggregateItem a = new AggregateItem(actionTypeId);
+					a.setLeftBackground(c.getInt(1));
+					a.setCenterText(result+" qt/acre");
+					a.setLeftText(c.getString(0));
+					String news = String.valueOf(c3.getInt(1));
+					if(news.equals("0")) news = "";
+					a.setNewsText(news);
+					a.setLeftImage(R.drawable.harvestingaction);
+					a.setSelector1(seedTypeId);
+
+					tmpList.add(a);
+				}
 			}
 			c3.close();
 		}
 		c.close();
 		mDatabase.close();
 		return tmpList;
-		
-		/*String dateNow = DateHelper.getDateNow();
-		String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
-		
-		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "+seedTypeId;		
-		mDatabase.open();
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-		
-		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
-
-		if (c.moveToFirst()) {
-			final String MY_QUERY3 = "SELECT a.quantity1, u.value, p.size, a.date FROM action a, plot p, unit u WHERE a.plotId = p.id AND a.unit1Id = u.id AND a.actionTypeId= "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
-			Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
-
-			if (c3.moveToFirst()) {
-				int count = 0;
-				int countNews = 0;
-				double moy = 0;
-				do{
-					count++;
-					double singleQtPerAcre = c3.getInt(0)*c3.getInt(1)/(100*c3.getDouble(2));
-					moy = moy + singleQtPerAcre;
-				} while(c3.moveToNext());
-				
-				String result = "?";
-				if(count != 0) result = String.valueOf(round(moy/count, 2, BigDecimal.ROUND_HALF_UP));
-				
-				AggregateItem a = new AggregateItem(actionTypeId);
-				a.setLeftBackground(c.getInt(1));
-				a.setCenterText(result+" qt/acre");
-				a.setLeftText(c.getString(0));
-				a.setNewsText(count+"");
-				a.setLeftImage(R.drawable.harvestingaction);
-				a.setSelector1(seedTypeId);
-				
-				tmpList.add(a);
-			}
-			c3.close();
-		}
-		c.close();
-		mDatabase.close();
-		return tmpList;*/
 	}
 	
 	// TODO: add optimisation
@@ -953,9 +909,9 @@ public class RealFarmProvider {
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
-		for(int min = 0; min<10000; min = min+1000){
+		for(int min = 0; min<10000; min = min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT+1){
 
-			final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, ct.shortName, ct.backgroundImage, SUM(CASE WHEN (a.date <= '"+dateNow+"' AND date >= '"+stopDate+"') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p, cropType ct WHERE a.plotId = p.id AND a.cropTypeId = ct.id AND a.actionTypeId= "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+" AND a.price >= "+min+" AND a.price < "+(min+1000)+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
+			final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, ct.shortName, ct.backgroundImage, SUM(CASE WHEN (a.date <= '"+dateNow+"' AND date >= '"+stopDate+"') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p, cropType ct WHERE a.plotId = p.id AND a.cropTypeId = ct.id AND a.actionTypeId= "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+" AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
 			mDatabase.open();
 			Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
 
@@ -2298,7 +2254,7 @@ public class RealFarmProvider {
 	
 	public int getLimitPrice(String column) {
 		int res = 0;
-		final String MY_QUERY = "SELECT "+column+" FROM marketPrice ORDER BY date LIMIT 1";
+		final String MY_QUERY = "SELECT "+column+" FROM marketPrice ORDER BY date DESC LIMIT 1";
 		mDatabase.open();
 		Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		if (cursor.moveToFirst()) {	
@@ -2309,28 +2265,62 @@ public class RealFarmProvider {
 		return res;
 	}
 
-	public List<MarketItem> getMarketData(int cropTypeId, int daySpan) {
-		List<MarketItem> tmpList = new ArrayList<MarketItem>();
+	public List<AggregateItem> getMarketData(int cropTypeId, int daySpan) {
+		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 		
 		String dateNow = DateHelper.getDateNow();
 		String stopDate = DateHelper.getDatePast(daySpan);
-		
+
 		final String MY_QUERY = "SELECT id, image FROM unit WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID;
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		
 		if (c.moveToFirst()) {
 			do {				
-				final String MY_QUERY2 = "SELECT MIN(price) as min, MAX(price) as max, COUNT(price) as cou FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND date >= '"+stopDate+"' AND date <= '"+dateNow+"' AND unit1Id = "+c.getInt(0)+" AND cropTypeId = "+cropTypeId;
+				final String MY_QUERY2 = "SELECT MIN(a.price) as min, MAX(a.price) as max, COUNT(a.price) as cou, ct.shortName, ct.backgroundImage FROM action a , cropType ct WHERE a.cropTypeId = ct.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND a.date >= '"+stopDate+"' AND a.date <= '"+dateNow+"' AND a.unit1Id = "+c.getInt(0)+" AND a.cropTypeId = "+cropTypeId;
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 				if (c2.moveToFirst() && c2.getInt(1)>0) {
-					MarketItem mi = new MarketItem(c.getInt(1), c2.getInt(2), c2.getInt(0), c2.getInt(1));
+					AggregateItem mi = new AggregateItem(0);
+					mi.setRightText(c2.getInt(0)+" - "+c2.getInt(1)+" Rs/qt");
+					mi.setCenterImage(c.getInt(1));
+					mi.setSelector1(c.getInt(0));
+					mi.setNewsText(c2.getInt(2)+"");
+					mi.setLeftBackground(c2.getInt(4));
+					mi.setLeftText(c2.getString(3));
+					mi.setLeftImage(R.drawable.sellingaction);
 					tmpList.add(mi);
 				}
 				c2.close();
 			} while (c.moveToNext());
 		}
 		
+		c.close();
+		mDatabase.close();
+		return tmpList;
+	}
+
+	public List<UserAggregateItem> getUserMarketData(long cropTypeId, long weightId, int daySpan) {
+
+		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
+		String dateNow = DateHelper.getDateNow();
+		String stopDate = DateHelper.getDatePast(daySpan);
+		
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price FROM action a, user u, plot p WHERE a.plotId = p.id AND a.userId = u.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND a.cropTypeId = "+cropTypeId+" AND date >= '"+stopDate+"' AND a.date <= '"+dateNow+"' AND a.unit1Id = "+weightId+" ORDER BY a.date DESC";
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		if (c.moveToFirst()) {
+			do {									
+				UserAggregateItem a = new UserAggregateItem();
+				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
+				String[] tokens = c.getString(3).split("-");
+				a.setDate(tokens[2]+"."+tokens[1]+".");
+				a.setTel(c.getString(4));
+				a.setAvatar(c.getString(5));
+				a.setLeftText(c.getInt(6)+ " Rs/qt");
+				tmpList.add(a);
+
+			} while (c.moveToNext());
+		}
 		c.close();
 		mDatabase.close();
 		return tmpList;

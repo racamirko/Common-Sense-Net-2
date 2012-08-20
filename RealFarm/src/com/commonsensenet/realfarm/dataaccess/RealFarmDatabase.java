@@ -373,8 +373,9 @@ public class RealFarmDatabase {
 		}
 	}
 
+	// TODO: This is for the selling aggregate and the aggregates number indicators on the homescreen. Put that somewhere into the database
 	public static final int NUMBER_DAYS_NEWS = -14;
-	public static final int SELLING_AGGREGATE_INCREMENT = 999;
+	public static final int SELLING_AGGREGATE_INCREMENT = 99;
 	
 	public static final int ACTION_TYPE_ALL_ID = 0;
 	public static final int ACTION_TYPE_FERTILIZE_ID = 2;
@@ -535,6 +536,8 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_SATISFACTION = 7;
 	public static final int RESOURCE_TYPE_TREATMENT = 8;
 	public static final int RESOURCE_TYPE_UNIT = 9;
+	public static final int RESOURCE_TYPE_DAYS_SPAN = 10;
+	
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONTYPE = "actionType";
@@ -679,7 +682,7 @@ public class RealFarmDatabase {
 		String[][] userData = {
 				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g",
 						"CK Pura" },
-				{ "Hendrik", "Knoche", "0788446172", "farmer_90px_adam_jones",
+				{ "Hendrik", "Knoche", "+41788479621", "farmer_90px_adam_jones",
 						"CK Pura" },
 				{ "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
 						"CK Pura" },
@@ -740,7 +743,24 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "actionType works");
+		
+		
+		// plots
+		ContentValues plotValues = new ContentValues();
+		plotValues.put(COLUMN_NAME_PLOT_ID, 0);
+		plotValues.put(COLUMN_NAME_PLOT_IMAGEPATH, "");
+		plotValues.put(COLUMN_NAME_PLOT_ISADMINACTION, 0);
+		plotValues.put(COLUMN_NAME_PLOT_ISENABLED, 1);
+		plotValues.put(COLUMN_NAME_PLOT_ISSENT, 1);
+		plotValues.put(COLUMN_NAME_PLOT_SEEDTYPEID, 3);
+		plotValues.put(COLUMN_NAME_PLOT_SIZE, 2.0);
+		plotValues.put(COLUMN_NAME_PLOT_SOILTYPEID, 2);
+		plotValues.put(COLUMN_NAME_PLOT_TIMESTAMP, 2);
+		plotValues.put(COLUMN_NAME_PLOT_USERID, 1);
+		insertEntriesIntoDatabase(TABLE_NAME_PLOT, plotValues, db);
+		Log.d(LOG_TAG, "plot works");
 
+		
 		// resources
 		Object[][] resourceData = {
 				/** Problems */
@@ -811,6 +831,14 @@ public class RealFarmDatabase {
 						RESOURCE_TYPE_MONTH },
 				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,
 						RESOURCE_TYPE_MONTH },
+				/** Days span */ // Using the image as the value
+				{ "1 day", "1 day", R.raw.jan, 1, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
+				{ "7 days", "7 days", R.raw.jan, 7, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
+				{ "14 days", "14 days", R.raw.feb, 14, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
+				{ "21 days", "21 days", R.raw.mar, 21, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
+				{ "1 month", "1 month", R.raw.apr, 30, -1, -1, RESOURCE_TYPE_DAYS_SPAN },		
+				{ "year", "year", R.raw.apr, 365, -1, -1, RESOURCE_TYPE_DAYS_SPAN },		
+						
 				/** Treated */
 				{ "Main crop", "Main crop", R.raw.maincrop,
 						R.drawable.ic_maincrop, -1, -1, RESOURCE_TYPE_INTERCROP },

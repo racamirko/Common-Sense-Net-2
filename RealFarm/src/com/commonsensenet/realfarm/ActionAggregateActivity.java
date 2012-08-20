@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -28,7 +27,6 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.Resource;
-import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
@@ -348,7 +346,7 @@ public class ActionAggregateActivity extends HelpEnabledActivityOld implements
 					mActionActionTypeId = data.get(position).getId();
 				}
 
-				actionTypeImage
+				if(actionTypeImage != null) actionTypeImage
 						.setBackgroundResource(data.get(position).getBackgroundImage());
 
 				// tracks the application usage.

@@ -268,7 +268,7 @@ public class SellActionActivity extends DataFormActivity {
 		// validates the form.
 		if (isValid) {
 			long result = mDataProvider.addSellAction(Global.userId,
-					Global.plotId, mCrop, mAmount, mRemaining, mUnit, mUnit2,
+					0, mCrop, mAmount, mRemaining, mUnit, mUnit2,
 					mPrice, getDate(mDay, mMonth), 0);
 
 			return result != -1;
