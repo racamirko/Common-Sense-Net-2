@@ -1241,7 +1241,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_IMAGE1,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_IMAGE2,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE,
-						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE },
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_VALUE },
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE + "="
 								+ resourceType, null, null, null, null);
 
@@ -1259,6 +1260,7 @@ public class RealFarmProvider {
 				dd.setImage2(c.getInt(5));
 				dd.setBackgroundImage(c.getInt(6));
 				dd.setType(c.getInt(7));
+				dd.setValue(c.getInt(8));
 
 				tmpList.add(dd);
 
@@ -1870,13 +1872,13 @@ public class RealFarmProvider {
 		Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		Resource r = null;
 		if (cursor.moveToFirst()) {	
-			r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1);
+			r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
 		}
 		cursor.close();
 		if(r == null) {
 			cursor = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 			if (cursor.moveToFirst()) {	
-				r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1);
+				r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
 			}
 			cursor.close();
 		}
@@ -1891,13 +1893,13 @@ public class RealFarmProvider {
 		Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		Resource r = null;
 		if (cursor.moveToFirst()) {	
-			r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1);
+			r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
 		}
 		cursor.close();
 		if(r == null) {
 			cursor = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 			if (cursor.moveToFirst()) {	
-				r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1);
+				r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
 			}
 			cursor.close();
 		}

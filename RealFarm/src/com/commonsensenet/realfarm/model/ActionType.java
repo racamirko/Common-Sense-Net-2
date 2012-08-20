@@ -7,7 +7,7 @@ package com.commonsensenet.realfarm.model;
 public class ActionType extends Resource {
 
 	public ActionType(int id, String name, int image, int audio) {
-		super(id, name, name, audio, image, -1, -1, -1);
+		super(id, name, name, audio, image, -1, -1, -1, -1);
 	}
 
 	@Override

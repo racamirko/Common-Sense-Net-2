@@ -153,8 +153,8 @@
 
                             <ImageView
                                 android:id="@+id/aggr_crop_dropdwn"
-                                android:layout_width="10dp"
-                                android:layout_height="30dp"
+                                android:layout_width="15dp"
+                                android:layout_height="35dp"
                 				android:scaleType="fitXY"
                                 android:src="@drawable/dropdown" />
                         </LinearLayout>

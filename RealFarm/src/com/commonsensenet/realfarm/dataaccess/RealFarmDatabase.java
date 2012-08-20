@@ -216,6 +216,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_RESOURCE_SHORTNAME + " text, "
 					+ COLUMN_NAME_RESOURCE_IMAGE1 + " integer, "
 					+ COLUMN_NAME_RESOURCE_IMAGE2 + " integer, "
+					+ COLUMN_NAME_RESOURCE_VALUE + " integer, "
 					+ COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE + " integer, "
 					+ COLUMN_NAME_RESOURCE_AUDIO + " integer, "
 					+ COLUMN_NAME_RESOURCE_TYPE + " integer " + " ); ");
@@ -377,6 +378,9 @@ public class RealFarmDatabase {
 	public static final int NUMBER_DAYS_NEWS = -14;
 	public static final int SELLING_AGGREGATE_INCREMENT = 99;
 	
+	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;
+	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
+	
 	public static final int ACTION_TYPE_ALL_ID = 0;
 	public static final int ACTION_TYPE_FERTILIZE_ID = 2;
 	public static final int ACTION_TYPE_HARVEST_ID = 6;
@@ -456,6 +460,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_RESOURCE_NAME = "name";
 	public static final String COLUMN_NAME_RESOURCE_SHORTNAME = "shortName";
 	public static final String COLUMN_NAME_RESOURCE_TYPE = "type";
+	public static final String COLUMN_NAME_RESOURCE_VALUE = "value";
 
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SEEDTYPE_CROPTYPEID = "cropTypeId";
@@ -765,135 +770,135 @@ public class RealFarmDatabase {
 		Object[][] resourceData = {
 				/** Problems */
 				{ "Late leaf spot", "LLS", R.raw.audio1, R.drawable.ic_diseasecategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Pod rot", "Pod rot", R.raw.audio1, R.drawable.ic_diseasecategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Unknown disease", "? disease", R.raw.audio1, R.drawable.ic_diseasecategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Disease not listed", "D unlisted", R.raw.audio1, R.drawable.ic_diseasecategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Aphids", "Aphids", R.raw.audio1, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Leaf miner", "Leaf miner", R.raw.audio1, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM, -1  },
 				{ "Pod borer", "Pod borer", R.raw.audio1, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Red hairy caterpillar", "R H Caterpillar", R.raw.audio1, R.drawable.ic_pestcategory,
-						-1, -1, RESOURCE_TYPE_PROBLEM },
+						-1, -1, RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Root grub", "Root grub", R.raw.audio1, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Unknown pest", "? pest", R.raw.audio1, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Pest not listed", "Pe-unlisted", R.raw.audio1, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Low growth", "Low growth", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Pegs not developed", "Pegs undev", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Pod germination", "Pod germination", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1,
-						-1, RESOURCE_TYPE_PROBLEM },
+						-1, RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Reduced flowering", "Red flowering", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1,
-						-1, RESOURCE_TYPE_PROBLEM },
+						-1, RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Rot of stalks", "Stalk rot", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Too much vegetative growth", "Veg growth", R.raw.audio1, R.drawable.ic_otherproblemcategory,
-						-1, -1, RESOURCE_TYPE_PROBLEM },
+						-1, -1, RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Weeds", "Weeds", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Wild boar", "Wild boar", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM },
+						RESOURCE_TYPE_PROBLEM , -1 },
 				{ "Problem not listed", "Pb-unlisted", R.raw.audio1, R.drawable.ic_otherproblemcategory, -1,
-						-1, RESOURCE_TYPE_PROBLEM },
+						-1, RESOURCE_TYPE_PROBLEM , -1 },
 				/** Treatment */
 				{ "Treated", "Treated", R.raw.treatmenttoseeds2,
 						R.drawable.ic_sowingseedtreated, -1, -1,
-						RESOURCE_TYPE_TREATMENT },
+						RESOURCE_TYPE_TREATMENT , -1 },
 				{ "Not treated", "Not treated", R.raw.treatmenttoseeds2,
 						R.drawable.ic_sowingseednottreated, -1, -1,
-						RESOURCE_TYPE_TREATMENT },
+						RESOURCE_TYPE_TREATMENT, -1  },
 				/** Month */
 				{ "01 January", "Jan", R.raw.jan, -1, -1, -1,
-						RESOURCE_TYPE_MONTH },
+						RESOURCE_TYPE_MONTH , -1 },
 				{ "02 February", "Feb", R.raw.feb, -1, -1, -1,
-						RESOURCE_TYPE_MONTH },
-				{ "03 March", "Mar", R.raw.mar, -1, -1, -1, RESOURCE_TYPE_MONTH },
-				{ "04 April", "Apr", R.raw.apr, -1, -1, -1, RESOURCE_TYPE_MONTH },
-				{ "05 May", "May", R.raw.may, -1, -1, -1, RESOURCE_TYPE_MONTH },
-				{ "06 June", "Jun", R.raw.jun, -1, -1, -1, RESOURCE_TYPE_MONTH },
-				{ "07 July", "Jul", R.raw.jul, -1, -1, -1, RESOURCE_TYPE_MONTH },
+						RESOURCE_TYPE_MONTH , -1 },
+				{ "03 March", "Mar", R.raw.mar, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
+				{ "04 April", "Apr", R.raw.apr, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
+				{ "05 May", "May", R.raw.may, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
+				{ "06 June", "Jun", R.raw.jun, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
+				{ "07 July", "Jul", R.raw.jul, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
 				{ "08 August", "Aug", R.raw.aug, -1, -1, -1,
-						RESOURCE_TYPE_MONTH },
+						RESOURCE_TYPE_MONTH , -1 },
 				{ "09 September", "Sep", R.raw.sep, -1, -1, -1,
-						RESOURCE_TYPE_MONTH },
+						RESOURCE_TYPE_MONTH , -1 },
 				{ "10 October", "Oct", R.raw.oct, -1, -1, -1,
-						RESOURCE_TYPE_MONTH },
+						RESOURCE_TYPE_MONTH , -1 },
 				{ "11 November", "Nov", R.raw.nov, -1, -1, -1,
-						RESOURCE_TYPE_MONTH },
+						RESOURCE_TYPE_MONTH , -1 },
 				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,
-						RESOURCE_TYPE_MONTH },
+						RESOURCE_TYPE_MONTH , -1 },
 				/** Days span */ // Using the image as the value
-				{ "1 day", "1 day", R.raw.jan, 1, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
-				{ "7 days", "7 days", R.raw.jan, 7, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
-				{ "14 days", "14 days", R.raw.feb, 14, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
-				{ "21 days", "21 days", R.raw.mar, 21, -1, -1, RESOURCE_TYPE_DAYS_SPAN },
-				{ "1 month", "1 month", R.raw.apr, 30, -1, -1, RESOURCE_TYPE_DAYS_SPAN },		
-				{ "year", "year", R.raw.apr, 365, -1, -1, RESOURCE_TYPE_DAYS_SPAN },		
+				{ "1 day", "1 day", R.raw.jan, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 1},
+				{ "7 days", "7 days", R.raw.jan, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 7 },
+				{ "14 days", "14 days", R.raw.feb, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 14 },
+				{ "21 days", "21 days", R.raw.mar, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 21 },
+				{ "1 month", "1 month", R.raw.apr, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 31 },		
+				{ "year", "year", R.raw.apr, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 366},		
 						
 				/** Treated */
 				{ "Main crop", "Main crop", R.raw.maincrop,
-						R.drawable.ic_maincrop, -1, -1, RESOURCE_TYPE_INTERCROP },
+						R.drawable.ic_maincrop, -1, -1, RESOURCE_TYPE_INTERCROP , -1 },
 				{ "Intercrop", "Intercrop", R.raw.intercrop,
 						R.drawable.ic_intercrop, -1, -1,
-						RESOURCE_TYPE_INTERCROP },
+						RESOURCE_TYPE_INTERCROP , -1 },
 				/** Fertilizer */
 				{ "Complex", "Complex", R.raw.complex, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Compost", "Compost", R.raw.compost, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "DAP", "DAP", R.raw.dap, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Farm Yard Manure / FYM", "FYM", R.raw.fym, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Gypsum", "Gypsum", R.raw.gypsum, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Potash", "Potash", R.raw.potash, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Salt", "Salt", R.raw.salt, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Super", "Super", R.raw.superr, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Super", "Urea", R.raw.superr, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				{ "Unlisted", "Not in the list", R.raw.unlisted, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER },
+						RESOURCE_TYPE_FERTILIZER , -1 },
 				/** Pesticide */
 				{ "Monocrotophos", "Monocrotopho", R.raw.audio1,
-							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE },
+							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
 				{ "Dimethoate", "Dimethoate", R.raw.audio1, R.drawable.pesticide,
-						-1, -1, RESOURCE_TYPE_PESTICIDE },
+						-1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
 				{ "Pesticide not listed", "P-unlisted", R.raw.audio1,
-							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE },
+							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
 				{ "Dithane M-45", "Dithane M-45", R.raw.audio1,
-								R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE },
+								R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
 				{ "Triazole", "Triazole", R.raw.audio1, R.drawable.fungicide, -1,
-						-1, RESOURCE_TYPE_PESTICIDE },
+						-1, RESOURCE_TYPE_PESTICIDE , -1 },
 				{ "Fungicide not listed", "F-unlisted", R.raw.audio1,
-							R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE },
+							R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
 				/** Irrigation Method. */
 				{ "Flooding", "Flooding", R.raw.flooding,
 						R.drawable.ic_flooding, -1, -1,
-						RESOURCE_TYPE_IRRIGATIONMETHOD },
+						RESOURCE_TYPE_IRRIGATIONMETHOD , -1 },
 				{ "Sprinkling", "Sprinkling", R.raw.sprinkling,
 						R.drawable.ic_sprinkling, -1, -1,
-						RESOURCE_TYPE_IRRIGATIONMETHOD },
+						RESOURCE_TYPE_IRRIGATIONMETHOD , -1 },
 				/** Satisfaction */
 				{ "Good", "Good", R.raw.feedbackgood, R.drawable.smiley_good,
-						-1, -1, RESOURCE_TYPE_SATISFACTION },
+						-1, -1, RESOURCE_TYPE_SATISFACTION , -1 },
 				{ "Moderate", "Moderate", R.raw.feedbackmoderate,
 						R.drawable.smiley_medium, -1, -1,
-						RESOURCE_TYPE_SATISFACTION },
+						RESOURCE_TYPE_SATISFACTION , -1 },
 				{ "Bad", "Bad", R.raw.feedbackbad, R.drawable.smiley_bad, -1,
-						-1, RESOURCE_TYPE_SATISFACTION }
+						-1, RESOURCE_TYPE_SATISFACTION , -1 }
 
 		};
 
@@ -912,6 +917,8 @@ public class RealFarmDatabase {
 					(Integer) resourceData[x][5]);
 			resource.put(COLUMN_NAME_RESOURCE_TYPE,
 					(Integer) resourceData[x][6]);
+			resource.put(COLUMN_NAME_RESOURCE_VALUE,
+					(Integer) resourceData[x][7]);
 			insertEntriesIntoDatabase(TABLE_NAME_RESOURCE, resource, db);
 			resource.clear();
 		}

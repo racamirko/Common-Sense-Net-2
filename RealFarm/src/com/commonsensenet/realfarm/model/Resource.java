@@ -14,6 +14,8 @@ public class Resource {
 	protected int mImage1;
 	/** Second Image resource id. */
 	protected int mImage2;
+	/** Value */
+	protected int mValue;
 	/** Shortname of the resource, used mostly for displaying purposes. */
 	protected String mShortName;
 	/** Type of the resource. */
@@ -25,10 +27,11 @@ public class Resource {
 		mImage1 = -1;
 		mImage2 = -1;
 		mType = -1;
+		mValue = -1;
 	}
 
 	public Resource(int id, String name, String shortName, int audio,
-			int resource1, int resource2, int backgroundResource, int type) {
+			int resource1, int resource2, int backgroundResource, int type, int value) {
 		mName = name;
 		mShortName = shortName;
 		mImage1 = resource1;
@@ -37,6 +40,7 @@ public class Resource {
 		mId = id;
 		mBackgroundImage = backgroundResource;
 		mType = type;
+		mValue = value;
 	}
 
 	public int getAudio() {
@@ -101,6 +105,14 @@ public class Resource {
 
 	public void setType(int value) {
 		mType = value;
+	}
+	
+	public void setValue(int val) {
+		mValue = val;
+	}
+
+	public int getValue() {
+		return mValue;
 	}
 
 	@Override

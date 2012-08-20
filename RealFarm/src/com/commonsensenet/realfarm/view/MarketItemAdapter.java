@@ -14,7 +14,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 
-public class MarketItemAdapter extends ArrayAdapter<AggregateItem> {
+public class MarketItemAdapter extends AggregateItemAdapter {
 	/** Database provided that used to obtain the required data. */
 	private RealFarmProvider mDataProvider;
 
@@ -24,7 +24,7 @@ public class MarketItemAdapter extends ArrayAdapter<AggregateItem> {
 	public MarketItemAdapter(Context context,
 			List<AggregateItem> marketItems,
 			RealFarmProvider dataProvider) {
-		super(context, android.R.layout.simple_list_item_1, marketItems);
+		super(context, marketItems, 1, dataProvider);
 
 		// TODO: this shouldn't be done!!
 		mDataProvider = dataProvider;
