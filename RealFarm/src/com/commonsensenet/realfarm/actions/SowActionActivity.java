@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Global;
@@ -27,19 +28,36 @@ public class SowActionActivity extends DataFormActivity {
 	private int mMonth;
 	private int mSeedType;
 	private int mTreatment;
+	
+	private List<Resource> varietiesList;
+	private List<Resource> treatmentList;
+	private List<Resource> intercropList;
+	private List<Resource> monthList;
+	
+	private int defaultVariety =  -1;
+	private String defaultAmount =  "0";
+	private String defaultDay =  "0";
+	private int defaultMonth =  -1;
+	private int defaultTreatment =  -1;
+	private int defaultIntercrop =  -1;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_sow_action);
+		
+		varietiesList = mDataProvider.getVarieties();
+		treatmentList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_TREATMENT);
+		intercropList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_INTERCROP);
+		monthList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 
 		// adds the fields to validate to the map.
-		mResultsMap.put(VARIETY, -1);
-		mResultsMap.put(AMOUNT, "0");
-		mResultsMap.put(DAY, "0");
-		mResultsMap.put(MONTH, -1);
-		mResultsMap.put(TREATMENT, -1);
-		mResultsMap.put(INTERCROP, -1);
+		mResultsMap.put(VARIETY, defaultVariety);
+		mResultsMap.put(AMOUNT, defaultAmount);
+		mResultsMap.put(DAY, defaultDay);
+		mResultsMap.put(MONTH, defaultMonth);
+		mResultsMap.put(TREATMENT, defaultTreatment);
+		mResultsMap.put(INTERCROP, defaultIntercrop);
 
 		playAudio(R.raw.thankyouclickingactionsowing);
 
@@ -73,10 +91,8 @@ public class SowActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> m_entries = mDataProvider.getVarieties();
-				displayDialog(v, m_entries, VARIETY, "Select the variety",
-						R.raw.select_the_variety, R.id.dlg_var_text_sow,
-						R.id.seed_type_sow_tr, 0);
+				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, varietiesList, VARIETY, "Select the variety", R.raw.select_the_variety, R.id.dlg_var_text_sow, R.id.seed_type_sow_tr, 0);
 			}
 		});
 
@@ -84,23 +100,21 @@ public class SowActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
-						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
-						0, R.id.dlg_lbl_day_sow, R.id.day_sow_tr,
-						R.raw.ok, R.raw.cancel, R.raw.day_ok,
-						R.raw.day_cancel);
+				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,0, R.id.dlg_lbl_day_sow, R.id.day_sow_tr,R.raw.ok, R.raw.cancel, R.raw.day_ok,R.raw.day_cancel);
 			}
 		});
 
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_TREATMENT);
-				displayDialog(v, data, TREATMENT,
-						"Select if the seeds were treated", R.raw.treatmenttoseeds1,
-						R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
+				
+				// TODO AUDIO: "Select if the seeds were treated" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, treatmentList, TREATMENT,"Select if the seeds were treated", R.raw.treatmenttoseeds1,R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
 
 			}
 		});
@@ -108,24 +122,22 @@ public class SowActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-
-				displayDialogNP("Choose the number of serus", AMOUNT,
-						R.raw.choose_serus, 1, 999, 1, 1, 0,
-						R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr,
-						R.raw.ok, R.raw.cancel, R.raw.serus_ok,
-						R.raw.serus_cancel);
+				
+				// TODO AUDIO: "Choose the number of serus" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				displayDialogNP("Choose the number of serus", AMOUNT, R.raw.choose_serus, 1, 999, 1, 1, 0, R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr, R.raw.ok, R.raw.cancel, R.raw.serus_ok, R.raw.serus_cancel);
 			}
 		});
 
 		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_INTERCROP);
-				displayDialog(v, data, INTERCROP, "Main crop or intercrop?",
-						R.raw.maincrop_intercrop, R.id.dlg_lbl_intercrop_sow,
-						R.id.intercrop_sow_tr, 0);
+				
+				// TODO AUDIO: "Main crop or intercrop?" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, intercropList, INTERCROP, "Main crop or intercrop?", R.raw.maincrop_intercrop, R.id.dlg_lbl_intercrop_sow,	R.id.intercrop_sow_tr, 0);
 			}
 		});
 
@@ -133,11 +145,8 @@ public class SowActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, MONTH, "Select the month",
-						R.raw.choosethemonth, R.id.dlg_lbl_month_sow,
-						R.id.day_sow_tr, 0);
+				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, monthList, MONTH, "Select the month",R.raw.choosethemonth, R.id.dlg_lbl_month_sow,R.id.day_sow_tr, 0);
 			}
 		});
 	}
@@ -147,21 +156,40 @@ public class SowActionActivity extends DataFormActivity {
 
 		// long click sounds are always forced since they represent
 		// the helping system.
-
 		// checks which view was clicked.
 		if (v.getId() == R.id.dlg_var_text_sow) {
-			playAudio(R.raw.varietyofseedssowd, true);
+			// TODO AUDIO: "Select the variety" default if nothing is in the field
+			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.varietyofseedssowd, true); 
+			else playAudio(varietiesList.get(((Integer)mResultsMap.get(VARIETY))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_sow) {
-			playAudio(R.raw.selecttheunits, true);
+			// TODO AUDIO: "Select the number of serus" default if nothing is in the field
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(AMOUNT).toString());
+			else playAudio(R.raw.problems, true);  
 		} else if (v.getId() == R.id.dlg_lbl_month_sow) {
-			playAudio(R.raw.selectthedate, true);
+			// TODO AUDIO: "Choose the month" default if nothing is in the field
+			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_treat_sow) {
-			playAudio(R.raw.treatmenttoseeds1, true);
-		}else if (v.getId() == R.id.dlg_lbl_intercrop_sow) {
-			playAudio(R.raw.croptype, true);
-		} 	else if (v.getId() == R.id.aggr_img_help) {
+			// TODO AUDIO: "Treated or not treated?" default if nothing is in the field
+			if((Integer) mResultsMap.get(TREATMENT) == defaultTreatment) playAudio(R.raw.treatmenttoseeds1, true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(TREATMENT))).getAudio()); 
+		} else if (v.getId() == R.id.dlg_lbl_intercrop_sow) {
+			// TODO AUDIO: "Main crop or intercrop?" default if nothing is in the field
+			if((Integer) mResultsMap.get(INTERCROP) == defaultIntercrop) playAudio(R.raw.croptype, true); 
+			else playAudio(intercropList.get(((Integer)mResultsMap.get(INTERCROP))).getAudio()); 
+		}  else if (v.getId() == R.id.dlg_lbl_day_sow) {
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
+			else playAudio(R.raw.problems, true);   
+		} 
+		
+		// TODO AUDIO: Check the remaining audio
+		else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.data_sow_help, true);
-		} else if (v.getId() == R.id.seed_type_sow_tr) {
+		}
+		else if (v.getId() == R.id.seed_type_sow_tr) {
 			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.units_sow_tr) {
 			playAudio(R.raw.amount, true);
@@ -169,8 +197,6 @@ public class SowActionActivity extends DataFormActivity {
 			playAudio(R.raw.treatmentdone, true);
 		} else if (v.getId() == R.id.intercrop_sow_tr) {
 			playAudio(R.raw.intercrop, true);
-		} else if (v.getId() == R.id.dlg_lbl_day_sow) {
-			playAudio(R.raw.choosethemonth, true);
 		} else if (v.getId() == R.id.day_sow_tr) {
 			playAudio(R.raw.date, true);
 		} else {
@@ -188,46 +214,42 @@ public class SowActionActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// gets the current values from the map.
-		mSeedType = (Integer) mResultsMap.get(VARIETY);
 		mAmount = Integer.valueOf(mResultsMap.get(AMOUNT).toString());
 		// month corresponds to the id in the resource table.
-		mMonth = (Integer) mResultsMap.get(MONTH);
 		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
-		mTreatment = (Integer) mResultsMap.get(TREATMENT);
-		mIntercrop = (Integer) mResultsMap.get(INTERCROP);
 
 		// flag that indicates if the form is valid.
 		boolean isValid = true;
 
-		if (mSeedType != -1) {
+		if ((Integer)mResultsMap.get(VARIETY) != defaultVariety) {
 			highlightField(R.id.seed_type_sow_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.seed_type_sow_tr, true);
 		}
 
-		if (mAmount > 0) {
+		if (mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.units_sow_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.units_sow_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_sow_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.day_sow_tr, true);
 		}
 
-		if (mTreatment != -1) {
+		if ((Integer) mResultsMap.get(TREATMENT) != defaultTreatment) {
 			highlightField(R.id.treatment_sow_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.treatment_sow_tr, true);
 		}
 
-		if (mIntercrop != -1) {
+		if ((Integer) mResultsMap.get(INTERCROP) != defaultIntercrop) {
 			highlightField(R.id.intercrop_sow_tr, false);
 		} else {
 			isValid = false;
@@ -236,6 +258,10 @@ public class SowActionActivity extends DataFormActivity {
 
 		// if all the fields are valid the data is inserted into the database.
 		if (isValid) {
+			mSeedType = varietiesList.get((Integer)mResultsMap.get(VARIETY)).getId();
+			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
+			mTreatment = treatmentList.get((Integer) mResultsMap.get(TREATMENT)).getId();
+			mIntercrop = intercropList.get((Integer) mResultsMap.get(INTERCROP)).getId();
 
 			// inserts the new plot into the table.
 			long result = mDataProvider.addSowAction(Global.userId,

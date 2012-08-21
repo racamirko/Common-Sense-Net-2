@@ -31,23 +31,42 @@ public class SellActionActivity extends DataFormActivity {
 	private int mPrice;
 	private int mUnit2;
 	private int mUnit;
+	
+	private int defaultCrop = -1;
+	private int defaultMonth = -1;
+	private int defaultUnit1 = -1;
+	private int defaultUnit2 = -1;
+	private String defaultAmount = "0";
+	private String defaultDay = "0";
+	private String defaultPrice = "0";
+	private String defaultRemaining = "0";
+	
+	private List<Resource> cropList;
+	private List<Resource> monthList;
+	private List<Resource> unit1List;
+	private List<Resource> unit2List;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_sell_action);
-
+		
+		cropList = mDataProvider.getCropTypes();
+		monthList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
+		unit1List = mDataProvider.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
+		unit2List = mDataProvider.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);	
+		
 		playAudio(R.raw.clickingselling);
 
 		// adds the fields to validate to the map.
-		mResultsMap.put(CROP, -1);
-		mResultsMap.put(DAY, "0");
-		mResultsMap.put(MONTH, -1);
-		mResultsMap.put(AMOUNT, "0");
-		mResultsMap.put(UNIT, -1);
-		mResultsMap.put(PRICE, "0");
-		mResultsMap.put(REMAINING, "0");
-		mResultsMap.put(UNIT2, -1);
+		mResultsMap.put(CROP, defaultCrop);
+		mResultsMap.put(DAY, defaultDay);
+		mResultsMap.put(MONTH, defaultMonth);
+		mResultsMap.put(AMOUNT, defaultAmount);
+		mResultsMap.put(UNIT, defaultUnit1);
+		mResultsMap.put(PRICE, defaultPrice);
+		mResultsMap.put(REMAINING, defaultRemaining);
+		mResultsMap.put(UNIT2, defaultUnit2);
 
 		View item1 = findViewById(R.id.dlg_lbl_crop_sell);
 		View item2 = findViewById(R.id.dlg_lbl_date_sell);
@@ -83,8 +102,8 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider.getCropTypes();
-				displayDialog(v, data, CROP, "Select the crop", R.raw.problems,
+				// TODO AUDIO: "Select the crop" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, cropList, CROP, "Select the crop", R.raw.problems,
 						R.id.dlg_lbl_crop_sell, R.id.crop_sell_tr, 0);
 
 			}
@@ -94,6 +113,11 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_date_sell, R.id.date_sell_tr,
@@ -106,9 +130,8 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, MONTH, "Select the month",
+				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_sell,
 						R.id.date_sell_tr, 0);
 			}
@@ -118,6 +141,11 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the number of bags" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the number of bags", AMOUNT,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_sell, R.id.quant_sell_tr,
@@ -130,9 +158,8 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
-				displayDialog(v, data, UNIT, "Select the unit", R.raw.problems,
+				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, unit1List, UNIT, "Select the unit", R.raw.problems,
 						R.id.dlg_lbl_unit_sell, R.id.quant_sell_tr, 2);
 			}
 		});
@@ -141,6 +168,11 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Enter the price" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Enter the price", PRICE, R.raw.enterpricedetails, 0,
 						9999, 3200, 50, 0, R.id.dlg_lbl_price_sell,
 						R.id.price_sell_tr, R.raw.ok, R.raw.cancel,
@@ -152,6 +184,11 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the number of bags" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the number of bags", REMAINING,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_rem_sell, R.id.rem_quant_sell_tr,
@@ -164,9 +201,8 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
-				displayDialog(v, data, UNIT2, "Select the unit",
+				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, unit2List, UNIT2, "Select the unit",
 						R.raw.problems, R.id.dlg_lbl_unit_rem_sell,
 						R.id.rem_quant_sell_tr, 2);
 			}
@@ -178,7 +214,46 @@ public class SellActionActivity extends DataFormActivity {
 
 		// forces the sound to play since its the long click
 
-		if (v.getId() == R.id.date_sell_tr) {
+		if (v.getId() == R.id.dlg_lbl_crop_sell) {
+			// TODO AUDIO: "Select the crop" default if nothing is in the field
+			if((Integer) mResultsMap.get(CROP) == defaultCrop) playAudio(R.raw.crop, true); 
+			else playAudio(cropList.get(((Integer)mResultsMap.get(CROP))).getAudio()); 
+		} else if (v.getId() == R.id.dlg_lbl_date_sell) {
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.date, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
+			else playAudio(R.raw.problems, true);  
+		} else if (v.getId() == R.id.dlg_lbl_month_sell) {
+			// TODO AUDIO: "Choose the month" default if nothing is in the field
+			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+		} else if (v.getId() == R.id.dlg_lbl_unit_no_sell) {
+			// TODO AUDIO: "Select the number" default if nothing is in the field
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.noofbags, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(AMOUNT).toString());
+			else playAudio(R.raw.problems, true);  
+		} else if (v.getId() == R.id.dlg_lbl_unit_sell) {
+			// TODO AUDIO: "Choose the unit" default if nothing is in the field
+			if((Integer) mResultsMap.get(UNIT) == defaultUnit1) playAudio(R.raw.keygis, true); 
+			else playAudio(unit1List.get(((Integer)mResultsMap.get(UNIT))).getAudio()); 
+		} else if (v.getId() == R.id.dlg_lbl_price_sell) {
+			// TODO AUDIO: "Select the price" default if nothing is in the field
+			if(mResultsMap.get(PRICE).equals(defaultPrice)) playAudio(R.raw.value, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(PRICE).toString());
+			else playAudio(R.raw.problems, true);  
+		} else if (v.getId() == R.id.dlg_lbl_unit_no_rem_sell) {
+			// TODO AUDIO: "Select the number" default if nothing is in the field
+			if(mResultsMap.get(REMAINING).equals(defaultRemaining)) playAudio(R.raw.noofbags, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(REMAINING).toString());
+			else playAudio(R.raw.problems, true);  
+		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
+			// TODO AUDIO: "Choose the unit" default if nothing is in the field
+			if((Integer) mResultsMap.get(UNIT2) == defaultUnit2) playAudio(R.raw.keygis, true); 
+			else playAudio(unit2List.get(((Integer)mResultsMap.get(UNIT2))).getAudio()); 
+		} 
+		
+		// TODO AUDIO: Check the remaining audio
+		else if (v.getId() == R.id.date_sell_tr) {
 			playAudio(R.raw.choosethemonth, true);
 		} else if (v.getId() == R.id.quant_sell_tr) {
 			playAudio(R.raw.quantity, true);
@@ -190,22 +265,6 @@ public class SellActionActivity extends DataFormActivity {
 			playAudio(R.raw.priceperquintal, true);
 		} else if (v.getId() == R.id.rem_quant_sell_tr) {
 			playAudio(R.raw.remaining, true);
-		} else if (v.getId() == R.id.dlg_lbl_crop_sell) {
-			playAudio(R.raw.crop, true);
-		} else if (v.getId() == R.id.dlg_lbl_date_sell) {
-			playAudio(R.raw.date, true);
-		} else if (v.getId() == R.id.dlg_lbl_month_sell) {
-			playAudio(R.raw.choosethemonth, true);
-		} else if (v.getId() == R.id.dlg_lbl_unit_no_sell) {
-			playAudio(R.raw.noofbags, true);
-		} else if (v.getId() == R.id.dlg_lbl_unit_sell) {
-			playAudio(R.raw.keygis, true);
-		} else if (v.getId() == R.id.dlg_lbl_price_sell) {
-			playAudio(R.raw.value, true);
-		} else if (v.getId() == R.id.dlg_lbl_unit_no_rem_sell) {
-			playAudio(R.raw.noofbags, true);
-		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
-			playAudio(R.raw.keygis, true);
 		} else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.sell_help, true);
 		} else {
@@ -219,46 +278,42 @@ public class SellActionActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// gets the values to validate.
-		mCrop = (Integer) mResultsMap.get(CROP);
 		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
-		mMonth = (Integer) mResultsMap.get(MONTH);
 		mAmount = Integer.valueOf(mResultsMap.get(AMOUNT).toString());
-		mUnit = (Integer) mResultsMap.get(UNIT);
 		mPrice = Integer.valueOf(mResultsMap.get(PRICE).toString());
-		mUnit2 = (Integer) mResultsMap.get(UNIT2);
 		mRemaining = Integer.valueOf(mResultsMap.get(REMAINING).toString());
 
 		boolean isValid = true;
 
-		if (mCrop != -1) {
+		if ((Integer)mResultsMap.get(CROP) != defaultCrop) {
 			highlightField(R.id.crop_sell_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.crop_sell_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.date_sell_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.date_sell_tr, true);
 		}
 
-		if (mUnit != -1 && mAmount > 0) {
+		if ((Integer)mResultsMap.get(UNIT) != defaultUnit1 && mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.quant_sell_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.quant_sell_tr, true);
 		}
 
-		if (mPrice > 0) {
+		if (mPrice > Integer.parseInt(defaultPrice)) {
 			highlightField(R.id.price_sell_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.price_sell_tr, true);
 		}
 
-		if (mUnit2 != -1 && mRemaining > -1) {
+		if ((Integer)mResultsMap.get(UNIT2) != defaultUnit2 && mRemaining > -1) {
 			highlightField(R.id.rem_quant_sell_tr, false);
 		} else {
 			isValid = false;
@@ -267,6 +322,12 @@ public class SellActionActivity extends DataFormActivity {
 
 		// validates the form.
 		if (isValid) {
+			
+			mCrop = cropList.get((Integer)mResultsMap.get(CROP)).getId();
+			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
+			mUnit = unit1List.get((Integer)mResultsMap.get(UNIT)).getId();
+			mUnit2 = unit2List.get((Integer)mResultsMap.get(UNIT2)).getId();
+			
 			long result = mDataProvider.addSellAction(Global.userId,
 					0, mCrop, mAmount, mRemaining, mUnit, mUnit2,
 					mPrice, getDate(mDay, mMonth), 0);

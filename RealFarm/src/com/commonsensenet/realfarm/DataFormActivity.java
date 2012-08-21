@@ -83,7 +83,8 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				highlightField(rowFeedbackId, false);
 
 				// saves the id of the selected item.
-				mResultsMap.put(propertyKey, choice.getId());
+				//mResultsMap.put(propertyKey, choice.getId());
+				mResultsMap.put(propertyKey, position);
 
 				// put backgrounds (specific to the application) TODO: optimize
 				// the resize
@@ -158,6 +159,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 						.show();*/
 				dialog.cancel();
 				playAudio(okAudio);
+				// TODO AUDIO: play the number result
 			}
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {

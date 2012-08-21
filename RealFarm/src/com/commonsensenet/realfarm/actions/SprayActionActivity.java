@@ -27,21 +27,38 @@ public class SprayActionActivity extends DataFormActivity {
 	private int mPesticide;
 	private int mProblem;
 	private int mUnit;
+	
+	private int defaultProblem = -1;
+	private int defaultPesticide = -1;
+	private int defaultUnit = -1;
+	private int defaultMonth = -1;
+	private String defaultAmount = "0";
+	private String defaultDay = "0";
+	
+	private List<Resource> problemList;
+	private List<Resource> pesticideList;
+	private List<Resource> unitList;
+	List<Resource> monthList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_spray_action);
-
+		
+		problemList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
+		pesticideList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_PESTICIDE);
+		unitList = mDataProvider.getUnits(RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
+		monthList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
+		
 		playAudio(R.raw.clickingspraying);
 
 		// adds the name of the fields to validate.
-		mResultsMap.put(PROBLEM, -1);
-		mResultsMap.put(PESTICIDE, -1);
-		mResultsMap.put(AMOUNT, "0");
-		mResultsMap.put(UNIT, -1);
-		mResultsMap.put(DAY, "0");
-		mResultsMap.put(MONTH, -1);
+		mResultsMap.put(PROBLEM, defaultProblem);
+		mResultsMap.put(PESTICIDE, defaultPesticide);
+		mResultsMap.put(AMOUNT, defaultAmount);
+		mResultsMap.put(UNIT, defaultUnit);
+		mResultsMap.put(DAY, defaultDay);
+		mResultsMap.put(MONTH, defaultMonth);
 
 		View item1 = findViewById(R.id.dlg_lbl_prob_spray);
 		View item2 = findViewById(R.id.dlg_lbl_pest_spray);
@@ -71,11 +88,8 @@ public class SprayActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
-				displayDialog(v, data, PROBLEM,
-						"Choose the problem for spraying", R.raw.problems,
-						R.id.dlg_lbl_prob_spray, R.id.prob_spray_tr, 0);
+				// TODO AUDIO "Choose the problem for spraying"  This is the audio that is heard when the selector dialog opens
+				displayDialog(v, problemList, PROBLEM,"Choose the problem for spraying", R.raw.problems,R.id.dlg_lbl_prob_spray, R.id.prob_spray_tr, 0);
 			}
 		});
 
@@ -83,11 +97,8 @@ public class SprayActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_PESTICIDE);
-				displayDialog(v, data, PESTICIDE, "Choose the pesticide",
-						R.raw.problems, R.id.dlg_lbl_pest_spray,
-						R.id.pest_spray_tr, 0);
+				// TODO AUDIO "Choose the pesticide"  This is the audio that is heard when the selector dialog opens
+				displayDialog(v, pesticideList, PESTICIDE, "Choose the pesticide",R.raw.problems, R.id.dlg_lbl_pest_spray,R.id.pest_spray_tr, 0);
 			}
 		});
 
@@ -95,10 +106,12 @@ public class SprayActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				displayDialogNP("Choose the quantity", AMOUNT, R.raw.selecttheunits,
-						1, 20, 1, 1, 0, R.id.dlg_lbl_unit_no_spray,
-						R.id.units_spray_tr, R.raw.ok, R.raw.cancel,
-						R.raw.quantity_ok, R.raw.quantity_cancel);
+				// TODO AUDIO: "Choose the quantity" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				displayDialogNP("Choose the quantity", AMOUNT, R.raw.selecttheunits, 1, 20, 1, 1, 0, R.id.dlg_lbl_unit_no_spray, R.id.units_spray_tr, R.raw.ok, R.raw.cancel, R.raw.quantity_ok, R.raw.quantity_cancel);
 			}
 		});
 
@@ -106,10 +119,8 @@ public class SprayActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getUnits(RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
-				displayDialog(v, data, UNIT, "Choose the unit", R.raw.problems,
-						R.id.dlg_lbl_units_spray, R.id.units_spray_tr, 1);
+				// TODO AUDIO "Choose the unit"  This is the audio that is heard when the selector dialog opens
+				displayDialog(v, unitList, UNIT, "Choose the unit", R.raw.problems,R.id.dlg_lbl_units_spray, R.id.units_spray_tr, 1);
 			}
 		});
 
@@ -117,6 +128,11 @@ public class SprayActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_spray, R.id.day_spray_tr,
@@ -129,9 +145,8 @@ public class SprayActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, MONTH, "Select the month",
+				// TODO AUDIO "Choose the month"  This is the audio that is heard when the selector dialog opens
+				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_spray,
 						R.id.day_spray_tr, 0);
 			}
@@ -144,19 +159,37 @@ public class SprayActionActivity extends DataFormActivity {
 		// forces all long click sounds.
 
 		if (v.getId() == R.id.dlg_lbl_prob_spray) {
-			playAudio(R.raw.selecttheproblem, true);
+			// TODO AUDIO: "Select the problem" default if nothing is in the field
+			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.selecttheproblem, true); 
+			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_pest_spray) {
-			playAudio(R.raw.selectthepesticide, true);
-		} else if (v.getId() == R.id.dlg_lbl_unit_no_spray
-				|| v.getId() == R.id.dlg_lbl_units_spray) {
-			playAudio(R.raw.selecttheunits, true);
+			// TODO AUDIO: "Select the pesticide" default if nothing is in the field
+			if((Integer) mResultsMap.get(PESTICIDE) == defaultPesticide) playAudio(R.raw.selectthepesticide, true); 
+			else playAudio(pesticideList.get(((Integer)mResultsMap.get(PESTICIDE))).getAudio()); 
+		} else if (v.getId() == R.id.dlg_lbl_units_spray) {
+			// TODO AUDIO: "Select the unit" default if nothing is in the field
+			if((Integer) mResultsMap.get(UNIT) == defaultUnit) playAudio(R.raw.selecttheunits, true); 
+			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio()); 
+		} else if (v.getId() == R.id.dlg_lbl_unit_no_spray) {
+			// TODO AUDIO: "Select the number" default if nothing is in the field
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(AMOUNT).toString());
+			else playAudio(R.raw.problems, true);   
 		} else if (v.getId() == R.id.dlg_lbl_day_spray) {
-			playAudio(R.raw.selectthedate, true);
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.spray_help, true);
+			// TODO AUDIO: "Select the number" default if nothing is in the field
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
+			else playAudio(R.raw.problems, true);  
 		} else if (v.getId() == R.id.dlg_lbl_month_spray) {
-			playAudio(R.raw.choosethemonth, true);
-		} else if (v.getId() == R.id.prob_spray_tr) {
+			// TODO AUDIO: "Select the unit" default if nothing is in the field
+			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+		}
+		
+		// TODO AUDIO: Check the remaining audio
+		else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.spray_help, true);
+		}  else if (v.getId() == R.id.prob_spray_tr) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.day_spray_tr) {
 			playAudio(R.raw.date, true);
@@ -178,38 +211,34 @@ public class SprayActionActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// gets all the values to validate.
-		mProblem = (Integer) mResultsMap.get(PROBLEM);
-		mPesticide = (Integer) mResultsMap.get(PESTICIDE);
 		mAmount = Integer.valueOf(mResultsMap.get(AMOUNT).toString());
-		mUnit = (Integer) mResultsMap.get(UNIT);
-		mMonth = (Integer) mResultsMap.get(MONTH);
 		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
 
 		// flag used to determine the validity of the form.
 		boolean isValid = true;
 
-		if (mUnit != -1 && mAmount > 0) {
+		if ((Integer)mResultsMap.get(UNIT) != defaultUnit && mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.units_spray_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.units_spray_tr, true);
 		}
 
-		if (mPesticide != -1) {
+		if ((Integer)mResultsMap.get(PESTICIDE) != defaultPesticide) {
 			highlightField(R.id.pest_spray_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.pest_spray_tr, true);
 		}
 
-		if (mProblem != -1) {
+		if ((Integer)mResultsMap.get(PROBLEM) != defaultProblem) {
 			highlightField(R.id.prob_spray_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.prob_spray_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_spray_tr, false);
 		} else {
 			isValid = false;
@@ -218,6 +247,11 @@ public class SprayActionActivity extends DataFormActivity {
 
 		// inserts the action if the form is valid.
 		if (isValid) {			
+			mProblem = problemList.get((Integer) mResultsMap.get(PROBLEM)).getId();
+			mPesticide =  pesticideList.get((Integer) mResultsMap.get(PESTICIDE)).getId();
+			mUnit = unitList.get((Integer) mResultsMap.get(UNIT)).getId();
+			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
+			
 			long result = mDataProvider.addSprayAction(Global.userId,
 					Global.plotId, mProblem, mPesticide, mAmount, mUnit,
 					getDate(mDay, mMonth), 0);

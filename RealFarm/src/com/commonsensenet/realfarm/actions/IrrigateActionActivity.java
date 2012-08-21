@@ -27,19 +27,32 @@ public class IrrigateActionActivity extends DataFormActivity {
 	private int mHours;
 	private int mMethod;
 	private int mMonth;
+	
+	private int defaultMethod = -1;
+	private int defaultMonth = -1;
+	private String defaultDay = "0";
+	private String defaultHours = "0";
+	
+	private List<Resource> methodList;
+	private List<Resource> monthList;	
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_irrigate_action);
+		
+		methodList = mDataProvider
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD); 
+		monthList = mDataProvider
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 
 		playAudio(R.raw.clickingfertilising);
 
 		// adds the values that need to be validated.
-		mResultsMap.put(METHOD, -1);
-		mResultsMap.put(HOURS, "0");
-		mResultsMap.put(DAY, "0");
-		mResultsMap.put(MONTH, -1);
+		mResultsMap.put(METHOD, defaultMethod);
+		mResultsMap.put(HOURS, defaultHours);
+		mResultsMap.put(DAY, defaultDay);
+		mResultsMap.put(MONTH, defaultMonth);
 
 		View item1 = findViewById(R.id.dlg_lbl_method_irr);
 		View item2 = findViewById(R.id.dlg_lbl_unit_no_irr);
@@ -63,9 +76,8 @@ public class IrrigateActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD);
-				displayDialog(v, data, METHOD, "Select the irrigation method",
+				// TODO AUDIO: "Select the irrigation method" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, methodList, METHOD, "Select the irrigation method",
 						R.raw.selecttheirrigationmethod, R.id.dlg_lbl_method_irr,
 						R.id.method_irr_tr, 0);
 			}
@@ -75,6 +87,11 @@ public class IrrigateActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the irrigation duration" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the irrigation duration", HOURS,
 						R.raw.select_irr_duration, 0, 24, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_irr, R.id.units_irr_tr,
@@ -87,6 +104,11 @@ public class IrrigateActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_irr, R.id.day_irr_tr,
@@ -100,9 +122,8 @@ public class IrrigateActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, MONTH, "Select the month",
+				// TODO AUDIO: "Select the month list" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_irr,
 						R.id.day_irr_tr, 0);
 			}
@@ -116,15 +137,28 @@ public class IrrigateActionActivity extends DataFormActivity {
 		// feature.
 
 		if (v.getId() == R.id.dlg_lbl_method_irr) {
-			playAudio(R.raw.method, true);
+			// TODO AUDIO: "Select the variety" default if nothing is in the field
+			if((Integer) mResultsMap.get(METHOD) == defaultMethod) playAudio(R.raw.method, true); 
+			else playAudio(methodList.get(((Integer)mResultsMap.get(METHOD))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_irr) {
-			playAudio(R.raw.noofhours, true);
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(HOURS).equals(defaultHours)) playAudio(R.raw.noofhours, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(HOURS).toString());
+			else playAudio(R.raw.problems, true);  
 		} else if (v.getId() == R.id.dlg_lbl_day_irr) {
-			playAudio(R.raw.selectthedate, true);
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.irr_help, true);
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
+			else playAudio(R.raw.problems, true);   
 		} else if (v.getId() == R.id.dlg_lbl_month_irr) {
-			playAudio(R.raw.choosethemonth, true);
+			// TODO AUDIO: "Choose the month" default if nothing is in the field
+			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+		}
+		
+		// TODO AUDIO: Check the remaining audio
+		else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.irr_help, true);
 		} else if (v.getId() == R.id.method_irr_tr) {
 			playAudio(R.raw.method, true);
 		} else if (v.getId() == R.id.units_irr_tr) {
@@ -145,30 +179,27 @@ public class IrrigateActionActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// gets the values from the hash map.
-		mMethod = (Integer) mResultsMap.get(METHOD);
 		mHours = Integer.valueOf(mResultsMap.get(HOURS).toString());
-		mMonth = (Integer) mResultsMap.get(MONTH);
 		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
 
 		// flag used to indicate the validity of the form.
 		boolean isValid = true;
 
-		if (mMethod != -1) {
+		if ((Integer)mResultsMap.get(METHOD) != defaultMethod) {
 			highlightField(R.id.method_irr_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.method_irr_tr, true);
 		}
 
-		if (mHours > 0) {
+		if (mHours > Integer.parseInt(defaultHours)) {
 			highlightField(R.id.units_irr_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.units_irr_tr, true);
 		}
 		
-
-		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_irr_tr, false);
 		} else {
 			isValid = false;
@@ -176,6 +207,9 @@ public class IrrigateActionActivity extends DataFormActivity {
 		}
 
 		if (isValid) {
+			
+			mMethod = methodList.get((Integer)mResultsMap.get(METHOD)).getId();;
+			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
 
 			long result = mDataProvider.addIrrigateAction(Global.userId,
 					Global.plotId, mHours, mMethod, getDate(mDay, mMonth), 0);

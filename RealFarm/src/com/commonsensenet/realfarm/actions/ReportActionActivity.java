@@ -23,19 +23,32 @@ public class ReportActionActivity extends DataFormActivity {
 	private int mMonth;
 	private int mProblem;
 	private int mVariety;
+	
+	private int defaultProblem = -1;
+	private int defaultVariety = -1;
+	private int defaultMonth = -1;
+	private String defaultDay = "0";
+	
+	private List<Resource> problemList;
+	private List<Resource> varietyList;
+	private List<Resource> monthList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_report_action);
+		
+		problemList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
+		varietyList = mDataProvider.getVarietiesByPlotAndSeason(Global.plotId);
+		monthList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 
 		playAudio(R.raw.clickingfertilising);
 
 		// adds the values that need to be validated.
-		mResultsMap.put(PROBLEM, -1);
-		mResultsMap.put(VARIETY, -1);
-		mResultsMap.put(DAY, "0");
-		mResultsMap.put(MONTH, -1);
+		mResultsMap.put(PROBLEM, defaultProblem);
+		mResultsMap.put(VARIETY, defaultVariety);
+		mResultsMap.put(DAY, defaultDay);
+		mResultsMap.put(MONTH, defaultMonth);
 
 		View item1 = findViewById(R.id.dlg_lbl_var_prob);
 		View item2 = findViewById(R.id.dlg_lbl_var_prob4);
@@ -59,9 +72,8 @@ public class ReportActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
-				displayDialog(v, data, PROBLEM, "Choose the problem type",
+				// TODO AUDIO: "Select the problem" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, problemList, PROBLEM, "Choose the problem type",
 						R.raw.problems, R.id.dlg_lbl_var_prob,
 						R.id.var_prob_tr, 0);
 
@@ -72,8 +84,8 @@ public class ReportActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider.getVarietiesByPlotAndSeason(Global.plotId);
-				displayDialog(v, data, VARIETY, "Select the variety",
+				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, varietyList, VARIETY, "Select the variety",
 						R.raw.problems, R.id.dlg_lbl_var_prob4,
 						R.id.var_prob_tr4, 0);
 
@@ -83,7 +95,12 @@ public class ReportActionActivity extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-
+				
+				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_prob, R.id.day_prob_tr,
@@ -97,9 +114,8 @@ public class ReportActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, MONTH, "Select the month",
+				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_prob,
 						R.id.day_prob_tr, 0);
 
@@ -115,14 +131,26 @@ public class ReportActionActivity extends DataFormActivity {
 		// forces all audio sounds to be played.
 
 		if (v.getId() == R.id.dlg_lbl_var_prob) {
-			playAudio(R.raw.problems, true);
+			// TODO AUDIO: "Select the problem" default if nothing is in the field
+			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.problems, true); 
+			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_var_prob4) {
-			playAudio(R.raw.problems, true);
+			// TODO AUDIO: "Select the variety" default if nothing is in the field
+			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.problems, true); 
+			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_day_prob) {
-			playAudio(R.raw.selectthedate, true);
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.date, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
+			else playAudio(R.raw.problems, true);  
 		} else if (v.getId() == R.id.dlg_lbl_month_prob) {
-			playAudio(R.raw.choosethemonth, true);
-		} else if (v.getId() == R.id.var_prob_tr) {
+			// TODO AUDIO: "Select the variety" default if nothing is in the field
+			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+		} 
+		
+		// TODO AUDIO: Check the remaining audio
+		else if (v.getId() == R.id.var_prob_tr) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.var_prob_tr4) {
 			playAudio(R.raw.problems, true);
@@ -142,37 +170,37 @@ public class ReportActionActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// gets the values to validate.
-		mProblem = (Integer) mResultsMap.get(PROBLEM);
-		mVariety = (Integer) mResultsMap.get(VARIETY);
 		mDay = Integer.valueOf(mResultsMap.get(DAY).toString());
-		mMonth = (Integer) mResultsMap.get(MONTH);
 
 		// flag to indicate the validity of the form.
 		boolean isValid = true;
 
-		if (mProblem != -1) {
+		if ((Integer)mResultsMap.get(PROBLEM) != defaultProblem) {
 			highlightField(R.id.var_prob_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.var_prob_tr, true);
 		}
-
-		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
+		
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_prob_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.day_prob_tr, true);
 		}
-
-		if (mVariety != -1) {
+		
+		if ((Integer)mResultsMap.get(VARIETY) != defaultVariety) {
 			highlightField(R.id.var_prob_tr4, false);
-
 		} else {
 			isValid = false;
 			highlightField(R.id.var_prob_tr4, true);
 		}
 
 		if (isValid) {
+			
+			mProblem = problemList.get((Integer)mResultsMap.get(PROBLEM)).getId();
+			mVariety = varietyList.get((Integer)mResultsMap.get(VARIETY)).getId();
+			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
 
 			long result = mDataProvider
 					.addReportAction(Global.userId, Global.plotId, mVariety,

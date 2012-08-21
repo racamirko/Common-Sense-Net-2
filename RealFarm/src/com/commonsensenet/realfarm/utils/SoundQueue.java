@@ -139,4 +139,5 @@ public class SoundQueue implements OnCompletionListener {
 		// removes any other existing sound in the queue.
 		clean();
 	}
+	
 }
