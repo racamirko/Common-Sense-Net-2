@@ -48,7 +48,7 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 
 		// gets the users from the database.
 		List<Plot> plots;
-		if(Global.selectedAction == HarvestActionActivity.class || Global.selectedAction == ReportActionActivity.class){
+		if(Global.selectedAction == HarvestActionActivity.class){
 			plots = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
 				Global.userId, 1);
 		} else {

@@ -60,6 +60,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private RealFarmProvider mDataProvider;
 	/** Currently selected language. */
 	private String mSelectedLanguage;
+	final private Homescreen mParentReference = this;
 
 	/**
 	 * Adds the Click and LongClick events to the buttons in the UI.
@@ -219,46 +220,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	}
 
-	/**
-	 * Selects the activity to launch based on the selected activity.
-	 * 
-	 */
-	protected void launchActionIntent() {
-
-		// intent to launch
-		Intent intent = null;
-
-		// selling does not require a plot to be done.
-		if (Global.selectedAction == SellActionActivity.class) {
-			intent = new Intent(this, Global.selectedAction);
-		} else {
-
-			List<Plot> plotList;
-			// harvest and report require the plot to have been sown
-			if(Global.selectedAction == HarvestActionActivity.class || Global.selectedAction == ReportActionActivity.class){
-				plotList = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
-					Global.userId, 1);
-			} else {
-				plotList = mDataProvider.getPlotsByUserIdAndEnabledFlag(
-						Global.userId, 1);
-			}
-			int plotCount = plotList.size();
-			
-			// selects the next activity based on the amount of plots.
-			if (plotCount == 1) {
-				Global.plotId = plotList.get(0).getId();
-				intent = new Intent(this, Global.selectedAction);
-			} else if (plotCount == 0) {
-				intent = new Intent(this, PlotListActivity.class);
-			} else {
-				intent = new Intent(this, ChoosePlotActivity.class);
-			}
-		}
-
-		// starts the new activity
-		startActivity(intent);
-	}
-
 	@Override
 	public void onBackPressed() {
 
@@ -388,11 +349,43 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 						return;
 					}
 
-					// closes the dialog.
+					// intent to launch
+					List<Plot> plotList;
+					
+					if (Global.selectedAction == SellActionActivity.class) { // selling does not require a plot to be done
+						Intent intent = new Intent(mParentReference, Global.selectedAction);
+						dialog.dismiss();
+						startActivity(intent);
+						return;
+					} else if (Global.selectedAction == HarvestActionActivity.class){ // harvest requires the plot to have been sown during this season. It displays varieties sown this season
+						plotList = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(Global.userId, 1);
+						if(plotList.size() == 0){ // if no plot available, do nothing
+							playAudio(R.raw.problems, true); // TODO: put audio
+							Toast.makeText(mParentReference, "Please sow on your plot before you harvest.",Toast.LENGTH_SHORT).show();
+							return; 
+						}
+					} else { // other acticities don't need a sowing action. They display varieties sown this season ???
+						plotList = mDataProvider.getPlotsByUserIdAndEnabledFlag(Global.userId, 1);
+					}
+					
+					Intent intent = null;
+					switch(plotList.size()){
+						case 0: // TODO: put audio
+							playAudio(R.raw.problems, true); // TODO: put audio
+							Toast.makeText(mParentReference, "Please add a plot before you do anything.",Toast.LENGTH_SHORT).show();
+							intent = new Intent(mParentReference, AddPlotActivity.class);
+							break;
+						case 1:
+							Global.plotId = plotList.get(0).getId();
+							intent = new Intent(mParentReference, Global.selectedAction);
+							break;
+						default:
+							intent = new Intent(mParentReference, ChoosePlotActivity.class);
+							break;
+					
+					}
 					dialog.dismiss();
-
-					// opens the selected activity.
-					launchActionIntent();
+					startActivity(intent);
 
 				}
 			});

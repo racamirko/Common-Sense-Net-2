@@ -1153,7 +1153,7 @@ public class RealFarmProvider {
 	}
 	
 	
-	// TODO: Redo the function. Currently a dirty hack
+	// TODO: Redo the function. 
 	// TODO: optimise date test
 	public List<Plot> getPlotsByUserIdAndEnabledFlagAndHasCrops(long userId, int isEnabled) {
 		
@@ -2249,7 +2249,6 @@ public class RealFarmProvider {
 		}
 		cursor.close();
 		mDatabase.close();
-		System.out.println(dateNow+" "+stopDate+" "+res);
 		if(res<1) return "";
 		else return String.valueOf(res);
 	}

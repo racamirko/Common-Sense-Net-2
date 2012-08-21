@@ -117,10 +117,10 @@ public class RealFarmDatabase {
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ references(COLUMN_NAME_ACTION_USERID, TABLE_NAME_USER,
 							COLUMN_NAME_USER_ID)
-					+ references(COLUMN_NAME_ACTION_PLOTID + ", "
+					/*+ references(COLUMN_NAME_ACTION_PLOTID + ", "
 							+ COLUMN_NAME_ACTION_USERID, TABLE_NAME_PLOT,
 							COLUMN_NAME_PLOT_ID + ", "
-									+ COLUMN_NAME_PLOT_USERID)
+									+ COLUMN_NAME_PLOT_USERID)*/
 					+ "PRIMARY KEY (" + COLUMN_NAME_ACTION_ID + ", "
 					+ COLUMN_NAME_ACTION_USERID + ")" + " ); ");
 			Log.d(LOG_TAG, "Created action table");
@@ -686,7 +686,7 @@ public class RealFarmDatabase {
 
 		String[][] userData = {
 				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g",
-						"CK Pura" },
+					"CK Pura" },
 				{ "Hendrik", "Knoche", "+41788479621", "farmer_90px_adam_jones",
 						"CK Pura" },
 				{ "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
@@ -709,6 +709,8 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
 			users.put(COLUMN_NAME_USER_TIMESTAMP, new Date().getTime());
+			if(x==0) System.out.println(userData[x][2]);
+			else System.out.println(userData[x][2] + "1");
 			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 			users.clear();
 		}
@@ -751,7 +753,7 @@ public class RealFarmDatabase {
 		
 		
 		// plots
-		ContentValues plotValues = new ContentValues();
+		/*ContentValues plotValues = new ContentValues();
 		plotValues.put(COLUMN_NAME_PLOT_ID, 0);
 		plotValues.put(COLUMN_NAME_PLOT_IMAGEPATH, "");
 		plotValues.put(COLUMN_NAME_PLOT_ISADMINACTION, 0);
@@ -761,9 +763,9 @@ public class RealFarmDatabase {
 		plotValues.put(COLUMN_NAME_PLOT_SIZE, 2.0);
 		plotValues.put(COLUMN_NAME_PLOT_SOILTYPEID, 2);
 		plotValues.put(COLUMN_NAME_PLOT_TIMESTAMP, 2);
-		plotValues.put(COLUMN_NAME_PLOT_USERID, 1);
+		plotValues.put(COLUMN_NAME_PLOT_USERID, 0);
 		insertEntriesIntoDatabase(TABLE_NAME_PLOT, plotValues, db);
-		Log.d(LOG_TAG, "plot works");
+		Log.d(LOG_TAG, "plot works");*/
 
 		
 		// resources
