@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm.actions;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -11,7 +12,9 @@ import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.utils.DateHelper;
 
 public class IrrigateActionActivity extends DataFormActivity {
 
@@ -163,8 +166,9 @@ public class IrrigateActionActivity extends DataFormActivity {
 			isValid = false;
 			highlightField(R.id.units_irr_tr, true);
 		}
+		
 
-		if (mMonth != -1 && mDay > 0) {
+		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
 			highlightField(R.id.day_irr_tr, false);
 		} else {
 			isValid = false;
@@ -172,6 +176,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 		}
 
 		if (isValid) {
+
 			long result = mDataProvider.addIrrigateAction(Global.userId,
 					Global.plotId, mHours, mMethod, getDate(mDay, mMonth), 0);
 
@@ -179,4 +184,5 @@ public class IrrigateActionActivity extends DataFormActivity {
 		}
 		return false;
 	}
+
 }

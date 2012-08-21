@@ -21,6 +21,7 @@ import com.commonsensenet.realfarm.R;
  * @author Julien Freudiger
  * @author Hendrik Knoche
  * @author Oscar Bolaños <@oscarbolanos>
+ * @author Nguyen Lisa
  * 
  */
 public class RealFarmDatabase {
@@ -199,12 +200,16 @@ public class RealFarmDatabase {
 					+ " boolean, "
 					+ COLUMN_NAME_PLOT_TIMESTAMP
 					+ " integer not null, "
+					+ COLUMN_NAME_PLOT_TYPE
+					+ " integer, "
 					+ references(COLUMN_NAME_PLOT_USERID, TABLE_NAME_USER,
 							COLUMN_NAME_USER_ID)
 					+ references(COLUMN_NAME_PLOT_SEEDTYPEID,
 							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
 					+ references(COLUMN_NAME_PLOT_SOILTYPEID,
 							TABLE_NAME_SOILTYPE, COLUMN_NAME_SOILTYPE_ID)
+					+ references(COLUMN_NAME_PLOT_TYPE,
+							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ "PRIMARY KEY (" + COLUMN_NAME_PLOT_ID + ", "
 					+ COLUMN_NAME_PLOT_USERID + ")" + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
@@ -451,6 +456,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_SOILTYPEID = "soilTypeId";
 	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
+	public static final String COLUMN_NAME_PLOT_TYPE = "type";
 
 	public static final String COLUMN_NAME_RESOURCE_AUDIO = "audio";
 	public static final String COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE = "backgroundImage";
@@ -542,6 +548,7 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_TREATMENT = 8;
 	public static final int RESOURCE_TYPE_UNIT = 9;
 	public static final int RESOURCE_TYPE_DAYS_SPAN = 10;
+	public static final int RESOURCE_TYPE_PLOT_TYPE = 11;
 	
 
 	public static final String TABLE_NAME_ACTION = "action";
@@ -750,24 +757,7 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "actionType works");
-		
-		
-		// plots
-		/*ContentValues plotValues = new ContentValues();
-		plotValues.put(COLUMN_NAME_PLOT_ID, 0);
-		plotValues.put(COLUMN_NAME_PLOT_IMAGEPATH, "");
-		plotValues.put(COLUMN_NAME_PLOT_ISADMINACTION, 0);
-		plotValues.put(COLUMN_NAME_PLOT_ISENABLED, 1);
-		plotValues.put(COLUMN_NAME_PLOT_ISSENT, 1);
-		plotValues.put(COLUMN_NAME_PLOT_SEEDTYPEID, 3);
-		plotValues.put(COLUMN_NAME_PLOT_SIZE, 2.0);
-		plotValues.put(COLUMN_NAME_PLOT_SOILTYPEID, 2);
-		plotValues.put(COLUMN_NAME_PLOT_TIMESTAMP, 2);
-		plotValues.put(COLUMN_NAME_PLOT_USERID, 0);
-		insertEntriesIntoDatabase(TABLE_NAME_PLOT, plotValues, db);
-		Log.d(LOG_TAG, "plot works");*/
 
-		
 		// resources
 		Object[][] resourceData = {
 				/** Problems */
@@ -819,26 +809,19 @@ public class RealFarmDatabase {
 						R.drawable.ic_sowingseednottreated, -1, -1,
 						RESOURCE_TYPE_TREATMENT, -1  },
 				/** Month */
-				{ "01 January", "Jan", R.raw.jan, -1, -1, -1,
-						RESOURCE_TYPE_MONTH , -1 },
-				{ "02 February", "Feb", R.raw.feb, -1, -1, -1,
-						RESOURCE_TYPE_MONTH , -1 },
-				{ "03 March", "Mar", R.raw.mar, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
-				{ "04 April", "Apr", R.raw.apr, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
-				{ "05 May", "May", R.raw.may, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
-				{ "06 June", "Jun", R.raw.jun, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
-				{ "07 July", "Jul", R.raw.jul, -1, -1, -1, RESOURCE_TYPE_MONTH , -1 },
-				{ "08 August", "Aug", R.raw.aug, -1, -1, -1,
-						RESOURCE_TYPE_MONTH , -1 },
-				{ "09 September", "Sep", R.raw.sep, -1, -1, -1,
-						RESOURCE_TYPE_MONTH , -1 },
-				{ "10 October", "Oct", R.raw.oct, -1, -1, -1,
-						RESOURCE_TYPE_MONTH , -1 },
-				{ "11 November", "Nov", R.raw.nov, -1, -1, -1,
-						RESOURCE_TYPE_MONTH , -1 },
-				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,
-						RESOURCE_TYPE_MONTH , -1 },
-				/** Days span */ // Using the image as the value
+				{ "01 January", "Jan", R.raw.jan, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.JANUARY },
+				{ "02 February", "Feb", R.raw.feb, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.FEBRUARY},
+				{ "03 March", "Mar", R.raw.mar, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.MARCH },
+				{ "04 April", "Apr", R.raw.apr, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.APRIL },
+				{ "05 May", "May", R.raw.may, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.MAY },
+				{ "06 June", "Jun", R.raw.jun, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.JUNE },
+				{ "07 July", "Jul", R.raw.jul, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.JULY },
+				{ "08 August", "Aug", R.raw.aug, -1, -1, -1,RESOURCE_TYPE_MONTH , Calendar.AUGUST },
+				{ "09 September", "Sep", R.raw.sep, -1, -1, -1,RESOURCE_TYPE_MONTH , Calendar.SEPTEMBER },
+				{ "10 October", "Oct", R.raw.oct, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.OCTOBER },
+				{ "11 November", "Nov", R.raw.nov, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.NOVEMBER },
+				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,RESOURCE_TYPE_MONTH , Calendar.DECEMBER },
+				/** Days span */ 
 				{ "1 day", "1 day", R.raw.jan, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 1},
 				{ "7 days", "7 days", R.raw.jan, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 7 },
 				{ "14 days", "14 days", R.raw.feb, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 14 },
@@ -900,7 +883,13 @@ public class RealFarmDatabase {
 						R.drawable.smiley_medium, -1, -1,
 						RESOURCE_TYPE_SATISFACTION , -1 },
 				{ "Bad", "Bad", R.raw.feedbackbad, R.drawable.smiley_bad, -1,
-						-1, RESOURCE_TYPE_SATISFACTION , -1 }
+						-1, RESOURCE_TYPE_SATISFACTION , -1 },
+				/** Plot type */
+				{ "Irrigated", "Irrigated", R.raw.feedbackgood, R.drawable.maincrop,
+						-1, -1, RESOURCE_TYPE_PLOT_TYPE , -1 },
+				{ "Rainfed", "Rainfed", R.raw.feedbackmoderate,
+						R.drawable.maincrop, -1, -1,
+						RESOURCE_TYPE_PLOT_TYPE , -1 }
 
 		};
 
@@ -1064,8 +1053,8 @@ public class RealFarmDatabase {
 				{ "bag of 50 kgs", R.drawable.bag50kg,
 						R.raw.bagof10kg, ACTION_TYPE_SELL_ID , 50},
 						
-				{ "unknown", R.drawable.icon, R.raw.audio1, ACTION_TYPE_ALL_ID, 0 },
-				{ "none", R.drawable.icon, R.raw.audio1, ACTION_TYPE_ALL_ID, 0 }
+				{ "unknown", R.drawable.unitunknown, R.raw.audio1, ACTION_TYPE_ALL_ID, 0 },
+				{ "none", R.drawable.unitnone, R.raw.audio1, ACTION_TYPE_ALL_ID, 0 }
 
 		};
 

@@ -120,7 +120,7 @@ public class ReminderTask implements Task {
 		+ "%"); }
 		
 		
-		 
+		 // TODO: send plot type  PlotList.get(x).getType()
 		 for(int x = 0; x < PlotList.size(); x++) { plot_list.add(                //Putting plots together
 				 PlotList.get(x).getId()+ "#"+ PlotList.get(x).getUserId()+ "#" +PlotList.get(x).getSeedTypeId()+ "#" +
 				 PlotList.get(x).getSoilTypeId()+ "#" + PlotList.get(x).getImagePath()+

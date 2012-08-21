@@ -213,7 +213,7 @@ public class SowActionActivity extends DataFormActivity {
 			highlightField(R.id.units_sow_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0) {
+		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
 			highlightField(R.id.day_sow_tr, false);
 		} else {
 			isValid = false;

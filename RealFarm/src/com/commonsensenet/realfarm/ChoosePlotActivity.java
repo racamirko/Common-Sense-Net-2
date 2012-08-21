@@ -20,6 +20,7 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
  * Activity that enables the selection of one plot.
  * 
  * @author Oscar Bola–os <@oscarbolanos>
+ * @author Nguyen Lisa
  * 
  */
 public class ChoosePlotActivity extends HelpEnabledActivity implements

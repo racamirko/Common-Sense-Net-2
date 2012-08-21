@@ -29,10 +29,11 @@ public class Plot {
 	private long mTimestamp;
 	/** Owner of the plot. */
 	private long mUserId;
+	private int mType;
 
 	public Plot(long id, long userId, int seedTypeId, int soilTypeId,
 			String imagePath, float size, int isSent, int isEnabled,
-			int isAdminAction, long timestamp) {
+			int isAdminAction, long timestamp, int type) {
 
 		mId = id;
 		mUserId = userId;
@@ -44,6 +45,7 @@ public class Plot {
 		mIsEnabled = isEnabled;
 		mIsAdminAction = isAdminAction;
 		mTimestamp = timestamp;
+		mType = type;
 	}
 
 	public long getId() {
@@ -85,13 +87,17 @@ public class Plot {
 	public long getUserId() {
 		return mUserId;
 	}
+	
+	public long getType() {
+		return mType;
+	}
 
 	@Override
 	public String toString() {
 
 		return String
-				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', isSent='%d', isEnabled='%d', isAdminAction='%d', timestamp='%d']",
+				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', isSent='%d', isEnabled='%d', isAdminAction='%d', timestamp='%d', type='%d']",
 						mId, mUserId, mSeedTypeId, mImagePath, mSoilTypeId,
-						mSize, mIsSent, mIsEnabled, mIsAdminAction, mTimestamp);
+						mSize, mIsSent, mIsEnabled, mIsAdminAction, mTimestamp, mType);
 	}
 }

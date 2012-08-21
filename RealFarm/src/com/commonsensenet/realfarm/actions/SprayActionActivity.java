@@ -209,7 +209,7 @@ public class SprayActionActivity extends DataFormActivity {
 			highlightField(R.id.prob_spray_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0) {
+		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
 			highlightField(R.id.day_spray_tr, false);
 		} else {
 			isValid = false;

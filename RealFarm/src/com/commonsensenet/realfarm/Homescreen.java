@@ -50,6 +50,7 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
 /**
  * 
  * @author Oscar Bolaños <@oscarbolanos>
+ * @author Nguyen Lisa
  */
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 

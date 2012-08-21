@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
 import com.commonsensenet.realfarm.ownCamera.ViewPictureActivity;
@@ -19,11 +20,13 @@ public class AddPlotActivity extends DataFormActivity {
 	public static final String MAIN_CROP = "mainCrop";
 	public static final String PLOT_IMAGE = "plotImage";
 	public static final String SIZE = "size";
+	public static final String TYPE = "type";
 	public static final String SOIL_TYPE = "soilType";
 
 	private int mMainCrop;
 	private String mPlotImage = "0";
 	private double mSize;
+	private int mType;
 	private int mSoilType;
 
 	/**
@@ -33,7 +36,7 @@ public class AddPlotActivity extends DataFormActivity {
 
 		// inserts the new action
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
-				mSoilType, mPlotImage, mSize);
+				mSoilType, mPlotImage, mSize, mType);
 
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
@@ -53,28 +56,33 @@ public class AddPlotActivity extends DataFormActivity {
 		mResultsMap.put(SOIL_TYPE, -1);
 		mResultsMap.put(MAIN_CROP, -1);
 		mResultsMap.put(SIZE, "0.0");
+		mResultsMap.put(TYPE, -1);
 
 		final View plotImageRow;
 		final View soilTypeRow;
 		final View mainCropRow;
 		final View sizeRow;
+		final View typeRow;
 
 		// gets the rows from the layout
 		plotImageRow = findViewById(R.id.plot_tr);
 		soilTypeRow = findViewById(R.id.soiltype_tr);
 		mainCropRow = findViewById(R.id.maincrop_tr);
 		sizeRow = findViewById(R.id.size_tr);
+		typeRow = findViewById(R.id.type_tr);
 
 		// adds the long click listener to enable the help function.
 		plotImageRow.setOnLongClickListener(this);
 		soilTypeRow.setOnLongClickListener(this);
 		mainCropRow.setOnLongClickListener(this);
 		sizeRow.setOnLongClickListener(this);
+		typeRow.setOnLongClickListener(this);
 
 		View plotimage = findViewById(R.id.dlg_plot_img_test);
 		View plotsoil = findViewById(R.id.dlg_lbl_soil_plot);
 		View plotcrop = findViewById(R.id.dlg_lbl_crop_plot);
 		View plotsize = findViewById(R.id.size_txt);
+		View plottype = findViewById(R.id.type_txt);
 
 		// checks if the image path is present.
 		Bundle extras = getIntent().getExtras();
@@ -136,6 +144,16 @@ public class AddPlotActivity extends DataFormActivity {
 						R.raw.dateinfo, R.raw.dateinfo);
 			}
 		});
+		
+		plottype.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				stopAudio();
+				List<Resource> data = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_PLOT_TYPE);
+				displayDialog(v, data, TYPE, "Select the plot type",
+						R.raw.problems, R.id.type_txt,
+						R.id.type_tr, 0);
+			}
+		});
 	}
 
 	@Override
@@ -162,6 +180,8 @@ public class AddPlotActivity extends DataFormActivity {
 			playAudio(R.raw.maincrop);
 		} else if (v.getId() == R.id.size_tr) {
 			playAudio(R.raw.maincrop);
+		} else if (v.getId() == R.id.type_tr) {
+			playAudio(R.raw.maincrop);
 		}
 
 		return true;
@@ -174,6 +194,7 @@ public class AddPlotActivity extends DataFormActivity {
 		mSoilType = (Integer) mResultsMap.get(SOIL_TYPE);
 		mMainCrop = (Integer) mResultsMap.get(MAIN_CROP);
 		mSize = Double.valueOf(mResultsMap.get(SIZE).toString());
+		mType = (Integer) mResultsMap.get(TYPE);
 
 		boolean isValid = true;
 
@@ -203,6 +224,13 @@ public class AddPlotActivity extends DataFormActivity {
 		} else {
 			isValid = false;
 			highlightField(R.id.size_tr, true);
+		}
+		
+		if (mType != -1) {
+			highlightField(R.id.type_tr, false);
+		} else {
+			isValid = false;
+			highlightField(R.id.type_tr, true);
 		}
 
 		// if form is valid the plot is added to the database.

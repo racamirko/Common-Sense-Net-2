@@ -167,10 +167,9 @@
                     android:layout_height="225dp"
                     android:background="#FFFFFF" >
                 </ListView>
-
+            	<include layout="@layout/layout_back_bar" />
             </LinearLayout>
 
-            <include layout="@layout/layout_back_bar" />
         </RelativeLayout>
     </LinearLayout>
 

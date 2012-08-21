@@ -192,7 +192,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			highlightField(R.id.var_fert_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0) {
+		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
 			highlightField(R.id.day_fert_tr, false);
 		} else {
 			isValid = false;

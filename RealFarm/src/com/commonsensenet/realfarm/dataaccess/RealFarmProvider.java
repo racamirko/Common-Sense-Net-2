@@ -36,6 +36,7 @@ public class RealFarmProvider {
 	 * is inserted, this listener will be called with the new data.
 	 * 
 	 * @author Oscar Bola–os <@oscarbolanos>
+	 * @author Nguyen Lisa
 	 */
 	public abstract interface OnWeatherForecastDataChangeListener {
 		public abstract void onDataChanged(String date, int temperature,
@@ -215,22 +216,22 @@ public class RealFarmProvider {
 	}
 
 	public long addPlot(long userId, int seedTypeId, int soilTypeId,
-			String imagePath, double size) {
+			String imagePath, double size, int plotType) {
 
-		return addPlot(userId, seedTypeId, soilTypeId, imagePath, size, 0);
+		return addPlot(userId, seedTypeId, soilTypeId, imagePath, size, 0, plotType);
 	}
 
 	public long addPlot(long userId, int seedTypeId, int soilTypeId,
-			String imagePath, double size, int isAdminAction) {
+			String imagePath, double size, int isAdminAction, int plotType) {
 
 		return addPlot(new Date().getTime(), userId, seedTypeId, imagePath,
-				soilTypeId, size, 0, 1, isAdminAction, new Date().getTime());
+				soilTypeId, size, 0, 1, isAdminAction, new Date().getTime(), plotType);
 	}
 
 	// Should only be used by the sync service.
 	public long addPlot(long id, long userId, int seedTypeId, String imagePath,
 			int soilType, double size, int isSent, int isEnabled,
-			int isAdminAction, long timestamp) {
+			int isAdminAction, long timestamp, int plotType) {
 				
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ID, id);
@@ -243,6 +244,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP, timestamp);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TYPE, plotType);
 
 		mDatabase.open();
 
@@ -911,7 +913,7 @@ public class RealFarmProvider {
 
 		for(int min = 0; min<10000; min = min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT+1){
 
-			final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, ct.shortName, ct.backgroundImage, SUM(CASE WHEN (a.date <= '"+dateNow+"' AND date >= '"+stopDate+"') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p, cropType ct WHERE a.plotId = p.id AND a.cropTypeId = ct.id AND a.actionTypeId= "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+" AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
+			final String MY_QUERY3 = "SELECT COUNT(a.plotId), ct.shortName, ct.backgroundImage, SUM(CASE WHEN (a.date <= '"+dateNow+"' AND date >= '"+stopDate+"') THEN 1 ELSE 0 END) AS newsUsers FROM action a, cropType ct WHERE a.cropTypeId = ct.id AND a.actionTypeId= "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+" AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
 			mDatabase.open();
 			Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
 
@@ -1116,7 +1118,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
-						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP },
+						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
+						RealFarmDatabase.COLUMN_NAME_PLOT_TYPE},
 				selection, null, null, null, null);
 
 		Plot p = null;
@@ -1124,7 +1127,7 @@ public class RealFarmProvider {
 			do {
 				p = new Plot(c.getLong(0), c.getLong(1), c.getInt(2),
 						c.getInt(3), c.getString(4), c.getFloat(5),
-						c.getInt(6), c.getInt(7), c.getInt(8), c.getLong(9));
+						c.getInt(6), c.getInt(7), c.getInt(8), c.getLong(9), c.getInt(10));
 				tmpList.add(p);
 			} while (c.moveToNext());
 		}
@@ -1200,7 +1203,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_IMAGE1,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_IMAGE2,
 						RealFarmDatabase.COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE,
-						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE },
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_TYPE,
+						RealFarmDatabase.COLUMN_NAME_RESOURCE_VALUE },
 				RealFarmDatabase.COLUMN_NAME_RESOURCE_ID + "=" + resourceId,
 				null, null, null, null);
 
@@ -1216,6 +1220,7 @@ public class RealFarmProvider {
 			tmpRes.setImage2(c.getInt(5));
 			tmpRes.setBackgroundImage(c.getInt(6));
 			tmpRes.setType(c.getInt(7));
+			tmpRes.setValue(c.getInt(8));
 
 		}
 		c.close();
@@ -1686,7 +1691,7 @@ public class RealFarmProvider {
 		
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price FROM action a, user u, plot p WHERE a.plotId = p.id AND a.userId = u.id AND a.actionTypeId = "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
@@ -2306,7 +2311,7 @@ public class RealFarmProvider {
 		String dateNow = DateHelper.getDateNow();
 		String stopDate = DateHelper.getDatePast(daySpan);
 		
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price FROM action a, user u, plot p WHERE a.plotId = p.id AND a.userId = u.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND a.cropTypeId = "+cropTypeId+" AND date >= '"+stopDate+"' AND a.date <= '"+dateNow+"' AND a.unit1Id = "+weightId+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND a.cropTypeId = "+cropTypeId+" AND date >= '"+stopDate+"' AND a.date <= '"+dateNow+"' AND a.unit1Id = "+weightId+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		if (c.moveToFirst()) {

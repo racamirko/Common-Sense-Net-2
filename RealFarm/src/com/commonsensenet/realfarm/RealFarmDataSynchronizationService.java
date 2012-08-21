@@ -403,10 +403,10 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 					  //plots insertions
 					System.out.println("In PT \n");	
 					
-					
+					// TODO: add plot type instead of the last argument Integer.valueOf(separated2[7])
 					mDataProvider.addPlot( Long.valueOf(separated2[0]), Long.valueOf(separated2[1]), Integer.valueOf(separated2[2]),
 							separated2[4], Integer.valueOf(separated2[3]), Double.valueOf(separated2[5]), 0,
-							 Integer.valueOf(separated2[6]), Integer.valueOf(separated2[7]), Long.valueOf(separated2[8]));
+							 Integer.valueOf(separated2[6]), Integer.valueOf(separated2[7]), Long.valueOf(separated2[8]), Integer.valueOf(separated2[7]));
 					
 					
 				}

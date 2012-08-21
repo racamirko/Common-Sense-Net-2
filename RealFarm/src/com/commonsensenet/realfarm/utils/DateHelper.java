@@ -14,6 +14,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
  * Helper functions to handle the date.
  * 
  * @author Oscar Bolanos (oscar.bolanos@epfl.ch)
+ * @author Nguyen Lisa
  * 
  */
 public class DateHelper {
@@ -92,16 +93,28 @@ public class DateHelper {
 	
 	public static String getDateNow() {
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
 		formatter.setLenient(true);
 		return formatter.format(currentDate.getTime())+" 00:00:00";
 	}
 	
 	public static String getDatePast(int offsetDays) {
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		SimpleDateFormat formatter = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
 		formatter.setLenient(true);
 		currentDate.add(Calendar.DATE, offsetDays);
 		return formatter.format(currentDate.getTime())+" 00:00:00";
+	}
+
+	public static boolean validDate(int day, int month, int year) {
+		Calendar c = Calendar.getInstance();
+		c.setLenient(false);
+		try {
+			c.set(year, month, day);
+			Date dt = c.getTime();
+		} catch(IllegalArgumentException e) {
+			return false;
+		}
+		return true;
 	}
 }

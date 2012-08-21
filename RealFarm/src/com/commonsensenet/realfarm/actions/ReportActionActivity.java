@@ -157,7 +157,7 @@ public class ReportActionActivity extends DataFormActivity {
 			highlightField(R.id.var_prob_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0) {
+		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
 			highlightField(R.id.day_prob_tr, false);
 		} else {
 			isValid = false;

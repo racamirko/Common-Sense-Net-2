@@ -237,7 +237,7 @@ public class SellActionActivity extends DataFormActivity {
 			highlightField(R.id.crop_sell_tr, true);
 		}
 
-		if (mMonth != -1 && mDay > 0) {
+		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
 			highlightField(R.id.date_sell_tr, false);
 		} else {
 			isValid = false;

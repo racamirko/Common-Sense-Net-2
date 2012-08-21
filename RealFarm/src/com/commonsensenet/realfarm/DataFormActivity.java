@@ -28,6 +28,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.utils.DateHelper;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 
 public abstract class DataFormActivity extends HelpEnabledActivity {
@@ -188,29 +189,27 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 		dialog.show();
 	}
+	
+	protected boolean validDate(int day, int monthId){
+		Resource monthResource = mDataProvider.getResourceById(monthId);
+		int month = monthResource.getValue();
+		int year = Calendar.getInstance().get(Calendar.YEAR);
+		if(month > Calendar.getInstance().get(Calendar.MONTH) || (month == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)))
+			month = (year-1);
+		return DateHelper.validDate(day, month, year);
+	}
 
 	protected Date getDate(int day, int monthId) {
 		Resource monthResource = mDataProvider.getResourceById(monthId);
+		int month = monthResource.getValue();
 
-		SimpleDateFormat df = new SimpleDateFormat("MMM");
-		Date date;
-		try {
-			date = df.parse(monthResource.getShortName());
-		} catch (ParseException e) {
-			date = null;
-		}
-
-		// creates a new calendar and sets the selected date.
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, day);
-		calendar.set(Calendar.MONDAY, date.getMonth());
-		
+		calendar.set(Calendar.MONTH, month);
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-				
-		if(date.getMonth() > Calendar.getInstance().get(Calendar.MONTH) || (date.getMonth() == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)))
+		if(month > Calendar.getInstance().get(Calendar.MONTH) || (month == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)))
 			calendar.set(Calendar.YEAR, (year-1));
 		
-		// returns the date that represents the calendar.
 		return calendar.getTime();
 	}
 
