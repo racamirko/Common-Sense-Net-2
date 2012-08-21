@@ -2,49 +2,26 @@ package com.commonsensenet.realfarm;
 
 import java.util.List;
 
-import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
-import android.view.Window;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.Resource;
-import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
-import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
-import com.commonsensenet.realfarm.view.AggregateItemAdapter;
-import com.commonsensenet.realfarm.view.AggregateItemWrapper;
-import com.commonsensenet.realfarm.view.DialogAdapter;
-import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
-public class ActionAggregateActivity extends HelpEnabledActivityOld implements
-		OnItemClickListener, OnLongClickListener, OnItemLongClickListener {
+public class ActionAggregateActivity extends AggregateMarketActivity implements OnLongClickListener {
 
 
 	/** LayoutInflater used to create the content of the details dialog. */
 	/** Reference to the current instance. */
-	private final ActionAggregateActivity mParentReference = this;
 	private final Context context = this;
 
 

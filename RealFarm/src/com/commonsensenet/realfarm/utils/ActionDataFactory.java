@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm.utils;
 
-import java.util.HashMap;
 import java.util.List;
 
 import android.content.Context;
@@ -8,14 +7,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
+import com.commonsensenet.realfarm.view.AggregateItemAdapter;
 import com.commonsensenet.realfarm.view.AggregateItemWrapper;
 import com.commonsensenet.realfarm.view.GeneralAggregateItemWrapper;
+import com.commonsensenet.realfarm.view.MarketItemAdapter;
 
 /**
  * 
@@ -139,5 +141,29 @@ public final class ActionDataFactory {
 	 */
 	private ActionDataFactory() {
 
+	}
+
+	public static List<AggregateItem> getData(int currentAction, RealFarmProvider mDataProvider, int mActionTypeId, int cropSeedTypeId, Resource daysSelectorData) {
+		switch(currentAction){
+			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET: return mDataProvider.getMarketData(cropSeedTypeId, - daysSelectorData.getValue());
+			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE: return ActionDataFactory.getAggregateData(mActionTypeId, mDataProvider, cropSeedTypeId);
+			default: return null;
+		}
+	}
+
+	public static AggregateItemAdapter getAdapter(int currentAction, int mActionTypeId, HelpEnabledActivityOld helpEnabledActivityOld,List<AggregateItem> mItems, RealFarmProvider mDataProvider,RealFarmProvider mDataProvider2) {
+		switch(currentAction){
+			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET: return new MarketItemAdapter(helpEnabledActivityOld, mItems, mDataProvider);
+			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE: return new AggregateItemAdapter(helpEnabledActivityOld, mItems, mActionTypeId, mDataProvider);
+			default: return null;
+		}		
+	}
+
+	public static List<UserAggregateItem> getUserList(int currentAction, int cropSeedTypeId, AggregateItem selectedItem, Resource daysSelectorData, RealFarmProvider mDataProvider) {
+		switch(currentAction){
+			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET: return mDataProvider.getUserMarketData(cropSeedTypeId, selectedItem.getSelector1(), - daysSelectorData.getValue());
+			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE: return ActionDataFactory.getUserAggregateData(selectedItem, mDataProvider);
+			default: return null;
+		}
 	}
 }

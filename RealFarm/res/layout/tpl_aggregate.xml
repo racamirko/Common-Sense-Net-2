@@ -13,7 +13,7 @@
         android:layout_height="match_parent" >
 
         <ListView
-            android:id="@+id/list_aggregates"
+            android:id="@+id/list_market_aggregates"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/back_bar"

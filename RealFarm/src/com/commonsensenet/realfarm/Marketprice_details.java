@@ -12,9 +12,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
@@ -23,10 +20,8 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
-public class Marketprice_details extends HelpEnabledActivityOld implements
-OnItemClickListener, OnLongClickListener, OnItemLongClickListener {
+public class Marketprice_details extends AggregateMarketActivity implements OnLongClickListener {
 
-	private final Marketprice_details mParentReference = this;
 	private final Context context = this;
 
 	public void onBackPressed() {
