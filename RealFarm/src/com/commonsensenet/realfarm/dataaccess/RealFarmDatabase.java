@@ -891,10 +891,10 @@ public class RealFarmDatabase {
 				{ "Bad", "Bad", R.raw.feedbackbad, R.drawable.smiley_bad, -1,
 						-1, RESOURCE_TYPE_SATISFACTION , -1 },
 				/** Plot type */
-				{ "Irrigated", "Irrigated", R.raw.feedbackgood, R.drawable.maincrop,
+				{ "Irrigated", "Irrigated", R.raw.feedbackgood, R.drawable.irrigatedland,
 						-1, -1, RESOURCE_TYPE_PLOT_TYPE , -1 },
 				{ "Rainfed", "Rainfed", R.raw.feedbackmoderate,
-						R.drawable.maincrop, -1, -1,
+						R.drawable.rainfedland, -1, -1,
 						RESOURCE_TYPE_PLOT_TYPE , -1 }
 
 		};
