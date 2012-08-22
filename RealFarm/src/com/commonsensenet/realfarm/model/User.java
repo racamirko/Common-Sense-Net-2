@@ -31,11 +31,14 @@ public class User {
 	private String mMobileNumber;
 	/** Timestamp that indicates the creation of the User. */
 	private long mTimestamp;
+	
+	private int mNameAudio;
+	private int mLocationAudio;
 
 	public User(long id, String firstname, String lastname,
 			String mobileNumber, String deviceId, String imagePath,
 			String location, int isSent, int isEnabled, int isAdminAction,
-			long timestamp) {
+			long timestamp, int nameAudio, int locationAudio) {
 		mId = id;
 		mFirstname = firstname;
 		mLastname = lastname;
@@ -47,6 +50,8 @@ public class User {
 		mIsEnabled = isEnabled;
 		mIsAdminAction = isAdminAction;
 		mTimestamp = timestamp;
+		mNameAudio = nameAudio;
+		mLocationAudio = locationAudio;
 	}
 
 	public String getDeviceId() {

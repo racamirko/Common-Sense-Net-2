@@ -89,7 +89,7 @@ public class HarvestActionActivity extends DataFormActivity {
 
 				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
-						R.raw.problems, R.id.dlg_lbl_harvest_crop,
+						R.raw.select_the_variety, R.id.dlg_lbl_harvest_crop,
 						R.id.var_harvest_crop, 0);
 			}
 		});
@@ -106,8 +106,8 @@ public class HarvestActionActivity extends DataFormActivity {
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_harvest, R.id.harvest_date_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok,
+						R.raw.day_cancel);
 			}
 		});
 
@@ -117,7 +117,7 @@ public class HarvestActionActivity extends DataFormActivity {
 				
 				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",
-						R.raw.bagof50kg, R.id.dlg_lbl_month_harvest,
+						R.raw.choosethemonth, R.id.dlg_lbl_month_harvest,
 						R.id.harvest_date_tr, 0);
 
 			}
@@ -133,10 +133,10 @@ public class HarvestActionActivity extends DataFormActivity {
 				// TODO AUDIO:  Info on long tap on ok button in Number picker
 				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the number of bags", AMOUNT,
-						R.raw.dateinfo, 1, 200, 0, 1, 0,
+						R.raw.noofbags, 1, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_harvest, R.id.units_harvest_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.bag_ok,
+						R.raw.bag_cancel);
 			}
 		});
 
@@ -145,7 +145,7 @@ public class HarvestActionActivity extends DataFormActivity {
 				stopAudio();
 
 				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
-				displayDialog(v, unitList, UNIT, "Select the unit", R.raw.problems,
+				displayDialog(v, unitList, UNIT, "Select the unit", R.raw.selecttheunits,
 						R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr, 2);
 
 			}
@@ -157,7 +157,7 @@ public class HarvestActionActivity extends DataFormActivity {
 
 				// TODO AUDIO: "Are you satisfied?" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, satisfactionList, SATISFACTION, "Are you satisfied?",
-						R.raw.feedbackgood, R.id.dlg_lbl_satisfaction_harvest,
+						R.raw.are_you_satisfied, R.id.dlg_lbl_satisfaction_harvest,
 						R.id.satisfaction_harvest_tr, 1);
 			}
 		});
@@ -171,17 +171,17 @@ public class HarvestActionActivity extends DataFormActivity {
 
 		if (v.getId() == R.id.dlg_lbl_harvest_crop) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
-			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.feedbackgood, true); 
-			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio(), true); 
+			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.select_the_variety, true); 
+			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_harvest) {
 			// TODO AUDIO: "Select the amount" default if nothing is in the field
-			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.select_unit_number, true); 
 			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
 			else playAudio(R.raw.problems, true); 
 		} else if (v.getId() == R.id.dlg_lbl_units_harvest) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
 			if((Integer) mResultsMap.get(UNIT) == defaultUnit) playAudio(R.raw.selecttheunits, true); 
-			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true); 
+			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_day_harvest) {
 			// TODO AUDIO: "Select the day" default if nothing is in the field
 			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
@@ -190,11 +190,11 @@ public class HarvestActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_month_harvest) {
 			// TODO AUDIO: "Choose the month" default if nothing is in the field
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonthwhenharvested, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
 		} else if (v.getId() == R.id.dlg_lbl_satisfaction_harvest) {
 			// TODO AUDIO: "Are you satisfied?" default if nothing is in the field
 			if((Integer) mResultsMap.get(SATISFACTION) == defaultSatisfaction) playAudio(R.raw.feedbackgood, true); 
-			else playAudio(satisfactionList.get(((Integer)mResultsMap.get(SATISFACTION))).getAudio(), true); 
+			else playAudio(satisfactionList.get(((Integer)mResultsMap.get(SATISFACTION))).getAudio()); 
 		} 
 		
 		// TODO AUDIO: Check the remaining audio
