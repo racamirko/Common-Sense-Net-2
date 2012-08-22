@@ -160,7 +160,7 @@ public class SowActionActivity extends DataFormActivity {
 		if (v.getId() == R.id.dlg_var_text_sow) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
 			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.varietyofseedssowd, true); 
-			else playAudio(varietiesList.get(((Integer)mResultsMap.get(VARIETY))).getAudio()); 
+			else playAudio(varietiesList.get(((Integer)mResultsMap.get(VARIETY))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_sow) {
 			// TODO AUDIO: "Select the number of serus" default if nothing is in the field
 			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
@@ -169,15 +169,15 @@ public class SowActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_month_sow) {
 			// TODO AUDIO: "Choose the month" default if nothing is in the field
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_treat_sow) {
 			// TODO AUDIO: "Treated or not treated?" default if nothing is in the field
 			if((Integer) mResultsMap.get(TREATMENT) == defaultTreatment) playAudio(R.raw.treatmenttoseeds1, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(TREATMENT))).getAudio()); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(TREATMENT))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_intercrop_sow) {
 			// TODO AUDIO: "Main crop or intercrop?" default if nothing is in the field
 			if((Integer) mResultsMap.get(INTERCROP) == defaultIntercrop) playAudio(R.raw.croptype, true); 
-			else playAudio(intercropList.get(((Integer)mResultsMap.get(INTERCROP))).getAudio()); 
+			else playAudio(intercropList.get(((Integer)mResultsMap.get(INTERCROP))).getAudio(), true); 
 		}  else if (v.getId() == R.id.dlg_lbl_day_sow) {
 			// TODO AUDIO: "Select the day" default if nothing is in the field
 			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
@@ -188,8 +188,7 @@ public class SowActionActivity extends DataFormActivity {
 		// TODO AUDIO: Check the remaining audio
 		else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.data_sow_help, true);
-		}
-		else if (v.getId() == R.id.seed_type_sow_tr) {
+		} else if (v.getId() == R.id.seed_type_sow_tr) {
 			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.units_sow_tr) {
 			playAudio(R.raw.amount, true);

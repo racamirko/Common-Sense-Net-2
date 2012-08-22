@@ -133,11 +133,11 @@ public class ReportActionActivity extends DataFormActivity {
 		if (v.getId() == R.id.dlg_lbl_var_prob) {
 			// TODO AUDIO: "Select the problem" default if nothing is in the field
 			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.problems, true); 
-			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio()); 
+			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_var_prob4) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
 			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.problems, true); 
-			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio()); 
+			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_day_prob) {
 			// TODO AUDIO: "Select the day" default if nothing is in the field
 			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.date, true); 
@@ -146,7 +146,7 @@ public class ReportActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_month_prob) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		} 
 		
 		// TODO AUDIO: Check the remaining audio

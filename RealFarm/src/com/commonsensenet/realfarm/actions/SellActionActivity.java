@@ -217,7 +217,7 @@ public class SellActionActivity extends DataFormActivity {
 		if (v.getId() == R.id.dlg_lbl_crop_sell) {
 			// TODO AUDIO: "Select the crop" default if nothing is in the field
 			if((Integer) mResultsMap.get(CROP) == defaultCrop) playAudio(R.raw.crop, true); 
-			else playAudio(cropList.get(((Integer)mResultsMap.get(CROP))).getAudio()); 
+			else playAudio(cropList.get(((Integer)mResultsMap.get(CROP))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_date_sell) {
 			// TODO AUDIO: "Select the day" default if nothing is in the field
 			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.date, true); 
@@ -226,7 +226,7 @@ public class SellActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_month_sell) {
 			// TODO AUDIO: "Choose the month" default if nothing is in the field
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_sell) {
 			// TODO AUDIO: "Select the number" default if nothing is in the field
 			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.noofbags, true); 
@@ -235,7 +235,7 @@ public class SellActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_unit_sell) {
 			// TODO AUDIO: "Choose the unit" default if nothing is in the field
 			if((Integer) mResultsMap.get(UNIT) == defaultUnit1) playAudio(R.raw.keygis, true); 
-			else playAudio(unit1List.get(((Integer)mResultsMap.get(UNIT))).getAudio()); 
+			else playAudio(unit1List.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_price_sell) {
 			// TODO AUDIO: "Select the price" default if nothing is in the field
 			if(mResultsMap.get(PRICE).equals(defaultPrice)) playAudio(R.raw.value, true); 
@@ -249,7 +249,7 @@ public class SellActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
 			// TODO AUDIO: "Choose the unit" default if nothing is in the field
 			if((Integer) mResultsMap.get(UNIT2) == defaultUnit2) playAudio(R.raw.keygis, true); 
-			else playAudio(unit2List.get(((Integer)mResultsMap.get(UNIT2))).getAudio()); 
+			else playAudio(unit2List.get(((Integer)mResultsMap.get(UNIT2))).getAudio(), true); 
 		} 
 		
 		// TODO AUDIO: Check the remaining audio

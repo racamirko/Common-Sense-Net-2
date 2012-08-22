@@ -172,7 +172,7 @@ public class HarvestActionActivity extends DataFormActivity {
 		if (v.getId() == R.id.dlg_lbl_harvest_crop) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
 			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.feedbackgood, true); 
-			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio()); 
+			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_harvest) {
 			// TODO AUDIO: "Select the amount" default if nothing is in the field
 			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
@@ -181,7 +181,7 @@ public class HarvestActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_units_harvest) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
 			if((Integer) mResultsMap.get(UNIT) == defaultUnit) playAudio(R.raw.selecttheunits, true); 
-			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio()); 
+			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_day_harvest) {
 			// TODO AUDIO: "Select the day" default if nothing is in the field
 			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
@@ -190,11 +190,11 @@ public class HarvestActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_month_harvest) {
 			// TODO AUDIO: "Choose the month" default if nothing is in the field
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonthwhenharvested, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_satisfaction_harvest) {
 			// TODO AUDIO: "Are you satisfied?" default if nothing is in the field
 			if((Integer) mResultsMap.get(SATISFACTION) == defaultSatisfaction) playAudio(R.raw.feedbackgood, true); 
-			else playAudio(satisfactionList.get(((Integer)mResultsMap.get(SATISFACTION))).getAudio()); 
+			else playAudio(satisfactionList.get(((Integer)mResultsMap.get(SATISFACTION))).getAudio(), true); 
 		} 
 		
 		// TODO AUDIO: Check the remaining audio

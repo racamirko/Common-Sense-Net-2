@@ -161,15 +161,15 @@ public class SprayActionActivity extends DataFormActivity {
 		if (v.getId() == R.id.dlg_lbl_prob_spray) {
 			// TODO AUDIO: "Select the problem" default if nothing is in the field
 			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.selecttheproblem, true); 
-			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio()); 
+			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_pest_spray) {
 			// TODO AUDIO: "Select the pesticide" default if nothing is in the field
 			if((Integer) mResultsMap.get(PESTICIDE) == defaultPesticide) playAudio(R.raw.selectthepesticide, true); 
-			else playAudio(pesticideList.get(((Integer)mResultsMap.get(PESTICIDE))).getAudio()); 
+			else playAudio(pesticideList.get(((Integer)mResultsMap.get(PESTICIDE))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_units_spray) {
 			// TODO AUDIO: "Select the unit" default if nothing is in the field
 			if((Integer) mResultsMap.get(UNIT) == defaultUnit) playAudio(R.raw.selecttheunits, true); 
-			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio()); 
+			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_spray) {
 			// TODO AUDIO: "Select the number" default if nothing is in the field
 			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
@@ -183,7 +183,7 @@ public class SprayActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_month_spray) {
 			// TODO AUDIO: "Select the unit" default if nothing is in the field
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		}
 		
 		// TODO AUDIO: Check the remaining audio

@@ -28,6 +28,15 @@ public class AddPlotActivity extends DataFormActivity {
 	private double mSize;
 	private int mType;
 	private int mSoilType;
+	
+	private int defaultSoil = -1;
+	private int defaultCrop = -1;
+	private int defaultType = -1;
+	private String defaultSize = "0.0";
+	
+	private List<Resource> soilList;
+	private List<Resource> cropList;
+	private List<Resource> typeList;
 
 	/**
 	 * Adds the current plot to the database.
@@ -51,12 +60,16 @@ public class AddPlotActivity extends DataFormActivity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.act_add_plot);
+		
+		soilList = mDataProvider.getSoilTypes();
+		cropList = mDataProvider.getVarieties();
+		typeList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_PLOT_TYPE);
 
 		// adds the name of the fields to validate.
-		mResultsMap.put(SOIL_TYPE, -1);
-		mResultsMap.put(MAIN_CROP, -1);
-		mResultsMap.put(SIZE, "0.0");
-		mResultsMap.put(TYPE, -1);
+		mResultsMap.put(SOIL_TYPE, defaultSoil);
+		mResultsMap.put(MAIN_CROP, defaultCrop);
+		mResultsMap.put(SIZE, defaultSize);
+		mResultsMap.put(TYPE, defaultType);
 
 		final View plotImageRow;
 		final View soilTypeRow;
@@ -115,8 +128,8 @@ public class AddPlotActivity extends DataFormActivity {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
-				List<Resource> data = mDataProvider.getSoilTypes();
-				displayDialog(v, data, SOIL_TYPE, "Select the soil type",
+				// TODO AUDIO: "Select the soil type" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, soilList, SOIL_TYPE, "Select the soil type",
 						R.raw.problems, R.id.dlg_lbl_soil_plot,
 						R.id.soiltype_tr, 0);
 			}
@@ -127,8 +140,8 @@ public class AddPlotActivity extends DataFormActivity {
 				Log.d("in crop plot dialog", "in dialog");
 
 				stopAudio();
-				List<Resource> data = mDataProvider.getVarieties();
-				displayDialog(v, data, MAIN_CROP, "Select the variety",
+				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, cropList, MAIN_CROP, "Select the variety",
 						R.raw.problems, R.id.dlg_lbl_crop_plot,
 						R.id.maincrop_tr, 0);
 			}
@@ -137,7 +150,11 @@ public class AddPlotActivity extends DataFormActivity {
 		plotsize.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-
+				// TODO AUDIO: "Enter the plot size in acres" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Enter the plot size in acres", SIZE,
 						R.raw.dateinfo, 0.0, 30.0, 2.0, 0.1, 1, R.id.size_txt,
 						R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo,
@@ -148,8 +165,8 @@ public class AddPlotActivity extends DataFormActivity {
 		plottype.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				List<Resource> data = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_PLOT_TYPE);
-				displayDialog(v, data, TYPE, "Select the plot type",
+				// TODO AUDIO: "Select the plot type" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, typeList, TYPE, "Select the plot type",
 						R.raw.problems, R.id.type_txt,
 						R.id.type_tr, 0);
 			}
@@ -161,27 +178,45 @@ public class AddPlotActivity extends DataFormActivity {
 
 		// shows the help icon based on the view.
 		showHelpIcon(v);
-
-		if (v.getId() == R.id.aggr_img_help1) {
-			playAudio(R.raw.help);
-		} else if (v.getId() == R.id.dlg_plot_img_test) {
-			playAudio(R.raw.plotimage);
+		  
+		if (v.getId() == R.id.size_txt) {
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(SIZE).equals(defaultSize)) playAudio(R.raw.maincrop, true); 
+			// TODO AUDIO: Say the number Double.parseDouble(mResultsMap.get(SIZE).toString());
+			else playAudio(R.raw.problems, true); 
+		} else if (v.getId() == R.id.dlg_lbl_crop_plot) {
+			// TODO AUDIO: "Select the main crop" default if nothing is in the field
+			if((Integer) mResultsMap.get(MAIN_CROP) == defaultCrop) playAudio(R.raw.maincrop, true); 
+			else playAudio(cropList.get(((Integer)mResultsMap.get(MAIN_CROP))).getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_soil_plot) {
-			playAudio(R.raw.soiltype);
+			// TODO AUDIO: "Select the soil type" default if nothing is in the field
+			if((Integer) mResultsMap.get(SOIL_TYPE) == defaultSoil) playAudio(R.raw.soiltype, true); 
+			else playAudio(soilList.get(((Integer)mResultsMap.get(SOIL_TYPE))).getAudio(), true);
+		} else if (v.getId() == R.id.type_txt) {
+			// TODO AUDIO: "Select the main crop" default if nothing is in the field
+			if((Integer) mResultsMap.get(TYPE) == defaultType) playAudio(R.raw.maincrop, true); 
+			else playAudio(typeList.get(((Integer)mResultsMap.get(TYPE))).getAudio(), true);
+		} 
+		
+		// TODO AUDIO: Check the remaining audio
+		else if (v.getId() == R.id.aggr_img_help1) {
+			playAudio(R.raw.help, true);
+		} else if (v.getId() == R.id.dlg_plot_img_test) {
+			playAudio(R.raw.plotimage, true);
 		} else if (v.getId() == R.id.maincrop_tr) {
-			playAudio(R.raw.yieldinfo);
+			playAudio(R.raw.yieldinfo, true);
 		} else if (v.getId() == R.id.size_tr) {
-			playAudio(R.raw.yieldinfo);
+			playAudio(R.raw.yieldinfo, true);
 		} else if (v.getId() == R.id.plot_tr) {
-			playAudio(R.raw.plotimage);
+			playAudio(R.raw.plotimage, true);
 		} else if (v.getId() == R.id.soiltype_tr) {
-			playAudio(R.raw.soiltype);
+			playAudio(R.raw.soiltype, true);
 		} else if (v.getId() == R.id.maincrop_tr) {
-			playAudio(R.raw.maincrop);
+			playAudio(R.raw.maincrop, true);
 		} else if (v.getId() == R.id.size_tr) {
-			playAudio(R.raw.maincrop);
+			playAudio(R.raw.maincrop, true);
 		} else if (v.getId() == R.id.type_tr) {
-			playAudio(R.raw.maincrop);
+			playAudio(R.raw.maincrop, true);
 		}
 
 		return true;
@@ -191,10 +226,7 @@ public class AddPlotActivity extends DataFormActivity {
 	protected Boolean validateForm() {
 
 		// values obtained that need to be validated.
-		mSoilType = (Integer) mResultsMap.get(SOIL_TYPE);
-		mMainCrop = (Integer) mResultsMap.get(MAIN_CROP);
 		mSize = Double.valueOf(mResultsMap.get(SIZE).toString());
-		mType = (Integer) mResultsMap.get(TYPE);
 
 		boolean isValid = true;
 
@@ -205,28 +237,28 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.plot_tr, true);
 		}
 
-		if (mSoilType != -1) {
+		if ((Integer)mResultsMap.get(SOIL_TYPE) != defaultSoil) {
 			highlightField(R.id.soiltype_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.soiltype_tr, true);
 		}
 
-		if (mMainCrop != -1) {
+		if ((Integer)mResultsMap.get(MAIN_CROP) != defaultCrop) {
 			highlightField(R.id.maincrop_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.maincrop_tr, true);
 		}
 
-		if (mSize > 0) {
+		if (mSize > Double.parseDouble(defaultSize)) {
 			highlightField(R.id.size_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.size_tr, true);
 		}
 		
-		if (mType != -1) {
+		if ((Integer)mResultsMap.get(TYPE) != defaultType) {
 			highlightField(R.id.type_tr, false);
 		} else {
 			isValid = false;
@@ -235,6 +267,11 @@ public class AddPlotActivity extends DataFormActivity {
 
 		// if form is valid the plot is added to the database.
 		if (isValid) {
+			
+			mSoilType = soilList.get((Integer)mResultsMap.get(SOIL_TYPE)).getId();
+			mMainCrop = cropList.get((Integer)mResultsMap.get(MAIN_CROP)).getId();
+			mType = typeList.get((Integer)mResultsMap.get(TYPE)).getId();
+			
 			addPlotToDatabase();
 			return true;
 		}

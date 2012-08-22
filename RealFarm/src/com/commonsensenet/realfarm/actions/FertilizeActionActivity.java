@@ -29,18 +29,35 @@ public class FertilizeActionActivity extends DataFormActivity implements
 	private int mFertilizer;
 	private int mMonth;
 	private int mUnit;
+	
+	private int defaultFertilizer = -1;
+	private int defaultUnit = -1;
+	private int defaultMonth = -1;
+	private String defaultAmount = "0";
+	private String defaultDay = "0";
+	
+	private List<Resource> fertilizerList;
+	private List<Resource> monthList;
+	private List<Resource> unitList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_fertilize_action);
+		
+		fertilizerList = mDataProvider
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZER);
+		monthList = mDataProvider
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
+		unitList = mDataProvider
+				.getUnits(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
 
 		// adds the values that need to be validated.
-		mResultsMap.put(FERTILIZER, -1);
-		mResultsMap.put(AMOUNT, "0");
-		mResultsMap.put(UNIT, -1);
-		mResultsMap.put(DAY, "0");
-		mResultsMap.put(MONTH, -1);
+		mResultsMap.put(FERTILIZER, defaultFertilizer);
+		mResultsMap.put(AMOUNT, defaultAmount);
+		mResultsMap.put(UNIT, defaultUnit);
+		mResultsMap.put(DAY, defaultDay);
+		mResultsMap.put(MONTH, defaultMonth);
 
 		playAudio(R.raw.clickingfertilising);
 
@@ -72,9 +89,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZER);
-				displayDialog(v, data, FERTILIZER, "Choose the fertilizer",
+				// TODO AUDIO: "Select the fertilizer" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, fertilizerList, FERTILIZER, "Choose the fertilizer",
 						R.raw.selecttypeoffertilizer, R.id.dlg_lbl_var_fert,
 						R.id.var_fert_tr, 0);
 			}
@@ -84,6 +100,11 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the amount" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the amount", AMOUNT, R.raw.select_unit_number, 0,
 						100, 1, 0.25, 2, R.id.dlg_lbl_unit_no_fert,
 						R.id.units_fert_tr, R.raw.ok, R.raw.cancel,
@@ -95,9 +116,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getUnits(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
-				displayDialog(v, data, UNIT, "Choose the unit", R.raw.problems,
+				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, unitList, UNIT, "Choose the unit", R.raw.problems,
 						R.id.dlg_lbl_units_fert, R.id.units_fert_tr, 1);
 			}
 		});
@@ -106,6 +126,11 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			public void onClick(View v) {
 				stopAudio();
 
+				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
+				// TODO AUDIO:  Text on tap on ok button in Number picker
+				// TODO AUDIO:  Text on tap on cancel button in Number picker
+				// TODO AUDIO:  Info on long tap on ok button in Number picker
+				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_fert, R.id.day_fert_tr,
@@ -118,9 +143,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			public void onClick(View v) {
 				stopAudio();
 
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-				displayDialog(v, data, MONTH, "Select the month",
+				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
+				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_fert,
 						R.id.day_fert_tr, 0); 
 			}
@@ -130,27 +154,42 @@ public class FertilizeActionActivity extends DataFormActivity implements
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.dlg_lbl_var_fert) {
-			playAudio(R.raw.selecttypeoffertilizer);
+			// TODO AUDIO: "Select the variety" default if nothing is in the field
+			if((Integer) mResultsMap.get(FERTILIZER) == defaultFertilizer) playAudio(R.raw.selecttypeoffertilizer, true); 
+			else playAudio(fertilizerList.get(((Integer)mResultsMap.get(FERTILIZER))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_units_fert) {
-			playAudio(R.raw.selecttheunits);
+			// TODO AUDIO: "Select the variety" default if nothing is in the field
+			if((Integer) mResultsMap.get(UNIT) == defaultUnit) playAudio(R.raw.selecttheunits, true); 
+			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_fert) {
-			playAudio(R.raw.select_unit_number);
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.select_unit_number, true); 
+			// TODO AUDIO: Say the number Double.parseDouble(mResultsMap.get(AMOUNT).toString());
+			else playAudio(R.raw.problems, true); 
 		} else if (v.getId() == R.id.dlg_lbl_day_fert) {
-			playAudio(R.raw.selectthedate);
-		} else if (v.getId() == R.id.button_ok) {
-			playAudio(R.raw.ok);
-		} else if (v.getId() == R.id.button_cancel) {
-			playAudio(R.raw.cancel);
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.fert_help);
-		} else if (v.getId() == R.id.var_fert_tr) {
-			playAudio(R.raw.fertilizername);
-		} else if (v.getId() == R.id.day_fert_tr) {
-			playAudio(R.raw.date);
-		} else if (v.getId() == R.id.units_fert_tr) {
-			playAudio(R.raw.amount);
+			// TODO AUDIO: "Select the day" default if nothing is in the field
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
+			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
+			else playAudio(R.raw.problems, true); 
 		} else if (v.getId() == R.id.dlg_lbl_month_fert) {
-			playAudio(R.raw.choosethemonth);
+			// TODO AUDIO: "Choose the month" default if nothing is in the field
+			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
+		} 
+		
+		// TODO AUDIO: Check the remaining audio
+		else if (v.getId() == R.id.button_ok) {
+			playAudio(R.raw.ok, true);
+		} else if (v.getId() == R.id.button_cancel) {
+			playAudio(R.raw.cancel, true);
+		} else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.fert_help, true);
+		} else if (v.getId() == R.id.var_fert_tr) {
+			playAudio(R.raw.fertilizername, true);
+		} else if (v.getId() == R.id.day_fert_tr) {
+			playAudio(R.raw.date, true);
+		} else if (v.getId() == R.id.units_fert_tr) {
+			playAudio(R.raw.amount, true);
 		} else {
 			return super.onLongClick(v);
 		}
@@ -169,30 +208,27 @@ public class FertilizeActionActivity extends DataFormActivity implements
 	protected Boolean validateForm() {
 
 		// gets the current values from the hash
-		mFertilizer = (Integer) mResultsMap.get(FERTILIZER);
 		mAmount = Double.valueOf(mResultsMap.get(AMOUNT).toString());
-		mUnit = (Integer) mResultsMap.get(UNIT);
 		mDay = Integer.parseInt(mResultsMap.get(DAY).toString());
-		mMonth = (Integer) mResultsMap.get(MONTH);
 
 		// flag to indicate the validity of the form.
 		boolean isValid = true;
 
-		if (mUnit != -1 && mAmount > 0) {
+		if ((Integer)mResultsMap.get(UNIT) != defaultUnit && mAmount > Double.parseDouble(defaultAmount)) {
 			highlightField(R.id.units_fert_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.units_fert_tr, true);
 		}
 
-		if (mFertilizer != -1) {
-			highlightField(R.id.units_fert_tr, false);
+		if ((Integer)mResultsMap.get(FERTILIZER) != defaultFertilizer) {
+			highlightField(R.id.var_fert_tr, false);
 		} else {
 			isValid = false;
 			highlightField(R.id.var_fert_tr, true);
 		}
-
-		if (mMonth != -1 && mDay > 0 && validDate(mDay, mMonth)) {
+		
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_fert_tr, false);
 		} else {
 			isValid = false;
@@ -201,6 +237,11 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 		// inserts the action if all fields are valid.
 		if (isValid) {
+			
+			mFertilizer = fertilizerList.get((Integer)mResultsMap.get(FERTILIZER)).getId();
+			mUnit = unitList.get((Integer)mResultsMap.get(UNIT)).getId();
+			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
+			
 			long result = mDataProvider.addFertilizeAction(Global.userId,
 					Global.plotId, mAmount, mFertilizer, mUnit,
 					getDate(mDay, mMonth), 0);

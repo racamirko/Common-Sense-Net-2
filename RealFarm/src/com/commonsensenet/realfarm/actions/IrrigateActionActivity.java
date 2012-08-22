@@ -139,7 +139,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 		if (v.getId() == R.id.dlg_lbl_method_irr) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
 			if((Integer) mResultsMap.get(METHOD) == defaultMethod) playAudio(R.raw.method, true); 
-			else playAudio(methodList.get(((Integer)mResultsMap.get(METHOD))).getAudio()); 
+			else playAudio(methodList.get(((Integer)mResultsMap.get(METHOD))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_irr) {
 			// TODO AUDIO: "Select the day" default if nothing is in the field
 			if(mResultsMap.get(HOURS).equals(defaultHours)) playAudio(R.raw.noofhours, true); 
@@ -153,7 +153,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.dlg_lbl_month_irr) {
 			// TODO AUDIO: "Choose the month" default if nothing is in the field
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		}
 		
 		// TODO AUDIO: Check the remaining audio
