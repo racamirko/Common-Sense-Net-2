@@ -378,23 +378,67 @@
                     android:padding="@dimen/margin" >
 
                     <ImageView
-                        android:id="@+id/hmscrn_img_market"
+                        android:id="@+id/ImageView01"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
+                        android:layout_alignParentLeft="true"
+                        android:layout_alignParentTop="true"
                         android:src="@drawable/ic_35px_sell" />
 
-                    <TextView
-                        android:id="@+id/hmscrn_lbl_market_price"
+                    <LinearLayout
+                        android:layout_toRightOf="@+id/ImageView01"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_medium" />
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:orientation="vertical"
+                        android:gravity="center_vertical" >
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/hmscrn_img_market_max"
+                                android:layout_width="wrap_content"
+                                android:layout_height="12dp"
+                                android:src="@drawable/maxprize" />
+
+                            <TextView
+                                android:id="@+id/hmscrn_lbl_market_price_max"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="7200"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/font_medium" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal"
+                            android:gravity="center" >
+
+                            <ImageView
+                                android:id="@+id/hmscrn_img_market_min"
+                                android:layout_width="wrap_content"
+                                android:layout_height="12dp"
+                                android:src="@drawable/minprize" />
+
+                            <TextView
+                                android:id="@+id/hmscrn_lbl_market_price_min"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="1200"
+                                android:textColor="@android:color/black"
+                                android:textSize="@dimen/font_medium" />
+                        </LinearLayout>
+                    </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
-
-            <!-- Third Column: Weather -->
+            
+<!-- Third Column: Weather -->
 
             <RelativeLayout
                 android:id="@+id/hmscrn_btn_weather"
@@ -421,6 +465,7 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/font_xlarge" />
             </RelativeLayout>
+
         </LinearLayout>
     </LinearLayout>
 

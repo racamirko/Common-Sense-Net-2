@@ -40,7 +40,7 @@
                         <RelativeLayout
                             android:id="@+id/RelativeLayoutwf_2"
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="fill_parent"
                             android:layout_margin="5dip"
                             android:gravity="right" >
 
@@ -61,15 +61,14 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_centerHorizontal="true"
                                 android:layout_weight="1"
-                                android:text="Market Pavagada"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
+                                android:text="Market Challekere"
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="#000000" />
                         </RelativeLayout>
 
                         <RelativeLayout
                             android:layout_width="wrap_content"
-                            android:layout_height="40dp"
+                            android:layout_height="fill_parent"
                             android:layout_margin="5dip"
                             android:gravity="right" >
 
@@ -80,9 +79,8 @@
                                 android:layout_alignParentTop="true"
                                 android:layout_weight="1"
                                 android:text="Today"
-                                android:textAppearance="?android:attr/textAppearanceMedium"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
+                                android:textAppearance="?android:attr/textAppearanceSmall"
+                                android:textColor="#000000" />
                         </RelativeLayout>
 
                         <ImageView
@@ -90,21 +88,46 @@
                             android:layout_width="wrap_content"
                             android:layout_height="15dp"
                             android:layout_marginTop="10dp"
-                            android:src="@drawable/sell"
-                            android:text="Market Challekere" />
+                            android:src="@drawable/sell" />
 
+                        <ImageView
+                                android:id="@+id/hmscrn_img_market_max"
+                                android:layout_width="wrap_content"
+                           		android:layout_height="fill_parent"
+                            	android:layout_margin="5dip"
+                                android:src="@drawable/maxprize" />
+                        
                         <TextView
                             android:id="@+id/max_price"
                             android:layout_width="wrap_content"
                             android:layout_height="fill_parent"
-                            android:layout_alignParentLeft="true"
-                            android:layout_centerVertical="true"
+                            android:layout_marginTop="5dip"
+                            android:layout_marginBottom="5dip"
                             android:layout_weight="1"
                             android:text="3500"
                             android:gravity="center|left"
-                            android:textAppearance="?android:attr/textAppearanceMedium"
-                            android:textColor="#000000"
-                            android:textSize="18sp" />
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#000000" />
+                        
+                        <ImageView
+                                android:id="@+id/hmscrn_img_market_min"
+                                android:layout_width="wrap_content"
+                            	android:layout_height="fill_parent"                            
+                            	android:layout_marginTop="5dip"
+                            	android:layout_marginBottom="5dip"
+                                android:src="@drawable/minprize" />
+                        
+                        <TextView
+                            android:id="@+id/min_price"
+                            android:layout_width="wrap_content"
+                            android:layout_height="fill_parent"
+                            android:layout_marginTop="5dip"
+                            android:layout_marginBottom="5dip"
+                            android:layout_weight="1"
+                            android:text="3500"
+                            android:gravity="center|left"
+                            android:textAppearance="?android:attr/textAppearanceSmall"
+                            android:textColor="#000000" />
                     </TableRow>
 
                 </LinearLayout>

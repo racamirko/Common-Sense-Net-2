@@ -13,6 +13,8 @@ import android.widget.ImageView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
+import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -108,13 +110,18 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 		
 	}
 
-	// TODO: put audio
+	// TODO AUDIO: check the right audio
 	public boolean onLongClick(View v) {
 
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.aggr_crop) {
-			playAudio(R.raw.problems, true);
+			int crop = topSelectorData.getAudio();
+			int action = mDataProvider.getActionTypeById(mActionTypeId).getAudio();
+			// TODO AUDIO: Say something: action + crop
+			System.out.println(action +" "+ crop);
+
+			playAudio(topSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.button_back) {
@@ -123,6 +130,76 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 
 		return true;
 	}
+	
+	protected void makeAudioAggregateMarketItem(AggregateItem item) {
+		// TODO AUDIO: Dummy audio. To be removed.
+		playAudio(R.raw.a2, true);
+		
+		int variety = topSelectorData.getAudio();
+		int number = item.getNews();
+		int total = item.getTotal();
 
+		switch(mActionTypeId){
+			case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
+				int fertilizer =  mDataProvider.getResourceImageById(item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
+				// TODO  AUDIO: Say something here: say(total) + " farmers growing " + variety + " have applied " + fertilizer + " their parcels this season." + say(number) + "have done it in the last" + say(RealFarmDatabase.NUMBER_DAYS_NEWS) + " days. Touch briefly once to view the farmers and how much they used"
+				// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+				System.out.println(total + " farmers growing " + variety + " have applied " + fertilizer + " their parcels this season." +number + " people have done it in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly once to view the farmers and how much they used");
+
+				break;
+			
+			case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
+				double amount = item.getResult();
+				// TODO  AUDIO: Say something here: say(total) + " have harvested " + variety + " at an average yield of " + amount + " quintal per acre this season." + say(number) + " people have harvested in the last" + say(RealFarmDatabase.NUMBER_DAYS_NEWS) + " days. Touch briefly once to view the farmers and their yields"
+				// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+				System.out.println(total + " have harvested " + variety + " at an average yield of " + amount + " quintal per acre this season." +number + " people have harvested in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly once to view the farmers and their yields");
+
+				break;
+				
+			case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
+				int irrigation = mDataProvider.getResourceImageById(item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
+				// TODO  AUDIO: Say something here: say(total) + " farmers growing " + variety + " have " + irrigation + " their parcels this season." + say(number) + "have done it in the last" + say(RealFarmDatabase.NUMBER_DAYS_NEWS) + " days. Touch briefly to view farmers and their duration of irrigation"
+				// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+				System.out.println(total + " farmers growing " + variety + " have " + irrigation + " their parcels this season." +number + " people have done it in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly to view farmers and their duration of irrigation");
+
+				break;
+				
+			case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
+				int problem = mDataProvider.getResourceImageById(item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
+				// TODO  AUDIO: Say something here: say(total) + " have reported " + problem + " for " + variety + " this season." + say(number) + "have reported it in the last" + say(RealFarmDatabase.NUMBER_DAYS_NEWS) + " days. Touch briefly here to view the farmers and their dates of reporting the problem"
+				// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+				System.out.println(total + " people have reported " + problem + " for " + variety + " this season." +number + " people have reported it in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly here to view the farmers and their dates of reporting the problem");
+
+				break;
+				
+			case RealFarmDatabase.ACTION_TYPE_SELL_ID:
+				long min = item.getSelector2();
+				// TODO  AUDIO: Say something here: say(total) + " people have sold " + variety + " at prices between " + say(min) + " and " + say(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT) + " rupees per quintal " + " this season." + say(number) + " people have sold for this price in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly to view the farmers, the weight of the bags and their individual prices"
+				// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+				System.out.println(total + " people have sold " + variety + " at prices between " + min + " and " + (min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT) + " rupees per quintal " + " this season." + number + " people have sold for this price in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly to view the farmers, the weight of the bags and their individual prices");
+				
+				break;
+				
+			case RealFarmDatabase.ACTION_TYPE_SOW_ID:
+				int treatment = mDataProvider.getResourceImageById(item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
+				// TODO  AUDIO: Say something here: say(total) + " farmers have sown " + variety + "and" + treatment + " the seeds this season." + say(number) + "have done it in the last" + say(RealFarmDatabase.NUMBER_DAYS_NEWS) + " days. Touch briefly to view the farmers and how much they sowed"
+				// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+				System.out.println(total + " farmers have sown " + variety + " and " + treatment + " the seeds this season." +number + " people have done it in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly to view the farmers and how much they sowed");
+
+				break;
+				
+			case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
+				int prob = mDataProvider.getResourceImageById(item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
+				int pesticide = mDataProvider.getResourceImageById(item.getSelector3(), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
+				// TODO  AUDIO: Say something here: say(total) + " have reported " + prob + " for " + variety + " and used " + pesticide + " as medicine this season." + say(number) + "have done it in the last" + say(RealFarmDatabase.NUMBER_DAYS_NEWS) + " days. Touch briefly here to view the farmers and their dates of spraying"
+				// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+				System.out.println(total + " people have reported " + prob + " for " + variety + " and used " + pesticide + " as medicine this season." +number + " people have done it in the last" + RealFarmDatabase.NUMBER_DAYS_NEWS + " days. Touch briefly here to view the farmers and their dates of spraying");
+
+				break;
+				
+			default:
+				break;
+		}
+	}
 	
 }

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="#FFFFFF" >
 
     <LinearLayout
         android:id="@+id/dialog_aggregate_header"
@@ -35,7 +36,7 @@
         android:id="@+id/list_dialog_aggregate"
         android:layout_width="match_parent"
         android:layout_height="265dp"
-        android:layout_below="@+id/dialog_aggregate_header_divider"
+        android:layout_below="@+id/dialog_aggregate_header"
         android:background="#FFFFFF" >
     </ListView>
 

@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
@@ -23,6 +24,8 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 public class Marketprice_details extends AggregateMarketActivity implements OnLongClickListener {
 
 	private final Context context = this;
+	private int min = 0;
+	private int max = 0;
 
 	public void onBackPressed() {
 
@@ -44,9 +47,13 @@ public class Marketprice_details extends AggregateMarketActivity implements OnLo
 		super.onCreate(savedInstanceState, R.layout.marketdetails, context);
 		currentAction = RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
 
+		min = mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
+		max = mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX);
+		
 		TextView tw = (TextView)findViewById(R.id.max_price);
-		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
-
+		tw.setText(String.valueOf(max));
+		tw = (TextView)findViewById(R.id.min_price);
+		tw.setText(String.valueOf(min));
 
 		// default seed/crop type id
 		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId, mDataProvider, Global.userId);
@@ -119,20 +126,48 @@ public class Marketprice_details extends AggregateMarketActivity implements OnLo
 		startActivity(adminintent);
 		Marketprice_details.this.finish();
 	}
+	
+	// TODO AUDIO: check the right audio
+	public boolean onLongClick(View v) {
 
-	public boolean onItemLongClick(AdapterView<?> parent, View view,
-			int position, long id) {
-		// gets the selected view using the position
-		playAudio(R.raw.problems, true);
-		// TODO: Add the audio. 
-
-		switch (mActionTypeId) {
-		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
-			// retrieve what you need and say something.
-			// int nbUsers = aggregates.get(position).getUserCount();
-			break;
-
+		if (v.getId() == R.id.aggr_img_home) {
+			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.aggr_crop) {
+			int crop = topSelectorData.getAudio();
+			int action = mDataProvider.getActionTypeById(mActionTypeId).getAudio();
+			// TODO AUDIO: Say something: action + crop
+			System.out.println(action +" "+ crop);
+			
+			playAudio(topSelectorData.getAudio(), true);
+		} else if (v.getId() == R.id.market_info) {
+			// TODO AUDIO: Say something: "Market Challekere, today prices go from " + say(min) + " to " + say(max) + " rupees" 
+			System.out.println("Market Challekere, today prices go from " + min + " to " + max + " rupees");
+		} else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.button_back) {
+			playAudio(R.raw.problems, true);
+		} else if (v.getId() == R.id.selector_days) {
+			playAudio(daysSelectorData.getAudio(), true);
+		} else if (v.getId() == R.id.days_selector_row) {
+			playAudio(R.raw.problems, true);
 		}
 		return true;
+	}
+	
+	protected void makeAudioAggregateMarketItem(AggregateItem item) {
+		// TODO AUDIO: Dummy audio. To be removed.
+		playAudio(R.raw.a2, true);
+		
+		int variety = topSelectorData.getAudio();
+		int days = daysSelectorData.getAudio();
+		int number = item.getNews();
+		long min = item.getSelector3();
+		long max = item.getSelector2();
+		int kg = mDataProvider.getResourceImageById(item.getSelector1(), RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO);
+		
+		// TODO  AUDIO: Say something here: say(number) + " people have sold bags of " + kg + " of " + variety + " at prices between " + say(min) + " and " + say(max) + " rupees per quintal " + " these last " + days + " days. Touch briefly to view the farmers and their individual prices"
+		// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+		System.out.println(number + " people have sold bags of " + kg + " of " + variety + " at prices between " + min + " and " + max + " rupees per quintal " + " these last " + days + " days. Touch briefly to view the farmers and their individual prices");
+		
 	}
 }

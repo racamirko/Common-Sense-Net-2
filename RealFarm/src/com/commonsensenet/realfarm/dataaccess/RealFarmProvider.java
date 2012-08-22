@@ -652,7 +652,7 @@ public class RealFarmProvider {
 	public List<AggregateItem> getAggregateItemsSow(int actionTypeId, int seedTypeId) {
 		
 		String dateNow = DateHelper.getDateNow();
-		String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
+		String stopDate = DateHelper.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 		
 		final String MY_QUERY = "SELECT id, image1 FROM resource WHERE type = "+RealFarmDatabase.RESOURCE_TYPE_TREATMENT+" ORDER BY id ASC";
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
@@ -669,9 +669,8 @@ public class RealFarmProvider {
 					a.setLeftBackground(c3.getInt(2));
 					a.setCenterImage(c.getInt(1));
 					a.setLeftText(c3.getString(1));
-					String news = String.valueOf(c3.getInt(3));
-					if(news.equals("0")) news = "";
-					a.setNewsText(news);
+					a.setNews(c3.getInt(3));
+					a.setTotal(c3.getInt(0));
 					a.setLeftImage(R.drawable.sowingaction);
 					a.setSelector1(seedTypeId);
 					a.setSelector2(c.getInt(0));
@@ -691,7 +690,7 @@ public class RealFarmProvider {
 	public List<AggregateItem> getAggregateItemsFertilize(int actionTypeId, int seedTypeId) {
 
 		String dateNow = DateHelper.getDateNow();
-		String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
+		String stopDate = DateHelper.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 		
 		final String MY_QUERY = "SELECT id, image1, shortName FROM resource WHERE type = "+RealFarmDatabase.RESOURCE_TYPE_FERTILIZER+" ORDER BY id ASC";
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
@@ -710,9 +709,8 @@ public class RealFarmProvider {
 					AggregateItem a = new AggregateItem(actionTypeId);
 					a.setLeftBackground(c2.getInt(1));
 					a.setLeftText(c2.getString(0));
-					String news = String.valueOf(c3.getInt(1));
-					if(news.equals("0")) news = "";
-					a.setNewsText(news);
+					a.setNews(c3.getInt(1));
+					a.setTotal(c3.getInt(0));
 					a.setLeftImage(R.drawable.fertilizingaction);
 					a.setCenterImage(c.getInt(1));
 					a.setCenterText(c.getString(2));
@@ -733,7 +731,7 @@ public class RealFarmProvider {
 	public List<AggregateItem> getAggregateItemsIrrigate(int actionTypeId, int seedTypeId) {
 
 		String dateNow = DateHelper.getDateNow();
-		String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
+		String stopDate = DateHelper.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 		
 		final String MY_QUERY = "SELECT id, image1 FROM resource WHERE type = "+RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD+" ORDER BY id ASC";
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
@@ -752,9 +750,8 @@ public class RealFarmProvider {
 					AggregateItem a = new AggregateItem(actionTypeId);
 					a.setLeftBackground(c2.getInt(1));
 					a.setLeftText(c2.getString(0));
-					String news = String.valueOf(c3.getInt(1));
-					if(news.equals("0")) news = "";
-					a.setNewsText(news);
+					a.setNews(c3.getInt(1));
+					a.setTotal(c3.getInt(0));
 					a.setLeftImage(R.drawable.irrigationaction);
 					a.setCenterBackground(c.getInt(1));
 					a.setSelector1(seedTypeId);
@@ -774,7 +771,7 @@ public class RealFarmProvider {
 	public List<AggregateItem> getAggregateItemsReport(int actionTypeId, int seedTypeId) {
 		
 		String dateNow = DateHelper.getDateNow();
-		String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
+		String stopDate = DateHelper.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 		
 		final String MY_QUERY = "SELECT id, image1, shortName FROM resource WHERE type = "+RealFarmDatabase.RESOURCE_TYPE_PROBLEM+" ORDER BY id ASC";
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
@@ -792,9 +789,8 @@ public class RealFarmProvider {
 					a.setCenterImage(c.getInt(1));
 					a.setCenterText(c.getString(2));
 					a.setLeftText(c3.getString(1));
-					String news = String.valueOf(c3.getInt(3));
-					if(news.equals("0")) news = "";
-					a.setNewsText(news);
+					a.setNews(c3.getInt(3));
+					a.setTotal(c3.getInt(0));
 					a.setLeftImage(R.drawable.problemreportingaction);
 					a.setSelector1(seedTypeId);
 					a.setSelector2(c.getInt(0));
@@ -814,7 +810,7 @@ public class RealFarmProvider {
 	public List<AggregateItem> getAggregateItemsHarvest(int actionTypeId, int seedTypeId) {
 		
 		String dateNow = DateHelper.getDateNow();
-		String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
+		String stopDate = DateHelper.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 		
 		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "+seedTypeId;		
 		mDatabase.open();
@@ -823,22 +819,22 @@ public class RealFarmProvider {
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
 		if (c.moveToFirst()) {
-			final String MY_QUERY3 = "SELECT AVG((a.quantity1*u.value)/(100*p.size)), SUM(CASE WHEN (a.date <= '"+dateNow+"' AND date >= '"+stopDate+"') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p, unit u WHERE a.plotId = p.id AND a.unit1Id = u.id AND a.actionTypeId= "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
+
+			final String MY_QUERY3 = "SELECT AVG((a.quantity1*u.value)/(100*p.size)), SUM(CASE WHEN (a.date <= '"+dateNow+"' AND date >= '"+stopDate+"') THEN 1 ELSE 0 END) AS newsUsers, COUNT(a.date) as dat FROM action a, plot p, unit u WHERE a.plotId = p.id AND a.unit1Id = u.id AND a.actionTypeId= "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%'";
 			Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
 
 			if (c3.moveToFirst()) {
 				String result = String.valueOf(round(c3.getDouble(0), 2, BigDecimal.ROUND_HALF_UP));
-				if(!result.equals(0.0)) {
+				if(c3.getInt(2) != 0) {
 					AggregateItem a = new AggregateItem(actionTypeId);
 					a.setLeftBackground(c.getInt(1));
 					a.setCenterText(result+" qt/acre");
 					a.setLeftText(c.getString(0));
-					String news = String.valueOf(c3.getInt(1));
-					if(news.equals("0")) news = "";
-					a.setNewsText(news);
+					a.setNews(c3.getInt(1));
+					a.setTotal(c3.getInt(2));
 					a.setLeftImage(R.drawable.harvestingaction);
 					a.setSelector1(seedTypeId);
-
+					a.setResult(round(c3.getDouble(0), 2, BigDecimal.ROUND_HALF_UP));
 					tmpList.add(a);
 				}
 			}
@@ -853,7 +849,7 @@ public class RealFarmProvider {
 		public List<AggregateItem> getAggregateItemsSpray(int actionTypeId, int seedTypeId) {
 			
 			String dateNow = DateHelper.getDateNow();
-			String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
+			String stopDate = DateHelper.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 			
 			final String MY_QUERY = "SELECT id, image1, shortName FROM resource WHERE type = "+RealFarmDatabase.RESOURCE_TYPE_PROBLEM+" ORDER BY id ASC";
 			List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
@@ -879,9 +875,8 @@ public class RealFarmProvider {
 									a.setCenterBackground(c2.getInt(1));
 									a.setCenterText(c2.getString(0));
 									a.setRightText(c3.getString(0));
-									String news = String.valueOf(c4.getInt(1));
-									if(news.equals("0")) news = "";
-									a.setNewsText(news);
+									a.setNews(c4.getInt(1));
+									a.setTotal(c4.getInt(0));
 									a.setCenterImage(R.drawable.sprayingaction);
 									a.setLeftImage(c.getInt(1));
 									a.setLeftText(c.getString(2));
@@ -907,7 +902,7 @@ public class RealFarmProvider {
 	public List<AggregateItem> getAggregateItemsSell(int actionTypeId, int cropTypeId) {
 		
 		String dateNow = DateHelper.getDateNow();
-		String stopDate = DateHelper.getDatePast(RealFarmDatabase.NUMBER_DAYS_NEWS);
+		String stopDate = DateHelper.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 
@@ -922,9 +917,8 @@ public class RealFarmProvider {
 				a.setLeftBackground(c3.getInt(2));
 				a.setCenterText(min+" - "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" Rs/qt");
 				a.setLeftText(c3.getString(1));
-				String news = String.valueOf(c3.getInt(3));
-				if(news.equals("0")) news = "";
-				a.setNewsText(news);
+				a.setNews(c3.getInt(3));
+				a.setTotal(c3.getInt(0));
 				a.setLeftImage(R.drawable.sellingaction);
 				a.setSelector1(cropTypeId);
 				a.setSelector2(min);
@@ -1426,10 +1420,11 @@ public class RealFarmProvider {
 	}
 
 	public List<Resource> getUnits(int actionTypeId) {
+		
 		final String MY_QUERY = "SELECT DISTINCT u.* FROM unit u WHERE actionTypeId = "
-				+ actionTypeId
+				+ RealFarmDatabase.ACTION_TYPE_ALL_ID
 				+ " OR actionTypeId = "
-				+ RealFarmDatabase.ACTION_TYPE_ALL_ID + " ORDER BY id ASC";
+				+ actionTypeId + " ORDER BY id ASC";
 
 		List<Resource> tmpList = new ArrayList<Resource>();
 
@@ -1499,7 +1494,7 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 	
-	private int getResourceImageById(long resId, String table, String field) {
+	public int getResourceImageById(long resId, String table, String field) {
 		final String MY_QUERY = "SELECT "+field+" FROM "+table+" WHERE id = "+resId;
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
@@ -1512,8 +1507,7 @@ public class RealFarmProvider {
 		return res;
 	}
 	
-	public static double round(double unrounded, int precision, int roundingMode)
-	{
+	public static double round(double unrounded, int precision, int roundingMode) {
 		BigDecimal bd = new BigDecimal(unrounded);
 		BigDecimal rounded = bd.setScale(precision, roundingMode);
 		return rounded.doubleValue();
@@ -1535,8 +1529,10 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
-				a.setCenterImage(getResourceImageById(c.getInt(6), "resource", "image1"));
-				a.setLeftImage(getResourceImageById(c.getInt(7), "resource", "image1"));
+				a.setCenterImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_IMAGE1));
+				a.setAudioCenterImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
+				a.setLeftImage(getResourceImageById(c.getInt(7), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_IMAGE1));
+				a.setAudioLeftImage(getResourceImageById(c.getInt(7), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				a.setRightImage(R.drawable.seruonly);
 				a.setLeftText(String.valueOf(round(c.getInt(8)/c.getDouble(9), 2, BigDecimal.ROUND_HALF_UP)));
 				a.setRightText("/acre");
@@ -1564,7 +1560,8 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");				
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
-				a.setRightImage(getResourceImageById(c.getInt(6), "unit", "image"));
+				a.setRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_UNIT,  RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO));
+				a.setAudioRightImage(getResourceImageById(c.getInt(6),  RealFarmDatabase.TABLE_NAME_RESOURCE,  RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				a.setLeftText(String.valueOf(round(c.getInt(7)/c.getDouble(8), 2, BigDecimal.ROUND_HALF_UP)));
 				a.setRightText("/acre");
 				tmpList.add(a);
@@ -1593,10 +1590,12 @@ public class RealFarmProvider {
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
 				a.setLeftImage(R.drawable.timeduration);
+				a.setAudioLeftImage(getResourceImageById(irrigateMethodId, RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				
-				String hour = " hours";
-				if(c.getInt(6) == 1) hour = " hour";
-				a.setRightText(c.getInt(6) + hour);
+				String hour = "hours";
+				if(c.getInt(6) == 1) hour = "hour";
+				a.setLeftText(c.getInt(6)+"");
+				a.setRightText(hour);
 				
 				tmpList.add(a);
 			} while (c.moveToNext());
@@ -1622,6 +1621,7 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
+				a.setAudioLeftImage(getResourceImageById(problemTypeId, RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				tmpList.add(a);
 
 			} while (c.moveToNext());
@@ -1648,8 +1648,8 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
-				
-				a.setLeftText(String.valueOf(round(c.getInt(6)*c.getInt(7)/(100*c.getDouble(8)), 2, BigDecimal.ROUND_HALF_UP))+ " qt/acre");
+				a.setLeftText(String.valueOf(round(c.getInt(6)*c.getInt(7)/(100*c.getDouble(8)), 2, BigDecimal.ROUND_HALF_UP)));
+				a.setRightText("qt/acre");
 				tmpList.add(a);
 
 			} while (c.moveToNext());
@@ -1675,7 +1675,10 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
-				a.setRightImage(getResourceImageById(c.getInt(6), "unit", "image"));
+				a.setRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_IMAGE));
+				a.setAudioRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
+				a.setAudioCenterImage(getResourceImageById(problemId, RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
+				a.setAudioLeftImage(getResourceImageById(pesticideId, RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				a.setLeftText(String.valueOf(round(c.getInt(7)/c.getDouble(8), 2, BigDecimal.ROUND_HALF_UP)));
 				a.setRightText("/acre");
 				tmpList.add(a);
@@ -1691,7 +1694,7 @@ public class RealFarmProvider {
 		
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price, a.unit1Id FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
@@ -1703,7 +1706,10 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
-				a.setLeftText(c.getInt(6)+ " Rs/qt");
+				a.setLeftText(c.getInt(6)+"");
+				a.setRightText("Rs/qt");
+				a.setLeftImage(getResourceImageById(c.getInt(7),  RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_IMAGE));
+				a.setAudioLeftImage(getResourceImageById(c.getInt(7), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				tmpList.add(a);
 
 			} while (c.moveToNext());
@@ -1871,19 +1877,19 @@ public class RealFarmProvider {
 	}
 	
 	public Resource getTopSelectorDataVar(long userId, long defaultSeedId){
-		final String MY_QUERY = "SELECT ct.backgroundImage, st.shortName, st.id FROM seedType st, plot p, cropType ct WHERE st.cropTypeId = ct.id AND st.id = p.seedtypeId AND p.userId = "+userId+" ORDER BY st.id ASC";
-		final String MY_QUERY2 = "SELECT ct.backgroundImage, st.shortName, st.id FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "+defaultSeedId;
+		final String MY_QUERY = "SELECT ct.backgroundImage, st.shortName, st.id, st.audio FROM seedType st, plot p, cropType ct WHERE st.cropTypeId = ct.id AND st.id = p.seedtypeId AND p.userId = "+userId+" ORDER BY st.id ASC";
+		final String MY_QUERY2 = "SELECT ct.backgroundImage, st.shortName, st.id, st.audio FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "+defaultSeedId;
 		mDatabase.open();
 		Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		Resource r = null;
 		if (cursor.moveToFirst()) {	
-			r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
+			r = new Resource(cursor.getInt(2), "", cursor.getString(1), cursor.getInt(3), -1, -1, cursor.getInt(0), -1, -1);
 		}
 		cursor.close();
 		if(r == null) {
 			cursor = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 			if (cursor.moveToFirst()) {	
-				r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
+				r = new Resource(cursor.getInt(2), "", cursor.getString(1), cursor.getInt(3), -1, -1, cursor.getInt(0), -1, -1);
 			}
 			cursor.close();
 		}
@@ -1892,19 +1898,19 @@ public class RealFarmProvider {
 	}
 	
 	public Resource getTopSelectorDataCrop(long userId, long defaultCropTypeId){
-		final String MY_QUERY = "SELECT ct.backgroundImage, ct.shortName, ct.id FROM seedType st, plot p, cropType ct WHERE st.cropTypeId = ct.id AND st.id = p.seedtypeId AND p.userId = "+userId+" ORDER BY st.id ASC";
-		final String MY_QUERY2 = "SELECT ct.backgroundImage, ct.shortName, ct.id FROM cropType ct WHERE ct.id = "+ defaultCropTypeId;
+		final String MY_QUERY = "SELECT ct.backgroundImage, ct.shortName, ct.id, ct.audio FROM seedType st, plot p, cropType ct WHERE st.cropTypeId = ct.id AND st.id = p.seedtypeId AND p.userId = "+userId+" ORDER BY st.id ASC";
+		final String MY_QUERY2 = "SELECT ct.backgroundImage, ct.shortName, ct.id, ct.audio FROM cropType ct WHERE ct.id = "+ defaultCropTypeId;
 		mDatabase.open();
 		Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		Resource r = null;
 		if (cursor.moveToFirst()) {	
-			r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
+			r = new Resource(cursor.getInt(2), "", cursor.getString(1), cursor.getInt(3), -1, -1, cursor.getInt(0), -1, -1);
 		}
 		cursor.close();
 		if(r == null) {
 			cursor = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 			if (cursor.moveToFirst()) {	
-				r = new Resource(cursor.getInt(2), "", cursor.getString(1), -1, -1, -1, cursor.getInt(0), -1, -1);
+				r = new Resource(cursor.getInt(2), "", cursor.getString(1), cursor.getInt(3), -1, -1, cursor.getInt(0), -1, -1);
 			}
 			cursor.close();
 		}
@@ -2289,8 +2295,10 @@ public class RealFarmProvider {
 					AggregateItem mi = new AggregateItem(0);
 					mi.setRightText(c2.getInt(0)+" - "+c2.getInt(1)+" Rs/qt");
 					mi.setCenterImage(c.getInt(1));
+					mi.setSelector3(c2.getInt(0));
+					mi.setSelector2(c2.getInt(1));
 					mi.setSelector1(c.getInt(0));
-					mi.setNewsText(c2.getInt(2)+"");
+					mi.setNews(c2.getInt(2));
 					mi.setLeftBackground(c2.getInt(4));
 					mi.setLeftText(c2.getString(3));
 					mi.setLeftImage(R.drawable.sellingaction);
@@ -2322,8 +2330,12 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
-				a.setLeftText(c.getInt(6)+ " Rs/qt");
+				a.setLeftText(c.getInt(6)+"");
+				a.setRightText("Rs/qt");
+				a.setLeftImage(getResourceImageById(weightId, RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_IMAGE));
+				a.setAudioLeftImage(getResourceImageById(weightId, RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				tmpList.add(a);
+
 
 			} while (c.moveToNext());
 		}

@@ -21,11 +21,12 @@ public class AggregateItem {
 	private String leftText = "";
 	private String centerText = "";
 	private String rightText = "";
-	private String newsText = "";
 	private int leftImage = -1;
 	private int centerImage = -1;
 	private int leftBottomImage = -1;
-	
+	private int news = 0;
+	private int total = 0;
+	private double result = 0.0;
 
 	public AggregateItem(int actionTypeId) {
 		mActionTypeId = actionTypeId;
@@ -97,12 +98,25 @@ public class AggregateItem {
 		return leftText;
 	}
 	
-	public void setNewsText(String text){
-		newsText = text;
+	public void setNews(int n){
+		news = n;
+	}
+	
+	public int getNews(){
+		return news;
+	}
+	
+	public void setTotal(int t){
+		total = t;
+	}
+	
+	public int getTotal(){
+		return total;
 	}
 	
 	public String getNewsText(){
-		return newsText;
+		if(total == 0) return news+"";
+		return news+"/"+total;
 	}
 	
 	public void setLeftImage(int img){
@@ -151,5 +165,13 @@ public class AggregateItem {
 	
 	public long getSelector3() {
 		return selector3;
+	}
+	
+	public void setResult(double res){
+		 result = res;
+	}
+	
+	public double getResult(){
+		return result;
 	}
 }

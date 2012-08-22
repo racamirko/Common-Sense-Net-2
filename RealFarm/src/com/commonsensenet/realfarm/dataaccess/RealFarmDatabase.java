@@ -380,7 +380,7 @@ public class RealFarmDatabase {
 	}
 
 	// TODO: This is for the selling aggregate and the aggregates number indicators on the homescreen. Put that somewhere into the database
-	public static final int NUMBER_DAYS_NEWS = -14;
+	public static final int NUMBER_DAYS_NEWS = 14;
 	public static final int SELLING_AGGREGATE_INCREMENT = 99;
 	
 	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;

@@ -504,8 +504,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	private void updateMarketPrices() {
-		TextView tw = (TextView)findViewById(R.id.hmscrn_lbl_market_price);
-		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN))+"-"+String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
+		TextView tw = (TextView)findViewById(R.id.hmscrn_lbl_market_price_min);
+		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN)));
+		tw = (TextView)findViewById(R.id.hmscrn_lbl_market_price_max);
+		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 	}
 
 	private void updateAggregatesNumbers() {
@@ -536,6 +538,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// long click sounds are always played, no matter the audio setting.
 		if (v.getId() == R.id.hmscrn_btn_market) {
+			int min = mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
+			int max = mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX);
+			// TODO AUDIO: Say the min and max prices: "Market Challekere, today prices go from " + say(min) + " to " + say(max) + " rupees"
+			System.out.println("Market Challekere, today prices go from " + min + " to " + max + " rupees");
 			playAudio(R.raw.ckpura_avgmarketprice, true);
 		} else if (v.getId() == R.id.hmscrn_btn_yield) {
 			playAudio(R.raw.ckpura_avgyield, true);

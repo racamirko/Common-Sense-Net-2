@@ -20,6 +20,8 @@
             android:layout_marginLeft="2dp"
             android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:gravity="right|bottom"
             android:textAppearance="?android:attr/textAppearanceSmall" />
 
         <ImageView
@@ -92,7 +94,7 @@
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
-        android:layout_marginLeft="70dp"
+        android:layout_marginLeft="60dp"
         android:padding="1dp"
         android:orientation="vertical" >
 
