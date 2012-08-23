@@ -201,7 +201,7 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		// selectedItem.getSeedTypeId()
 
 		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
-				this, list, mDataProvider);
+				this, list);
 		// sets the adapter.
 		userListView.setAdapter(userAdapter);
 
@@ -232,7 +232,7 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 			public boolean onLongClick(View v) {
 				// Say something according to the layout's contents. This is the top header of the dialog to call people in the aggregates
 				//makeAudioUserTopBar(true);
-				makeAudioAggregateMarketItem(selectedItem);
+				makeAudioAggregateMarketItem(selectedItem, true);
 				return false;
 			}
 		});
@@ -270,7 +270,7 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		// gets the selected view using the position
-		makeAudioAggregateMarketItem(mItemAdapter.getItem(position));
+		makeAudioAggregateMarketItem(mItemAdapter.getItem(position), false);
 
 		return true;
 	}
@@ -383,6 +383,6 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		System.out.println("To call " + userName + " touch here briefly");
 	}
 	
-	protected abstract void makeAudioAggregateMarketItem(AggregateItem item);
+	protected abstract void makeAudioAggregateMarketItem(AggregateItem item, boolean header);
 
 }

@@ -1562,8 +1562,8 @@ public class RealFarmProvider {
 				a.setDate(tokens[2]+"."+tokens[1]+".");				
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
-				a.setRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_UNIT,  RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO));
-				a.setAudioRightImage(getResourceImageById(c.getInt(6),  RealFarmDatabase.TABLE_NAME_RESOURCE,  RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
+				a.setRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_UNIT,  RealFarmDatabase.COLUMN_NAME_UNIT_IMAGE));
+				a.setAudioRightImage(getResourceImageById(c.getInt(6),  RealFarmDatabase.TABLE_NAME_UNIT,  RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO));
 				a.setLeftText(String.valueOf(round(c.getInt(7)/c.getDouble(8), 2, BigDecimal.ROUND_HALF_UP)));
 				a.setRightText("/acre");
 				a.setAudioName(c.getInt(9));
@@ -1687,7 +1687,7 @@ public class RealFarmProvider {
 				a.setTel(c.getString(4));
 				a.setAvatar(c.getString(5));
 				a.setRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_IMAGE));
-				a.setAudioRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
+				a.setAudioRightImage(getResourceImageById(c.getInt(6), RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO));
 				a.setAudioCenterImage(getResourceImageById(problemId, RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				a.setAudioLeftImage(getResourceImageById(pesticideId, RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
 				a.setLeftText(String.valueOf(round(c.getInt(7)/c.getDouble(8), 2, BigDecimal.ROUND_HALF_UP)));
@@ -1722,7 +1722,7 @@ public class RealFarmProvider {
 				a.setLeftText(c.getInt(6)+"");
 				a.setRightText("Rs/qt");
 				a.setLeftImage(getResourceImageById(c.getInt(7),  RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_IMAGE));
-				a.setAudioLeftImage(getResourceImageById(c.getInt(7), RealFarmDatabase.TABLE_NAME_RESOURCE, RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO));
+				a.setAudioLeftImage(getResourceImageById(c.getInt(7), RealFarmDatabase.TABLE_NAME_UNIT, RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO));
 
 				a.setAudioName(c.getInt(8));
 				a.setAudioLocation(c.getInt(9));

@@ -11,23 +11,18 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 
 public class UserAggregateItemAdapter extends ArrayAdapter<UserAggregateItem> {
 	/** Database provided that used to obtain the required data. */
-	private RealFarmProvider mDataProvider;
 
 	/**
 	 * Creates a new UserAggregateItemAdapter instance.
 	 */
 	public UserAggregateItemAdapter(Context context,
-			List<UserAggregateItem> userAggregates,
-			RealFarmProvider dataProvider) {
+			List<UserAggregateItem> userAggregates) {
 		super(context, android.R.layout.simple_list_item_1, userAggregates);
 
-		// TODO: this shouldn't be done!!
-		mDataProvider = dataProvider;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {

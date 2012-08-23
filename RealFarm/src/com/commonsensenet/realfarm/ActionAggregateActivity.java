@@ -131,7 +131,9 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 		return true;
 	}
 	
-	protected void makeAudioAggregateMarketItem(AggregateItem item) {
+	protected void makeAudioAggregateMarketItem(AggregateItem item, boolean header) {
+		// TODO AUDIO IMPORTANT: if header == true, don't say the outro (Touch briefly once to see...)
+		
 		// TODO AUDIO: Dummy audio. To be removed.
 		playAudio(R.raw.a2, true);
 		

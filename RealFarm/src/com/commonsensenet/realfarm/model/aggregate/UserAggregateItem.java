@@ -1,7 +1,5 @@
 package com.commonsensenet.realfarm.model.aggregate;
 
-import com.commonsensenet.realfarm.R;
-import com.commonsensenet.realfarm.model.User;
 
 /**
  * 
