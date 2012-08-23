@@ -11,6 +11,8 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class SprayActionActivity extends DataFormActivity {
 
@@ -87,6 +89,9 @@ public class SprayActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO "Choose the problem for spraying"  This is the audio that is heard when the selector dialog opens
 				displayDialog(v, problemList, PROBLEM,"Choose the problem for spraying", R.raw.problems,R.id.dlg_lbl_prob_spray, R.id.prob_spray_tr, 0);
@@ -96,6 +101,9 @@ public class SprayActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO "Choose the pesticide"  This is the audio that is heard when the selector dialog opens
 				displayDialog(v, pesticideList, PESTICIDE, "Choose the pesticide",R.raw.problems, R.id.dlg_lbl_pest_spray,R.id.pest_spray_tr, 0);
@@ -105,6 +113,9 @@ public class SprayActionActivity extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the quantity" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -118,6 +129,9 @@ public class SprayActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO "Choose the unit"  This is the audio that is heard when the selector dialog opens
 				displayDialog(v, unitList, UNIT, "Choose the unit", R.raw.problems,R.id.dlg_lbl_units_spray, R.id.units_spray_tr, 1);
@@ -127,6 +141,9 @@ public class SprayActionActivity extends DataFormActivity {
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -144,6 +161,9 @@ public class SprayActionActivity extends DataFormActivity {
 		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO "Choose the month"  This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",
@@ -155,6 +175,9 @@ public class SprayActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		// forces all long click sounds.
 
@@ -220,6 +243,8 @@ public class SprayActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(UNIT) != defaultUnit && mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.units_spray_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT, AMOUNT);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_spray_tr, true);
 		}
@@ -227,6 +252,8 @@ public class SprayActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(PESTICIDE) != defaultPesticide) {
 			highlightField(R.id.pest_spray_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, PESTICIDE);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.pest_spray_tr, true);
 		}
@@ -234,6 +261,8 @@ public class SprayActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(PROBLEM) != defaultProblem) {
 			highlightField(R.id.prob_spray_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, PROBLEM);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.prob_spray_tr, true);
 		}
@@ -241,12 +270,18 @@ public class SprayActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_spray_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_spray_tr, true);
 		}
 
 		// inserts the action if the form is valid.
 		if (isValid) {			
+			
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
+			
 			mProblem = problemList.get((Integer) mResultsMap.get(PROBLEM)).getId();
 			mPesticide =  pesticideList.get((Integer) mResultsMap.get(PESTICIDE)).getId();
 			mUnit = unitList.get((Integer) mResultsMap.get(UNIT)).getId();

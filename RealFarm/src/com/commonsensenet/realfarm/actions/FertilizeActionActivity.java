@@ -88,6 +88,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the fertilizer" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, fertilizerList, FERTILIZER, "Choose the fertilizer",
@@ -99,6 +102,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the amount" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -115,6 +121,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, unitList, UNIT, "Choose the unit", R.raw.problems,
@@ -125,6 +134,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -142,6 +154,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",
@@ -152,6 +167,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 	}
 
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.dlg_lbl_var_fert) {
 			// TODO AUDIO: "Select the variety" default if nothing is in the field
@@ -197,10 +215,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		// shows the help icon.
 		showHelpIcon(v);
 
-		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-				getLogTag(), v.getId());
-
 		return true;
 	}
 
@@ -217,6 +231,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		if ((Integer)mResultsMap.get(UNIT) != defaultUnit && mAmount > Double.parseDouble(defaultAmount)) {
 			highlightField(R.id.units_fert_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT, AMOUNT);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_fert_tr, true);
 		}
@@ -224,6 +240,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		if ((Integer)mResultsMap.get(FERTILIZER) != defaultFertilizer) {
 			highlightField(R.id.var_fert_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, FERTILIZER);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_fert_tr, true);
 		}
@@ -231,12 +249,18 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_fert_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_fert_tr, true);
 		}
+		
 
 		// inserts the action if all fields are valid.
 		if (isValid) {
+			
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
 			
 			mFertilizer = fertilizerList.get((Integer)mResultsMap.get(FERTILIZER)).getId();
 			mUnit = unitList.get((Integer)mResultsMap.get(UNIT)).getId();

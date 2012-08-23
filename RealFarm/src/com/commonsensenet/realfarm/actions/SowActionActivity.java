@@ -12,6 +12,8 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class SowActionActivity extends DataFormActivity {
 
@@ -91,6 +93,9 @@ public class SowActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, varietiesList, VARIETY, "Select the variety", R.raw.select_the_variety, R.id.dlg_var_text_sow, R.id.seed_type_sow_tr, 0);
 			}
@@ -99,6 +104,9 @@ public class SowActionActivity extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -113,6 +121,9 @@ public class SowActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO AUDIO: "Select if the seeds were treated" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, treatmentList, TREATMENT,"Select if the seeds were treated", R.raw.treatmenttoseeds1,R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
 
@@ -122,6 +133,9 @@ public class SowActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 				
 				// TODO AUDIO: "Choose the number of serus" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -136,6 +150,9 @@ public class SowActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO AUDIO: "Main crop or intercrop?" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, intercropList, INTERCROP, "Main crop or intercrop?", R.raw.maincrop_intercrop, R.id.dlg_lbl_intercrop_sow,	R.id.intercrop_sow_tr, 0);
 			}
@@ -144,6 +161,9 @@ public class SowActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",R.raw.choosethemonth, R.id.dlg_lbl_month_sow,R.id.day_sow_tr, 0);
@@ -153,6 +173,9 @@ public class SowActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		// long click sounds are always forced since they represent
 		// the helping system.
@@ -223,6 +246,8 @@ public class SowActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(VARIETY) != defaultVariety) {
 			highlightField(R.id.seed_type_sow_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, VARIETY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.seed_type_sow_tr, true);
 		}
@@ -230,6 +255,8 @@ public class SowActionActivity extends DataFormActivity {
 		if (mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.units_sow_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, AMOUNT);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_sow_tr, true);
 		}
@@ -237,6 +264,8 @@ public class SowActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_sow_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_sow_tr, true);
 		}
@@ -244,6 +273,8 @@ public class SowActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(TREATMENT) != defaultTreatment) {
 			highlightField(R.id.treatment_sow_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, TREATMENT);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.treatment_sow_tr, true);
 		}
@@ -251,12 +282,17 @@ public class SowActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(INTERCROP) != defaultIntercrop) {
 			highlightField(R.id.intercrop_sow_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, INTERCROP);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.intercrop_sow_tr, true);
 		}
 
 		// if all the fields are valid the data is inserted into the database.
 		if (isValid) {
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
+			
 			mSeedType = varietiesList.get((Integer)mResultsMap.get(VARIETY)).getId();
 			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
 			mTreatment = treatmentList.get((Integer) mResultsMap.get(TREATMENT)).getId();

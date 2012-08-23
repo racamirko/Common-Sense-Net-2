@@ -11,6 +11,8 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class ReportActionActivity extends DataFormActivity {
 
@@ -71,6 +73,9 @@ public class ReportActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the problem" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, problemList, PROBLEM, "Choose the problem type",
@@ -83,6 +88,9 @@ public class ReportActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
@@ -95,6 +103,9 @@ public class ReportActionActivity extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 				
 				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -113,20 +124,23 @@ public class ReportActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.bagof50kg, R.id.dlg_lbl_month_prob,
 						R.id.day_prob_tr, 0);
-
 			}
-
 		});
-
 	}
 
 	@Override
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		// forces all audio sounds to be played.
 
@@ -178,6 +192,8 @@ public class ReportActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(PROBLEM) != defaultProblem) {
 			highlightField(R.id.var_prob_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, PROBLEM);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_prob_tr, true);
 		}
@@ -185,6 +201,8 @@ public class ReportActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_prob_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_prob_tr, true);
 		}
@@ -192,11 +210,16 @@ public class ReportActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(VARIETY) != defaultVariety) {
 			highlightField(R.id.var_prob_tr4, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, VARIETY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_prob_tr4, true);
 		}
 
 		if (isValid) {
+			
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
 			
 			mProblem = problemList.get((Integer)mResultsMap.get(PROBLEM)).getId();
 			mVariety = varietyList.get((Integer)mResultsMap.get(VARIETY)).getId();

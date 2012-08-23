@@ -11,6 +11,8 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class SellActionActivity extends DataFormActivity {
 
@@ -101,6 +103,9 @@ public class SellActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the crop" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, cropList, CROP, "Select the crop", R.raw.problems,
@@ -112,6 +117,9 @@ public class SellActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -129,6 +137,9 @@ public class SellActionActivity extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",
@@ -141,6 +152,9 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO AUDIO: "Choose the number of bags" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
 				// TODO AUDIO:  Text on tap on cancel button in Number picker
@@ -157,6 +171,9 @@ public class SellActionActivity extends DataFormActivity {
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, unit1List, UNIT, "Select the unit", R.raw.problems,
@@ -167,6 +184,9 @@ public class SellActionActivity extends DataFormActivity {
 		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Enter the price" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -183,6 +203,9 @@ public class SellActionActivity extends DataFormActivity {
 		item7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the number of bags" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -200,6 +223,9 @@ public class SellActionActivity extends DataFormActivity {
 		item8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, unit2List, UNIT2, "Select the unit",
@@ -211,6 +237,9 @@ public class SellActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		// forces the sound to play since its the long click
 
@@ -288,6 +317,8 @@ public class SellActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(CROP) != defaultCrop) {
 			highlightField(R.id.crop_sell_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, CROP);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.crop_sell_tr, true);
 		}
@@ -295,6 +326,8 @@ public class SellActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.date_sell_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.date_sell_tr, true);
 		}
@@ -302,6 +335,8 @@ public class SellActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(UNIT) != defaultUnit1 && mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.quant_sell_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT, AMOUNT);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.quant_sell_tr, true);
 		}
@@ -309,6 +344,8 @@ public class SellActionActivity extends DataFormActivity {
 		if (mPrice > Integer.parseInt(defaultPrice)) {
 			highlightField(R.id.price_sell_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, PRICE);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.price_sell_tr, true);
 		}
@@ -316,12 +353,16 @@ public class SellActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(UNIT2) != defaultUnit2 && mRemaining > -1) {
 			highlightField(R.id.rem_quant_sell_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT2, REMAINING);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.rem_quant_sell_tr, true);
 		}
 
 		// validates the form.
 		if (isValid) {
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
 			
 			mCrop = cropList.get((Integer)mResultsMap.get(CROP)).getId();
 			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();

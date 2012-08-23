@@ -14,7 +14,9 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.DateHelper;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class IrrigateActionActivity extends DataFormActivity {
 
@@ -75,6 +77,9 @@ public class IrrigateActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the irrigation method" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, methodList, METHOD, "Select the irrigation method",
@@ -86,6 +91,9 @@ public class IrrigateActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the irrigation duration" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -103,6 +111,9 @@ public class IrrigateActionActivity extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -121,6 +132,9 @@ public class IrrigateActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the month list" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",
@@ -132,6 +146,9 @@ public class IrrigateActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		// long click sounds are forced played, since they are part of a help
 		// feature.
@@ -188,6 +205,8 @@ public class IrrigateActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(METHOD) != defaultMethod) {
 			highlightField(R.id.method_irr_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, METHOD);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.method_irr_tr, true);
 		}
@@ -195,6 +214,8 @@ public class IrrigateActionActivity extends DataFormActivity {
 		if (mHours > Integer.parseInt(defaultHours)) {
 			highlightField(R.id.units_irr_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, HOURS);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_irr_tr, true);
 		}
@@ -202,11 +223,16 @@ public class IrrigateActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_irr_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_irr_tr, true);
 		}
 
 		if (isValid) {
+			
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
 			
 			mMethod = methodList.get((Integer)mResultsMap.get(METHOD)).getId();;
 			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();

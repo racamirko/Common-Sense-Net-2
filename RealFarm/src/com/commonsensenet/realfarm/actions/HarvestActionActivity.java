@@ -11,6 +11,8 @@ import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class HarvestActionActivity extends DataFormActivity {
 
@@ -86,6 +88,9 @@ public class HarvestActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
@@ -97,6 +102,9 @@ public class HarvestActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -115,6 +123,9 @@ public class HarvestActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_harvest,
@@ -126,6 +137,9 @@ public class HarvestActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Choose the number of bags" This is the audio that is heard when the selector dialog opens
 				// TODO AUDIO:  Text on tap on ok button in Number picker
@@ -143,7 +157,10 @@ public class HarvestActionActivity extends DataFormActivity {
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, unitList, UNIT, "Select the unit", R.raw.selecttheunits,
 						R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr, 2);
@@ -155,6 +172,9 @@ public class HarvestActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO AUDIO: "Are you satisfied?" This is the audio that is heard when the selector dialog opens
 				displayDialog(v, satisfactionList, SATISFACTION, "Are you satisfied?",
 						R.raw.are_you_satisfied, R.id.dlg_lbl_satisfaction_harvest,
@@ -166,6 +186,9 @@ public class HarvestActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		// all long click sounds override the sound enabled flag.
 
@@ -225,6 +248,8 @@ public class HarvestActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(VARIETY) != defaultVariety) {
 			highlightField(R.id.var_harvest_crop, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, VARIETY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_harvest_crop, true);
 		}
@@ -232,6 +257,8 @@ public class HarvestActionActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.harvest_date_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.harvest_date_tr, true);
 		}
@@ -239,6 +266,8 @@ public class HarvestActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(UNIT) != defaultUnit && mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.units_harvest_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT, UNIT);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_harvest_tr, true);
 		}
@@ -246,12 +275,17 @@ public class HarvestActionActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(SATISFACTION) != defaultSatisfaction) {
 			highlightField(R.id.satisfaction_harvest_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, SATISFACTION);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.satisfaction_harvest_tr, true);
 		}
 
 		// if all fields are valid the data is inserted in the database.
 		if (isValid) {
+			
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
 			
 			mVariety = varietyList.get((Integer)mResultsMap.get(VARIETY)).getId();
 			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();

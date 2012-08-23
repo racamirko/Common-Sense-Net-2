@@ -72,9 +72,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				Resource choice = data.get(position);
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						getLogTag(), propertyKey, choice.getId());
-
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), propertyKey, choice.getShortName());
+				ApplicationTracker.getInstance().flush();
+				
 				// sets the short name of the resource.
 				TextView var_text = (TextView) findViewById(textFieldId);
 				var_text.setText(choice.getShortName());
@@ -109,6 +109,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 					int position, long id) {
 				// TODO: adapt the audio in the database
 				int iden = data.get(position).getAudio();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), data.get(position).getShortName());
+				ApplicationTracker.getInstance().flush();
 
 				playAudio(iden, true);
 				return true;
@@ -151,6 +154,10 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		ok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				String result = textView.getText().toString();
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "numberPicker", "ok " + result);
+				ApplicationTracker.getInstance().flush();
+				
 				mResultsMap.put(mapEntry, result);
 				tw_sow.setText(result);
 				feedbackRow
@@ -164,26 +171,34 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				dialog.cancel();
+				dialog.cancel();				
 				playAudio(cancelAudio);
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						getLogTag(), "amount", "cancel");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "numberPicker", "cancel");
+				ApplicationTracker.getInstance().flush();
+
 			}
 		});
 		ok.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "numberPicker", "ok");
+				ApplicationTracker.getInstance().flush();
 				playAudio(infoOkAudio);
 				return true;
 			}
 		});
 		cancel.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "numberPicker", "cancel");
+				ApplicationTracker.getInstance().flush();
 				playAudio(infoCancelAudio);
 				return true;
 			}
 		});
 		textView.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "numberPicker", "text", textView.getText());
+				ApplicationTracker.getInstance().flush();
+				// TODO AUDIO: read the number textView.getText()
 				playAudio(R.raw.dateinfo);
 				return false;
 			}

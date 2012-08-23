@@ -233,6 +233,8 @@ public class AddPlotActivity extends DataFormActivity {
 		if (!mPlotImage.toString().equalsIgnoreCase("0")) {
 			highlightField(R.id.plot_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, "Plot image");
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.plot_tr, true);
 		}
@@ -240,6 +242,8 @@ public class AddPlotActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(SOIL_TYPE) != defaultSoil) {
 			highlightField(R.id.soiltype_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, SOIL_TYPE);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.soiltype_tr, true);
 		}
@@ -247,6 +251,8 @@ public class AddPlotActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(MAIN_CROP) != defaultCrop) {
 			highlightField(R.id.maincrop_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MAIN_CROP);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.maincrop_tr, true);
 		}
@@ -254,6 +260,8 @@ public class AddPlotActivity extends DataFormActivity {
 		if (mSize > Double.parseDouble(defaultSize)) {
 			highlightField(R.id.size_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, SIZE);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.size_tr, true);
 		}
@@ -261,12 +269,17 @@ public class AddPlotActivity extends DataFormActivity {
 		if ((Integer)mResultsMap.get(TYPE) != defaultType) {
 			highlightField(R.id.type_tr, false);
 		} else {
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR, TYPE);
+			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.type_tr, true);
 		}
 
 		// if form is valid the plot is added to the database.
 		if (isValid) {
+			
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().flush();
 			
 			mSoilType = soilList.get((Integer)mResultsMap.get(SOIL_TYPE)).getId();
 			mMainCrop = cropList.get((Integer)mResultsMap.get(MAIN_CROP)).getId();
