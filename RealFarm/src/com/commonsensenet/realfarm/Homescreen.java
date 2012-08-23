@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -245,13 +246,18 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								// exits the application.
+								ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"exit application");
+								ApplicationTracker.getInstance().flush();
 								Homescreen.this.finish();
 							}
 						}).show();
 	}
 
 	public void onClick(View v) {
-
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
+		
 		// activity that will be opened.
 		Intent intent = null;
 
@@ -306,7 +312,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			dialog.setOwnerActivity(this);
 
 			// gets the available action types.
-			List<Resource> data = mDataProvider.getActionTypes();
+			final List<Resource> data = mDataProvider.getActionTypes();
 			// creates an adapter that handles the data.
 			final DialogAdapter adapter = new DialogAdapter(v.getContext(),
 					R.layout.mc_dialog_row, data);
@@ -316,14 +322,31 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			// opens the dialog.
 			dialog.show();
+			
+			dialogList.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+				public boolean onItemLongClick(AdapterView<?> parent, View view,
+						int position, long id) {
+					int iden = data.get(position).getAudio();
+					playAudio(iden, true);
+					
+					ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), data.get(position).getShortName());
+					ApplicationTracker.getInstance().flush();
+					
+					return true;
+				}
+			});
 
 			dialogList.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
+					
+					ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), data.get(position).getShortName());
+					ApplicationTracker.getInstance().flush();
 
 					Resource selectedAction = adapter.getItem(position);
-
+					
 					switch (selectedAction.getId()) {
 					case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 						Global.selectedAction = SowActionActivity.class;
@@ -404,11 +427,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				snd.setImageResource(R.drawable.ic_71px_sound_on);
 				// enables the sound.
 				Global.isAudioEnabled = true;
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"audio enabled");
 			} else {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.soundoff);
 				// disables the audio.
 				Global.isAudioEnabled = false;
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"audio disabled");
 			}
 
 			// no need to start an intent
@@ -416,10 +441,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		}
 		// starts the intent if valid.
 		if (intent != null) {
-			// tracks the button click.
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
-					intent.getComponent().getShortClassName());
-			
 			startActivity(intent);
 		}
 	}
@@ -501,6 +522,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		updateWidgets();
 		// adds the listeners
 		initActionListener();
+
 	}
 
 	private void updateMarketPrices() {
@@ -576,6 +598,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		} else {
 			return super.onLongClick(v);
 		}
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		// shows the help icon for the view.
 		showHelpIcon(v);
@@ -584,6 +609,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	public boolean onOptionsItemSelected(MenuItem item) {
+
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(item.getItemId()));
+		ApplicationTracker.getInstance().flush();
 
 		// handles the item selection.
 		switch (item.getItemId()) {
@@ -595,53 +623,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		default:
 			return super.onOptionsItemSelected(item);
 		}
+
 	}
-
-	protected void selectlang() {
-
-		// dialog used to request the information
-		final Dialog dialog = new Dialog(this);
-
-		// gets the language list from the resources.
-		Resources res = getResources();
-		String[] languages = res.getStringArray(R.array.array_languages);
-
-		ListView languageList = new ListView(this);
-		ArrayAdapter<String> languageAdapter = new ArrayAdapter<String>(this,
-				android.R.layout.simple_list_item_1, android.R.id.text1,
-				languages);
-		// sets the adapter.
-		languageList.setAdapter(languageAdapter);
-
-		// adds the event listener to detect the language selection.
-		languageList.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				// stores the selected language.
-				mSelectedLanguage = (String) parent.getAdapter().getItem(
-						position);
-
-				Toast.makeText(Homescreen.this,
-						"The Language selected is " + mSelectedLanguage,
-						Toast.LENGTH_SHORT).show();
-
-				// closes the dialog.
-				dialog.dismiss();
-			}
-
-		});
-
-		// sets the view
-		dialog.setContentView(languageList);
-		// sets the properties of the dialog.
-		dialog.setTitle(R.string.dialog_select_language_title);
-		dialog.setCancelable(true);
-
-		// displays the dialog.
-		dialog.show();
-	};
 
 	protected void updateWidgets() {
 
