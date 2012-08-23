@@ -253,7 +253,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	public void onClick(View v) {
 		
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 		
 		// activity that will be opened.

@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
@@ -13,11 +14,13 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnWeatherForecastDataChangeListener;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.WeatherForecastItemAdapter;
 
 public class WeatherForecastActivity extends HelpEnabledActivity implements
-		OnWeatherForecastDataChangeListener, OnItemLongClickListener {
+		OnWeatherForecastDataChangeListener, OnItemLongClickListener, OnItemClickListener {
 
 	/** Celsius indicator. */
 	public static final String CELSIUS = "¡";
@@ -27,6 +30,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 	private WeatherForecastItemAdapter mWeatherForecastItemAdapter;
 	/** ListView where the weather forecasts are rendered. */
 	private ListView mWeatherForecastListView;
+	private List<WeatherForecast> wf;
 
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -41,8 +45,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		mDataProvider.setWeatherForecastDataChangeListener(this);
 
 		// gets the forecast from the database for today.
-		List<WeatherForecast> wf = mDataProvider
-				.getWeatherForecasts(new Date());
+		wf = mDataProvider.getWeatherForecasts(new Date());
 
 		// creates the adapter used to manage the data.
 		mWeatherForecastItemAdapter = new WeatherForecastItemAdapter(this, wf,
@@ -55,6 +58,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		// sets the custom adapter.
 		mWeatherForecastListView.setAdapter(mWeatherForecastItemAdapter);
 		// adds the long click to enable the help feature
+		mWeatherForecastListView.setOnItemClickListener(this);
 		mWeatherForecastListView.setOnItemLongClickListener(this);
 	}
 
@@ -72,6 +76,10 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), wf.get(position).getDate());
+		ApplicationTracker.getInstance().flush();
+		
 		SoundQueue sq = SoundQueue.getInstance();
 		// stops any sound that could be playing.
 		sq.stop();
@@ -91,5 +99,12 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		sq.play();
 
 		return true;
+	}
+
+	public void onItemClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), wf.get(position).getDate());
+		ApplicationTracker.getInstance().flush();
+		
 	}
 }
