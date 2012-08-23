@@ -7,7 +7,6 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
-import android.widget.ArrayAdapter;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -610,13 +608,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(item.getItemId()));
-		ApplicationTracker.getInstance().flush();
-
 		// handles the item selection.
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
-
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"menu_settings");
+			ApplicationTracker.getInstance().flush();
 			// starts a new activity
 			startActivity(new Intent(this, LoginActivity.class));
 

@@ -1,15 +1,21 @@
 package com.commonsensenet.realfarm;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
+import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.ActionItemAdapter;
 
 /**
@@ -19,7 +25,7 @@ import com.commonsensenet.realfarm.view.ActionItemAdapter;
  * 
  */
 public class DiaryActivity extends HelpEnabledActivity implements
-		OnItemClickListener {
+	OnItemClickListener, OnItemLongClickListener {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the actions. */
@@ -52,13 +58,29 @@ public class DiaryActivity extends HelpEnabledActivity implements
 		mDiaryListView.setAdapter(mActionItemAdapter);
 		// detects when a diary item has been touched.
 		mDiaryListView.setOnItemClickListener(this);
+		mDiaryListView.setOnItemLongClickListener(this);
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+
 		// gets the selected view using the position
 		// Action selectedAction = mActionItemAdapter.getItem(position);
+		
+		// TODO: play sound based on the selectedAction.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), position);
+		ApplicationTracker.getInstance().flush();
+	}
+
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		
+		//Action selectedAction = mActionItemAdapter.getItem(position);
 
 		// TODO: play sound based on the selectedAction.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), position);
+		ApplicationTracker.getInstance().flush();
+		
+		return true;
 	}
 }

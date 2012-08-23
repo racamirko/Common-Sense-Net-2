@@ -100,8 +100,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public boolean onLongClick(View v) {
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-				getLogTag(), v.getId());
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), v.getId());
+		ApplicationTracker.getInstance().flush();
 
 		return true;
 	}
@@ -112,8 +112,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		if (item.equals(mHelpItem)) {
 
 			// tracks the application usage
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					getLogTag(), "help");
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "help");
+			ApplicationTracker.getInstance().flush();
 
 			playAudio(R.raw.help, true);
 			return true;
@@ -124,8 +124,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 			startActivity(intent);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					getLogTag(), "home");
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "home");
+			ApplicationTracker.getInstance().flush();
 
 			return true;
 		} else { // asks the parent.
