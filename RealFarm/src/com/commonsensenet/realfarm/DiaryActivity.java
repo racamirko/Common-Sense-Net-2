@@ -78,7 +78,7 @@ public class DiaryActivity extends HelpEnabledActivity implements
 		//Action selectedAction = mActionItemAdapter.getItem(position);
 
 		// TODO: play sound based on the selectedAction.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), position);
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), position);
 		ApplicationTracker.getInstance().flush();
 		
 		return true;

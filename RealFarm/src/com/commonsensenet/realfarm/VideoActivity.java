@@ -1,5 +1,8 @@
 package com.commonsensenet.realfarm;
 
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -39,6 +42,9 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// passes the selected video.
 				mTargetIntent.putExtra(SELECTED_VIDEO,
@@ -53,6 +59,9 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				// passes the selected video.
 				mTargetIntent.putExtra(SELECTED_VIDEO,
@@ -66,6 +75,9 @@ public class VideoActivity extends HelpEnabledActivity {
 	}
 
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.video_button_video1) {
 			playAudio(R.raw.video);
