@@ -37,6 +37,9 @@ public class Marketprice_details extends AggregateMarketActivity implements OnLo
 
 		// eliminates the listener.
 		mDataProvider.setWeatherForecastDataChangeListener(null);
+		
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, "back");
+		ApplicationTracker.getInstance().flush();
 
 		SoundQueue sq = SoundQueue.getInstance();
 		sq.stop();
@@ -83,8 +86,36 @@ public class Marketprice_details extends AggregateMarketActivity implements OnLo
 						Homescreen.class));
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						getLogTag(), "home");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+			}
+		});
+		
+		marketInfo.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+			}
+		});
+		
+		daySelectorRow.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+			}
+		});
+		
+		help.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				// TODO AUDIO: help audio
+				playAudio(R.raw.help);
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -93,14 +124,17 @@ public class Marketprice_details extends AggregateMarketActivity implements OnLo
 				cancelAudio();
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						getLogTag(), "back");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 			}
 		});
 
 		crop.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 				List<Resource> data = ActionDataFactory.getTopSelectorList(mActionTypeId, mDataProvider);
@@ -111,6 +145,9 @@ public class Marketprice_details extends AggregateMarketActivity implements OnLo
 		daysSelector.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+				
 				List<Resource> data = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_DAYS_SPAN);
 				displayDialog(v, data, "Select the time span", R.raw.problems, null, 1);
 			}
@@ -129,6 +166,9 @@ public class Marketprice_details extends AggregateMarketActivity implements OnLo
 	
 	// TODO AUDIO: check the right audio
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.problems, true);

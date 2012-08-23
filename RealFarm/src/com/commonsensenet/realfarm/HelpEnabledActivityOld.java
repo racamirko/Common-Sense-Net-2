@@ -12,7 +12,9 @@ import android.view.View.OnLongClickListener;
 import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.SoundQueue;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public abstract class HelpEnabledActivityOld extends Activity implements OnLongClickListener {
 
@@ -120,6 +122,9 @@ public abstract class HelpEnabledActivityOld extends Activity implements OnLongC
 		mHelpMode = false;
 
 		mAnimFadeIn = new HelpAnimation(0.0f, 1.0f);
+		
+		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW, getLogTag());
+		ApplicationTracker.getInstance().flush();
 
 		setContentView(resLayoutId);
 

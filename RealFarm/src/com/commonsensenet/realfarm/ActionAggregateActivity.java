@@ -25,7 +25,12 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 	/** LayoutInflater used to create the content of the details dialog. */
 	/** Reference to the current instance. */
 	private final Context context = this;
+	private String actionName = "";
 
+	@Override
+	public String getLogTag() {
+		return this.getClass().getSimpleName() + " " + actionName;
+	}
 
 	protected void cancelAudio() {
 
@@ -36,11 +41,9 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 
 		// stops all active audio.
 		stopAudio();
-
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
-				"back");
-
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "back");
+		ApplicationTracker.getInstance().flush();
 		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
 
 	}
@@ -53,11 +56,11 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 		if (extras != null
 				&& extras.containsKey(RealFarmDatabase.TABLE_NAME_ACTIONTYPE)) {
 			// gets the action name id
-			mActionTypeId = extras
-					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONTYPE);
+			mActionTypeId = extras.getInt(RealFarmDatabase.TABLE_NAME_ACTIONTYPE);
 		}
 
 		super.onCreate(savedInstanceState, R.layout.tpl_aggregate, context);
+		actionName = mDataProvider.getActionTypeById(mActionTypeId).getName();
 		currentAction = RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE;
 
 		// default seed/crop type id
@@ -83,24 +86,39 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 						Homescreen.class));
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						getLogTag(), "home");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 			}
 		});
 
+		help.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+
+				// TODO AUDIO: help audio
+				playAudio(R.raw.help);
+
+				// tracks the application usage.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
+			}
+		});
+		
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				cancelAudio();
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						getLogTag(), "back");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 			}
 		});
 
 		crop.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().flush();
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 				List<Resource> data = ActionDataFactory.getTopSelectorList(mActionTypeId, mDataProvider);
@@ -112,6 +130,9 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements 
 
 	// TODO AUDIO: check the right audio
 	public boolean onLongClick(View v) {
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.problems, true);

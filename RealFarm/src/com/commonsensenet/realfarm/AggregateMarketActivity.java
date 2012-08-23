@@ -46,10 +46,25 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 	protected int mActionTypeId = RealFarmDatabase.ACTION_TYPE_SELL_ID;	
 	protected int currentAction = 0;
 	protected LayoutInflater mLayoutInflater;
+	
+	/*********** To be removed when shifting to HelpEnabledActivity ***********/
+	
+	@Override
+	public void onBackPressed() {
+		// stops any currently playing sound.
+		stopAudio();
+
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "back");
+		ApplicationTracker.getInstance().flush();
+
+		// performs the system default operation.
+		super.onBackPressed();
+	}
+	
+	/*********************************** End ***********************************/
 
 	public void onCreate(Bundle savedInstanceState, int resLayoutId, Context context) {
 		super.onCreate(savedInstanceState, resLayoutId);
-
 		mDataProvider = RealFarmProvider.getInstance(context);
 		mLayoutInflater = getLayoutInflater();
 
@@ -132,8 +147,8 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 				.setBackgroundResource(data.get(position).getBackgroundImage());
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						getLogTag(), title, choice.getId());
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog "+choice.getShortName());
+				ApplicationTracker.getInstance().flush();
 
 				/*Toast.makeText(mParentReference, data.get(position).getName(),
 						Toast.LENGTH_SHORT).show();*/
@@ -150,6 +165,9 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 			// TODO: adapt the audio in the database
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "dialog "+data.get(position).getShortName());
+				ApplicationTracker.getInstance().flush();
+
 				int iden = data.get(position).getAudio();
 				playAudio(iden, true);
 				return true;
@@ -159,6 +177,9 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {		
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), position);
+		ApplicationTracker.getInstance().flush();
 
 		// gets the selected view using the position
 		final AggregateItem selectedItem = mItemAdapter.getItem(position);
@@ -179,6 +200,8 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 
 					public void onClick(View v) {
 						// closes the dialog.
+						ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "back");
+						ApplicationTracker.getInstance().flush();
 						dialog.dismiss();
 					}
 				});
@@ -223,8 +246,21 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		helpDetail.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View v) {
 				// TODO AUDIO: check the right audio
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "dialog help");
+				ApplicationTracker.getInstance().flush();
+
 				playAudio(R.raw.help, true);
-				return false;
+				return true;
+			}
+		});
+		
+		helpDetail.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO AUDIO: check the right audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog help");
+				ApplicationTracker.getInstance().flush();
+
+				playAudio(R.raw.help, true);
 			}
 		});
 
@@ -232,8 +268,18 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 			public boolean onLongClick(View v) {
 				// Say something according to the layout's contents. This is the top header of the dialog to call people in the aggregates
 				//makeAudioUserTopBar(true);
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "dialog header");
+				ApplicationTracker.getInstance().flush();
 				makeAudioAggregateMarketItem(selectedItem, true);
-				return false;
+				return true;
+			}
+		});
+		
+		dialogAggregateHeader.setOnClickListener(new View.OnClickListener() {
+			public void onClick(View v) {
+				// TODO AUDIO: check the right audio
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog header");
+				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -241,7 +287,10 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
-
+				
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog call "+list.get(position).getName());
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO: calling Mr ...
 				UserAggregateItem choice = list.get(position);
 				makeAudioCallUser(choice);
@@ -256,7 +305,9 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		userListView.setOnItemLongClickListener(new OnItemLongClickListener() {
 
 			public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "dialog call "+list.get(position).getName());
+				ApplicationTracker.getInstance().flush();
+				
 				// TODO: audio
 				UserAggregateItem choice = list.get(position);
 				makeAudioUserItem(choice);
@@ -270,6 +321,8 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		// gets the selected view using the position
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), position);
+		ApplicationTracker.getInstance().flush();
 		makeAudioAggregateMarketItem(mItemAdapter.getItem(position), false);
 
 		return true;
