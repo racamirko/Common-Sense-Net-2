@@ -384,7 +384,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					} else if (Global.selectedAction == HarvestActionActivity.class){ // harvest requires the plot to have been sown during this season. It displays varieties sown this season
 						plotList = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(Global.userId, 1);
 						if(plotList.size() == 0){ // if no plot available, do nothing
-							playAudio(R.raw.problems, true); // TODO: put audio
+							playAudio(R.raw.problems, true); // TODO AUDIO: put audio
 							Toast.makeText(mParentReference, "Please sow on your plot before you harvest.",Toast.LENGTH_SHORT).show();
 							return; 
 						}
@@ -395,7 +395,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					Intent intent = null;
 					switch(plotList.size()){
 						case 0: // TODO: put audio
-							playAudio(R.raw.problems, true); // TODO: put audio
+							playAudio(R.raw.problems, true); // TODO AUDIO: put audio
 							Toast.makeText(mParentReference, "Please add a plot before you do anything.",Toast.LENGTH_SHORT).show();
 							intent = new Intent(mParentReference, AddPlotActivity.class);
 							break;
