@@ -2,11 +2,7 @@ package com.commonsensenet.realfarm.view;
 
 import android.graphics.Color;
 import android.view.View;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 

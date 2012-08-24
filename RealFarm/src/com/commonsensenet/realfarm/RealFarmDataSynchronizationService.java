@@ -12,7 +12,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 

@@ -59,7 +59,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** Currently selected language. */
-	private String mSelectedLanguage;
 	final private Homescreen mParentReference = this;
 
 	/**
@@ -128,11 +127,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	private void insertDemoData() {
 		if (!IS_INITIALIZED) {
 			
-			mDataProvider.addMarketPrice("2012-08-18",3200, 4900,"");
-			mDataProvider.addMarketPrice("2012-08-19",4000, 5200,"");
+			mDataProvider.addMarketPrice("2012-08-21",3200, 4900,"");
 			
-			/*mDataProvider.addPlot(0, 1, 3, "", 2, 2.0, 1, 1, 0, 2);
-
+			/*
 			List<User> users = mDataProvider.getUsers();
 			List<Resource> soilTypes = mDataProvider.getSoilTypes();
 			List<Resource> seeds = mDataProvider.getSeedTypes();
@@ -262,7 +259,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.hmscrn_btn_weather) {
 			intent = new Intent(this, WeatherForecastActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
-			// startActivity(new Intent(this, fertilize_aggregate.class));
+			intent = new Intent(this, AdviceActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_video) {
 			intent = new Intent(this, VideoActivity.class);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
@@ -298,7 +295,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			intent.putExtra("type", "yield");*/
 		} else if (v.getId() == R.id.hmscrn_btn_market) {
 			intent = new Intent(this, Marketprice_details.class);
-			intent.putExtra("type", "yield");
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
 
 			// creates a new dialog and configures it.

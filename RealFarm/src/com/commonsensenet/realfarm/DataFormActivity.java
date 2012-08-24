@@ -1,7 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
@@ -21,7 +19,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;

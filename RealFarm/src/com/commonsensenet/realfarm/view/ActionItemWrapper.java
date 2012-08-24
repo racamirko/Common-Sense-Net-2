@@ -3,6 +3,7 @@ package com.commonsensenet.realfarm.view;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Matrix;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -96,7 +97,14 @@ public class ActionItemWrapper {
 		getDate().setText(DateHelper.formatDate(action.getDate(), context));
 
 		if (bitmapImage != null) {
-			getPlotIcon().setImageBitmap(bitmapImage);
-		}
+			Matrix matrix = new Matrix();
+			matrix.postRotate(90);
+			Bitmap rotatedImage = Bitmap.createBitmap(bitmapImage, 0, 0,
+					bitmapImage.getWidth(), bitmapImage.getHeight(), matrix,
+					true);
+			getPlotIcon().setImageBitmap(rotatedImage);
+		}		
+		else getPlotIcon().setImageResource(R.drawable.plotssection);
+
 	}
 }

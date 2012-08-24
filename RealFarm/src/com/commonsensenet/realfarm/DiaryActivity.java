@@ -1,11 +1,9 @@
 package com.commonsensenet.realfarm;
 
-import java.text.SimpleDateFormat;
-import java.util.Date;
+
 import java.util.List;
 
 import android.os.Bundle;
-import android.text.format.DateFormat;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;

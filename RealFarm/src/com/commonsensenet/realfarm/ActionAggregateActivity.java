@@ -14,7 +14,6 @@ import android.widget.ImageView;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
-import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;

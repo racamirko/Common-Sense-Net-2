@@ -6,7 +6,6 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -15,8 +14,6 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 
 public class MarketItemAdapter extends AggregateItemAdapter {
-	/** Database provided that used to obtain the required data. */
-	private RealFarmProvider mDataProvider;
 
 	/**
 	 * Creates a new UserAggregateItemAdapter instance.
@@ -26,8 +23,6 @@ public class MarketItemAdapter extends AggregateItemAdapter {
 			RealFarmProvider dataProvider) {
 		super(context, marketItems, 1, dataProvider);
 
-		// TODO: this shouldn't be done!!
-		mDataProvider = dataProvider;
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {

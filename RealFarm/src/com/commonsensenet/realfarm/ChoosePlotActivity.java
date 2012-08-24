@@ -10,8 +10,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.commonsensenet.realfarm.actions.HarvestActionActivity;
-import com.commonsensenet.realfarm.actions.ReportActionActivity;
-import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.PlotItemAdapter;

@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center" 
+    android:padding="2dp" >
+
+    <TextView
+        android:id="@+id/number"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="5dp"
+        android:gravity="center"
+        android:text="12"
+        android:textColor="#000000"
+        android:textSize="35dip" />
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center" 
+        android:orientation="vertical" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="50dp"
+            android:orientation="horizontal"
+            android:gravity="center_vertical" >
+
+            <RelativeLayout
+                android:id="@+id/left_background"
+                android:layout_width="70dp"
+                android:layout_height="fill_parent"
+                android:background="#CFFFFF" >
+
+                <TextView
+                    android:id="@+id/left_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginLeft="2dp"
+                    android:gravity="right|bottom"
+                    android:text="Aphids"
+                    android:textAppearance="?android:attr/textAppearanceSmall"
+                    android:textColor="#000000" />
+
+                <ImageView
+                    android:id="@+id/image_left"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
+                    android:layout_alignParentTop="true"
+                    android:src="@drawable/ic_pestcategory" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/center_left_text"
+                android:layout_width="40dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/followersofadivce"
+                android:gravity="center|bottom"
+                android:text="12"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000000" />
+            
+            <TextView
+                android:id="@+id/center_right_text"
+                android:layout_width="40dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@drawable/plantofollowadvice"
+                android:gravity="center|bottom"
+                android:text="12"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000000" />
+            
+            <ImageView
+                android:id="@+id/right_image"
+                android:layout_width="50dp"
+                android:layout_height="fill_parent"
+                android:layout_marginLeft="10dp"
+                android:background="@android:drawable/list_selector_background"
+                android:src="@drawable/action_plantofollowadvice" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/comment"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|bottom"
+            android:text="Advice text skjssdafvas sdfacdfdc dgjahfjkacsnfkja sdgfasgdaskufsin"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000000" />
+
+    </LinearLayout>
+</LinearLayout>

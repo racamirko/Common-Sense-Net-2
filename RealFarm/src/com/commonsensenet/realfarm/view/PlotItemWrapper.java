@@ -94,9 +94,11 @@ public class PlotItemWrapper {
 			rotatedImage = Bitmap.createBitmap(bitmapImage, 0, 0,
 					bitmapImage.getWidth(), bitmapImage.getHeight(), matrix,
 					true);
-		}
+			getIcon().setImageBitmap(rotatedImage);
+		}		
+		else getIcon().setImageResource(R.drawable.plotssection);
 
-		getIcon().setImageBitmap(rotatedImage);
+
 		getTitle().setText(soilType.getName());
 		getDescription().setText(seed.getName());
 		getCropIcon().setImageResource(seed.getImage1());

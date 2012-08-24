@@ -5,7 +5,6 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Global;

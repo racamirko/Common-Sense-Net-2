@@ -1,8 +1,6 @@
 package com.commonsensenet.realfarm.actions;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
 
 import android.os.Bundle;
@@ -12,10 +10,8 @@ import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
-import com.commonsensenet.realfarm.utils.DateHelper;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class IrrigateActionActivity extends DataFormActivity {

@@ -47,6 +47,13 @@ public class AddPlotActivity extends DataFormActivity {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, mType);
 
+
+		long i =mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
+		mDataProvider.addAdvicePiece(1, R.raw.problems, 1, 3);
+		System.out.println("LILI "+i);
+		// plot id??? validThroughDate???
+		System.out.println("LULU "+mDataProvider.addRecommandation(Global.plotId, i, Global.userId, 5, 132, 120,60));
+
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
 				"add plot to database");

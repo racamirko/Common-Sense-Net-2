@@ -25,6 +25,8 @@ import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
+import com.commonsensenet.realfarm.model.aggregate.AdviceSituationItem;
+import com.commonsensenet.realfarm.model.aggregate.AdviceSolutionItem;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.DateHelper;
@@ -214,6 +216,81 @@ public class RealFarmProvider {
 
 		return result;
 	}
+	
+	public long addAdvice(int audio, int problemId, int seedTypeId, int stageNumber){
+		return addAdvice(new Date().getTime(), audio, problemId, seedTypeId, stageNumber);
+	}
+
+	
+	public long addAdvice(long id, int audio, int problemId, int seedTypeId, int stageNumber){
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_ID, id);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_AUDIO, audio);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_PROBLEMID, problemId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_SEEDTYPEID, seedTypeId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_STAGENUMBER, stageNumber);
+
+		mDatabase.open();
+
+		// inserts the values into the database
+		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_ADVICE,
+				args);
+
+		mDatabase.close();
+
+		return result;
+	}
+	
+	public long addAdvicePiece(int adviceId, int audio, int orderNumber, int suggestedResourceId){
+		return addAdvicePiece(new Date().getTime(), adviceId, audio, orderNumber, suggestedResourceId);
+	}
+	
+	public long addAdvicePiece(long id, int adviceId, int audio, int orderNumber, int suggestedResourceId){
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_ID, id);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_ADVICEID, adviceId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_AUDIO, audio);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_ORDERNUMBER, orderNumber);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_SUGGESTEDRESOURCEID, suggestedResourceId);
+
+		mDatabase.open();
+
+		// inserts the values into the database
+		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_ADVICEPIECE,
+				args);
+
+		mDatabase.close();
+
+		return result;
+	}
+	
+	public long addRecommandation(long plotId, long adviceId, long userId, int actReqByDate, int validThroughDate, int severity, int probability){
+		return addRecommandation(new Date().getTime(), new Date().getTime(), plotId, adviceId, userId, actReqByDate, validThroughDate, severity, probability, 0);
+	}
+	
+	public long addRecommandation(long id, long timestamp, long plotId, long adviceId, long userId, int actReqByDate, int validThroughDate, int severity, int probability, int hasChanged){
+		ContentValues args = new ContentValues();
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_ID, id);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_TIMESTAMP, timestamp);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_PLOT_ID, plotId);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_ADVICE_ID, adviceId);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_USER_ID, userId);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE, actReqByDate);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE, validThroughDate);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_SEVERITY, severity);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_PROBABILITY, probability);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_UNREAD, hasChanged);
+
+		mDatabase.open();
+
+		// inserts the values into the database
+		long result = mDatabase.insertEntries(RealFarmDatabase.TABLE_NAME_RECOMMANDATION,
+				args);
+
+		mDatabase.close();
+
+		return result;
+	}
 
 	public long addPlot(long userId, int seedTypeId, int soilTypeId,
 			String imagePath, double size, int plotType) {
@@ -254,7 +331,8 @@ public class RealFarmProvider {
 
 		mDatabase.close();
 
-		return result;
+		return id;
+		//return result;
 	}
 
 	public long addReportAction(long userId, long plotId, int seedTypeId,
@@ -928,6 +1006,44 @@ public class RealFarmProvider {
 		}
 		mDatabase.close();
 		return tmpList;
+	}
+	
+	public ArrayList<AdviceSituationItem> getAdviceData(long userId){
+		
+		ArrayList<AdviceSituationItem> situationList = new ArrayList<AdviceSituationItem>();
+		ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
+		
+		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath FROM recommandation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.userId = "+userId+" AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.seedTypeId = st.id AND ad.problemTypeId = res.id AND st.cropTypeId = ct.id ORDER BY rec.timestamp DESC";
+		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		if (c.moveToFirst()) {
+			do { 
+				for(int i = 1; i<4; i++){
+					AdviceSolutionItem aSolItem = new AdviceSolutionItem();
+					aSolItem.setName("A movie "+i);
+					aSolItem.setTag(null);
+					solutionList.add(aSolItem);
+				}
+				AdviceSituationItem asItem = new AdviceSituationItem();
+				asItem.setCropShortName(c.getString(0));
+				asItem.setPlotImage(c.getString(7));
+				asItem.setCropBackground(c.getInt(1));
+				asItem.setProblemShortName(c.getString(3));
+				asItem.setProblemImage(c.getInt(2));
+				asItem.setLoss(c.getInt(5));
+				asItem.setChance(c.getInt(6));
+				asItem.setAudio(c.getInt(4));
+				asItem.setItems(solutionList);
+				solutionList = new ArrayList<AdviceSolutionItem>();
+				situationList.add(asItem);
+				
+			} while (c.moveToNext());
+		}
+		c.close();
+		mDatabase.close();
+		return situationList;
 	}
 
 	// TODO: add cache optimization.

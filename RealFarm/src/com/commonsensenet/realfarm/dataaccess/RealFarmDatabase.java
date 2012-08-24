@@ -138,14 +138,12 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_ADVICE + " ( "
 					+ COLUMN_NAME_ADVICE_ID + " integer primary key, "
 					+ COLUMN_NAME_ADVICE_PROBLEMID + " integer, "
-					+ COLUMN_NAME_ADVICE_USERID + " integer, "
 					+ COLUMN_NAME_ADVICE_AUDIO + " integer, "
 					+ COLUMN_NAME_ADVICE_SEEDTYPEID + " integer, "
-					+ COLUMN_NAME_ADVICE_STAGENUMBER + " integer, "
-					+ COLUMN_NAME_ADVICE_LOSSPROBABILITY + " integer, "
-					+ COLUMN_NAME_ADVICE_LOSSAMOUNT + " integer" + " ); ");
+					+ COLUMN_NAME_ADVICE_STAGENUMBER + " integer" + " ); ");
 			Log.d(LOG_TAG, "Created advice table");
 
+			// advicepieces
 			db.execSQL("create table " + TABLE_NAME_ADVICEPIECE + " ( "
 					+ COLUMN_NAME_ADVICEPIECE_ID + " integer primary key, "
 					+ COLUMN_NAME_ADVICEPIECE_AUDIO + " integer, "
@@ -213,7 +211,21 @@ public class RealFarmDatabase {
 					+ "PRIMARY KEY (" + COLUMN_NAME_PLOT_ID + ", "
 					+ COLUMN_NAME_PLOT_USERID + ")" + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
-
+			
+			// recommandation
+			db.execSQL("create table " + TABLE_NAME_RECOMMANDATION + " ( "
+					+ COLUMN_NAME_RECOMMANDATION_ID + " integer primary key, "
+					+ COLUMN_NAME_RECOMMANDATION_TIMESTAMP + " integer not null, "
+					+ COLUMN_NAME_RECOMMANDATION_PLOT_ID + " integer, "
+					+ COLUMN_NAME_RECOMMANDATION_ADVICE_ID + " integer, "
+					+ COLUMN_NAME_RECOMMANDATION_USER_ID + " integer, "
+					+ COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE + " integer, "
+					+ COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE + " integer not null, " 
+					+ COLUMN_NAME_RECOMMANDATION_SEVERITY + " integer, "
+					+ COLUMN_NAME_RECOMMANDATION_PROBABILITY + " integer, "
+					+ COLUMN_NAME_RECOMMANDATION_UNREAD + " boolean " + " ); ");
+			Log.d(LOG_TAG, "Created recommandation table");
+			
 			// resource
 			db.execSQL("create table " + TABLE_NAME_RESOURCE + " ( "
 					+ COLUMN_NAME_RESOURCE_ID + " integer primary key, "
@@ -422,12 +434,9 @@ public class RealFarmDatabase {
 
 	public static final String COLUMN_NAME_ADVICE_AUDIO = "audio";
 	public static final String COLUMN_NAME_ADVICE_ID = "id";
-	public static final String COLUMN_NAME_ADVICE_LOSSAMOUNT = "lossAmount";
-	public static final String COLUMN_NAME_ADVICE_LOSSPROBABILITY = "lossProbability";
 	public static final String COLUMN_NAME_ADVICE_PROBLEMID = "problemTypeId";
 	public static final String COLUMN_NAME_ADVICE_SEEDTYPEID = "seedTypeId";
 	public static final String COLUMN_NAME_ADVICE_STAGENUMBER = "stageNumber";
-	public static final String COLUMN_NAME_ADVICE_USERID = "userId";
 
 	public static final String COLUMN_NAME_ADVICEPIECE_ADVICEID = "adviceId";
 	public static final String COLUMN_NAME_ADVICEPIECE_AUDIO = "audio";
@@ -460,6 +469,17 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 	public static final String COLUMN_NAME_PLOT_TYPE = "type";
 
+	public static final String COLUMN_NAME_RECOMMANDATION_ID = "id";
+	public static final String COLUMN_NAME_RECOMMANDATION_TIMESTAMP = "timestamp";
+	public static final String COLUMN_NAME_RECOMMANDATION_PLOT_ID = "plotId";
+	public static final String COLUMN_NAME_RECOMMANDATION_ADVICE_ID = "adviceId";
+	public static final String COLUMN_NAME_RECOMMANDATION_USER_ID = "userId";
+	public static final String COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE = "actReqByDate";
+	public static final String COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE = "validThroughDate";
+	public static final String COLUMN_NAME_RECOMMANDATION_SEVERITY = "severity";
+	public static final String COLUMN_NAME_RECOMMANDATION_PROBABILITY = "probability";
+	public static final String COLUMN_NAME_RECOMMANDATION_UNREAD = "hasChanged";
+	
 	public static final String COLUMN_NAME_RESOURCE_AUDIO = "audio";
 	public static final String COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE = "backgroundImage";
 	public static final String COLUMN_NAME_RESOURCE_ID = "id";
@@ -562,6 +582,7 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_CROPTYPE = "cropType";
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice";
 	public static final String TABLE_NAME_PLOT = "plot";
+	public static final String TABLE_NAME_RECOMMANDATION = "recommandation";
 	public static final String TABLE_NAME_RESOURCE = "resource";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType";
 	public static final String TABLE_NAME_SOILMOISTURE = "soilMoisture";
@@ -599,6 +620,7 @@ public class RealFarmDatabase {
 		mDb.delete(TABLE_NAME_CROPTYPE, null, null);
 		mDb.delete(TABLE_NAME_MARKETPRICE, null, null);
 		mDb.delete(TABLE_NAME_PLOT, null, null);
+		mDb.delete(TABLE_NAME_RECOMMANDATION, null, null);
 		mDb.delete(TABLE_NAME_RESOURCE, null, null);
 		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
 		mDb.delete(TABLE_NAME_SOILMOISTURE, null, null);
