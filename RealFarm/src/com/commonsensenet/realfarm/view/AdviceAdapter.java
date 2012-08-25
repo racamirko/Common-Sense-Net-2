@@ -1,23 +1,27 @@
 package com.commonsensenet.realfarm.view;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Matrix;
+import android.graphics.Typeface;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
 import android.widget.BaseExpandableListAdapter;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.AdviceActivity;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.model.aggregate.AdviceSituationItem;
 import com.commonsensenet.realfarm.model.aggregate.AdviceSolutionItem;
-import com.commonsensenet.realfarm.utils.DateHelper;
 
 
 public class AdviceAdapter extends BaseExpandableListAdapter {
@@ -30,6 +34,10 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		this.context = context;
 		this.groups = groups;
 		this.adviceActivity = adviceActivity;
+	}
+	
+	public ArrayList<AdviceSituationItem> getGroups(){
+		return groups;
 	}
 
 	public void addItem(AdviceSolutionItem item, AdviceSituationItem group) {
@@ -53,15 +61,15 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 
 	public View getChildView(final int groupPosition, final int childPosition, boolean isLastChild, View view,
 			ViewGroup parent) {
+		AdviceSituationItem group = (AdviceSituationItem) getGroup(groupPosition);
 		AdviceSolutionItem child = (AdviceSolutionItem) getChild(groupPosition, childPosition);
 		if (view == null) {
 			LayoutInflater infalInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 			view = infalInflater.inflate(R.layout.tpl_ad_solution_row, null);
 		}
-		
-		TextView tv = (TextView) view.findViewById(R.id.comment);
-		tv.setText(child.getName().toString());
-		tv.setTag(child.getTag());
+
+		//child.getAudio();
+		setSolutionView(view, child, group);
 		
 		ImageView like = (ImageView) view.findViewById(R.id.right_image);
 		
@@ -78,6 +86,33 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 			}
 		});
 		return view;
+	}
+
+	private void setSolutionView(View view, AdviceSolutionItem child, AdviceSituationItem group) {
+		RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.left_background);
+		if(child.getPesticideBackground() != -1) rl.setBackgroundResource(child.getPesticideBackground());
+		
+		ImageView iw = (ImageView) view.findViewById(R.id.image_left);
+		if(child.getPesticideImage() != -1) iw.setImageResource(child.getPesticideImage());
+		
+		TextView tv = (TextView) view.findViewById(R.id.left_text);
+		tv.setText(child.getPesticideShortName());
+		
+		tv = (TextView) view.findViewById(R.id.number);
+		tv.setText(String.valueOf(child.getNumber()));
+		
+		tv = (TextView) view.findViewById(R.id.center_left_text);
+		tv.setText(String.valueOf(child.getDidIt()));
+		
+		tv = (TextView) view.findViewById(R.id.center_right_text);
+		tv.setText(String.valueOf(child.getLikes()));
+		
+		tv = (TextView) view.findViewById(R.id.comment);
+		tv.setText(child.getComment());
+		
+		if(group.getValidDate() < new Date().getTime()){
+			setDatePassed((LinearLayout) view.findViewById(R.id.solution_row));
+		}
 	}
 
 	public int getChildrenCount(int groupPosition) {
@@ -106,18 +141,27 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		
 		//group.setAudio(c.getInt(5));
 		
+		setSituationView(view, group);
+		return view;
+	}
+
+	private void setSituationView(View view, AdviceSituationItem group) {
 		TextView tv;
 		tv = (TextView) view.findViewById(R.id.left_text);
+		tv.setTypeface(null,Typeface.NORMAL);
 		tv.setText(group.getCropShortName());
 		if(group.getCropBackground() != -1) tv.setBackgroundResource(group.getCropBackground());
 		
 		tv = (TextView) view.findViewById(R.id.center_text);
+		tv.setTypeface(null,Typeface.NORMAL);
 		tv.setText(group.getProblemShortName());
 		
 		tv = (TextView) view.findViewById(R.id.loss);
+		tv.setTypeface(null,Typeface.NORMAL);
 		tv.setText(group.getLoss()+" kg/acre");
 		
 		tv = (TextView) view.findViewById(R.id.percentage);
+		tv.setTypeface(null,Typeface.NORMAL);
 		tv.setText(group.getChance()+"%");
 		
 		ImageView iw;
@@ -130,8 +174,6 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		options.inTempStorage = new byte[16 * 1024];
 		options.inSampleSize = 12;
 
-		
-		// gets the bitmap from the file system.
 		Bitmap bitmapImage = BitmapFactory.decodeFile(group.getPlotImage(), options);
 		if (bitmapImage != null){
 			Matrix matrix = new Matrix();
@@ -142,7 +184,24 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 			iw.setImageBitmap(rotatedImage);
 		}
 		else iw.setImageResource(R.drawable.plotssection);
-		return view;
+		
+		LinearLayout ll = (LinearLayout) view.findViewById(R.id.situation_row);
+		if(group.getValidDate() < new Date().getTime()){
+			setDatePassed(ll);
+		} else if(group.getUnread() == 0){
+			((TextView) (view.findViewById(R.id.left_text))).setTypeface(null,Typeface.BOLD);
+			((TextView) (view.findViewById(R.id.center_text))).setTypeface(null,Typeface.BOLD);
+			((TextView) (view.findViewById(R.id.loss))).setTypeface(null,Typeface.BOLD);
+			((TextView) (view.findViewById(R.id.percentage))).setTypeface(null,Typeface.BOLD);
+		}
+	}
+	
+	public void setDatePassed(LinearLayout ll){
+		//ll.setBackgroundColor(Color.LTGRAY);
+		AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F);
+		alpha.setDuration(0);
+		alpha.setFillAfter(true);
+		ll.startAnimation(alpha);
 	}
 
 	public boolean hasStableIds() {

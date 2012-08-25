@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm;
 
+import java.util.Date;
 import java.util.List;
 
 import android.content.Intent;
@@ -44,15 +45,19 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 
 		// inserts the new action
-		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
-				mSoilType, mPlotImage, mSize, mType);
+		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop, mSoilType, mPlotImage, mSize, mType);
 
 
-		long i =mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
-		mDataProvider.addAdvicePiece(1, R.raw.problems, 1, 3);
-		System.out.println("LILI "+i);
-		// plot id??? validThroughDate???
-		System.out.println("LULU "+mDataProvider.addRecommandation(Global.plotId, i, Global.userId, 5, 132, 120,60));
+		long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
+		long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);
+		
+		System.out.println(i+" "+j);
+
+		mDataProvider.addAdvicePiece(i, R.raw.problems, 1, 54, "Bla bla bla bla bla bla bla bla", 5);
+		mDataProvider.addAdvicePiece(i, R.raw.problems, 2, 56, "gbsfassdfadfsdF", 5);
+		mDataProvider.addAdvicePiece(j, R.raw.problems, 1, 55, "asdfasfdsdafasda", 5);
+		mDataProvider.addRecommandation(Global.plotId, i, Global.userId, 5, new Date().getTime(), 130,60);
+		mDataProvider.addRecommandation(Global.plotId, j, Global.userId, 5, (new Date().getTime())+500000000, 90,10);
 
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
@@ -118,6 +123,7 @@ public class AddPlotActivity extends DataFormActivity {
 		plotsoil.setOnLongClickListener(this);
 		plotcrop.setOnLongClickListener(this);
 		plotsize.setOnLongClickListener(this);
+		plottype.setOnLongClickListener(this);
 
 		plotimage.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -182,10 +188,9 @@ public class AddPlotActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
-
 		// shows the help icon based on the view.
 		showHelpIcon(v);
-		  
+				  
 		if (v.getId() == R.id.size_txt) {
 			// TODO AUDIO: "Select the day" default if nothing is in the field
 			if(mResultsMap.get(SIZE).equals(defaultSize)) playAudio(R.raw.maincrop, true); 

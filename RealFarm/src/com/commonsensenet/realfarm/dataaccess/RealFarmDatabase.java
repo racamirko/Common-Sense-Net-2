@@ -147,7 +147,9 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_ADVICEPIECE + " ( "
 					+ COLUMN_NAME_ADVICEPIECE_ID + " integer primary key, "
 					+ COLUMN_NAME_ADVICEPIECE_AUDIO + " integer, "
+					+ COLUMN_NAME_ADVICEPIECE_COMMENT + " text, "
 					+ COLUMN_NAME_ADVICEPIECE_ADVICEID + " integer, "
+					+ COLUMN_NAME_ADVICEPIECE_SUGGESTEDACTIONID + " integer, "
 					+ COLUMN_NAME_ADVICEPIECE_SUGGESTEDRESOURCEID
 					+ " integer, " + COLUMN_NAME_ADVICEPIECE_ORDERNUMBER
 					+ " integer" + " ); ");
@@ -408,6 +410,7 @@ public class RealFarmDatabase {
 	public static final int ACTION_TYPE_SELL_ID = 7;
 	public static final int ACTION_TYPE_SOW_ID = 1;
 	public static final int ACTION_TYPE_SPRAY_ID = 5;
+	public static final int ACTION_TYPE_PLAN_ID = 6;
 
 	public static final String COLUMN_NAME_ACTION_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_ACTION_CROPTYPEID = "cropTypeId";
@@ -439,10 +442,12 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ADVICE_STAGENUMBER = "stageNumber";
 
 	public static final String COLUMN_NAME_ADVICEPIECE_ADVICEID = "adviceId";
+	public static final String COLUMN_NAME_ADVICEPIECE_COMMENT = "comment";
 	public static final String COLUMN_NAME_ADVICEPIECE_AUDIO = "audio";
 	public static final String COLUMN_NAME_ADVICEPIECE_ID = "id";
 	public static final String COLUMN_NAME_ADVICEPIECE_ORDERNUMBER = "orderNumber";
 	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDRESOURCEID = "suggestedResourceId";
+	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDACTIONID = "suggestedActionId";
 
 	public static final String COLUMN_NAME_CROPTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_CROPTYPE_BACKGROUNDIMAGE = "backgroundImage";
@@ -766,7 +771,9 @@ public class RealFarmDatabase {
 				{ ACTION_TYPE_HARVEST_ID, "Harvest",
 						R.drawable.harvestingaction, R.raw.harvest },
 				{ ACTION_TYPE_SELL_ID, "Sell", R.drawable.sellingaction,
-						R.raw.selling }
+						R.raw.selling },
+				{ ACTION_TYPE_PLAN_ID, "", -1,
+						-1 }
 
 		};
 
@@ -885,13 +892,13 @@ public class RealFarmDatabase {
 				{ "Unlisted", "Not in the list", R.raw.unlisted, -1, -1, -1,
 						RESOURCE_TYPE_FERTILIZER , -1 },
 				/** Pesticide */
-				{ "Monocrotophos", "Monocrotopho", R.raw.monocrotophos,
+				{ "Monocrotophos", "Monocrot", R.raw.monocrotophos,
 							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
-				{ "Dimethoate", "Dimethoate", R.raw.dimethoate, R.drawable.pesticide,
+				{ "Dimethoate", "Dimethoa", R.raw.dimethoate, R.drawable.pesticide,
 						-1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
 				{ "Pesticide not listed", "P-unlisted", R.raw.pesticide_not_listed,
 							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
-				{ "Dithane M-45", "Dithane M-45", R.raw.dithane_m_45,
+				{ "Dithane M-45", "D. M-45", R.raw.dithane_m_45,
 								R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
 				{ "Triazole", "Triazole", R.raw.triazole, R.drawable.fungicide, -1,
 						-1, RESOURCE_TYPE_PESTICIDE , -1 },

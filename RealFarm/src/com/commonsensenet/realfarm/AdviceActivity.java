@@ -1,7 +1,7 @@
 package com.commonsensenet.realfarm;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Date;
 
 import android.os.Bundle;
 import android.view.View;
@@ -33,17 +33,27 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 		adapter = new AdviceAdapter(AdviceActivity.this, situationItems, this);
 		expandListView.setAdapter(adapter);
 		
-		for(int i=0; i < adapter.getGroupCount(); i++) {
-			expandListView.expandGroup(i);
-		}
+		expandCurrentLists(situationItems);
 
 		expandListView.setOnChildClickListener(this);
 		expandListView.setOnGroupClickListener(this);
 		expandListView.setOnItemLongClickListener(this);
 	}
+	
+	private void expandCurrentLists(ArrayList<AdviceSituationItem> situationItems) {
+		for(int i=0; i < adapter.getGroupCount(); i++) {
+			if(situationItems.get(i).getValidDate() >= new Date().getTime())
+				expandListView.expandGroup(i);
+		}		
+	}
 
 	public ArrayList<AdviceSituationItem> initLists() {
-		return mDataProvider.getAdviceData(Global.userId);
+		ArrayList<AdviceSituationItem> adviceData = mDataProvider.getAdviceData(Global.userId);
+		if(adviceData == null || adviceData.size() == 0){
+			// TODO AUDIO: No data to present
+			playAudio(R.raw.problems);
+		}
+		return adviceData;
 
 		/*ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
 
@@ -89,17 +99,15 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 	public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 		//Object e = (Object)adapter.getChild(groupPosition, childPosition);
-		playAudio(R.raw.a10);
 
 		 AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		 AdviceSolutionItem solutionItem = situationItem.getItems().get(childPosition);
-		 System.out.println("child " + situationItem.getCropShortName()+" "+ solutionItem.getName());
+		 System.out.println("child " + situationItem.getCropShortName()+" "+ solutionItem.getPesticideShortName());
 
 		 return false;
 	 }
 
 	 public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-		 playAudio(R.raw.a20);
 
 		 AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		 System.out.println("parent " +situationItem.getCropShortName());
@@ -113,24 +121,37 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 		 long data = expandListView.getExpandableListPosition(position);
 		 int type = ExpandableListView.getPackedPositionType(data);
-		AdviceSituationItem situationItem = situationItems.get(ExpandableListView.getPackedPositionGroup(data));
-		
-		if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
-			AdviceSolutionItem solutionItem = situationItem.getItems().get(ExpandableListView.getPackedPositionChild(data));
-			System.out.println("child " + situationItem.getCropShortName()+" "+ solutionItem.getName());
-		} else {
-			System.out.println("parent " +situationItem.getCropShortName());
-		}
-		return true;
+		 AdviceSituationItem situationItem = situationItems.get(ExpandableListView.getPackedPositionGroup(data));
+
+		 if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
+			 AdviceSolutionItem solutionItem = situationItem.getItems().get(ExpandableListView.getPackedPositionChild(data));
+			 System.out.println("child " + situationItem.getCropShortName()+" "+ solutionItem.getPesticideShortName());
+		 } else {
+			 System.out.println("parent " +situationItem.getCropShortName());
+		 }
+		 
+		 if(situationItem.getUnread() == 0 && mDataProvider.setAdviceRead(situationItem.getId()) > 0) {
+			 situationItems.get(0).setUnread(1);
+			 adapter.getGroups().get(0).setUnread(1);
+			 adapter.notifyDataSetChanged();
+		 }
+		 
+		 return true;
 	}
 
 	public void onLikeClick(int groupPosition, int childPosition) {
-		 playAudio(R.raw.a30);
+		 AdviceSituationItem situationItem = situationItems.get(groupPosition);
+		 AdviceSolutionItem solutionItem = situationItem.getItems().get(childPosition);
+
+		mDataProvider.addPlanAction(Global.userId, situationItem.getPlotId(), solutionItem.getId());
+		
 	}
 
 	public void onLikeLongClick(int groupPosition, int childPosition) {
-		 playAudio(R.raw.a40);
+		// TODO AUDIO: explain what the like button does
+		 playAudio(R.raw.problems);
 		
 	}
+
 }
 
