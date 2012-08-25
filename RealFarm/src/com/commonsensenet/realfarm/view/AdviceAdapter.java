@@ -82,7 +82,7 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		
 		ImageView iw = (ImageView) view.findViewById(R.id.image_left);
 		if(child.getPesticideImage() != -1) iw.setImageResource(child.getPesticideImage());
-		else iw.setBackgroundColor(Color.TRANSPARENT);
+		else iw.setImageResource(Color.TRANSPARENT);
 		
 		TextView tv = (TextView) view.findViewById(R.id.left_text);
 		tv.setText(child.getPesticideShortName());
