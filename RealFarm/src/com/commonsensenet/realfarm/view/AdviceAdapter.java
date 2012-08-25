@@ -6,6 +6,7 @@ import java.util.Date;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.graphics.Matrix;
 import android.graphics.Typeface;
 import android.view.LayoutInflater;
@@ -36,8 +37,8 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		this.adviceActivity = adviceActivity;
 	}
 	
-	public ArrayList<AdviceSituationItem> getGroups(){
-		return groups;
+	public void setGroups(ArrayList<AdviceSituationItem> gr){
+		groups = gr;
 	}
 
 	public void addItem(AdviceSolutionItem item, AdviceSituationItem group) {
@@ -69,31 +70,19 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		}
 
 		//child.getAudio();
-		setSolutionView(view, child, group);
-		
-		ImageView like = (ImageView) view.findViewById(R.id.right_image);
-		
-		like.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				adviceActivity.onLikeClick(groupPosition, childPosition);
-			}
-		});
-		
-		like.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View v) {
-				adviceActivity.onLikeLongClick(groupPosition, childPosition);
-				return true;
-			}
-		});
+		setSolutionView(view, child, group, groupPosition, childPosition);
+
 		return view;
 	}
 
-	private void setSolutionView(View view, AdviceSolutionItem child, AdviceSituationItem group) {
+	private void setSolutionView(View view, AdviceSolutionItem child, AdviceSituationItem group, final int groupPosition, final int childPosition) {
 		RelativeLayout rl = (RelativeLayout) view.findViewById(R.id.left_background);
 		if(child.getPesticideBackground() != -1) rl.setBackgroundResource(child.getPesticideBackground());
+		else rl.setBackgroundColor(Color.TRANSPARENT);
 		
 		ImageView iw = (ImageView) view.findViewById(R.id.image_left);
 		if(child.getPesticideImage() != -1) iw.setImageResource(child.getPesticideImage());
+		else iw.setBackgroundColor(Color.TRANSPARENT);
 		
 		TextView tv = (TextView) view.findViewById(R.id.left_text);
 		tv.setText(child.getPesticideShortName());
@@ -110,8 +99,35 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		tv = (TextView) view.findViewById(R.id.comment);
 		tv.setText(child.getComment());
 		
+		ImageView like = (ImageView) view.findViewById(R.id.right_image);
+		
 		if(group.getValidDate() < new Date().getTime()){
-			setDatePassed((LinearLayout) view.findViewById(R.id.solution_row));
+			setDatePassed((LinearLayout)view.findViewById(R.id.solution_row), 0.5F);
+			like.setBackgroundColor(Color.TRANSPARENT);
+		} else {
+			setDatePassed((LinearLayout)view.findViewById(R.id.solution_row), 1.0F);
+			like.setBackgroundResource(android.R.drawable.list_selector_background);
+			like.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					adviceActivity.onLikeClick(groupPosition, childPosition);
+				}
+			});
+			
+			like.setOnLongClickListener(new View.OnLongClickListener() {
+				public boolean onLongClick(View v) {
+					adviceActivity.onLikeLongClick(groupPosition, childPosition);
+					return true;
+				}
+			});
+		}
+		
+		//if(childPosition == group.getItems().size()-1){
+		if(child.getPesticideShortName().equals("")) {
+			view.findViewById(R.id.right_image).setVisibility(View.GONE);
+			view.findViewById(R.id.center_right_text).setVisibility(View.GONE);
+		} else {
+			view.findViewById(R.id.right_image).setVisibility(View.VISIBLE);
+			view.findViewById(R.id.center_right_text).setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -187,18 +203,21 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		
 		LinearLayout ll = (LinearLayout) view.findViewById(R.id.situation_row);
 		if(group.getValidDate() < new Date().getTime()){
-			setDatePassed(ll);
-		} else if(group.getUnread() == 0){
-			((TextView) (view.findViewById(R.id.left_text))).setTypeface(null,Typeface.BOLD);
-			((TextView) (view.findViewById(R.id.center_text))).setTypeface(null,Typeface.BOLD);
-			((TextView) (view.findViewById(R.id.loss))).setTypeface(null,Typeface.BOLD);
-			((TextView) (view.findViewById(R.id.percentage))).setTypeface(null,Typeface.BOLD);
+			setDatePassed(ll, 0.5F);
+		} else {
+			setDatePassed(ll, 1.0F);
+			if(group.getUnread() == 0){
+				((TextView) (view.findViewById(R.id.left_text))).setTypeface(null,Typeface.BOLD);
+				((TextView) (view.findViewById(R.id.center_text))).setTypeface(null,Typeface.BOLD);
+				((TextView) (view.findViewById(R.id.loss))).setTypeface(null,Typeface.BOLD);
+				((TextView) (view.findViewById(R.id.percentage))).setTypeface(null,Typeface.BOLD);
+			}
 		}
 	}
 	
-	public void setDatePassed(LinearLayout ll){
+	public void setDatePassed(LinearLayout ll, float anim){
 		//ll.setBackgroundColor(Color.LTGRAY);
-		AlphaAnimation alpha = new AlphaAnimation(0.5F, 0.5F);
+		AlphaAnimation alpha = new AlphaAnimation(anim, anim);
 		alpha.setDuration(0);
 		alpha.setFillAfter(true);
 		ll.startAnimation(alpha);

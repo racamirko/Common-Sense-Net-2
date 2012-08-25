@@ -174,8 +174,7 @@ public class RealFarmProvider {
 	}
 	
 	public long addPlanAction(long userId, long plotId, int advicePieceId) {
-		System.out.println(addAction(RealFarmDatabase.ACTION_TYPE_PLAN_ID, plotId, new Date(), NONE, NONE, (double)NONE, (double)NONE, NONE, NONE, advicePieceId, NONE, NONE, userId, 0));
-		return -1;
+		return addAction(RealFarmDatabase.ACTION_TYPE_PLAN_ID, plotId, new Date(0), NONE, NONE, NONE, NONE, NONE, NONE, advicePieceId, NONE, NONE, userId, 0);
 	}
 
 	public long addFertilizeAction(long userId, long plotId, double quantity1,
@@ -1019,7 +1018,7 @@ public class RealFarmProvider {
 		ArrayList<AdviceSituationItem> situationList = new ArrayList<AdviceSituationItem>();
 		ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
 		
-		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.hasChanged, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id FROM recommandation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.userId = "+userId+" AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.seedTypeId = st.id AND ad.problemTypeId = res.id AND st.cropTypeId = ct.id ORDER BY rec.timestamp DESC";
+		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.hasChanged, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id, rec.id FROM recommandation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.userId = "+userId+" AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.seedTypeId = st.id AND ad.problemTypeId = res.id AND st.cropTypeId = ct.id ORDER BY rec.timestamp DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		
@@ -1028,6 +1027,7 @@ public class RealFarmProvider {
 				final String MY_QUERY2 = "SELECT adp.orderNumber, adp.comment, res.ShortName, res.image1, adp.id, adp.adviceId, adp.suggestedResourceId FROM resource res, advicePiece adp WHERE adp.adviceId = "+c.getLong(10)+" AND adp.suggestedResourceId = res.id ORDER BY adp.orderNumber ASC";
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
+				int number = 0;
 				if (c2.moveToFirst()) {
 					do { 
 						AdviceSolutionItem aSolItem = new AdviceSolutionItem();
@@ -1036,6 +1036,7 @@ public class RealFarmProvider {
 						aSolItem.setId(c2.getInt(4));
 						aSolItem.setComment(c2.getString(1));
 						aSolItem.setNumber(c2.getInt(0));
+						number = c2.getInt(0);
 						final String MY_QUERY3 = "SELECT COUNT(id) FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SPRAY_ID+" AND resource1Id = "+c.getInt(12)+" AND resource2Id = "+c2.getInt(6)+" AND plotId IN (SELECT plotId FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_REPORT_ID+" AND resource1Id = "+c.getInt(12)+" AND seedTypeId = "+c.getInt(11)+" )";
 						Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
 						if (c3.moveToFirst()){
@@ -1050,9 +1051,20 @@ public class RealFarmProvider {
 						}
 						solutionList.add(aSolItem);
 					} while (c2.moveToNext());
+					
+					AdviceSolutionItem aSolItem = new AdviceSolutionItem();
+					aSolItem.setPesticideBackground(R.drawable.noactionforadvice);
+					aSolItem.setNumber(number+1);
+					final String MY_QUERY3 = "SELECT COUNT(id) FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_REPORT_ID+" AND resource1Id = "+c.getInt(12)+" AND seedTypeId = "+c.getInt(11)+" AND plotId NOT IN (SELECT plotId FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SPRAY_ID+" AND resource1Id = "+c.getInt(12)+")";
+					Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
+					if (c3.moveToFirst()){
+						aSolItem.setDidIt(c3.getInt(0));
+						c3.close();
+					}
+					solutionList.add(aSolItem);
+					
+					c2.close();
 				}
-				
-				c2.close();
 				
 				AdviceSituationItem asItem = new AdviceSituationItem();
 				asItem.setCropShortName(c.getString(0));
@@ -1066,7 +1078,7 @@ public class RealFarmProvider {
 				asItem.setAudio(c.getInt(4));
 				asItem.setUnread(c.getInt(8));
 				asItem.setValidDate(c.getLong(9));
-				asItem.setId(c.getLong(10));
+				asItem.setId(c.getLong(14));
 				asItem.setItems(solutionList);
 				solutionList = new ArrayList<AdviceSolutionItem>();
 				situationList.add(asItem);
@@ -2534,5 +2546,18 @@ public class RealFarmProvider {
 
 		return result;
 		
+	}
+
+	public boolean getLike(int advicePieceId, long userId) {
+		final String MY_QUERY = "SELECT COUNT(id) FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_PLAN_ID+" AND userId = "+userId+" AND resource1Id = "+advicePieceId;
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		if (c.moveToFirst()) {
+			if(c.getInt(0) == 0) return false;
+			return true;
+		}
+		c.close();
+		mDatabase.close();
+		return false;
 	}
 }

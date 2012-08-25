@@ -54,47 +54,6 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 			playAudio(R.raw.problems);
 		}
 		return adviceData;
-
-		/*ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
-
-		AdviceSituationItem gru1 = new AdviceSituationItem();
-		gru1.setName("Comedy");
-		AdviceSolutionItem ch1_1 = new AdviceSolutionItem();
-		ch1_1.setName("A movie");
-		ch1_1.setTag(null);
-		solutionList.add(ch1_1);
-		AdviceSolutionItem ch1_2 = new AdviceSolutionItem();
-		ch1_2.setName("An other movie");
-		ch1_2.setTag(null);
-		solutionList.add(ch1_2);
-		AdviceSolutionItem ch1_3 = new AdviceSolutionItem();
-		ch1_3.setName("And an other movie");
-		ch1_3.setTag(null);
-		solutionList.add(ch1_3);
-		AdviceSolutionItem ch1_4 = new AdviceSolutionItem();
-		ch1_4.setName("Surprise!");
-		ch1_4.setTag(null);
-		solutionList.add(ch1_4);
-		gru1.setItems(solutionList);
-		solutionList = new ArrayList<AdviceSolutionItem>();
-
-		AdviceSituationItem gru2 = new AdviceSituationItem();
-		gru2.setName("Action");
-		AdviceSolutionItem ch2_1 = new AdviceSolutionItem();
-		ch2_1.setName("A movie A movie A movie A movie ");
-		ch2_1.setTag(null);
-		solutionList.add(ch2_1);
-		AdviceSolutionItem ch2_2 = new AdviceSolutionItem();
-		ch2_2.setName("An other movie An other movie An other movie An other movie ");
-		ch2_2.setTag(null);
-		solutionList.add(ch2_2);
-		AdviceSolutionItem ch2_3 = new AdviceSolutionItem();
-		ch2_3.setName("And an other movie And an other movie And an other movie And an other movie ");
-		ch2_3.setTag(null);
-		solutionList.add(ch2_3);
-		gru2.setItems(solutionList);
-		situationList.add(gru1);
-		situationList.add(gru2);*/
 	}
 
 	public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
@@ -130,9 +89,11 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 			 System.out.println("parent " +situationItem.getCropShortName());
 		 }
 		 
-		 if(situationItem.getUnread() == 0 && mDataProvider.setAdviceRead(situationItem.getId()) > 0) {
-			 situationItems.get(0).setUnread(1);
-			 adapter.getGroups().get(0).setUnread(1);
+		 if(situationItem.getUnread() == 0) {
+			 mDataProvider.setAdviceRead(situationItem.getId());
+			 situationItems = mDataProvider.getAdviceData(Global.userId);
+			 adapter.setGroups(mDataProvider.getAdviceData(Global.userId));
+
 			 adapter.notifyDataSetChanged();
 		 }
 		 
@@ -142,8 +103,18 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 	public void onLikeClick(int groupPosition, int childPosition) {
 		 AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		 AdviceSolutionItem solutionItem = situationItem.getItems().get(childPosition);
+		 // TODO: delete system
+		 
+		 if(mDataProvider.getLike(solutionItem.getId(), Global.userId)) {
+			 System.out.println("true");
+		 } else 			 System.out.println("false");
 
-		mDataProvider.addPlanAction(Global.userId, situationItem.getPlotId(), solutionItem.getId());
+		 
+		 situationItems = mDataProvider.getAdviceData(Global.userId);
+		 adapter.setGroups(mDataProvider.getAdviceData(Global.userId));
+		 adapter.notifyDataSetChanged();
+
+		 mDataProvider.addPlanAction(Global.userId, situationItem.getPlotId(), solutionItem.getId());
 		
 	}
 

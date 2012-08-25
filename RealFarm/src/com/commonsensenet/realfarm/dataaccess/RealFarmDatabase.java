@@ -112,8 +112,8 @@ public class RealFarmDatabase {
 							COLUMN_NAME_UNIT_ID)
 					+ references(COLUMN_NAME_ACTION_UNIT2ID, TABLE_NAME_UNIT,
 							COLUMN_NAME_UNIT_ID)
-					+ references(COLUMN_NAME_ACTION_RESOURCE1ID,
-							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
+				/*	+ references(COLUMN_NAME_ACTION_RESOURCE1ID,
+							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)*/
 					+ references(COLUMN_NAME_ACTION_RESOURCE2ID,
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ references(COLUMN_NAME_ACTION_USERID, TABLE_NAME_USER,
@@ -410,7 +410,7 @@ public class RealFarmDatabase {
 	public static final int ACTION_TYPE_SELL_ID = 7;
 	public static final int ACTION_TYPE_SOW_ID = 1;
 	public static final int ACTION_TYPE_SPRAY_ID = 5;
-	public static final int ACTION_TYPE_PLAN_ID = 6;
+	public static final int ACTION_TYPE_PLAN_ID = 8;
 
 	public static final String COLUMN_NAME_ACTION_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_ACTION_CROPTYPEID = "cropTypeId";

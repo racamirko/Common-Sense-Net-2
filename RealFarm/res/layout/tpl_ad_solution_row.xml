@@ -52,8 +52,7 @@
                     android:id="@+id/image_left"
                     android:layout_width="35dp"
                     android:layout_height="35dp"
-                    android:layout_alignParentTop="true"
-                    android:src="@drawable/ic_pestcategory" />
+                    android:layout_alignParentTop="true" />
             </RelativeLayout>
 
             <TextView
