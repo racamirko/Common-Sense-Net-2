@@ -249,6 +249,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	public void onClick(View v) {
+		stopAudio();
 		
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
@@ -291,8 +292,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
 		} else if (v.getId() == R.id.hmscrn_btn_yield) {
-			/*intent = new Intent(this, yielddetails.class);
-			intent.putExtra("type", "yield");*/
+			intent = new Intent(this, YieldActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_market) {
 			intent = new Intent(this, Marketprice_details.class);
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
@@ -508,15 +508,23 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		
 		// updates the news indicators for the aggregates
 		updateAggregatesNumbers();
-		
+
 		// updates the market prices
 		updateMarketPrices();
 		
+		// updates the advice news
+		updateAdviceNumbers();
+
 		// adds the widgets
 		updateWidgets();
 		// adds the listeners
 		initActionListener();
 
+	}
+	
+	private void updateAdviceNumbers(){
+		TextView tw = (TextView)findViewById(R.id.news_advice);
+		tw.setText(mDataProvider.getAdviceNews(Global.userId));
 	}
 
 	private void updateMarketPrices() {

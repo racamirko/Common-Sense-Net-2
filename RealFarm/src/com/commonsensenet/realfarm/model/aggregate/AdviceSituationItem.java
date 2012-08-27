@@ -23,6 +23,8 @@ public class AdviceSituationItem {
 	private int unread = 0;
 	private long validDate = -1;
 	private ArrayList<AdviceSolutionItem> items;
+	private int cropAudio = -1;
+	private int problemAudio = -1;
 
 	public long getId() {
 		return id;
@@ -98,6 +100,18 @@ public class AdviceSituationItem {
 	}
 	public int getUnread() {
 		return unread;
+	}
+	public void setCropAudio(int ca){
+		cropAudio = ca;
+	}
+	public int getCropAudio(){
+		return cropAudio;
+	}
+	public void setProblemAudio(int pa){
+		problemAudio = pa;
+	}
+	public int getProblemAudio(){
+		return problemAudio;
 	}
 	public void setUnread(int unr) {
 		this.unread = unr;

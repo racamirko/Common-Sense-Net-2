@@ -17,6 +17,8 @@ import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public abstract class HelpEnabledActivityOld extends Activity implements OnLongClickListener {
+	
+	/* TODO when removing this class: put a superclass to AggregateMarketActivity and AdviceActivity that contains the onClick method, the copyView method and the 3 makeAudio methods. For the moment, the code is duplicated. */
 
 	public String getLogTag() {
 		return this.getClass().getSimpleName();

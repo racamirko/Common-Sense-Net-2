@@ -18,6 +18,8 @@ public class AdviceSolutionItem {
 	private int didIt = 12;
 	private boolean hasLiked = false;
 	private int suggestedActionId = -1;
+	private int actionAudio = -1;
+	private int pesticideAudio = -1;
 	
 	public void setId(int id){
 		this.id = id;
@@ -36,6 +38,18 @@ public class AdviceSolutionItem {
 	}
 	public int getAudio(){
 		return audio;
+	}
+	public void setActionAudio(int aud){
+		this.actionAudio = aud;
+	}
+	public int getActionAudio(){
+		return actionAudio;
+	}
+	public void setPesticideAudio(int aud){
+		this.pesticideAudio = aud;
+	}
+	public int getPesticideAudio(){
+		return pesticideAudio;
 	}
 	public void setPesticideBackground(int bg){
 		this.pesticideBackground = bg;

@@ -1027,14 +1027,14 @@ public class RealFarmProvider {
 		ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
 		Resource none = getResources(RealFarmDatabase.RESOURCE_TYPE_ADVICE).get(0);
 		
-		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.hasChanged, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id, rec.id FROM recommandation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.timestamp >= "+dateBeginningYear+" AND rec.userId = "+userId+" AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.seedTypeId = st.id AND ad.problemTypeId = res.id AND st.cropTypeId = ct.id ORDER BY rec.timestamp DESC";
+		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.hasChanged, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id, rec.id, st.audio, res.audio FROM recommandation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.timestamp >= "+dateBeginningYear+" AND rec.userId = "+userId+" AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.seedTypeId = st.id AND ad.problemTypeId = res.id AND st.cropTypeId = ct.id ORDER BY rec.timestamp DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		
 		if (c.moveToFirst()) {
 			do { 
 				
-				final String MY_QUERY2 = "SELECT adp.orderNumber, adp.comment, res.ShortName, res.image1, adp.id, adp.adviceId, adp.suggestedResourceId, adp.suggestedActionId FROM resource res, advicePiece adp WHERE adp.adviceId = "+c.getLong(10)+" AND adp.suggestedResourceId = res.id ORDER BY adp.orderNumber ASC";
+				final String MY_QUERY2 = "SELECT adp.orderNumber, adp.comment, res.ShortName, res.image1, adp.id, adp.adviceId, adp.suggestedResourceId, adp.suggestedActionId, at.audio, res.audio FROM resource res, advicePiece adp, actionType at WHERE at.id = adp.suggestedActionId AND adp.adviceId = "+c.getLong(10)+" AND adp.suggestedResourceId = res.id ORDER BY adp.orderNumber ASC";
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
 				int number = 0;
@@ -1048,6 +1048,8 @@ public class RealFarmProvider {
 						aSolItem.setId(c2.getInt(4));
 						aSolItem.setComment(c2.getString(1));
 						aSolItem.setNumber(c2.getInt(0));
+						aSolItem.setActionAudio(c2.getInt(8));
+						aSolItem.setPesticideAudio(c2.getInt(9));
 						number = c2.getInt(0);
 						final String MY_QUERY3 = "SELECT COUNT(id) FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SPRAY_ID+" AND resource1Id = "+c.getInt(12)+" AND date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND resource2Id = "+c2.getInt(6)+" AND plotId IN (SELECT plotId FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_REPORT_ID+" AND date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND resource1Id = "+c.getInt(12)+" AND seedTypeId = "+c.getInt(11)+" )";
 						Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
@@ -1095,6 +1097,8 @@ public class RealFarmProvider {
 				asItem.setUnread(c.getInt(8));
 				asItem.setValidDate(c.getLong(9));
 				asItem.setId(c.getLong(14));
+				asItem.setCropAudio(c.getInt(15));
+				asItem.setProblemAudio(c.getInt(16));
 				asItem.setItems(solutionList);
 				solutionList = new ArrayList<AdviceSolutionItem>();
 				situationList.add(asItem);
@@ -2583,5 +2587,20 @@ public class RealFarmProvider {
 		c.close();
 		mDatabase.close();
 		return false;
+	}
+
+	public String getAdviceNews(long userId) {
+		int res = 0;
+		final String MY_QUERY = "SELECT COUNT(id), validThroughDate FROM recommandation WHERE userId = "+userId+" AND hasChanged = 0 AND validThroughDate >= "+new Date().getTime();
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		if (c.moveToFirst()) {
+			res = c.getInt(0);
+			System.out.println(c.getLong(1)+" "+new Date().getTime());
+		}
+		c.close();
+		mDatabase.close();
+		if(res == 0) return "";
+		else return res+"";
 	}
 }

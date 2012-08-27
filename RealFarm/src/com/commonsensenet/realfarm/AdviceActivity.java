@@ -80,6 +80,8 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 	public boolean onChildClick(ExpandableListView parent, View v, int groupPosition, int childPosition, long id) {
 		//Object e = (Object)adapter.getChild(groupPosition, childPosition);
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()), "gr:"+groupPosition+" pos:"+childPosition);
+		ApplicationTracker.getInstance().flush();
 
 		AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(childPosition);
@@ -135,7 +137,7 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 		// displays the dialog & describes the topbar with audio
 		dialog.show();
-		//	makeAudioUserTopBar(false);
+		makeAudioUserTopBar(false);
 
 		ImageView helpDetail = (ImageView)layout.findViewById(R.id.aggr_details_img_help);
 		LinearLayout dialogAggregateHeader = (LinearLayout)layout.findViewById(R.id.dialog_aggregate_header);
@@ -164,7 +166,7 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 		dialogAggregateHeader.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View v) {
 				// Say something according to the layout's contents. This is the top header of the dialog to call people in the aggregates
-				//makeAudioUserTopBar(true);
+				makeAudioUserTopBar(true);
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "dialog header");
 				ApplicationTracker.getInstance().flush();
 				//makeAudioAggregateMarketItem(selectedItem, true);
@@ -190,7 +192,7 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 				// TODO: calling Mr ...
 				UserAggregateItem choice = list.get(position);
-				//	makeAudioCallUser(choice);
+				makeAudioCallUser(choice);
 
 				String phoneNumber = choice.getTel();
 				Intent intent = new Intent(Intent.ACTION_CALL);
@@ -207,7 +209,7 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 				// TODO: audio
 				UserAggregateItem choice = list.get(position);
-				//	makeAudioUserItem(choice);
+				makeAudioUserItem(choice);
 
 				return true;
 			}
@@ -280,14 +282,13 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 	}
 
 	public boolean onGroupClick(ExpandableListView parent, View v, int groupPosition, long id) {
-		/*AdviceSituationItem situationItem = situationItems.get(groupPosition);
-		 System.out.println("parent " +situationItem.getCropShortName());*/
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 		return false;
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
 		stopAudio();
-		playAudio(R.raw.problems);
 
 		long data = expandListView.getExpandableListPosition(position);
 		int type = ExpandableListView.getPackedPositionType(data);
@@ -295,9 +296,10 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 		if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
 			AdviceSolutionItem solutionItem = situationItem.getItems().get(ExpandableListView.getPackedPositionChild(data));
-			System.out.println("child " + situationItem.getCropShortName()+" "+ solutionItem.getPesticideShortName());
+			if(situationItem.getUnread() == 0) makeAudioSituation(situationItem);
+			makeAudioSolution(solutionItem);
 		} else {
-			System.out.println("parent " +situationItem.getCropShortName());
+			makeAudioSituation(situationItem);
 		}
 
 		if(situationItem.getUnread() == 0) {
@@ -306,11 +308,17 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 			adapter.setGroups(situationItems);
 			adapter.notifyDataSetChanged();
 		}
-
+		
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(view.getId()), "gr:"+ExpandableListView.getPackedPositionGroup(data)+" pos:"+ExpandableListView.getPackedPositionChild(data));
+		ApplicationTracker.getInstance().flush();
+		
 		return true;
 	}
 
 	public void onLikeClick(int groupPosition, int childPosition) {
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK, "like gr:"+groupPosition+" pos:"+childPosition);
+		ApplicationTracker.getInstance().flush();
+		
 		AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(childPosition);
 		// TODO: delete system
@@ -319,22 +327,95 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 			mDataProvider.addPlanAction(Global.userId, situationItem.getPlotId(), solutionItem.getId());
 			situationItems.get(groupPosition).getItems().get(childPosition).setHasLiked(true);
 			situationItems.get(groupPosition).getItems().get(childPosition).setLikes(solutionItem.getLikes()+1);
-		} else {
+			adapter.setGroups(situationItems);
+			adapter.notifyDataSetChanged();
+		}/* else {
 			mDataProvider.deletePlanAction(Global.userId, situationItem.getPlotId(), solutionItem.getId());
 			situationItems.get(groupPosition).getItems().get(childPosition).setHasLiked(false);
 			situationItems.get(groupPosition).getItems().get(childPosition).setLikes(solutionItem.getLikes()-1);
 
 		}
 		adapter.setGroups(situationItems);
-		adapter.notifyDataSetChanged();
+		adapter.notifyDataSetChanged();*/
 
 	}
 
 	public void onLikeLongClick(int groupPosition, int childPosition) {
 		// TODO AUDIO: explain what the like button does
 		playAudio(R.raw.problems);
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, "like gr:"+groupPosition+" pos:"+childPosition);
+		ApplicationTracker.getInstance().flush();
+	}
+	
+	private void makeAudioSituation(AdviceSituationItem situationItem) {
+		playAudio(R.raw.a10);
 
+		long crop = situationItem.getCropAudio();
+		int chance = situationItem.getChance();
+		int loss = situationItem.getLoss();
+		long problem = situationItem.getProblemAudio();
+		int audio = situationItem.getAudio();
+		// TODO  AUDIO: Say something here: "On the plot where you sowed "+crop+", you have a "+say(chance)+"% chance of losing"+say(loss)+"kg/acre to the problem"+problem+audio
+		// TODO  AUDIO: Test each of the int. if == -1, don't say anything
 	}
 
+	private void makeAudioSolution(AdviceSolutionItem solutionItem) {
+		playAudio(R.raw.a20);
+
+		int number = solutionItem.getNumber();
+		int action = solutionItem.getActionAudio();
+		long pesticide = solutionItem.getPesticideAudio();
+		int comment = solutionItem.getAudio();
+		int didIt = solutionItem.getDidIt();
+		int plan = solutionItem.getLikes();
+		int audio = solutionItem.getAudio();
+		
+		// TODO AUDIO IMPORTANT: if(solutionItem.getPesticideShortName().equals("")) don't say how many people planned it and don't say that you can plan it
+		// TODO  AUDIO: Say something here: "Solution"+say(number)+action+pesticide+comment+say(didIt)+"people did it and"+say(plan)+"people plan to do it. To see who did it, tap on the row. If you plan to do it, tap on the right icon."+audio
+		// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+	}
+	
+	private void makeAudioUserTopBar(boolean canHear){
+		// TODO AUDIO: Dummy audio. To be removed.
+		playAudio(R.raw.a30, true);
+
+		// TODO AUDIO: if(!canHear) then you can't hear the audio when the sound is disabled
+	}
+	
+	private void makeAudioCallUser(UserAggregateItem user){
+		// TODO AUDIO: Dummy audio. To be removed.
+		playAudio(R.raw.a20);
+		
+		int userName = user.getAudioName();
+		// TODO AUDIO: "Calling Mr" + user.getAudio(). When the sound is turned off, nothing is heard
+		// TODO  AUDIO: Test the int. if == -1, don't say anything
+		System.out.println(userName);
+	}
+	
+	protected void makeAudioUserItem(UserAggregateItem user) {
+		// TODO AUDIO: Dummy audio. To be removed.
+		playAudio(R.raw.a10, true);
+		
+		// Intro
+		String date = user.getDate();
+		int userName = user.getAudioName();
+		int userLocation = user.getAudioLocation();		
+		
+		// TODO  AUDIO: Say something here: "On" + say(date) + userName + "from" + userLocation + action
+		// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+		System.out.println("On " + date + userName + " from " + userLocation);
+		
+		
+		// Mid
+		int uni = user.getAudioRightImage();
+		int pesticide = user.getAudioLeftImage();
+		int pb = user.getAudioCenterImage();
+		// TODO  AUDIO: Say something here: uni + "per acre of" + pesticide + "against" + pb
+		// TODO  AUDIO: Test each of the int. if == -1, don't say anything
+			
+		// Outro
+		// TODO AUDIO: "To call " + userName + " touch here briefly"
+		System.out.println("To call " + userName + " touch here briefly");
+	}
 }
 
