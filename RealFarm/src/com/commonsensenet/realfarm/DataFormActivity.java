@@ -69,7 +69,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				Resource choice = data.get(position);
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), propertyKey, choice.getShortName());
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), propertyKey, choice.getName());
 				ApplicationTracker.getInstance().flush();
 				
 				// sets the short name of the resource.

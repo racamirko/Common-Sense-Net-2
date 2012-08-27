@@ -76,6 +76,8 @@ public final class ActionDataFactory {
 
 	public static List<UserAggregateItem> getUserAggregateData(
 			AggregateItem aggregateItem, RealFarmProvider dataProvider) {
+		System.out.println(aggregateItem.getActionTypeId());
+
 		switch (aggregateItem.getActionTypeId()) {
 		case RealFarmDatabase.ACTION_TYPE_SOW_ID:			
 			return dataProvider.getUserAggregateItemSow(aggregateItem.getActionTypeId(), aggregateItem.getSelector1(), aggregateItem.getSelector2());
@@ -162,7 +164,7 @@ public final class ActionDataFactory {
 	public static List<UserAggregateItem> getUserList(int currentAction, int cropSeedTypeId, AggregateItem selectedItem, Resource daysSelectorData, RealFarmProvider mDataProvider) {
 		switch(currentAction){
 			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET: return mDataProvider.getUserMarketData(cropSeedTypeId, selectedItem.getSelector1(), - daysSelectorData.getValue());
-			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE: return ActionDataFactory.getUserAggregateData(selectedItem, mDataProvider);
+			case RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE: return getUserAggregateData(selectedItem, mDataProvider);
 			default: return null;
 		}
 	}

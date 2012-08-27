@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
@@ -31,7 +32,6 @@ import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.AggregateItemAdapter;
-import com.commonsensenet.realfarm.view.AggregateItemWrapper;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
@@ -47,7 +47,7 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 	protected int currentAction = 0;
 	protected LayoutInflater mLayoutInflater;
 	
-	/*********** To be removed when shifting to HelpEnabledActivity ***********/
+	/*********** TODO: To be removed when shifting to HelpEnabledActivity ***********/
 	
 	@Override
 	public void onBackPressed() {
@@ -184,8 +184,8 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		// gets the selected view using the position
 		final AggregateItem selectedItem = mItemAdapter.getItem(position);
 		// gets the wrapper to extract data directly from it.
-		AggregateItemWrapper selectedItemView = ActionDataFactory
-				.getAggregateWrapper(view, mActionTypeId);
+		//AggregateItemWrapper selectedItemView = ActionDataFactory
+		//		.getAggregateWrapper(view, mActionTypeId);
 
 		// dialog used to request the information
 		final Dialog dialog = new Dialog(this);
@@ -209,7 +209,7 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		// sets the data of the header using the old view.
 		RelativeLayout rl = (RelativeLayout)layout.findViewById(R.id.top_user_info);
 		View tmpView = mLayoutInflater.inflate(R.layout.tpl_aggregate_item, null);
-		selectedItemView.copyView(selectedItem, tmpView);
+		copyView(selectedItem, tmpView);
 		rl.addView(tmpView);
 
 		// gets the data and data adapter.
@@ -326,6 +326,51 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		makeAudioAggregateMarketItem(mItemAdapter.getItem(position), false);
 
 		return true;
+	}
+	
+	public void copyView(AggregateItem aggregate, View destination) {
+		destination.setBackgroundColor(Color.LTGRAY);
+		
+		TextView tw = (TextView)destination.findViewById(R.id.label_news);
+		tw.setText(aggregate.getNewsText());
+		tw.setBackgroundColor(Color.parseColor("#FFFFCC"));		
+		
+		tw = (TextView)destination.findViewById(R.id.label_left);
+		tw.setText(aggregate.getLeftText());
+				
+		RelativeLayout rl = (RelativeLayout)destination.findViewById(R.id.relative_layout_left);
+		if(aggregate.getLeftBackground() != -1) rl.setBackgroundResource(aggregate.getLeftBackground());
+		else tw.setTextColor(Color.BLACK);
+
+		tw = (TextView)destination.findViewById(R.id.label_center);
+		tw.setText(aggregate.getCenterText());
+		
+		rl = (RelativeLayout)destination.findViewById(R.id.relative_layout_center);
+		if(aggregate.getCenterBackground() != -1) rl.setBackgroundResource(aggregate.getCenterBackground());
+		else {
+			tw.setTextColor(Color.BLACK);
+			// hack
+			if(!aggregate.getCenterText().equals("")){
+				rl.getLayoutParams().width = 200;
+				tw.setTextSize(20);
+			} else{
+				rl.getLayoutParams().width = 20;
+				rl = (RelativeLayout)destination.findViewById(R.id.relative_layout_right);
+				rl.getLayoutParams().width = 300;
+			}
+		}
+		
+		ImageView iw = (ImageView)destination.findViewById(R.id.image_center);
+		if(aggregate.getCenterImage() != -1) iw.setImageResource(aggregate.getCenterImage());
+
+		tw = (TextView)destination.findViewById(R.id.label_right);
+		tw.setText(aggregate.getRightText());
+		
+		iw = (ImageView)destination.findViewById(R.id.image_left);
+		if(aggregate.getLeftImage() != -1) iw.setImageResource(aggregate.getLeftImage());
+		
+		iw = (ImageView)destination.findViewById(R.id.image_left_bottom);
+		if(aggregate.getLeftBottomImage() != -1) iw.setImageResource(aggregate.getLeftBottomImage());
 	}
 	
 	private void makeAudioUserTopBar(boolean canHear){

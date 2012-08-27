@@ -105,6 +105,13 @@ public class DateHelper {
 		currentDate.add(Calendar.DATE, offsetDays);
 		return formatter.format(currentDate.getTime())+" 00:00:00";
 	}
+	
+	public static long getBeginningYear(){
+		Calendar calendar = Calendar.getInstance();
+		calendar.set(Calendar.DAY_OF_MONTH, 01);
+		calendar.set(Calendar.MONTH, 00);
+		return calendar.getTimeInMillis();
+	}
 
 	public static boolean validDate(int day, int month, int year) {
 		Calendar c = Calendar.getInstance();

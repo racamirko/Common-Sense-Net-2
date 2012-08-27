@@ -1,9 +1,5 @@
 package com.commonsensenet.realfarm.model.aggregate;
 
-import android.widget.TextView;
-
-import com.commonsensenet.realfarm.R;
-
 /**
  * 
  * @author Nguyen Lisa
@@ -12,6 +8,7 @@ public class AdviceSolutionItem {
 	
 	private int audio = -1;
 	private int id = -1;
+	private long pesticideId = -1;
 	private int pesticideBackground = -1;
 	private int pesticideImage = -1;
 	private String pesticideShortName = "";
@@ -19,12 +16,20 @@ public class AdviceSolutionItem {
 	private int number = 1;
 	private int likes = 12;
 	private int didIt = 12;
+	private boolean hasLiked = false;
+	private int suggestedActionId = -1;
 	
 	public void setId(int id){
 		this.id = id;
 	}
 	public int getId(){
 		return id;
+	}
+	public void setPesticideId(long id){
+		this.pesticideId = id;
+	}
+	public long getPesticideId(){
+		return pesticideId;
 	}
 	public void setAudio(int aud){
 		this.audio = aud;
@@ -68,10 +73,22 @@ public class AdviceSolutionItem {
 	public String getPesticideShortName(){
 		return pesticideShortName;
 	}
+	public void setSuggestedActionId(int sai){
+		this.suggestedActionId = sai;
+	}
+	public int getSuggestedActionId(){
+		return suggestedActionId;
+	}
 	public void setComment(String com){
 		this.comment = com;
 	}
 	public String getComment(){
 		return comment;
+	}
+	public boolean getHasLiked(){
+		return hasLiked;
+	}
+	public void setHasLiked(boolean hl){
+		hasLiked = hl;
 	}
 }

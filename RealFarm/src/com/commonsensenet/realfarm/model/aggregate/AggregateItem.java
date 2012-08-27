@@ -115,6 +115,7 @@ public class AggregateItem {
 	}
 	
 	public String getNewsText(){
+		if(news == 0 && total == 0) return "";
 		if(total == 0) return news+"";
 		return news+"/"+total;
 	}

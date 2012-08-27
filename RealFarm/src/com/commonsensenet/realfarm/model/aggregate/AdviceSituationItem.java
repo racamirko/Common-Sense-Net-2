@@ -10,6 +10,8 @@ public class AdviceSituationItem {
 
 	private long id = -1;
 	private long plotId = -1;
+	private long cropId = -1;
+	private long problemId = -1;
 	private String cropShortName = "";
 	private String plotImage = "";
 	private int cropBackground = -1;
@@ -27,6 +29,18 @@ public class AdviceSituationItem {
 	}
 	public void setId(long id) {
 		this.id = id;
+	}
+	public long getCropId() {
+		return cropId;
+	}
+	public void setCropId(long id) {
+		this.cropId = id;
+	}
+	public long getProblemId() {
+		return problemId;
+	}
+	public void setProblemId(long id) {
+		this.problemId = id;
 	}
 	public long getPlotId() {
 		return plotId;

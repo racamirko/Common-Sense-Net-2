@@ -578,6 +578,7 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_UNIT = 9;
 	public static final int RESOURCE_TYPE_DAYS_SPAN = 10;
 	public static final int RESOURCE_TYPE_PLOT_TYPE = 11;
+	public static final int RESOURCE_TYPE_ADVICE = 12;
 	
 
 	public static final String TABLE_NAME_ACTION = "action";
@@ -924,8 +925,9 @@ public class RealFarmDatabase {
 						-1, -1, RESOURCE_TYPE_PLOT_TYPE , -1 },
 				{ "Rainfed", "Rainfed", R.raw.feedbackmoderate,
 						R.drawable.rainfedland, -1, -1,
-						RESOURCE_TYPE_PLOT_TYPE , -1 }
-
+						RESOURCE_TYPE_PLOT_TYPE , -1 },
+				/** None image advice page */
+				{ "", "", R.raw.problems, -1, -1, R.drawable.noactionforadvice, RESOURCE_TYPE_ADVICE , -1 }
 		};
 
 		ContentValues resource = new ContentValues();
@@ -1281,6 +1283,10 @@ public class RealFarmDatabase {
 	public long insertEntries(String tableName, ContentValues values) {
 		return insertEntriesIntoDatabase(tableName, values, mDb);
 	}
+	
+	public long deleteEntries(String tableName, String selector, String[] values) {
+		return deleteFromDatabase(tableName, selector, values, mDb);
+	}
 
 	/**
 	 * Inserts the given values inside the specified table.
@@ -1307,7 +1313,11 @@ public class RealFarmDatabase {
 		}
 		return result;
 	}
-
+	
+	public long deleteFromDatabase(String tableName, String selector, String[] values, SQLiteDatabase database) {
+		return database.delete(tableName, selector, values);
+	}
+	
 	/**
 	 * Open database helper for writing
 	 * 

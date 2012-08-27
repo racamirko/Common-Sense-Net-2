@@ -20,8 +20,6 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class ActionAggregateActivity extends AggregateMarketActivity implements OnLongClickListener {
 
-
-	/** LayoutInflater used to create the content of the details dialog. */
 	/** Reference to the current instance. */
 	private final Context context = this;
 	private String actionName = "";

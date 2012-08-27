@@ -40,6 +40,9 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 	public void setGroups(ArrayList<AdviceSituationItem> gr){
 		groups = gr;
 	}
+	public ArrayList<AdviceSituationItem> getGroups(){
+		return groups;
+	}
 
 	public void addItem(AdviceSolutionItem item, AdviceSituationItem group) {
 		if (!groups.contains(group)) {
@@ -93,42 +96,42 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		tv = (TextView) view.findViewById(R.id.center_left_text);
 		tv.setText(String.valueOf(child.getDidIt()));
 		
-		tv = (TextView) view.findViewById(R.id.center_right_text);
-		tv.setText(String.valueOf(child.getLikes()));
-		
 		tv = (TextView) view.findViewById(R.id.comment);
 		tv.setText(child.getComment());
 		
+		tv = (TextView) view.findViewById(R.id.center_right_text);
+		tv.setText(String.valueOf(child.getLikes()));
+		
 		ImageView like = (ImageView) view.findViewById(R.id.right_image);
 		
-		if(group.getValidDate() < new Date().getTime()){
-			setDatePassed((LinearLayout)view.findViewById(R.id.solution_row), 0.5F);
-			like.setBackgroundColor(Color.TRANSPARENT);
+		if(child.getPesticideShortName().equals("")) {
+			tv.setVisibility(View.GONE);
+			like.setVisibility(View.GONE);
 		} else {
-			setDatePassed((LinearLayout)view.findViewById(R.id.solution_row), 1.0F);
-			like.setBackgroundResource(android.R.drawable.list_selector_background);
-			like.setOnClickListener(new View.OnClickListener() {
-				public void onClick(View v) {
-					adviceActivity.onLikeClick(groupPosition, childPosition);
-				}
-			});
-			
-			like.setOnLongClickListener(new View.OnLongClickListener() {
-				public boolean onLongClick(View v) {
-					adviceActivity.onLikeLongClick(groupPosition, childPosition);
-					return true;
-				}
-			});
+			tv.setVisibility(View.VISIBLE);
+			if(group.getValidDate() < new Date().getTime()){
+				like.setVisibility(View.GONE);
+			} else {
+				like.setVisibility(View.VISIBLE);
+				like.setOnClickListener(new View.OnClickListener() {
+					public void onClick(View v) {
+						adviceActivity.onLikeClick(groupPosition, childPosition);
+					}
+				});
+				
+				like.setOnLongClickListener(new View.OnLongClickListener() {
+					public boolean onLongClick(View v) {
+						adviceActivity.onLikeLongClick(groupPosition, childPosition);
+						return true;
+					}
+				});
+				if(child.getHasLiked()) like.setImageResource(R.drawable.plantofollowafterclick);
+				else like.setImageResource(R.drawable.plantofollowbeforeclick);
+			}
 		}
 		
-		//if(childPosition == group.getItems().size()-1){
-		if(child.getPesticideShortName().equals("")) {
-			view.findViewById(R.id.right_image).setVisibility(View.GONE);
-			view.findViewById(R.id.center_right_text).setVisibility(View.GONE);
-		} else {
-			view.findViewById(R.id.right_image).setVisibility(View.VISIBLE);
-			view.findViewById(R.id.center_right_text).setVisibility(View.VISIBLE);
-		}
+		if(group.getValidDate() < new Date().getTime()) setDatePassed((LinearLayout)view.findViewById(R.id.solution_row), 0.5F);
+		else setDatePassed((LinearLayout)view.findViewById(R.id.solution_row), 1.0F);
 	}
 
 	public int getChildrenCount(int groupPosition) {
@@ -215,7 +218,7 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 		}
 	}
 	
-	public void setDatePassed(LinearLayout ll, float anim){
+	public void setDatePassed(View ll, float anim){
 		//ll.setBackgroundColor(Color.LTGRAY);
 		AlphaAnimation alpha = new AlphaAnimation(anim, anim);
 		alpha.setDuration(0);
