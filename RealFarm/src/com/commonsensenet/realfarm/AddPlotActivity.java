@@ -232,6 +232,8 @@ public class AddPlotActivity extends DataFormActivity {
 			playAudio(R.raw.maincrop, true);
 		} else if (v.getId() == R.id.type_tr) {
 			playAudio(R.raw.maincrop, true);
+		} else {
+			return super.onLongClick(v);
 		}
 
 		return true;

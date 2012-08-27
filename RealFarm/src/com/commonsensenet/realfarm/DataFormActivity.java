@@ -294,12 +294,15 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().flush();
 
 		showHelpIcon(v);
 
 		if (v.getId() == R.id.button_ok) {
 			playAudio(R.raw.ok);
 		} else if (v.getId() == R.id.button_cancel) {
+			System.out.println("lala");
 			playAudio(R.raw.cancel);
 		}
 

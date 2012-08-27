@@ -179,7 +179,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.day_irr_tr) {
 			playAudio(R.raw.date, true);
 		} else {
-			return onLongClick(v);
+			return super.onLongClick(v);
 		}
 
 		// shows the help icon
