@@ -47,21 +47,6 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 	protected int currentAction = 0;
 	protected LayoutInflater mLayoutInflater;
 	
-	/*********** TODO: To be removed when shifting to HelpEnabledActivity ***********/
-	
-	@Override
-	public void onBackPressed() {
-		// stops any currently playing sound.
-		stopAudio();
-
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "back");
-		ApplicationTracker.getInstance().flush();
-
-		// performs the system default operation.
-		super.onBackPressed();
-	}
-	
-	/*********************************** End ***********************************/
 
 	public void onCreate(Bundle savedInstanceState, int resLayoutId, Context context) {
 		super.onCreate(savedInstanceState, resLayoutId);
