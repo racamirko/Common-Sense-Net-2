@@ -7,13 +7,15 @@ import android.view.View;
 import android.widget.Button;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
-public class YieldActivity extends HelpEnabledActivityOld {
+public class YieldActivity extends TopSelectorActivity {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;
+	private int cropSeedTypeId;
 
 	public static final String LOG_TAG = "YieldDetailsActivity";
 
@@ -47,5 +49,17 @@ public class YieldActivity extends HelpEnabledActivityOld {
 		Intent adminintent = new Intent(YieldActivity.this, Homescreen.class);
 		startActivity(adminintent);
 		YieldActivity.this.finish();
+	}
+
+	public void setList(){
+		cropSeedTypeId = topSelectorData.getId();
+	}
+
+	public void setList(int type, Resource choice) {		
+		
+		if (type == 2) { // change the query
+			topSelectorData = choice;
+		} 
+		setList();
 	}
 }
