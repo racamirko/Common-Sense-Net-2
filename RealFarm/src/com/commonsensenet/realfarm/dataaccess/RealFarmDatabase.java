@@ -579,6 +579,9 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_DAYS_SPAN = 10;
 	public static final int RESOURCE_TYPE_PLOT_TYPE = 11;
 	public static final int RESOURCE_TYPE_ADVICE = 12;
+	public static final int RESOURCE_TYPE_LOCATION = 13;
+	public static final int RESOURCE_TYPE_YEAR = 14;
+	public static final int RESOURCE_TYPE_SOWING_WINDOW = 15;
 	
 
 	public static final String TABLE_NAME_ACTION = "action";
@@ -750,8 +753,6 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
 			users.put(COLUMN_NAME_USER_TIMESTAMP, new Date().getTime());
-			if(x==0) System.out.println(userData[x][2]);
-			else System.out.println(userData[x][2] + "1");
 			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 			users.clear();
 		}
@@ -927,7 +928,20 @@ public class RealFarmDatabase {
 						R.drawable.rainfedland, -1, -1,
 						RESOURCE_TYPE_PLOT_TYPE , -1 },
 				/** None image advice page */
-				{ "", "", R.raw.none, -1, -1, R.drawable.noactionforadvice, RESOURCE_TYPE_ADVICE , -1 }
+				{ "", "", R.raw.none, -1, -1, R.drawable.noactionforadvice, RESOURCE_TYPE_ADVICE , -1 },
+				/** Locations */
+				{ "CK Pura", "CK Pura", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_LOCATION , -1 },
+				/** Sowing window */
+				{ "2011", "2011", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_YEAR , -1 },
+				/** Sowing window */
+				{ "Bharani", "27.4 10.5", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Kritika", "11.5 24.5", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Rohini", "24.5 07.6", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Mrigashira", "08.6 21.6", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Ardra", "22.6 05.7", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Punarvasu", "06.7 19.7", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Pushya", "20.7 02.8", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 }
+
 		};
 
 		ContentValues resource = new ContentValues();

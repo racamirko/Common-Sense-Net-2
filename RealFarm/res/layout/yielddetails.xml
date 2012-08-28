@@ -25,12 +25,13 @@
             android:textColor="#000000" />
 
         <LinearLayout
+            android:id="@+id/max_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:gravity="center_horizontal"
+            android:gravity="center"
+            android:background="@android:drawable/list_selector_background"
             android:orientation="horizontal"
-            android:layout_marginTop="5dp"   >
+            android:layout_marginTop="5dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -42,7 +43,7 @@
             <ImageView
                 android:layout_width="30dp"
                 android:layout_height="20dp"
-                android:src="@drawable/maxprize" />
+                android:src="@drawable/maxprice" />
 
             <TextView
                 android:id="@+id/max_label"
@@ -62,12 +63,13 @@
         </LinearLayout>
         
          <LinearLayout
+            android:id="@+id/avg_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:gravity="center_horizontal"
+			android:gravity="center"
+            android:background="@android:drawable/list_selector_background"
             android:orientation="horizontal"
-            android:layout_marginTop="10dp"   >
+            android:layout_marginTop="10dp" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -99,13 +101,14 @@
         </LinearLayout>
         
           <LinearLayout
+            android:id="@+id/min_row"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="#FFFFFF"
-            android:gravity="center_horizontal"
+            android:background="@android:drawable/list_selector_background"
             android:orientation="horizontal"
             android:layout_marginTop="10dp" 
-            android:layout_marginBottom="5dp"  >
+            android:layout_marginBottom="5dp" 
+            android:gravity="center" >
 
             <TextView
                 android:layout_width="wrap_content"
@@ -115,7 +118,6 @@
                 android:textColor="#000000" />
 
             <ImageView
-                android:id="@+id/hmscrn_img_market_max"
                 android:layout_width="30dp"
                 android:layout_height="20dp"
                 android:src="@drawable/minprize" />
@@ -145,51 +147,121 @@
             android:gravity="left|center"
             android:orientation="horizontal"
             android:padding="5dp" >
-            
-             <TextView
-                android:id="@+id/selector_soil_type"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/yt_soiltypeinactive"
-                android:textColor="#000000"
-            	android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
              
-             <TextView
-                android:id="@+id/selector_variety"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/yt_varietyinactive"
-                android:textColor="#000000"
-            	android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
+             <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
+
+                 <ImageView
+                     android:id="@+id/selector_soil_type"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_soiltypeinactive" />
+
+                   <TextView
+                       android:id="@+id/selector_soil_type_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
+
+             </RelativeLayout>
              
-             <TextView
-                android:id="@+id/selector_sowing_date"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/yt_sowingwindowinactive"
-                android:textColor="#000000"
-            	android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall" />
-             
-            <TextView
-                android:id="@+id/selector_irrigation"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/yt_irrigationyesno"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000" />
+             <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
+
+                 <ImageView
+                     android:id="@+id/selector_variety"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_varietyinactive" />
+
+                   <TextView
+                       android:id="@+id/selector_variety_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
+
+             </RelativeLayout>
+
+             <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
+
+                 <ImageView
+                     android:id="@+id/selector_sowing_date"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_sowingwindowinactive" />
+
+                   <TextView
+                       android:id="@+id/selector_sowing_date_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
+
+             </RelativeLayout>
+
+              <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
+
+                 <ImageView
+                     android:id="@+id/selector_irrigation"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_irrigationyesno" />
+
+                   <TextView
+                       android:id="@+id/selector_irrigation_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
+
+             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/selector_location"
                 android:layout_marginLeft="5dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/list_selector_background"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -201,7 +273,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
-                    android:text="CK Pura"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000" />
 
@@ -220,51 +291,121 @@
             android:gravity="left|center"
             android:orientation="horizontal"
             android:padding="5dp" >
+            
+            <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
 
-            <TextView
-                android:id="@+id/selector_fertilizer"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:background="@drawable/yt_fertilizeyesno"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000" />
+                 <ImageView
+                     android:id="@+id/selector_fertilizer"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_fertilizeyesno" />
 
-            <TextView
-                android:id="@+id/selector_pest"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/yt_pestyesno"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000" />
+                   <TextView
+                       android:id="@+id/selector_fertilizer_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
 
-            <TextView
-                android:id="@+id/selector_disease"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/yt_diseaseyesno"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000" />
+             </RelativeLayout>
+             
+            <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
 
-            <TextView
-                android:id="@+id/selector_spray"
-                android:layout_width="42dp"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="5dp"
-                android:background="@drawable/yt_sprayyesno"
-                android:gravity="center"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:textColor="#000000" />
+                 <ImageView
+                     android:id="@+id/selector_pest"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_pestyesno" />
+
+                   <TextView
+                       android:id="@+id/selector_pest_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
+
+             </RelativeLayout>
+
+            <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
+
+                 <ImageView
+                     android:id="@+id/selector_disease"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_diseaseyesno" />
+
+                   <TextView
+                       android:id="@+id/selector_disease_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
+
+             </RelativeLayout>
+             
+            <RelativeLayout
+                  android:layout_width="42dp"
+                   android:layout_height="wrap_content"
+                   android:layout_marginLeft="5dp"
+                   android:gravity="center" >
+
+                 <ImageView
+                     android:id="@+id/selector_spray"
+                     android:layout_width="wrap_content"
+                     android:layout_height="wrap_content"
+                	 android:background="@android:drawable/list_selector_background"
+                     android:src="@drawable/yt_sprayyesno" />
+
+                   <TextView
+                       android:id="@+id/selector_spray_label"
+                       android:layout_width="fill_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_alignParentLeft="true"
+                       android:layout_centerVertical="true"
+                       android:gravity="center"
+                       android:textAppearance="?android:attr/textAppearanceSmall"
+                	   android:background="@android:drawable/list_selector_background"
+                       android:textColor="#000000"
+                       android:textSize="13dp" />
+
+             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/selector_year"
                 android:layout_width="wrap_content"
                 android:layout_marginLeft="5dp"
                 android:layout_height="wrap_content"
+                android:background="@android:drawable/list_selector_background"
                 android:orientation="horizontal" >
 
                 <TextView
@@ -276,7 +417,6 @@
                     android:paddingLeft="5dp"
                     android:paddingRight="5dp"
                     android:paddingTop="5dp"
-                    android:text="2011"
                     android:textAppearance="?android:attr/textAppearanceMedium"
                     android:textColor="#000000" />
 

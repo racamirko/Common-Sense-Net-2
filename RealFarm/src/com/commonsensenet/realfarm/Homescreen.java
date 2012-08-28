@@ -54,7 +54,6 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	/** Indicates whether the demo data has been inserted or not. */
-	public static boolean IS_INITIALIZED = false;
 
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
@@ -125,7 +124,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	}
 
 	private void insertDemoData() {
-		if (!IS_INITIALIZED) {
+		if (!Global.IS_INITIALIZED) {
 			
 			mDataProvider.addMarketPrice("2012-08-21",3200, 4900,"");
 			
@@ -212,7 +211,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			// 0);
 
 			// flags the data insertion as done.
-			IS_INITIALIZED = true;
+			Global.IS_INITIALIZED = true;
 		}
 
 	}

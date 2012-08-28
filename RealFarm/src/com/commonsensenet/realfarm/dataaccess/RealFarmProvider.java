@@ -2083,6 +2083,47 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 	
+	public List<Resource> getVarietiesByCrop(int cropTypeId) {
+
+		// raw query.
+		final String RAW_QUERY = "SELECT st.*, ct.%s FROM %s st INNER JOIN %s ct ON st.%s = ct.%s WHERE st.cropTypeId = "+cropTypeId+" ORDER BY %s ASC";
+		// substitutes values in the query.
+		String processedQuery = String.format(RAW_QUERY,
+				RealFarmDatabase.COLUMN_NAME_CROPTYPE_BACKGROUNDIMAGE,
+				RealFarmDatabase.TABLE_NAME_SEEDTYPE,
+				RealFarmDatabase.TABLE_NAME_CROPTYPE,
+				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
+				RealFarmDatabase.COLUMN_NAME_CROPTYPE_ID,
+				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID);
+
+		// creates the result list.
+		List<Resource> tmpList = new ArrayList<Resource>();
+
+		// opens the database and executes the query
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(processedQuery, new String[] {});
+
+		Resource r = null;
+		if (c.moveToFirst()) {
+			do {
+
+				r = new Resource();
+				r.setId(c.getInt(0));
+				r.setName(c.getString(1));
+				r.setShortName(c.getString(2));
+				r.setImage1(c.getInt(3));
+				r.setAudio(c.getInt(4));
+				r.setBackgroundImage(c.getInt(6));
+				tmpList.add(r);
+			} while (c.moveToNext());
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
+	}
+	
 	public Resource getTopSelectorDataVar(long userId, long defaultSeedId){
 		final String MY_QUERY = "SELECT ct.backgroundImage, st.shortName, st.id, st.audio FROM seedType st, plot p, cropType ct WHERE st.cropTypeId = ct.id AND st.id = p.seedtypeId AND p.userId = "+userId+" ORDER BY st.id ASC";
 		final String MY_QUERY2 = "SELECT ct.backgroundImage, st.shortName, st.id, st.audio FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "+defaultSeedId;
