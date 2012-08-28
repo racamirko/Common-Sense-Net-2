@@ -159,7 +159,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_soiltypeinactive" />
+                     android:src="@drawable/yt_soiltypesnotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_soil_type_label"
@@ -186,7 +186,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_varietyinactive" />
+                     android:src="@drawable/yt_varietiesnotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_variety_label"
@@ -213,7 +213,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_sowingwindowinactive" />
+                     android:src="@drawable/yt_sowingwindownotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_sowing_date_label"
@@ -240,7 +240,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_irrigationyesno" />
+                     android:src="@drawable/yt_irrigatednotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_irrigation_label"
@@ -303,7 +303,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_fertilizeyesno" />
+                     android:src="@drawable/yt_fertilizednotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_fertilizer_label"
@@ -330,7 +330,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_pestyesno" />
+                     android:src="@drawable/yt_pestnotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_pest_label"
@@ -357,7 +357,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_diseaseyesno" />
+                     android:src="@drawable/yt_diseasesnotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_disease_label"
@@ -384,7 +384,7 @@
                      android:layout_width="wrap_content"
                      android:layout_height="wrap_content"
                 	 android:background="@android:drawable/list_selector_background"
-                     android:src="@drawable/yt_sprayyesno" />
+                     android:src="@drawable/yt_sprayingnotfiltered" />
 
                    <TextView
                        android:id="@+id/selector_spray_label"

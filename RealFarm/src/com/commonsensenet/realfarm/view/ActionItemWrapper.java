@@ -94,7 +94,7 @@ public class ActionItemWrapper {
 		// sets the parts of the view.
 		getActionIcon().setImageResource(actionType.getImage1());
 		getTitle().setText(actionType.getName());
-		getDate().setText(DateHelper.formatDate(action.getDate(), context));
+		getDate().setText(DateHelper.formatDate(action.getDate(), context)+"   "+action.getDate());
 
 		if (bitmapImage != null) {
 			Matrix matrix = new Matrix();

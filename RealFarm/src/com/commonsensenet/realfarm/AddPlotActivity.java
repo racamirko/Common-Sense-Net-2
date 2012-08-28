@@ -43,9 +43,9 @@ public class AddPlotActivity extends DataFormActivity {
 	 * Adds the current plot to the database.
 	 */
 	private void addPlotToDatabase() {
+		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop, mSoilType, mPlotImage, mSize, mType);
 
 		if (!Global.IS_INITIALIZED) { // add advice retated to plot
-			Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop, mSoilType, mPlotImage, mSize, mType);
 	
 			long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
 			long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);

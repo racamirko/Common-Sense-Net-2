@@ -211,7 +211,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			// 0);
 
 			// flags the data insertion as done.
-			Global.IS_INITIALIZED = true;
+			//Global.IS_INITIALIZED = true;
 		}
 
 	}
