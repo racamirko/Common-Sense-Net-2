@@ -44,10 +44,7 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld impleme
 
 	public void onCreate(Bundle savedInstanceState, int resLayoutId, Context context) {
 		super.onCreate(savedInstanceState, resLayoutId);
-		System.out.println("LILI");
-
 		mDataProvider = RealFarmProvider.getInstance(context);
-		System.out.println("LULU");
 
 	}
 
