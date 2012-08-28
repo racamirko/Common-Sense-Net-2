@@ -17,6 +17,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListView;
@@ -186,6 +187,15 @@ public class AdviceActivity extends HelpEnabledActivity implements OnChildClickL
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				
+				if(list.get(position).getId() == Global.userId) {
+					Toast.makeText(
+							getBaseContext(),
+							"You cannot call yourself", Toast.LENGTH_SHORT).show();
+					// TODO AUDIO: "You cannot call yourself"
+					playAudio(R.raw.problems);
+					return;
+				}
 
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog call "+list.get(position).getName());
 				ApplicationTracker.getInstance().flush();
