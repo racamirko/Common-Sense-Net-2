@@ -46,6 +46,8 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 		// gets the forecast from the database for today.
 		wf = mDataProvider.getWeatherForecasts(new Date());
+		// TODO AUDIO: no results
+		if(wf == null || wf.size() == 0) playAudio(R.raw.problems);
 
 		// creates the adapter used to manage the data.
 		mWeatherForecastItemAdapter = new WeatherForecastItemAdapter(this, wf,
