@@ -107,8 +107,8 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the crop" This is the audio that is heard when the selector dialog opens
-				displayDialog(v, cropList, CROP, "Select the crop", R.raw.problems,
+				
+				displayDialog(v, cropList, CROP, "Select the crop", R.raw.select_the_crop,
 						R.id.dlg_lbl_crop_sell, R.id.crop_sell_tr, 0);
 
 			}
@@ -121,11 +121,7 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_date_sell, R.id.date_sell_tr,
@@ -141,7 +137,7 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_sell,
 						R.id.date_sell_tr, 0);
@@ -155,15 +151,11 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 				
-				// TODO AUDIO: "Choose the number of bags" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				
 				displayDialogNP("Choose the number of bags", AMOUNT,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_sell, R.id.quant_sell_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.bag_ok,
+						R.raw.ok, R.raw.cancel, R.raw.bag_ok,
 						R.raw.bag_cancel);
 			}
 		});
@@ -175,8 +167,8 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
-				displayDialog(v, unit1List, UNIT, "Select the unit", R.raw.problems,
+				
+				displayDialog(v, unit1List, UNIT, "Select the unit", R.raw.selecttheunits,
 						R.id.dlg_lbl_unit_sell, R.id.quant_sell_tr, 2);
 			}
 		});
@@ -188,11 +180,7 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Enter the price" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				
 				displayDialogNP("Enter the price", PRICE, R.raw.enterpricedetails, 0,
 						9999, 3200, 50, 0, R.id.dlg_lbl_price_sell,
 						R.id.price_sell_tr, R.raw.ok, R.raw.cancel,
@@ -207,11 +195,7 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Choose the number of bags" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				
 				displayDialogNP("Choose the number of bags", REMAINING,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_rem_sell, R.id.rem_quant_sell_tr,
@@ -227,9 +211,9 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the unit" This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, unit2List, UNIT2, "Select the unit",
-						R.raw.problems, R.id.dlg_lbl_unit_rem_sell,
+						R.raw.selecttheunits, R.id.dlg_lbl_unit_rem_sell,
 						R.id.rem_quant_sell_tr, 2);
 			}
 		});
@@ -244,46 +228,46 @@ public class SellActionActivity extends DataFormActivity {
 		// forces the sound to play since its the long click
 
 		if (v.getId() == R.id.dlg_lbl_crop_sell) {
-			// TODO AUDIO: "Select the crop" default if nothing is in the field
-			if((Integer) mResultsMap.get(CROP) == defaultCrop) playAudio(R.raw.crop, true); 
+			
+			if((Integer) mResultsMap.get(CROP) == defaultCrop) playAudio(R.raw.select_the_crop, true); 
 			else playAudio(cropList.get(((Integer)mResultsMap.get(CROP))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_date_sell) {
-			// TODO AUDIO: "Select the day" default if nothing is in the field
-			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.date, true); 
-			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
-			else playAudio(R.raw.problems, true);  
+		
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.dateinfo, true); 
+			
+			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString())); 
 		} else if (v.getId() == R.id.dlg_lbl_month_sell) {
-			// TODO AUDIO: "Choose the month" default if nothing is in the field
+			
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
 			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_sell) {
-			// TODO AUDIO: "Select the number" default if nothing is in the field
-			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.noofbags, true); 
+			
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.select_unit_number, true); 
 			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(AMOUNT).toString());
-			else playAudio(R.raw.problems, true);  
+			else play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));  
 		} else if (v.getId() == R.id.dlg_lbl_unit_sell) {
-			// TODO AUDIO: "Choose the unit" default if nothing is in the field
-			if((Integer) mResultsMap.get(UNIT) == defaultUnit1) playAudio(R.raw.keygis, true); 
+			
+			if((Integer) mResultsMap.get(UNIT) == defaultUnit1) playAudio(R.raw.selecttheunits, true); 
 			else playAudio(unit1List.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_price_sell) {
-			// TODO AUDIO: "Select the price" default if nothing is in the field
-			if(mResultsMap.get(PRICE).equals(defaultPrice)) playAudio(R.raw.value, true); 
+			
+			if(mResultsMap.get(PRICE).equals(defaultPrice)) playAudio(R.raw.enterpricedetails, true); 
 			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(PRICE).toString());
 			else playAudio(R.raw.problems, true);  
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_rem_sell) {
-			// TODO AUDIO: "Select the number" default if nothing is in the field
-			if(mResultsMap.get(REMAINING).equals(defaultRemaining)) playAudio(R.raw.noofbags, true); 
+			
+			if(mResultsMap.get(REMAINING).equals(defaultRemaining)) playAudio(R.raw.select_unit_number, true); 
 			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(REMAINING).toString());
-			else playAudio(R.raw.problems, true);  
+			else play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));   
 		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
-			// TODO AUDIO: "Choose the unit" default if nothing is in the field
-			if((Integer) mResultsMap.get(UNIT2) == defaultUnit2) playAudio(R.raw.keygis, true); 
+			
+			if((Integer) mResultsMap.get(UNIT2) == defaultUnit2) playAudio(R.raw.selecttheunits, true); 
 			else playAudio(unit2List.get(((Integer)mResultsMap.get(UNIT2))).getAudio(), true); 
 		} 
 		
-		// TODO AUDIO: Check the remaining audio
+		
 		else if (v.getId() == R.id.date_sell_tr) {
-			playAudio(R.raw.choosethemonth, true);
+			playAudio(R.raw.date, true);
 		} else if (v.getId() == R.id.quant_sell_tr) {
 			playAudio(R.raw.quantity, true);
 		} else if (v.getId() == R.id.crop_sell_tr) {

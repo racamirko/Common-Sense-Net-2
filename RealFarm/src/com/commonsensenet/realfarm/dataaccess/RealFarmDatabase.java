@@ -725,15 +725,15 @@ public class RealFarmDatabase {
 
 		Object[][] userData = {
 				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g",
-					"CK Pura", R.raw.problems, R.raw.problems },
+					"CK Pura", R.raw.john_doe, R.raw.ckpura },
 				{ "Hendrik", "Knoche", "+41788479621", "farmer_90px_adam_jones",
-						"CK Pura", R.raw.problems, R.raw.problems },
+						"CK Pura", R.raw.hendrik_knoche, R.raw.ckpura },
 				{ "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
-						"CK Pura", R.raw.problems, R.raw.problems },
+						"CK Pura", R.raw.chris_bishop, R.raw.ckpura },
 				{ "Chris", "McDougall", "0781122672",
-						"farmer_90px_neil_palmer2", "CK Pura", R.raw.problems, R.raw.a10 },
+						"farmer_90px_neil_palmer2", "CK Pura", R.raw.chris_mcdougall, R.raw.ckpura },
 				{ "Frank", "Herbert", "0788111172",
-						"farmer_90px_walmart_stores", "CK Pura", R.raw.problems, R.raw.a10 } };
+						"farmer_90px_walmart_stores", "CK Pura", R.raw.frank_herbert, R.raw.ckpura } };
 
 		ContentValues users = new ContentValues();
 		for (int x = 0; x < userData.length; x++) {
@@ -858,12 +858,12 @@ public class RealFarmDatabase {
 				{ "11 November", "Nov", R.raw.nov, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.NOVEMBER },
 				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,RESOURCE_TYPE_MONTH , Calendar.DECEMBER },
 				/** Days span */ 
-				{ "1 day", "1 day", R.raw.jan, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 1},
-				{ "7 days", "7 days", R.raw.jan, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 7 },
-				{ "14 days", "14 days", R.raw.feb, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 14 },
-				{ "21 days", "21 days", R.raw.mar, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 21 },
-				{ "1 month", "1 month", R.raw.apr, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 31 },		
-				{ "year", "year", R.raw.apr, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 366},		
+				{ "1 day", "1 day", R.raw.one_day, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 1},
+				{ "7 days", "7 days", R.raw.seven_days, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 7 },
+				{ "14 days", "14 days", R.raw.fourteen_days, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 14 },
+				{ "21 days", "21 days", R.raw.twentyone_days, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 21 },
+				{ "1 month", "1 month", R.raw.one_month, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 31 },		
+				{ "year", "year", R.raw.year, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 366},		
 						
 				/** Treated */
 				{ "Main crop", "Main crop", R.raw.maincrop,
@@ -921,13 +921,13 @@ public class RealFarmDatabase {
 				{ "Bad", "Bad", R.raw.feedbackbad, R.drawable.smiley_bad, -1,
 						-1, RESOURCE_TYPE_SATISFACTION , -1 },
 				/** Plot type */
-				{ "Irrigated", "Irrigated", R.raw.feedbackgood, R.drawable.irrigatedland,
+				{ "Irrigated", "Irrigated", R.raw.irrigated, R.drawable.irrigatedland,
 						-1, -1, RESOURCE_TYPE_PLOT_TYPE , -1 },
-				{ "Rainfed", "Rainfed", R.raw.feedbackmoderate,
+				{ "Rainfed", "Rainfed", R.raw.rainfed,
 						R.drawable.rainfedland, -1, -1,
 						RESOURCE_TYPE_PLOT_TYPE , -1 },
 				/** None image advice page */
-				{ "", "", R.raw.problems, -1, -1, R.drawable.noactionforadvice, RESOURCE_TYPE_ADVICE , -1 }
+				{ "", "", R.raw.none, -1, -1, R.drawable.noactionforadvice, RESOURCE_TYPE_ADVICE , -1 }
 		};
 
 		ContentValues resource = new ContentValues();
@@ -1090,8 +1090,8 @@ public class RealFarmDatabase {
 				{ "bag of 50 kgs", R.drawable.bag50kg,
 						R.raw.bagof50kg, ACTION_TYPE_SELL_ID , 50},
 						
-				{ "unknown", R.drawable.unitunknown, R.raw.audio1, ACTION_TYPE_ALL_ID, 0 },
-				{ "none", R.drawable.unitnone, R.raw.audio1, ACTION_TYPE_ALL_ID, 0 }
+				{ "unknown", R.drawable.unitunknown, R.raw.unit_unknown, ACTION_TYPE_ALL_ID, 0 },
+				{ "none", R.drawable.unitnone, R.raw.none, ACTION_TYPE_ALL_ID, 0 }
 
 		};
 
@@ -1187,26 +1187,26 @@ public class RealFarmDatabase {
 		ContentValues croptype = new ContentValues();
 		Object[][] cropData = {
 				{ "Groundnut", "Gndnut", R.drawable.pic_72px_groundnut,
-						R.drawable.pic_90px_groundnut_tiled, R.raw.msg_plant },
+						R.drawable.pic_90px_groundnut_tiled, R.raw.gnut },
 				{ "Bajra / pearl millet", "Bajra", R.drawable.pic_72px_bajra,
-						R.drawable.pic_90px_bajra_tiled, R.raw.msg_plant },
+						R.drawable.pic_90px_bajra_tiled, R.raw.bajra },
 				{ "Castor", "Castor", R.drawable.pic_72px_castor,
-						R.drawable.pic_90px_castor_tiled, R.raw.msg_plant },
+						R.drawable.pic_90px_castor_tiled, R.raw.castor },
 				{ "Cow pea", "Cow pea", R.drawable.pic_72px_cowpea,
-						R.drawable.pic_90px_cowpea_tiled, R.raw.msg_plant },
+						R.drawable.pic_90px_cowpea_tiled, R.raw.cowpea },
 				{ "Field beans", "F beans", R.drawable.fieldbean,
-						R.drawable.fieldbean, R.raw.msg_plant },
+						R.drawable.fieldbean, R.raw.field_beans },
 				{ "Green / moong gram", "Gr gram",
 						R.drawable.pic_72px_greengram,
-						R.drawable.pic_90px_greengram_tiled, R.raw.msg_plant },
+						R.drawable.pic_90px_greengram_tiled, R.raw.greengram },
 				{ "Horse gram", "H gram", R.drawable.pic_72px_horsegram,
-						R.drawable.pic_90px_horsegram_tiled, R.raw.msg_plant },
+						R.drawable.pic_90px_horsegram_tiled, R.raw.horsegram },
 				{ "Padddy / rice", "Padddy", R.drawable.paddy,
-						R.drawable.paddy, R.raw.msg_plant },
+						R.drawable.paddy, R.raw.paddy },
 				{ "Ragi / finger millet", "Ragi", R.drawable.ragi,
-						R.drawable.ragi, R.raw.msg_plant },
+						R.drawable.ragi, R.raw.ragi },
 				{ "Sorghum", "Sorghum", R.drawable.pic_72px_sorghum,
-						R.drawable.pic_90px_sorghum_tiled, R.raw.msg_plant }
+						R.drawable.pic_90px_sorghum_tiled, R.raw.sorghum }
 
 		};
 

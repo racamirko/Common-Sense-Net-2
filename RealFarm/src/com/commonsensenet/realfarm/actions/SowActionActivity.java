@@ -95,7 +95,7 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 				
-				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, varietiesList, VARIETY, "Select the variety", R.raw.select_the_variety, R.id.dlg_var_text_sow, R.id.seed_type_sow_tr, 0);
 			}
 		});
@@ -107,11 +107,8 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				
+				
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,0, R.id.dlg_lbl_day_sow, R.id.day_sow_tr,R.raw.ok, R.raw.cancel, R.raw.day_ok,R.raw.day_cancel);
 			}
 		});
@@ -123,7 +120,7 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 				
-				// TODO AUDIO: "Select if the seeds were treated" This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, treatmentList, TREATMENT,"Select if the seeds were treated", R.raw.treatmenttoseeds1,R.id.dlg_lbl_treat_sow, R.id.treatment_sow_tr, 0);
 
 			}
@@ -136,12 +133,9 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 				
-				// TODO AUDIO: "Choose the number of serus" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
-				displayDialogNP("Choose the number of serus", AMOUNT, R.raw.choose_serus, 1, 999, 1, 1, 0, R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr, R.raw.ok, R.raw.cancel, R.raw.serus_ok, R.raw.serus_cancel);
+				
+			
+				displayDialogNP("Choose the number of serus", AMOUNT, R.raw.choose_serus, 1, 999, 1, 1, 0, R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr, R.raw.ok, R.raw.cancel, R.raw.seru_ok, R.raw.seru_cancel);
 			}
 		});
 
@@ -152,7 +146,7 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 				
-				// TODO AUDIO: "Main crop or intercrop?" This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, intercropList, INTERCROP, "Main crop or intercrop?", R.raw.maincrop_intercrop, R.id.dlg_lbl_intercrop_sow,	R.id.intercrop_sow_tr, 0);
 			}
 		});
@@ -164,7 +158,7 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
+			
 				displayDialog(v, monthList, MONTH, "Select the month",R.raw.choosethemonth, R.id.dlg_lbl_month_sow,R.id.day_sow_tr, 0);
 			}
 		});
@@ -180,34 +174,34 @@ public class SowActionActivity extends DataFormActivity {
 		// the helping system.
 		// checks which view was clicked.
 		if (v.getId() == R.id.dlg_var_text_sow) {
-			// TODO AUDIO: "Select the variety" default if nothing is in the field
-			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.varietyofseedssowd, true); 
+			
+			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.select_the_variety, true); 
 			else playAudio(varietiesList.get(((Integer)mResultsMap.get(VARIETY))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_sow) {
-			// TODO AUDIO: "Select the number of serus" default if nothing is in the field
-			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
+			
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.choose_serus, true); 
 			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(AMOUNT).toString());
-			else playAudio(R.raw.problems, true);  
+			else play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));  
 		} else if (v.getId() == R.id.dlg_lbl_month_sow) {
-			// TODO AUDIO: "Choose the month" default if nothing is in the field
+			
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
 			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_treat_sow) {
-			// TODO AUDIO: "Treated or not treated?" default if nothing is in the field
+			
 			if((Integer) mResultsMap.get(TREATMENT) == defaultTreatment) playAudio(R.raw.treatmenttoseeds1, true); 
 			else playAudio(monthList.get(((Integer)mResultsMap.get(TREATMENT))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_intercrop_sow) {
-			// TODO AUDIO: "Main crop or intercrop?" default if nothing is in the field
-			if((Integer) mResultsMap.get(INTERCROP) == defaultIntercrop) playAudio(R.raw.croptype, true); 
+			
+			if((Integer) mResultsMap.get(INTERCROP) == defaultIntercrop) playAudio(R.raw.maincrop_intercrop, true); 
 			else playAudio(intercropList.get(((Integer)mResultsMap.get(INTERCROP))).getAudio(), true); 
 		}  else if (v.getId() == R.id.dlg_lbl_day_sow) {
-			// TODO AUDIO: "Select the day" default if nothing is in the field
-			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
-			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
-			else playAudio(R.raw.problems, true);   
+			
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.dateinfo, true); 
+			
+			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));   
 		} 
 		
-		// TODO AUDIO: Check the remaining audio
+		
 		else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.data_sow_help, true);
 		} else if (v.getId() == R.id.seed_type_sow_tr) {

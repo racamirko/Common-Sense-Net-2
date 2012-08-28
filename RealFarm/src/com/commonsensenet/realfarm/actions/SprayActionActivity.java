@@ -93,8 +93,8 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO "Choose the problem for spraying"  This is the audio that is heard when the selector dialog opens
-				displayDialog(v, problemList, PROBLEM,"Choose the problem for spraying", R.raw.problems,R.id.dlg_lbl_prob_spray, R.id.prob_spray_tr, 0);
+			
+				displayDialog(v, problemList, PROBLEM,"Choose the problem for spraying", R.raw.choose_problem_spraying,R.id.dlg_lbl_prob_spray, R.id.prob_spray_tr, 0);
 			}
 		});
 
@@ -105,8 +105,8 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO "Choose the pesticide"  This is the audio that is heard when the selector dialog opens
-				displayDialog(v, pesticideList, PESTICIDE, "Choose the pesticide",R.raw.problems, R.id.dlg_lbl_pest_spray,R.id.pest_spray_tr, 0);
+				
+				displayDialog(v, pesticideList, PESTICIDE, "Choose the pesticide",R.raw.selectthepesticide, R.id.dlg_lbl_pest_spray,R.id.pest_spray_tr, 0);
 			}
 		});
 
@@ -117,11 +117,6 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Choose the quantity" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
 				displayDialogNP("Choose the quantity", AMOUNT, R.raw.selecttheunits, 1, 20, 1, 1, 0, R.id.dlg_lbl_unit_no_spray, R.id.units_spray_tr, R.raw.ok, R.raw.cancel, R.raw.quantity_ok, R.raw.quantity_cancel);
 			}
 		});
@@ -133,8 +128,8 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO "Choose the unit"  This is the audio that is heard when the selector dialog opens
-				displayDialog(v, unitList, UNIT, "Choose the unit", R.raw.problems,R.id.dlg_lbl_units_spray, R.id.units_spray_tr, 1);
+				
+				displayDialog(v, unitList, UNIT, "Choose the unit", R.raw.selecttheunits,R.id.dlg_lbl_units_spray, R.id.units_spray_tr, 1);
 			}
 		});
 
@@ -145,11 +140,7 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+			
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_spray, R.id.day_spray_tr,
@@ -165,7 +156,7 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO "Choose the month"  This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_spray,
 						R.id.day_spray_tr, 0);
@@ -182,34 +173,34 @@ public class SprayActionActivity extends DataFormActivity {
 		// forces all long click sounds.
 
 		if (v.getId() == R.id.dlg_lbl_prob_spray) {
-			// TODO AUDIO: "Select the problem" default if nothing is in the field
+			
 			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.selecttheproblem, true); 
 			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_pest_spray) {
-			// TODO AUDIO: "Select the pesticide" default if nothing is in the field
+			
 			if((Integer) mResultsMap.get(PESTICIDE) == defaultPesticide) playAudio(R.raw.selectthepesticide, true); 
 			else playAudio(pesticideList.get(((Integer)mResultsMap.get(PESTICIDE))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_units_spray) {
-			// TODO AUDIO: "Select the unit" default if nothing is in the field
+			
 			if((Integer) mResultsMap.get(UNIT) == defaultUnit) playAudio(R.raw.selecttheunits, true); 
 			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_spray) {
-			// TODO AUDIO: "Select the number" default if nothing is in the field
-			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.selecttheunits, true); 
+		
+			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.select_unit_number, true); 
 			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(AMOUNT).toString());
-			else playAudio(R.raw.problems, true);   
+			else play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));   
 		} else if (v.getId() == R.id.dlg_lbl_day_spray) {
-			// TODO AUDIO: "Select the number" default if nothing is in the field
-			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
+			
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.dateinfo, true); 
 			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
-			else playAudio(R.raw.problems, true);  
+			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));  
 		} else if (v.getId() == R.id.dlg_lbl_month_spray) {
-			// TODO AUDIO: "Select the unit" default if nothing is in the field
+	
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
 			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		}
 		
-		// TODO AUDIO: Check the remaining audio
+	
 		else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.spray_help, true);
 		}  else if (v.getId() == R.id.prob_spray_tr) {

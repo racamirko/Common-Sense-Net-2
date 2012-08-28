@@ -196,7 +196,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "numberPicker", "text", textView.getText());
 				ApplicationTracker.getInstance().flush();
 				// TODO AUDIO: read the number textView.getText()
-				playAudio(R.raw.dateinfo);
+				
+				//TO DO:Has to play audio for floating numbers also
+				play_day_audio(Integer.valueOf(textView.getText().toString())); 
 				return false;
 			}
 		});
@@ -342,6 +344,112 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				textView.setTextColor(Color.BLACK);
 			}
 		}
+	}
+	
+	public void play_day_audio(int n)                   //For audio added
+	{
+		
+	 
+		switch(n){
+		case 1:
+			playAudio(R.raw.a1, true); 
+			break;
+		case 2:
+			playAudio(R.raw.a2, true); 
+			break;
+		case 3:
+			playAudio(R.raw.a3, true); 
+			break;
+		case 4:
+			playAudio(R.raw.a4, true); 
+			break;
+		case 5:
+			playAudio(R.raw.a5, true); 
+			break;
+		case 6:
+			playAudio(R.raw.a6, true); 
+			break;
+		case 7:
+			playAudio(R.raw.a7, true); 
+			break;
+		case 8:
+			playAudio(R.raw.a8, true); 
+			break;
+		case 9:
+			playAudio(R.raw.a9, true); 
+			break;
+		case 10:
+			playAudio(R.raw.a10, true); 
+			break;
+		case 11:
+			playAudio(R.raw.a11, true); 
+			break;
+		case 12:
+			playAudio(R.raw.a12, true); 
+			break;
+		case 13:
+			playAudio(R.raw.a13, true); 
+			break;
+		case 14:
+			playAudio(R.raw.a14, true); 
+			break;
+		case 15:
+			playAudio(R.raw.a15, true); 
+			break;
+		case 16:
+			playAudio(R.raw.a16, true); 
+			break;
+		case 17:
+			playAudio(R.raw.a17, true); 
+			break;
+		case 18:
+			playAudio(R.raw.a18, true); 
+			break;
+		case 19:
+			playAudio(R.raw.a19, true); 
+			break;
+		case 20:
+			playAudio(R.raw.a21, true); 
+			break;
+		case 21:
+			playAudio(R.raw.a21, true); 
+			break;
+		case 22:
+			playAudio(R.raw.a22, true); 
+			break;
+		case 23:
+			playAudio(R.raw.a23, true); 
+			break;
+		case 24:
+			playAudio(R.raw.a24, true); 
+			break;
+		case 25:
+			playAudio(R.raw.a25, true); 
+			break;
+		case 26:
+			playAudio(R.raw.a26, true); 
+			break;
+		case 27:
+			playAudio(R.raw.a27, true); 
+			break;
+		case 28:
+			playAudio(R.raw.a28, true); 
+			break;
+		case 29:
+			playAudio(R.raw.a29, true); 
+			break;
+		case 30:
+			playAudio(R.raw.a30, true); 
+			break;
+		case 31:
+			playAudio(R.raw.a31, true); 
+			break;
+		
+		
+		default:
+			break;
+	}
+
 	}
 
 	/**

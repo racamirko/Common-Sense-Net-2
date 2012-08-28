@@ -44,7 +44,7 @@ public class ReportActionActivity extends DataFormActivity {
 		varietyList = mDataProvider.getVarietiesByPlotAndSeason(Global.plotId);
 		monthList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 
-		playAudio(R.raw.clickingfertilising);
+		playAudio(R.raw.clickingreporting);
 
 		// adds the values that need to be validated.
 		mResultsMap.put(PROBLEM, defaultProblem);
@@ -77,9 +77,9 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the problem" This is the audio that is heard when the selector dialog opens
+			
 				displayDialog(v, problemList, PROBLEM, "Choose the problem type",
-						R.raw.problems, R.id.dlg_lbl_var_prob,
+						R.raw.selecttheproblem, R.id.dlg_lbl_var_prob,
 						R.id.var_prob_tr, 0);
 
 			}
@@ -92,9 +92,9 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the variety" This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
-						R.raw.problems, R.id.dlg_lbl_var_prob4,
+						R.raw.select_the_variety, R.id.dlg_lbl_var_prob4,
 						R.id.var_prob_tr4, 0);
 
 			}
@@ -107,16 +107,12 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 				
-				// TODO AUDIO: "Choose the day" This is the audio that is heard when the selector dialog opens
-				// TODO AUDIO:  Text on tap on ok button in Number picker
-				// TODO AUDIO:  Text on tap on cancel button in Number picker
-				// TODO AUDIO:  Info on long tap on ok button in Number picker
-				// TODO AUDIO:  Info on long tap on cancel button in Number picker
+				
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_prob, R.id.day_prob_tr,
-						R.raw.dateinfo, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok,
+						R.raw.day_cancel);
 
 			}
 		});
@@ -128,9 +124,9 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				// TODO AUDIO: "Select the month" This is the audio that is heard when the selector dialog opens
+				
 				displayDialog(v, monthList, MONTH, "Select the month",
-						R.raw.bagof50kg, R.id.dlg_lbl_month_prob,
+						R.raw.choosethemonth, R.id.dlg_lbl_month_prob,
 						R.id.day_prob_tr, 0);
 			}
 		});
@@ -145,29 +141,29 @@ public class ReportActionActivity extends DataFormActivity {
 		// forces all audio sounds to be played.
 
 		if (v.getId() == R.id.dlg_lbl_var_prob) {
-			// TODO AUDIO: "Select the problem" default if nothing is in the field
-			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.problems, true); 
+			
+			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.selecttheproblem, true); 
 			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_var_prob4) {
-			// TODO AUDIO: "Select the variety" default if nothing is in the field
-			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.problems, true); 
+			
+			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.select_the_variety, true); 
 			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio(), true); 
 		} else if (v.getId() == R.id.dlg_lbl_day_prob) {
-			// TODO AUDIO: "Select the day" default if nothing is in the field
-			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.date, true); 
-			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
-			else playAudio(R.raw.problems, true);  
+			
+			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.dateinfo, true); 
+			
+			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));  
 		} else if (v.getId() == R.id.dlg_lbl_month_prob) {
-			// TODO AUDIO: "Select the variety" default if nothing is in the field
+			
 			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
 			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
 		} 
 		
-		// TODO AUDIO: Check the remaining audio
+		
 		else if (v.getId() == R.id.var_prob_tr) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.var_prob_tr4) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.day_prob_tr) {
 			playAudio(R.raw.date, true);
 		} else {
