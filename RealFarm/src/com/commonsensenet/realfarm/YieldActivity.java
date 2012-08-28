@@ -14,22 +14,10 @@ public class YieldActivity extends HelpEnabledActivityOld {
 
 	private final Context context = this;
 	private RealFarmProvider mDataProvider;
-	private boolean sel_1;
-	private boolean sel_2;
-	private boolean sel_3;
-	private boolean sel_4;
-	private boolean sel_5;
-	private boolean sel_6;
 
 	public static final String LOG_TAG = "YieldDetailsActivity";
 
 	public void onCreate(Bundle savedInstanceState) {
-		System.out.println("WF details entered");
-		// super.onCreate(savedInstanceState);
-		// setContentView(R.layout.wf_details);
-		// RelativeLayout relLay = (RelativeLayout)
-		// findViewById(R.id.RelativeLayout93);
-		// setContentView(R.id.linearLayout19);
 
 		mDataProvider = RealFarmProvider.getInstance(context);
 

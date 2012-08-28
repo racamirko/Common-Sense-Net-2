@@ -35,11 +35,9 @@ import com.commonsensenet.realfarm.view.AggregateItemAdapter;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
-public abstract class AggregateMarketActivity extends HelpEnabledActivityOld implements OnItemClickListener, OnLongClickListener, OnItemLongClickListener{
+public abstract class AggregateMarketActivity extends TopSelectorActivity implements OnItemClickListener, OnLongClickListener, OnItemLongClickListener{
 
-	protected Resource topSelectorData;
 	protected Resource daysSelectorData;
-	protected RealFarmProvider mDataProvider;
 	protected List<AggregateItem> mItems;
 	protected ListView mListView;
 	protected AggregateItemAdapter mItemAdapter;
@@ -49,14 +47,11 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 	
 
 	public void onCreate(Bundle savedInstanceState, int resLayoutId, Context context) {
-		super.onCreate(savedInstanceState, resLayoutId);
-		mDataProvider = RealFarmProvider.getInstance(context);
+		super.onCreate(savedInstanceState, resLayoutId, context);
 		mLayoutInflater = getLayoutInflater();
-
 	}
-
-	public void setList() {		
-		
+	
+	public void setList(){
 		int cropSeedTypeId = topSelectorData.getId();
 
 		mItems = null;
@@ -76,88 +71,25 @@ public abstract class AggregateMarketActivity extends HelpEnabledActivityOld imp
 		// sets the listener for the sound
 		mListView.setOnItemLongClickListener(this);
 
-		setTopSelector();
+		super.setTopSelector(mActionTypeId);
 		if(currentAction == RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET) setDaysSelector();
+		
+	}
+
+	public void setList(int type, Resource choice) {		
+		
+		if (type == 2) { // change the query
+			topSelectorData = choice;
+		} else if (type == 1) { // days span
+			daysSelectorData = choice;
+		}
+		
+		setList();
 	}
 
 	private void setDaysSelector() {
 		final TextView selectorText = (TextView) findViewById(R.id.days_selector_label);
 		selectorText.setText("last "+daysSelectorData.getShortName());
-	}
-
-	private void setTopSelector() {
-		ActionType actionType = mDataProvider.getActionTypeById(mActionTypeId);
-		final ImageView actionImg = (ImageView) findViewById(R.id.aggr_action);
-		actionImg.setImageResource(actionType.getImage1());
-		final ImageView selectorImg = (ImageView) findViewById(R.id.aggr_crop_img);
-		selectorImg.setBackgroundResource(topSelectorData.getBackgroundImage());
-		final TextView selectorText = (TextView) findViewById(R.id.textView1);
-		selectorText.setText(topSelectorData.getShortName());
-	}
-
-	protected void displayDialog(View v, final List<Resource> data,
-			final String title, int entryAudio,
-			final ImageView actionTypeImage, final int type) {
-		final Dialog dialog = new Dialog(v.getContext());
-		dialog.setContentView(R.layout.mc_dialog);
-		dialog.setTitle(title);
-		dialog.setCancelable(true);
-		dialog.setCanceledOnTouchOutside(true);
-
-		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
-				R.layout.mc_dialog_row, data);
-		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
-		mList.setAdapter(m_adapter);
-
-		dialog.show();
-		playAudio(entryAudio);
-
-		// TODO AUDIO: adapt the audio in the database.
-		mList.setOnItemClickListener(new OnItemClickListener() {
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				// Does whatever is specific to the application
-				Log.d("var " + position + " picked ", "in dialog");
-				Resource choice = data.get(position);
-
-				// TODO: this won't work.
-				if (type == 2) { // change the query
-					topSelectorData = data.get(position);
-				} else if (type == 1) { // days span
-					daysSelectorData = data.get(position);
-				}
-				setList();
-
-				if(actionTypeImage != null) actionTypeImage
-				.setBackgroundResource(data.get(position).getBackgroundImage());
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog "+choice.getShortName());
-				ApplicationTracker.getInstance().flush();
-
-				/*Toast.makeText(mParentReference, data.get(position).getName(),
-						Toast.LENGTH_SHORT).show();*/
-
-				// onClose
-				dialog.cancel();
-				int iden = choice.getAudio();
-				playAudio(iden);
-			}
-		});
-
-		mList.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			// TODO: adapt the audio in the database
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "dialog "+data.get(position).getShortName());
-				ApplicationTracker.getInstance().flush();
-
-				int iden = data.get(position).getAudio();
-				playAudio(iden, true);
-				return true;
-			}
-		});
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
