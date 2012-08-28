@@ -414,7 +414,7 @@
                                 android:id="@+id/hmscrn_img_market_max"
                                 android:layout_width="wrap_content"
                                 android:layout_height="12dp"
-                                android:src="@drawable/maxprize" />
+                                android:src="@drawable/maxprice" />
 
                             <TextView
                                 android:id="@+id/hmscrn_lbl_market_price_max"
@@ -435,7 +435,7 @@
                                 android:id="@+id/hmscrn_img_market_min"
                                 android:layout_width="wrap_content"
                                 android:layout_height="12dp"
-                                android:src="@drawable/minprize" />
+                                android:src="@drawable/minprice" />
 
                             <TextView
                                 android:id="@+id/hmscrn_lbl_market_price_min"

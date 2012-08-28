@@ -199,6 +199,7 @@ public class YieldActivity extends TopSelectorActivity implements OnClickListene
 			case 2:
 				topSelectorData = choice;
 				super.setTopSelector(mActionTypeId);
+				// TODO: reinitialize the variety selector below according to the new crop?
 				break;
 			case 3:
 				locationSelectorData = choice;
@@ -333,7 +334,6 @@ public class YieldActivity extends TopSelectorActivity implements OnClickListene
 
 
 			}
-			updateValues();
 		}
 	}
 	

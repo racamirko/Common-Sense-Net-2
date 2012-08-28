@@ -95,7 +95,7 @@
                                 android:layout_width="wrap_content"
                            		android:layout_height="fill_parent"
                             	android:layout_margin="5dip"
-                                android:src="@drawable/maxprize" />
+                                android:src="@drawable/maxprice" />
                         
                         <TextView
                             android:id="@+id/max_price"
@@ -115,7 +115,7 @@
                             	android:layout_height="fill_parent"                            
                             	android:layout_marginTop="5dip"
                             	android:layout_marginBottom="5dip"
-                                android:src="@drawable/minprize" />
+                                android:src="@drawable/minprice" />
                         
                         <TextView
                             android:id="@+id/min_price"
