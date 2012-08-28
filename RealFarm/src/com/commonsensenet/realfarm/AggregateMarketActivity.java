@@ -20,6 +20,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
@@ -200,6 +201,15 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity implem
 
 			public void onItemClick(AdapterView<?> parent, View view,
 					int position, long id) {
+				
+				if(list.get(position).getId() == Global.userId) {
+					Toast.makeText(
+							getBaseContext(),
+							"You cannot call yourself", Toast.LENGTH_SHORT).show();
+					// TODO AUDIO: "You cannot call yourself"
+					playAudio(R.raw.problems);
+					return;
+				}
 				
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog call "+list.get(position).getName());
 				ApplicationTracker.getInstance().flush();

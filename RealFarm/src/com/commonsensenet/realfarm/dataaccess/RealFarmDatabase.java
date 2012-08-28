@@ -934,13 +934,13 @@ public class RealFarmDatabase {
 				/** Sowing window */
 				{ "2011", "2011", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_YEAR , -1 },
 				/** Sowing window */
-				{ "Bharani", "27.4 10.5", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Kritika", "11.5 24.5", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Rohini", "24.5 07.6", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Mrigashira", "08.6 21.6", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Ardra", "22.6 05.7", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Punarvasu", "06.7 19.7", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Pushya", "20.7 02.8", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 }
+				{ "Bharani 27.4. - 10.5.", "27.4. 10.5.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Kritika 11.5. - 24.5.", "11.5. 24.5.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Rohini 24.5. - 07.6.", "24.5 07.6", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Mrigashira 08.6 -. 21.6.", "08.6. 21.6.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Ardra 22.6. - 05.7.", "22.6. 05.7.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Punarvasu 06.7. - 19.7.", "06.7. 19.7.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Pushya 20.7. - 02.8.", "20.7. 02.8.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 }
 
 		};
 

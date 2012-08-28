@@ -1697,13 +1697,13 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.resource1Id, a.resource2Id, a.quantity1, p.size, u.nameAudio, u.locationAudio FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+treatmentId+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.resource1Id, a.resource2Id, a.quantity1, p.size, u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+treatmentId+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
 		if (c.moveToFirst()) {
 			do {									
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(12));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");
@@ -1730,13 +1730,13 @@ public class RealFarmProvider {
 	public List<UserAggregateItem> getUserAggregateItemFertilize(int actionTypeId, long seedTypeId, long fertilizerId) {
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size , u.nameAudio, u.locationAudio FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = " +seedTypeId+") AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+fertilizerId+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size , u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = " +seedTypeId+") AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+fertilizerId+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
 		if (c.moveToFirst()) {
 			do {
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(11));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");				
@@ -1761,13 +1761,13 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, u.nameAudio, u.locationAudio FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = " +seedTypeId+") AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+irrigateMethodId+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = " +seedTypeId+") AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+irrigateMethodId+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
 		if (c.moveToFirst()) {
 			do {
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(9));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");
@@ -1797,12 +1797,12 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, u.nameAudio, u.locationAudio  FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+problemTypeId+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, u.nameAudio, u.locationAudio, u.id  FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.seedTypeId = "+seedTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource1Id = "+problemTypeId+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		if (c.moveToFirst()) {
 			do {	
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(8));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");
@@ -1825,13 +1825,13 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, un.value, p.size , u.nameAudio, u.locationAudio FROM action a, user u, unit un, plot p WHERE a.plotId = p.id AND a.userId = u.id AND a.unit1Id = un.id AND a.actionTypeId = "+actionTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.seedTypeId = "+seedTypeId+ " ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, un.value, p.size , u.nameAudio, u.locationAudio, u.id FROM action a, user u, unit un, plot p WHERE a.plotId = p.id AND a.userId = u.id AND a.unit1Id = un.id AND a.actionTypeId = "+actionTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.seedTypeId = "+seedTypeId+ " ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
 		if (c.moveToFirst()) {
 			do {									
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(11));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");
@@ -1854,16 +1854,16 @@ public class RealFarmProvider {
 
 		int noneId = getResources(RealFarmDatabase.RESOURCE_TYPE_ADVICE).get(0).getId();
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
-		String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size, u.nameAudio, u.locationAudio FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = " +seedTypeId+") AND a.resource1Id = "+problemId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource2Id = "+pesticideId+" ORDER BY a.date DESC";
+		String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size, u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+actionTypeId+" AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = " +seedTypeId+") AND a.resource1Id = "+problemId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.resource2Id = "+pesticideId+" ORDER BY a.date DESC";
 		if(pesticideId == noneId){
-			MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size, u.nameAudio, u.locationAudio FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_REPORT_ID+" AND a.resource1Id = "+problemId+" AND a.seedTypeId = "+seedTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.plotId NOT IN (SELECT plotId FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SPRAY_ID+" AND resource1Id = "+problemId+" ORDER BY date DESC)";
+			MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size, u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_REPORT_ID+" AND a.resource1Id = "+problemId+" AND a.seedTypeId = "+seedTypeId+" AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.plotId NOT IN (SELECT plotId FROM action WHERE actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SPRAY_ID+" AND resource1Id = "+problemId+" ORDER BY date DESC)";
 		}
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
 		if (c.moveToFirst()) {
 			do {
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(11));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");
@@ -1896,13 +1896,13 @@ public class RealFarmProvider {
 		
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price, a.unit1Id, u.nameAudio, u.locationAudio FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price, a.unit1Id, u.nameAudio, u.locationAudio, u.id FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+actionTypeId+" AND a.cropTypeId = "+cropTypeId+ " AND a.date LIKE '"+Calendar.getInstance().get(Calendar.YEAR)+"-%' AND a.price >= "+min+" AND a.price < "+(min+RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
 		if (c.moveToFirst()) {
 			do {									
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(10));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");
@@ -2567,12 +2567,12 @@ public class RealFarmProvider {
 		String dateNow = DateHelper.getDateNow();
 		String stopDate = DateHelper.getDatePast(daySpan);
 		
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND a.cropTypeId = "+cropTypeId+" AND date >= '"+stopDate+"' AND a.date <= '"+dateNow+"' AND a.unit1Id = "+weightId+" ORDER BY a.date DESC";
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price, u.id FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "+RealFarmDatabase.ACTION_TYPE_SELL_ID+" AND a.cropTypeId = "+cropTypeId+" AND date >= '"+stopDate+"' AND a.date <= '"+dateNow+"' AND a.unit1Id = "+weightId+" ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		if (c.moveToFirst()) {
 			do {									
-				UserAggregateItem a = new UserAggregateItem();
+				UserAggregateItem a = new UserAggregateItem(c.getLong(7));
 				a.setName(c.getString(0)+" "+c.getString(1)+", "+c.getString(2));
 				String[] tokens = c.getString(3).split("-");
 				a.setDate(tokens[2]+"."+tokens[1]+".");

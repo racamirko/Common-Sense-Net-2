@@ -21,9 +21,14 @@ public class UserAggregateItem {
 	int audioLeftImage = -1;
 	int audioCenterImage = -1;
 	int audioRightImage = -1;
+	long id = -1;
 
-	public UserAggregateItem() {
-		
+	public UserAggregateItem(long id) {
+		this.id = id;
+	}
+	
+	public long getId() {
+		return id;
 	}
 
 	public void setName(String name) {
