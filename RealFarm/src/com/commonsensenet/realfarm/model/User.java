@@ -31,8 +31,9 @@ public class User {
 	private String mMobileNumber;
 	/** Timestamp that indicates the creation of the User. */
 	private long mTimestamp;
-	
+	/** Audio resource that represents the name. */
 	private int mNameAudio;
+	/** Audio resource that represents the location. */
 	private int mLocationAudio;
 
 	public User(long id, String firstname, String lastname,
@@ -52,6 +53,14 @@ public class User {
 		mTimestamp = timestamp;
 		mNameAudio = nameAudio;
 		mLocationAudio = locationAudio;
+	}
+
+	public int getNameAudio() {
+		return mNameAudio;
+	}
+
+	public int getLocationAudio() {
+		return mLocationAudio;
 	}
 
 	public String getDeviceId() {
