@@ -22,13 +22,15 @@ import android.util.Log;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class OwnCameraActivity extends Activity implements
-		SurfaceHolder.Callback {
+		SurfaceHolder.Callback, OnLongClickListener {
 
 	/** Date format used to create the Timestamp. */
 	protected static final String DATE_FORMAT = "yyyyMMdd_HHmmss";
@@ -112,8 +114,9 @@ public class OwnCameraActivity extends Activity implements
 					FileOutputStream fos = new FileOutputStream(pictureFile);
 					fos.write(data);
 					fos.close();
-					Toast.makeText(OwnCameraActivity.this, "Image saved.",
-							Toast.LENGTH_SHORT).show();
+				//	Toast.makeText(OwnCameraActivity.this, "Image saved.",
+				//			Toast.LENGTH_SHORT).show();
+					
 
 				} catch (FileNotFoundException e) {
 					Log.d(LOG_TAG, "File not found: " + e.getMessage());
@@ -206,6 +209,7 @@ public class OwnCameraActivity extends Activity implements
 
 		// Adding listener to the capture button
 		View captureButton = findViewById(R.id.button_capture);
+		captureButton.setOnLongClickListener(this);
 		captureButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
@@ -342,5 +346,34 @@ public class OwnCameraActivity extends Activity implements
 			mCamera.release();
 		}
 		Log.d(LOG_TAG, "Preview destroyed");
+	}
+
+	public boolean onLongClick(View v) {
+		
+		if (v.getId() == R.id.button_capture) {
+			Add_To_Queue(R.raw.plotimage);
+			play_Sound(true);
+			
+		}
+		return true;
+	}
+	
+	public void Add_To_Queue(int resid)                                    //adds to queue
+	{
+		SoundQueue sq = SoundQueue.getInstance();
+		// adds the sound to the queue
+		sq.addToQueue(resid);
+	}
+	
+	public void play_Sound(boolean play)                                    //added for audio
+	{
+		if(play==true)
+		{
+		SoundQueue.getInstance().play();
+		}
+	}
+	
+	protected void stopAudio() {
+		SoundQueue.getInstance().stop();
 	}
 }

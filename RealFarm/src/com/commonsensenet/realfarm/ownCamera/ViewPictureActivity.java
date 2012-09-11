@@ -15,14 +15,17 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 
 import com.commonsensenet.realfarm.AddPlotActivity;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
-public class ViewPictureActivity extends Activity {
+public class ViewPictureActivity extends Activity implements
+		OnLongClickListener {
 
 	/** Property name of the extra used to store the image path. */
 	public static final String IMAGE_PATH = "imagePath";
@@ -96,13 +99,17 @@ public class ViewPictureActivity extends Activity {
 		Button retakeButton = (Button) findViewById(R.id.button_cancel);
 		Button saveButton = (Button) findViewById(R.id.button_ok);
 
+		retakeButton.setOnLongClickListener(this);
+		saveButton.setOnLongClickListener(this);
+
 		// adds the listener to re-take the image.
 		retakeButton.setOnClickListener(new View.OnClickListener() {
 
 			public void onClick(View v) {
 				// TODO: clean image and return to previous activity
 				// delete image from sd card
-
+				addSoundToQueue(R.raw.click_image_notsaved);
+				playSound();
 				boolean deleted = mImageFile.delete();
 
 				if (deleted) {
@@ -129,6 +136,8 @@ public class ViewPictureActivity extends Activity {
 
 			public void onClick(View v) {
 
+				addSoundToQueue(R.raw.click_image_saved);
+				playSound();
 				Intent intent = new Intent(ViewPictureActivity.this,
 						AddPlotActivity.class);
 				intent.putExtra(IMAGE_PATH, mImagePath);
@@ -136,5 +145,32 @@ public class ViewPictureActivity extends Activity {
 				ViewPictureActivity.this.finish();
 			}
 		});
+	}
+
+	public boolean onLongClick(View v) {
+
+		if (v.getId() == R.id.button_ok) {
+			addSoundToQueue(R.raw.click_image_saved);
+			playSound();
+		} else if (v.getId() == R.id.button_cancel) {
+			addSoundToQueue(R.raw.click_image_notsaved);
+			playSound();
+		}
+
+		return true;
+	}
+
+	public void addSoundToQueue(int resid) {
+		SoundQueue sq = SoundQueue.getInstance();
+		// adds the sound to the queue
+		sq.addToQueue(resid);
+	}
+
+	public void playSound() {
+		SoundQueue.getInstance().play();
+	}
+
+	protected void stopAudio() {
+		SoundQueue.getInstance().stop();
 	}
 }
