@@ -9,6 +9,6 @@ public class Global {
 	public static Bitmap rotated;
 	public static Class<?> selectedAction = null;
 	public static long userId = -1;
-	public static boolean IS_INITIALIZED = false; // Used in Homescreen and AddPlot
+	public static boolean IS_INITIALIZED = false;
 
 }

@@ -29,12 +29,13 @@ import com.commonsensenet.realfarm.actions.FertilizeActionActivity;
 import com.commonsensenet.realfarm.actions.HarvestActionActivity;
 import com.commonsensenet.realfarm.actions.IrrigateActionActivity;
 import com.commonsensenet.realfarm.actions.ReportActionActivity;
-import com.commonsensenet.realfarm.actions.SowActionActivity;
 import com.commonsensenet.realfarm.actions.SellActionActivity;
+import com.commonsensenet.realfarm.actions.SowActionActivity;
 import com.commonsensenet.realfarm.actions.SprayActionActivity;
 import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
@@ -121,92 +122,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	protected void initDb() {
 		Log.i(getLogTag(), "Resetting database");
 		getApplicationContext().deleteDatabase(RealFarmDatabase.DB_NAME);
-	}
-
-	private void insertDemoData() {
-		if (!Global.IS_INITIALIZED) {
-
-			mDataProvider.addMarketPrice("2012-08-21", 3200, 4900, "");
-
-			/*
-			 * List<User> users = mDataProvider.getUsers(); List<Resource>
-			 * soilTypes = mDataProvider.getSoilTypes(); List<Resource> seeds =
-			 * mDataProvider.getSeedTypes();
-			 * 
-			 * Object[][] plotData = { { users.get(0).getId(),
-			 * seeds.get(0).getId(), soilTypes.get(0).getId(),
-			 * "farmer_90px_kiran_kumar_g", 1.5 }, { users.get(0).getId(),
-			 * seeds.get(3).getId(), soilTypes.get(1).getId(),
-			 * "farmer_90px_adam_jones", 2.1 }, { users.get(1).getId(),
-			 * seeds.get(5).getId(), soilTypes.get(0).getId(),
-			 * "farmer_90px_adam_jones", 5.6 }, { users.get(2).getId(),
-			 * seeds.get(7).getId(), soilTypes.get(2).getId(),
-			 * "farmer_90px_adam_jones", 10.0 }, { users.get(3).getId(),
-			 * seeds.get(9).getId(), soilTypes.get(3).getId(),
-			 * "farmer_90px_walmart_stores", 3.0 }
-			 * 
-			 * };
-			 * 
-			 * for (int x = 0; x < plotData.length; x++) { long plotId =
-			 * mDataProvider.addPlot((Long) plotData[x][0], (Integer)
-			 * plotData[x][1], (Integer) plotData[x][2], (String)
-			 * plotData[x][3], (Double) plotData[x][4]); // updates the id if I
-			 * am the owner if ((Long) plotData[x][0] == Global.userId) {
-			 * Global.plotId = (int) plotId; } }
-			 * 
-			 * Log.d(getLogTag(), "plot works");
-			 */
-
-			// sowing
-			// mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
-			// "Bag of 10 Kgs", "01.12", "treated", 0, 0, "maincrop");
-			// mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
-			// "Bag of 10 Kgs", "02.12", "treated", 0, 0, "maincrop");
-			// mDataProvider.setSowing(2, 1, seeds.get(1).getId(),
-			// "Bag of 10 Kgs", "03.12", "treated", 0, 0, "maincrop");
-			// mDataProvider.setSowing(3, 1, seeds.get(3).getId(),
-			// "Bag of 10 Kgs", "04.12", "treated", 0, 0, "intercrop");
-			// mDataProvider.setSowing(4, 1, seeds.get(3).getId(),
-			// "Bag of 10 Kgs", "05.12", "treated", 0, 0, "intercrop");
-			// mDataProvider.setSowing(5, 1, seeds.get(4).getId(),
-			// "Bag of 10 Kgs", "01.12", "not treated", 0, 0, "intercrop");
-			// mDataProvider.setSowing(5, 1, seeds.get(2).getId(),
-			// "Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
-			// mDataProvider.setSowing(5, 1, seeds.get(5).getId(),
-			// "Bag of 10 Kgs", "01.12", "treated", 0, 0, "intercrop");
-			//
-			// // Fertilizing
-			// mDataProvider.setFertilizing(1, 2, "Complex", "1L can(s)",
-			// "24.12",
-			// 0, 0);
-			// mDataProvider.setFertilizing(2, 2, "Gypsum", "cart load(s)",
-			// "25.12", 0, 0);
-			// mDataProvider.setFertilizing(1, 2, "Urea", "tractor load(s)",
-			// "26.12", 0, 0);
-			// mDataProvider.setFertilizing(2, 2, "Super", "1L can(s)", "27.12",
-			// 0, 0);
-			//
-			// // irrigating
-			// mDataProvider.setIrrigation(1, 4, "hours", "01.12", "Spraying",
-			// 0,
-			// 0);
-			// mDataProvider.setIrrigation(2, 4, "hours", "01.12", "Flooding",
-			// 0,
-			// 0);
-			// mDataProvider.setIrrigation(3, 5, "hours", "02.12", "Spraying",
-			// 0,
-			// 0);
-			// mDataProvider.setIrrigation(4, 1, "hours", "04.12", "Flooding",
-			// 0,
-			// 0);
-			// mDataProvider.setIrrigation(2, 1, "hours", "04.12", "Flooding",
-			// 0,
-			// 0);
-
-			// flags the data insertion as done.
-			// Global.IS_INITIALIZED = true;
-		}
-
 	}
 
 	@Override
@@ -551,7 +466,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// clears the database
 		// initDb();
-		insertDemoData();
+
+		List<Action> actions = mDataProvider.getActions();
+
+		for (int x = 0; x < actions.size(); x++) {
+			Log.d(getLogTag(), actions.get(x).toString());
+		}
 
 		// updates the news indicators for the aggregates
 		updateAggregatesNumbers();

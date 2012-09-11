@@ -582,6 +582,13 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_LOCATION = 13;
 	public static final int RESOURCE_TYPE_YEAR = 14;
 	public static final int RESOURCE_TYPE_SOWING_WINDOW = 15;
+	public static final int RESOURCE_TYPE_PEST_SELECTOR = 16;
+	public static final int RESOURCE_TYPE_DISEASE_SELECTOR = 17;
+	public static final int RESOURCE_TYPE_IRRIGATION_SELECTOR = 18;
+	public static final int RESOURCE_TYPE_SPRAYING_SELECTOR = 19;
+	public static final int RESOURCE_TYPE_FERTILIZE_SELECTOR = 20;
+	public static final int RESOURCE_TYPE_VARIETY = 21;
+	public static final int RESOURCE_TYPE_SOIL_TYPE = 22;
 	
 
 	public static final String TABLE_NAME_ACTION = "action";
@@ -779,6 +786,8 @@ public class RealFarmDatabase {
 
 		};
 
+		
+		
 		ContentValues actionType = new ContentValues();
 		for (int x = 0; x < actionTypeData.length; x++) {
 			actionType.put(COLUMN_NAME_ACTIONTYPE_ID,
@@ -934,16 +943,42 @@ public class RealFarmDatabase {
 				/** Sowing window */
 				{ "2011", "2011", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_YEAR , -1 },
 				/** Sowing window */
-				{ "Bharani 27.4. - 10.5.", "27.4. 10.5.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Kritika 11.5. - 24.5.", "11.5. 24.5.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Rohini 24.5. - 07.6.", "24.5 07.6", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Mrigashira 08.6 -. 21.6.", "08.6. 21.6.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Ardra 22.6. - 05.7.", "22.6. 05.7.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Punarvasu 06.7. - 19.7.", "06.7. 19.7.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Pushya 20.7. - 02.8.", "20.7. 02.8.", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 }
-
+				{ "Bharani 27.4. - 10.5.", "27.4. 10.5.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Kritika 11.5. - 24.5.", "11.5. 24.5.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Rohini 24.5. - 07.6.", "24.5 07.6", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Mrigashira 08.6 -. 21.6.", "08.6. 21.6.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Ardra 22.6. - 05.7.", "22.6. 05.7.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "Punarvasu 06.7. - 19.7.", "06.7. 19.7.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				{ "All", "", R.raw.problems, R.drawable.yt_sowingwindownotfiltered, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
+				/**Selectors*/
+				{ "Yes", "", -1, R.drawable.yt_diseased, -1, -1, RESOURCE_TYPE_DISEASE_SELECTOR,-1},
+				{ "No", "", -1, R.drawable.yt_diseaseno, -1, -1, RESOURCE_TYPE_DISEASE_SELECTOR,-1},
+				{ "All", "", -1, R.drawable.yt_diseasesnotfiltered, -1, -1, RESOURCE_TYPE_DISEASE_SELECTOR,-1},
+				{ "Yes", "", -1, R.drawable.yt_pested, -1, -1, RESOURCE_TYPE_PEST_SELECTOR,-1},
+				{ "No", "", -1, R.drawable.yt_pestedno, -1, -1, RESOURCE_TYPE_PEST_SELECTOR,-1},
+				{ "All", "", -1, R.drawable.yt_pestnotfiltered, -1, -1, RESOURCE_TYPE_PEST_SELECTOR,-1},
+				{ "Yes", "", -1, R.drawable.yt_irrigated, -1, -1, RESOURCE_TYPE_IRRIGATION_SELECTOR,-1},
+				{ "No", "", -1, R.drawable.yt_irrigatedno, -1, -1, RESOURCE_TYPE_IRRIGATION_SELECTOR,-1},
+				{ "All", "", -1, R.drawable.yt_irrigatednotfiltered, -1, -1, RESOURCE_TYPE_IRRIGATION_SELECTOR,-1},
+				{ "Yes", "", -1, R.drawable.yt_sprayingselected, -1, -1, RESOURCE_TYPE_SPRAYING_SELECTOR,-1},
+				{ "No", "", -1, R.drawable.yt_sprayingno, -1, -1, RESOURCE_TYPE_SPRAYING_SELECTOR,-1},
+				{ "All", "", -1, R.drawable.yt_sprayingnotfiltered, -1, -1, RESOURCE_TYPE_SPRAYING_SELECTOR,-1},
+				{ "Yes", "", -1, R.drawable.yt_fertilized, -1, -1, RESOURCE_TYPE_FERTILIZE_SELECTOR,-1},
+				{ "No", "", -1, R.drawable.yt_fertilizedno, -1, -1, RESOURCE_TYPE_FERTILIZE_SELECTOR,-1},
+				{ "All", "", -1, R.drawable.yt_fertilizednotfiltered, -1, -1, RESOURCE_TYPE_FERTILIZE_SELECTOR,-1},
+				{ "TMV2", "TMV2", R.raw.tmv_2, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_castor, RESOURCE_TYPE_VARIETY,-1},
+				{ "K6", "K6",  R.raw.k_6, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_groundnut, RESOURCE_TYPE_VARIETY,-1},
+				{ "Samrat", "Samrat",R.raw.samrat, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_bajra, RESOURCE_TYPE_VARIETY,-1},
+				{ "JL24", "JL24", R.raw.jl_24, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_groundnut, RESOURCE_TYPE_VARIETY,-1},
+				{ "All", "All", -1, R.drawable.yt_varietiesnotfiltered, -1, -1, RESOURCE_TYPE_VARIETY,-1},
+				{ "Red loam", "Red loam", R.raw.red_loam, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_redloam, RESOURCE_TYPE_SOIL_TYPE,-1},
+				{ "Sandy", "Sandy", R.raw.sandy, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_sandloam, RESOURCE_TYPE_SOIL_TYPE,-1},
+				{ "Black loam", "Black loam", R.raw.black_loam, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_kappumannu, RESOURCE_TYPE_SOIL_TYPE,-1},
+				{ "Black clayey loam", "BC loam", R.raw.black_clay_loam, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_clayloam, RESOURCE_TYPE_SOIL_TYPE,-1},
+				{ "Jedi Maralu", "Sand", R.raw.jedi_maralu, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_irrigatesoilloam, RESOURCE_TYPE_SOIL_TYPE,-1},
 		};
 
+		
 		ContentValues resource = new ContentValues();
 		for (int x = 0; x < resourceData.length; x++) {
 			resource.put(COLUMN_NAME_RESOURCE_NAME, (String) resourceData[x][0]);
@@ -1279,6 +1314,26 @@ public class RealFarmDatabase {
 			insertEntriesIntoDatabase(TABLE_NAME_SEEDTYPE, seedtype, db);
 			seedtype.clear();
 		}
+		
+		Object[][] yieldData = {};
+
+		ContentValues yieldAgg = new ContentValues();
+		for (int x = 0; x < yieldData.length; x++) {
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HADPEST, (String)yieldData[x][0]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HASFERTILIZED, (String)yieldData[x][1]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HADDISEASE, (String) yieldData[x][2]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HASIRRIGATED, (String)yieldData[x][3]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_ID, (String) yieldData[x][4]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_PLACEID, (String) yieldData[x][5]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SEASONID, (String) yieldData[x][6]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SEEDTYPEID, (String) yieldData[x][7]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SOWINGWINDOWID, (String) yieldData[x][8]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SPRAYED,(String)yieldData[x][9]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_YIELDINQTPACRE,(Double) yieldData[x][10]);
+			insertEntriesIntoDatabase(TABLE_NAME_YIELDAGG, yieldAgg, db);
+			yieldAgg.clear();
+		}
+		
 
 		Log.d(LOG_TAG, "seedtype works");
 

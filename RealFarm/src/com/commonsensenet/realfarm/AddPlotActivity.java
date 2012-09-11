@@ -46,7 +46,8 @@ public class AddPlotActivity extends DataFormActivity {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, mType);
 
-		if (!Global.IS_INITIALIZED) { // add advice related to the plot
+		// TODO: remove this dummy data.
+		if (!Global.IS_INITIALIZED) {
 
 			long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
 			long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);

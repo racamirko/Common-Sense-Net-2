@@ -11,6 +11,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import android.R.string;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
@@ -2644,4 +2645,28 @@ public class RealFarmProvider {
 		if(res == 0) return "";
 		else return res+"";
 	}
+	
+	
+	public String[] getYieldData(List<String> resources){
+		
+		String MY_QUERY = "SELECT MAX(yieldInQtPerAcre) as max,MIN(yieldInQtPerAcre) as min,COUNT(id) as count,SUM(yieldInQtPerAcre) as num FROM yieldAgg WHERE seedTypeId='1' and placeId='1' ";
+		for(int i=0; i<resources.size();i++){
+			if(resources.get(i)!=null){
+				MY_QUERY += resources.get(i);
+			}
+		}
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(MY_QUERY,  new String[] {});
+		String[] result = new String[c.getColumnCount()];
+		if (c.moveToFirst()) {
+			for (int i=0;i<c.getColumnCount();i++){
+				result[i] =c.getString(i);
+			}
+		}
+		c.close();
+		mDatabase.close();
+		return result;
+	}
 }
+
+

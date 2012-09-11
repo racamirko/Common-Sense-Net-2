@@ -34,7 +34,7 @@ public class ReminderTask implements Task {
 	String ActionStr = "%1000%";             //Indicates message type--"action"  
 	String PlotStr = "%1001%";				 //Indicates message type--"plot" 
 	String UserStr = "%1002%";				 //Indicates message type--"users" 
-	String number = "9900917284";              //Server number
+	String number = "9742016861";              //Server number
 
 
 	public String getTitle() {
@@ -120,12 +120,12 @@ public class ReminderTask implements Task {
 		+ "%"); }
 		
 		
-		 // TODO: send plot type  PlotList.get(x).getType()
+		
 		 for(int x = 0; x < PlotList.size(); x++) { plot_list.add(                //Putting plots together
 				 PlotList.get(x).getId()+ "#"+ PlotList.get(x).getUserId()+ "#" +PlotList.get(x).getSeedTypeId()+ "#" +
 				 PlotList.get(x).getSoilTypeId()+ "#" + PlotList.get(x).getImagePath()+
 		  "#" + PlotList.get(x).getSize()+ "#" + PlotList.get(x).getIsEnabled()+
-		  "#" + PlotList.get(x).getIsAdminFlag()+ "#" + PlotList.get(x).getTimestamp()+
+		  "#" + PlotList.get(x).getIsAdminFlag()+ "#" + PlotList.get(x).getTimestamp()+"#"+PlotList.get(x).getType()+
 		 "%"); }
 		 
 		 for(int x = 0; x < UserList.size(); x++) { users_list.add(                //Putting users together
@@ -150,7 +150,7 @@ public class ReminderTask implements Task {
 				 System.out.println(actionArr[i-1]);
 				 ActionStr+=actionArr[i-1];
 				 System.out.println("Actions log "+ActionStr);
-				//Send_message(ActionStr);                                  //Send actions to server via SMS
+				Send_message(ActionStr);                                  //Send actions to server via SMS
 				 ActionStr = "%1000%";
 				}
 			
@@ -171,7 +171,7 @@ public class ReminderTask implements Task {
 					 System.out.println(plotArr[i-1]);
 					 PlotStr+=plotArr[i-1];
 					 System.out.println("plots log "+PlotStr);
-					 //Send_message(PlotStr);		//Send plots to server via SMS
+					Send_message(PlotStr);		//Send plots to server via SMS
 					 PlotStr = "%1001%";
 					}
 				
@@ -181,7 +181,7 @@ public class ReminderTask implements Task {
 				 String[] userArr = new String[users_list.size()];    //Has unsent  users from database 
 				 userArr = users_list.toArray(userArr);
 			 				
-				//  System.out.println(userArr);
+				  System.out.println("userArr"+userArr);
 						  
 			
 					 for(int i=1;i<=userArr.length;i++) {
@@ -189,14 +189,39 @@ public class ReminderTask implements Task {
 						 System.out.println(userArr[i-1]);
 						 UserStr+=userArr[i-1];
 						 System.out.println("users log "+UserStr);
-						// Send_message(UserStr);		//Send users to server via SMS
+						 Send_message(UserStr);		//Send users to server via SMS
 						 UserStr = "%1002%";
 						}
 					 //System.out.println("users log "+UserStr);
 		
 					 
-					 //End of users
-	
+					 //End of users sent
+					 
+			//Setting the sent flag for action
+					 for(int x = 0; x < ActionList.size(); x++) {                
+						 mDataProvider.SentFlagForAction(ActionList.get(x).getId(), 1);
+					 }
+			//Setting the sent flag for plot
+					 for(int x = 0; x < PlotList.size(); x++) {                
+						 mDataProvider.SentFlagForPlot(PlotList.get(x).getId(), 1);
+					 }
+			//Setting the sent flag for user
+					 for(int x = 0; x < UserList.size(); x++) {                
+						 mDataProvider.SentFlagForUser(UserList.get(x).getId(), 1);
+					 }
+					 
+						System.out.println("##################DISPLAYING ACTIONS IN REMINDER TASK############################");
+						mDataProvider.getActions();
+						System.out.println("##################FINISHED ACTIONS IN REMINDER TASK############################");
+						
+						System.out.println("##################DISPLAYING PLOTS IN REMINDER TASK############################");
+						mDataProvider.getPlots();
+						System.out.println("##################FINISHED PLOTS IN REMINDER TASK############################");
+						
+						
+						System.out.println("##################DISPLAYING USERS IN REMINDER TASK############################");
+						mDataProvider.getUsers();
+						System.out.println("##################FINISHED USERS IN REMINDER TASK############################");
 	
 		return res;
 	}

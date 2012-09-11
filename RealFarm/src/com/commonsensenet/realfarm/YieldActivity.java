@@ -1,5 +1,6 @@
 package com.commonsensenet.realfarm;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
@@ -177,31 +178,22 @@ public class YieldActivity extends TopSelectorActivity implements
 		yearSelectorData = mDataProvider.getResources(
 				RealFarmDatabase.RESOURCE_TYPE_YEAR).get(0); // default: most
 																// recent
-		/**
-		 * TODO: uncomment this and set the right defaults according to the
-		 * database structure soilTypeSelectorData =
-		 * mDataProvider.getResources(RealFarmDatabase
-		 * .RESOURCE_TYPE_YEAR).get(0); // TODO: set right default
-		 * varietySelectorData =
-		 * mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_YEAR
-		 * ).get(0); // TODO: set right default irrigationSelectorData =
-		 * mDataProvider
-		 * .getResources(RealFarmDatabase.RESOURCE_TYPE_YEAR).get(0); // TODO:
-		 * set right default dateSelectorData =
-		 * mDataProvider.getResources(RealFarmDatabase
-		 * .RESOURCE_TYPE_YEAR).get(0); // TODO: set right default
-		 * fertilizeSelectorData =
-		 * mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_YEAR
-		 * ).get(0); // TODO: set right default diseaseSelectorData =
-		 * mDataProvider
-		 * .getResources(RealFarmDatabase.RESOURCE_TYPE_YEAR).get(0); // TODO:
-		 * set right default pestSelectorData =
-		 * mDataProvider.getResources(RealFarmDatabase
-		 * .RESOURCE_TYPE_YEAR).get(0); // TODO: set right default
-		 * spraySelectorData =
-		 * mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_YEAR
-		 * ).get(0); // TODO: set right default
-		 */
+		dateSelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_SOWING_WINDOW).get(0);
+		diseaseSelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_DISEASE_SELECTOR).get(0);
+		pestSelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_PEST_SELECTOR).get(0);
+		irrigationSelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_IRRIGATION_SELECTOR).get(0);
+		spraySelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_SPRAYING_SELECTOR).get(0);
+		fertilizeSelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_FERTILIZE_SELECTOR).get(0);
+		varietySelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_VARIETY).get(0);
+		soilTypeSelectorData = mDataProvider.getResources(
+				RealFarmDatabase.RESOURCE_TYPE_SOIL_TYPE).get(0);
 
 		if (topSelectorData != null)
 			super.setTopSelector(mActionTypeId);
@@ -209,8 +201,7 @@ public class YieldActivity extends TopSelectorActivity implements
 			setLocationSelector();
 		if (yearSelectorData != null)
 			setYearSelector();
-		/**
-		 * TODO: uncomment this when the Resources are correctly set just above
+		/*
 		 * if(dateSelectorData != null) updateSelector(dateLabel,
 		 * sowingDateSelector, dateSelectorData); if(soilTypeSelectorData !=
 		 * null) updateSelector(soilTypeLabel, soilTypeSelector,
@@ -275,7 +266,6 @@ public class YieldActivity extends TopSelectorActivity implements
 			spraySelectorData = choice;
 			updateSelector(sprayLabel, spraySelector, choice);
 			break;
-
 		default:
 			break;
 
@@ -293,15 +283,56 @@ public class YieldActivity extends TopSelectorActivity implements
 	}
 
 	private void updateValues() {
-		// TODO: Query the database and get the max, min and average> Use the
-		// Resources selectorData
-		double min = 0;
-		double max = 0;
-		double avg = 0;
-		maxLabel.setText(min + "");
-		minLabel.setText(max + "");
-		avgLabel.setText(avg + "");
-
+		List<String> resources = new ArrayList<String>();
+		String place = "placeid = " + locationSelectorData.toString();
+		if (dateSelectorData.getName() != "All") {
+			resources.add(" AND sowingWindowid = '"
+					+ dateSelectorData.getName() + "'");
+		}
+		if (diseaseSelectorData.getName() != "All") {
+			resources.add(" AND hadDisease = '" + diseaseSelectorData.getName()
+					+ "'");
+		}
+		if (pestSelectorData.getName() != "All") {
+			resources.add(" AND hadPest = '"
+					+ pestSelectorData.getName().toString() + "'");
+		}
+		if (irrigationSelectorData.getName() != "All") {
+			resources.add(" AND hasIrrigated = '"
+					+ irrigationSelectorData.getName() + "'");
+		}
+		if (spraySelectorData.getName() != "All") {
+			resources.add(" AND hasSprayed = '" + spraySelectorData.getName()
+					+ "'");
+		}
+		if (fertilizeSelectorData.getName() != "All") {
+			resources.add(" AND hasFertilized = '"
+					+ fertilizeSelectorData.getName() + "'");
+		}
+		if (varietySelectorData.getName() != "All") {
+			resources.add(" AND seedTypeId = '" + varietySelectorData.getName()
+					+ "'");
+		}
+		if (soilTypeSelectorData.getName() != "All") {
+			resources.add(" AND soilTypeId = '"
+					+ soilTypeSelectorData.getName() + "'");
+		}
+		String[] data = mDataProvider.getYieldData(resources);
+		if (data.length > 0) {
+			if (data[0] != null) {
+				double max = Double.parseDouble(data[0]);
+				minLabel.setText(max + "");
+			}
+			if (data[1] != null) {
+				double min = Double.parseDouble(data[1]);
+				maxLabel.setText(min + "");
+			}
+			if (data[3] != null || data[1] != null) {
+				double avg = Double.parseDouble(data[3])
+						/ Double.parseDouble(data[1]);
+				avgLabel.setText(avg + "");
+			}
+		}
 	}
 
 	private void setLocationSelector() {
@@ -344,12 +375,13 @@ public class YieldActivity extends TopSelectorActivity implements
 			displayDialog(v, data, "Select the year", R.raw.problems, null, 4);
 		} else { // selectors
 			if (v.getId() == R.id.selector_soil_type) {
-				List<Resource> data = mDataProvider.getSoilTypes();
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOIL_TYPE);
 				displayDialog(v, data, "Select the soil type", R.raw.problems,
 						null, SOIL_TYPE);
 			} else if (v.getId() == R.id.selector_variety) {
 				List<Resource> data = mDataProvider
-						.getVarietiesByCrop(topSelectorData.getId());
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_VARIETY);
 				displayDialog(v, data, "Select the variety", R.raw.problems,
 						null, VARIETY);
 			} else if (v.getId() == R.id.selector_sowing_date) {
@@ -358,24 +390,34 @@ public class YieldActivity extends TopSelectorActivity implements
 				displayDialog(v, data, "Select the sowing window",
 						R.raw.problems, null, SOWING_DATE);
 			} else if (v.getId() == R.id.selector_irrigation) {
-				// TODO: Yes/No/all selector
-				// Decide if it is done in the database or in the query
-
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATION_SELECTOR);
+				displayDialog(v, data, "Selec the irrigation state", -1, null,
+						IRRIGATION);
 			} else if (v.getId() == R.id.selector_fertilizer) {
-				// TODO: Yes/No/all selector
-				// Decide if it is done in the database or in the query
-
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZE_SELECTOR);
+				displayDialog(v, data, "Select the fertilizer state", -1, null,
+						FERTILIZER);
 			} else if (v.getId() == R.id.selector_pest) {
-				// TODO: Yes/No/all selector
-				// Decide if it is done in the database or in the query
-
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_PEST_SELECTOR);
+				displayDialog(v, data, "Select the pest state", -1, null, PEST);
 			} else if (v.getId() == R.id.selector_disease) {
-				// TODO: Yes/No/all selector
-				// Decide if it is done in the database or in the query
-
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_DISEASE_SELECTOR);
+				displayDialog(v, data, "Select the disease state", -1, null,
+						DISEASE);
 			} else if (v.getId() == R.id.selector_spray) {
-				// TODO: Yes/No/all selector
-				// Decide if it is done in the database or in the query
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SPRAYING_SELECTOR);
+				displayDialog(v, data, "Select the spray state", -1, null,
+						SPRAY);
 
 			}
 		}
