@@ -1,5 +1,7 @@
 package com.commonsensenet.realfarm.model;
 
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+
 /**
  * 
  * @author Oscar Bola–os <@oscarbolanos>
@@ -40,6 +42,7 @@ public class Action {
 		mQuantity2 = quantity2;
 		mUnit1 = unit1;
 		mUnit2 = unit2;
+
 		mResourceId1 = resource1Id;
 		mResourceId2 = resource2Id;
 		mPrice = price;
@@ -48,6 +51,29 @@ public class Action {
 		mIsSent = isSent;
 		mIsAdminAction = isAdminAction;
 		mTimestamp = timestamp;
+
+		// fixes the possible null values.
+		if (mSeedTypeId == 0) {
+			mSeedTypeId = RealFarmProvider.NONE;
+		}
+		if (mCropTypeId == 0) {
+			mCropTypeId = RealFarmProvider.NONE;
+		}
+		if (mResourceId1 == 0) {
+			mResourceId1 = RealFarmProvider.NONE;
+		}
+		if (mResourceId2 == 0) {
+			mResourceId2 = RealFarmProvider.NONE;
+		}
+		if (mPrice == 0) {
+			mPrice = RealFarmProvider.NONE;
+		}
+		if (mUnit1 == 0) {
+			mUnit1 = RealFarmProvider.NONE;
+		}
+		if (mUnit2 == 0) {
+			mUnit2 = RealFarmProvider.NONE;
+		}
 
 	}
 
