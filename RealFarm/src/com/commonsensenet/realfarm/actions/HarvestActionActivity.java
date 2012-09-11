@@ -221,7 +221,7 @@ public class HarvestActionActivity extends DataFormActivity {
 				playAudio(R.raw.selectthedate, true);
 
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_harvest) {
 
 			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
@@ -326,7 +326,7 @@ public class HarvestActionActivity extends DataFormActivity {
 
 			long result = mDataProvider.addHarvestAction(Global.userId,
 					Global.plotId, mVariety, mAmount, mUnit, mSatisfaction,
-					getDate(mDay, mMonth), 0);
+					getDate(mDay, mMonth), Global.IsAdmin);
 
 			return result != -1;
 		}

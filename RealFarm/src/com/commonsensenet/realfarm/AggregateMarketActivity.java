@@ -10,16 +10,16 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnLongClickListener;
+import android.view.Window;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -36,13 +36,14 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		implements OnItemClickListener, OnLongClickListener,
 		OnItemLongClickListener {
 
-	protected Resource daysSelectorData;
+	protected Resource mDaysSelectorData;
 	protected List<AggregateItem> mItems;
 	protected ListView mListView;
 	protected AggregateItemAdapter mItemAdapter;
 	protected int mActionTypeId = RealFarmDatabase.ACTION_TYPE_SELL_ID;
-	protected int currentAction = 0;
+	protected int mCurrentAction = 0;
 	protected LayoutInflater mLayoutInflater;
+	protected boolean mHeader;
 
 	public void onCreate(Bundle savedInstanceState, int resLayoutId,
 			Context context) {
@@ -54,16 +55,14 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		int cropSeedTypeId = topSelectorData.getId();
 
 		mItems = null;
-		mItems = ActionDataFactory.getData(currentAction, mDataProvider,
-				mActionTypeId, cropSeedTypeId, daysSelectorData);
+		mItems = ActionDataFactory.getData(mCurrentAction, mDataProvider,
+				mActionTypeId, cropSeedTypeId, mDaysSelectorData);
 
-		// TODO AUDIO: This audio is played when there are no results (no seeds)
-		// for the top seed selector. Adapt the audio
 		if (mItems == null || mItems.size() < 1)
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.no_info_seeds, true);
 
 		// creates the data adapter.
-		mItemAdapter = ActionDataFactory.getAdapter(currentAction,
+		mItemAdapter = ActionDataFactory.getAdapter(mCurrentAction,
 				mActionTypeId, this, mItems, mDataProvider, mDataProvider);
 		mListView = (ListView) findViewById(R.id.list_market_aggregates);
 		mListView.setItemsCanFocus(false);
@@ -75,7 +74,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		mListView.setOnItemLongClickListener(this);
 
 		super.setTopSelector(mActionTypeId);
-		if (currentAction == RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET)
+		if (mCurrentAction == RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET)
 			setDaysSelector();
 
 	}
@@ -85,7 +84,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		if (type == 2) { // change the query
 			topSelectorData = choice;
 		} else if (type == 1) { // days span
-			daysSelectorData = choice;
+			mDaysSelectorData = choice;
 		}
 
 		setList();
@@ -93,7 +92,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 	private void setDaysSelector() {
 		final TextView selectorText = (TextView) findViewById(R.id.days_selector_label);
-		selectorText.setText("last " + daysSelectorData.getShortName());
+		selectorText.setText("last " + mDaysSelectorData.getShortName());
 	}
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
@@ -127,6 +126,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 								"back");
 						ApplicationTracker.getInstance().flush();
 						dialog.dismiss();
+						stopAudio(); // stops the audio
 					}
 				});
 
@@ -140,12 +140,11 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 		// gets the data and data adapter.
 		final List<UserAggregateItem> list = ActionDataFactory.getUserList(
-				currentAction, topSelectorData.getId(), selectedItem,
-				daysSelectorData, mDataProvider);
-		// TODO AUDIO: In case there is no users in the result. Set an error
-		// message
+				mCurrentAction, topSelectorData.getId(), selectedItem,
+				mDaysSelectorData, mDataProvider);
+
 		if (list == null || list.size() < 1)
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.no_info_farmers, true);
 
 		// gets the ListView from the layout
 		ListView userListView = (ListView) layout
@@ -210,13 +209,14 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 								getLogTag(), "dialog header");
 						ApplicationTracker.getInstance().flush();
 						makeAudioAggregateMarketItem(selectedItem, true);
+						mHeader = true;
 						return true;
 					}
 				});
 
 		dialogAggregateHeader.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				// TODO AUDIO: check the right audio
+
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "dialog header");
 				ApplicationTracker.getInstance().flush();
@@ -232,8 +232,8 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 					Toast.makeText(getBaseContext(),
 							"You cannot call yourself", Toast.LENGTH_SHORT)
 							.show();
-					// TODO AUDIO: "You cannot call yourself"
-					playAudio(R.raw.problems);
+
+					playAudio(R.raw.you_cant_call_yourself);
 					return;
 				}
 
@@ -275,11 +275,11 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		// gets the selected view using the position
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, Global.userId, 
-				getLogTag(), position);
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(), position);
 		ApplicationTracker.getInstance().flush();
 		makeAudioAggregateMarketItem(mItemAdapter.getItem(position), false);
-
+		mHeader = false;
 		return true;
 	}
 
@@ -338,28 +338,27 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	}
 
 	private void makeAudioUserTopBar(boolean canHear) {
-		// TODO AUDIO: Dummy audio. To be removed.
-		playAudio(R.raw.a30, true);
 
-		// TODO AUDIO: if(!canHear) then you can't hear the audio when the sound
-		// is disabled
+		if (!canHear) {
+			playAudio(R.raw.cant_hear_when_turned_off, true);
+		}
 
 	}
 
 	private void makeAudioCallUser(UserAggregateItem user) {
-		// TODO AUDIO: Dummy audio. To be removed.
-		playAudio(R.raw.a20);
 
 		int userName = user.getAudioName();
-		// TODO AUDIO: "Calling Mr" + user.getAudio(). When the sound is turned
-		// off, nothing is heard
-		// TODO AUDIO: Test the int. if == -1, don't say anything
+
 		System.out.println(userName);
+		if (userName != -1) {
+			addToSoundQueue(userName);
+			addToSoundQueue(R.raw.calling);
+			playSound(true);
+		}
+
 	}
 
 	protected void makeAudioUserItem(UserAggregateItem user) {
-		// TODO AUDIO: Dummy audio. To be removed.
-		playAudio(R.raw.a10, true);
 
 		// Intro
 		String date = user.getDate();
@@ -367,9 +366,12 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		int userLocation = user.getAudioLocation();
 		int action = mDataProvider.getActionTypeById(mActionTypeId).getAudio();
 
-		// TODO AUDIO: Say something here: "On" + say(date) + userName + "from"
-		// + userLocation + action
-		// TODO AUDIO: Test each of the int. if == -1, don't say anything
+		date = date + "2012";
+
+		addToSoundQueue(userName);
+		addToSoundQueue(userLocation);
+		add_action_aggregate(7); // says "in"
+
 		System.out.println("On " + date + userName + " from " + userLocation
 				+ action);
 
@@ -377,74 +379,129 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		int variety = topSelectorData.getAudio();
 		switch (mActionTypeId) {
 		case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
+			double numberOffertilizer = Double.parseDouble(user.getLeftText());
 			int unit = user.getAudioRightImage();
-			// TODO AUDIO: Say something here: variety + "with" + unit +
-			// "per acre"
-			// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
 			System.out.println(variety + " with " + unit + " per acre");
+			System.out.println("fertilizer" + numberOffertilizer);
+
+			if ((variety != -1) & (unit != -1) & (numberOffertilizer != -1)) {
+				add_action_aggregate(8); // says "every acre"
+				addToSoundQueue(variety);
+				addToSoundQueue(R.raw.to);
+				play_float(numberOffertilizer);
+				addToSoundQueue(R.raw.so_much);
+				addToSoundQueue(unit);
+				addToSoundQueue(R.raw.fertilizer_put);
+
+			}
 
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
 			Double amount = Double.parseDouble(user.getLeftText());
-			// TODO AUDIO: Say something here: say(amount) +
-			// "quintal per acre of" + variety
-			// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
 			System.out.println(amount + " quintal per acre of " + variety);
 
+			if ((amount != -1) & (variety != -1)) {
+
+				addToSoundQueue(R.raw.every_acre);
+				play_float(amount);
+				addToSoundQueue(R.raw.quintal_so_much);
+				addToSoundQueue(variety);
+				addToSoundQueue(R.raw.done_harvest);
+
+			}
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
 			int hours = Integer.parseInt(user.getLeftText());
 			int irrigation = user.getAudioLeftImage();
-			// TODO AUDIO: Say something here: say(hours) + "through" +
-			// irrigation
-			// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
 			System.out.println(hours + " through " + irrigation);
+
+			if ((hours != -1) & (irrigation != -1)) {
+				addToSoundQueue(variety);
+				addToSoundQueue(R.raw.to);
+				play_integer(hours);
+				addToSoundQueue(R.raw.hourly_duration);
+				addToSoundQueue(irrigation);
+				addToSoundQueue(R.raw.irrigation_done);
+			}
 
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
 			int problem = user.getAudioLeftImage();
-			// TODO AUDIO: Say something here: problem + "with" + variety
-			// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
 			System.out.println(problem + " with " + variety);
 
+			if ((problem != -1) & (variety != -1)) {
+				addToSoundQueue(variety);
+				addToSoundQueue(R.raw.to);
+				addToSoundQueue(problem);
+				addToSoundQueue(R.raw.there_reported);
+
+			}
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_SELL_ID:
 			int kg = user.getAudioLeftImage();
 			int price = Integer.parseInt(user.getLeftText());
-			// TODO AUDIO: Say something here: variety + "at" + say(price) +
-			// "rupees per quintal of " + kg + "bags"
-			// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
 			System.out.println(variety + " at " + price
 					+ " rupees per quintal of " + kg + " bags");
 
+			if ((variety != -1) & (price != -1) & (kg != -1)) {
+				addToSoundQueue(variety);
+				addToSoundQueue(R.raw.every_quintals);
+				addToSoundQueue(kg);
+				addToSoundQueue(R.raw.ss);
+				play_integer(price);
+				addToSoundQueue(R.raw.to_rupees_sold);
+			}
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 			double numberOfSerus = Double.parseDouble(user.getLeftText());
 			int treatment = user.getAudioCenterImage();
 			int intercrop = user.getAudioLeftImage();
-			// TODO AUDIO: Say something here: say(numberOfSerus) +
-			// "serus per acre of" + treatment + variety + "as" + intercrop
-			// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
 			System.out.println(numberOfSerus + " serus per acre of "
 					+ treatment + variety + " as " + intercrop);
-
+			if ((treatment != -1) & (intercrop != -1) & (numberOfSerus != -1)) {
+				add_action_aggregate(8); // says "every acre"
+				play_float(numberOfSerus);
+				add_action_aggregate(9); // says "seru"
+				addToSoundQueue(variety);
+				addToSoundQueue(treatment);
+				addToSoundQueue(R.raw.and);
+				addToSoundQueue(intercrop);
+				add_action_aggregate(10); // says "sowing done"
+			}
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
+			double amountSprayed = Double.parseDouble(user.getLeftText());
 			int uni = user.getAudioRightImage();
 			int pesticide = user.getAudioLeftImage();
 			int pb = user.getAudioCenterImage();
-			// TODO AUDIO: Say something here: uni + "per acre of" + pesticide +
-			// "on" + variety + "against" + pb
-			// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
 			System.out.println(uni + " per acre of " + pesticide + " on "
 					+ variety + " against " + pb);
 
+			if ((uni != -1) & (pesticide != -1) & (variety != -1) & (pb != -1)) {
+				addToSoundQueue(variety);
+				addToSoundQueue(R.raw.to);
+				addToSoundQueue(R.raw.infected);
+				addToSoundQueue(pb);
+				addToSoundQueue(R.raw.to_solve_every_acre);
+				play_float(amountSprayed);
+				addToSoundQueue(uni);
+				addToSoundQueue(R.raw.quantity_s);
+				addToSoundQueue(pesticide);
+				addToSoundQueue(R.raw.its_sprayed);
+			}
 			break;
 
 		default:
@@ -452,7 +509,17 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		}
 
 		// Outro
-		// TODO AUDIO: "To call " + userName + " touch here briefly"
+		if (mHeader == false) {
+			if (userName == -1) {
+				addToSoundQueue(R.raw.farmers); // says "farmer" if username is
+												// not there
+			} else {
+				addToSoundQueue(userName);
+			}
+			addToSoundQueue(R.raw.to_call_click); // says
+													// "to call touch here briefly"
+		}
+		playSound(true);
 		System.out.println("To call " + userName + " touch here briefly");
 	}
 

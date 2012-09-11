@@ -49,7 +49,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.marketdetails, context);
-		currentAction = RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
+		mCurrentAction = RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
 
 		min = mDataProvider
 				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
@@ -64,7 +64,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		// default seed/crop type id
 		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
-		daysSelectorData = mDataProvider.getResources(
+		mDaysSelectorData = mDataProvider.getResources(
 				RealFarmDatabase.RESOURCE_TYPE_DAYS_SPAN).get(0); // default: 1
 																	// day
 		setList();
@@ -217,7 +217,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		} else if (v.getId() == R.id.button_back) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.selector_days) {
-			playAudio(daysSelectorData.getAudio(), true);
+			playAudio(mDaysSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.days_selector_row) {
 			playAudio(R.raw.problems, true);
 		}
@@ -233,7 +233,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		playAudio(R.raw.a2, true);
 
 		int variety = topSelectorData.getAudio();
-		int days = daysSelectorData.getAudio();
+		int days = mDaysSelectorData.getAudio();
 		int number = item.getNews();
 		long min = item.getSelector3();
 		long max = item.getSelector2();

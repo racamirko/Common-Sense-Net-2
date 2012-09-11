@@ -46,8 +46,7 @@ public class AddPlotActivity extends DataFormActivity {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, mType);
 
-		// TODO: remove this dummy data.
-		if (!Global.IS_INITIALIZED) {
+		if (!Global.IS_INITIALIZED) { // add advice retated to plot
 
 			long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
 			long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);
@@ -74,6 +73,12 @@ public class AddPlotActivity extends DataFormActivity {
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(), "add plot to database");
+
+		// shows the name of the added plot.
+		/*
+		 * Toast.makeText( getBaseContext(), "Plot Details is put to Database "
+		 * + mPlotImage + " " + mSoilType, Toast.LENGTH_SHORT).show();
+		 */
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -148,10 +153,9 @@ public class AddPlotActivity extends DataFormActivity {
 			public void onClick(View v) {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
-				// TODO AUDIO: "Select the soil type" This is the audio that is
-				// heard when the selector dialog opens
+
 				displayDialog(v, soilList, SOIL_TYPE, "Select the soil type",
-						R.raw.problems, R.id.dlg_lbl_soil_plot,
+						R.raw.selectsoiltype, R.id.dlg_lbl_soil_plot,
 						R.id.soiltype_tr, 0);
 			}
 		});
@@ -161,10 +165,9 @@ public class AddPlotActivity extends DataFormActivity {
 				Log.d("in crop plot dialog", "in dialog");
 
 				stopAudio();
-				// TODO AUDIO: "Select the variety" This is the audio that is
-				// heard when the selector dialog opens
+
 				displayDialog(v, cropList, MAIN_CROP, "Select the variety",
-						R.raw.problems, R.id.dlg_lbl_crop_plot,
+						R.raw.select_the_variety, R.id.dlg_lbl_crop_plot,
 						R.id.maincrop_tr, 0);
 			}
 		});
@@ -172,27 +175,20 @@ public class AddPlotActivity extends DataFormActivity {
 		plotsize.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				// TODO AUDIO: "Enter the plot size in acres" This is the audio
-				// that is heard when the selector dialog opens
-				// TODO AUDIO: Text on tap on ok button in Number picker
-				// TODO AUDIO: Text on tap on cancel button in Number picker
-				// TODO AUDIO: Info on long tap on ok button in Number picker
-				// TODO AUDIO: Info on long tap on cancel button in Number
-				// picker
+
 				displayDialogNP("Enter the plot size in acres", SIZE,
-						R.raw.dateinfo, 0.0, 30.0, 2.0, 0.1, 1, R.id.size_txt,
-						R.id.size_tr, R.raw.dateinfo, R.raw.dateinfo,
-						R.raw.dateinfo, R.raw.dateinfo);
+						R.raw.enter_plot_size_acres, 0.0, 30.0, 2.0, 0.1, 1,
+						R.id.size_txt, R.id.size_tr, R.raw.ok, R.raw.cancel,
+						R.raw.plotsize_ok, R.raw.plotsize_cancel);
 			}
 		});
 
 		plottype.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				// TODO AUDIO: "Select the plot type" This is the audio that is
-				// heard when the selector dialog opens
+
 				displayDialog(v, typeList, TYPE, "Select the plot type",
-						R.raw.problems, R.id.type_txt, R.id.type_tr, 0);
+						R.raw.select_plot_type, R.id.type_txt, R.id.type_tr, 0);
 			}
 		});
 	}
@@ -203,48 +199,45 @@ public class AddPlotActivity extends DataFormActivity {
 		showHelpIcon(v);
 
 		if (v.getId() == R.id.size_txt) {
-			// TODO AUDIO: "Select the day" default if nothing is in the field
+
 			if (mResultsMap.get(SIZE).equals(defaultSize))
-				playAudio(R.raw.maincrop, true);
-			// TODO AUDIO: Say the number
-			// Double.parseDouble(mResultsMap.get(SIZE).toString());
-			else
-				playAudio(R.raw.problems, true);
+				playAudio(R.raw.enter_plot_size_acres, true);
+
+			else {
+				play_float(Float.parseFloat(mResultsMap.get(SIZE).toString()));
+				playSound(true);
+			}
 		} else if (v.getId() == R.id.dlg_lbl_crop_plot) {
-			// TODO AUDIO: "Select the main crop" default if nothing is in the
-			// field
+
 			if ((Integer) mResultsMap.get(MAIN_CROP) == defaultCrop)
-				playAudio(R.raw.maincrop, true);
+				playAudio(R.raw.select_maincrop, true);
 			else
 				playAudio(cropList.get(((Integer) mResultsMap.get(MAIN_CROP)))
 						.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_soil_plot) {
-			// TODO AUDIO: "Select the soil type" default if nothing is in the
-			// field
+
 			if ((Integer) mResultsMap.get(SOIL_TYPE) == defaultSoil)
-				playAudio(R.raw.soiltype, true);
+				playAudio(R.raw.selectsoiltype, true);
 			else
 				playAudio(soilList.get(((Integer) mResultsMap.get(SOIL_TYPE)))
 						.getAudio(), true);
 		} else if (v.getId() == R.id.type_txt) {
-			// TODO AUDIO: "Select the main crop" default if nothing is in the
-			// field
+
 			if ((Integer) mResultsMap.get(TYPE) == defaultType)
-				playAudio(R.raw.maincrop, true);
+				playAudio(R.raw.select_plot_type, true);
 			else
 				playAudio(typeList.get(((Integer) mResultsMap.get(TYPE)))
 						.getAudio(), true);
 		}
 
-		// TODO AUDIO: Check the remaining audio
 		else if (v.getId() == R.id.aggr_img_help1) {
-			playAudio(R.raw.help, true);
+			playAudio(R.raw.help_parcel_enterdetails, true);
 		} else if (v.getId() == R.id.dlg_plot_img_test) {
-			playAudio(R.raw.plotimage, true);
+			playAudio(R.raw.take_plot_pic_touch, true);
 		} else if (v.getId() == R.id.maincrop_tr) {
-			playAudio(R.raw.yieldinfo, true);
+			playAudio(R.raw.maincrop, true);
 		} else if (v.getId() == R.id.size_tr) {
-			playAudio(R.raw.yieldinfo, true);
+			playAudio(R.raw.size, true);
 		} else if (v.getId() == R.id.plot_tr) {
 			playAudio(R.raw.plotimage, true);
 		} else if (v.getId() == R.id.soiltype_tr) {
@@ -252,9 +245,13 @@ public class AddPlotActivity extends DataFormActivity {
 		} else if (v.getId() == R.id.maincrop_tr) {
 			playAudio(R.raw.maincrop, true);
 		} else if (v.getId() == R.id.size_tr) {
-			playAudio(R.raw.maincrop, true);
+			playAudio(R.raw.size, true);
 		} else if (v.getId() == R.id.type_tr) {
-			playAudio(R.raw.maincrop, true);
+			playAudio(R.raw.plot_type, true);
+		} else if (v.getId() == R.id.button_ok) {
+			playAudio(R.raw.newparcel_save, true);
+		} else if (v.getId() == R.id.button_cancel) {
+			playAudio(R.raw.parcel_not_save_short, true);
 		} else {
 			return super.onLongClick(v);
 		}

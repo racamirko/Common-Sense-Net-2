@@ -167,7 +167,7 @@ public class ReportActionActivity extends DataFormActivity {
 				playAudio(R.raw.dateinfo, true);
 
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_prob) {
 
 			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
@@ -247,9 +247,9 @@ public class ReportActionActivity extends DataFormActivity {
 					.getId();
 			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
 
-			long result = mDataProvider
-					.addReportAction(Global.userId, Global.plotId, mVariety,
-							mProblem, getDate(mDay, mMonth), 0);
+			long result = mDataProvider.addReportAction(Global.userId,
+					Global.plotId, mVariety, mProblem, getDate(mDay, mMonth),
+					Global.IsAdmin);
 			return result != -1;
 		}
 

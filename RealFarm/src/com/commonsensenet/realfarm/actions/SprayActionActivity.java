@@ -222,19 +222,17 @@ public class SprayActionActivity extends DataFormActivity {
 
 			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
 				playAudio(R.raw.select_unit_number, true);
-			// TODO AUDIO: Say the number
-			// Integer.valueOf(mResultsMap.get(AMOUNT).toString());
+
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT)
-						.toString()));
+				play_integer(Integer
+						.valueOf(mResultsMap.get(AMOUNT).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_day_spray) {
 
 			if (mResultsMap.get(DAY).equals(defaultDay))
 				playAudio(R.raw.dateinfo, true);
-			// TODO AUDIO: Say the number
-			// Integer.valueOf(mResultsMap.get(DAY).toString());
+
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_spray) {
 
 			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
@@ -334,7 +332,7 @@ public class SprayActionActivity extends DataFormActivity {
 
 			long result = mDataProvider.addSprayAction(Global.userId,
 					Global.plotId, mProblem, mPesticide, mAmount, mUnit,
-					getDate(mDay, mMonth), 0);
+					getDate(mDay, mMonth), Global.IsAdmin);
 
 			return result != -1;
 		}

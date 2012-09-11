@@ -209,11 +209,10 @@ public class SowActionActivity extends DataFormActivity {
 
 			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
 				playAudio(R.raw.choose_serus, true);
-			// TODO AUDIO: Say the number
-			// Integer.valueOf(mResultsMap.get(AMOUNT).toString());
+
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT)
-						.toString()));
+				play_integer(Integer
+						.valueOf(mResultsMap.get(AMOUNT).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_sow) {
 
 			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
@@ -243,7 +242,7 @@ public class SowActionActivity extends DataFormActivity {
 				playAudio(R.raw.dateinfo, true);
 
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		}
 
 		else if (v.getId() == R.id.aggr_img_help) {
@@ -350,7 +349,7 @@ public class SowActionActivity extends DataFormActivity {
 			// inserts the new plot into the table.
 			long result = mDataProvider.addSowAction(Global.userId,
 					Global.plotId, mAmount, mSeedType, mTreatment, mIntercrop,
-					getDate(mDay, mMonth), 0);
+					getDate(mDay, mMonth), Global.IsAdmin);
 
 			// returns true if no error was produced.
 			return result != -1;

@@ -252,7 +252,7 @@ public class SellActionActivity extends DataFormActivity {
 				playAudio(R.raw.dateinfo, true);
 
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_sell) {
 
 			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
@@ -264,11 +264,10 @@ public class SellActionActivity extends DataFormActivity {
 
 			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
 				playAudio(R.raw.select_unit_number, true);
-			// TODO AUDIO: Say the number
-			// Integer.valueOf(mResultsMap.get(AMOUNT).toString());
+
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT)
-						.toString()));
+				play_integer(Integer
+						.valueOf(mResultsMap.get(AMOUNT).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_unit_sell) {
 
 			if ((Integer) mResultsMap.get(UNIT) == defaultUnit1)
@@ -280,19 +279,17 @@ public class SellActionActivity extends DataFormActivity {
 
 			if (mResultsMap.get(PRICE).equals(defaultPrice))
 				playAudio(R.raw.enterpricedetails, true);
-			// TODO AUDIO: Say the number
-			// Integer.valueOf(mResultsMap.get(PRICE).toString());
+
 			else
 				playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_rem_sell) {
 
 			if (mResultsMap.get(REMAINING).equals(defaultRemaining))
 				playAudio(R.raw.select_unit_number, true);
-			// TODO AUDIO: Say the number
-			// Integer.valueOf(mResultsMap.get(REMAINING).toString());
+
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT)
-						.toString()));
+				play_integer(Integer
+						.valueOf(mResultsMap.get(AMOUNT).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
 
 			if ((Integer) mResultsMap.get(UNIT2) == defaultUnit2)
@@ -401,7 +398,7 @@ public class SellActionActivity extends DataFormActivity {
 
 			long result = mDataProvider.addSellAction(Global.userId, 0, mCrop,
 					mAmount, mRemaining, mUnit, mUnit2, mPrice,
-					getDate(mDay, mMonth), 0);
+					getDate(mDay, mMonth), Global.IsAdmin);
 
 			return result != -1;
 
