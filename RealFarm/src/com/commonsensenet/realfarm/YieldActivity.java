@@ -284,7 +284,7 @@ public class YieldActivity extends TopSelectorActivity implements
 
 	private void updateValues() {
 		List<String> resources = new ArrayList<String>();
-		String place = "placeid = " + locationSelectorData.toString();
+		// String place = "placeid = " + locationSelectorData.toString();
 		if (dateSelectorData.getName() != "All") {
 			resources.add(" AND sowingWindowid = '"
 					+ dateSelectorData.getName() + "'");

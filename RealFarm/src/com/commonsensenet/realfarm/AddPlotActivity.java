@@ -44,9 +44,9 @@ public class AddPlotActivity extends DataFormActivity {
 	 */
 	private void addPlotToDatabase() {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
-				mSoilType, mPlotImage, mSize, mType);
+				mSoilType, mPlotImage, mSize, Global.IsAdmin, mType);
 
-		if (!Global.IS_INITIALIZED) { // add advice retated to plot
+		if (!Global.IS_INITIALIZED) { // add advice related to plot
 
 			long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
 			long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);
@@ -62,11 +62,11 @@ public class AddPlotActivity extends DataFormActivity {
 					"asdfasfdsdafasda", 5);
 			mDataProvider.addAdvicePiece(k, R.raw.problems, 1, 57,
 					"asdfasfdsdafasda", 5);
-			mDataProvider.addRecommandation(Global.plotId, i, Global.userId, 5,
+			mDataProvider.addRecommendation(Global.plotId, i, Global.userId, 5,
 					new Date().getTime(), 130, 60);
-			mDataProvider.addRecommandation(Global.plotId, j, Global.userId, 5,
+			mDataProvider.addRecommendation(Global.plotId, j, Global.userId, 5,
 					(new Date().getTime()) + 500000000, 90, 10);
-			mDataProvider.addRecommandation(Global.plotId, k, Global.userId, 5,
+			mDataProvider.addRecommendation(Global.plotId, k, Global.userId, 5,
 					(new Date().getTime()) + 500000000, 80, 2);
 		}
 

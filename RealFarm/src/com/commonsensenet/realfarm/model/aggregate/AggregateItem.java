@@ -14,7 +14,7 @@ public class AggregateItem {
 	private long selector2 = -1;
 	private long selector3 = -1;
 	private Hashtable<String, String> mAggregateValues;
-	
+
 	private int leftBackground = -1;
 	private int centerBackground = -1;
 	private int rightBackground = -1;
@@ -42,6 +42,7 @@ public class AggregateItem {
 	public int getActionTypeId() {
 		return mActionTypeId;
 	}
+
 	public String getValue(String key) {
 		return mAggregateValues.get(key);
 	}
@@ -49,130 +50,132 @@ public class AggregateItem {
 	public void setActionTypeId(int value) {
 		mActionTypeId = value;
 	}
-	
-	public void setRightText(String text){
+
+	public void setRightText(String text) {
 		rightText = text;
 	}
-	
-	public String getRightText(){
+
+	public String getRightText() {
 		return rightText;
 	}
-	
-	public void setRightBackground(int res){
+
+	public void setRightBackground(int res) {
 		rightBackground = res;
 	}
-	
-	public int getRightBackground(){
+
+	public int getRightBackground() {
 		return rightBackground;
 	}
-	
-	public void setLeftBackground(int res){
+
+	public void setLeftBackground(int res) {
 		leftBackground = res;
 	}
-	
-	public int getLeftBackground(){
+
+	public int getLeftBackground() {
 		return leftBackground;
 	}
-	
-	public void setCenterBackground(int res){
+
+	public void setCenterBackground(int res) {
 		centerBackground = res;
 	}
-	
-	public int getCenterBackground(){
+
+	public int getCenterBackground() {
 		return centerBackground;
 	}
-	
-	public void setCenterText(String text){
+
+	public void setCenterText(String text) {
 		centerText = text;
 	}
-	
-	public String getCenterText(){
+
+	public String getCenterText() {
 		return centerText;
 	}
-	
-	public void setLeftText(String text){
+
+	public void setLeftText(String text) {
 		leftText = text;
 	}
-	
-	public String getLeftText(){
+
+	public String getLeftText() {
 		return leftText;
 	}
-	
-	public void setNews(int n){
+
+	public void setNews(int n) {
 		news = n;
 	}
-	
-	public int getNews(){
+
+	public int getNews() {
 		return news;
 	}
-	
-	public void setTotal(int t){
+
+	public void setTotal(int t) {
 		total = t;
 	}
-	
-	public int getTotal(){
+
+	public int getTotal() {
 		return total;
 	}
-	
-	public String getNewsText(){
-		if(news == 0 && total == 0) return "";
-		if(total == 0) return news+"";
-		return news+"/"+total;
+
+	public String getNewsText() {
+		if (news == 0 && total == 0)
+			return "";
+		if (total == 0)
+			return news + "";
+		return news + "/" + total;
 	}
-	
-	public void setLeftImage(int img){
+
+	public void setLeftImage(int img) {
 		leftImage = img;
 	}
-	
-	public int getLeftImage(){
+
+	public int getLeftImage() {
 		return leftImage;
-	}	
-	
-	public void setCenterImage(int img){
+	}
+
+	public void setCenterImage(int img) {
 		centerImage = img;
 	}
-	
-	public int getCenterImage(){
+
+	public int getCenterImage() {
 		return centerImage;
-	}	
-	
-	public void setLeftBottomImage(int img){
+	}
+
+	public void setLeftBottomImage(int img) {
 		leftBottomImage = img;
 	}
-	
-	public int getLeftBottomImage(){
+
+	public int getLeftBottomImage() {
 		return leftBottomImage;
-	}	
+	}
 
 	public void setSelector1(long sel1) {
 		selector1 = sel1;
 	}
-	
+
 	public long getSelector1() {
 		return selector1;
-	}	
-	
+	}
+
 	public void setSelector2(long sel2) {
 		selector2 = sel2;
-	}	
-	
+	}
+
 	public long getSelector2() {
 		return selector2;
-	}	
-	
+	}
+
 	public void setSelector3(long sel3) {
 		selector3 = sel3;
-	}	
-	
+	}
+
 	public long getSelector3() {
 		return selector3;
 	}
-	
-	public void setResult(double res){
-		 result = res;
+
+	public void setResult(double res) {
+		result = res;
 	}
-	
-	public double getResult(){
+
+	public double getResult() {
 		return result;
 	}
 }

@@ -484,11 +484,12 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(
 				childPosition);
-		// TODO: delete system
 
+		// TODO: delete system
 		if (!mDataProvider.hasLiked(solutionItem.getId(), Global.userId)) {
 			mDataProvider.addPlanAction(Global.userId,
-					situationItem.getPlotId(), solutionItem.getId());
+					situationItem.getPlotId(), solutionItem.getId(),
+					Global.IsAdmin);
 			situationItems.get(groupPosition).getItems().get(childPosition)
 					.setHasLiked(true);
 			situationItems.get(groupPosition).getItems().get(childPosition)

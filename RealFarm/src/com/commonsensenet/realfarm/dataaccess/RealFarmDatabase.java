@@ -112,16 +112,19 @@ public class RealFarmDatabase {
 							COLUMN_NAME_UNIT_ID)
 					+ references(COLUMN_NAME_ACTION_UNIT2ID, TABLE_NAME_UNIT,
 							COLUMN_NAME_UNIT_ID)
-				/*	+ references(COLUMN_NAME_ACTION_RESOURCE1ID,
-							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)*/
+					/*
+					 * + references(COLUMN_NAME_ACTION_RESOURCE1ID,
+					 * TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
+					 */
 					+ references(COLUMN_NAME_ACTION_RESOURCE2ID,
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ references(COLUMN_NAME_ACTION_USERID, TABLE_NAME_USER,
 							COLUMN_NAME_USER_ID)
-					/*+ references(COLUMN_NAME_ACTION_PLOTID + ", "
-							+ COLUMN_NAME_ACTION_USERID, TABLE_NAME_PLOT,
-							COLUMN_NAME_PLOT_ID + ", "
-									+ COLUMN_NAME_PLOT_USERID)*/
+					/*
+					 * + references(COLUMN_NAME_ACTION_PLOTID + ", " +
+					 * COLUMN_NAME_ACTION_USERID, TABLE_NAME_PLOT,
+					 * COLUMN_NAME_PLOT_ID + ", " + COLUMN_NAME_PLOT_USERID)
+					 */
 					+ "PRIMARY KEY (" + COLUMN_NAME_ACTION_ID + ", "
 					+ COLUMN_NAME_ACTION_USERID + ")" + " ); ");
 			Log.d(LOG_TAG, "Created action table");
@@ -208,26 +211,29 @@ public class RealFarmDatabase {
 							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
 					+ references(COLUMN_NAME_PLOT_SOILTYPEID,
 							TABLE_NAME_SOILTYPE, COLUMN_NAME_SOILTYPE_ID)
-					+ references(COLUMN_NAME_PLOT_TYPE,
-							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
-					+ "PRIMARY KEY (" + COLUMN_NAME_PLOT_ID + ", "
-					+ COLUMN_NAME_PLOT_USERID + ")" + " ); ");
+					+ references(COLUMN_NAME_PLOT_TYPE, TABLE_NAME_RESOURCE,
+							COLUMN_NAME_RESOURCE_ID) + "PRIMARY KEY ("
+					+ COLUMN_NAME_PLOT_ID + ", " + COLUMN_NAME_PLOT_USERID
+					+ ")" + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
-			
+
 			// recommandation
 			db.execSQL("create table " + TABLE_NAME_RECOMMANDATION + " ( "
 					+ COLUMN_NAME_RECOMMANDATION_ID + " integer primary key, "
-					+ COLUMN_NAME_RECOMMANDATION_TIMESTAMP + " integer not null, "
+					+ COLUMN_NAME_RECOMMANDATION_TIMESTAMP
+					+ " integer not null, "
 					+ COLUMN_NAME_RECOMMANDATION_PLOT_ID + " integer, "
 					+ COLUMN_NAME_RECOMMANDATION_ADVICE_ID + " integer, "
 					+ COLUMN_NAME_RECOMMANDATION_USER_ID + " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE + " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE + " integer not null, " 
+					+ COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE
+					+ " integer, "
+					+ COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE
+					+ " integer not null, "
 					+ COLUMN_NAME_RECOMMANDATION_SEVERITY + " integer, "
 					+ COLUMN_NAME_RECOMMANDATION_PROBABILITY + " integer, "
 					+ COLUMN_NAME_RECOMMANDATION_UNREAD + " boolean " + " ); ");
 			Log.d(LOG_TAG, "Created recommandation table");
-			
+
 			// resource
 			db.execSQL("create table " + TABLE_NAME_RESOURCE + " ( "
 					+ COLUMN_NAME_RESOURCE_ID + " integer primary key, "
@@ -310,9 +316,15 @@ public class RealFarmDatabase {
 					+ " text not null, "
 					+ COLUMN_NAME_UNIT_IMAGE
 					+ " integer, "
-					+ COLUMN_NAME_UNIT_AUDIO + " integer, "
-					+ COLUMN_NAME_UNIT_VALUE + " integer, "
-					+ COLUMN_NAME_UNIT_ACTIONTYPEID + " integer, " + references(COLUMN_NAME_UNIT_ACTIONTYPEID, TABLE_NAME_ACTIONTYPE, COLUMN_NAME_ACTIONTYPE_ID, false) + " ); ");
+					+ COLUMN_NAME_UNIT_AUDIO
+					+ " integer, "
+					+ COLUMN_NAME_UNIT_VALUE
+					+ " integer, "
+					+ COLUMN_NAME_UNIT_ACTIONTYPEID
+					+ " integer, "
+					+ references(COLUMN_NAME_UNIT_ACTIONTYPEID,
+							TABLE_NAME_ACTIONTYPE, COLUMN_NAME_ACTIONTYPE_ID,
+							false) + " ); ");
 			Log.d(LOG_TAG, "Created unit table");
 
 			// Weather forecast
@@ -395,13 +407,14 @@ public class RealFarmDatabase {
 		}
 	}
 
-	// TODO: This is for the selling aggregate and the aggregates number indicators on the homescreen. Put that somewhere into the database
+	// TODO: This is for the selling aggregate and the aggregates number
+	// indicators on the homescreen. Put that somewhere into the database
 	public static final int NUMBER_DAYS_NEWS = 14;
 	public static final int SELLING_AGGREGATE_INCREMENT = 99;
-	
+
 	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;
 	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
-	
+
 	public static final int ACTION_TYPE_ALL_ID = 0;
 	public static final int ACTION_TYPE_FERTILIZE_ID = 2;
 	public static final int ACTION_TYPE_HARVEST_ID = 6;
@@ -484,7 +497,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_RECOMMANDATION_SEVERITY = "severity";
 	public static final String COLUMN_NAME_RECOMMANDATION_PROBABILITY = "probability";
 	public static final String COLUMN_NAME_RECOMMANDATION_UNREAD = "hasChanged";
-	
+
 	public static final String COLUMN_NAME_RESOURCE_AUDIO = "audio";
 	public static final String COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE = "backgroundImage";
 	public static final String COLUMN_NAME_RESOURCE_ID = "id";
@@ -589,7 +602,6 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_FERTILIZE_SELECTOR = 20;
 	public static final int RESOURCE_TYPE_VARIETY = 21;
 	public static final int RESOURCE_TYPE_SOIL_TYPE = 22;
-	
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONTYPE = "actionType";
@@ -735,27 +747,30 @@ public class RealFarmDatabase {
 
 		Object[][] userData = {
 				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g",
-					"CK Pura", R.raw.john_doe, R.raw.ckpura },
-				{ "Hendrik", "Knoche", "+41788479621", "farmer_90px_adam_jones",
-						"CK Pura", R.raw.hendrik_knoche, R.raw.ckpura },
+						"CK Pura", R.raw.john_doe, R.raw.ckpura },
+				{ "Hendrik", "Knoche", "+41788479621",
+						"farmer_90px_adam_jones", "CK Pura",
+						R.raw.hendrik_knoche, R.raw.ckpura },
 				{ "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
 						"CK Pura", R.raw.chris_bishop, R.raw.ckpura },
 				{ "Chris", "McDougall", "0781122672",
-						"farmer_90px_neil_palmer2", "CK Pura", R.raw.chris_mcdougall, R.raw.ckpura },
+						"farmer_90px_neil_palmer2", "CK Pura",
+						R.raw.chris_mcdougall, R.raw.ckpura },
 				{ "Frank", "Herbert", "0788111172",
-						"farmer_90px_walmart_stores", "CK Pura", R.raw.frank_herbert, R.raw.ckpura } };
+						"farmer_90px_walmart_stores", "CK Pura",
+						R.raw.frank_herbert, R.raw.ckpura } };
 
 		ContentValues users = new ContentValues();
 		for (int x = 0; x < userData.length; x++) {
 			users.put(COLUMN_NAME_USER_ID, userData[x][2] + "1");
-			users.put(COLUMN_NAME_USER_FIRSTNAME, (String)userData[x][0]);
-			users.put(COLUMN_NAME_USER_LASTNAME, (String)userData[x][1]);
-			users.put(COLUMN_NAME_USER_MOBILENUMBER, (String)userData[x][2]);
-			users.put(COLUMN_NAME_USER_DEVICEID, (String)userData[x][2]);
-			users.put(COLUMN_NAME_USER_IMAGEPATH, (String)userData[x][3]);
-			users.put(COLUMN_NAME_USER_LOCATION, (String)userData[x][4]);
-			users.put(COLUMN_NAME_USER_NAME_AUDIO, (Integer)userData[x][5]);
-			users.put(COLUMN_NAME_USER_LOCATION_AUDIO, (Integer)userData[x][6]);
+			users.put(COLUMN_NAME_USER_FIRSTNAME, (String) userData[x][0]);
+			users.put(COLUMN_NAME_USER_LASTNAME, (String) userData[x][1]);
+			users.put(COLUMN_NAME_USER_MOBILENUMBER, (String) userData[x][2]);
+			users.put(COLUMN_NAME_USER_DEVICEID, (String) userData[x][2]);
+			users.put(COLUMN_NAME_USER_IMAGEPATH, (String) userData[x][3]);
+			users.put(COLUMN_NAME_USER_LOCATION, (String) userData[x][4]);
+			users.put(COLUMN_NAME_USER_NAME_AUDIO, (Integer) userData[x][5]);
+			users.put(COLUMN_NAME_USER_LOCATION_AUDIO, (Integer) userData[x][6]);
 			users.put(COLUMN_NAME_USER_ISSENT, 1);
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
@@ -780,14 +795,10 @@ public class RealFarmDatabase {
 				{ ACTION_TYPE_HARVEST_ID, "Harvest",
 						R.drawable.harvestingaction, R.raw.harvest },
 				{ ACTION_TYPE_SELL_ID, "Sell", R.drawable.sellingaction,
-						R.raw.selling },
-				{ ACTION_TYPE_PLAN_ID, "", -1,
-						-1 }
+						R.raw.selling }, { ACTION_TYPE_PLAN_ID, "", -1, -1 }
 
 		};
 
-		
-		
 		ContentValues actionType = new ContentValues();
 		for (int x = 0; x < actionTypeData.length; x++) {
 			actionType.put(COLUMN_NAME_ACTIONTYPE_ID,
@@ -807,178 +818,268 @@ public class RealFarmDatabase {
 		// resources
 		Object[][] resourceData = {
 				/** Problems */
-				{ "Late leaf spot", "LLS", R.raw.late_leaf_spot, R.drawable.ic_diseasecategory, -1, -1,
+				{ "Late leaf spot", "LLS", R.raw.late_leaf_spot,
+						R.drawable.ic_diseasecategory, -1, -1,
 						RESOURCE_TYPE_PROBLEM, -1 },
-				{ "Pod rot", "Pod rot", R.raw.pod_rot, R.drawable.ic_diseasecategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Unknown disease", "? disease", R.raw.unknown_disease, R.drawable.ic_diseasecategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Disease not listed", "D unlisted", R.raw.disease_not_listed, R.drawable.ic_diseasecategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Aphids", "Aphids", R.raw.aphids, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Leaf miner", "Leaf miner", R.raw.leaf_miner, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM, -1  },
-				{ "Pod borer", "Pod borer", R.raw.pod_borer, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Red hairy caterpillar", "R H Caterpillar", R.raw.red_hairy_caterpillar, R.drawable.ic_pestcategory,
-						-1, -1, RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Root grub", "Root grub", R.raw.root_grub, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Unknown pest", "? pest", R.raw.unknown_pest, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Pest not listed", "Pe-unlisted", R.raw.pest_not_listed, R.drawable.ic_pestcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Low growth", "Low growth", R.raw.low_growth, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Pegs not developed", "Pegs undev", R.raw.pegs_not_developed, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Pod germination", "Pod germination", R.raw.pod_germination, R.drawable.ic_otherproblemcategory, -1,
-						-1, RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Reduced flowering", "Red flowering", R.raw.reduced_flowering, R.drawable.ic_otherproblemcategory, -1,
-						-1, RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Rot of stalks", "Stalk rot", R.raw.rot_of_stalks, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Too much vegetative growth", "Veg growth", R.raw.too_much_vegetative_growth, R.drawable.ic_otherproblemcategory,
-						-1, -1, RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Weeds", "Weeds", R.raw.weeds, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Wild boar", "Wild boar", R.raw.wild_boar, R.drawable.ic_otherproblemcategory, -1, -1,
-						RESOURCE_TYPE_PROBLEM , -1 },
-				{ "Problem not listed", "Pb-unlisted", R.raw.problem_not_listed, R.drawable.ic_otherproblemcategory, -1,
-						-1, RESOURCE_TYPE_PROBLEM , -1 },
+				{ "Pod rot", "Pod rot", R.raw.pod_rot,
+						R.drawable.ic_diseasecategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Unknown disease", "? disease", R.raw.unknown_disease,
+						R.drawable.ic_diseasecategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Disease not listed", "D unlisted", R.raw.disease_not_listed,
+						R.drawable.ic_diseasecategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Aphids", "Aphids", R.raw.aphids, R.drawable.ic_pestcategory,
+						-1, -1, RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Leaf miner", "Leaf miner", R.raw.leaf_miner,
+						R.drawable.ic_pestcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Pod borer", "Pod borer", R.raw.pod_borer,
+						R.drawable.ic_pestcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Red hairy caterpillar", "R H Caterpillar",
+						R.raw.red_hairy_caterpillar,
+						R.drawable.ic_pestcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Root grub", "Root grub", R.raw.root_grub,
+						R.drawable.ic_pestcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Unknown pest", "? pest", R.raw.unknown_pest,
+						R.drawable.ic_pestcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Pest not listed", "Pe-unlisted", R.raw.pest_not_listed,
+						R.drawable.ic_pestcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Low growth", "Low growth", R.raw.low_growth,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Pegs not developed", "Pegs undev", R.raw.pegs_not_developed,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Pod germination", "Pod germination", R.raw.pod_germination,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Reduced flowering", "Red flowering",
+						R.raw.reduced_flowering,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Rot of stalks", "Stalk rot", R.raw.rot_of_stalks,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Too much vegetative growth", "Veg growth",
+						R.raw.too_much_vegetative_growth,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Weeds", "Weeds", R.raw.weeds,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Wild boar", "Wild boar", R.raw.wild_boar,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
+				{ "Problem not listed", "Pb-unlisted",
+						R.raw.problem_not_listed,
+						R.drawable.ic_otherproblemcategory, -1, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
 				/** Treatment */
 				{ "Treated", "Treated", R.raw.treatmenttoseeds2,
 						R.drawable.ic_sowingseedtreated, -1, -1,
-						RESOURCE_TYPE_TREATMENT , -1 },
+						RESOURCE_TYPE_TREATMENT, -1 },
 				{ "Not treated", "Not treated", R.raw.treatmenttoseeds3,
 						R.drawable.ic_sowingseednottreated, -1, -1,
-						RESOURCE_TYPE_TREATMENT, -1  },
+						RESOURCE_TYPE_TREATMENT, -1 },
 				/** Month */
-				{ "01 January", "Jan", R.raw.jan, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.JANUARY },
-				{ "02 February", "Feb", R.raw.feb, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.FEBRUARY},
-				{ "03 March", "Mar", R.raw.mar, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.MARCH },
-				{ "04 April", "Apr", R.raw.apr, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.APRIL },
-				{ "05 May", "May", R.raw.may, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.MAY },
-				{ "06 June", "Jun", R.raw.jun, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.JUNE },
-				{ "07 July", "Jul", R.raw.jul, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.JULY },
-				{ "08 August", "Aug", R.raw.aug, -1, -1, -1,RESOURCE_TYPE_MONTH , Calendar.AUGUST },
-				{ "09 September", "Sep", R.raw.sep, -1, -1, -1,RESOURCE_TYPE_MONTH , Calendar.SEPTEMBER },
-				{ "10 October", "Oct", R.raw.oct, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.OCTOBER },
-				{ "11 November", "Nov", R.raw.nov, -1, -1, -1, RESOURCE_TYPE_MONTH , Calendar.NOVEMBER },
-				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,RESOURCE_TYPE_MONTH , Calendar.DECEMBER },
-				/** Days span */ 
-				{ "1 day", "1 day", R.raw.one_day, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 1},
-				{ "7 days", "7 days", R.raw.seven_days, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 7 },
-				{ "14 days", "14 days", R.raw.fourteen_days, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 14 },
-				{ "21 days", "21 days", R.raw.twentyone_days, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 21 },
-				{ "1 month", "1 month", R.raw.one_month, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 31 },		
-				{ "year", "year", R.raw.year, -1 , -1, -1, RESOURCE_TYPE_DAYS_SPAN , 366},		
-						
+				{ "01 January", "Jan", R.raw.jan, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.JANUARY },
+				{ "02 February", "Feb", R.raw.feb, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.FEBRUARY },
+				{ "03 March", "Mar", R.raw.mar, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.MARCH },
+				{ "04 April", "Apr", R.raw.apr, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.APRIL },
+				{ "05 May", "May", R.raw.may, -1, -1, -1, RESOURCE_TYPE_MONTH,
+						Calendar.MAY },
+				{ "06 June", "Jun", R.raw.jun, -1, -1, -1, RESOURCE_TYPE_MONTH,
+						Calendar.JUNE },
+				{ "07 July", "Jul", R.raw.jul, -1, -1, -1, RESOURCE_TYPE_MONTH,
+						Calendar.JULY },
+				{ "08 August", "Aug", R.raw.aug, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.AUGUST },
+				{ "09 September", "Sep", R.raw.sep, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.SEPTEMBER },
+				{ "10 October", "Oct", R.raw.oct, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.OCTOBER },
+				{ "11 November", "Nov", R.raw.nov, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.NOVEMBER },
+				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,
+						RESOURCE_TYPE_MONTH, Calendar.DECEMBER },
+				/** Days span */
+				{ "1 day", "1 day", R.raw.one_day, -1, -1, -1,
+						RESOURCE_TYPE_DAYS_SPAN, 1 },
+				{ "7 days", "7 days", R.raw.seven_days, -1, -1, -1,
+						RESOURCE_TYPE_DAYS_SPAN, 7 },
+				{ "14 days", "14 days", R.raw.fourteen_days, -1, -1, -1,
+						RESOURCE_TYPE_DAYS_SPAN, 14 },
+				{ "21 days", "21 days", R.raw.twentyone_days, -1, -1, -1,
+						RESOURCE_TYPE_DAYS_SPAN, 21 },
+				{ "1 month", "1 month", R.raw.one_month, -1, -1, -1,
+						RESOURCE_TYPE_DAYS_SPAN, 31 },
+				{ "year", "year", R.raw.year, -1, -1, -1,
+						RESOURCE_TYPE_DAYS_SPAN, 366 },
+
 				/** Treated */
 				{ "Main crop", "Main crop", R.raw.maincrop,
-						R.drawable.ic_maincrop, -1, -1, RESOURCE_TYPE_INTERCROP , -1 },
+						R.drawable.ic_maincrop, -1, -1,
+						RESOURCE_TYPE_INTERCROP, -1 },
 				{ "Intercrop", "Intercrop", R.raw.intercrop,
 						R.drawable.ic_intercrop, -1, -1,
-						RESOURCE_TYPE_INTERCROP , -1 },
+						RESOURCE_TYPE_INTERCROP, -1 },
 				/** Fertilizer */
 				{ "Complex", "Complex", R.raw.complex, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Compost", "Compost", R.raw.compost, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "DAP", "DAP", R.raw.dap, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Farm Yard Manure / FYM", "FYM", R.raw.fym, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Gypsum", "Gypsum", R.raw.gypsum, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Potash", "Potash", R.raw.potash, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Salt", "Salt", R.raw.salt, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Super", "Super", R.raw.superr, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Super", "Urea", R.raw.superr, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				{ "Unlisted", "Not in the list", R.raw.unlisted, -1, -1, -1,
-						RESOURCE_TYPE_FERTILIZER , -1 },
+						RESOURCE_TYPE_FERTILIZER, -1 },
 				/** Pesticide */
 				{ "Monocrotophos", "Monocrot", R.raw.monocrotophos,
-							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
-				{ "Dimethoate", "Dimethoa", R.raw.dimethoate, R.drawable.pesticide,
-						-1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
-				{ "Pesticide not listed", "P-unlisted", R.raw.pesticide_not_listed,
-							R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
+						R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE,
+						-1 },
+				{ "Dimethoate", "Dimethoa", R.raw.dimethoate,
+						R.drawable.pesticide, -1, -1, RESOURCE_TYPE_PESTICIDE,
+						-1 },
+				{ "Pesticide not listed", "P-unlisted",
+						R.raw.pesticide_not_listed, R.drawable.pesticide, -1,
+						-1, RESOURCE_TYPE_PESTICIDE, -1 },
 				{ "Dithane M-45", "D. M-45", R.raw.dithane_m_45,
-								R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
-				{ "Triazole", "Triazole", R.raw.triazole, R.drawable.fungicide, -1,
-						-1, RESOURCE_TYPE_PESTICIDE , -1 },
-				{ "Fungicide not listed", "F-unlisted", R.raw.fungicide_not_listed,
-							R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE , -1 },
+						R.drawable.fungicide, -1, -1, RESOURCE_TYPE_PESTICIDE,
+						-1 },
+				{ "Triazole", "Triazole", R.raw.triazole, R.drawable.fungicide,
+						-1, -1, RESOURCE_TYPE_PESTICIDE, -1 },
+				{ "Fungicide not listed", "F-unlisted",
+						R.raw.fungicide_not_listed, R.drawable.fungicide, -1,
+						-1, RESOURCE_TYPE_PESTICIDE, -1 },
 				/** Irrigation Method. */
 				{ "Flooding", "Flooding", R.raw.flooding,
 						R.drawable.ic_flooding, -1, -1,
-						RESOURCE_TYPE_IRRIGATIONMETHOD , -1 },
+						RESOURCE_TYPE_IRRIGATIONMETHOD, -1 },
 				{ "Sprinkling", "Sprinkling", R.raw.sprinkling,
 						R.drawable.ic_sprinkling, -1, -1,
-						RESOURCE_TYPE_IRRIGATIONMETHOD , -1 },
+						RESOURCE_TYPE_IRRIGATIONMETHOD, -1 },
 				/** Satisfaction */
 				{ "Good", "Good", R.raw.feedbackgood, R.drawable.smiley_good,
-						-1, -1, RESOURCE_TYPE_SATISFACTION , -1 },
+						-1, -1, RESOURCE_TYPE_SATISFACTION, -1 },
 				{ "Moderate", "Moderate", R.raw.feedbackmoderate,
 						R.drawable.smiley_medium, -1, -1,
-						RESOURCE_TYPE_SATISFACTION , -1 },
+						RESOURCE_TYPE_SATISFACTION, -1 },
 				{ "Bad", "Bad", R.raw.feedbackbad, R.drawable.smiley_bad, -1,
-						-1, RESOURCE_TYPE_SATISFACTION , -1 },
+						-1, RESOURCE_TYPE_SATISFACTION, -1 },
 				/** Plot type */
-				{ "Irrigated", "Irrigated", R.raw.irrigated, R.drawable.irrigatedland,
-						-1, -1, RESOURCE_TYPE_PLOT_TYPE , -1 },
-				{ "Rainfed", "Rainfed", R.raw.rainfed,
-						R.drawable.rainfedland, -1, -1,
-						RESOURCE_TYPE_PLOT_TYPE , -1 },
+				{ "Irrigated", "Irrigated", R.raw.irrigated,
+						R.drawable.irrigatedland, -1, -1,
+						RESOURCE_TYPE_PLOT_TYPE, -1 },
+				{ "Rainfed", "Rainfed", R.raw.rainfed, R.drawable.rainfedland,
+						-1, -1, RESOURCE_TYPE_PLOT_TYPE, -1 },
 				/** None image advice page */
-				{ "", "", R.raw.none, -1, -1, R.drawable.noactionforadvice, RESOURCE_TYPE_ADVICE , -1 },
+				{ "", "", R.raw.none, -1, -1, R.drawable.noactionforadvice,
+						RESOURCE_TYPE_ADVICE, -1 },
 				/** Locations */
-				{ "CK Pura", "CK Pura", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_LOCATION , -1 },
+				{ "CK Pura", "CK Pura", R.raw.problems, -1, -1, -1,
+						RESOURCE_TYPE_LOCATION, -1 },
 				/** Sowing window */
-				{ "2011", "2011", R.raw.problems, -1, -1, -1, RESOURCE_TYPE_YEAR , -1 },
+				{ "2011", "2011", R.raw.a2011, -1, -1, -1, RESOURCE_TYPE_YEAR,
+						-1 },
 				/** Sowing window */
-				{ "Bharani 27.4. - 10.5.", "27.4. 10.5.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Kritika 11.5. - 24.5.", "11.5. 24.5.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Rohini 24.5. - 07.6.", "24.5 07.6", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Mrigashira 08.6 -. 21.6.", "08.6. 21.6.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Ardra 22.6. - 05.7.", "22.6. 05.7.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "Punarvasu 06.7. - 19.7.", "06.7. 19.7.", R.raw.problems, R.drawable.yt_sowingwindowselected, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				{ "All", "", R.raw.problems, R.drawable.yt_sowingwindownotfiltered, -1, -1, RESOURCE_TYPE_SOWING_WINDOW , -1 },
-				/**Selectors*/
-				{ "Yes", "", -1, R.drawable.yt_diseased, -1, -1, RESOURCE_TYPE_DISEASE_SELECTOR,-1},
-				{ "No", "", -1, R.drawable.yt_diseaseno, -1, -1, RESOURCE_TYPE_DISEASE_SELECTOR,-1},
-				{ "All", "", -1, R.drawable.yt_diseasesnotfiltered, -1, -1, RESOURCE_TYPE_DISEASE_SELECTOR,-1},
-				{ "Yes", "", -1, R.drawable.yt_pested, -1, -1, RESOURCE_TYPE_PEST_SELECTOR,-1},
-				{ "No", "", -1, R.drawable.yt_pestedno, -1, -1, RESOURCE_TYPE_PEST_SELECTOR,-1},
-				{ "All", "", -1, R.drawable.yt_pestnotfiltered, -1, -1, RESOURCE_TYPE_PEST_SELECTOR,-1},
-				{ "Yes", "", -1, R.drawable.yt_irrigated, -1, -1, RESOURCE_TYPE_IRRIGATION_SELECTOR,-1},
-				{ "No", "", -1, R.drawable.yt_irrigatedno, -1, -1, RESOURCE_TYPE_IRRIGATION_SELECTOR,-1},
-				{ "All", "", -1, R.drawable.yt_irrigatednotfiltered, -1, -1, RESOURCE_TYPE_IRRIGATION_SELECTOR,-1},
-				{ "Yes", "", -1, R.drawable.yt_sprayingselected, -1, -1, RESOURCE_TYPE_SPRAYING_SELECTOR,-1},
-				{ "No", "", -1, R.drawable.yt_sprayingno, -1, -1, RESOURCE_TYPE_SPRAYING_SELECTOR,-1},
-				{ "All", "", -1, R.drawable.yt_sprayingnotfiltered, -1, -1, RESOURCE_TYPE_SPRAYING_SELECTOR,-1},
-				{ "Yes", "", -1, R.drawable.yt_fertilized, -1, -1, RESOURCE_TYPE_FERTILIZE_SELECTOR,-1},
-				{ "No", "", -1, R.drawable.yt_fertilizedno, -1, -1, RESOURCE_TYPE_FERTILIZE_SELECTOR,-1},
-				{ "All", "", -1, R.drawable.yt_fertilizednotfiltered, -1, -1, RESOURCE_TYPE_FERTILIZE_SELECTOR,-1},
-				{ "TMV2", "TMV2", R.raw.tmv_2, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_castor, RESOURCE_TYPE_VARIETY,-1},
-				{ "K6", "K6",  R.raw.k_6, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_groundnut, RESOURCE_TYPE_VARIETY,-1},
-				{ "Samrat", "Samrat",R.raw.samrat, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_bajra, RESOURCE_TYPE_VARIETY,-1},
-				{ "JL24", "JL24", R.raw.jl_24, R.drawable.yt_varietyselected, -1, R.drawable.pic_72px_groundnut, RESOURCE_TYPE_VARIETY,-1},
-				{ "All", "All", -1, R.drawable.yt_varietiesnotfiltered, -1, -1, RESOURCE_TYPE_VARIETY,-1},
-				{ "Red loam", "Red loam", R.raw.red_loam, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_redloam, RESOURCE_TYPE_SOIL_TYPE,-1},
-				{ "Sandy", "Sandy", R.raw.sandy, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_sandloam, RESOURCE_TYPE_SOIL_TYPE,-1},
-				{ "Black loam", "Black loam", R.raw.black_loam, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_kappumannu, RESOURCE_TYPE_SOIL_TYPE,-1},
-				{ "Black clayey loam", "BC loam", R.raw.black_clay_loam, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_clayloam, RESOURCE_TYPE_SOIL_TYPE,-1},
-				{ "Jedi Maralu", "Sand", R.raw.jedi_maralu, R.drawable.yt_soiltypeselected, -1,  R.drawable.st_irrigatesoilloam, RESOURCE_TYPE_SOIL_TYPE,-1},
-		};
+				{ "Bharani 27.4. - 10.5.", "27.4. 10.5.", R.raw.bharani, -1,
+						-1, -1, RESOURCE_TYPE_SOWING_WINDOW, -1 },
+				{ "Kritika 11.5. - 24.5.", "11.5. 24.5.", R.raw.kritika, -1,
+						-1, -1, RESOURCE_TYPE_SOWING_WINDOW, -1 },
+				{ "Rohini 24.5. - 07.6.", "24.5 07.6", R.raw.rohini, -1, -1,
+						-1, RESOURCE_TYPE_SOWING_WINDOW, -1 },
+				{ "Mrigashira 08.6 -. 21.6.", "08.6. 21.6.", R.raw.mrigashira,
+						-1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW, -1 },
+				{ "Ardra 22.6. - 05.7.", "22.6. 05.7.", R.raw.ardra, -1, -1,
+						-1, RESOURCE_TYPE_SOWING_WINDOW, -1 },
+				{ "Punarvasu 06.7. - 19.7.", "06.7. 19.7.", R.raw.punarvasu,
+						-1, -1, -1, RESOURCE_TYPE_SOWING_WINDOW, -1 },
+				{ "Pushya 20.7. - 02.8.", "20.7. 02.8.", R.raw.pushya, -1, -1,
+						-1, RESOURCE_TYPE_SOWING_WINDOW, -1 },
+				/** Selectors */
+				{ "Yes", "", -1, R.drawable.yt_diseased, -1, -1,
+						RESOURCE_TYPE_DISEASE_SELECTOR, -1 },
+				{ "No", "", -1, R.drawable.yt_diseaseno, -1, -1,
+						RESOURCE_TYPE_DISEASE_SELECTOR, -1 },
+				{ "All", "", -1, R.drawable.yt_diseasesnotfiltered, -1, -1,
+						RESOURCE_TYPE_DISEASE_SELECTOR, -1 },
+				{ "Yes", "", -1, R.drawable.yt_pested, -1, -1,
+						RESOURCE_TYPE_PEST_SELECTOR, -1 },
+				{ "No", "", -1, R.drawable.yt_pestedno, -1, -1,
+						RESOURCE_TYPE_PEST_SELECTOR, -1 },
+				{ "All", "", -1, R.drawable.yt_pestnotfiltered, -1, -1,
+						RESOURCE_TYPE_PEST_SELECTOR, -1 },
+				{ "Yes", "", -1, R.drawable.yt_irrigated, -1, -1,
+						RESOURCE_TYPE_IRRIGATION_SELECTOR, -1 },
+				{ "No", "", -1, R.drawable.yt_irrigatedno, -1, -1,
+						RESOURCE_TYPE_IRRIGATION_SELECTOR, -1 },
+				{ "All", "", -1, R.drawable.yt_irrigatednotfiltered, -1, -1,
+						RESOURCE_TYPE_IRRIGATION_SELECTOR, -1 },
+				{ "Yes", "", -1, R.drawable.yt_sprayingselected, -1, -1,
+						RESOURCE_TYPE_SPRAYING_SELECTOR, -1 },
+				{ "No", "", -1, R.drawable.yt_sprayingno, -1, -1,
+						RESOURCE_TYPE_SPRAYING_SELECTOR, -1 },
+				{ "All", "", -1, R.drawable.yt_sprayingnotfiltered, -1, -1,
+						RESOURCE_TYPE_SPRAYING_SELECTOR, -1 },
+				{ "Yes", "", -1, R.drawable.yt_fertilized, -1, -1,
+						RESOURCE_TYPE_FERTILIZE_SELECTOR, -1 },
+				{ "No", "", -1, R.drawable.yt_fertilizedno, -1, -1,
+						RESOURCE_TYPE_FERTILIZE_SELECTOR, -1 },
+				{ "All", "", -1, R.drawable.yt_fertilizednotfiltered, -1, -1,
+						RESOURCE_TYPE_FERTILIZE_SELECTOR, -1 },
+				{ "TMV2", "TMV2", R.raw.tmv_2, R.drawable.yt_varietyselected,
+						-1, R.drawable.pic_72px_castor, RESOURCE_TYPE_VARIETY,
+						-1 },
+				{ "K6", "K6", R.raw.k_6, R.drawable.yt_varietyselected, -1,
+						R.drawable.pic_72px_groundnut, RESOURCE_TYPE_VARIETY,
+						-1 },
+				{ "Samrat", "Samrat", R.raw.samrat,
+						R.drawable.yt_varietyselected, -1,
+						R.drawable.pic_72px_bajra, RESOURCE_TYPE_VARIETY, -1 },
+				{ "JL24", "JL24", R.raw.jl_24, R.drawable.yt_varietyselected,
+						-1, R.drawable.pic_72px_groundnut,
+						RESOURCE_TYPE_VARIETY, -1 },
+				{ "All", "All", -1, R.drawable.yt_varietiesnotfiltered, -1, -1,
+						RESOURCE_TYPE_VARIETY, -1 },
+				{ "Red loam", "Red loam", R.raw.red_loam,
+						R.drawable.yt_soiltypeselected, -1,
+						R.drawable.st_redloam, RESOURCE_TYPE_SOIL_TYPE, -1 },
+				{ "Sandy", "Sandy", R.raw.sandy,
+						R.drawable.yt_soiltypeselected, -1,
+						R.drawable.st_sandloam, RESOURCE_TYPE_SOIL_TYPE, -1 },
+				{ "Black loam", "Black loam", R.raw.black_loam,
+						R.drawable.yt_soiltypeselected, -1,
+						R.drawable.st_kappumannu, RESOURCE_TYPE_SOIL_TYPE, -1 },
+				{ "Black clayey loam", "BC loam", R.raw.black_clay_loam,
+						R.drawable.yt_soiltypeselected, -1,
+						R.drawable.st_clayloam, RESOURCE_TYPE_SOIL_TYPE, -1 },
+				{ "Jedi Maralu", "Sand", R.raw.jedi_maralu,
+						R.drawable.yt_soiltypeselected, -1,
+						R.drawable.st_irrigatesoilloam,
+						RESOURCE_TYPE_SOIL_TYPE, -1 }, };
 
-		
 		ContentValues resource = new ContentValues();
 		for (int x = 0; x < resourceData.length; x++) {
 			resource.put(COLUMN_NAME_RESOURCE_NAME, (String) resourceData[x][0]);
@@ -1010,137 +1111,139 @@ public class RealFarmDatabase {
 						ACTION_TYPE_FERTILIZE_ID, -1 },
 				{ "cart load(s)", R.drawable.ic_cartload, R.raw.cart_load,
 						ACTION_TYPE_FERTILIZE_ID, -1 },
-				{ "tractor load(s)", R.drawable.ic_tractorload, R.raw.tractor_load,
-						ACTION_TYPE_FERTILIZE_ID, -1 },
-						
-				{ "bag of 20 kgs", R.drawable.bag20kg,
-						R.raw.bagof20kg, ACTION_TYPE_HARVEST_ID, 20 },
-				{ "bag of 21 kgs", R.drawable.bag21kg,
-						R.raw.bagof21kg, ACTION_TYPE_HARVEST_ID , 21},
-				{ "bag of 22 kgs", R.drawable.bag22kg,
-						R.raw.bagof22kg, ACTION_TYPE_HARVEST_ID , 22},
-				{ "bag of 23 kgs", R.drawable.bag23kg,
-						R.raw.bagof23kg, ACTION_TYPE_HARVEST_ID , 23},
-				{ "bag of 24 kgs", R.drawable.bag24kg,
-						R.raw.bagof24kg, ACTION_TYPE_HARVEST_ID , 24},
-				{ "bag of 25 kgs", R.drawable.bag25kg,
-						R.raw.bagof25kg, ACTION_TYPE_HARVEST_ID , 25},
-				{ "bag of 26 kgs", R.drawable.bag26kg,
-						R.raw.bagof26kg, ACTION_TYPE_HARVEST_ID , 26},
-				{ "bag of 27 kgs", R.drawable.bag27kg,
-						R.raw.bagof27kg, ACTION_TYPE_HARVEST_ID , 27},
-				{ "bag of 28 kgs", R.drawable.bag28kg,
-						R.raw.bagof28kg, ACTION_TYPE_HARVEST_ID , 28},
-				{ "bag of 29 kgs", R.drawable.bag29kg,
-						R.raw.bagof29kg, ACTION_TYPE_HARVEST_ID , 29},
-				{ "bag of 30 kgs", R.drawable.bag30kg,
-						R.raw.bagof30kg, ACTION_TYPE_HARVEST_ID , 30},
-				{ "bag of 31 kgs", R.drawable.bag31kg,
-						R.raw.bagof31kg, ACTION_TYPE_HARVEST_ID , 31},
-				{ "bag of 32 kgs", R.drawable.bag32kg,
-						R.raw.bagof32kg, ACTION_TYPE_HARVEST_ID , 32},
-				{ "bag of 33 kgs", R.drawable.bag33kg,
-						R.raw.bagof33kg, ACTION_TYPE_HARVEST_ID , 33},
-				{ "bag of 34 kgs", R.drawable.bag34kg,
-						R.raw.bagof34kg, ACTION_TYPE_HARVEST_ID , 34},
-				{ "bag of 35 kgs", R.drawable.bag35kg,
-						R.raw.bagof35kg, ACTION_TYPE_HARVEST_ID , 35},
-				{ "bag of 36 kgs", R.drawable.bag36kg,
-						R.raw.bagof36kg, ACTION_TYPE_HARVEST_ID , 36},
-				{ "bag of 37 kgs", R.drawable.bag37kg,
-						R.raw.bagof37kg, ACTION_TYPE_HARVEST_ID , 37},
-				{ "bag of 38 kgs", R.drawable.bag38kg,
-						R.raw.bagof10kg, ACTION_TYPE_HARVEST_ID , 38},
-				{ "bag of 39 kgs", R.drawable.bag39kg,
-						R.raw.bagof38kg, ACTION_TYPE_HARVEST_ID , 39},
-				{ "bag of 40 kgs", R.drawable.bag40kg,
-						R.raw.bagof40kg, ACTION_TYPE_HARVEST_ID , 40},
-				{ "bag of 41 kgs", R.drawable.bag41kg,
-						R.raw.bagof41kg, ACTION_TYPE_HARVEST_ID , 41},
-				{ "bag of 42 kgs", R.drawable.bag42kg,
-						R.raw.bagof42kg, ACTION_TYPE_HARVEST_ID , 42},
-				{ "bag of 43 kgs", R.drawable.bag43kg,
-						R.raw.bagof43kg, ACTION_TYPE_HARVEST_ID , 43},
-				{ "bag of 44 kgs", R.drawable.bag44kg,
-						R.raw.bagof44kg, ACTION_TYPE_HARVEST_ID , 44},
-				{ "bag of 45 kgs", R.drawable.bag45kg,
-						R.raw.bagof45kg, ACTION_TYPE_HARVEST_ID , 45},
-				{ "bag of 46 kgs", R.drawable.bag46kg,
-						R.raw.bagof46kg, ACTION_TYPE_HARVEST_ID , 46},
-				{ "bag of 47 kgs", R.drawable.bag47kg,
-						R.raw.bagof47kg, ACTION_TYPE_HARVEST_ID , 47},
-				{ "bag of 48 kgs", R.drawable.bag48kg,
-						R.raw.bagof48kg, ACTION_TYPE_HARVEST_ID , 48},
-				{ "bag of 49 kgs", R.drawable.bag49kg,
-						R.raw.bagof49kg, ACTION_TYPE_HARVEST_ID , 49},
-				{ "bag of 50 kgs", R.drawable.bag50kg,
-						R.raw.bagof50kg, ACTION_TYPE_HARVEST_ID , 50},
-						
-				{ "bag of 20 kgs", R.drawable.bag20kg,
-						R.raw.bagof20kg, ACTION_TYPE_SELL_ID, 20 },
-				{ "bag of 21 kgs", R.drawable.bag21kg,
-						R.raw.bagof21kg, ACTION_TYPE_SELL_ID , 21},
-				{ "bag of 22 kgs", R.drawable.bag22kg,
-						R.raw.bagof22kg, ACTION_TYPE_SELL_ID , 22},
-				{ "bag of 23 kgs", R.drawable.bag23kg,
-						R.raw.bagof23kg, ACTION_TYPE_SELL_ID , 23},
-				{ "bag of 24 kgs", R.drawable.bag24kg,
-						R.raw.bagof24kg, ACTION_TYPE_SELL_ID , 24},
-				{ "bag of 25 kgs", R.drawable.bag25kg,
-						R.raw.bagof25kg, ACTION_TYPE_SELL_ID , 25},
-				{ "bag of 26 kgs", R.drawable.bag26kg,
-						R.raw.bagof26kg, ACTION_TYPE_SELL_ID , 26},
-				{ "bag of 27 kgs", R.drawable.bag27kg,
-						R.raw.bagof27kg, ACTION_TYPE_SELL_ID , 27},
-				{ "bag of 28 kgs", R.drawable.bag28kg,
-						R.raw.bagof28kg, ACTION_TYPE_SELL_ID , 28},
-				{ "bag of 29 kgs", R.drawable.bag29kg,
-						R.raw.bagof29kg, ACTION_TYPE_SELL_ID , 29},
-				{ "bag of 30 kgs", R.drawable.bag30kg,
-						R.raw.bagof30kg, ACTION_TYPE_SELL_ID , 30},
-				{ "bag of 31 kgs", R.drawable.bag31kg,
-						R.raw.bagof31kg, ACTION_TYPE_SELL_ID , 31},
-				{ "bag of 32 kgs", R.drawable.bag32kg,
-						R.raw.bagof32kg, ACTION_TYPE_SELL_ID , 32},
-				{ "bag of 33 kgs", R.drawable.bag33kg,
-						R.raw.bagof33kg, ACTION_TYPE_SELL_ID , 33},
-				{ "bag of 34 kgs", R.drawable.bag34kg,
-						R.raw.bagof34kg, ACTION_TYPE_SELL_ID , 34},
-				{ "bag of 35 kgs", R.drawable.bag35kg,
-						R.raw.bagof35kg, ACTION_TYPE_SELL_ID , 35},
-				{ "bag of 36 kgs", R.drawable.bag36kg,
-						R.raw.bagof36kg, ACTION_TYPE_SELL_ID , 36},
-				{ "bag of 37 kgs", R.drawable.bag37kg,
-						R.raw.bagof37kg, ACTION_TYPE_SELL_ID , 37},
-				{ "bag of 38 kgs", R.drawable.bag38kg,
-						R.raw.bagof38kg, ACTION_TYPE_SELL_ID , 38},
-				{ "bag of 39 kgs", R.drawable.bag39kg,
-						R.raw.bagof39kg, ACTION_TYPE_SELL_ID , 39},
-				{ "bag of 40 kgs", R.drawable.bag40kg,
-						R.raw.bagof40kg, ACTION_TYPE_SELL_ID , 40},
-				{ "bag of 41 kgs", R.drawable.bag41kg,
-						R.raw.bagof41kg, ACTION_TYPE_SELL_ID , 41},
-				{ "bag of 42 kgs", R.drawable.bag42kg,
-						R.raw.bagof42kg, ACTION_TYPE_SELL_ID , 42},
-				{ "bag of 43 kgs", R.drawable.bag43kg,
-						R.raw.bagof43kg, ACTION_TYPE_SELL_ID , 43},
-				{ "bag of 44 kgs", R.drawable.bag44kg,
-						R.raw.bagof44kg, ACTION_TYPE_SELL_ID , 44},
-				{ "bag of 45 kgs", R.drawable.bag45kg,
-						R.raw.bagof45kg, ACTION_TYPE_SELL_ID , 45},
-				{ "bag of 46 kgs", R.drawable.bag46kg,
-						R.raw.bagof46kg, ACTION_TYPE_SELL_ID , 46},
-				{ "bag of 47 kgs", R.drawable.bag47kg,
-						R.raw.bagof47kg, ACTION_TYPE_SELL_ID , 47},
-				{ "bag of 48 kgs", R.drawable.bag48kg,
-						R.raw.bagof48kg, ACTION_TYPE_SELL_ID , 48},
-				{ "bag of 49 kgs", R.drawable.bag49kg,
-						R.raw.bagof49kg, ACTION_TYPE_SELL_ID , 49},
-				{ "bag of 50 kgs", R.drawable.bag50kg,
-						R.raw.bagof50kg, ACTION_TYPE_SELL_ID , 50},
-						
-				{ "unknown", R.drawable.unitunknown, R.raw.unit_unknown, ACTION_TYPE_ALL_ID, 0 },
-				{ "none", R.drawable.unitnone, R.raw.none, ACTION_TYPE_ALL_ID, 0 }
+				{ "tractor load(s)", R.drawable.ic_tractorload,
+						R.raw.tractor_load, ACTION_TYPE_FERTILIZE_ID, -1 },
+
+				{ "bag of 20 kgs", R.drawable.bag20kg, R.raw.bagof20kg,
+						ACTION_TYPE_HARVEST_ID, 20 },
+				{ "bag of 21 kgs", R.drawable.bag21kg, R.raw.bagof21kg,
+						ACTION_TYPE_HARVEST_ID, 21 },
+				{ "bag of 22 kgs", R.drawable.bag22kg, R.raw.bagof22kg,
+						ACTION_TYPE_HARVEST_ID, 22 },
+				{ "bag of 23 kgs", R.drawable.bag23kg, R.raw.bagof23kg,
+						ACTION_TYPE_HARVEST_ID, 23 },
+				{ "bag of 24 kgs", R.drawable.bag24kg, R.raw.bagof24kg,
+						ACTION_TYPE_HARVEST_ID, 24 },
+				{ "bag of 25 kgs", R.drawable.bag25kg, R.raw.bagof25kg,
+						ACTION_TYPE_HARVEST_ID, 25 },
+				{ "bag of 26 kgs", R.drawable.bag26kg, R.raw.bagof26kg,
+						ACTION_TYPE_HARVEST_ID, 26 },
+				{ "bag of 27 kgs", R.drawable.bag27kg, R.raw.bagof27kg,
+						ACTION_TYPE_HARVEST_ID, 27 },
+				{ "bag of 28 kgs", R.drawable.bag28kg, R.raw.bagof28kg,
+						ACTION_TYPE_HARVEST_ID, 28 },
+				{ "bag of 29 kgs", R.drawable.bag29kg, R.raw.bagof29kg,
+						ACTION_TYPE_HARVEST_ID, 29 },
+				{ "bag of 30 kgs", R.drawable.bag30kg, R.raw.bagof30kg,
+						ACTION_TYPE_HARVEST_ID, 30 },
+				{ "bag of 31 kgs", R.drawable.bag31kg, R.raw.bagof31kg,
+						ACTION_TYPE_HARVEST_ID, 31 },
+				{ "bag of 32 kgs", R.drawable.bag32kg, R.raw.bagof32kg,
+						ACTION_TYPE_HARVEST_ID, 32 },
+				{ "bag of 33 kgs", R.drawable.bag33kg, R.raw.bagof33kg,
+						ACTION_TYPE_HARVEST_ID, 33 },
+				{ "bag of 34 kgs", R.drawable.bag34kg, R.raw.bagof34kg,
+						ACTION_TYPE_HARVEST_ID, 34 },
+				{ "bag of 35 kgs", R.drawable.bag35kg, R.raw.bagof35kg,
+						ACTION_TYPE_HARVEST_ID, 35 },
+				{ "bag of 36 kgs", R.drawable.bag36kg, R.raw.bagof36kg,
+						ACTION_TYPE_HARVEST_ID, 36 },
+				{ "bag of 37 kgs", R.drawable.bag37kg, R.raw.bagof37kg,
+						ACTION_TYPE_HARVEST_ID, 37 },
+				{ "bag of 38 kgs", R.drawable.bag38kg, R.raw.bagof10kg,
+						ACTION_TYPE_HARVEST_ID, 38 },
+				{ "bag of 39 kgs", R.drawable.bag39kg, R.raw.bagof38kg,
+						ACTION_TYPE_HARVEST_ID, 39 },
+				{ "bag of 40 kgs", R.drawable.bag40kg, R.raw.bagof40kg,
+						ACTION_TYPE_HARVEST_ID, 40 },
+				{ "bag of 41 kgs", R.drawable.bag41kg, R.raw.bagof41kg,
+						ACTION_TYPE_HARVEST_ID, 41 },
+				{ "bag of 42 kgs", R.drawable.bag42kg, R.raw.bagof42kg,
+						ACTION_TYPE_HARVEST_ID, 42 },
+				{ "bag of 43 kgs", R.drawable.bag43kg, R.raw.bagof43kg,
+						ACTION_TYPE_HARVEST_ID, 43 },
+				{ "bag of 44 kgs", R.drawable.bag44kg, R.raw.bagof44kg,
+						ACTION_TYPE_HARVEST_ID, 44 },
+				{ "bag of 45 kgs", R.drawable.bag45kg, R.raw.bagof45kg,
+						ACTION_TYPE_HARVEST_ID, 45 },
+				{ "bag of 46 kgs", R.drawable.bag46kg, R.raw.bagof46kg,
+						ACTION_TYPE_HARVEST_ID, 46 },
+				{ "bag of 47 kgs", R.drawable.bag47kg, R.raw.bagof47kg,
+						ACTION_TYPE_HARVEST_ID, 47 },
+				{ "bag of 48 kgs", R.drawable.bag48kg, R.raw.bagof48kg,
+						ACTION_TYPE_HARVEST_ID, 48 },
+				{ "bag of 49 kgs", R.drawable.bag49kg, R.raw.bagof49kg,
+						ACTION_TYPE_HARVEST_ID, 49 },
+				{ "bag of 50 kgs", R.drawable.bag50kg, R.raw.bagof50kg,
+						ACTION_TYPE_HARVEST_ID, 50 },
+
+				{ "bag of 20 kgs", R.drawable.bag20kg, R.raw.bagof20kg,
+						ACTION_TYPE_SELL_ID, 20 },
+				{ "bag of 21 kgs", R.drawable.bag21kg, R.raw.bagof21kg,
+						ACTION_TYPE_SELL_ID, 21 },
+				{ "bag of 22 kgs", R.drawable.bag22kg, R.raw.bagof22kg,
+						ACTION_TYPE_SELL_ID, 22 },
+				{ "bag of 23 kgs", R.drawable.bag23kg, R.raw.bagof23kg,
+						ACTION_TYPE_SELL_ID, 23 },
+				{ "bag of 24 kgs", R.drawable.bag24kg, R.raw.bagof24kg,
+						ACTION_TYPE_SELL_ID, 24 },
+				{ "bag of 25 kgs", R.drawable.bag25kg, R.raw.bagof25kg,
+						ACTION_TYPE_SELL_ID, 25 },
+				{ "bag of 26 kgs", R.drawable.bag26kg, R.raw.bagof26kg,
+						ACTION_TYPE_SELL_ID, 26 },
+				{ "bag of 27 kgs", R.drawable.bag27kg, R.raw.bagof27kg,
+						ACTION_TYPE_SELL_ID, 27 },
+				{ "bag of 28 kgs", R.drawable.bag28kg, R.raw.bagof28kg,
+						ACTION_TYPE_SELL_ID, 28 },
+				{ "bag of 29 kgs", R.drawable.bag29kg, R.raw.bagof29kg,
+						ACTION_TYPE_SELL_ID, 29 },
+				{ "bag of 30 kgs", R.drawable.bag30kg, R.raw.bagof30kg,
+						ACTION_TYPE_SELL_ID, 30 },
+				{ "bag of 31 kgs", R.drawable.bag31kg, R.raw.bagof31kg,
+						ACTION_TYPE_SELL_ID, 31 },
+				{ "bag of 32 kgs", R.drawable.bag32kg, R.raw.bagof32kg,
+						ACTION_TYPE_SELL_ID, 32 },
+				{ "bag of 33 kgs", R.drawable.bag33kg, R.raw.bagof33kg,
+						ACTION_TYPE_SELL_ID, 33 },
+				{ "bag of 34 kgs", R.drawable.bag34kg, R.raw.bagof34kg,
+						ACTION_TYPE_SELL_ID, 34 },
+				{ "bag of 35 kgs", R.drawable.bag35kg, R.raw.bagof35kg,
+						ACTION_TYPE_SELL_ID, 35 },
+				{ "bag of 36 kgs", R.drawable.bag36kg, R.raw.bagof36kg,
+						ACTION_TYPE_SELL_ID, 36 },
+				{ "bag of 37 kgs", R.drawable.bag37kg, R.raw.bagof37kg,
+						ACTION_TYPE_SELL_ID, 37 },
+				{ "bag of 38 kgs", R.drawable.bag38kg, R.raw.bagof38kg,
+						ACTION_TYPE_SELL_ID, 38 },
+				{ "bag of 39 kgs", R.drawable.bag39kg, R.raw.bagof39kg,
+						ACTION_TYPE_SELL_ID, 39 },
+				{ "bag of 40 kgs", R.drawable.bag40kg, R.raw.bagof40kg,
+						ACTION_TYPE_SELL_ID, 40 },
+				{ "bag of 41 kgs", R.drawable.bag41kg, R.raw.bagof41kg,
+						ACTION_TYPE_SELL_ID, 41 },
+				{ "bag of 42 kgs", R.drawable.bag42kg, R.raw.bagof42kg,
+						ACTION_TYPE_SELL_ID, 42 },
+				{ "bag of 43 kgs", R.drawable.bag43kg, R.raw.bagof43kg,
+						ACTION_TYPE_SELL_ID, 43 },
+				{ "bag of 44 kgs", R.drawable.bag44kg, R.raw.bagof44kg,
+						ACTION_TYPE_SELL_ID, 44 },
+				{ "bag of 45 kgs", R.drawable.bag45kg, R.raw.bagof45kg,
+						ACTION_TYPE_SELL_ID, 45 },
+				{ "bag of 46 kgs", R.drawable.bag46kg, R.raw.bagof46kg,
+						ACTION_TYPE_SELL_ID, 46 },
+				{ "bag of 47 kgs", R.drawable.bag47kg, R.raw.bagof47kg,
+						ACTION_TYPE_SELL_ID, 47 },
+				{ "bag of 48 kgs", R.drawable.bag48kg, R.raw.bagof48kg,
+						ACTION_TYPE_SELL_ID, 48 },
+				{ "bag of 49 kgs", R.drawable.bag49kg, R.raw.bagof49kg,
+						ACTION_TYPE_SELL_ID, 49 },
+				{ "bag of 50 kgs", R.drawable.bag50kg, R.raw.bagof50kg,
+						ACTION_TYPE_SELL_ID, 50 },
+
+				{ "unknown", R.drawable.unitunknown, R.raw.unit_unknown,
+						ACTION_TYPE_ALL_ID, 0 },
+				{ "none", R.drawable.unitnone, R.raw.none, ACTION_TYPE_ALL_ID,
+						0 }
 
 		};
 
@@ -1159,14 +1262,12 @@ public class RealFarmDatabase {
 
 		// TODO: set correct image.
 		Object[][] soilTypes = {
-				{ "Red loam", "Red loam", R.drawable.st_redloam,
-						R.raw.red_loam },
-				{ "Sandy", "Sandy", R.drawable.st_sandloam,
-						R.raw.sandy },
+				{ "Red loam", "Red loam", R.drawable.st_redloam, R.raw.red_loam },
+				{ "Sandy", "Sandy", R.drawable.st_sandloam, R.raw.sandy },
 				{ "Black loam", "Black loam", R.drawable.st_kappumannu,
 						R.raw.black_loam },
-				{ "Black clayey loam", "BC loam",
-						R.drawable.st_clayloam, R.raw.black_clay_loam },
+				{ "Black clayey loam", "BC loam", R.drawable.st_clayloam,
+						R.raw.black_clay_loam },
 				{ "Jedi Maralu", "Sand", R.drawable.st_irrigatesoilloam,
 						R.raw.jedi_maralu }
 
@@ -1274,18 +1375,17 @@ public class RealFarmDatabase {
 		// seedType
 		ContentValues seedtype = new ContentValues();
 		Object[][] seedData = {
-				{ "JL24", "JL24", R.drawable.pic_72px_groundnut,
-						R.raw.jl_24, 1 },
+				{ "JL24", "JL24", R.drawable.pic_72px_groundnut, R.raw.jl_24, 1 },
 				{ "K6 / Kadari ghat", "K6", R.drawable.pic_72px_groundnut,
 						R.raw.k_6, 1 },
-				{ "Samrat", "Samrat", R.drawable.pic_72px_bajra,
-						R.raw.samrat, 1 },
+				{ "Samrat", "Samrat", R.drawable.pic_72px_bajra, R.raw.samrat,
+						1 },
 				{ "TMV2 / Bunching", "TMV2", R.drawable.pic_72px_castor,
 						R.raw.tmv_2, 1 },
 				{ "Bajra / pearl millet", "Bajra", R.drawable.pic_72px_bajra,
 						R.raw.bajra, 2 },
-				{ "Castor", "Castor", R.drawable.pic_72px_castor,
-						R.raw.castor, 3 },
+				{ "Castor", "Castor", R.drawable.pic_72px_castor, R.raw.castor,
+						3 },
 				{ "Cow pea", "Cow pea", R.drawable.pic_72px_cowpea,
 						R.raw.cowpea, 4 },
 				{ "Field beans", "F beans", R.drawable.fieldbean,
@@ -1294,10 +1394,9 @@ public class RealFarmDatabase {
 						R.drawable.pic_72px_greengram, R.raw.greengram, 6 },
 				{ "Horse gram", "H gram", R.drawable.pic_72px_horsegram,
 						R.raw.horsegram, 7 },
-				{ "Paddy / rice", "Paddy", R.drawable.paddy, R.raw.paddy,
-						8 },
-				{ "Ragi / finger millet", "Ragi", R.drawable.ragi,
-						R.raw.ragi, 9 },
+				{ "Paddy / rice", "Paddy", R.drawable.paddy, R.raw.paddy, 8 },
+				{ "Ragi / finger millet", "Ragi", R.drawable.ragi, R.raw.ragi,
+						9 },
 				{ "Sorghum", "Sorghum", R.drawable.pic_72px_sorghum,
 						R.raw.sorghum, 10 }
 
@@ -1314,26 +1413,32 @@ public class RealFarmDatabase {
 			insertEntriesIntoDatabase(TABLE_NAME_SEEDTYPE, seedtype, db);
 			seedtype.clear();
 		}
-		
+
 		Object[][] yieldData = {};
 
 		ContentValues yieldAgg = new ContentValues();
 		for (int x = 0; x < yieldData.length; x++) {
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_HADPEST, (String)yieldData[x][0]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_HASFERTILIZED, (String)yieldData[x][1]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_HADDISEASE, (String) yieldData[x][2]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_HASIRRIGATED, (String)yieldData[x][3]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HADPEST, (String) yieldData[x][0]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HASFERTILIZED,
+					(String) yieldData[x][1]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HADDISEASE,
+					(String) yieldData[x][2]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_HASIRRIGATED,
+					(String) yieldData[x][3]);
 			yieldAgg.put(COLUMN_NAME_YIELDAGG_ID, (String) yieldData[x][4]);
 			yieldAgg.put(COLUMN_NAME_YIELDAGG_PLACEID, (String) yieldData[x][5]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_SEASONID, (String) yieldData[x][6]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_SEEDTYPEID, (String) yieldData[x][7]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_SOWINGWINDOWID, (String) yieldData[x][8]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_SPRAYED,(String)yieldData[x][9]);
-			yieldAgg.put(COLUMN_NAME_YIELDAGG_YIELDINQTPACRE,(Double) yieldData[x][10]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SEASONID,
+					(String) yieldData[x][6]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SEEDTYPEID,
+					(String) yieldData[x][7]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SOWINGWINDOWID,
+					(String) yieldData[x][8]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_SPRAYED, (String) yieldData[x][9]);
+			yieldAgg.put(COLUMN_NAME_YIELDAGG_YIELDINQTPACRE,
+					(Double) yieldData[x][10]);
 			insertEntriesIntoDatabase(TABLE_NAME_YIELDAGG, yieldAgg, db);
 			yieldAgg.clear();
 		}
-		
 
 		Log.d(LOG_TAG, "seedtype works");
 
@@ -1352,7 +1457,7 @@ public class RealFarmDatabase {
 	public long insertEntries(String tableName, ContentValues values) {
 		return insertEntriesIntoDatabase(tableName, values, mDb);
 	}
-	
+
 	public long deleteEntries(String tableName, String selector, String[] values) {
 		return deleteFromDatabase(tableName, selector, values, mDb);
 	}
@@ -1382,11 +1487,12 @@ public class RealFarmDatabase {
 		}
 		return result;
 	}
-	
-	public long deleteFromDatabase(String tableName, String selector, String[] values, SQLiteDatabase database) {
+
+	public long deleteFromDatabase(String tableName, String selector,
+			String[] values, SQLiteDatabase database) {
 		return database.delete(tableName, selector, values);
 	}
-	
+
 	/**
 	 * Open database helper for writing
 	 * 
