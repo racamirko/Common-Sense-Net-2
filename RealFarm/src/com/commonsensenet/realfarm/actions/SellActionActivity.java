@@ -33,7 +33,7 @@ public class SellActionActivity extends DataFormActivity {
 	private int mPrice;
 	private int mUnit2;
 	private int mUnit;
-	
+
 	private int defaultCrop = -1;
 	private int defaultMonth = -1;
 	private int defaultUnit1 = -1;
@@ -42,7 +42,7 @@ public class SellActionActivity extends DataFormActivity {
 	private String defaultDay = "0";
 	private String defaultPrice = "0";
 	private String defaultRemaining = "0";
-	
+
 	private List<Resource> cropList;
 	private List<Resource> monthList;
 	private List<Resource> unit1List;
@@ -52,12 +52,15 @@ public class SellActionActivity extends DataFormActivity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_sell_action);
-		
+
 		cropList = mDataProvider.getCropTypes();
-		monthList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-		unit1List = mDataProvider.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
-		unit2List = mDataProvider.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);	
-		
+		monthList = mDataProvider
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
+		unit1List = mDataProvider
+				.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
+		unit2List = mDataProvider
+				.getUnits(RealFarmDatabase.ACTION_TYPE_SELL_ID);
+
 		playAudio(R.raw.clickingselling);
 
 		// adds the fields to validate to the map.
@@ -103,13 +106,15 @@ public class SellActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
-				displayDialog(v, cropList, CROP, "Select the crop", R.raw.select_the_crop,
-						R.id.dlg_lbl_crop_sell, R.id.crop_sell_tr, 0);
+				displayDialog(v, cropList, CROP, "Select the crop",
+						R.raw.select_the_crop, R.id.dlg_lbl_crop_sell,
+						R.id.crop_sell_tr, 0);
 
 			}
 		});
@@ -117,27 +122,28 @@ public class SellActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
-						0, R.id.dlg_lbl_date_sell, R.id.date_sell_tr,
-						R.raw.ok, R.raw.cancel, R.raw.day_ok,
-						R.raw.day_cancel);
+						0, R.id.dlg_lbl_date_sell, R.id.date_sell_tr, R.raw.ok,
+						R.raw.cancel, R.raw.day_ok, R.raw.day_cancel);
 			}
 		});
 
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_sell,
 						R.id.date_sell_tr, 0);
@@ -148,70 +154,74 @@ public class SellActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
-				
-				
+
 				displayDialogNP("Choose the number of bags", AMOUNT,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_sell, R.id.quant_sell_tr,
-						R.raw.ok, R.raw.cancel, R.raw.bag_ok,
-						R.raw.bag_cancel);
+						R.raw.ok, R.raw.cancel, R.raw.bag_ok, R.raw.bag_cancel);
 			}
 		});
 
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
-				displayDialog(v, unit1List, UNIT, "Select the unit", R.raw.selecttheunits,
-						R.id.dlg_lbl_unit_sell, R.id.quant_sell_tr, 2);
+				displayDialog(v, unit1List, UNIT, "Select the unit",
+						R.raw.selecttheunits, R.id.dlg_lbl_unit_sell,
+						R.id.quant_sell_tr, 2);
 			}
 		});
 
 		item6.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
-				displayDialogNP("Enter the price", PRICE, R.raw.enterpricedetails, 0,
-						9999, 3200, 50, 0, R.id.dlg_lbl_price_sell,
-						R.id.price_sell_tr, R.raw.ok, R.raw.cancel,
-						R.raw.pricesaved, R.raw.pricenotsaved);
+				displayDialogNP("Enter the price", PRICE,
+						R.raw.enterpricedetails, 0, 9999, 3200, 50, 0,
+						R.id.dlg_lbl_price_sell, R.id.price_sell_tr, R.raw.ok,
+						R.raw.cancel, R.raw.pricesaved, R.raw.pricenotsaved);
 			}
 		});
 
 		item7.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialogNP("Choose the number of bags", REMAINING,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_rem_sell, R.id.rem_quant_sell_tr,
-						R.raw.ok, R.raw.cancel, R.raw.bag_ok,
-						R.raw.bag_cancel);
+						R.raw.ok, R.raw.cancel, R.raw.bag_ok, R.raw.bag_cancel);
 			}
 		});
 
 		item8.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialog(v, unit2List, UNIT2, "Select the unit",
 						R.raw.selecttheunits, R.id.dlg_lbl_unit_rem_sell,
 						R.id.rem_quant_sell_tr, 2);
@@ -221,51 +231,77 @@ public class SellActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
-		
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 
 		// forces the sound to play since its the long click
 
 		if (v.getId() == R.id.dlg_lbl_crop_sell) {
-			
-			if((Integer) mResultsMap.get(CROP) == defaultCrop) playAudio(R.raw.select_the_crop, true); 
-			else playAudio(cropList.get(((Integer)mResultsMap.get(CROP))).getAudio(), true); 
+
+			if ((Integer) mResultsMap.get(CROP) == defaultCrop)
+				playAudio(R.raw.select_the_crop, true);
+			else
+				playAudio(cropList.get(((Integer) mResultsMap.get(CROP)))
+						.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_date_sell) {
-		
-			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.dateinfo, true); 
-			
-			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString())); 
+
+			if (mResultsMap.get(DAY).equals(defaultDay))
+				playAudio(R.raw.dateinfo, true);
+
+			else
+				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_sell) {
-			
-			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
+
+			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
+				playAudio(R.raw.choosethemonth, true);
+			else
+				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
+						.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_sell) {
-			
-			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.select_unit_number, true); 
-			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(AMOUNT).toString());
-			else play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));  
+
+			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
+				playAudio(R.raw.select_unit_number, true);
+			// TODO AUDIO: Say the number
+			// Integer.valueOf(mResultsMap.get(AMOUNT).toString());
+			else
+				play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT)
+						.toString()));
 		} else if (v.getId() == R.id.dlg_lbl_unit_sell) {
-			
-			if((Integer) mResultsMap.get(UNIT) == defaultUnit1) playAudio(R.raw.selecttheunits, true); 
-			else playAudio(unit1List.get(((Integer)mResultsMap.get(UNIT))).getAudio(), true); 
+
+			if ((Integer) mResultsMap.get(UNIT) == defaultUnit1)
+				playAudio(R.raw.selecttheunits, true);
+			else
+				playAudio(unit1List.get(((Integer) mResultsMap.get(UNIT)))
+						.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_price_sell) {
-			
-			if(mResultsMap.get(PRICE).equals(defaultPrice)) playAudio(R.raw.enterpricedetails, true); 
-			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(PRICE).toString());
-			else playAudio(R.raw.problems, true);  
+
+			if (mResultsMap.get(PRICE).equals(defaultPrice))
+				playAudio(R.raw.enterpricedetails, true);
+			// TODO AUDIO: Say the number
+			// Integer.valueOf(mResultsMap.get(PRICE).toString());
+			else
+				playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_rem_sell) {
-			
-			if(mResultsMap.get(REMAINING).equals(defaultRemaining)) playAudio(R.raw.select_unit_number, true); 
-			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(REMAINING).toString());
-			else play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));   
+
+			if (mResultsMap.get(REMAINING).equals(defaultRemaining))
+				playAudio(R.raw.select_unit_number, true);
+			// TODO AUDIO: Say the number
+			// Integer.valueOf(mResultsMap.get(REMAINING).toString());
+			else
+				play_day_audio(Integer.valueOf(mResultsMap.get(AMOUNT)
+						.toString()));
 		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
-			
-			if((Integer) mResultsMap.get(UNIT2) == defaultUnit2) playAudio(R.raw.selecttheunits, true); 
-			else playAudio(unit2List.get(((Integer)mResultsMap.get(UNIT2))).getAudio(), true); 
-		} 
-		
-		
+
+			if ((Integer) mResultsMap.get(UNIT2) == defaultUnit2)
+				playAudio(R.raw.selecttheunits, true);
+			else
+				playAudio(unit2List.get(((Integer) mResultsMap.get(UNIT2)))
+						.getAudio(), true);
+		}
+
 		else if (v.getId() == R.id.date_sell_tr) {
 			playAudio(R.raw.date, true);
 		} else if (v.getId() == R.id.quant_sell_tr) {
@@ -298,28 +334,35 @@ public class SellActionActivity extends DataFormActivity {
 
 		boolean isValid = true;
 
-		if ((Integer)mResultsMap.get(CROP) != defaultCrop) {
+		if ((Integer) mResultsMap.get(CROP) != defaultCrop) {
 			highlightField(R.id.crop_sell_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, CROP);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, CROP);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.crop_sell_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth
+				&& mDay > Integer.parseInt(defaultDay)
+				&& validDate(mDay,
+						monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.date_sell_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, MONTH, DAY);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.date_sell_tr, true);
 		}
 
-		if ((Integer)mResultsMap.get(UNIT) != defaultUnit1 && mAmount > Integer.parseInt(defaultAmount)) {
+		if ((Integer) mResultsMap.get(UNIT) != defaultUnit1
+				&& mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.quant_sell_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT, AMOUNT);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, UNIT, AMOUNT);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.quant_sell_tr, true);
@@ -328,16 +371,18 @@ public class SellActionActivity extends DataFormActivity {
 		if (mPrice > Integer.parseInt(defaultPrice)) {
 			highlightField(R.id.price_sell_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, PRICE);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, PRICE);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.price_sell_tr, true);
 		}
 
-		if ((Integer)mResultsMap.get(UNIT2) != defaultUnit2 && mRemaining > -1) {
+		if ((Integer) mResultsMap.get(UNIT2) != defaultUnit2 && mRemaining > -1) {
 			highlightField(R.id.rem_quant_sell_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT2, REMAINING);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, UNIT2, REMAINING);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.rem_quant_sell_tr, true);
@@ -345,17 +390,18 @@ public class SellActionActivity extends DataFormActivity {
 
 		// validates the form.
 		if (isValid) {
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "data entered");
 			ApplicationTracker.getInstance().flush();
-			
-			mCrop = cropList.get((Integer)mResultsMap.get(CROP)).getId();
-			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
-			mUnit = unit1List.get((Integer)mResultsMap.get(UNIT)).getId();
-			mUnit2 = unit2List.get((Integer)mResultsMap.get(UNIT2)).getId();
-			
-			long result = mDataProvider.addSellAction(Global.userId,
-					0, mCrop, mAmount, mRemaining, mUnit, mUnit2,
-					mPrice, getDate(mDay, mMonth), 0);
+
+			mCrop = cropList.get((Integer) mResultsMap.get(CROP)).getId();
+			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
+			mUnit = unit1List.get((Integer) mResultsMap.get(UNIT)).getId();
+			mUnit2 = unit2List.get((Integer) mResultsMap.get(UNIT2)).getId();
+
+			long result = mDataProvider.addSellAction(Global.userId, 0, mCrop,
+					mAmount, mRemaining, mUnit, mUnit2, mPrice,
+					getDate(mDay, mMonth), 0);
 
 			return result != -1;
 

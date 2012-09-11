@@ -20,7 +20,8 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.WeatherForecastItemAdapter;
 
 public class WeatherForecastActivity extends HelpEnabledActivity implements
-		OnWeatherForecastDataChangeListener, OnItemLongClickListener, OnItemClickListener {
+		OnWeatherForecastDataChangeListener, OnItemLongClickListener,
+		OnItemClickListener {
 
 	/** Celsius indicator. */
 	public static final String CELSIUS = "¡";
@@ -47,7 +48,8 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		// gets the forecast from the database for today.
 		wf = mDataProvider.getWeatherForecasts(new Date());
 		// TODO AUDIO: no results
-		if(wf == null || wf.size() == 0) playAudio(R.raw.problems);
+		if (wf == null || wf.size() == 0)
+			playAudio(R.raw.problems);
 
 		// creates the adapter used to manage the data.
 		mWeatherForecastItemAdapter = new WeatherForecastItemAdapter(this, wf,
@@ -78,10 +80,11 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
-		
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), wf.get(position).getDate());
+
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(), wf.get(position).getDate());
 		ApplicationTracker.getInstance().flush();
-		
+
 		SoundQueue sq = SoundQueue.getInstance();
 		// stops any sound that could be playing.
 		sq.stop();
@@ -103,10 +106,11 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		return true;
 	}
 
-	public void onItemClick(AdapterView<?> parent, View view,
-			int position, long id) {
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), wf.get(position).getDate());
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(), wf.get(position).getDate());
 		ApplicationTracker.getInstance().flush();
-		
+
 	}
 }

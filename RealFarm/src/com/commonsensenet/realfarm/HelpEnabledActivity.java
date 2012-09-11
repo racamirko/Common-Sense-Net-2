@@ -45,8 +45,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		stopAudio();
 
 		// tracks the back button.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
-				"back");
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(), "back");
 
 		// forces the application to flush its data.
 		ApplicationTracker.getInstance().flush();
@@ -63,7 +63,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW,
-				getLogTag());
+				Global.userId, getLogTag());
 
 		// enables full screen mode
 		getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,
@@ -100,7 +100,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public boolean onLongClick(View v) {
 
 		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), v.getId());
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(), v.getId());
 		ApplicationTracker.getInstance().flush();
 
 		return true;
@@ -112,7 +113,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		if (item.equals(mHelpItem)) {
 
 			// tracks the application usage
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "help");
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "help");
 			ApplicationTracker.getInstance().flush();
 
 			playAudio(R.raw.help, true);
@@ -124,7 +126,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 			startActivity(intent);
 
 			// tracks the application usage.
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "home");
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "home");
 			ApplicationTracker.getInstance().flush();
 
 			return true;

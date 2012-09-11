@@ -69,9 +69,11 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				Resource choice = data.get(position);
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), propertyKey, choice.getName());
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(), propertyKey,
+						choice.getName());
 				ApplicationTracker.getInstance().flush();
-				
+
 				// sets the short name of the resource.
 				TextView var_text = (TextView) findViewById(textFieldId);
 				var_text.setText(choice.getShortName());
@@ -80,16 +82,18 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				highlightField(rowFeedbackId, false);
 
 				// saves the id of the selected item.
-				//mResultsMap.put(propertyKey, choice.getId());
+				// mResultsMap.put(propertyKey, choice.getId());
 				mResultsMap.put(propertyKey, position);
 
 				// put backgrounds (specific to the application) TODO: optimize
 				// the resize
 				putBackgrounds(choice, var_text, imageType);
 
-				/*Toast.makeText(mParentReference,
-						mResultsMap.get(propertyKey).toString(),
-						Toast.LENGTH_SHORT).show();*/
+				/*
+				 * Toast.makeText(mParentReference,
+				 * mResultsMap.get(propertyKey).toString(),
+				 * Toast.LENGTH_SHORT).show();
+				 */
 
 				// plays the name of the chosen option.
 				int iden = choice.getAudio();
@@ -106,8 +110,10 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 					int position, long id) {
 				// TODO: adapt the audio in the database
 				int iden = data.get(position).getAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), data.get(position).getShortName());
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						data.get(position).getShortName());
 				ApplicationTracker.getInstance().flush();
 
 				playAudio(iden, true);
@@ -151,16 +157,20 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		ok.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
 				String result = textView.getText().toString();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "numberPicker", "ok " + result);
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(), "numberPicker",
+						"ok " + result);
 				ApplicationTracker.getInstance().flush();
-				
+
 				mResultsMap.put(mapEntry, result);
 				tw_sow.setText(result);
 				feedbackRow
 						.setBackgroundResource(android.R.drawable.list_selector_background);
-				/*Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
-						.show();*/
+				/*
+				 * Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
+				 * .show();
+				 */
 				dialog.cancel();
 				playAudio(okAudio);
 				// TODO AUDIO: play the number result
@@ -168,16 +178,18 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View view) {
-				dialog.cancel();				
+				dialog.cancel();
 				playAudio(cancelAudio);
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "numberPicker", "cancel");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(), "numberPicker", "cancel");
 				ApplicationTracker.getInstance().flush();
 
 			}
 		});
 		ok.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
-				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "numberPicker", "ok");
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+						Global.userId, getLogTag(), "numberPicker", "ok");
 				ApplicationTracker.getInstance().flush();
 				playAudio(infoOkAudio);
 				return true;
@@ -185,7 +197,8 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		});
 		cancel.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
-				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "numberPicker", "cancel");
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+						Global.userId, getLogTag(), "numberPicker", "cancel");
 				ApplicationTracker.getInstance().flush();
 				playAudio(infoCancelAudio);
 				return true;
@@ -193,25 +206,29 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		});
 		textView.setOnLongClickListener(new View.OnLongClickListener() {
 			public boolean onLongClick(View view) {
-				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "numberPicker", "text", textView.getText());
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+						Global.userId, getLogTag(), "numberPicker", "text",
+						textView.getText());
 				ApplicationTracker.getInstance().flush();
 				// TODO AUDIO: read the number textView.getText()
-				
-				//TO DO:Has to play audio for floating numbers also
-				play_day_audio(Integer.valueOf(textView.getText().toString())); 
+
+				// TO DO:Has to play audio for floating numbers also
+				play_day_audio(Integer.valueOf(textView.getText().toString()));
 				return false;
 			}
 		});
 
 		dialog.show();
 	}
-	
-	protected boolean validDate(int day, int monthId){
+
+	protected boolean validDate(int day, int monthId) {
 		Resource monthResource = mDataProvider.getResourceById(monthId);
 		int month = monthResource.getValue();
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		if(month > Calendar.getInstance().get(Calendar.MONTH) || (month == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)))
-			month = (year-1);
+		if (month > Calendar.getInstance().get(Calendar.MONTH)
+				|| (month == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar
+						.getInstance().get(Calendar.DAY_OF_MONTH)))
+			month = (year - 1);
 		return DateHelper.validDate(day, month, year);
 	}
 
@@ -223,9 +240,11 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		calendar.set(Calendar.DAY_OF_MONTH, day);
 		calendar.set(Calendar.MONTH, month);
 		int year = Calendar.getInstance().get(Calendar.YEAR);
-		if(month > Calendar.getInstance().get(Calendar.MONTH) || (month == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar.getInstance().get(Calendar.DAY_OF_MONTH)))
-			calendar.set(Calendar.YEAR, (year-1));
-		
+		if (month > Calendar.getInstance().get(Calendar.MONTH)
+				|| (month == Calendar.getInstance().get(Calendar.MONTH) && day > Calendar
+						.getInstance().get(Calendar.DAY_OF_MONTH)))
+			calendar.set(Calendar.YEAR, (year - 1));
+
 		return calendar.getTime();
 	}
 
@@ -296,7 +315,9 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 
 		showHelpIcon(v);
@@ -345,110 +366,108 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			}
 		}
 	}
-	
-	public void play_day_audio(int n)                   //For audio added
+
+	public void play_day_audio(int n) // For audio added
 	{
-		
-	 
-		switch(n){
+
+		switch (n) {
 		case 1:
-			playAudio(R.raw.a1, true); 
+			playAudio(R.raw.a1, true);
 			break;
 		case 2:
-			playAudio(R.raw.a2, true); 
+			playAudio(R.raw.a2, true);
 			break;
 		case 3:
-			playAudio(R.raw.a3, true); 
+			playAudio(R.raw.a3, true);
 			break;
 		case 4:
-			playAudio(R.raw.a4, true); 
+			playAudio(R.raw.a4, true);
 			break;
 		case 5:
-			playAudio(R.raw.a5, true); 
+			playAudio(R.raw.a5, true);
 			break;
 		case 6:
-			playAudio(R.raw.a6, true); 
+			playAudio(R.raw.a6, true);
 			break;
 		case 7:
-			playAudio(R.raw.a7, true); 
+			playAudio(R.raw.a7, true);
 			break;
 		case 8:
-			playAudio(R.raw.a8, true); 
+			playAudio(R.raw.a8, true);
 			break;
 		case 9:
-			playAudio(R.raw.a9, true); 
+			playAudio(R.raw.a9, true);
 			break;
 		case 10:
-			playAudio(R.raw.a10, true); 
+			playAudio(R.raw.a10, true);
 			break;
 		case 11:
-			playAudio(R.raw.a11, true); 
+			playAudio(R.raw.a11, true);
 			break;
 		case 12:
-			playAudio(R.raw.a12, true); 
+			playAudio(R.raw.a12, true);
 			break;
 		case 13:
-			playAudio(R.raw.a13, true); 
+			playAudio(R.raw.a13, true);
 			break;
 		case 14:
-			playAudio(R.raw.a14, true); 
+			playAudio(R.raw.a14, true);
 			break;
 		case 15:
-			playAudio(R.raw.a15, true); 
+			playAudio(R.raw.a15, true);
 			break;
 		case 16:
-			playAudio(R.raw.a16, true); 
+			playAudio(R.raw.a16, true);
 			break;
 		case 17:
-			playAudio(R.raw.a17, true); 
+			playAudio(R.raw.a17, true);
 			break;
 		case 18:
-			playAudio(R.raw.a18, true); 
+			playAudio(R.raw.a18, true);
 			break;
 		case 19:
-			playAudio(R.raw.a19, true); 
+			playAudio(R.raw.a19, true);
 			break;
 		case 20:
-			playAudio(R.raw.a21, true); 
+			playAudio(R.raw.a21, true);
 			break;
 		case 21:
-			playAudio(R.raw.a21, true); 
+			playAudio(R.raw.a21, true);
 			break;
 		case 22:
-			playAudio(R.raw.a22, true); 
+			playAudio(R.raw.a22, true);
 			break;
 		case 23:
-			playAudio(R.raw.a23, true); 
+			playAudio(R.raw.a23, true);
 			break;
 		case 24:
-			playAudio(R.raw.a24, true); 
+			playAudio(R.raw.a24, true);
 			break;
 		case 25:
-			playAudio(R.raw.a25, true); 
+			playAudio(R.raw.a25, true);
 			break;
 		case 26:
-			playAudio(R.raw.a26, true); 
+			playAudio(R.raw.a26, true);
 			break;
 		case 27:
-			playAudio(R.raw.a27, true); 
+			playAudio(R.raw.a27, true);
 			break;
 		case 28:
-			playAudio(R.raw.a28, true); 
+			playAudio(R.raw.a28, true);
 			break;
 		case 29:
-			playAudio(R.raw.a29, true); 
+			playAudio(R.raw.a29, true);
 			break;
 		case 30:
-			playAudio(R.raw.a30, true); 
+			playAudio(R.raw.a30, true);
 			break;
 		case 31:
-			playAudio(R.raw.a31, true); 
+			playAudio(R.raw.a31, true);
 			break;
-		
-		
+
 		default:
 			break;
-	}
+		}
 
 	}
 

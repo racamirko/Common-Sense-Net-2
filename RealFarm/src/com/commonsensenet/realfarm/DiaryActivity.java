@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm;
 
-
 import java.util.List;
 
 import android.os.Bundle;
@@ -23,7 +22,7 @@ import com.commonsensenet.realfarm.view.ActionItemAdapter;
  * 
  */
 public class DiaryActivity extends HelpEnabledActivity implements
-	OnItemClickListener, OnItemLongClickListener {
+		OnItemClickListener, OnItemLongClickListener {
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the actions. */
@@ -42,8 +41,9 @@ public class DiaryActivity extends HelpEnabledActivity implements
 
 		// gets the actions from the database
 		List<Action> actions = mDataProvider.getActionsByUserId(Global.userId);
-		
-		if(actions == null || actions.size() == 0) 	playAudio(R.raw.problems, true);
+
+		if (actions == null || actions.size() == 0)
+			playAudio(R.raw.problems, true);
 
 		// creates the custom adapter.
 		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);
@@ -64,21 +64,23 @@ public class DiaryActivity extends HelpEnabledActivity implements
 
 		// gets the selected view using the position
 		// Action selectedAction = mActionItemAdapter.getItem(position);
-		
+
 		// TODO: play sound based on the selectedAction.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), position);
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(), position);
 		ApplicationTracker.getInstance().flush();
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
-		
-		//Action selectedAction = mActionItemAdapter.getItem(position);
+
+		// Action selectedAction = mActionItemAdapter.getItem(position);
 
 		// TODO: play sound based on the selectedAction.
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), position);
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(), position);
 		ApplicationTracker.getInstance().flush();
-		
+
 		return true;
 	}
 }

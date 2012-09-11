@@ -29,14 +29,14 @@ public class HarvestActionActivity extends DataFormActivity {
 	private int mSatisfaction;
 	private int mUnit;
 	private int mVariety;
-	
+
 	private int defaultVariety = -1;
 	private int defaultMonth = -1;
 	private int defaultUnit = -1;
 	private int defaultSatisfaction = -1;
 	private String defaultAmount = "0";
 	private String defaultDay = "0";
-	
+
 	private List<Resource> varietyList;
 	private List<Resource> monthList;
 	private List<Resource> unitList;
@@ -46,8 +46,8 @@ public class HarvestActionActivity extends DataFormActivity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_harvest_action);
-		
-		varietyList =  mDataProvider.getVarietiesByPlotAndSeason(Global.plotId);
+
+		varietyList = mDataProvider.getVarietiesByPlotAndSeason(Global.plotId);
 		monthList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 		unitList = mDataProvider
@@ -92,11 +92,12 @@ public class HarvestActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
 						R.raw.select_the_variety, R.id.dlg_lbl_harvest_crop,
 						R.id.var_harvest_crop, 0);
@@ -106,27 +107,28 @@ public class HarvestActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-							
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
 						0, R.id.dlg_lbl_day_harvest, R.id.harvest_date_tr,
-						R.raw.ok, R.raw.cancel, R.raw.day_ok,
-						R.raw.day_cancel);
+						R.raw.ok, R.raw.cancel, R.raw.day_ok, R.raw.day_cancel);
 			}
 		});
 
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
-				
-				
+
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_harvest,
 						R.id.harvest_date_tr, 0);
@@ -137,30 +139,31 @@ public class HarvestActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-			
-				
 				displayDialogNP("Choose the number of bags", AMOUNT,
 						R.raw.noofbags, 1, 200, 0, 1, 0,
 						R.id.dlg_lbl_unit_no_harvest, R.id.units_harvest_tr,
-						R.raw.ok, R.raw.cancel, R.raw.bag_ok,
-						R.raw.bag_cancel);
+						R.raw.ok, R.raw.cancel, R.raw.bag_ok, R.raw.bag_cancel);
 			}
 		});
 
 		item5.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
-				
-			
-				displayDialog(v, unitList, UNIT, "Select the unit", R.raw.selecttheunits,
-						R.id.dlg_lbl_units_harvest, R.id.units_harvest_tr, 2);
+
+				displayDialog(v, unitList, UNIT, "Select the unit",
+						R.raw.selecttheunits, R.id.dlg_lbl_units_harvest,
+						R.id.units_harvest_tr, 2);
 
 			}
 		});
@@ -169,12 +172,14 @@ public class HarvestActionActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
-				
-			
-				displayDialog(v, satisfactionList, SATISFACTION, "Are you satisfied?",
-						R.raw.are_you_satisfied, R.id.dlg_lbl_satisfaction_harvest,
+
+				displayDialog(v, satisfactionList, SATISFACTION,
+						"Are you satisfied?", R.raw.are_you_satisfied,
+						R.id.dlg_lbl_satisfaction_harvest,
 						R.id.satisfaction_harvest_tr, 1);
 			}
 		});
@@ -183,38 +188,56 @@ public class HarvestActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
-		
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 
 		// all long click sounds override the sound enabled flag.
 
 		if (v.getId() == R.id.dlg_lbl_harvest_crop) {
-			
-			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.select_the_variety, true); 
-			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio()); 
+
+			if ((Integer) mResultsMap.get(VARIETY) == defaultVariety)
+				playAudio(R.raw.select_the_variety, true);
+			else
+				playAudio(varietyList.get(((Integer) mResultsMap.get(VARIETY)))
+						.getAudio());
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_harvest) {
-			if(mResultsMap.get(AMOUNT).equals(defaultAmount)) playAudio(R.raw.select_unit_number, true); 
-			// TODO AUDIO: Say the number Integer.valueOf(mResultsMap.get(DAY).toString());
-			else playAudio(R.raw.problems, true); 
+			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
+				playAudio(R.raw.select_unit_number, true);
+			// TODO AUDIO: Say the number
+			// Integer.valueOf(mResultsMap.get(DAY).toString());
+			else
+				playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.dlg_lbl_units_harvest) {
-			if((Integer) mResultsMap.get(UNIT) == defaultUnit) playAudio(R.raw.selecttheunits, true); 
-			else playAudio(unitList.get(((Integer)mResultsMap.get(UNIT))).getAudio()); 
+			if ((Integer) mResultsMap.get(UNIT) == defaultUnit)
+				playAudio(R.raw.selecttheunits, true);
+			else
+				playAudio(unitList.get(((Integer) mResultsMap.get(UNIT)))
+						.getAudio());
 		} else if (v.getId() == R.id.dlg_lbl_day_harvest) {
-				if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
-			
-			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));  
+			if (mResultsMap.get(DAY).equals(defaultDay))
+				playAudio(R.raw.selectthedate, true);
+
+			else
+				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_harvest) {
-			
-			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonthwhenharvested, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio()); 
+
+			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
+				playAudio(R.raw.choosethemonthwhenharvested, true);
+			else
+				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
+						.getAudio());
 		} else if (v.getId() == R.id.dlg_lbl_satisfaction_harvest) {
-			
-			if((Integer) mResultsMap.get(SATISFACTION) == defaultSatisfaction) playAudio(R.raw.are_you_satisfied, true); 
-			else playAudio(satisfactionList.get(((Integer)mResultsMap.get(SATISFACTION))).getAudio()); 
-		} 
-		
-		
+
+			if ((Integer) mResultsMap.get(SATISFACTION) == defaultSatisfaction)
+				playAudio(R.raw.are_you_satisfied, true);
+			else
+				playAudio(satisfactionList.get(
+						((Integer) mResultsMap.get(SATISFACTION))).getAudio());
+		}
+
 		else if (v.getId() == R.id.harvest_date_tr) {
 			playAudio(R.raw.harvestyear, true);
 		} else if (v.getId() == R.id.units_harvest_tr) {
@@ -225,8 +248,7 @@ public class HarvestActionActivity extends DataFormActivity {
 			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.satisfaction_harvest_tr) {
 			playAudio(R.raw.satisfaction, true);
-		} 
-		else {
+		} else {
 			return super.onLongClick(v);
 		}
 
@@ -244,37 +266,45 @@ public class HarvestActionActivity extends DataFormActivity {
 
 		boolean isValid = true;
 
-		if ((Integer)mResultsMap.get(VARIETY) != defaultVariety) {
+		if ((Integer) mResultsMap.get(VARIETY) != defaultVariety) {
 			highlightField(R.id.var_harvest_crop, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, VARIETY);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, VARIETY);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_harvest_crop, true);
 		}
 
-		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth
+				&& mDay > Integer.parseInt(defaultDay)
+				&& validDate(mDay,
+						monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.harvest_date_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, MONTH, DAY);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.harvest_date_tr, true);
 		}
 
-		if ((Integer)mResultsMap.get(UNIT) != defaultUnit && mAmount > Integer.parseInt(defaultAmount)) {
+		if ((Integer) mResultsMap.get(UNIT) != defaultUnit
+				&& mAmount > Integer.parseInt(defaultAmount)) {
 			highlightField(R.id.units_harvest_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, UNIT, UNIT);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, UNIT, UNIT);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_harvest_tr, true);
 		}
 
-		if ((Integer)mResultsMap.get(SATISFACTION) != defaultSatisfaction) {
+		if ((Integer) mResultsMap.get(SATISFACTION) != defaultSatisfaction) {
 			highlightField(R.id.satisfaction_harvest_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, SATISFACTION);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, SATISFACTION);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.satisfaction_harvest_tr, true);
@@ -282,15 +312,18 @@ public class HarvestActionActivity extends DataFormActivity {
 
 		// if all fields are valid the data is inserted in the database.
 		if (isValid) {
-			
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "data entered");
 			ApplicationTracker.getInstance().flush();
-			
-			mVariety = varietyList.get((Integer)mResultsMap.get(VARIETY)).getId();
-			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
-			mUnit = unitList.get((Integer)mResultsMap.get(UNIT)).getId();
-			mSatisfaction = satisfactionList.get((Integer)mResultsMap.get(SATISFACTION)).getId();
-			
+
+			mVariety = varietyList.get((Integer) mResultsMap.get(VARIETY))
+					.getId();
+			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
+			mUnit = unitList.get((Integer) mResultsMap.get(UNIT)).getId();
+			mSatisfaction = satisfactionList.get(
+					(Integer) mResultsMap.get(SATISFACTION)).getId();
+
 			long result = mDataProvider.addHarvestAction(Global.userId,
 					Global.plotId, mVariety, mAmount, mUnit, mSatisfaction,
 					getDate(mDay, mMonth), 0);

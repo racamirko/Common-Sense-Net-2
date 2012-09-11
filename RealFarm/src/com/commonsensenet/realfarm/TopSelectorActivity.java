@@ -23,14 +23,16 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 
-public abstract class TopSelectorActivity extends HelpEnabledActivityOld implements OnItemClickListener, OnLongClickListener, OnItemLongClickListener{
+public abstract class TopSelectorActivity extends HelpEnabledActivityOld
+		implements OnItemClickListener, OnLongClickListener,
+		OnItemLongClickListener {
 
 	protected Resource topSelectorData;
 	protected RealFarmProvider mDataProvider;
 	protected LayoutInflater mLayoutInflater;
-	
 
-	public void onCreate(Bundle savedInstanceState, int resLayoutId, Context context) {
+	public void onCreate(Bundle savedInstanceState, int resLayoutId,
+			Context context) {
 		super.onCreate(savedInstanceState, resLayoutId);
 		mDataProvider = RealFarmProvider.getInstance(context);
 
@@ -73,15 +75,20 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld impleme
 
 				setList(type, choice);
 
-				if(actionTypeImage != null) actionTypeImage
-				.setBackgroundResource(data.get(position).getBackgroundImage());
+				if (actionTypeImage != null)
+					actionTypeImage.setBackgroundResource(data.get(position)
+							.getBackgroundImage());
 
 				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), "dialog "+choice.getShortName());
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						"dialog " + choice.getShortName());
 				ApplicationTracker.getInstance().flush();
 
-				/*Toast.makeText(mParentReference, data.get(position).getName(),
-						Toast.LENGTH_SHORT).show();*/
+				/*
+				 * Toast.makeText(mParentReference,
+				 * data.get(position).getName(), Toast.LENGTH_SHORT).show();
+				 */
 
 				// onClose
 				dialog.cancel();
@@ -95,7 +102,9 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld impleme
 			// TODO: adapt the audio in the database
 			public boolean onItemLongClick(AdapterView<?> parent, View view,
 					int position, long id) {
-				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), "dialog "+data.get(position).getShortName());
+				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+						Global.userId, getLogTag(),
+						"dialog " + data.get(position).getShortName());
 				ApplicationTracker.getInstance().flush();
 
 				int iden = data.get(position).getAudio();
@@ -104,11 +113,10 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld impleme
 			}
 		});
 	}
-	
 
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
 		// TODO Auto-generated method stub
-		
+
 	}
 
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
@@ -116,6 +124,6 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld impleme
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 	protected abstract void setList(int type, Resource choice);
 }

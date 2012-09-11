@@ -42,8 +42,10 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
 				// passes the selected video.
@@ -59,8 +61,10 @@ public class VideoActivity extends HelpEnabledActivity {
 		// add the event listeners
 		video2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
 				// passes the selected video.
@@ -75,8 +79,10 @@ public class VideoActivity extends HelpEnabledActivity {
 	}
 
 	public boolean onLongClick(View v) {
-		
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.video_button_video1) {

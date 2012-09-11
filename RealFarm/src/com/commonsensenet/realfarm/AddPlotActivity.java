@@ -71,8 +71,8 @@ public class AddPlotActivity extends DataFormActivity {
 		}
 
 		// logs the event
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
-				"add plot to database");
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(), "add plot to database");
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -273,7 +273,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.plot_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
-					"Plot image");
+					Global.userId, "Plot image");
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.plot_tr, true);
@@ -283,7 +283,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.soiltype_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
-					SOIL_TYPE);
+					Global.userId, SOIL_TYPE);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.soiltype_tr, true);
@@ -293,7 +293,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.maincrop_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
-					MAIN_CROP);
+					Global.userId, MAIN_CROP);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.maincrop_tr, true);
@@ -302,7 +302,8 @@ public class AddPlotActivity extends DataFormActivity {
 		if (mSize > Double.parseDouble(defaultSize)) {
 			highlightField(R.id.size_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, SIZE);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, SIZE);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.size_tr, true);
@@ -311,7 +312,8 @@ public class AddPlotActivity extends DataFormActivity {
 		if ((Integer) mResultsMap.get(TYPE) != defaultType) {
 			highlightField(R.id.type_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, TYPE);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, TYPE);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.type_tr, true);
@@ -321,7 +323,7 @@ public class AddPlotActivity extends DataFormActivity {
 		if (isValid) {
 
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					"data entered");
+					Global.userId, getLogTag(), "data entered");
 			ApplicationTracker.getInstance().flush();
 
 			mSoilType = soilList.get((Integer) mResultsMap.get(SOIL_TYPE))

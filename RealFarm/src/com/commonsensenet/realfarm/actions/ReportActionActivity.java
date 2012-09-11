@@ -25,12 +25,12 @@ public class ReportActionActivity extends DataFormActivity {
 	private int mMonth;
 	private int mProblem;
 	private int mVariety;
-	
+
 	private int defaultProblem = -1;
 	private int defaultVariety = -1;
 	private int defaultMonth = -1;
 	private String defaultDay = "0";
-	
+
 	private List<Resource> problemList;
 	private List<Resource> varietyList;
 	private List<Resource> monthList;
@@ -39,10 +39,12 @@ public class ReportActionActivity extends DataFormActivity {
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_report_action);
-		
-		problemList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
+
+		problemList = mDataProvider
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_PROBLEM);
 		varietyList = mDataProvider.getVarietiesByPlotAndSeason(Global.plotId);
-		monthList = mDataProvider.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
+		monthList = mDataProvider
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 
 		playAudio(R.raw.clickingreporting);
 
@@ -73,14 +75,15 @@ public class ReportActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-			
-				displayDialog(v, problemList, PROBLEM, "Choose the problem type",
-						R.raw.selecttheproblem, R.id.dlg_lbl_var_prob,
-						R.id.var_prob_tr, 0);
+				displayDialog(v, problemList, PROBLEM,
+						"Choose the problem type", R.raw.selecttheproblem,
+						R.id.dlg_lbl_var_prob, R.id.var_prob_tr, 0);
 
 			}
 		});
@@ -88,11 +91,12 @@ public class ReportActionActivity extends DataFormActivity {
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
 						R.raw.select_the_variety, R.id.dlg_lbl_var_prob4,
 						R.id.var_prob_tr4, 0);
@@ -103,16 +107,16 @@ public class ReportActionActivity extends DataFormActivity {
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
-				
-				
+
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
-						0, R.id.dlg_lbl_day_prob, R.id.day_prob_tr,
-						R.raw.ok, R.raw.cancel, R.raw.day_ok,
-						R.raw.day_cancel);
+						0, R.id.dlg_lbl_day_prob, R.id.day_prob_tr, R.raw.ok,
+						R.raw.cancel, R.raw.day_ok, R.raw.day_cancel);
 
 			}
 		});
@@ -120,11 +124,12 @@ public class ReportActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_prob,
 						R.id.day_prob_tr, 0);
@@ -134,32 +139,44 @@ public class ReportActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
-		
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 
 		// forces all audio sounds to be played.
 
 		if (v.getId() == R.id.dlg_lbl_var_prob) {
-			
-			if((Integer) mResultsMap.get(PROBLEM) == defaultProblem) playAudio(R.raw.selecttheproblem, true); 
-			else playAudio(problemList.get(((Integer)mResultsMap.get(PROBLEM))).getAudio(), true); 
+
+			if ((Integer) mResultsMap.get(PROBLEM) == defaultProblem)
+				playAudio(R.raw.selecttheproblem, true);
+			else
+				playAudio(problemList.get(((Integer) mResultsMap.get(PROBLEM)))
+						.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_var_prob4) {
-			
-			if((Integer) mResultsMap.get(VARIETY) == defaultVariety) playAudio(R.raw.select_the_variety, true); 
-			else playAudio(varietyList.get(((Integer)mResultsMap.get(VARIETY))).getAudio(), true); 
+
+			if ((Integer) mResultsMap.get(VARIETY) == defaultVariety)
+				playAudio(R.raw.select_the_variety, true);
+			else
+				playAudio(varietyList.get(((Integer) mResultsMap.get(VARIETY)))
+						.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_day_prob) {
-			
-			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.dateinfo, true); 
-			
-			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));  
+
+			if (mResultsMap.get(DAY).equals(defaultDay))
+				playAudio(R.raw.dateinfo, true);
+
+			else
+				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_prob) {
-			
-			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
-		} 
-		
-		
+
+			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
+				playAudio(R.raw.choosethemonth, true);
+			else
+				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
+						.getAudio(), true);
+		}
+
 		else if (v.getId() == R.id.var_prob_tr) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.var_prob_tr4) {
@@ -185,41 +202,50 @@ public class ReportActionActivity extends DataFormActivity {
 		// flag to indicate the validity of the form.
 		boolean isValid = true;
 
-		if ((Integer)mResultsMap.get(PROBLEM) != defaultProblem) {
+		if ((Integer) mResultsMap.get(PROBLEM) != defaultProblem) {
 			highlightField(R.id.var_prob_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, PROBLEM);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, PROBLEM);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_prob_tr, true);
 		}
-		
-		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
+
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth
+				&& mDay > Integer.parseInt(defaultDay)
+				&& validDate(mDay,
+						monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_prob_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, MONTH, DAY);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_prob_tr, true);
 		}
-		
-		if ((Integer)mResultsMap.get(VARIETY) != defaultVariety) {
+
+		if ((Integer) mResultsMap.get(VARIETY) != defaultVariety) {
 			highlightField(R.id.var_prob_tr4, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, VARIETY);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, VARIETY);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_prob_tr4, true);
 		}
 
 		if (isValid) {
-			
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "data entered");
 			ApplicationTracker.getInstance().flush();
-			
-			mProblem = problemList.get((Integer)mResultsMap.get(PROBLEM)).getId();
-			mVariety = varietyList.get((Integer)mResultsMap.get(VARIETY)).getId();
-			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
+
+			mProblem = problemList.get((Integer) mResultsMap.get(PROBLEM))
+					.getId();
+			mVariety = varietyList.get((Integer) mResultsMap.get(VARIETY))
+					.getId();
+			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
 
 			long result = mDataProvider
 					.addReportAction(Global.userId, Global.plotId, mVariety,

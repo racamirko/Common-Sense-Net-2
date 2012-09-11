@@ -22,11 +22,11 @@ public class ApplicationTracker {
 
 	/**
 	 * Format used to stored the data in the log. It corresponds to
-	 * <code>[date] EventType activityName label </code>
+	 * <code>[date] EventType usedId activityName label </code>
 	 * */
-	private static final String DATA_ENTRY_FORMAT = "[%s] %s - %s - %s";
+	private static final String DATA_ENTRY_FORMAT = "[%s] %d %s - %s - %s";
 	/** Shorter format used to store data in the log. */
-	private static final String DATA_ENTRY_FORMAT_SMALL = "[%s] %s - %s";
+	private static final String DATA_ENTRY_FORMAT_SMALL = "[%s] %d %s - %s";
 	/** Format used to store the date information. */
 	public static final String DATE_FORMAT = "yyyy-MM-dd HH:mm:ss";
 	/** Default value for the maximum size of the log that will force a flush. */
@@ -139,12 +139,14 @@ public class ApplicationTracker {
 	 * 
 	 * @param eventType
 	 *            type of the event.
+	 * @param userId
+	 *            id of the user that performed the activity
 	 * @param activityName
 	 *            name of the activity that generated the object.
 	 * @param args
 	 *            additional values to log.
 	 */
-	public void logEvent(EventType eventType, String activityName,
+	public void logEvent(EventType eventType, long userId, String activityName,
 			Object... args) {
 
 		if (args.length == 0) {
@@ -152,10 +154,9 @@ public class ApplicationTracker {
 			// synchronized access to the log since concurrent access could be
 			// enabled.
 			synchronized (mActivityLog) {
-				mActivityLog.add(String
-						.format(DATA_ENTRY_FORMAT_SMALL,
-								mDateFormat.format(new Date()), eventType,
-								activityName));
+				mActivityLog.add(String.format(DATA_ENTRY_FORMAT_SMALL,
+						mDateFormat.format(new Date()), userId, eventType,
+						activityName));
 			}
 		} else {
 
@@ -173,7 +174,7 @@ public class ApplicationTracker {
 			// enabled.
 			synchronized (mActivityLog) {
 				mActivityLog.add(String.format(DATA_ENTRY_FORMAT,
-						mDateFormat.format(new Date()), eventType,
+						mDateFormat.format(new Date()), userId, eventType,
 						activityName, sb.toString()));
 			}
 		}

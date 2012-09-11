@@ -125,44 +125,37 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	private void insertDemoData() {
 		if (!Global.IS_INITIALIZED) {
-			
-			mDataProvider.addMarketPrice("2012-08-21",3200, 4900,"");
-			
+
+			mDataProvider.addMarketPrice("2012-08-21", 3200, 4900, "");
+
 			/*
-			List<User> users = mDataProvider.getUsers();
-			List<Resource> soilTypes = mDataProvider.getSoilTypes();
-			List<Resource> seeds = mDataProvider.getSeedTypes();
-
-			Object[][] plotData = {
-					{ users.get(0).getId(), seeds.get(0).getId(),
-							soilTypes.get(0).getId(),
-							"farmer_90px_kiran_kumar_g", 1.5 },
-					{ users.get(0).getId(), seeds.get(3).getId(),
-							soilTypes.get(1).getId(), "farmer_90px_adam_jones",
-							2.1 },
-					{ users.get(1).getId(), seeds.get(5).getId(),
-							soilTypes.get(0).getId(), "farmer_90px_adam_jones",
-							5.6 },
-					{ users.get(2).getId(), seeds.get(7).getId(),
-							soilTypes.get(2).getId(), "farmer_90px_adam_jones",
-							10.0 },
-					{ users.get(3).getId(), seeds.get(9).getId(),
-							soilTypes.get(3).getId(),
-							"farmer_90px_walmart_stores", 3.0 }
-
-			};
-
-			for (int x = 0; x < plotData.length; x++) {
-				long plotId = mDataProvider.addPlot((Long) plotData[x][0],
-						(Integer) plotData[x][1], (Integer) plotData[x][2],
-						(String) plotData[x][3], (Double) plotData[x][4]);
-				// updates the id if I am the owner
-				if ((Long) plotData[x][0] == Global.userId) {
-					Global.plotId = (int) plotId;
-				}
-			}
-
-			Log.d(getLogTag(), "plot works");*/
+			 * List<User> users = mDataProvider.getUsers(); List<Resource>
+			 * soilTypes = mDataProvider.getSoilTypes(); List<Resource> seeds =
+			 * mDataProvider.getSeedTypes();
+			 * 
+			 * Object[][] plotData = { { users.get(0).getId(),
+			 * seeds.get(0).getId(), soilTypes.get(0).getId(),
+			 * "farmer_90px_kiran_kumar_g", 1.5 }, { users.get(0).getId(),
+			 * seeds.get(3).getId(), soilTypes.get(1).getId(),
+			 * "farmer_90px_adam_jones", 2.1 }, { users.get(1).getId(),
+			 * seeds.get(5).getId(), soilTypes.get(0).getId(),
+			 * "farmer_90px_adam_jones", 5.6 }, { users.get(2).getId(),
+			 * seeds.get(7).getId(), soilTypes.get(2).getId(),
+			 * "farmer_90px_adam_jones", 10.0 }, { users.get(3).getId(),
+			 * seeds.get(9).getId(), soilTypes.get(3).getId(),
+			 * "farmer_90px_walmart_stores", 3.0 }
+			 * 
+			 * };
+			 * 
+			 * for (int x = 0; x < plotData.length; x++) { long plotId =
+			 * mDataProvider.addPlot((Long) plotData[x][0], (Integer)
+			 * plotData[x][1], (Integer) plotData[x][2], (String)
+			 * plotData[x][3], (Double) plotData[x][4]); // updates the id if I
+			 * am the owner if ((Long) plotData[x][0] == Global.userId) {
+			 * Global.plotId = (int) plotId; } }
+			 * 
+			 * Log.d(getLogTag(), "plot works");
+			 */
 
 			// sowing
 			// mDataProvider.setSowing(1, 1, seeds.get(0).getId(),
@@ -211,7 +204,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			// 0);
 
 			// flags the data insertion as done.
-			//Global.IS_INITIALIZED = true;
+			// Global.IS_INITIALIZED = true;
 		}
 
 	}
@@ -220,8 +213,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 	public void onBackPressed() {
 
 		// tracks the back button.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),
-				"back");
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(), "back");
 
 		// forces a flush operation of the application could be closed.
 		ApplicationTracker.getInstance().flush();
@@ -240,7 +233,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 							public void onClick(DialogInterface dialog,
 									int which) {
 								// exits the application.
-								ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"exit application");
+								ApplicationTracker.getInstance().logEvent(
+										EventType.CLICK, Global.userId,
+										getLogTag(), "exit application");
 								ApplicationTracker.getInstance().flush();
 								Homescreen.this.finish();
 							}
@@ -249,17 +244,20 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	public void onClick(View v) {
 		stopAudio();
-		
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
-		
+
 		// activity that will be opened.
 		Intent intent = null;
 
 		if (v.getId() == R.id.hmscrn_btn_weather) {
 			intent = new Intent(this, WeatherForecastActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
-			intent = new Intent(this, AdviceActivity.class);
+			// TODO: enable advices
+			// intent = new Intent(this, AdviceActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_video) {
 			intent = new Intent(this, VideoActivity.class);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
@@ -315,31 +313,37 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			// opens the dialog.
 			dialog.show();
-			
-			dialogList.setOnItemLongClickListener(new OnItemLongClickListener() {
 
-				public boolean onItemLongClick(AdapterView<?> parent, View view,
-						int position, long id) {
-					int iden = data.get(position).getAudio();
-					playAudio(iden, true);
-					
-					ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(), data.get(position).getShortName());
-					ApplicationTracker.getInstance().flush();
-					
-					return true;
-				}
-			});
+			dialogList
+					.setOnItemLongClickListener(new OnItemLongClickListener() {
+
+						public boolean onItemLongClick(AdapterView<?> parent,
+								View view, int position, long id) {
+							int iden = data.get(position).getAudio();
+							playAudio(iden, true);
+
+							ApplicationTracker.getInstance().logEvent(
+									EventType.LONG_CLICK, Global.userId,
+									getLogTag(),
+									data.get(position).getShortName());
+							ApplicationTracker.getInstance().flush();
+
+							return true;
+						}
+					});
 
 			dialogList.setOnItemClickListener(new OnItemClickListener() {
 
 				public void onItemClick(AdapterView<?> parent, View view,
 						int position, long id) {
-					
-					ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(), data.get(position).getShortName());
+
+					ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+							Global.userId, getLogTag(),
+							data.get(position).getShortName());
 					ApplicationTracker.getInstance().flush();
 
 					Resource selectedAction = adapter.getItem(position);
-					
+
 					switch (selectedAction.getId()) {
 					case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 						Global.selectedAction = SowActionActivity.class;
@@ -368,38 +372,79 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 					// intent to launch
 					List<Plot> plotList;
-					
-					if (Global.selectedAction == SellActionActivity.class) { // selling does not require a plot to be done
-						Intent intent = new Intent(mParentReference, Global.selectedAction);
+
+					if (Global.selectedAction == SellActionActivity.class) { // selling
+																				// does
+																				// not
+																				// require
+																				// a
+																				// plot
+																				// to
+																				// be
+																				// done
+						Intent intent = new Intent(mParentReference,
+								Global.selectedAction);
 						dialog.dismiss();
 						startActivity(intent);
 						return;
-					} else if (Global.selectedAction == HarvestActionActivity.class){ // harvest requires the plot to have been sown during this season. It displays varieties sown this season
-						plotList = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(Global.userId, 1);
-						if(plotList.size() == 0){ // if no plot available, do nothing
-							playAudio(R.raw.problems, true); // TODO AUDIO: put audio
-							Toast.makeText(mParentReference, "Please sow on your plot before you harvest.",Toast.LENGTH_SHORT).show();
-							return; 
+					} else if (Global.selectedAction == HarvestActionActivity.class) { // harvest
+																						// requires
+																						// the
+																						// plot
+																						// to
+																						// have
+																						// been
+																						// sown
+																						// during
+																						// this
+																						// season.
+																						// It
+																						// displays
+																						// varieties
+																						// sown
+																						// this
+																						// season
+						plotList = mDataProvider
+								.getPlotsByUserIdAndEnabledFlagAndHasCrops(
+										Global.userId, 1);
+						if (plotList.size() == 0) { // if no plot available, do
+													// nothing
+							playAudio(R.raw.problems, true); // TODO AUDIO: put
+																// audio
+							Toast.makeText(
+									mParentReference,
+									"Please sow on your plot before you harvest.",
+									Toast.LENGTH_SHORT).show();
+							return;
 						}
-					} else { // other acticities don't need a sowing action. They display varieties sown this season ???
-						plotList = mDataProvider.getPlotsByUserIdAndEnabledFlag(Global.userId, 1);
+					} else { // other acticities don't need a sowing action.
+								// They display varieties sown this season ???
+						plotList = mDataProvider
+								.getPlotsByUserIdAndEnabledFlag(Global.userId,
+										1);
 					}
-					
+
 					Intent intent = null;
-					switch(plotList.size()){
-						case 0: // TODO: put audio
-							playAudio(R.raw.problems, true); // TODO AUDIO: put audio
-							Toast.makeText(mParentReference, "Please add a plot before you do anything.",Toast.LENGTH_SHORT).show();
-							intent = new Intent(mParentReference, AddPlotActivity.class);
-							break;
-						case 1:
-							Global.plotId = plotList.get(0).getId();
-							intent = new Intent(mParentReference, Global.selectedAction);
-							break;
-						default:
-							intent = new Intent(mParentReference, ChoosePlotActivity.class);
-							break;
-					
+					switch (plotList.size()) {
+					case 0: // TODO: put audio
+						playAudio(R.raw.problems, true); // TODO AUDIO: put
+															// audio
+						Toast.makeText(mParentReference,
+								"Please add a plot before you do anything.",
+								Toast.LENGTH_SHORT).show();
+						intent = new Intent(mParentReference,
+								AddPlotActivity.class);
+						break;
+					case 1:
+						Global.plotId = plotList.get(0).getId();
+						intent = new Intent(mParentReference,
+								Global.selectedAction);
+						break;
+					default:
+						intent = new Intent(mParentReference,
+								ChoosePlotActivity.class);
+						break;
+
 					}
 					dialog.dismiss();
 					startActivity(intent);
@@ -420,18 +465,21 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				snd.setImageResource(R.drawable.ic_71px_sound_on);
 				// enables the sound.
 				Global.isAudioEnabled = true;
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"audio enabled");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(), "audio enabled");
 			} else {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.soundoff);
 				// disables the audio.
 				Global.isAudioEnabled = false;
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"audio disabled");
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(), "audio disabled");
 			}
 
 			// no need to start an intent
 			return;
 		}
+
 		// starts the intent if valid.
 		if (intent != null) {
 			startActivity(intent);
@@ -504,13 +552,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// clears the database
 		// initDb();
 		insertDemoData();
-		
+
 		// updates the news indicators for the aggregates
 		updateAggregatesNumbers();
 
 		// updates the market prices
 		updateMarketPrices();
-		
+
 		// updates the advice news
 		updateAdviceNumbers();
 
@@ -520,34 +568,43 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		initActionListener();
 
 	}
-	
-	private void updateAdviceNumbers(){
-		TextView tw = (TextView)findViewById(R.id.news_advice);
+
+	private void updateAdviceNumbers() {
+		TextView tw = (TextView) findViewById(R.id.news_advice);
 		tw.setText(mDataProvider.getAdviceNews(Global.userId));
 	}
 
 	private void updateMarketPrices() {
-		TextView tw = (TextView)findViewById(R.id.hmscrn_lbl_market_price_min);
-		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN)));
-		tw = (TextView)findViewById(R.id.hmscrn_lbl_market_price_max);
-		tw.setText(String.valueOf(mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
+		TextView tw = (TextView) findViewById(R.id.hmscrn_lbl_market_price_min);
+		tw.setText(String.valueOf(mDataProvider
+				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN)));
+		tw = (TextView) findViewById(R.id.hmscrn_lbl_market_price_max);
+		tw.setText(String.valueOf(mDataProvider
+				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 	}
 
 	private void updateAggregatesNumbers() {
-		TextView tw = (TextView)findViewById(R.id.news_sow);
-		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SOW_ID));
-		tw = (TextView)findViewById(R.id.news_fertilize);
-		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID));
-		tw = (TextView)findViewById(R.id.news_irrigate);
-		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID));
-		tw = (TextView)findViewById(R.id.news_problem);
-		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_REPORT_ID));
-		tw = (TextView)findViewById(R.id.news_spray);
-		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SPRAY_ID));
-		tw = (TextView)findViewById(R.id.news_harvest);
-		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_HARVEST_ID));
-		tw = (TextView)findViewById(R.id.news_sell);
-		tw.setText(mDataProvider.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
+		TextView tw = (TextView) findViewById(R.id.news_sow);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SOW_ID));
+		tw = (TextView) findViewById(R.id.news_fertilize);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID));
+		tw = (TextView) findViewById(R.id.news_irrigate);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID));
+		tw = (TextView) findViewById(R.id.news_problem);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_REPORT_ID));
+		tw = (TextView) findViewById(R.id.news_spray);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SPRAY_ID));
+		tw = (TextView) findViewById(R.id.news_harvest);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_HARVEST_ID));
+		tw = (TextView) findViewById(R.id.news_sell);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
@@ -561,10 +618,15 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		// long click sounds are always played, no matter the audio setting.
 		if (v.getId() == R.id.hmscrn_btn_market) {
-			int min = mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
-			int max = mDataProvider.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX);
-			// TODO AUDIO: Say the min and max prices: "Market Challekere, today prices go from " + say(min) + " to " + say(max) + " rupees"
-			System.out.println("Market Challekere, today prices go from " + min + " to " + max + " rupees");
+			int min = mDataProvider
+					.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
+			int max = mDataProvider
+					.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX);
+			// TODO AUDIO: Say the min and max prices:
+			// "Market Challekere, today prices go from " + say(min) + " to " +
+			// say(max) + " rupees"
+			System.out.println("Market Challekere, today prices go from " + min
+					+ " to " + max + " rupees");
 			playAudio(R.raw.ckpura_avgmarketprice, true);
 		} else if (v.getId() == R.id.hmscrn_btn_yield) {
 			playAudio(R.raw.ckpura_avgyield, true);
@@ -599,8 +661,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		} else {
 			return super.onLongClick(v);
 		}
-		
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 
 		// shows the help icon for the view.
@@ -614,7 +678,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// handles the item selection.
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),"menu_settings");
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "menu_settings");
 			ApplicationTracker.getInstance().flush();
 			// starts a new activity
 			startActivity(new Intent(this, LoginActivity.class));
@@ -649,7 +714,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				weatherImage.setImageResource(wt.getImage());
 			}
 		} else { // TODO display something
-			
+
 			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
 			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
 			weatherTemp.setText("?");

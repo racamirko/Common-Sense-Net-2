@@ -25,22 +25,22 @@ public class IrrigateActionActivity extends DataFormActivity {
 	private int mHours;
 	private int mMethod;
 	private int mMonth;
-	
+
 	private int defaultMethod = -1;
 	private int defaultMonth = -1;
 	private String defaultDay = "0";
 	private String defaultHours = "0";
-	
+
 	private List<Resource> methodList;
-	private List<Resource> monthList;	
+	private List<Resource> monthList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_irrigate_action);
-		
+
 		methodList = mDataProvider
-				.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD); 
+				.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD);
 		monthList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 
@@ -73,49 +73,48 @@ public class IrrigateActionActivity extends DataFormActivity {
 		item1.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
-				displayDialog(v, methodList, METHOD, "Select the irrigation method",
-						R.raw.selecttheirrigationmethod, R.id.dlg_lbl_method_irr,
-						R.id.method_irr_tr, 0);
+				displayDialog(v, methodList, METHOD,
+						"Select the irrigation method",
+						R.raw.selecttheirrigationmethod,
+						R.id.dlg_lbl_method_irr, R.id.method_irr_tr, 0);
 			}
 		});
 
 		item2.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
-				
-				
-				
 				displayDialogNP("Choose the irrigation duration", HOURS,
 						R.raw.select_irr_duration, 0, 24, 0, 1, 0,
-						R.id.dlg_lbl_unit_no_irr, R.id.units_irr_tr,
-						R.raw.ok, R.raw.cancel, R.raw.irr_dur_ok,
-						R.raw.irr_dur_cancel);
+						R.id.dlg_lbl_unit_no_irr, R.id.units_irr_tr, R.raw.ok,
+						R.raw.cancel, R.raw.irr_dur_ok, R.raw.irr_dur_cancel);
 			}
 		});
 
 		item3.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
-						0, R.id.dlg_lbl_day_irr, R.id.day_irr_tr,
-						R.raw.ok, R.raw.cancel, R.raw.day_ok,
-						R.raw.day_cancel);
+						0, R.id.dlg_lbl_day_irr, R.id.day_irr_tr, R.raw.ok,
+						R.raw.cancel, R.raw.day_ok, R.raw.day_cancel);
 
 			}
 		});
@@ -123,11 +122,12 @@ public class IrrigateActionActivity extends DataFormActivity {
 		item4.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
-				
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(),
+						getResources().getResourceEntryName(v.getId()));
 				ApplicationTracker.getInstance().flush();
 
-				
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_irr,
 						R.id.day_irr_tr, 0);
@@ -137,34 +137,46 @@ public class IrrigateActionActivity extends DataFormActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
-		
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK, getLogTag(),getResources().getResourceEntryName(v.getId()));
+
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 		ApplicationTracker.getInstance().flush();
 
 		// long click sounds are forced played, since they are part of a help
 		// feature.
 
 		if (v.getId() == R.id.dlg_lbl_method_irr) {
-			
-			if((Integer) mResultsMap.get(METHOD) == defaultMethod) playAudio(R.raw.selecttheirrigationmethod, true); 
-			else playAudio(methodList.get(((Integer)mResultsMap.get(METHOD))).getAudio(), true); 
+
+			if ((Integer) mResultsMap.get(METHOD) == defaultMethod)
+				playAudio(R.raw.selecttheirrigationmethod, true);
+			else
+				playAudio(methodList.get(((Integer) mResultsMap.get(METHOD)))
+						.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_irr) {
-			
-			if(mResultsMap.get(HOURS).equals(defaultHours)) playAudio(R.raw.noofhours, true); 
-			
-			else play_day_audio(Integer.valueOf(mResultsMap.get(HOURS).toString()));
+
+			if (mResultsMap.get(HOURS).equals(defaultHours))
+				playAudio(R.raw.noofhours, true);
+
+			else
+				play_day_audio(Integer.valueOf(mResultsMap.get(HOURS)
+						.toString()));
 		} else if (v.getId() == R.id.dlg_lbl_day_irr) {
-			
-			if(mResultsMap.get(DAY).equals(defaultDay)) playAudio(R.raw.selectthedate, true); 
-			
-			else play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));   
+
+			if (mResultsMap.get(DAY).equals(defaultDay))
+				playAudio(R.raw.selectthedate, true);
+
+			else
+				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_month_irr) {
-			
-			if((Integer) mResultsMap.get(MONTH) == defaultMonth) playAudio(R.raw.choosethemonth, true); 
-			else playAudio(monthList.get(((Integer)mResultsMap.get(MONTH))).getAudio(), true); 
+
+			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
+				playAudio(R.raw.choosethemonth, true);
+			else
+				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
+						.getAudio(), true);
 		}
-		
-		
+
 		else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.irr_help, true);
 		} else if (v.getId() == R.id.method_irr_tr) {
@@ -193,10 +205,11 @@ public class IrrigateActionActivity extends DataFormActivity {
 		// flag used to indicate the validity of the form.
 		boolean isValid = true;
 
-		if ((Integer)mResultsMap.get(METHOD) != defaultMethod) {
+		if ((Integer) mResultsMap.get(METHOD) != defaultMethod) {
 			highlightField(R.id.method_irr_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, METHOD);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, METHOD);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.method_irr_tr, true);
@@ -205,28 +218,35 @@ public class IrrigateActionActivity extends DataFormActivity {
 		if (mHours > Integer.parseInt(defaultHours)) {
 			highlightField(R.id.units_irr_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, HOURS);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, HOURS);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_irr_tr, true);
 		}
-		
-		if ((Integer) mResultsMap.get(MONTH) != defaultMonth && mDay > Integer.parseInt(defaultDay) && validDate(mDay, monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
+
+		if ((Integer) mResultsMap.get(MONTH) != defaultMonth
+				&& mDay > Integer.parseInt(defaultDay)
+				&& validDate(mDay,
+						monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
 			highlightField(R.id.day_irr_tr, false);
 		} else {
-			ApplicationTracker.getInstance().logEvent(EventType.ERROR, MONTH, DAY);
+			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
+					Global.userId, MONTH, DAY);
 			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_irr_tr, true);
 		}
 
 		if (isValid) {
-			
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK, "data entered");
+
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "data entered");
 			ApplicationTracker.getInstance().flush();
-			
-			mMethod = methodList.get((Integer)mResultsMap.get(METHOD)).getId();;
-			mMonth = monthList.get((Integer)mResultsMap.get(MONTH)).getId();
+
+			mMethod = methodList.get((Integer) mResultsMap.get(METHOD)).getId();
+			;
+			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
 
 			long result = mDataProvider.addIrrigateAction(Global.userId,
 					Global.plotId, mHours, mMethod, getDate(mDay, mMonth), 0);
@@ -235,5 +255,4 @@ public class IrrigateActionActivity extends DataFormActivity {
 		}
 		return false;
 	}
-
 }
