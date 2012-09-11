@@ -6,11 +6,12 @@ public class MarketPrice {
 	private String mDate;
 	/** Unique identifier of the MarketPrice. */
 	private int mId;
+	/** Maximum price in the market. */
+	private int mMax;
+	/** Minimum price in the market. */
+	private int mMin;
 	/** Price type in the Market. */
 	private String mType;
-	/** Price in the given date. */
-	private int mMin;
-	private int mMax;
 
 	public MarketPrice(int id, String date, int min, int max, String type) {
 		mId = id;
@@ -28,23 +29,23 @@ public class MarketPrice {
 		return mId;
 	}
 
-	public String getType() {
-		return mType;
+	public int getMax() {
+		return mMax;
 	}
 
 	public int getMin() {
 		return mMin;
 	}
-	
-	public int getMax() {
-		return mMax;
+
+	public String getType() {
+		return mType;
 	}
 
 	@Override
 	public String toString() {
 
-		return String.format(
-				"[MarketPrice id='%d', date='%d', min='%s', max='%s', type='%s']", mId,
-				mDate, mMin, mMax, mType);
+		return String
+				.format("[MarketPrice id='%d', date='%s', min='%s', max='%s', type='%s']",
+						mId, mDate, mMin, mMax, mType);
 	}
 }

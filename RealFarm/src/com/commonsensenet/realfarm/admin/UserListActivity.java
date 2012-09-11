@@ -44,7 +44,6 @@ public class UserListActivity extends Activity {
 		// add the event listeners
 		addUserButton.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				System.out.println("In add user");
 
 				Intent adminintent123 = new Intent(UserListActivity.this,
 						AddUserActivity.class);
@@ -65,6 +64,15 @@ public class UserListActivity extends Activity {
 				// of querying the database again.
 				// sets the id of the selected user.
 				Global.userId = userList.get(position).getId();
+
+				// If the user's mobile number is same as deviceId, then he owns
+				// the mobile
+				if (userList.get(position).getDeviceId() == userList.get(
+						position).getMobileNumber()) {
+					Global.IsAdmin = 0;
+				} else {
+					Global.IsAdmin = 1;
+				}
 
 				// redirects to the homescreen.
 				startActivity(new Intent(UserListActivity.this,

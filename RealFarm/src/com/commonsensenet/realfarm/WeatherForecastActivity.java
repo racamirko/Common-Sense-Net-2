@@ -31,7 +31,8 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 	private WeatherForecastItemAdapter mWeatherForecastItemAdapter;
 	/** ListView where the weather forecasts are rendered. */
 	private ListView mWeatherForecastListView;
-	private List<WeatherForecast> wf;
+	/** WeatherForecasts obtained from the Database. */
+	private List<WeatherForecast> mWeatherForecasts;
 
 	protected void onCreate(Bundle savedInstanceState) {
 
@@ -46,14 +47,14 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		mDataProvider.setWeatherForecastDataChangeListener(this);
 
 		// gets the forecast from the database for today.
-		wf = mDataProvider.getWeatherForecasts(new Date());
+		mWeatherForecasts = mDataProvider.getWeatherForecasts(new Date());
 		// TODO AUDIO: no results
-		if (wf == null || wf.size() == 0)
-			playAudio(R.raw.problems);
+		if (mWeatherForecasts == null || mWeatherForecasts.size() == 0)
+			playAudio(R.raw.no_wf);
 
 		// creates the adapter used to manage the data.
-		mWeatherForecastItemAdapter = new WeatherForecastItemAdapter(this, wf,
-				mDataProvider);
+		mWeatherForecastItemAdapter = new WeatherForecastItemAdapter(this,
+				mWeatherForecasts, mDataProvider);
 
 		// gets the list from the UI.
 		mWeatherForecastListView = (ListView) findViewById(R.id.weather_forecast_list);
@@ -78,11 +79,21 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		super.onDestroy();
 	}
 
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(),
+				mWeatherForecasts.get(position).getDate());
+		ApplicationTracker.getInstance().flush();
+
+	}
+
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-				Global.userId, getLogTag(), wf.get(position).getDate());
+				Global.userId, getLogTag(),
+				mWeatherForecasts.get(position).getDate());
 		ApplicationTracker.getInstance().flush();
 
 		SoundQueue sq = SoundQueue.getInstance();
@@ -94,23 +105,32 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		WeatherType wt = mDataProvider
 				.getWeatherTypeById(wf.getWeatherTypeId());
 
-		sq.addToQueue(R.raw.todayweatherforecast);
-		sq.addToQueue(R.raw.a1);
-		sq.addToQueue(R.raw.degree);
-		sq.addToQueue(R.raw.and);
-		sq.addToQueue(R.raw.weather);
-		sq.addToQueue(wt.getAudio());
+		/*
+		 * sq.addToQueue(R.raw.todayweatherforecast); sq.addToQueue(R.raw.a1);
+		 * sq.addToQueue(R.raw.degree); sq.addToQueue(R.raw.and);
+		 * sq.addToQueue(R.raw.weather); sq.addToQueue(wt.getAudio());
+		 * 
+		 * sq.play();
+		 */
+		System.out.println("date" + wf.getDate());
+		System.out.println("Id" + wf.getId());
+		System.out.println("Temp" + wf.getTemperature());
+		System.out.println("Wf type" + wf.getWeatherTypeId());
 
-		sq.play();
+		String date1 = wf.getDate();
+		String[] separated1 = date1.split("-");
+		play_integer(Integer.valueOf(separated1[2]));
+		play_integer(Integer.valueOf(separated1[1]));
+		play_integer(Integer.valueOf(separated1[0]));
+		addToSoundQueue(R.raw.forecastss);
+		addToSoundQueue(wt.getAudio());
+		addToSoundQueue(R.raw.and);
+		addToSoundQueue(R.raw.max_temp);
+		play_integer(wf.getTemperature());
+		addToSoundQueue(R.raw.degree_centigrade);
+
+		playSound(true);
 
 		return true;
-	}
-
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-				Global.userId, getLogTag(), wf.get(position).getDate());
-		ApplicationTracker.getInstance().flush();
-
 	}
 }

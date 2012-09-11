@@ -10,5 +10,6 @@ public class Global {
 	public static Class<?> selectedAction = null;
 	public static long userId = -1;
 	public static boolean IS_INITIALIZED = false;
+	public static int IsAdmin = 0;
 
 }

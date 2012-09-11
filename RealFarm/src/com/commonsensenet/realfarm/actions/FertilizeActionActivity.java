@@ -204,7 +204,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				playAudio(R.raw.dateinfo, true);
 
 			else
-				play_day_audio(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
 
 		} else if (v.getId() == R.id.dlg_lbl_month_fert) {
 
@@ -296,7 +296,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 			long result = mDataProvider.addFertilizeAction(Global.userId,
 					Global.plotId, mAmount, mFertilizer, mUnit,
-					getDate(mDay, mMonth), 0);
+					getDate(mDay, mMonth), Global.IsAdmin);
 
 			return result != -1;
 		}
