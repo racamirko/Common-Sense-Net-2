@@ -110,7 +110,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, cropList, CROP, "Select the crop",
 						R.raw.select_the_crop, R.id.dlg_lbl_crop_sell,
@@ -126,7 +125,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
@@ -142,7 +140,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_sell,
@@ -157,7 +154,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the number of bags", AMOUNT,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
@@ -173,7 +169,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, unit1List, UNIT, "Select the unit",
 						R.raw.selecttheunits, R.id.dlg_lbl_unit_sell,
@@ -188,7 +183,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Enter the price", PRICE,
 						R.raw.enterpricedetails, 0, 9999, 3200, 50, 0,
@@ -204,7 +198,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the number of bags", REMAINING,
 						R.raw.noofbags, 0, 200, 0, 1, 0,
@@ -220,7 +213,6 @@ public class SellActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, unit2List, UNIT2, "Select the unit",
 						R.raw.selecttheunits, R.id.dlg_lbl_unit_rem_sell,
@@ -235,10 +227,8 @@ public class SellActionActivity extends DataFormActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// forces the sound to play since its the long click
-
 		if (v.getId() == R.id.dlg_lbl_crop_sell) {
 
 			if ((Integer) mResultsMap.get(CROP) == defaultCrop)
@@ -336,7 +326,7 @@ public class SellActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, CROP);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.crop_sell_tr, true);
 		}
@@ -349,7 +339,6 @@ public class SellActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MONTH, DAY);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.date_sell_tr, true);
 		}
@@ -360,7 +349,7 @@ public class SellActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, UNIT, AMOUNT);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.quant_sell_tr, true);
 		}
@@ -370,7 +359,7 @@ public class SellActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, PRICE);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.price_sell_tr, true);
 		}
@@ -380,7 +369,6 @@ public class SellActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, UNIT2, REMAINING);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.rem_quant_sell_tr, true);
 		}
@@ -389,7 +377,6 @@ public class SellActionActivity extends DataFormActivity {
 		if (isValid) {
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mCrop = cropList.get((Integer) mResultsMap.get(CROP)).getId();
 			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();

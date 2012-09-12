@@ -605,7 +605,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(), v.getId());
-		ApplicationTracker.getInstance().flush();
 
 		return true;
 	}
@@ -618,7 +617,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "help");
-			ApplicationTracker.getInstance().flush();
 
 			playAudio(R.raw.help, true);
 			return true;
@@ -631,7 +629,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 			// tracks the application usage.
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "home");
-			ApplicationTracker.getInstance().flush();
 
 			return true;
 		} else { // asks the parent.
@@ -779,10 +776,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		}
 	}
 
-	protected void playSound(boolean play) {
-		if (play == true) {
-			SoundQueue.getInstance().play();
-		}
+	protected void playSound() {
+		SoundQueue.getInstance().play();
 	}
 
 	// TODO: Akshay's code needs to be merged here

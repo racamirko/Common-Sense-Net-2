@@ -16,7 +16,7 @@
             android:layout_width="104dp"
             android:layout_height="130dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/farmer_90px_adam_jones" />
+            android:src="@drawable/farmerpicdefault" />
 
         <LinearLayout
             android:id="@+id/hmscrn_lay_btn_plots"
@@ -98,9 +98,6 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical" >
-        
-              
-        
 
         <!-- First Block -->
 
@@ -110,6 +107,7 @@
             android:layout_marginBottom="@dimen/margin"
             android:background="#f5eb5f"
             android:orientation="vertical" >
+
             <!-- first row -->
 
             <RelativeLayout
@@ -128,61 +126,60 @@
                     android:id="@+id/btn_action_sow"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/img_aggregates"
                     android:background="@drawable/circular_btn"
-                    android:layout_centerVertical="true"
                     android:src="@drawable/sowingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_fertilize"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_sow"
                     android:background="@drawable/circular_btn"
-                    android:layout_centerVertical="true"
                     android:src="@drawable/fertilizingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_irrigate"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_fertilize"
                     android:background="@drawable/circular_btn"
-                    android:layout_centerVertical="true"
                     android:src="@drawable/irrigationsection" />
 
                 <TextView
                     android:id="@+id/news_sow"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
                     android:layout_alignRight="@+id/btn_action_sow"
                     android:layout_alignTop="@+id/btn_action_sow"
+                    android:layout_marginRight="15dp"
                     android:background="#CCCCCC"
                     android:textColor="#000000" />
-                
+
                 <TextView
                     android:id="@+id/news_fertilize"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
                     android:layout_alignRight="@+id/btn_action_fertilize"
                     android:layout_alignTop="@+id/btn_action_fertilize"
+                    android:layout_marginRight="15dp"
                     android:background="#CCCCCC"
                     android:textColor="#000000" />
-                
+
                 <TextView
                     android:id="@+id/news_irrigate"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
                     android:layout_alignRight="@+id/btn_action_irrigate"
                     android:layout_alignTop="@+id/btn_action_irrigate"
+                    android:layout_marginRight="15dp"
                     android:background="#CCCCCC"
                     android:textColor="#000000" />
-
             </RelativeLayout>
-            
+
             <!-- second row -->
 
             <RelativeLayout
@@ -195,77 +192,76 @@
                     android:id="@+id/btn_action_report"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
-                    android:background="@drawable/circular_btn"
                     android:layout_centerVertical="true"
+                    android:background="@drawable/circular_btn"
                     android:src="@drawable/problemsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_spray"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_report"
                     android:background="@drawable/circular_btn"
-                    android:layout_centerVertical="true"
                     android:src="@drawable/sprayingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_harvest"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_spray"
                     android:background="@drawable/circular_btn"
-                    android:layout_centerVertical="true"
                     android:src="@drawable/harvestingsection" />
 
                 <ImageButton
                     android:id="@+id/btn_action_sell"
                     android:layout_width="75dp"
                     android:layout_height="50dp"
+                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_harvest"
                     android:background="@drawable/circular_btn"
-                    android:layout_centerVertical="true"
                     android:src="@drawable/sellingsection" />
-                
+
                 <TextView
                     android:id="@+id/news_problem"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
                     android:layout_alignRight="@+id/btn_action_report"
                     android:layout_alignTop="@+id/btn_action_report"
+                    android:layout_marginRight="15dp"
                     android:background="#CCCCCC"
                     android:textColor="#000000" />
-                
+
                 <TextView
                     android:id="@+id/news_spray"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
                     android:layout_alignRight="@+id/btn_action_spray"
                     android:layout_alignTop="@+id/btn_action_spray"
+                    android:layout_marginRight="15dp"
                     android:background="#CCCCCC"
                     android:textColor="#000000" />
-                
+
                 <TextView
                     android:id="@+id/news_harvest"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="15dp"
                     android:layout_alignRight="@+id/btn_action_harvest"
                     android:layout_alignTop="@+id/btn_action_harvest"
+                    android:layout_marginRight="15dp"
                     android:background="#CCCCCC"
                     android:textColor="#000000" />
-                
+
                 <TextView
                     android:id="@+id/news_sell"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="5dp"
                     android:layout_alignRight="@+id/btn_action_sell"
                     android:layout_alignTop="@+id/btn_action_sell"
+                    android:layout_marginRight="5dp"
                     android:background="#CCCCCC"
                     android:textColor="#000000" />
-                
             </RelativeLayout>
         </LinearLayout>
 
@@ -301,17 +297,17 @@
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
                         android:src="@drawable/ic_75px_advice" />
-                    
+
                     <TextView
-	                    android:id="@+id/news_advice"
-	                    android:layout_width="wrap_content"
-	                    android:layout_height="wrap_content"
-	                    android:layout_marginTop="2dp"
-	                    android:layout_marginRight="10dp"
-	                    android:layout_alignRight="@+id/hmscrn_img_advice"
-	                    android:layout_alignTop="@+id/hmscrn_img_advice"
-	                    android:background="#CCCCCC"
-	                    android:textColor="#000000" />
+                        android:id="@+id/news_advice"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignRight="@+id/hmscrn_img_advice"
+                        android:layout_alignTop="@+id/hmscrn_img_advice"
+                        android:layout_marginRight="10dp"
+                        android:layout_marginTop="2dp"
+                        android:background="#CCCCCC"
+                        android:textColor="#000000" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -397,18 +393,18 @@
                         android:src="@drawable/ic_35px_sell" />
 
                     <LinearLayout
-                        android:layout_toRightOf="@+id/ImageView01"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        android:orientation="vertical"
-                        android:gravity="center_vertical" >
+                        android:layout_toRightOf="@+id/ImageView01"
+                        android:gravity="center_vertical"
+                        android:orientation="vertical" >
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center" >
+                            android:gravity="center"
+                            android:orientation="horizontal" >
 
                             <ImageView
                                 android:id="@+id/hmscrn_img_market_max"
@@ -428,8 +424,8 @@
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="horizontal"
-                            android:gravity="center" >
+                            android:gravity="center"
+                            android:orientation="horizontal" >
 
                             <ImageView
                                 android:id="@+id/hmscrn_img_market_min"
@@ -448,8 +444,8 @@
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
-            
-<!-- Third Column: Weather -->
+
+            <!-- Third Column: Weather -->
 
             <RelativeLayout
                 android:id="@+id/hmscrn_btn_weather"
@@ -476,7 +472,6 @@
                     android:textColor="@android:color/black"
                     android:textSize="@dimen/font_xlarge" />
             </RelativeLayout>
-
         </LinearLayout>
     </LinearLayout>
 

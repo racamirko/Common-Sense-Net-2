@@ -79,7 +79,6 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, problemList, PROBLEM,
 						"Choose the problem type", R.raw.selecttheproblem,
@@ -95,7 +94,6 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
 						R.raw.select_the_variety, R.id.dlg_lbl_var_prob4,
@@ -111,7 +109,6 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
@@ -128,7 +125,6 @@ public class ReportActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_prob,
@@ -143,10 +139,8 @@ public class ReportActionActivity extends DataFormActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// forces all audio sounds to be played.
-
 		if (v.getId() == R.id.dlg_lbl_var_prob) {
 
 			if ((Integer) mResultsMap.get(PROBLEM) == defaultProblem)
@@ -207,7 +201,6 @@ public class ReportActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, PROBLEM);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_prob_tr, true);
 		}
@@ -220,7 +213,6 @@ public class ReportActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MONTH, DAY);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_prob_tr, true);
 		}
@@ -230,7 +222,7 @@ public class ReportActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, VARIETY);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.var_prob_tr4, true);
 		}
@@ -239,7 +231,6 @@ public class ReportActionActivity extends DataFormActivity {
 
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mProblem = problemList.get((Integer) mResultsMap.get(PROBLEM))
 					.getId();

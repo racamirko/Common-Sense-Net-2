@@ -97,7 +97,6 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, problemList, PROBLEM,
 						"Choose the problem for spraying",
@@ -113,7 +112,6 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, pesticideList, PESTICIDE,
 						"Choose the pesticide", R.raw.selectthepesticide,
@@ -128,7 +126,6 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the quantity", AMOUNT,
 						R.raw.selecttheunits, 1, 20, 1, 1, 0,
@@ -145,7 +142,6 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, unitList, UNIT, "Choose the unit",
 						R.raw.selecttheunits, R.id.dlg_lbl_units_spray,
@@ -160,7 +156,6 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
@@ -176,7 +171,6 @@ public class SprayActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_spray,
@@ -191,7 +185,6 @@ public class SprayActionActivity extends DataFormActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// forces all long click sounds.
 
@@ -278,7 +271,7 @@ public class SprayActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, UNIT, AMOUNT);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.units_spray_tr, true);
 		}
@@ -288,7 +281,7 @@ public class SprayActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, PESTICIDE);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.pest_spray_tr, true);
 		}
@@ -298,7 +291,7 @@ public class SprayActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, PROBLEM);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.prob_spray_tr, true);
 		}
@@ -311,7 +304,7 @@ public class SprayActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MONTH, DAY);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.day_spray_tr, true);
 		}
@@ -321,7 +314,6 @@ public class SprayActionActivity extends DataFormActivity {
 
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mProblem = problemList.get((Integer) mResultsMap.get(PROBLEM))
 					.getId();

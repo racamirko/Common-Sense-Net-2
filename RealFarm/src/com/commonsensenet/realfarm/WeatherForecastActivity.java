@@ -84,8 +84,6 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(),
 				mWeatherForecasts.get(position).getDate());
-		ApplicationTracker.getInstance().flush();
-
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -94,7 +92,6 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				mWeatherForecasts.get(position).getDate());
-		ApplicationTracker.getInstance().flush();
 
 		SoundQueue sq = SoundQueue.getInstance();
 		// stops any sound that could be playing.
@@ -105,13 +102,6 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		WeatherType wt = mDataProvider
 				.getWeatherTypeById(wf.getWeatherTypeId());
 
-		/*
-		 * sq.addToQueue(R.raw.todayweatherforecast); sq.addToQueue(R.raw.a1);
-		 * sq.addToQueue(R.raw.degree); sq.addToQueue(R.raw.and);
-		 * sq.addToQueue(R.raw.weather); sq.addToQueue(wt.getAudio());
-		 * 
-		 * sq.play();
-		 */
 		System.out.println("date" + wf.getDate());
 		System.out.println("Id" + wf.getId());
 		System.out.println("Temp" + wf.getTemperature());
@@ -129,7 +119,7 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		play_integer(wf.getTemperature());
 		addToSoundQueue(R.raw.degree_centigrade);
 
-		playSound(true);
+		playSound();
 
 		return true;
 	}

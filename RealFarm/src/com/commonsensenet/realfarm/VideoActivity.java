@@ -46,7 +46,6 @@ public class VideoActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				// passes the selected video.
 				mTargetIntent.putExtra(SELECTED_VIDEO,
@@ -65,7 +64,6 @@ public class VideoActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				// passes the selected video.
 				mTargetIntent.putExtra(SELECTED_VIDEO,
@@ -83,7 +81,6 @@ public class VideoActivity extends HelpEnabledActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.video_button_video1) {
 			playAudio(R.raw.video);

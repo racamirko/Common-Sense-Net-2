@@ -96,7 +96,6 @@ public class HarvestActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, varietyList, VARIETY, "Select the variety",
 						R.raw.select_the_variety, R.id.dlg_lbl_harvest_crop,
@@ -111,7 +110,6 @@ public class HarvestActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
@@ -127,7 +125,6 @@ public class HarvestActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_harvest,
@@ -143,7 +140,6 @@ public class HarvestActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the number of bags", AMOUNT,
 						R.raw.noofbags, 1, 200, 0, 1, 0,
@@ -159,7 +155,6 @@ public class HarvestActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, unitList, UNIT, "Select the unit",
 						R.raw.selecttheunits, R.id.dlg_lbl_units_harvest,
@@ -175,7 +170,6 @@ public class HarvestActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, satisfactionList, SATISFACTION,
 						"Are you satisfied?", R.raw.are_you_satisfied,
@@ -192,10 +186,8 @@ public class HarvestActionActivity extends DataFormActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// all long click sounds override the sound enabled flag.
-
 		if (v.getId() == R.id.dlg_lbl_harvest_crop) {
 
 			if ((Integer) mResultsMap.get(VARIETY) == defaultVariety)
@@ -271,7 +263,6 @@ public class HarvestActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, VARIETY);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_harvest_crop, true);
 		}
@@ -284,7 +275,6 @@ public class HarvestActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MONTH, DAY);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.harvest_date_tr, true);
 		}
@@ -295,7 +285,6 @@ public class HarvestActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, UNIT, UNIT);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_harvest_tr, true);
 		}
@@ -305,7 +294,6 @@ public class HarvestActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, SATISFACTION);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.satisfaction_harvest_tr, true);
 		}
@@ -315,7 +303,6 @@ public class HarvestActionActivity extends DataFormActivity {
 
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mVariety = varietyList.get((Integer) mResultsMap.get(VARIETY))
 					.getId();

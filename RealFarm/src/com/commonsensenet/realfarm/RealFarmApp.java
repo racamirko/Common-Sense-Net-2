@@ -26,25 +26,32 @@ public class RealFarmApp extends Application {
 		return mDatabase;
 	}
 
-	public void setDatabase(RealFarmDatabase db) {
-		mDatabase = db;
-	}
-
+	/**
+	 * Gets the DeviceId from the Telephony Manager. If the value is not
+	 * available a default value is set.
+	 * 
+	 * @return the current DeviceId
+	 */
 	public String getDeviceId() {
 
 		// if the value is null it is table from the database.
-		if (mDeviceId == null) {
+		if (mDeviceId == null || mDeviceId.equals("")) {
 
 			// gets the device id of the current user
 			TelephonyManager telephonyManager = (TelephonyManager) getSystemService(Context.TELEPHONY_SERVICE);
-			mDeviceId = telephonyManager.getLine1Number();
+
+			mDeviceId = telephonyManager.getDeviceId();
 
 			// sets the default value if invalid.
-			if (mDeviceId == null) {
-				mDeviceId = RealFarmDatabase.DEFAULT_NUMBER;
+			if (mDeviceId == null || mDeviceId.equals("")) {
+				mDeviceId = RealFarmDatabase.DEFAULT_DEVICE_ID;
 			}
 		}
 
 		return mDeviceId;
+	}
+
+	public void setDatabase(RealFarmDatabase db) {
+		mDatabase = db;
 	}
 }

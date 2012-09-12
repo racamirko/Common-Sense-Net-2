@@ -83,10 +83,10 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".AdviceActivity"
+            android:icon="@drawable/advice"
             android:label="Advice"
-            android:screenOrientation="portrait"
-            android:icon="@drawable/advice" />
-         <activity
+            android:screenOrientation="portrait" />
+        <activity
             android:name=".YieldActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
@@ -186,19 +186,17 @@
             android:name=".ActionAggregateActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-       <!--  <activity
-            android:name=".yielddetails"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" /> -->
         <activity
             android:name=".ownCamera.ViewPictureActivity"
             android:label="@string/app_name"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
-
         <receiver
             android:name=".RealFarmDataSynchronizationService"
             android:exported="true" >
+            <intent-filter android:priority="100" >
+                <action android:name="android.provider.Telephony.SMS_RECEIVED" />
+            </intent-filter>
         </receiver>
     </application>
 

@@ -72,7 +72,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), propertyKey,
 						choice.getName());
-				ApplicationTracker.getInstance().flush();
 
 				// sets the short name of the resource.
 				TextView var_text = (TextView) findViewById(textFieldId);
@@ -114,7 +113,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						data.get(position).getShortName());
-				ApplicationTracker.getInstance().flush();
 
 				playAudio(iden, true);
 				return true;
@@ -161,7 +159,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "numberPicker",
 						"ok " + result);
-				ApplicationTracker.getInstance().flush();
 
 				mResultsMap.put(mapEntry, result);
 				tw_sow.setText(result);
@@ -182,7 +179,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				playAudio(cancelAudio);
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "numberPicker", "cancel");
-				ApplicationTracker.getInstance().flush();
 
 			}
 		});
@@ -190,7 +186,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public boolean onLongClick(View view) {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "ok");
-				ApplicationTracker.getInstance().flush();
 				playAudio(infoOkAudio);
 				return true;
 			}
@@ -199,7 +194,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public boolean onLongClick(View view) {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "cancel");
-				ApplicationTracker.getInstance().flush();
 				playAudio(infoCancelAudio);
 				return true;
 			}
@@ -209,7 +203,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "text",
 						textView.getText());
-				ApplicationTracker.getInstance().flush();
 				// TODO AUDIO: read the number textView.getText()
 
 				// TO DO:Has to play audio for floating numbers also
@@ -318,7 +311,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		showHelpIcon(v);
 

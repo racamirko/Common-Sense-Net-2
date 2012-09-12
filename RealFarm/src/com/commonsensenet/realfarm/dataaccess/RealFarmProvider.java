@@ -474,12 +474,9 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	// TODO: check that date is respected.
+	// TODO: check that the date is respected.
 	public long addWeatherForecast(String date, int value, String type) {
 
-		// result = mDatabase.update(RealFarmDatabase.TABLE_NAME_USER, args,
-		// RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + " = '"
-		// + deviceId + "'", null);
 		Log.d("WF values: ", "in setdata");
 		ContentValues args = new ContentValues();
 
@@ -2242,7 +2239,7 @@ public class RealFarmProvider {
 
 		// adds the default value if the active one is invalid.
 		if (deviceId == null) {
-			deviceId = RealFarmDatabase.DEFAULT_NUMBER;
+			deviceId = RealFarmDatabase.DEFAULT_DEVICE_ID;
 		}
 
 		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID + "='"

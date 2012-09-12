@@ -83,12 +83,6 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						"dialog " + choice.getShortName());
-				ApplicationTracker.getInstance().flush();
-
-				/*
-				 * Toast.makeText(mParentReference,
-				 * data.get(position).getName(), Toast.LENGTH_SHORT).show();
-				 */
 
 				// onClose
 				dialog.cancel();
@@ -105,7 +99,6 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(),
 						"dialog " + data.get(position).getShortName());
-				ApplicationTracker.getInstance().flush();
 
 				int iden = data.get(position).getAudio();
 				playAudio(iden, true);

@@ -30,8 +30,11 @@ public class AddUserActivity extends Activity {
 		String mobileNumber = mMobileNumberTextField.getText().toString();
 		String deviceId = ((RealFarmApp) getApplication()).getDeviceId();
 
+		// adds the new user to the database.
 		mDataProvider.addUser(firstname, lastname, mobileNumber, deviceId,
 				null, "CK Pura", 1);
+
+		// toast to indicate the action performed.
 		Toast.makeText(getBaseContext(), "User Details is put to Database",
 				Toast.LENGTH_SHORT).show();
 	}
@@ -46,14 +49,20 @@ public class AddUserActivity extends Activity {
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// sets the layout of the activity
 		setContentView(R.layout.adminenter);
 
+		// gets the fields from the layout.
 		mFirstnameTextField = (EditText) findViewById(R.id.et_fileName1);
 		mLastnameTextField = (EditText) findViewById(R.id.et_fileName2);
 		mMobileNumberTextField = (EditText) this
 				.findViewById(R.id.et_writtenText);
+
+		// gets the ok button.
 		Button okButton = (Button) findViewById(R.id.OK);
 
+		// gets the data provider singleton.
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// add the event listeners
@@ -61,6 +70,7 @@ public class AddUserActivity extends Activity {
 			public void onClick(View v) {
 
 				addUserToDatabase();
+
 				startActivity(new Intent(AddUserActivity.this,
 						UserListActivity.class));
 				AddUserActivity.this.finish();

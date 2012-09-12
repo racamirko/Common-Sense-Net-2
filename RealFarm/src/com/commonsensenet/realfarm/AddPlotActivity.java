@@ -205,7 +205,7 @@ public class AddPlotActivity extends DataFormActivity {
 
 			else {
 				play_float(Float.parseFloat(mResultsMap.get(SIZE).toString()));
-				playSound(true);
+				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_crop_plot) {
 
@@ -272,7 +272,6 @@ public class AddPlotActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, "Plot image");
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.plot_tr, true);
 		}
@@ -282,7 +281,6 @@ public class AddPlotActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, SOIL_TYPE);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.soiltype_tr, true);
 		}
@@ -292,7 +290,6 @@ public class AddPlotActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MAIN_CROP);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.maincrop_tr, true);
 		}
@@ -302,7 +299,6 @@ public class AddPlotActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, SIZE);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.size_tr, true);
 		}
@@ -312,7 +308,6 @@ public class AddPlotActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, TYPE);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.type_tr, true);
 		}
@@ -322,7 +317,6 @@ public class AddPlotActivity extends DataFormActivity {
 
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mSoilType = soilList.get((Integer) mResultsMap.get(SOIL_TYPE))
 					.getId();

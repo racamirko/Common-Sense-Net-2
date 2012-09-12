@@ -47,7 +47,6 @@ public class VideoPlayerActivity extends Activity {
 
 		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW,
 				Global.userId, this.getClass().getSimpleName());
-		ApplicationTracker.getInstance().flush();
 
 		// gets the extras to extract the select video from there.
 		Bundle extras = getIntent().getExtras();
@@ -90,7 +89,6 @@ public class VideoPlayerActivity extends Activity {
 
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, this.getClass().getSimpleName(), "back");
-				ApplicationTracker.getInstance().flush();
 
 				startActivity(new Intent(VideoPlayerActivity.this,
 						VideoActivity.class));

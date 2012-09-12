@@ -151,7 +151,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 								ApplicationTracker.getInstance().logEvent(
 										EventType.CLICK, Global.userId,
 										getLogTag(), "exit application");
-								ApplicationTracker.getInstance().flush();
 								Homescreen.this.finish();
 							}
 						}).show();
@@ -163,7 +162,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// activity that will be opened.
 		Intent intent = null;
@@ -241,7 +239,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 									EventType.LONG_CLICK, Global.userId,
 									getLogTag(),
 									data.get(position).getShortName());
-							ApplicationTracker.getInstance().flush();
 
 							return true;
 						}
@@ -255,7 +252,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 							Global.userId, getLogTag(),
 							data.get(position).getShortName());
-					ApplicationTracker.getInstance().flush();
 
 					Resource selectedAction = adapter.getItem(position);
 
@@ -451,11 +447,18 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				user.getFirstname() + " " + user.getLastname());
 		getSupportActionBar().setSubtitle(user.getLocation());
 
-		// gets the image from the resources.
-		int resID = getResources().getIdentifier(user.getImagePath(),
-				"drawable", "com.commonsensenet.realfarm");
+		// sets the
+		int userImageResId;
+		if (user.getImagePath() != null) {
+			// gets the image from the resources.
+			userImageResId = getResources().getIdentifier(user.getImagePath(),
+					"drawable", "com.commonsensenet.realfarm");
+		} else {
+			userImageResId = R.drawable.farmerpicdefault;
+		}
+
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))
-				.setImageResource(resID);
+				.setImageResource(userImageResId);
 
 		Log.i(getLogTag(), "scheduler activated");
 		SchedulerManager.getInstance().saveTask(getApplicationContext(),
@@ -585,7 +588,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// shows the help icon for the view.
 		showHelpIcon(v);
@@ -600,7 +602,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		case R.id.menu_settings:
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "menu_settings");
-			ApplicationTracker.getInstance().flush();
 			// starts a new activity
 			startActivity(new Intent(this, LoginActivity.class));
 

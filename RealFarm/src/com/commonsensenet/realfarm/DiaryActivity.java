@@ -68,7 +68,6 @@ public class DiaryActivity extends HelpEnabledActivity implements
 		// TODO: play sound based on the selectedAction.
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(), position);
-		ApplicationTracker.getInstance().flush();
 	}
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
@@ -79,7 +78,6 @@ public class DiaryActivity extends HelpEnabledActivity implements
 		// TODO: play sound based on the selectedAction.
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(), position);
-		ApplicationTracker.getInstance().flush();
 
 		return true;
 	}

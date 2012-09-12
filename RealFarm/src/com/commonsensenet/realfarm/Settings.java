@@ -168,7 +168,7 @@ public class Settings extends Activity {
 
 		// user has no SIM card, use default number
 		if (mDeviceId == null) {
-			mDeviceId = RealFarmDatabase.DEFAULT_NUMBER;
+			mDeviceId = RealFarmDatabase.DEFAULT_DEVICE_ID;
 		}
 
 		// user inserted a SIM card and already had

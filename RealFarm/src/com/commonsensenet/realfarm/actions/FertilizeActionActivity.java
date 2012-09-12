@@ -92,7 +92,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				// TODO AUDIO: "Select the fertilizer" This is the audio that is
 				// heard when the selector dialog opens
@@ -109,7 +108,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the amount", AMOUNT,
 						R.raw.select_unit_number, 0, 100, 1, 0.25, 2,
@@ -126,7 +124,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, unitList, UNIT, "Choose the unit",
 						R.raw.selecttheunits, R.id.dlg_lbl_units_fert,
@@ -141,7 +138,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
@@ -157,7 +153,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_fert,
@@ -171,7 +166,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.dlg_lbl_var_fert) {
 
@@ -254,7 +248,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, UNIT, AMOUNT);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_fert_tr, true);
 		}
@@ -264,7 +257,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, FERTILIZER);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.var_fert_tr, true);
 		}
@@ -277,7 +269,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MONTH, DAY);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_fert_tr, true);
 		}
@@ -287,7 +278,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mFertilizer = fertilizerList.get(
 					(Integer) mResultsMap.get(FERTILIZER)).getId();

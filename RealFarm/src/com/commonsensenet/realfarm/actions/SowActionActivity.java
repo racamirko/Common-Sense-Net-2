@@ -98,7 +98,6 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, varietiesList, VARIETY, "Select the variety",
 						R.raw.select_the_variety, R.id.dlg_var_text_sow,
@@ -113,7 +112,6 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
@@ -129,7 +127,6 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, treatmentList, TREATMENT,
 						"Select if the seeds were treated",
@@ -146,7 +143,6 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the number of serus", AMOUNT,
 						R.raw.choose_serus, 1, 999, 1, 1, 0,
@@ -162,7 +158,6 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, intercropList, INTERCROP,
 						"Main crop or intercrop?", R.raw.maincrop_intercrop,
@@ -177,7 +172,6 @@ public class SowActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_sow,
@@ -192,7 +186,6 @@ public class SowActionActivity extends DataFormActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// long click sounds are always forced since they represent
 		// the helping system.
@@ -284,7 +277,6 @@ public class SowActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, VARIETY);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.seed_type_sow_tr, true);
 		}
@@ -294,7 +286,7 @@ public class SowActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, AMOUNT);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.units_sow_tr, true);
 		}
@@ -307,7 +299,6 @@ public class SowActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MONTH, DAY);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.day_sow_tr, true);
 		}
@@ -317,7 +308,7 @@ public class SowActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, TREATMENT);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.treatment_sow_tr, true);
 		}
@@ -327,7 +318,7 @@ public class SowActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, INTERCROP);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.intercrop_sow_tr, true);
 		}
@@ -336,7 +327,6 @@ public class SowActionActivity extends DataFormActivity {
 		if (isValid) {
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mSeedType = varietiesList.get((Integer) mResultsMap.get(VARIETY))
 					.getId();

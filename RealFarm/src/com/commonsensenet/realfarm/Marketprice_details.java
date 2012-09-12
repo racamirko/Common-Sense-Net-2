@@ -95,7 +95,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -105,7 +104,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -115,7 +113,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -129,7 +126,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -141,7 +137,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 			}
 		});
@@ -152,7 +147,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 				List<Resource> data = ActionDataFactory.getTopSelectorList(
@@ -168,7 +162,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				List<Resource> data = mDataProvider
 						.getResources(RealFarmDatabase.RESOURCE_TYPE_DAYS_SPAN);
@@ -194,7 +187,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.problems, true);

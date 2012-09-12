@@ -77,7 +77,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, methodList, METHOD,
 						"Select the irrigation method",
@@ -93,7 +92,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the irrigation duration", HOURS,
 						R.raw.select_irr_duration, 0, 24, 0, 1, 0,
@@ -109,7 +107,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialogNP("Choose the day", DAY, R.raw.dateinfo, 1, 31,
 						Calendar.getInstance().get(Calendar.DAY_OF_MONTH), 1,
@@ -126,7 +123,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				displayDialog(v, monthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_irr,
@@ -141,7 +137,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		// long click sounds are forced played, since they are part of a help
 		// feature.
@@ -209,7 +204,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, METHOD);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.method_irr_tr, true);
 		}
@@ -219,7 +213,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, HOURS);
-			ApplicationTracker.getInstance().flush();
 			isValid = false;
 			highlightField(R.id.units_irr_tr, true);
 		}
@@ -232,7 +225,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
 					Global.userId, MONTH, DAY);
-			ApplicationTracker.getInstance().flush();
+
 			isValid = false;
 			highlightField(R.id.day_irr_tr, true);
 		}
@@ -241,10 +234,8 @@ public class IrrigateActionActivity extends DataFormActivity {
 
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
-			ApplicationTracker.getInstance().flush();
 
 			mMethod = methodList.get((Integer) mResultsMap.get(METHOD)).getId();
-			;
 			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
 
 			long result = mDataProvider.addIrrigateAction(Global.userId,

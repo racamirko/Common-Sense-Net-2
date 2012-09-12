@@ -89,7 +89,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -101,7 +100,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -114,8 +112,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
-
 			}
 		});
 
@@ -125,7 +121,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
-				ApplicationTracker.getInstance().flush();
 
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 				List<Resource> data = ActionDataFactory.getTopSelectorList(
@@ -142,7 +137,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
 
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.homepage, true);
@@ -156,7 +150,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			addToSoundQueue(R.raw.there);
 			addToSoundQueue(crop);
 			addToSoundQueue(R.raw.there_crop);
-			playSound(true);
+			playSound();
 		} else if (v.getId() == R.id.aggr_img_help) {
 			if (actionName == "Sow") {
 				playAudio(R.raw.sow_help, true);
@@ -227,7 +221,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					addToSoundQueue(R.raw.about_farmers_fertilize);
 				}
 
-				playSound(true);
+				playSound();
 			}
 
 			break;
@@ -267,7 +261,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				if (header == false) {
 					addToSoundQueue(R.raw.about_farmers_harvest);
 				}
-				playSound(true);
+				playSound();
 			}
 
 			break;
@@ -307,15 +301,10 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 				}
 				if (header == false) {
-					addToSoundQueue(R.raw.about_farmers_irrigation); // says to
-																		// know
-																		// about
-																		// farmers
-																		// and
-																		// irrifgation
-																		// duration
+					// says to know about farmers and irrigation duration
+					addToSoundQueue(R.raw.about_farmers_irrigation);
 				}
-				playSound(true);
+				playSound();
 			}
 
 			break;
@@ -353,14 +342,10 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					addToSoundQueue(R.raw.days_informed);
 				}
 				if (header == false) {
-					addToSoundQueue(R.raw.about_farmers_report); // says "to
-																	// know
-																	// about
-																	// farmers
-																	// and
-																	// reporting
+					// says "to know about farmers and reporting"
+					addToSoundQueue(R.raw.about_farmers_report);
 				}
-				playSound(true);
+				playSound();
 			}
 
 			break;
@@ -408,7 +393,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				if (header == false) {
 					addToSoundQueue(R.raw.about_farmers_selling);
 				}
-				playSound(true);
+				playSound();
 			}
 
 			break;
@@ -447,10 +432,10 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 				}
 				if (header == false) {
-					add_action_aggregate(6); // say
-												// "to know about farmers and sowing"
+					// say "to know about farmers and sowing"
+					add_action_aggregate(6);
 				}
-				playSound(true);
+				playSound();
 			}
 			System.out.println("total" + total);
 			System.out.println("variety" + variety);
@@ -504,7 +489,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				if (header == false) {
 					addToSoundQueue(R.raw.about_farmers_spraying);
 				}
-				playSound(true);
+				playSound();
 
 			}
 			break;

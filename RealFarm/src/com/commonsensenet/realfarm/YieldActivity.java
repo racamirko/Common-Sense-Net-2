@@ -20,64 +20,138 @@ import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
+/**
+ * Yield tool. Acts as a search engine.
+ * 
+ * @author Nguyen Lisa
+ */
 public class YieldActivity extends TopSelectorActivity implements
 		OnClickListener {
 
-	/**
-	 * Yield tool. Acts as a search engine.
-	 * 
-	 * @author Nguyen Lisa
-	 */
-
-	/*
-	 * TODO: updateValues(), audio, initialisation (see db structure) and
-	 * dialogs (see db structure)
-	 */
-
-	protected Resource locationSelectorData;
-	protected Resource yearSelectorData;
-	protected Resource soilTypeSelectorData;
-	protected Resource varietySelectorData;
-	protected Resource dateSelectorData;
-	protected Resource irrigationSelectorData;
-	protected Resource fertilizeSelectorData;
-	protected Resource diseaseSelectorData;
-	protected Resource pestSelectorData;
-	protected Resource spraySelectorData;
-
-	private final Context context = this;
-	protected int mActionTypeId = RealFarmDatabase.ACTION_TYPE_SELL_ID;
-	private TextView maxLabel;
-	private TextView avgLabel;
-	private TextView minLabel;
-	private TextView dateLabel;
-	private TextView varietyLabel;
-	private TextView soilTypeLabel;
-	private TextView irrigationLabel;
-	private TextView fertilizerLabel;
-	private TextView pestLabel;
-	private TextView diseaseLabel;
-	private TextView sprayLabel;
-	private TextView number;
-	private ImageView soilTypeSelector;
-	private ImageView varietySelector;
-	private ImageView sowingDateSelector;
-	private ImageView irrigationSelector;
-	private ImageView fertilizeSelector;
-	private ImageView pestSelector;
-	private ImageView diseaseSelector;
-	private ImageView spraySelector;
-
-	private static final int SOIL_TYPE = 10;
-	private static final int VARIETY = 11;
-	private static final int SOWING_DATE = 12;
-	private static final int IRRIGATION = 13;
-	private static final int FERTILIZER = 14;
-	private static final int PEST = 15;
 	private static final int DISEASE = 16;
+	private static final int FERTILIZER = 14;
+	private static final int IRRIGATION = 13;
+	private static final int PEST = 15;
+	private static final int SOIL_TYPE = 10;
+	private static final int SOWING_DATE = 12;
 	private static final int SPRAY = 17;
+	private static final int VARIETY = 11;
 
-	public static final String LOG_TAG = "YieldDetailsActivity";
+	private TextView avgLabel;
+	private final Context context = this;
+	private TextView dateLabel;
+	private Resource dateSelectorData;
+	private TextView diseaseLabel;
+	private ImageView diseaseSelector;
+	private Resource diseaseSelectorData;
+	private TextView fertilizerLabel;
+	private ImageView fertilizeSelector;
+	private Resource fertilizeSelectorData;
+	private TextView irrigationLabel;
+	private ImageView irrigationSelector;
+	private Resource irrigationSelectorData;
+	private Resource locationSelectorData;
+	private int mActionTypeId = RealFarmDatabase.ACTION_TYPE_SELL_ID;
+	private TextView maxLabel;
+	private TextView minLabel;
+	private TextView number;
+	private TextView pestLabel;
+	private ImageView pestSelector;
+	private Resource pestSelectorData;
+	private TextView soilTypeLabel;
+	private ImageView soilTypeSelector;
+	private Resource soilTypeSelectorData;
+	private ImageView sowingDateSelector;
+	private TextView sprayLabel;
+	private ImageView spraySelector;
+	private Resource spraySelectorData;
+	private TextView varietyLabel;
+	private ImageView varietySelector;
+	private Resource varietySelectorData;
+	private Resource yearSelectorData;
+
+	protected void cancelAudio() {
+
+		Intent adminintent = new Intent(YieldActivity.this, Homescreen.class);
+		startActivity(adminintent);
+		YieldActivity.this.finish();
+	}
+
+	public void onClick(View v) {
+		// tracks the application usage.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
+
+		if (v.getId() == R.id.aggr_img_home) {
+			startActivity(new Intent(YieldActivity.this, Homescreen.class));
+		} else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.help);
+		} else if (v.getId() == R.id.button_back) {
+			cancelAudio();
+		} else if (v.getId() == R.id.selector_location) {
+			List<Resource> data = mDataProvider
+					.getResources(RealFarmDatabase.RESOURCE_TYPE_LOCATION);
+			displayDialog(v, data, "Select the place", R.raw.problems, null, 3);
+		} else if (v.getId() == R.id.aggr_crop) {
+			final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
+			List<Resource> data = ActionDataFactory.getTopSelectorList(
+					mActionTypeId, mDataProvider);
+			displayDialog(v, data, "Select the variety", R.raw.problems, img_1,
+					2);
+		} else if (v.getId() == R.id.selector_year) {
+			List<Resource> data = mDataProvider
+					.getResources(RealFarmDatabase.RESOURCE_TYPE_YEAR);
+			displayDialog(v, data, "Select the year", R.raw.problems, null, 4);
+		} else { // selectors
+			if (v.getId() == R.id.selector_soil_type) {
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOIL_TYPE);
+				displayDialog(v, data, "Select the soil type", R.raw.problems,
+						null, SOIL_TYPE);
+			} else if (v.getId() == R.id.selector_variety) {
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_VARIETY);
+				displayDialog(v, data, "Select the variety", R.raw.problems,
+						null, VARIETY);
+			} else if (v.getId() == R.id.selector_sowing_date) {
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOWING_WINDOW);
+				displayDialog(v, data, "Select the sowing window",
+						R.raw.problems, null, SOWING_DATE);
+			} else if (v.getId() == R.id.selector_irrigation) {
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATION_SELECTOR);
+				displayDialog(v, data, "Selec the irrigation state", -1, null,
+						IRRIGATION);
+			} else if (v.getId() == R.id.selector_fertilizer) {
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZE_SELECTOR);
+				displayDialog(v, data, "Select the fertilizer state", -1, null,
+						FERTILIZER);
+			} else if (v.getId() == R.id.selector_pest) {
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_PEST_SELECTOR);
+				displayDialog(v, data, "Select the pest state", -1, null, PEST);
+			} else if (v.getId() == R.id.selector_disease) {
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_DISEASE_SELECTOR);
+				displayDialog(v, data, "Select the disease state", -1, null,
+						DISEASE);
+			} else if (v.getId() == R.id.selector_spray) {
+				// TODO: update audio
+				List<Resource> data = mDataProvider
+						.getResources(RealFarmDatabase.RESOURCE_TYPE_SPRAYING_SELECTOR);
+				displayDialog(v, data, "Select the spray state", -1, null,
+						SPRAY);
+
+			}
+		}
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.yielddetails, context);
@@ -161,23 +235,67 @@ public class YieldActivity extends TopSelectorActivity implements
 
 	}
 
-	protected void cancelAudio() {
+	// TODO AUDIO: check the right audio.
+	// TODO AUDIO: See the farmbook description for which sentences to compose.
+	// All the needed data is in the Resources or in the TextView labels
+	public boolean onLongClick(View v) {
+		playAudio(R.raw.problems);
 
-		Intent adminintent = new Intent(YieldActivity.this, Homescreen.class);
-		startActivity(adminintent);
-		YieldActivity.this.finish();
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
+
+		if (v.getId() == R.id.aggr_img_home) {
+
+		} else if (v.getId() == R.id.aggr_img_help) {
+
+		} else if (v.getId() == R.id.button_back) {
+
+		} else if (v.getId() == R.id.selector_location) {
+
+		} else if (v.getId() == R.id.aggr_crop) {
+
+		} else if (v.getId() == R.id.selector_year) {
+
+		} else if (v.getId() == R.id.selector_soil_type) {
+
+		} else if (v.getId() == R.id.selector_variety) {
+
+		} else if (v.getId() == R.id.selector_sowing_date) {
+
+		} else if (v.getId() == R.id.selector_irrigation) {
+
+		} else if (v.getId() == R.id.selector_fertilizer) {
+
+		} else if (v.getId() == R.id.selector_pest) {
+
+		} else if (v.getId() == R.id.selector_disease) {
+
+		} else if (v.getId() == R.id.selector_spray) {
+
+		} else if (v.getId() == R.id.number) {
+
+		} else if (v.getId() == R.id.max_row) {
+
+		} else if (v.getId() == R.id.avg_row) {
+
+		} else if (v.getId() == R.id.min_row) {
+
+		}
+
+		return true;
 	}
 
 	public void setList() {
 
 		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
+		// default: CK Pura
 		locationSelectorData = mDataProvider.getResources(
-				RealFarmDatabase.RESOURCE_TYPE_LOCATION).get(0); // default: CK
-																	// Pura
+				RealFarmDatabase.RESOURCE_TYPE_LOCATION).get(0);
+		// default: most recent
 		yearSelectorData = mDataProvider.getResources(
-				RealFarmDatabase.RESOURCE_TYPE_YEAR).get(0); // default: most
-																// recent
+				RealFarmDatabase.RESOURCE_TYPE_YEAR).get(0);
 		dateSelectorData = mDataProvider.getResources(
 				RealFarmDatabase.RESOURCE_TYPE_SOWING_WINDOW).get(0);
 		diseaseSelectorData = mDataProvider.getResources(
@@ -218,7 +336,8 @@ public class YieldActivity extends TopSelectorActivity implements
 		 */
 	}
 
-	public void setList(int type, Resource choice) { // change the query
+	// change the query
+	public void setList(int type, Resource choice) {
 		switch (type) {
 		case 2:
 			topSelectorData = choice;
@@ -272,6 +391,16 @@ public class YieldActivity extends TopSelectorActivity implements
 		}
 
 		updateValues();
+	}
+
+	private void setLocationSelector() {
+		final TextView selectorText = (TextView) findViewById(R.id.location_selector_label);
+		selectorText.setText(locationSelectorData.getShortName());
+	}
+
+	private void setYearSelector() {
+		final TextView selectorText = (TextView) findViewById(R.id.year_selector_label);
+		selectorText.setText(yearSelectorData.getShortName());
 	}
 
 	private void updateSelector(TextView label, ImageView selector,
@@ -333,145 +462,5 @@ public class YieldActivity extends TopSelectorActivity implements
 				avgLabel.setText(avg + "");
 			}
 		}
-	}
-
-	private void setLocationSelector() {
-		final TextView selectorText = (TextView) findViewById(R.id.location_selector_label);
-		selectorText.setText(locationSelectorData.getShortName());
-	}
-
-	private void setYearSelector() {
-		final TextView selectorText = (TextView) findViewById(R.id.year_selector_label);
-		selectorText.setText(yearSelectorData.getShortName());
-	}
-
-	public void onClick(View v) { // displayDialog return in setList(int type,
-									// Resource choice)
-		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-				Global.userId, getLogTag(),
-				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
-
-		if (v.getId() == R.id.aggr_img_home) {
-			startActivity(new Intent(YieldActivity.this, Homescreen.class));
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help);
-		} else if (v.getId() == R.id.button_back) {
-			cancelAudio();
-		} else if (v.getId() == R.id.selector_location) {
-			List<Resource> data = mDataProvider
-					.getResources(RealFarmDatabase.RESOURCE_TYPE_LOCATION);
-			displayDialog(v, data, "Select the place", R.raw.problems, null, 3);
-		} else if (v.getId() == R.id.aggr_crop) {
-			final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
-			List<Resource> data = ActionDataFactory.getTopSelectorList(
-					mActionTypeId, mDataProvider);
-			displayDialog(v, data, "Select the variety", R.raw.problems, img_1,
-					2);
-		} else if (v.getId() == R.id.selector_year) {
-			List<Resource> data = mDataProvider
-					.getResources(RealFarmDatabase.RESOURCE_TYPE_YEAR);
-			displayDialog(v, data, "Select the year", R.raw.problems, null, 4);
-		} else { // selectors
-			if (v.getId() == R.id.selector_soil_type) {
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOIL_TYPE);
-				displayDialog(v, data, "Select the soil type", R.raw.problems,
-						null, SOIL_TYPE);
-			} else if (v.getId() == R.id.selector_variety) {
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_VARIETY);
-				displayDialog(v, data, "Select the variety", R.raw.problems,
-						null, VARIETY);
-			} else if (v.getId() == R.id.selector_sowing_date) {
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_SOWING_WINDOW);
-				displayDialog(v, data, "Select the sowing window",
-						R.raw.problems, null, SOWING_DATE);
-			} else if (v.getId() == R.id.selector_irrigation) {
-				// TODO: update audio
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_IRRIGATION_SELECTOR);
-				displayDialog(v, data, "Selec the irrigation state", -1, null,
-						IRRIGATION);
-			} else if (v.getId() == R.id.selector_fertilizer) {
-				// TODO: update audio
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZE_SELECTOR);
-				displayDialog(v, data, "Select the fertilizer state", -1, null,
-						FERTILIZER);
-			} else if (v.getId() == R.id.selector_pest) {
-				// TODO: update audio
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_PEST_SELECTOR);
-				displayDialog(v, data, "Select the pest state", -1, null, PEST);
-			} else if (v.getId() == R.id.selector_disease) {
-				// TODO: update audio
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_DISEASE_SELECTOR);
-				displayDialog(v, data, "Select the disease state", -1, null,
-						DISEASE);
-			} else if (v.getId() == R.id.selector_spray) {
-				// TODO: update audio
-				List<Resource> data = mDataProvider
-						.getResources(RealFarmDatabase.RESOURCE_TYPE_SPRAYING_SELECTOR);
-				displayDialog(v, data, "Select the spray state", -1, null,
-						SPRAY);
-
-			}
-		}
-	}
-
-	// TODO AUDIO: check the right audio.
-	// TODO AUDIO: See the farmbook description for which sentences to compose.
-	// All the needed data is in the Resources or in the TextView labels
-	public boolean onLongClick(View v) {
-		playAudio(R.raw.problems);
-
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-				Global.userId, getLogTag(),
-				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
-
-		if (v.getId() == R.id.aggr_img_home) {
-
-		} else if (v.getId() == R.id.aggr_img_help) {
-
-		} else if (v.getId() == R.id.button_back) {
-
-		} else if (v.getId() == R.id.selector_location) {
-
-		} else if (v.getId() == R.id.aggr_crop) {
-
-		} else if (v.getId() == R.id.selector_year) {
-
-		} else if (v.getId() == R.id.selector_soil_type) {
-
-		} else if (v.getId() == R.id.selector_variety) {
-
-		} else if (v.getId() == R.id.selector_sowing_date) {
-
-		} else if (v.getId() == R.id.selector_irrigation) {
-
-		} else if (v.getId() == R.id.selector_fertilizer) {
-
-		} else if (v.getId() == R.id.selector_pest) {
-
-		} else if (v.getId() == R.id.selector_disease) {
-
-		} else if (v.getId() == R.id.selector_spray) {
-
-		} else if (v.getId() == R.id.number) {
-
-		} else if (v.getId() == R.id.max_row) {
-
-		} else if (v.getId() == R.id.avg_row) {
-
-		} else if (v.getId() == R.id.min_row) {
-
-		}
-
-		return true;
 	}
 }

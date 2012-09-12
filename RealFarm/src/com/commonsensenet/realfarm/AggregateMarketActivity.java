@@ -100,7 +100,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(), position);
-		ApplicationTracker.getInstance().flush();
 
 		// gets the selected view using the position
 		final AggregateItem selectedItem = mItemAdapter.getItem(position);
@@ -124,9 +123,8 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 						ApplicationTracker.getInstance().logEvent(
 								EventType.CLICK, Global.userId, getLogTag(),
 								"back");
-						ApplicationTracker.getInstance().flush();
 						dialog.dismiss();
-						stopAudio(); // stops the audio
+						stopAudio();
 					}
 				});
 
@@ -179,7 +177,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				// TODO AUDIO: check the right audio
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "dialog help");
-				ApplicationTracker.getInstance().flush();
 
 				playAudio(R.raw.help, true);
 				return true;
@@ -191,7 +188,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				// TODO AUDIO: check the right audio
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "dialog help");
-				ApplicationTracker.getInstance().flush();
 
 				playAudio(R.raw.help, true);
 			}
@@ -207,7 +203,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 						ApplicationTracker.getInstance().logEvent(
 								EventType.LONG_CLICK, Global.userId,
 								getLogTag(), "dialog header");
-						ApplicationTracker.getInstance().flush();
 						makeAudioAggregateMarketItem(selectedItem, true);
 						mHeader = true;
 						return true;
@@ -219,7 +214,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "dialog header");
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -240,7 +234,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						"dialog call " + list.get(position).getName());
-				ApplicationTracker.getInstance().flush();
 
 				// TODO: calling Mr ...
 				UserAggregateItem choice = list.get(position);
@@ -260,7 +253,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(),
 						"dialog call " + list.get(position).getName());
-				ApplicationTracker.getInstance().flush();
 
 				// TODO: audio
 				UserAggregateItem choice = list.get(position);
@@ -277,7 +269,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		// gets the selected view using the position
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(), position);
-		ApplicationTracker.getInstance().flush();
 		makeAudioAggregateMarketItem(mItemAdapter.getItem(position), false);
 		mHeader = false;
 		return true;
@@ -353,7 +344,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		if (userName != -1) {
 			addToSoundQueue(userName);
 			addToSoundQueue(R.raw.calling);
-			playSound(true);
+			playSound();
 		}
 
 	}
@@ -519,7 +510,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 			addToSoundQueue(R.raw.to_call_click); // says
 													// "to call touch here briefly"
 		}
-		playSound(true);
+		playSound();
 		System.out.println("To call " + userName + " touch here briefly");
 	}
 

@@ -687,7 +687,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 
 		ApplicationTracker.getInstance().logEvent(EventType.ACTIVITY_VIEW,
 				Global.userId, getLogTag());
-		ApplicationTracker.getInstance().flush();
 
 		setContentView(resLayoutId);
 
@@ -876,12 +875,8 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		}
 	}
 
-	public void playSound(boolean play) // added for audio
-	{
-		if (play == true) {
-
-			SoundQueue.getInstance().play();
-		}
+	public void playSound() {
+		SoundQueue.getInstance().play();
 	}
 
 	public void setHelpIcon(View helpIcon) {

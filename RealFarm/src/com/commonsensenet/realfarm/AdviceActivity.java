@@ -238,7 +238,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()),
 				"gr:" + groupPosition + " pos:" + childPosition);
-		ApplicationTracker.getInstance().flush();
 
 		AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(
@@ -263,7 +262,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 						ApplicationTracker.getInstance().logEvent(
 								EventType.CLICK, Global.userId, getLogTag(),
 								"back");
-						ApplicationTracker.getInstance().flush();
 						dialog.dismiss();
 					}
 				});
@@ -315,7 +313,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				// TODO AUDIO: check the right audio
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "dialog help");
-				ApplicationTracker.getInstance().flush();
 
 				playAudio(R.raw.help, true);
 				return true;
@@ -327,7 +324,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				// TODO AUDIO: check the right audio
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "dialog help");
-				ApplicationTracker.getInstance().flush();
 
 				playAudio(R.raw.help, true);
 			}
@@ -343,7 +339,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 						ApplicationTracker.getInstance().logEvent(
 								EventType.LONG_CLICK, Global.userId,
 								getLogTag(), "dialog header");
-						ApplicationTracker.getInstance().flush();
 						// makeAudioAggregateMarketItem(selectedItem, true);
 						return true;
 					}
@@ -354,7 +349,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				// TODO AUDIO: check the right audio
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "dialog header");
-				ApplicationTracker.getInstance().flush();
 			}
 		});
 
@@ -375,7 +369,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
 						"dialog call " + list.get(position).getName());
-				ApplicationTracker.getInstance().flush();
 
 				// TODO: calling Mr ...
 				UserAggregateItem choice = list.get(position);
@@ -395,7 +388,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(),
 						"dialog call " + list.get(position).getName());
-				ApplicationTracker.getInstance().flush();
 
 				// TODO: audio
 				UserAggregateItem choice = list.get(position);
@@ -431,7 +423,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-		ApplicationTracker.getInstance().flush();
+
 		return false;
 	}
 
@@ -470,7 +462,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				"gr:" + ExpandableListView.getPackedPositionGroup(data)
 						+ " pos:"
 						+ ExpandableListView.getPackedPositionChild(data));
-		ApplicationTracker.getInstance().flush();
 
 		return true;
 	}
@@ -479,7 +470,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId,
 				"like gr:" + groupPosition + " pos:" + childPosition);
-		ApplicationTracker.getInstance().flush();
 
 		AdviceSituationItem situationItem = situationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(
@@ -516,6 +506,5 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId,
 				"like gr:" + groupPosition + " pos:" + childPosition);
-		ApplicationTracker.getInstance().flush();
 	}
 }
