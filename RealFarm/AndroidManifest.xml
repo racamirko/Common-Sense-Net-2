@@ -192,7 +192,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
 
         <receiver
-            android:name=".RealFarmDataSynchronizationService"
+            android:name=".sync.DownstreamReceiver"
             android:exported="true" >
             <intent-filter android:priority="100" >
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />

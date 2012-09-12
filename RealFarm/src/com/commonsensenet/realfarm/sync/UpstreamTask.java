@@ -1,4 +1,4 @@
-package com.commonsensenet.sync;
+package com.commonsensenet.realfarm.sync;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,7 +18,7 @@ import com.commonsensenet.realfarm.model.User;
  * will take care of running the doWork method according to the scheduling.
  * 
  */
-public class ReminderTask implements Task {
+public class UpstreamTask implements Task {
 
 	/** Header used to identify the action header. */
 	public static final String ACTION_HEADER = "%1000%";

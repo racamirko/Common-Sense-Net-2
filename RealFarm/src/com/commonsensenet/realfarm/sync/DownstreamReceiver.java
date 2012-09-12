@@ -1,4 +1,4 @@
-package com.commonsensenet.sync;
+package com.commonsensenet.realfarm.sync;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -15,11 +15,15 @@ import android.util.Log;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 
-public class RealFarmDataSynchronizationService extends BroadcastReceiver {
+public class DownstreamReceiver extends BroadcastReceiver {
+
 	private static final String DELIVERED = "SMS_DELIVERED";
 	private static final String SENT = "SMS_SENT";
 
-	private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+	/** SimpleDataFormat used to parse the obtained dates. */
+	private static final SimpleDateFormat DATE_FORMATTER = new SimpleDateFormat(
+			RealFarmProvider.DATE_FORMAT);
+
 	private RealFarmProvider mDataProvider;
 	private BroadcastReceiver mSmsDeliveredReceiver;
 	private BroadcastReceiver mSmsSentReceiver;
@@ -27,10 +31,10 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 	@SuppressLint("ParserError")
 	@Override
 	public void onReceive(Context context, Intent intent) {
-		// RealFarmDatabase db = new RealFarmDatabase(context);
-		// mDataProvider = new RealFarmProvider(db);
 
+		// gets the data access object.
 		mDataProvider = RealFarmProvider.getInstance(context);
+
 		Log.d("Received : ", "recvd Msg ..");
 		// ---get the SMS message passed in---
 		Bundle bundle = intent.getExtras();
@@ -43,18 +47,13 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 			for (int i = 0; i < msgs.length; i++) {
 				msgs[i] = SmsMessage.createFromPdu((byte[]) pdus[i]);
 				if (i == 0) {
-					// ---get the sender address/phone number---
+					// gets the sender address/phone number---
 					str += msgs[i].getOriginatingAddress();
-					// str += ": ";
 				}
-				// ---get the message body---
+				// gets the message body---
 				str += msgs[i].getMessageBody().toString();
-				// System.out.println(10);
 				Log.d("Received : ", str);
 			}
-
-			// ---display the new SMS message---
-			// System.out.print(str);
 
 			Log.d("Processing Msg : ", "Begining to Process ..");
 
@@ -253,7 +252,7 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 						System.out.println("In AT \n");
 						Date date1 = null;
 						try {
-							date1 = dateFormat.parse(separated2[3]);
+							date1 = DATE_FORMATTER.parse(separated2[3]);
 
 							System.out.println("try in date" + date1);
 						} catch (ParseException e) {
@@ -373,71 +372,8 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 						mDataProvider.addMarketPrice(sep0, sep1, sep2, sep3);
 
 					}
-
-				} // End of for loop
+				}
 			}
-
-			System.out
-					.println("##################DISPLAYING ACTIONS############################");
-			mDataProvider.getActions();
-			System.out
-					.println("##################FINISHED ACTIONS############################");
-
-			System.out
-					.println("##################DISPLAYING PLOTS############################");
-			mDataProvider.getPlots();
-			System.out
-					.println("##################FINISHED PLOTS############################");
-
-			System.out
-					.println("##################DISPLAYING USERS############################");
-			mDataProvider.getUsers();
-			System.out
-					.println("##################FINISHED USERS############################");
-
-			System.out
-					.println("##################DISPLAYING WF############################");
-			mDataProvider.getWeatherForecasts();
-			System.out
-					.println("##################FINISHED WF############################");
-
-			System.out
-					.println("##################DISPLAYING MP############################");
-			mDataProvider.getMarketPrices();
-			System.out
-					.println("##################FINISHED MP############################");
-
-			/*******************************************************************************************/
-
-			// }
-			/*
-			 * if(separated[2].toString().equalsIgnoreCase("WF")) { String
-			 * et=separated[4]; int typeval= new Integer(et);
-			 * Log.d("Type val: ", et); String type = null; switch(typeval){
-			 * case 0: type="Sunny"; break; case 1: type="Clear"; break; case 2:
-			 * type="Overcast"; break; case 3: type="Mostly Cloudy"; break; case
-			 * 4: type="Partly Cloudy"; break; } //
-			 * Log.d("Its a weather forecast:", "WF"); String et1=separated[6];
-			 * int typeval1= new Integer(et1); Log.d("Type val: ", et1); String
-			 * type1 = null; switch(typeval1){ case 0: type1="Sunny"; break;
-			 * case 1: type1="Clear"; break; case 2: type1="Overcast"; break;
-			 * case 3: type1="Mostly Cloudy"; break; case 4:
-			 * type1="Partly Cloudy"; break; }
-			 * 
-			 * String wfmsg= "Today's forecast in CKP is " + type +
-			 * " with Max Temperature around " + separated[3] +
-			 * "\u00b0 C and Tomorrow's forecast is " + type1 +
-			 * " with temperature around" + separated[5] + "\u00b0 C";
-			 * Toast.makeText(context, wfmsg, Toast.LENGTH_SHORT).show(); } //
-			 * Log.d("Im out of WF:", "WF");
-			 * if(separated[7].toString().equalsIgnoreCase("MP")) {
-			 * Log.d("Its a market price", "MP"); String mpmsg=
-			 * "Today's Groundnut price in Pavagada is " + separated[9] + " Rs";
-			 * Toast.makeText(context, mpmsg, Toast.LENGTH_SHORT).show(); } //
-			 * int len = str.length();
-			 * 
-			 * // Toast.makeText(context, len, Toast.LENGTH_SHORT).show();
-			 */
 
 			/**************************************************************
 			 * These lines when commented does not display activity based text
@@ -476,19 +412,20 @@ public class RealFarmDataSynchronizationService extends BroadcastReceiver {
 		mSmsSentReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
+				System.out.println("sent receiver onReceive()");
 
 			}
 		};
 
-		// ---create the BroadcastReceiver when the SMS is delivered---
+		// create the BroadcastReceiver when the SMS is delivered---
 		mSmsDeliveredReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
-
+				System.out.println("delivered receiver onReceive()");
 			}
 		};
 
-		// ---register the two BroadcastReceivers---
+		// registers the two BroadcastReceivers
 		registerReceiver(mSmsDeliveredReceiver, new IntentFilter(DELIVERED));
 		registerReceiver(mSmsSentReceiver, new IntentFilter(SENT));
 	}

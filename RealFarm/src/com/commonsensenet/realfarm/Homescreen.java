@@ -41,9 +41,9 @@ import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
+import com.commonsensenet.realfarm.sync.UpstreamTask;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
-import com.commonsensenet.realfarm.utils.ReminderTask;
 import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 
@@ -469,9 +469,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		Log.i(getLogTag(), "scheduler activated");
 		SchedulerManager.getInstance().saveTask(getApplicationContext(),
 				"*/1 * * * *", // a cron string
-				ReminderTask.class);
+				UpstreamTask.class);
 		SchedulerManager.getInstance().restart(getApplicationContext(),
-				ReminderTask.class);
+				UpstreamTask.class);
 
 		// clears the database
 		// initDb();
