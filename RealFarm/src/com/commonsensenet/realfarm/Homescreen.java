@@ -54,8 +54,6 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
  */
 public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
-	/** Indicates whether the demo data has been inserted or not. */
-
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** Currently selected language. */
