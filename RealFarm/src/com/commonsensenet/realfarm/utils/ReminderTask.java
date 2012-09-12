@@ -99,9 +99,9 @@ public class ReminderTask implements Task {
 		// creates a buffer to create the action message.
 		StringBuffer actionData = new StringBuffer(ACTION_HEADER);
 
-		for (int i = 1; i <= actionArr.length; i++) {
+		for (int i = 0; i < actionArr.length; i++) {
 
-			actionData.append(actionArr[i - 1]);
+			actionData.append(actionArr[i]);
 
 			// send the actions to server via SMS
 			sendMessage(actionData.toString());
@@ -114,9 +114,9 @@ public class ReminderTask implements Task {
 		// creates the buffer where the plot data will be added.
 		StringBuffer plotData = new StringBuffer(PLOT_HEADER);
 
-		for (int i = 1; i <= plotArr.length; i++) {
+		for (int i = 0; i < plotArr.length; i++) {
 
-			plotData.append(plotArr[i - 1]);
+			plotData.append(plotArr[i]);
 
 			// sends the plots to server via SMS
 			sendMessage(plotData.toString());
@@ -129,9 +129,9 @@ public class ReminderTask implements Task {
 		// creates the buffer where the user data will be added.
 		StringBuffer userData = new StringBuffer(USER_HEADER);
 
-		for (int i = 1; i <= userArr.length; i++) {
+		for (int i = 0; i < userArr.length; i++) {
 
-			userData.append(userArr[i - 1]);
+			userData.append(userArr[i]);
 
 			// sends the users to server via SMS
 			sendMessage(userData.toString());
@@ -139,15 +139,15 @@ public class ReminderTask implements Task {
 
 		// Setting the sent flag for action
 		for (int x = 0; x < mActionList.size(); x++) {
-			mDataProvider.SentFlagForAction(mActionList.get(x).getId(), 1);
+			mDataProvider.setActionFlag(mActionList.get(x).getId(), 1);
 		}
 		// Setting the sent flag for plot
 		for (int x = 0; x < mPlotList.size(); x++) {
-			mDataProvider.SentFlagForPlot(mPlotList.get(x).getId(), 1);
+			mDataProvider.setPlotFlag(mPlotList.get(x).getId(), 1);
 		}
 		// Setting the sent flag for user
 		for (int x = 0; x < mUserList.size(); x++) {
-			mDataProvider.SentFlagForUser(mUserList.get(x).getId(), 1);
+			mDataProvider.setUserFlag(mUserList.get(x).getId(), 1);
 		}
 
 		return res;

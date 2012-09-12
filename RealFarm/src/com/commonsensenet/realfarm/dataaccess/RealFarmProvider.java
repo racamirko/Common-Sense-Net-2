@@ -300,29 +300,28 @@ public class RealFarmProvider {
 			long adviceId, long userId, int actReqByDate,
 			long validThroughDate, int severity, int probability, int hasChanged) {
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_ID, id);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_TIMESTAMP,
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID, id);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_TIMESTAMP,
 				timestamp);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_PLOT_ID, plotId);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_ADVICE_ID,
-				adviceId);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_USER_ID, userId);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_PLOTID, plotId);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ADVICEID, adviceId);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_USERID, userId);
 		args.put(
-				RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE,
+				RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE,
 				actReqByDate);
-		args.put(
-				RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE,
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE,
 				validThroughDate);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_SEVERITY, severity);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_PROBABILITY,
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_SEVERITY, severity);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_PROBABILITY,
 				probability);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_UNREAD, hasChanged);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD,
+				hasChanged);
 
 		mDatabase.open();
 
 		// inserts the values into the database
 		long result = mDatabase.insertEntries(
-				RealFarmDatabase.TABLE_NAME_RECOMMANDATION, args);
+				RealFarmDatabase.TABLE_NAME_RECOMMENDATION, args);
 
 		mDatabase.close();
 
@@ -2860,14 +2859,14 @@ public class RealFarmProvider {
 
 	public long setAdviceUnRead(long id, int read) {
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_UNREAD, read);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD, read);
 
 		long result;
 
 		mDatabase.open();
 
-		result = mDatabase.update(RealFarmDatabase.TABLE_NAME_RECOMMANDATION,
-				args, RealFarmDatabase.COLUMN_NAME_RECOMMANDATION_ID + "='"
+		result = mDatabase.update(RealFarmDatabase.TABLE_NAME_RECOMMENDATION,
+				args, RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID + "='"
 						+ id + "'", null);
 
 		mDatabase.close();
@@ -2914,27 +2913,31 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public String getAdviceNews(long userId) {
-		int res = 0;
-		final String MY_QUERY = "SELECT COUNT(id), validThroughDate FROM recommandation WHERE userId = "
-				+ userId
-				+ " AND hasChanged = 0 AND validThroughDate >= "
-				+ new Date().getTime();
-		mDatabase.open();
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-		if (c.moveToFirst()) {
-			res = c.getInt(0);
-			System.out.println(c.getLong(1) + " " + new Date().getTime());
-		}
+	public int getRecommendationCountByUser(long userId) {
+
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_RECOMMENDATION,
+						new String[] { RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID },
+						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_USERID
+								+ " = '"
+								+ userId
+								+ "' AND "
+								+ RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD
+								+ " = 0 AND "
+								+ RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE
+								+ " >= " + new Date().getTime(), null, null,
+						null, null);
+		int recommendationCount = c.getCount();
+
+		// closes the cursor and database.
 		c.close();
 		mDatabase.close();
-		if (res == 0)
-			return "";
-		else
-			return res + "";
+
+		return recommendationCount;
 	}
 
-	public long SentFlagForUser(long userId, int sent) {
+	public long setUserFlag(long userId, int sent) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, sent);
@@ -2951,7 +2954,7 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long SentFlagForPlot(long plotId, int sent) {
+	public long setPlotFlag(long plotId, int sent) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT, sent);
@@ -2968,7 +2971,7 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long SentFlagForAction(long actionId, int sent) {
+	public long setActionFlag(long actionId, int sent) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);

@@ -217,22 +217,23 @@ public class RealFarmDatabase {
 					+ ")" + " ); ");
 			Log.d(LOG_TAG, "Created plot table");
 
-			// recommandation
-			db.execSQL("create table " + TABLE_NAME_RECOMMANDATION + " ( "
-					+ COLUMN_NAME_RECOMMANDATION_ID + " integer primary key, "
-					+ COLUMN_NAME_RECOMMANDATION_TIMESTAMP
-					+ " integer not null, "
-					+ COLUMN_NAME_RECOMMANDATION_PLOT_ID + " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_ADVICE_ID + " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_USER_ID + " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE
+			// recommendation
+			db.execSQL("create table " + TABLE_NAME_RECOMMENDATION + " ( "
+					+ COLUMN_NAME_RECOMMENDATION_ID + " integer primary key, "
+					+ COLUMN_NAME_RECOMMENDATION_TIMESTAMP
+					+ " integer not null, " + COLUMN_NAME_RECOMMENDATION_PLOTID
+					+ " integer, " + COLUMN_NAME_RECOMMENDATION_ADVICEID
+					+ " integer, " + COLUMN_NAME_RECOMMENDATION_USERID
 					+ " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE
+					+ COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE
+					+ " integer, "
+					+ COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE
 					+ " integer not null, "
-					+ COLUMN_NAME_RECOMMANDATION_SEVERITY + " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_PROBABILITY + " integer, "
-					+ COLUMN_NAME_RECOMMANDATION_UNREAD + " boolean " + " ); ");
-			Log.d(LOG_TAG, "Created recommandation table");
+					+ COLUMN_NAME_RECOMMENDATION_SEVERITY + " integer, "
+					+ COLUMN_NAME_RECOMMENDATION_PROBABILITY + " integer, "
+					+ COLUMN_NAME_RECOMMENDATION_ISUNREAD + " boolean "
+					+ " ); ");
+			Log.d(LOG_TAG, "Created recommendation table");
 
 			// resource
 			db.execSQL("create table " + TABLE_NAME_RESOURCE + " ( "
@@ -487,16 +488,16 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 	public static final String COLUMN_NAME_PLOT_TYPE = "type";
 
-	public static final String COLUMN_NAME_RECOMMANDATION_ID = "id";
-	public static final String COLUMN_NAME_RECOMMANDATION_TIMESTAMP = "timestamp";
-	public static final String COLUMN_NAME_RECOMMANDATION_PLOT_ID = "plotId";
-	public static final String COLUMN_NAME_RECOMMANDATION_ADVICE_ID = "adviceId";
-	public static final String COLUMN_NAME_RECOMMANDATION_USER_ID = "userId";
-	public static final String COLUMN_NAME_RECOMMANDATION_ACTION_REQUIRED_BY_DATE = "actReqByDate";
-	public static final String COLUMN_NAME_RECOMMANDATION_VALID_THROUGH_DATE = "validThroughDate";
-	public static final String COLUMN_NAME_RECOMMANDATION_SEVERITY = "severity";
-	public static final String COLUMN_NAME_RECOMMANDATION_PROBABILITY = "probability";
-	public static final String COLUMN_NAME_RECOMMANDATION_UNREAD = "hasChanged";
+	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
+	public static final String COLUMN_NAME_RECOMMENDATION_TIMESTAMP = "timestamp";
+	public static final String COLUMN_NAME_RECOMMENDATION_PLOTID = "plotId";
+	public static final String COLUMN_NAME_RECOMMENDATION_ADVICEID = "adviceId";
+	public static final String COLUMN_NAME_RECOMMENDATION_USERID = "userId";
+	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE = "actionRequiredByDate";
+	public static final String COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE = "validThroughDate";
+	public static final String COLUMN_NAME_RECOMMENDATION_SEVERITY = "severity";
+	public static final String COLUMN_NAME_RECOMMENDATION_PROBABILITY = "probability";
+	public static final String COLUMN_NAME_RECOMMENDATION_ISUNREAD = "isUnread";
 
 	public static final String COLUMN_NAME_RESOURCE_AUDIO = "audio";
 	public static final String COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE = "backgroundImage";
@@ -610,7 +611,7 @@ public class RealFarmDatabase {
 	public static final String TABLE_NAME_CROPTYPE = "cropType";
 	public static final String TABLE_NAME_MARKETPRICE = "marketPrice";
 	public static final String TABLE_NAME_PLOT = "plot";
-	public static final String TABLE_NAME_RECOMMANDATION = "recommandation";
+	public static final String TABLE_NAME_RECOMMENDATION = "recommendation";
 	public static final String TABLE_NAME_RESOURCE = "resource";
 	public static final String TABLE_NAME_SEEDTYPE = "seedType";
 	public static final String TABLE_NAME_SOILMOISTURE = "soilMoisture";
@@ -648,7 +649,7 @@ public class RealFarmDatabase {
 		mDb.delete(TABLE_NAME_CROPTYPE, null, null);
 		mDb.delete(TABLE_NAME_MARKETPRICE, null, null);
 		mDb.delete(TABLE_NAME_PLOT, null, null);
-		mDb.delete(TABLE_NAME_RECOMMANDATION, null, null);
+		mDb.delete(TABLE_NAME_RECOMMENDATION, null, null);
 		mDb.delete(TABLE_NAME_RESOURCE, null, null);
 		mDb.delete(TABLE_NAME_SEEDTYPE, null, null);
 		mDb.delete(TABLE_NAME_SOILMOISTURE, null, null);
@@ -745,22 +746,21 @@ public class RealFarmDatabase {
 			deviceId = DEFAULT_DEVICE_ID;
 		}
 
-		Object[][] userData = {
-				{ "John", "Doe", deviceId, "farmer_90px_kiran_kumar_g",
-						"CK Pura", R.raw.john_doe, R.raw.ckpura }
-				 };
-		
-//		{ "Hendrik", "Knoche", "+41788479621",
-//			"farmer_90px_adam_jones", "CK Pura",
-//			R.raw.hendrik_knoche, R.raw.ckpura },
-//	{ "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
-//			"CK Pura", R.raw.chris_bishop, R.raw.ckpura },
-//	{ "Chris", "McDougall", "0781122672",
-//			"farmer_90px_neil_palmer2", "CK Pura",
-//			R.raw.chris_mcdougall, R.raw.ckpura },
-//	{ "Frank", "Herbert", "0788111172",
-//			"farmer_90px_walmart_stores", "CK Pura",
-//			R.raw.frank_herbert, R.raw.ckpura }
+		Object[][] userData = { { "John", "Doe", deviceId,
+				"farmer_90px_kiran_kumar_g", "CK Pura", R.raw.john_doe,
+				R.raw.ckpura } };
+
+		// { "Hendrik", "Knoche", "+41788479621",
+		// "farmer_90px_adam_jones", "CK Pura",
+		// R.raw.hendrik_knoche, R.raw.ckpura },
+		// { "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
+		// "CK Pura", R.raw.chris_bishop, R.raw.ckpura },
+		// { "Chris", "McDougall", "0781122672",
+		// "farmer_90px_neil_palmer2", "CK Pura",
+		// R.raw.chris_mcdougall, R.raw.ckpura },
+		// { "Frank", "Herbert", "0788111172",
+		// "farmer_90px_walmart_stores", "CK Pura",
+		// R.raw.frank_herbert, R.raw.ckpura }
 
 		ContentValues users = new ContentValues();
 		for (int x = 0; x < userData.length; x++) {

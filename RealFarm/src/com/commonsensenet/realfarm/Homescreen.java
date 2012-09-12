@@ -494,7 +494,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	private void updateAdviceNumbers() {
 		TextView tw = (TextView) findViewById(R.id.news_advice);
-		tw.setText(mDataProvider.getAdviceNews(Global.userId));
+		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
+				+ "");
 	}
 
 	private void updateMarketPrices() {
