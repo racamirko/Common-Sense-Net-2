@@ -35,7 +35,7 @@ public class AddUserActivity extends Activity {
 
 		// adds the new user to the database.
 		mDataProvider.addUser(firstname, lastname, mobileNumber, deviceId,
-				"farmerpicdefault", "CK Pura", 1);
+				"farmer_default", "CK Pura", 1);
 
 		// toast to indicate the action performed.
 		Toast.makeText(getBaseContext(), "User Details is put to Database",

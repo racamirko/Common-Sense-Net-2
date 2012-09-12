@@ -64,7 +64,7 @@ public class UserAggregateItemAdapter extends ArrayAdapter<UserAggregateItem> {
 						userAggregate.getAvatar(), "drawable",
 						"com.commonsensenet.realfarm");
 			} else {
-				resId = R.drawable.farmerpicdefault;
+				resId = R.drawable.farmer_default;
 			}
 
 			avatarView.setImageResource(resId);

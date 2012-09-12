@@ -885,9 +885,9 @@ containing a value of this type.
         public static final int dryirrigatedland=0x7f020090;
         public static final int empty=0x7f020091;
         public static final int empty_not=0x7f020092;
-        public static final int farmer_hendrik_knoche=0x7f020093;
-        public static final int farmer_oscar_bolanos=0x7f020094;
-        public static final int farmerpicdefault=0x7f020095;
+        public static final int farmer_default=0x7f020093;
+        public static final int farmer_hendrik_knoche=0x7f020094;
+        public static final int farmer_oscar_bolanos=0x7f020095;
         public static final int farmers=0x7f020096;
         public static final int fertilizginaggsection=0x7f020097;
         public static final int fertilizingaction=0x7f020098;

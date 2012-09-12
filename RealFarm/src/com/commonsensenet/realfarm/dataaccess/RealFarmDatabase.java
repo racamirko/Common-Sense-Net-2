@@ -754,7 +754,7 @@ public class RealFarmDatabase {
 						"farmer_oscar_bolanos", "CK Pura",
 						R.raw.chris_mcdougall, R.raw.ckpura },
 				{ "Prakruthi", "Keshavamurthy", "911208750963651",
-						"8095986819", "farmerpicdefault", "CK Pura",
+						"8095986819", "farmer_default", "CK Pura",
 						R.raw.chris_mcdougall, R.raw.ckpura }
 
 		};

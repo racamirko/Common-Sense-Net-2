@@ -42,12 +42,17 @@ public class ReminderTask implements Task {
 
 	public TaskResult doWork(ContextWrapper ctx) {
 		TaskResult res = new TaskResult();
+
+		// gets the database provider.
 		mDataProvider = RealFarmProvider.getInstance(ctx);
 
 		// gets all the data from the server.
 		mActionList = mDataProvider.getActionsBySentFlag(0);
 		mPlotList = mDataProvider.getPlotsBySentFlag(0);
 		mUserList = mDataProvider.getUsersBySentFlag(0);
+
+		// initializes the list used to send the messages.
+		mMessageList = new ArrayList<String>();
 
 		// putting actions together
 		for (int x = 0; x < mActionList.size(); x++) {

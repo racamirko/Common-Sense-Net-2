@@ -454,7 +454,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			userImageResId = getResources().getIdentifier(user.getImagePath(),
 					"drawable", "com.commonsensenet.realfarm");
 		} else {
-			userImageResId = R.drawable.farmerpicdefault;
+			userImageResId = R.drawable.farmer_default;
 		}
 
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))

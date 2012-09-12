@@ -5,11 +5,12 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical" >
+
   <LinearLayout
-        android:id="@+id/linearLayout19"
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:background="@drawable/header" >
+      android:id="@+id/linearLayout19"
+      android:layout_width="match_parent"
+      android:layout_height="60dp"
+      android:background="@drawable/header" >
 
         <RelativeLayout
             android:id="@+id/RelativeLayoutwf_2"

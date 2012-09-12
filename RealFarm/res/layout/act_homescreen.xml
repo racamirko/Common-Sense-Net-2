@@ -16,7 +16,7 @@
             android:layout_width="104dp"
             android:layout_height="130dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/farmerpicdefault" />
+            android:src="@drawable/farmer_default" />
 
         <LinearLayout
             android:id="@+id/hmscrn_lay_btn_plots"
