@@ -590,11 +590,11 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// adds the home button.
-		mHomeItem = menu.add("Home").setIcon(R.drawable.home)
+		mHomeItem = menu.add("Home").setIcon(R.drawable.ic_home)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 		// adds the help button.
-		mHelpItem = menu.add("Help").setIcon(R.drawable.ic_54px_help)
+		mHelpItem = menu.add("Help").setIcon(R.drawable.ic_help)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 		return true;

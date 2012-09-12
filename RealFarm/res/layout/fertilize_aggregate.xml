@@ -99,11 +99,11 @@
 
         <ImageButton
             android:id="@+id/aggr_img_home"
-            android:layout_width="50dip"
-            android:layout_height="match_parent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginLeft="50dp"
             android:layout_margin="3dp"
-            android:background="@drawable/home"
+            android:background="@drawable/ic_home"
             android:src="@drawable/square_btn_transp" />
 
         <ImageButton
@@ -111,7 +111,7 @@
             android:layout_width="50dip"
             android:layout_height="match_parent"
             android:layout_margin="3dp"
-            android:background="@drawable/ic_54px_help"
+            android:background="@drawable/ic_help"
             android:src="@drawable/square_btn_transp" />
     </LinearLayout>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"

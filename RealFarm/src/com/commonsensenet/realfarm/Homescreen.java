@@ -433,11 +433,17 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (Global.userId == -1) {
 
 			// TODO: what happens if the User does not exist?
-			user = mDataProvider.getUsersByDeviceId(
-					((RealFarmApp) getApplication()).getDeviceId()).get(0);
+			List<User> userList = mDataProvider
+					.getUsersByDeviceId(((RealFarmApp) getApplication())
+							.getDeviceId());
 
-			// sets the user based on the deviceId.
-			Global.userId = user.getId();
+			// gets the first user in the list.
+			if (userList.size() > 0) {
+				user = userList.get(0);
+
+				// sets the user based on the deviceId.
+				Global.userId = user.getId();
+			}
 		} else {
 			user = mDataProvider.getUserById(Global.userId);
 		}

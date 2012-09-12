@@ -747,14 +747,16 @@ public class RealFarmDatabase {
 		}
 
 		Object[][] userData = {
+				{ "John", "Doe", deviceId, "", "farmer_default", "CK Pura",
+						R.raw.john_doe, R.raw.ckpura },
 				{ "Hendrik", "Knoche", "911208750956119", "8861214050",
 						"farmer_hendrik_knoche", "CK Pura", R.raw.john_doe,
 						R.raw.ckpura },
 				{ "Oscar", "Bolanos", "911208750485879", "9483824373",
 						"farmer_oscar_bolanos", "CK Pura",
 						R.raw.chris_mcdougall, R.raw.ckpura },
-				{ "Prakruthi", "Keshavamurthy", "911208750963651",
-						"8095986819", "farmer_default", "CK Pura",
+				{ "Prakruthi", "Keshavamurthy", "911208750961135",
+						"8151905805", "farmer_default", "CK Pura",
 						R.raw.chris_mcdougall, R.raw.ckpura }
 
 		};
