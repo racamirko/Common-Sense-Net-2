@@ -230,7 +230,7 @@ public class AddPlotActivity extends DataFormActivity {
 						.getAudio(), true);
 		}
 
-		else if (v.getId() == R.id.aggr_img_help1) {
+		else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.help_parcel_enterdetails, true);
 		} else if (v.getId() == R.id.dlg_plot_img_test) {
 			playAudio(R.raw.take_plot_pic_touch, true);

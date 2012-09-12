@@ -131,7 +131,7 @@
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
             android:name=".AddPlotActivity"
-            android:icon="@drawable/addnewplot"
+            android:icon="@drawable/ic_new_plot"
             android:label="Add new Plot"
             android:screenOrientation="portrait" />
         <activity
@@ -145,7 +145,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".PlotListActivity"
-            android:icon="@drawable/plotssection"
+            android:icon="@drawable/ic_plots"
             android:label="Plots"
             android:screenOrientation="portrait" />
         <activity

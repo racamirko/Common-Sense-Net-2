@@ -11,7 +11,7 @@
         android:layout_width="55dp"
         android:layout_height="55dp"
         android:scaleType="fitXY"
-        android:src="@drawable/plotssection" />
+        android:src="@drawable/ic_plots" />
 
     <TextView
         android:id="@+id/left_text"
@@ -23,25 +23,25 @@
         android:text="Gndnut"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:textColor="#FFFFFF" />
-    
+
     <RelativeLayout
-    	android:layout_width="70dp"
+        android:layout_width="70dp"
         android:layout_height="match_parent"
         android:layout_marginLeft="5dp"
-        android:padding="2dp"
-        android:background="#CFFFFF" >
-        
+        android:background="#CFFFFF"
+        android:padding="2dp" >
+
         <TextView
             android:id="@+id/center_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:textColor="#000000"
-            android:text="Aphids"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
+            android:layout_marginLeft="2dp"
             android:gravity="right|bottom"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:text="Aphids"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#000000" />
 
         <ImageView
             android:id="@+id/image_left"
@@ -49,14 +49,13 @@
             android:layout_height="35dp"
             android:layout_alignParentTop="true"
             android:src="@drawable/ic_pestcategory" />
-
     </RelativeLayout>
-    
+
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="fill_parent"
-        android:gravity="center"
         android:layout_marginLeft="5dp"
+        android:gravity="center"
         android:orientation="vertical" >
 
         <TextView
@@ -66,7 +65,7 @@
             android:gravity="center"
             android:text="6/10 (60%)"
             android:textAppearance="?android:attr/textAppearanceSmall" />
-        
+
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -84,7 +83,6 @@
                 android:gravity="center"
                 android:text="120 kg/acre"
                 android:textAppearance="?android:attr/textAppearanceSmall" />
-
         </LinearLayout>
     </LinearLayout>
 

@@ -37,11 +37,10 @@
                 android:textSize="@dimen/font_large" />
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_32px_ground" />
+                android:src="@drawable/hs_plots" />
         </LinearLayout>
 
         <LinearLayout
@@ -63,11 +62,10 @@
                 android:textSize="@dimen/font_large" />
 
             <ImageView
-                android:layout_width="60dp"
-                android:layout_height="40dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin"
-                android:scaleType="fitXY"
-                android:src="@drawable/ic_diary" />
+                android:src="@drawable/hs_diary" />
         </LinearLayout>
 
         <ImageButton
@@ -76,8 +74,8 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/circular_btn"
-            android:src="@drawable/ic_71px_sound_on" />
+            android:background="@drawable/circular_border_black"
+            android:src="@drawable/ic_sound_on" />
 
         <ImageButton
             android:id="@+id/hmscrn_btn_actions"
@@ -124,7 +122,7 @@
 
                 <ImageButton
                     android:id="@+id/btn_action_sow"
-                    android:layout_width="75dp"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/img_aggregates"
@@ -216,8 +214,8 @@
 
                 <ImageButton
                     android:id="@+id/btn_action_sell"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/icon_size"
+                    android:layout_height="@dimen/icon_size"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_harvest"
                     android:background="@drawable/circular_btn"
@@ -323,7 +321,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_centerInParent="true"
-                        android:src="@drawable/ic_71px_video" />
+                        android:src="@drawable/hs_video" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -416,7 +414,7 @@
                                 android:id="@+id/hmscrn_lbl_market_price_max"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="7200"
+                                android:text="@string/placeholder_number"
                                 android:textColor="@android:color/black"
                                 android:textSize="@dimen/font_medium" />
                         </LinearLayout>
@@ -437,7 +435,7 @@
                                 android:id="@+id/hmscrn_lbl_market_price_min"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="1200"
+                                android:text="@string/placeholder_number"
                                 android:textColor="@android:color/black"
                                 android:textSize="@dimen/font_medium" />
                         </LinearLayout>

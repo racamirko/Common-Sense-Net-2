@@ -39,7 +39,7 @@ public class PlotListActivity extends HelpEnabledActivity implements
 	public boolean onCreateOptionsMenu(Menu menu) {
 
 		// enables to add a new plot
-		mAddItemId = menu.add("Add New Plot").setIcon(R.drawable.addnewplot)
+		mAddItemId = menu.add("Add New Plot").setIcon(R.drawable.ic_new_plot)
 				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 		return super.onCreateOptionsMenu(menu);
@@ -69,12 +69,13 @@ public class PlotListActivity extends HelpEnabledActivity implements
 		// gets the users from the database.
 		List<Plot> plots;
 		// harvest and report require the plot to have been sown
-		if(Global.selectedAction == HarvestActionActivity.class || Global.selectedAction == ReportActionActivity.class){
+		if (Global.selectedAction == HarvestActionActivity.class
+				|| Global.selectedAction == ReportActionActivity.class) {
 			plots = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
-				Global.userId, 1);
-		} else {
-			plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
 					Global.userId, 1);
+		} else {
+			plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(Global.userId,
+					1);
 		}
 
 		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);

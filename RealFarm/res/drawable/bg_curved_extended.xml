@@ -1,5 +1,5 @@
 <bitmap xmlns:android="http://schemas.android.com/apk/res/android"
     android:dither="true"
     android:gravity="right"
-    android:src="@drawable/bg_header_curve2"
+    android:src="@drawable/bg_header_curved_extended"
     android:tileMode="disabled" />

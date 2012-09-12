@@ -94,7 +94,9 @@ public class ActionItemWrapper {
 		// sets the parts of the view.
 		getActionIcon().setImageResource(actionType.getImage1());
 		getTitle().setText(actionType.getName());
-		getDate().setText(DateHelper.formatDate(action.getDate(), context)+"   "+action.getDate());
+		getDate().setText(
+				DateHelper.formatDate(action.getDate(), context) + "   "
+						+ action.getDate());
 
 		if (bitmapImage != null) {
 			Matrix matrix = new Matrix();
@@ -103,8 +105,8 @@ public class ActionItemWrapper {
 					bitmapImage.getWidth(), bitmapImage.getHeight(), matrix,
 					true);
 			getPlotIcon().setImageBitmap(rotatedImage);
-		}		
-		else getPlotIcon().setImageResource(R.drawable.plotssection);
-
+		} else {
+			getPlotIcon().setImageResource(R.drawable.ic_plots);
+		}
 	}
 }

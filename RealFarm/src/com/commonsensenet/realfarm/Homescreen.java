@@ -371,14 +371,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 			if (!Global.isAudioEnabled) {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
-				snd.setImageResource(R.drawable.ic_71px_sound_on);
+				snd.setImageResource(R.drawable.ic_sound_on);
 				// enables the sound.
 				Global.isAudioEnabled = true;
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "audio enabled");
 			} else {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
-				snd.setImageResource(R.drawable.soundoff);
+				snd.setImageResource(R.drawable.ic_sound_off);
 				// disables the audio.
 				Global.isAudioEnabled = false;
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
@@ -417,10 +417,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// sets the audio icon based on the audio preferences.
 		if (Global.isAudioEnabled) {
 			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
-			snd.setImageResource(R.drawable.ic_71px_sound_on);
+			snd.setImageResource(R.drawable.ic_sound_on);
 		} else {
 			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
-			snd.setImageResource(R.drawable.soundoff);
+			snd.setImageResource(R.drawable.ic_sound_off);
 		}
 
 		// gets the data provider.
@@ -430,7 +430,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// if there is no valid userId, the user is obtained using the deviceId.
 		if (Global.userId == -1) {
 
-			// TODO: what happens if the User does not exist?
 			List<User> userList = mDataProvider
 					.getUsersByDeviceId(((RealFarmApp) getApplication())
 							.getDeviceId());
