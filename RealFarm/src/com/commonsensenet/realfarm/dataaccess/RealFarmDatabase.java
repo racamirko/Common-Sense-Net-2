@@ -746,9 +746,18 @@ public class RealFarmDatabase {
 			deviceId = DEFAULT_DEVICE_ID;
 		}
 
-		Object[][] userData = { { "John", "Doe", deviceId,
-				"farmer_90px_kiran_kumar_g", "CK Pura", R.raw.john_doe,
-				R.raw.ckpura } };
+		Object[][] userData = {
+				{ "Hendrik", "Knoche", "911208750956119", "8861214050",
+						"farmer_hendrik_knoche", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },
+				{ "Oscar", "Bolanos", "911208750485879", "9483824373",
+						"farmer_oscar_bolanos", "CK Pura",
+						R.raw.chris_mcdougall, R.raw.ckpura },
+				{ "Prakruthi", "Keshavamurthy", "911208750963651",
+						"8095986819", "farmerpicdefault", "CK Pura",
+						R.raw.chris_mcdougall, R.raw.ckpura }
+
+		};
 
 		// { "Hendrik", "Knoche", "+41788479621",
 		// "farmer_90px_adam_jones", "CK Pura",
@@ -767,20 +776,20 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_ID, userData[x][2] + "1");
 			users.put(COLUMN_NAME_USER_FIRSTNAME, (String) userData[x][0]);
 			users.put(COLUMN_NAME_USER_LASTNAME, (String) userData[x][1]);
-			users.put(COLUMN_NAME_USER_MOBILENUMBER, (String) userData[x][2]);
 			users.put(COLUMN_NAME_USER_DEVICEID, (String) userData[x][2]);
-			users.put(COLUMN_NAME_USER_IMAGEPATH, (String) userData[x][3]);
-			users.put(COLUMN_NAME_USER_LOCATION, (String) userData[x][4]);
-			users.put(COLUMN_NAME_USER_NAME_AUDIO, (Integer) userData[x][5]);
-			users.put(COLUMN_NAME_USER_LOCATION_AUDIO, (Integer) userData[x][6]);
-			users.put(COLUMN_NAME_USER_ISSENT, 1);
+			users.put(COLUMN_NAME_USER_MOBILENUMBER, (String) userData[x][3]);
+			users.put(COLUMN_NAME_USER_IMAGEPATH, (String) userData[x][4]);
+			users.put(COLUMN_NAME_USER_LOCATION, (String) userData[x][5]);
+			users.put(COLUMN_NAME_USER_NAME_AUDIO, (Integer) userData[x][6]);
+			users.put(COLUMN_NAME_USER_LOCATION_AUDIO, (Integer) userData[x][7]);
+			users.put(COLUMN_NAME_USER_ISSENT,
+					userData[x][2].equals(deviceId) ? 0 : 1);
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
 			users.put(COLUMN_NAME_USER_TIMESTAMP, new Date().getTime());
 			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 			users.clear();
 		}
-
 		Log.d(LOG_TAG, "users works");
 
 		Object[][] actionTypeData = {

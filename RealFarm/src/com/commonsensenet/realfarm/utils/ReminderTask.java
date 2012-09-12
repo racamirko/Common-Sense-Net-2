@@ -20,25 +20,31 @@ import com.commonsensenet.realfarm.model.User;
  */
 public class ReminderTask implements Task {
 
+	/** Header used to identify the action header. */
 	public static final String ACTION_HEADER = "%1000%";
+	/** Header used to identify a plot message. */
 	public static final String PLOT_HEADER = "%1001%";
 	/** Phone number of the server. */
 	public static final String SERVER_PHONE_NUMBER = "9742016861";
+	/** Header used to identify a user message. */
 	public static final String USER_HEADER = "%1002%";
 
-	private ArrayList<String> action_list = new ArrayList<String>();
+	/** List of Actions obtained from the Database. */
 	private List<Action> mActionList;
 	/** Access to the underlying database. */
 	private RealFarmProvider mDataProvider;
+	/** List of messages to send to the server. */
+	private ArrayList<String> mMessageList;
+	/** List of Plots obtained from the Database. */
 	private List<Plot> mPlotList;
+	/** List of Users obtained from the Database. */
 	private List<User> mUserList;
-	private ArrayList<String> plot_list = new ArrayList<String>();
-	private ArrayList<String> users_list = new ArrayList<String>();
 
 	public TaskResult doWork(ContextWrapper ctx) {
 		TaskResult res = new TaskResult();
 		mDataProvider = RealFarmProvider.getInstance(ctx);
 
+		// gets all the data from the server.
 		mActionList = mDataProvider.getActionsBySentFlag(0);
 		mPlotList = mDataProvider.getPlotsBySentFlag(0);
 		mUserList = mDataProvider.getUsersBySentFlag(0);
@@ -46,7 +52,7 @@ public class ReminderTask implements Task {
 		// putting actions together
 		for (int x = 0; x < mActionList.size(); x++) {
 
-			action_list.add(mActionList.get(x).getId() + "#"
+			mMessageList.add(ACTION_HEADER + mActionList.get(x).getId() + "#"
 					+ mActionList.get(x).getActionTypeId() + "#"
 					+ mActionList.get(x).getPlotId() + "#"
 					+ mActionList.get(x).getDate() + "#"
@@ -66,7 +72,7 @@ public class ReminderTask implements Task {
 
 		// putting plots together
 		for (int x = 0; x < mPlotList.size(); x++) {
-			plot_list.add(mPlotList.get(x).getId() + "#"
+			mMessageList.add(PLOT_HEADER + mPlotList.get(x).getId() + "#"
 					+ mPlotList.get(x).getUserId() + "#"
 					+ mPlotList.get(x).getSeedTypeId() + "#"
 					+ mPlotList.get(x).getSoilTypeId() + "#"
@@ -80,7 +86,7 @@ public class ReminderTask implements Task {
 
 		// putting users together
 		for (int x = 0; x < mUserList.size(); x++) {
-			users_list.add(mUserList.get(x).getId() + "#"
+			mMessageList.add(USER_HEADER + mUserList.get(x).getId() + "#"
 					+ mUserList.get(x).getFirstname() + "#"
 					+ mUserList.get(x).getLastname() + "#"
 					+ mUserList.get(x).getMobileNumber() + "#"
@@ -92,60 +98,22 @@ public class ReminderTask implements Task {
 					+ mUserList.get(x).getTimestamp() + "%");
 		}
 
-		// has unsent actions from database.
-		String[] actionArr = new String[action_list.size()];
-		actionArr = action_list.toArray(actionArr);
-
-		// creates a buffer to create the action message.
-		StringBuffer actionData = new StringBuffer(ACTION_HEADER);
-
-		for (int i = 0; i < actionArr.length; i++) {
-
-			actionData.append(actionArr[i]);
+		// sends all the messages to the server.
+		for (int i = 0; i < mMessageList.size(); i++) {
 
 			// send the actions to server via SMS
-			sendMessage(actionData.toString());
+			sendMessage(mMessageList.get(i));
 		}
 
-		// has unsent plots from database.
-		String[] plotArr = new String[plot_list.size()];
-		plotArr = plot_list.toArray(plotArr);
-
-		// creates the buffer where the plot data will be added.
-		StringBuffer plotData = new StringBuffer(PLOT_HEADER);
-
-		for (int i = 0; i < plotArr.length; i++) {
-
-			plotData.append(plotArr[i]);
-
-			// sends the plots to server via SMS
-			sendMessage(plotData.toString());
-		}
-
-		// has unsent users from database.
-		String[] userArr = new String[users_list.size()];
-		userArr = users_list.toArray(userArr);
-
-		// creates the buffer where the user data will be added.
-		StringBuffer userData = new StringBuffer(USER_HEADER);
-
-		for (int i = 0; i < userArr.length; i++) {
-
-			userData.append(userArr[i]);
-
-			// sends the users to server via SMS
-			sendMessage(userData.toString());
-		}
-
-		// Setting the sent flag for action
+		// sets the flag for the sent actions.
 		for (int x = 0; x < mActionList.size(); x++) {
 			mDataProvider.setActionFlag(mActionList.get(x).getId(), 1);
 		}
-		// Setting the sent flag for plot
+		// sets the flag for the sent plots.
 		for (int x = 0; x < mPlotList.size(); x++) {
 			mDataProvider.setPlotFlag(mPlotList.get(x).getId(), 1);
 		}
-		// Setting the sent flag for user
+		// sets the flag for the sent users.
 		for (int x = 0; x < mUserList.size(); x++) {
 			mDataProvider.setUserFlag(mUserList.get(x).getId(), 1);
 		}

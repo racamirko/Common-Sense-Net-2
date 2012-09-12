@@ -2915,6 +2915,7 @@ public class RealFarmProvider {
 
 	public int getRecommendationCountByUser(long userId) {
 
+		mDatabase.open();
 		Cursor c = mDatabase
 				.getEntries(
 						RealFarmDatabase.TABLE_NAME_RECOMMENDATION,

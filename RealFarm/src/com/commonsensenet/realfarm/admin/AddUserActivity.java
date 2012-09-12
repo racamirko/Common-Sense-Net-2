@@ -25,9 +25,12 @@ public class AddUserActivity extends Activity {
 
 	public void addUserToDatabase() {
 
+		// gets the values from the fields.
 		String firstname = mFirstnameTextField.getText().toString();
 		String lastname = mLastnameTextField.getText().toString();
 		String mobileNumber = mMobileNumberTextField.getText().toString();
+		// gets the device id from the application which corresponds to the IMEI
+		// number.
 		String deviceId = ((RealFarmApp) getApplication()).getDeviceId();
 
 		// adds the new user to the database.
