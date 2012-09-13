@@ -298,7 +298,7 @@ public class RealFarmProvider {
 
 	public long addRecommendation(long id, long timestamp, long plotId,
 			long adviceId, long userId, int actReqByDate,
-			long validThroughDate, int severity, int probability, int hasChanged) {
+			long validThroughDate, int severity, int probability, int isUnread) {
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_TIMESTAMP,
@@ -315,7 +315,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_PROBABILITY,
 				probability);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD,
-				hasChanged);
+				isUnread);
 
 		mDatabase.open();
 
@@ -1113,7 +1113,7 @@ public class RealFarmProvider {
 		Resource none = getResources(RealFarmDatabase.RESOURCE_TYPE_ADVICE)
 				.get(0);
 
-		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.hasChanged, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id, rec.id, st.audio, res.audio FROM recommandation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.timestamp >= "
+		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.isUnread, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id, rec.id, st.audio, res.audio FROM recommendation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.timestamp >= "
 				+ dateBeginningYear
 				+ " AND rec.userId = "
 				+ userId

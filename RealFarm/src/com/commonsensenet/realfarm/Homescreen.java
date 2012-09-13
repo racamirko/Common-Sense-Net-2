@@ -167,8 +167,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		if (v.getId() == R.id.hmscrn_btn_weather) {
 			intent = new Intent(this, WeatherForecastActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
-			// TODO: enable advices
-			// intent = new Intent(this, AdviceActivity.class);
+			intent = new Intent(this, AdviceActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_video) {
 			intent = new Intent(this, VideoActivity.class);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
@@ -282,52 +281,33 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					// intent to launch
 					List<Plot> plotList;
 
-					if (Global.selectedAction == SellActionActivity.class) { // selling
-																				// does
-																				// not
-																				// require
-																				// a
-																				// plot
-																				// to
-																				// be
-																				// done
+					// selling does not require a plot to be done.
+					if (Global.selectedAction == SellActionActivity.class) {
 						Intent intent = new Intent(mParentReference,
 								Global.selectedAction);
 						dialog.dismiss();
 						startActivity(intent);
 						return;
-					} else if (Global.selectedAction == HarvestActionActivity.class) { // harvest
-																						// requires
-																						// the
-																						// plot
-																						// to
-																						// have
-																						// been
-																						// sown
-																						// during
-																						// this
-																						// season.
-																						// It
-																						// displays
-																						// varieties
-																						// sown
-																						// this
-																						// season
+
+						// harvest requires the plot to have been sown during
+						// this season. It displays the varieties sown this
+						// season.
+					} else if (Global.selectedAction == HarvestActionActivity.class) {
 						plotList = mDataProvider
 								.getPlotsByUserIdAndEnabledFlagAndHasCrops(
 										Global.userId, 1);
-						if (plotList.size() == 0) { // if no plot available, do
-													// nothing
-							playAudio(R.raw.problems, true); // TODO AUDIO: put
-																// audio
+						// if no plot available, do nothing
+						if (plotList.size() == 0) {
+							playAudio(R.raw.problems, true);
 							Toast.makeText(
 									mParentReference,
 									"Please sow on your plot before you harvest.",
 									Toast.LENGTH_SHORT).show();
 							return;
 						}
-					} else { // other acticities don't need a sowing action.
-								// They display varieties sown this season ???
+					} else {
+						// other activities do not need a sowing action.
+						// They display varieties sown this season ???
 						plotList = mDataProvider
 								.getPlotsByUserIdAndEnabledFlag(Global.userId,
 										1);
@@ -589,11 +569,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return super.onLongClick(v);
 		}
 
+		// tracks the user action.
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
 
-		// shows the help icon for the view.
+		// shows the help icon for the view since an audio was played.
 		showHelpIcon(v);
 
 		return true;

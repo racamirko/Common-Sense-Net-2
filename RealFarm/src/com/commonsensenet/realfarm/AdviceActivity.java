@@ -39,12 +39,12 @@ import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
 public class AdviceActivity extends HelpEnabledActivity implements
 		OnChildClickListener, OnGroupClickListener, OnItemLongClickListener {
-	private AdviceAdapter adapter;
-	private ExpandableListView expandListView;
 
+	private AdviceAdapter mAdviceAdapter;
 	private RealFarmProvider mDataProvider;
-	protected LayoutInflater mLayoutInflater;
-	private ArrayList<AdviceSituationItem> situationItems;
+	private ExpandableListView mExpandableListView;
+	private LayoutInflater mLayoutInflater;
+	private ArrayList<AdviceSituationItem> mSituationItems;
 
 	public void copyView(AggregateItem aggregate, View destination) {
 		destination.setBackgroundColor(Color.LTGRAY);
@@ -102,9 +102,9 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	private void expandCurrentLists(
 			ArrayList<AdviceSituationItem> situationItems) {
-		for (int i = 0; i < adapter.getGroupCount(); i++) {
+		for (int i = 0; i < mAdviceAdapter.getGroupCount(); i++) {
 			if (situationItems.get(i).getValidDate() >= new Date().getTime())
-				expandListView.expandGroup(i);
+				mExpandableListView.expandGroup(i);
 		}
 	}
 
@@ -239,7 +239,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				getResources().getResourceEntryName(v.getId()),
 				"gr:" + groupPosition + " pos:" + childPosition);
 
-		AdviceSituationItem situationItem = situationItems.get(groupPosition);
+		AdviceSituationItem situationItem = mSituationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(
 				childPosition);
 		AggregateItem selectedItem = getSelectedItem(situationItem,
@@ -402,20 +402,29 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+
+		// sets the layout of the activity
 		setContentView(R.layout.act_advice);
+
+		// gets the data provider.
 		mDataProvider = RealFarmProvider.getInstance(this);
 		mLayoutInflater = getLayoutInflater();
 
-		expandListView = (ExpandableListView) findViewById(R.id.exp_list);
-		situationItems = initLists();
-		adapter = new AdviceAdapter(AdviceActivity.this, situationItems, this);
-		expandListView.setAdapter(adapter);
+		// gets the list from the layout.
+		mExpandableListView = (ExpandableListView) findViewById(R.id.exp_list);
 
-		expandCurrentLists(situationItems);
+		// configures the listview.
+		mSituationItems = initLists();
+		mAdviceAdapter = new AdviceAdapter(AdviceActivity.this,
+				mSituationItems, this);
+		mExpandableListView.setAdapter(mAdviceAdapter);
 
-		expandListView.setOnChildClickListener(this);
-		expandListView.setOnGroupClickListener(this);
-		expandListView.setOnItemLongClickListener(this);
+		expandCurrentLists(mSituationItems);
+
+		// adds the events.
+		mExpandableListView.setOnChildClickListener(this);
+		mExpandableListView.setOnGroupClickListener(this);
+		mExpandableListView.setOnItemLongClickListener(this);
 	}
 
 	public boolean onGroupClick(ExpandableListView parent, View v,
@@ -431,9 +440,9 @@ public class AdviceActivity extends HelpEnabledActivity implements
 			int position, long id) {
 		stopAudio();
 
-		long data = expandListView.getExpandableListPosition(position);
+		long data = mExpandableListView.getExpandableListPosition(position);
 		int type = ExpandableListView.getPackedPositionType(data);
-		AdviceSituationItem situationItem = situationItems
+		AdviceSituationItem situationItem = mSituationItems
 				.get(ExpandableListView.getPackedPositionGroup(data));
 
 		if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
@@ -448,10 +457,11 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 		if (situationItem.getUnread() == 0) {
 			mDataProvider.setAdviceRead(situationItem.getId());
-			situationItems.get(ExpandableListView.getPackedPositionGroup(data))
+			mSituationItems
+					.get(ExpandableListView.getPackedPositionGroup(data))
 					.setUnread(1);
-			adapter.setGroups(situationItems);
-			adapter.notifyDataSetChanged();
+			mAdviceAdapter.setGroups(mSituationItems);
+			mAdviceAdapter.notifyDataSetChanged();
 		}
 
 		ApplicationTracker.getInstance().logEvent(
@@ -471,7 +481,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				Global.userId,
 				"like gr:" + groupPosition + " pos:" + childPosition);
 
-		AdviceSituationItem situationItem = situationItems.get(groupPosition);
+		AdviceSituationItem situationItem = mSituationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(
 				childPosition);
 
@@ -480,12 +490,12 @@ public class AdviceActivity extends HelpEnabledActivity implements
 			mDataProvider.addPlanAction(Global.userId,
 					situationItem.getPlotId(), solutionItem.getId(),
 					Global.IsAdmin);
-			situationItems.get(groupPosition).getItems().get(childPosition)
+			mSituationItems.get(groupPosition).getItems().get(childPosition)
 					.setHasLiked(true);
-			situationItems.get(groupPosition).getItems().get(childPosition)
+			mSituationItems.get(groupPosition).getItems().get(childPosition)
 					.setLikes(solutionItem.getLikes() + 1);
-			adapter.setGroups(situationItems);
-			adapter.notifyDataSetChanged();
+			mAdviceAdapter.setGroups(mSituationItems);
+			mAdviceAdapter.notifyDataSetChanged();
 		}/*
 		 * else { mDataProvider.deletePlanAction(Global.userId,
 		 * situationItem.getPlotId(), solutionItem.getId());

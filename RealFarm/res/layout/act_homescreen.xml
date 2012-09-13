@@ -74,7 +74,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:background="@drawable/circular_border_black"
+            android:background="@drawable/square_btn_transp"
             android:src="@drawable/ic_sound_on" />
 
         <ImageButton

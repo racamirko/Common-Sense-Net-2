@@ -32,7 +32,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public void add_audio_hundred(int n) {
 		System.out.println("add_audio_hundred");
 		SoundQueue sq = SoundQueue.getInstance();
-		// sq.clean();
 
 		switch (n) {
 		case 1:
@@ -477,7 +476,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 	public void add_audio_thousands(int n) {
 		System.out.println("add_audio_thousands");
 		SoundQueue sq = SoundQueue.getInstance();
-		// sq.clean();
 
 		switch (n) {
 		case 1:
@@ -526,10 +524,6 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		SoundQueue sq = SoundQueue.getInstance();
 		// adds the sound to the queue
 		sq.addToQueue(resid);
-	}
-
-	protected void cleanSound() {
-		SoundQueue.getInstance().clean();
 	}
 
 	/**
@@ -604,7 +598,8 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-				Global.userId, getLogTag(), v.getId());
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 
 		return true;
 	}
