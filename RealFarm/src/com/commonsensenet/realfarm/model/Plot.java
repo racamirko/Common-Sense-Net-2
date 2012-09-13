@@ -4,7 +4,7 @@ package com.commonsensenet.realfarm.model;
  * 
  * @author Oscar Bola–os <@oscarbolanos>
  */
-public class Plot {
+public class Plot implements Model {
 
 	/** Unique identifier of the Plot. */
 	private long mId;
@@ -27,9 +27,9 @@ public class Plot {
 	private int mSoilTypeId;
 	/** Timestamp that indicates the creation of the Plot. */
 	private long mTimestamp;
+	private int mType;
 	/** Owner of the plot. */
 	private long mUserId;
-	private int mType;
 
 	public Plot(long id, long userId, int seedTypeId, int soilTypeId,
 			String imagePath, float size, int isSent, int isEnabled,
@@ -68,6 +68,10 @@ public class Plot {
 		return mIsSent;
 	}
 
+	public int getModelTypeId() {
+		return 1001;
+	}
+
 	public int getSeedTypeId() {
 		return mSeedTypeId;
 	}
@@ -84,12 +88,20 @@ public class Plot {
 		return mTimestamp;
 	}
 
+	public long getType() {
+		return mType;
+	}
+
 	public long getUserId() {
 		return mUserId;
 	}
-	
-	public long getType() {
-		return mType;
+
+	public String toSmsString() {
+		return "%" + getModelTypeId() + "%" + getId() + "#" + getUserId() + "#"
+				+ getSeedTypeId() + "#" + getSoilTypeId() + "#"
+				+ getImagePath() + "#" + getSize() + "#" + getIsEnabled() + "#"
+				+ getIsAdminFlag() + "#" + getTimestamp() + "#" + getType()
+				+ "%";
 	}
 
 	@Override
@@ -98,6 +110,7 @@ public class Plot {
 		return String
 				.format("[Plot id='%d', userId='%d', seedTypeId='%d', imagePath='%s', soilTypeId='%d', size='%f', isSent='%d', isEnabled='%d', isAdminAction='%d', timestamp='%d', type='%d']",
 						mId, mUserId, mSeedTypeId, mImagePath, mSoilTypeId,
-						mSize, mIsSent, mIsEnabled, mIsAdminAction, mTimestamp, mType);
+						mSize, mIsSent, mIsEnabled, mIsAdminAction, mTimestamp,
+						mType);
 	}
 }

@@ -42,7 +42,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(), "back");
-		ApplicationTracker.getInstance().flush();
+		ApplicationTracker.getInstance().flushAll();
 		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
 
 	}

@@ -96,8 +96,8 @@ public class RealFarmDatabase {
 					+ " integer, "
 					+ COLUMN_NAME_ACTION_USERID
 					+ " integer, "
-					+ COLUMN_NAME_ACTION_ISSENT
-					+ " boolean, "
+					+ COLUMN_NAME_ACTION_SENDSTATUS
+					+ " integer, "
 					+ COLUMN_NAME_ACTION_ISADMINACTION
 					+ " boolean, "
 					+ COLUMN_NAME_ACTION_TIMESTAMP
@@ -195,8 +195,8 @@ public class RealFarmDatabase {
 					+ " text, "
 					+ COLUMN_NAME_PLOT_SIZE
 					+ " real, "
-					+ COLUMN_NAME_PLOT_ISSENT
-					+ " boolean, "
+					+ COLUMN_NAME_PLOT_SENDSTATUS
+					+ " integer, "
 					+ COLUMN_NAME_PLOT_ISENABLED
 					+ " boolean, "
 					+ COLUMN_NAME_PLOT_ISADMINACTION
@@ -301,7 +301,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_USER_LOCATION + " text, "
 					+ COLUMN_NAME_USER_NAME_AUDIO + " integer, "
 					+ COLUMN_NAME_USER_LOCATION_AUDIO + " integer, "
-					+ COLUMN_NAME_USER_ISSENT + " boolean, "
+					+ COLUMN_NAME_USER_SENDSTATUS + " integer, "
 					+ COLUMN_NAME_USER_ISENABLED + " boolean, "
 					+ COLUMN_NAME_USER_ISADMINACTION + " boolean, "
 					+ COLUMN_NAME_USER_TIMESTAMP + " integer not null" + " ); ");
@@ -431,7 +431,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_DATE = "date";
 	public static final String COLUMN_NAME_ACTION_ID = "id";
 	public static final String COLUMN_NAME_ACTION_ISADMINACTION = "isAdminAction";
-	public static final String COLUMN_NAME_ACTION_ISSENT = "isSent";
+	public static final String COLUMN_NAME_ACTION_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_ACTION_PLOTID = "plotId";
 	public static final String COLUMN_NAME_ACTION_PRICE = "price";
 	public static final String COLUMN_NAME_ACTION_QUANTITY1 = "quantity1";
@@ -480,7 +480,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_IMAGEPATH = "imagePath";
 	public static final String COLUMN_NAME_PLOT_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_PLOT_ISENABLED = "isEnabled";
-	public static final String COLUMN_NAME_PLOT_ISSENT = "isSent";
+	public static final String COLUMN_NAME_PLOT_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_PLOT_SEEDTYPEID = "seedtypeId";
 	public static final String COLUMN_NAME_PLOT_SIZE = "size";
 	public static final String COLUMN_NAME_PLOT_SOILTYPEID = "soilTypeId";
@@ -542,7 +542,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_USER_IMAGEPATH = "imagePath";
 	public static final String COLUMN_NAME_USER_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_USER_ISENABLED = "isEnabled";
-	public static final String COLUMN_NAME_USER_ISSENT = "isSent";
+	public static final String COLUMN_NAME_USER_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastname";
 	public static final String COLUMN_NAME_USER_MOBILENUMBER = "mobileNumber";
 	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
@@ -773,7 +773,7 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_LOCATION, (String) userData[x][5]);
 			users.put(COLUMN_NAME_USER_NAME_AUDIO, (Integer) userData[x][6]);
 			users.put(COLUMN_NAME_USER_LOCATION_AUDIO, (Integer) userData[x][7]);
-			users.put(COLUMN_NAME_USER_ISSENT,
+			users.put(COLUMN_NAME_USER_SENDSTATUS,
 					userData[x][2].equals(deviceId) ? 0 : 1);
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);

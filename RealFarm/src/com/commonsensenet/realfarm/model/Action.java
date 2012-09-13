@@ -6,14 +6,14 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
  * 
  * @author Oscar Bola–os <@oscarbolanos>
  */
-public class Action {
+public class Action implements Model {
 
 	private int mActionTypeId;
 	private int mCropTypeId;
 	private String mDate;
 	private long mId;
 	private int mIsAdminAction;
-	private int mIsSent;
+	private int mSendStatus;
 	private long mPlotId;
 	private int mPrice;
 	private double mQuantity1;
@@ -29,7 +29,7 @@ public class Action {
 	public Action(long id, int actionTypeId, long plotId, String date,
 			int seedTypeId, int cropTypeId, double quantity1, double quantity2,
 			int unit1, int unit2, int resource1Id, int resource2Id, int price,
-			long userId, int isSent, int isAdminAction, long timestamp) {
+			long userId, int sendStatus, int isAdminAction, long timestamp) {
 
 		mId = id;
 		mActionTypeId = actionTypeId;
@@ -48,7 +48,7 @@ public class Action {
 		mPrice = price;
 		mUserId = userId;
 
-		mIsSent = isSent;
+		mSendStatus = sendStatus;
 		mIsAdminAction = isAdminAction;
 		mTimestamp = timestamp;
 
@@ -97,8 +97,12 @@ public class Action {
 		return mIsAdminAction;
 	}
 
-	public int getIsSent() {
-		return mIsSent;
+	public int getSendStatus() {
+		return mSendStatus;
+	}
+
+	public int getModelTypeId() {
+		return 1000;
 	}
 
 	public long getPlotId() {
@@ -145,14 +149,25 @@ public class Action {
 		return mUserId;
 	}
 
+	public String toSmsString() {
+
+		return "%" + getModelTypeId() + "%" + getId() + "#" + getActionTypeId()
+				+ "#" + getPlotId() + "#" + getDate() + "#" + getSeedTypeId()
+				+ "#" + getCropTypeId() + "#" + getQuantity1() + "#"
+				+ getQuantity2() + "#" + getUnit1() + "#" + getUnit2() + "#"
+				+ getResource1Id() + "#" + getResource2Id() + "#" + getPrice()
+				+ "#" + getUserId() + "#" + getIsAdminAction() + "#"
+				+ getTimetamp() + "%";
+	}
+
 	@Override
 	public String toString() {
 
 		return String
-				.format("[Action id='%d', actionTypeId='%d', plotId='%d', date='%s', seedTypeId='%d', cropTypeId='%d', quantity1='%.2f', quantity2='%.2f', unit1='%d', unit2='%d', resource1='%d', resource2='%d', price='%d', userId='%d', isSent='%d', isAdminAction='%d', timestamp='%d']",
+				.format("[Action id='%d', actionTypeId='%d', plotId='%d', date='%s', seedTypeId='%d', cropTypeId='%d', quantity1='%.2f', quantity2='%.2f', unit1='%d', unit2='%d', resource1='%d', resource2='%d', price='%d', userId='%d', sendStatus='%d', isAdminAction='%d', timestamp='%d']",
 						mId, mActionTypeId, mPlotId, mDate, mSeedTypeId,
 						mCropTypeId, mQuantity1, mQuantity2, mUnit1, mUnit2,
-						mResourceId1, mResourceId2, mPrice, mUserId, mIsSent,
-						mIsAdminAction, mTimestamp);
+						mResourceId1, mResourceId2, mPrice, mUserId,
+						mSendStatus, mIsAdminAction, mTimestamp);
 	}
 }

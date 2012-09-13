@@ -4,7 +4,7 @@ package com.commonsensenet.realfarm.model;
  * 
  * @author Oscar Bola–os <@oscarbolanos>
  */
-public class User {
+public class User implements Model {
 
 	/** Identifier if the device the User has. */
 	private String mDeviceId;
@@ -27,14 +27,14 @@ public class User {
 	private String mLastname;
 	/** Location of the user. */
 	private String mLocation;
-	/** Number number used to contact the User. */
-	private String mMobileNumber;
-	/** Timestamp that indicates the creation of the User. */
-	private long mTimestamp;
-	/** Audio resource that represents the name. */
-	private int mNameAudio;
 	/** Audio resource that represents the location. */
 	private int mLocationAudio;
+	/** Number number used to contact the User. */
+	private String mMobileNumber;
+	/** Audio resource that represents the name. */
+	private int mNameAudio;
+	/** Timestamp that indicates the creation of the User. */
+	private long mTimestamp;
 
 	public User(long id, String firstname, String lastname,
 			String mobileNumber, String deviceId, String imagePath,
@@ -53,14 +53,6 @@ public class User {
 		mTimestamp = timestamp;
 		mNameAudio = nameAudio;
 		mLocationAudio = locationAudio;
-	}
-
-	public int getNameAudio() {
-		return mNameAudio;
-	}
-
-	public int getLocationAudio() {
-		return mLocationAudio;
 	}
 
 	public String getDeviceId() {
@@ -99,12 +91,33 @@ public class User {
 		return mLocation;
 	}
 
+	public int getLocationAudio() {
+		return mLocationAudio;
+	}
+
 	public String getMobileNumber() {
 		return mMobileNumber;
 	}
 
+	public int getModelTypeId() {
+		return 1002;
+	}
+
+	public int getNameAudio() {
+		return mNameAudio;
+	}
+
 	public long getTimestamp() {
 		return mTimestamp;
+	}
+
+	public String toSmsString() {
+		return "%" + getModelTypeId() + "%" + getId() + "#" + getFirstname()
+				+ "#" + getLastname() + "#" + getMobileNumber() + "#"
+				+ getDeviceId() + "#" + getImagePath() + "#" + getLocation()
+				+ "#" + getIsEnabled() + "#" + getIsAdminAction() + "#"
+				+ getTimestamp() + "%";
+
 	}
 
 	@Override
@@ -117,5 +130,4 @@ public class User {
 						mIsAdminAction, mTimestamp);
 
 	}
-
 }

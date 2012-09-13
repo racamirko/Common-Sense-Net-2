@@ -40,7 +40,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, "back");
-		ApplicationTracker.getInstance().flush();
+		ApplicationTracker.getInstance().flushAll();
 
 		SoundQueue sq = SoundQueue.getInstance();
 		sq.stop();

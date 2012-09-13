@@ -546,7 +546,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 				Global.userId, getLogTag(), "back");
 
 		// forces the application to flush its data.
-		ApplicationTracker.getInstance().flush();
+		ApplicationTracker.getInstance().flushAll();
 
 		// performs the system default operation.
 		super.onBackPressed();

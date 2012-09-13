@@ -130,7 +130,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				Global.userId, getLogTag(), "back");
 
 		// forces a flush operation of the application could be closed.
-		ApplicationTracker.getInstance().flush();
+		ApplicationTracker.getInstance().flushAll();
 
 		// stops all active audio from playing.
 		stopAudio();

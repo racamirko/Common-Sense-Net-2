@@ -162,7 +162,7 @@ public class RealFarmProvider {
 		}
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_USERID, userId);
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, isSent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS, isSent);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 				isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP, timestamp);
@@ -348,7 +348,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID, soilType);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH, imagePath);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SIZE, size);
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT, isSent);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SENDSTATUS, isSent);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED, isEnabled);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION, isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP, timestamp);
@@ -455,7 +455,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_DEVICEID, deviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH, imagePath);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_LOCATION, location);
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, isSent);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_SENDSTATUS, isSent);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISENABLED, isEnabled);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION, isAdminAction);
 		args.put(RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP, timestamp);
@@ -520,7 +520,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP });
 
@@ -571,7 +571,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
 				RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID + " = " + plotId
@@ -1413,7 +1413,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_PLOT_SOILTYPEID,
 						RealFarmDatabase.COLUMN_NAME_PLOT_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_PLOT_SIZE,
-						RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_PLOT_SENDSTATUS,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_PLOT_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_PLOT_TIMESTAMP,
@@ -2204,7 +2204,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_DEVICEID,
 						RealFarmDatabase.COLUMN_NAME_USER_IMAGEPATH,
 						RealFarmDatabase.COLUMN_NAME_USER_LOCATION,
-						RealFarmDatabase.COLUMN_NAME_USER_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_USER_SENDSTATUS,
 						RealFarmDatabase.COLUMN_NAME_USER_ISENABLED,
 						RealFarmDatabase.COLUMN_NAME_USER_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_USER_TIMESTAMP,
@@ -2657,18 +2657,18 @@ public class RealFarmProvider {
 		sWeatherForecastDataListener = listener;
 	}
 
-	// To get the plots based on sent flag
-	public List<Plot> getPlotsBySentFlag(int sent) {
-		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT + "=" + sent);
+	// To get the plots based on send status
+	public List<Plot> getPlotsBySendStatus(int sendStatus) {
+		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_SENDSTATUS + "=" + sendStatus);
 	}
 
-	// To get the users based on sent flag
-	public List<User> getUsersBySentFlag(int sent) {
-		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_ISSENT + "=" + sent);
+	// To get the users based on send status
+	public List<User> getUsersBySendStatus(int sendStatus) {
+		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_SENDSTATUS + "=" + sendStatus);
 	}
 
-	// To get the actions based on sent flag
-	public List<Action> getActionsBySentFlag(int sent) {
+	// To get the actions based on send status
+	public List<Action> getActionsBySendStatus(int sendStatus) {
 
 		List<Action> tmpActions = new ArrayList<Action>();
 
@@ -2689,10 +2689,10 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
 						RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
 						RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
-						RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT + " = " + sent + "",
+				RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS + " = " + sendStatus + "",
 				null, null, null, null);
 
 		Action a = null;
@@ -2941,7 +2941,7 @@ public class RealFarmProvider {
 	public long setUserFlag(long userId, int sent) {
 
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_USER_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_USER_SENDSTATUS, sent);
 
 		long result;
 
@@ -2958,7 +2958,7 @@ public class RealFarmProvider {
 	public long setPlotFlag(long plotId, int sent) {
 
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_PLOT_SENDSTATUS, sent);
 
 		long result;
 
@@ -2975,7 +2975,7 @@ public class RealFarmProvider {
 	public long setActionFlag(long actionId, int sent) {
 
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_ISSENT, sent);
+		args.put(RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS, sent);
 
 		long result;
 

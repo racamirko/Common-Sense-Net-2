@@ -17,8 +17,11 @@ import com.buzzbox.mob.android.scheduler.Task;
 import com.buzzbox.mob.android.scheduler.TaskResult;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
+import com.commonsensenet.realfarm.model.Model;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.User;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 /**
  * Recurring Task that implements your business logic. The BuzzBox SDK Scheduler
@@ -27,18 +30,12 @@ import com.commonsensenet.realfarm.model.User;
  */
 public class UpstreamTask implements Task {
 
-	/** Header used to identify the action header. */
-	public static final String ACTION_HEADER = "%1000%";
 	/** Identifies when an SMS has been delivered. */
 	private static final String DELIVERED = "SMS_DELIVERED";
-	/** Header used to identify a plot message. */
-	public static final String PLOT_HEADER = "%1001%";
 	/** Identifies when an SMS has been sent. */
 	private static final String SENT = "SMS_SENT";
 	/** Phone number of the server. */
 	public static final String SERVER_PHONE_NUMBER = "9742016861";
-	/** Header used to identify a user message. */
-	public static final String USER_HEADER = "%1002%";
 
 	/** List of Actions obtained from the Database. */
 	private List<Action> mActionList;
@@ -47,7 +44,7 @@ public class UpstreamTask implements Task {
 	/** Receiver used to detect if an SMS was delivered correctly. */
 	private BroadcastReceiver mDeliveredBroadcastReceiver;
 	/** List of messages to send to the server. */
-	private ArrayList<String> mMessageList;
+	private List<Model> mMessageList;
 	/** List of Plots obtained from the Database. */
 	private List<Plot> mPlotList;
 	/** Receiver used to detect if an SMS was sent correctly. */
@@ -115,65 +112,25 @@ public class UpstreamTask implements Task {
 		// gets the database provider.
 		mDataProvider = RealFarmProvider.getInstance(ctx);
 
-		// gets all the data from the server.
-		mActionList = mDataProvider.getActionsBySentFlag(0);
-		mPlotList = mDataProvider.getPlotsBySentFlag(0);
-		mUserList = mDataProvider.getUsersBySentFlag(0);
+		// gets all the data from the server that has not being sent.
+		mActionList = mDataProvider.getActionsBySendStatus(0);
+		mPlotList = mDataProvider.getPlotsBySendStatus(0);
+		mUserList = mDataProvider.getUsersBySendStatus(0);
 
 		// initializes the list used to send the messages.
-		mMessageList = new ArrayList<String>();
+		mMessageList = new ArrayList<Model>();
 
-		// putting users together
-		for (int x = 0; x < mUserList.size(); x++) {
-			mMessageList.add(USER_HEADER + mUserList.get(x).getId() + "#"
-					+ mUserList.get(x).getFirstname() + "#"
-					+ mUserList.get(x).getLastname() + "#"
-					+ mUserList.get(x).getMobileNumber() + "#"
-					+ mUserList.get(x).getDeviceId() + "#"
-					+ mUserList.get(x).getImagePath() + "#"
-					+ mUserList.get(x).getLocation() + "#"
-					+ mUserList.get(x).getIsEnabled() + "#"
-					+ mUserList.get(x).getIsAdminAction() + "#"
-					+ mUserList.get(x).getTimestamp() + "%");
-		}
-
-		// putting plots together
-		for (int x = 0; x < mPlotList.size(); x++) {
-			mMessageList.add(PLOT_HEADER + mPlotList.get(x).getId() + "#"
-					+ mPlotList.get(x).getUserId() + "#"
-					+ mPlotList.get(x).getSeedTypeId() + "#"
-					+ mPlotList.get(x).getSoilTypeId() + "#"
-					+ mPlotList.get(x).getImagePath() + "#"
-					+ mPlotList.get(x).getSize() + "#"
-					+ mPlotList.get(x).getIsEnabled() + "#"
-					+ mPlotList.get(x).getIsAdminFlag() + "#"
-					+ mPlotList.get(x).getTimestamp() + "#"
-					+ mPlotList.get(x).getType() + "%");
-		}
-
-		// putting actions together
-		for (int x = 0; x < mActionList.size(); x++) {
-
-			mMessageList.add(ACTION_HEADER + mActionList.get(x).getId() + "#"
-					+ mActionList.get(x).getActionTypeId() + "#"
-					+ mActionList.get(x).getPlotId() + "#"
-					+ mActionList.get(x).getDate() + "#"
-					+ mActionList.get(x).getSeedTypeId() + "#"
-					+ mActionList.get(x).getCropTypeId() + "#"
-					+ mActionList.get(x).getQuantity1() + "#"
-					+ mActionList.get(x).getQuantity2() + "#"
-					+ mActionList.get(x).getUnit1() + "#"
-					+ mActionList.get(x).getUnit2() + "#"
-					+ mActionList.get(x).getResource1Id() + "#"
-					+ mActionList.get(x).getResource2Id() + "#"
-					+ mActionList.get(x).getPrice() + "#"
-					+ mActionList.get(x).getUserId() + "#"
-					+ mActionList.get(x).getIsAdminAction() + "#"
-					+ mActionList.get(x).getTimetamp() + "%");
-		}
+		// adds all the elements into the message list.
+		mMessageList.addAll(mUserList);
+		mMessageList.addAll(mPlotList);
+		mMessageList.addAll(mActionList);
 
 		// sends all the messages to the server via SMS.
 		for (int i = 0; i < mMessageList.size(); i++) {
+			// tracks that the data that has been sent to the Server.
+			ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+					"Upstream", mMessageList.get(i).toSmsString());
+			// sends the message.
 			sendMessage(ctx, mMessageList.get(i));
 		}
 
@@ -201,16 +158,18 @@ public class UpstreamTask implements Task {
 		return "Reminder";
 	}
 
-	protected void sendMessage(ContextWrapper context, String message) {
+	protected void sendMessage(ContextWrapper context, Model message) {
 
 		Intent sentIntent = new Intent(SENT);
-		sentIntent.putExtra("smsNumber", 1);
+		sentIntent.putExtra("type", message.getModelTypeId());
+		sentIntent.putExtra("id", message.getId());
 		PendingIntent sentPI = PendingIntent.getBroadcast(
 				context.getApplicationContext(), 0, sentIntent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 
 		Intent deliveredIntent = new Intent(DELIVERED);
-		deliveredIntent.putExtra("smsNumber", 1);
+		deliveredIntent.putExtra("type", message.getModelTypeId());
+		deliveredIntent.putExtra("id", message.getId());
 		PendingIntent deliveredPI = PendingIntent.getBroadcast(
 				context.getApplicationContext(), 0, deliveredIntent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
@@ -218,7 +177,7 @@ public class UpstreamTask implements Task {
 		// gets the manager in charge of sending SMS.
 		SmsManager sm = SmsManager.getDefault();
 		// sends the messages from the phone number
-		sm.sendTextMessage(SERVER_PHONE_NUMBER, null, message, sentPI,
-				deliveredPI);
+		sm.sendTextMessage(SERVER_PHONE_NUMBER, null, message.toSmsString(),
+				sentPI, deliveredPI);
 	}
 }

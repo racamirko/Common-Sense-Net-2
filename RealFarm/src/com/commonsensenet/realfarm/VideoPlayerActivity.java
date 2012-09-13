@@ -30,7 +30,7 @@ public class VideoPlayerActivity extends Activity {
 
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, this.getClass().getSimpleName(), "back");
-		ApplicationTracker.getInstance().flush();
+		ApplicationTracker.getInstance().flushAll();
 
 		Intent adminintent123 = new Intent(VideoPlayerActivity.this,
 				VideoActivity.class);
