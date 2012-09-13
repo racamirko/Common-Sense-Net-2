@@ -746,9 +746,10 @@ public class RealFarmDatabase {
 			deviceId = DEFAULT_DEVICE_ID;
 		}
 
+//		{ "John", "Doe", deviceId, "", "farmer_default", "CK Pura",
+//			R.raw.john_doe, R.raw.ckpura },
 		Object[][] userData = {
-				{ "John", "Doe", deviceId, "", "farmer_default", "CK Pura",
-						R.raw.john_doe, R.raw.ckpura },
+				
 				{ "Hendrik", "Knoche", "911208750956119", "8861214050",
 						"farmer_hendrik_knoche", "CK Pura", R.raw.john_doe,
 						R.raw.ckpura },
@@ -760,18 +761,6 @@ public class RealFarmDatabase {
 						R.raw.chris_mcdougall, R.raw.ckpura }
 
 		};
-
-		// { "Hendrik", "Knoche", "+41788479621",
-		// "farmer_90px_adam_jones", "CK Pura",
-		// R.raw.hendrik_knoche, R.raw.ckpura },
-		// { "Chris", "Bishop", "0788244421", "farmer_90px_neil_palmer",
-		// "CK Pura", R.raw.chris_bishop, R.raw.ckpura },
-		// { "Chris", "McDougall", "0781122672",
-		// "farmer_90px_neil_palmer2", "CK Pura",
-		// R.raw.chris_mcdougall, R.raw.ckpura },
-		// { "Frank", "Herbert", "0788111172",
-		// "farmer_90px_walmart_stores", "CK Pura",
-		// R.raw.frank_herbert, R.raw.ckpura }
 
 		ContentValues users = new ContentValues();
 		for (int x = 0; x < userData.length; x++) {

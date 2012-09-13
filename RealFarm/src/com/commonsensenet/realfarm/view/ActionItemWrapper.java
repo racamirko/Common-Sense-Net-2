@@ -23,10 +23,11 @@ import com.commonsensenet.realfarm.utils.DateHelper;
  * 
  */
 public class ActionItemWrapper {
-	/** Date in which the action was incurred. */
-	private TextView mDate;
+
 	/** Icon that represents the action performed. */
 	private ImageView mActionIcon;
+	/** Date in which the action was incurred. */
+	private TextView mDate;
 	/** Icon that represents the plot. */
 	private ImageView mPlotIcon;
 	/** The View object that represents a single row inside the ListView. */
@@ -44,18 +45,18 @@ public class ActionItemWrapper {
 		mRow = row;
 	}
 
-	public TextView getDate() {
-		if (mDate == null) {
-			mDate = (TextView) mRow.findViewById(R.id.label_diary_date);
-		}
-		return (mDate);
-	}
-
 	public ImageView getActionIcon() {
 		if (mActionIcon == null) {
 			mActionIcon = (ImageView) mRow.findViewById(R.id.icon_diary_action);
 		}
 		return (mActionIcon);
+	}
+
+	public TextView getDate() {
+		if (mDate == null) {
+			mDate = (TextView) mRow.findViewById(R.id.label_diary_date);
+		}
+		return (mDate);
 	}
 
 	public ImageView getPlotIcon() {
@@ -95,7 +96,7 @@ public class ActionItemWrapper {
 		getActionIcon().setImageResource(actionType.getImage1());
 		getTitle().setText(actionType.getName());
 		getDate().setText(
-				DateHelper.formatDate(action.getDate(), context) + "   "
+				DateHelper.formatDate(action.getDate(), context) + " "
 						+ action.getDate());
 
 		if (bitmapImage != null) {

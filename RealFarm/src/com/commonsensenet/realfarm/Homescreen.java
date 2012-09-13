@@ -443,6 +443,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))
 				.setImageResource(userImageResId);
 
+		// activates the upstream class.
 		Log.i(getLogTag(), "scheduler activated");
 		SchedulerManager.getInstance().saveTask(getApplicationContext(),
 				"*/1 * * * *", // a cron string

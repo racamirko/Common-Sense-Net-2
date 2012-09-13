@@ -24,7 +24,6 @@ public class ActionItemAdapter extends ArrayAdapter<Action> {
 			RealFarmProvider dataProvider) {
 		super(context, android.R.layout.simple_list_item_1, actions);
 
-		// TODO: this shouldn't be done!!
 		mDataProvider = dataProvider;
 	}
 

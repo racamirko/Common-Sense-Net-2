@@ -75,6 +75,20 @@ public class DateHelper {
 		}
 	}
 
+	public static String formatDateShort(String date) {
+
+		try {
+			// extracts the date.
+			Date dateTime = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT)
+					.parse(date);
+
+			return new SimpleDateFormat("").format(dateTime);
+
+		} catch (ParseException e) {
+			return date;
+		}
+	}
+
 	public static String formatWithDay(String date) {
 
 		try {
@@ -83,6 +97,7 @@ public class DateHelper {
 			// date format.
 			Date newDate = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT)
 					.parse(date);
+
 			// reformats the date only to extract the day of the week.
 			return new SimpleDateFormat("EEEE").format(newDate);
 
@@ -90,23 +105,25 @@ public class DateHelper {
 			return date;
 		}
 	}
-	
+
 	public static String getDateNow() {
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
+		SimpleDateFormat formatter = new SimpleDateFormat(
+				RealFarmProvider.DATE_FORMAT);
 		formatter.setLenient(true);
-		return formatter.format(currentDate.getTime())+" 00:00:00";
+		return formatter.format(currentDate.getTime()) + " 00:00:00";
 	}
-	
+
 	public static String getDatePast(int offsetDays) {
 		Calendar currentDate = Calendar.getInstance();
-		SimpleDateFormat formatter = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
+		SimpleDateFormat formatter = new SimpleDateFormat(
+				RealFarmProvider.DATE_FORMAT);
 		formatter.setLenient(true);
 		currentDate.add(Calendar.DATE, offsetDays);
-		return formatter.format(currentDate.getTime())+" 00:00:00";
+		return formatter.format(currentDate.getTime()) + " 00:00:00";
 	}
-	
-	public static long getBeginningYear(){
+
+	public static long getBeginningYear() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.set(Calendar.DAY_OF_MONTH, 01);
 		calendar.set(Calendar.MONTH, 00);
@@ -118,8 +135,10 @@ public class DateHelper {
 		c.setLenient(false);
 		try {
 			c.set(year, month, day);
-			Date dt = c.getTime();
-		} catch(IllegalArgumentException e) {
+			// getTime() will produce an exception if the date is invalid.
+
+		c.getTime();
+		} catch (IllegalArgumentException e) {
 			return false;
 		}
 		return true;

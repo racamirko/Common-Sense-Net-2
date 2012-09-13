@@ -23,10 +23,11 @@ import com.commonsensenet.realfarm.view.ActionItemAdapter;
  */
 public class DiaryActivity extends HelpEnabledActivity implements
 		OnItemClickListener, OnItemLongClickListener {
-	/** Access to the underlying database of the application. */
-	private RealFarmProvider mDataProvider;
+
 	/** ListAdapter used to handle the actions. */
 	private ActionItemAdapter mActionItemAdapter;
+	/** Access to the underlying database of the application. */
+	private RealFarmProvider mDataProvider;
 	/** ListView where the diary is rendered. */
 	private ListView mDiaryListView;
 
@@ -42,8 +43,9 @@ public class DiaryActivity extends HelpEnabledActivity implements
 		// gets the actions from the database
 		List<Action> actions = mDataProvider.getActionsByUserId(Global.userId);
 
-		if (actions == null || actions.size() == 0)
+		if (actions == null || actions.size() == 0) {
 			playAudio(R.raw.problems, true);
+		}
 
 		// creates the custom adapter.
 		mActionItemAdapter = new ActionItemAdapter(this, actions, mDataProvider);
