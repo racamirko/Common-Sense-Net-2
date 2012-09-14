@@ -41,6 +41,7 @@ import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
+import com.commonsensenet.realfarm.sync.AliveTask;
 import com.commonsensenet.realfarm.sync.UpstreamTask;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -379,6 +380,18 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		super.onCreate(savedInstanceState);
 
+		// adds the Task to the scheduler.
+		SchedulerManager.getInstance().saveTask(getApplicationContext(),
+				"*/1 * * * *", // a cron string
+				UpstreamTask.class);
+		SchedulerManager.getInstance().saveTask(getApplicationContext(),
+				"0 12 * * *", // a cron string
+				AliveTask.class);
+		SchedulerManager.getInstance().restart(getApplicationContext(),
+				UpstreamTask.class);
+		SchedulerManager.getInstance().restart(getApplicationContext(),
+				AliveTask.class);
+
 		// clears the navigation to an action.
 		Global.selectedAction = null;
 
@@ -441,14 +454,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))
 				.setImageResource(userImageResId);
-
-		// activates the upstream class.
-		Log.i(getLogTag(), "scheduler activated");
-		SchedulerManager.getInstance().saveTask(getApplicationContext(),
-				"*/1 * * * *", // a cron string
-				UpstreamTask.class);
-		SchedulerManager.getInstance().restart(getApplicationContext(),
-				UpstreamTask.class);
 
 		// clears the database
 		// initDb();
