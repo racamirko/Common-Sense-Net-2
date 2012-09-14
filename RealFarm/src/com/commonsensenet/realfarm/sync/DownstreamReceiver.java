@@ -117,9 +117,7 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Long.valueOf(separated2[8]),
 								Integer.valueOf(separated2[9]));
 
-					}
-
-					if (Integer.valueOf(messageType) == 1002) {
+					} else if (Integer.valueOf(messageType) == 1002) {
 						// users insertions
 
 						System.out.println("In US \n");
@@ -130,17 +128,13 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Integer.valueOf(separated2[7]),
 								Integer.valueOf(separated2[8]),
 								Long.valueOf(separated2[9]));
-					}
-
-					if (Integer.valueOf(messageType) == 1003) {
+					} else if (Integer.valueOf(messageType) == 1003) {
 						// wf insertions
 						System.out.println("In WF \n");
 						mDataProvider.addWeatherForecast(separated2[0],
 								Integer.valueOf(separated2[1]), separated2[2]);
 
-					}
-
-					if (Integer.valueOf(messageType) == 1004) {
+					} else if (Integer.valueOf(messageType) == 1004) {
 
 						System.out.println("In MP \n");
 						String sep0 = separated2[0];
@@ -148,6 +142,20 @@ public class DownstreamReceiver extends BroadcastReceiver {
 						int sep2 = Integer.valueOf(separated2[2]);
 						String sep3 = separated2[3];
 						mDataProvider.addMarketPrice(sep0, sep1, sep2, sep3);
+
+					} else if (Integer.valueOf(messageType) == 1005) {
+
+						mDataProvider.addRecommendation(
+								Long.valueOf(separated2[0]),
+								Long.valueOf(separated2[1]),
+								Long.valueOf(separated2[2]),
+								Long.valueOf(separated2[3]),
+								Long.valueOf(separated2[4]),
+								Integer.valueOf(separated2[5]),
+								Long.valueOf(separated2[6]),
+								Integer.valueOf(separated2[7]),
+								Integer.valueOf(separated2[8]),
+								Integer.valueOf(separated2[9]));
 
 					}
 				}
