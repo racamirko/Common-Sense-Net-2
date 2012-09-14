@@ -758,7 +758,7 @@ public class RealFarmDatabase {
 		// R.raw.john_doe, R.raw.ckpura },
 		Object[][] userData = {
 
-				{ "Hendrik", "Knoche", "911208750956119", "8861214050",
+				{ "Hendrik", "Knoche", "911208750941913", "8151906857",
 						"farmer_hendrik_knoche", "CK Pura", R.raw.john_doe,
 						R.raw.ckpura },
 				{ "Oscar", "Bolanos", "911208750485879", "9483824373",

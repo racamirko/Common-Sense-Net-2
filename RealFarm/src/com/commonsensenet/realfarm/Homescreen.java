@@ -630,7 +630,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
 			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
 			weatherTemp.setText("?");
-			weatherImage.setImageResource(R.drawable.wf_weatherunknown);
+			weatherImage.setImageResource(R.drawable.wf_unknown);
 		}
 	}
 
