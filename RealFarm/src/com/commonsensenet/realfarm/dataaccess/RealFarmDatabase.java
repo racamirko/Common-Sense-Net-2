@@ -43,15 +43,6 @@ public class RealFarmDatabase {
 			super(context, DB_NAME, null, DB_VERSION);
 		}
 
-		@Override
-		public void onOpen(SQLiteDatabase db) {
-			super.onOpen(db);
-			if (!db.isReadOnly()) {
-				// enables the foreign key constraints.
-				db.execSQL("PRAGMA foreign_keys=ON;");
-			}
-		}
-
 		/**
 		 * Create the database with the table name and column names
 		 * 
@@ -380,6 +371,15 @@ public class RealFarmDatabase {
 		}
 
 		@Override
+		public void onOpen(SQLiteDatabase db) {
+			super.onOpen(db);
+			if (!db.isReadOnly()) {
+				// enables the foreign key constraints.
+				db.execSQL("PRAGMA foreign_keys=ON;");
+			}
+		}
+
+		@Override
 		public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
 
 		}
@@ -407,30 +407,23 @@ public class RealFarmDatabase {
 		}
 	}
 
-	// TODO: This is for the selling aggregate and the aggregates number
-	// indicators on the homescreen. Put that somewhere into the database
-	public static final int NUMBER_DAYS_NEWS = 14;
-	public static final int SELLING_AGGREGATE_INCREMENT = 99;
-
-	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;
-	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
-
 	public static final int ACTION_TYPE_ALL_ID = 0;
 	public static final int ACTION_TYPE_FERTILIZE_ID = 2;
+
 	public static final int ACTION_TYPE_HARVEST_ID = 6;
 	public static final int ACTION_TYPE_IRRIGATE_ID = 3;
+
+	public static final int ACTION_TYPE_PLAN_ID = 8;
 	public static final int ACTION_TYPE_REPORT_ID = 4;
 	public static final int ACTION_TYPE_SELL_ID = 7;
 	public static final int ACTION_TYPE_SOW_ID = 1;
 	public static final int ACTION_TYPE_SPRAY_ID = 5;
-	public static final int ACTION_TYPE_PLAN_ID = 8;
-
 	public static final String COLUMN_NAME_ACTION_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_ACTION_CROPTYPEID = "cropTypeId";
 	public static final String COLUMN_NAME_ACTION_DATE = "date";
 	public static final String COLUMN_NAME_ACTION_ID = "id";
+
 	public static final String COLUMN_NAME_ACTION_ISADMINACTION = "isAdminAction";
-	public static final String COLUMN_NAME_ACTION_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_ACTION_PLOTID = "plotId";
 	public static final String COLUMN_NAME_ACTION_PRICE = "price";
 	public static final String COLUMN_NAME_ACTION_QUANTITY1 = "quantity1";
@@ -438,11 +431,11 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_RESOURCE1ID = "resource1Id";
 	public static final String COLUMN_NAME_ACTION_RESOURCE2ID = "resource2Id";
 	public static final String COLUMN_NAME_ACTION_SEEDTYPEID = "seedTypeId";
+	public static final String COLUMN_NAME_ACTION_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_ACTION_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_ACTION_UNIT1ID = "unit1Id";
 	public static final String COLUMN_NAME_ACTION_UNIT2ID = "unit2Id";
 	public static final String COLUMN_NAME_ACTION_USERID = "userId";
-
 	public static final String COLUMN_NAME_ACTIONTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONTYPE_ID = "id";
 	public static final String COLUMN_NAME_ACTIONTYPE_IMAGE = "image";
@@ -452,102 +445,102 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ADVICE_ID = "id";
 	public static final String COLUMN_NAME_ADVICE_PROBLEMID = "problemTypeId";
 	public static final String COLUMN_NAME_ADVICE_SEEDTYPEID = "seedTypeId";
+
 	public static final String COLUMN_NAME_ADVICE_STAGENUMBER = "stageNumber";
-
 	public static final String COLUMN_NAME_ADVICEPIECE_ADVICEID = "adviceId";
-	public static final String COLUMN_NAME_ADVICEPIECE_COMMENT = "comment";
 	public static final String COLUMN_NAME_ADVICEPIECE_AUDIO = "audio";
+	public static final String COLUMN_NAME_ADVICEPIECE_COMMENT = "comment";
 	public static final String COLUMN_NAME_ADVICEPIECE_ID = "id";
-	public static final String COLUMN_NAME_ADVICEPIECE_ORDERNUMBER = "orderNumber";
-	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDRESOURCEID = "suggestedResourceId";
-	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDACTIONID = "suggestedActionId";
 
+	public static final String COLUMN_NAME_ADVICEPIECE_ORDERNUMBER = "orderNumber";
+	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDACTIONID = "suggestedActionId";
+	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDRESOURCEID = "suggestedResourceId";
 	public static final String COLUMN_NAME_CROPTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_CROPTYPE_BACKGROUNDIMAGE = "backgroundImage";
 	public static final String COLUMN_NAME_CROPTYPE_ID = "id";
 	public static final String COLUMN_NAME_CROPTYPE_IMAGE = "image";
+
 	public static final String COLUMN_NAME_CROPTYPE_NAME = "name";
 	public static final String COLUMN_NAME_CROPTYPE_SHORTNAME = "shortName";
-
 	public static final String COLUMN_NAME_MARKETPRICE_DATE = "date";
 	public static final String COLUMN_NAME_MARKETPRICE_ID = "id";
-	public static final String COLUMN_NAME_MARKETPRICE_TYPE = "type";
-	public static final String COLUMN_NAME_MARKETPRICE_MIN = "min";
 	public static final String COLUMN_NAME_MARKETPRICE_MAX = "max";
+	public static final String COLUMN_NAME_MARKETPRICE_MIN = "min";
 
+	public static final String COLUMN_NAME_MARKETPRICE_TYPE = "type";
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_IMAGEPATH = "imagePath";
 	public static final String COLUMN_NAME_PLOT_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_PLOT_ISENABLED = "isEnabled";
-	public static final String COLUMN_NAME_PLOT_SENDSTATUS = "sendStatus";
+
 	public static final String COLUMN_NAME_PLOT_SEEDTYPEID = "seedtypeId";
+	public static final String COLUMN_NAME_PLOT_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_PLOT_SIZE = "size";
 	public static final String COLUMN_NAME_PLOT_SOILTYPEID = "soilTypeId";
 	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
-	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 	public static final String COLUMN_NAME_PLOT_TYPE = "type";
-
-	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
-	public static final String COLUMN_NAME_RECOMMENDATION_TIMESTAMP = "timestamp";
-	public static final String COLUMN_NAME_RECOMMENDATION_PLOTID = "plotId";
-	public static final String COLUMN_NAME_RECOMMENDATION_ADVICEID = "adviceId";
-	public static final String COLUMN_NAME_RECOMMENDATION_USERID = "userId";
+	public static final String COLUMN_NAME_PLOT_USERID = "userId";
 	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE = "actionRequiredByDate";
-	public static final String COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE = "validThroughDate";
-	public static final String COLUMN_NAME_RECOMMENDATION_SEVERITY = "severity";
-	public static final String COLUMN_NAME_RECOMMENDATION_PROBABILITY = "probability";
+	public static final String COLUMN_NAME_RECOMMENDATION_ADVICEID = "adviceId";
+	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
 	public static final String COLUMN_NAME_RECOMMENDATION_ISUNREAD = "isUnread";
 
+	public static final String COLUMN_NAME_RECOMMENDATION_PLOTID = "plotId";
+	public static final String COLUMN_NAME_RECOMMENDATION_PROBABILITY = "probability";
+	public static final String COLUMN_NAME_RECOMMENDATION_SEVERITY = "severity";
+	public static final String COLUMN_NAME_RECOMMENDATION_TIMESTAMP = "timestamp";
+	public static final String COLUMN_NAME_RECOMMENDATION_USERID = "userId";
+	public static final String COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE = "validThroughDate";
 	public static final String COLUMN_NAME_RESOURCE_AUDIO = "audio";
 	public static final String COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE = "backgroundImage";
 	public static final String COLUMN_NAME_RESOURCE_ID = "id";
 	public static final String COLUMN_NAME_RESOURCE_IMAGE1 = "image1";
+
 	public static final String COLUMN_NAME_RESOURCE_IMAGE2 = "image2";
 	public static final String COLUMN_NAME_RESOURCE_NAME = "name";
 	public static final String COLUMN_NAME_RESOURCE_SHORTNAME = "shortName";
 	public static final String COLUMN_NAME_RESOURCE_TYPE = "type";
 	public static final String COLUMN_NAME_RESOURCE_VALUE = "value";
-
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SEEDTYPE_CROPTYPEID = "cropTypeId";
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
 	public static final String COLUMN_NAME_SEEDTYPE_IMAGE = "resource";
+
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_SHORTNAME = "shortName";
-
 	public static final String COLUMN_NAME_SOILMOISTURE_CLUSTER = "cluster";
 	public static final String COLUMN_NAME_SOILMOISTURE_DATE = "date";
 	public static final String COLUMN_NAME_SOILMOISTURE_ID = "id";
 	public static final String COLUMN_NAME_SOILMOISTURE_ISADMINACTION = "isAdminAction";
-	public static final String COLUMN_NAME_SOILMOISTURE_VALUE = "value";
 
+	public static final String COLUMN_NAME_SOILMOISTURE_VALUE = "value";
 	public static final String COLUMN_NAME_SOILTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SOILTYPE_ID = "id";
 	public static final String COLUMN_NAME_SOILTYPE_IMAGE = "image";
 	public static final String COLUMN_NAME_SOILTYPE_NAME = "name";
-	public static final String COLUMN_NAME_SOILTYPE_SHORTNAME = "shortName";
 
-	public static final String COLUMN_NAME_UNIT_VALUE = "value";
+	public static final String COLUMN_NAME_SOILTYPE_SHORTNAME = "shortName";
 	public static final String COLUMN_NAME_UNIT_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_IMAGE = "image";
-	public static final String COLUMN_NAME_UNIT_NAME = "name";
 
+	public static final String COLUMN_NAME_UNIT_NAME = "name";
+	public static final String COLUMN_NAME_UNIT_VALUE = "value";
 	public static final String COLUMN_NAME_USER_DEVICEID = "deviceId";
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstname";
-	public static final String COLUMN_NAME_USER_LOCATION = "location";
 	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_IMAGEPATH = "imagePath";
+
 	public static final String COLUMN_NAME_USER_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_USER_ISENABLED = "isEnabled";
-	public static final String COLUMN_NAME_USER_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastname";
-	public static final String COLUMN_NAME_USER_MOBILENUMBER = "mobileNumber";
-	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
-	public static final String COLUMN_NAME_USER_NAME_AUDIO = "nameAudio";
+	public static final String COLUMN_NAME_USER_LOCATION = "location";
 	public static final String COLUMN_NAME_USER_LOCATION_AUDIO = "locationAudio";
-
+	public static final String COLUMN_NAME_USER_MOBILENUMBER = "mobileNumber";
+	public static final String COLUMN_NAME_USER_NAME_AUDIO = "nameAudio";
+	public static final String COLUMN_NAME_USER_SENDSTATUS = "sendStatus";
+	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_WEATHERFORECAST_DATE = "date";
 	public static final String COLUMN_NAME_WEATHERFORECAST_ID = "id";
 	public static final String COLUMN_NAME_WEATHERFORECAST_TEMPERATURE = "temperature";
@@ -562,6 +555,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_YIELDAGG_HADPEST = "hadPest";
 	public static final String COLUMN_NAME_YIELDAGG_HASFERTILIZED = "hasFertilized";
 	public static final String COLUMN_NAME_YIELDAGG_HASIRRIGATED = "hasIrrigated";
+
 	public static final String COLUMN_NAME_YIELDAGG_ID = "id";
 	public static final String COLUMN_NAME_YIELDAGG_PLACEID = "placeId";
 	public static final String COLUMN_NAME_YIELDAGG_SEASONID = "seasonId";
@@ -570,38 +564,44 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_YIELDAGG_SOWINGWINDOWID = "sowingWindowId";
 	public static final String COLUMN_NAME_YIELDAGG_SPRAYED = "hasSprayed";
 	public static final String COLUMN_NAME_YIELDAGG_YIELDINQTPACRE = "yieldInQtPerAcre";
-
 	/** Filename of the database. */
 	public static final String DB_NAME = "realFarm.db";
 	/** Current version of the database. */
 	public static final int DB_VERSION = 1;
 	/** Default Device Id. */
 	public static final String DEFAULT_DEVICE_ID = "000000000";
+	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;
+
+	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
 	/** Identifier used to debug the database. */
 	public static final String LOG_TAG = "RealFarm";
+	// TODO: This is for the selling aggregate and the aggregates number
+	// indicators on the homescreen. Put that somewhere into the database
+	public static final int NUMBER_DAYS_NEWS = 14;
+	public static final int RESOURCE_TYPE_ADVICE = 12;
 
+	public static final int RESOURCE_TYPE_DAYS_SPAN = 10;
+	public static final int RESOURCE_TYPE_DISEASE_SELECTOR = 17;
+	public static final int RESOURCE_TYPE_FERTILIZE_SELECTOR = 20;
 	public static final int RESOURCE_TYPE_FERTILIZER = 3;
 	public static final int RESOURCE_TYPE_INTERCROP = 4;
+	public static final int RESOURCE_TYPE_IRRIGATION_SELECTOR = 18;
 	public static final int RESOURCE_TYPE_IRRIGATIONMETHOD = 5;
+	public static final int RESOURCE_TYPE_LOCATION = 13;
 	public static final int RESOURCE_TYPE_MONTH = 6;
+	public static final int RESOURCE_TYPE_PEST_SELECTOR = 16;
 	public static final int RESOURCE_TYPE_PESTICIDE = 2;
+	public static final int RESOURCE_TYPE_PLOT_TYPE = 11;
 	public static final int RESOURCE_TYPE_PROBLEM = 0;
 	public static final int RESOURCE_TYPE_SATISFACTION = 7;
+	public static final int RESOURCE_TYPE_SOIL_TYPE = 22;
+	public static final int RESOURCE_TYPE_SOWING_WINDOW = 15;
+	public static final int RESOURCE_TYPE_SPRAYING_SELECTOR = 19;
 	public static final int RESOURCE_TYPE_TREATMENT = 8;
 	public static final int RESOURCE_TYPE_UNIT = 9;
-	public static final int RESOURCE_TYPE_DAYS_SPAN = 10;
-	public static final int RESOURCE_TYPE_PLOT_TYPE = 11;
-	public static final int RESOURCE_TYPE_ADVICE = 12;
-	public static final int RESOURCE_TYPE_LOCATION = 13;
-	public static final int RESOURCE_TYPE_YEAR = 14;
-	public static final int RESOURCE_TYPE_SOWING_WINDOW = 15;
-	public static final int RESOURCE_TYPE_PEST_SELECTOR = 16;
-	public static final int RESOURCE_TYPE_DISEASE_SELECTOR = 17;
-	public static final int RESOURCE_TYPE_IRRIGATION_SELECTOR = 18;
-	public static final int RESOURCE_TYPE_SPRAYING_SELECTOR = 19;
-	public static final int RESOURCE_TYPE_FERTILIZE_SELECTOR = 20;
 	public static final int RESOURCE_TYPE_VARIETY = 21;
-	public static final int RESOURCE_TYPE_SOIL_TYPE = 22;
+	public static final int RESOURCE_TYPE_YEAR = 14;
+	public static final int SELLING_AGGREGATE_INCREMENT = 99;
 
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONTYPE = "actionType";
@@ -671,6 +671,10 @@ public class RealFarmDatabase {
 		mDb = null;
 	}
 
+	public long deleteEntries(String tableName, String selector, String[] values) {
+		return deleteFromDatabase(tableName, selector, values, mDb);
+	}
+
 	public long deleteEntriesdb(String TableName, String whereClause,
 			String[] whereArgs) {
 		long result = -1;
@@ -683,6 +687,11 @@ public class RealFarmDatabase {
 			}
 		}
 		return result;
+	}
+
+	public long deleteFromDatabase(String tableName, String selector,
+			String[] values, SQLiteDatabase database) {
+		return database.delete(tableName, selector, values);
 	}
 
 	/**
@@ -1438,10 +1447,6 @@ public class RealFarmDatabase {
 		return insertEntriesIntoDatabase(tableName, values, mDb);
 	}
 
-	public long deleteEntries(String tableName, String selector, String[] values) {
-		return deleteFromDatabase(tableName, selector, values, mDb);
-	}
-
 	/**
 	 * Inserts the given values inside the specified table.
 	 * 
@@ -1466,11 +1471,6 @@ public class RealFarmDatabase {
 			}
 		}
 		return result;
-	}
-
-	public long deleteFromDatabase(String tableName, String selector,
-			String[] values, SQLiteDatabase database) {
-		return database.delete(tableName, selector, values);
 	}
 
 	/**

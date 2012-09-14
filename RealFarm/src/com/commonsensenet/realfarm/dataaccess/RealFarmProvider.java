@@ -505,6 +505,17 @@ public class RealFarmProvider {
 						String.valueOf(advicePieceId) });
 	}
 
+	public int getActionCount() {
+		mDatabase.open();
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
+				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID }, null,
+				null, null, null, null);
+		int actionCount = c.getCount();
+		c.close();
+		mDatabase.close();
+		return actionCount;
+	}
+
 	public List<Action> getActions() {
 
 		List<Action> tmpActions = new ArrayList<Action>();
@@ -1539,6 +1550,17 @@ public class RealFarmProvider {
 				+ "=" + userId);
 
 		return plots.size() > 0 ? plots.get(0) : null;
+	}
+
+	public int getPlotCount() {
+		mDatabase.open();
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_PLOT,
+				new String[] { RealFarmDatabase.COLUMN_NAME_PLOT_ID }, null,
+				null, null, null, null);
+		int plotCount = c.getCount();
+		c.close();
+		mDatabase.close();
+		return plotCount;
 	}
 
 	/**

@@ -17,7 +17,7 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 public class AliveTask implements Task {
 
 	/** Code used to identify an Alive message. */
-	public static final String ALIVE_CODE = "%1006%";
+	public static final int ALIVE_CODE = 1006;
 	/** Phone number of the server. */
 	public static final String SERVER_PHONE_NUMBER = "9742016861";
 
@@ -37,13 +37,13 @@ public class AliveTask implements Task {
 		mDataProvider = RealFarmProvider.getInstance(ctx);
 
 		// gets all the data from the server that has not being sent.
-		mActionCount = mDataProvider.getActions().size();
-		mPlotCount = mDataProvider.getPlots().size();
+		mActionCount = mDataProvider.getActionCount();
+		mPlotCount = mDataProvider.getPlotCount();
 		mUserCount = mDataProvider.getUserCount();
 
 		// sends the message.
-		sendMessage(ALIVE_CODE + mPlotCount + "#" + mUserCount + "#"
-				+ mActionCount + "%");
+		sendMessage("%" + ALIVE_CODE + "%" + mPlotCount + "#" + mUserCount
+				+ "#" + mActionCount + "%");
 
 		return res;
 	}
