@@ -16,7 +16,8 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="left|center"
             android:orientation="horizontal"
-            android:paddingRight="5dp" >
+            android:paddingLeft="@dimen/margin"
+            android:paddingRight="@dimen/margin" >
 
             <TextView
                 android:id="@+id/variety_sow_txt"
@@ -55,7 +56,8 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="left|center"
             android:orientation="horizontal"
-            android:paddingRight="5dp" >
+            android:paddingLeft="@dimen/margin"
+            android:paddingRight="@dimen/margin" >
 
             <TextView
                 android:layout_width="90dp"
@@ -93,7 +95,8 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="left|center"
             android:orientation="horizontal"
-            android:paddingRight="5dp" >
+            android:paddingLeft="@dimen/margin"
+            android:paddingRight="@dimen/margin" >
 
             <TextView
                 android:layout_width="90dp"
@@ -131,7 +134,8 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="left|center"
             android:orientation="horizontal"
-            android:paddingRight="5dp" >
+            android:paddingLeft="@dimen/margin"
+            android:paddingRight="@dimen/margin" >
 
             <TextView
                 android:layout_width="90dp"
@@ -160,7 +164,7 @@
                 android:textColor="@android:color/white"
                 android:textSize="22sp" />
         </LinearLayout>
-        
+
         <LinearLayout
             android:id="@+id/type_tr"
             android:layout_width="match_parent"
@@ -169,7 +173,8 @@
             android:background="@android:drawable/list_selector_background"
             android:gravity="left|center"
             android:orientation="horizontal"
-            android:paddingRight="5dp" >
+            android:paddingLeft="@dimen/margin"
+            android:paddingRight="@dimen/margin" >
 
             <TextView
                 android:layout_width="90dp"
