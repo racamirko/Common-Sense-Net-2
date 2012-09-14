@@ -83,7 +83,7 @@ public class DateHelper {
 			Date dateTime = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT)
 					.parse(date);
 
-			return new SimpleDateFormat("dd/MM/yyyy").format(dateTime);
+			return new SimpleDateFormat("dd/MM").format(dateTime);
 
 		} catch (ParseException e) {
 			return date;

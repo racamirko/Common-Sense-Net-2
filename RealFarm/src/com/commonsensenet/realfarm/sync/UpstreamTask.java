@@ -54,7 +54,7 @@ public class UpstreamTask implements Task {
 	private List<User> mUserList;
 
 	public void registerReceivers(Context context) {
-		if (mSendBroadcastReceiver != null) {
+		if (mSendBroadcastReceiver == null) {
 			mSendBroadcastReceiver = new BroadcastReceiver() {
 				@Override
 				public void onReceive(Context arg0, Intent arg1) {
@@ -109,7 +109,7 @@ public class UpstreamTask implements Task {
 					SENT));
 		}
 
-		if (mDeliveredBroadcastReceiver != null) {
+		if (mDeliveredBroadcastReceiver == null) {
 			mDeliveredBroadcastReceiver = new BroadcastReceiver() {
 				@Override
 				public void onReceive(Context arg0, Intent arg1) {
@@ -214,15 +214,18 @@ public class UpstreamTask implements Task {
 
 		// sets the flag for the sent actions.
 		for (int x = 0; x < mActionList.size(); x++) {
-			mDataProvider.setActionStatus(mActionList.get(x).getId(), 1);
+			mDataProvider.setActionStatus(mActionList.get(x).getId(),
+					Model.STATUS_SENT);
 		}
 		// sets the flag for the sent plots.
 		for (int x = 0; x < mPlotList.size(); x++) {
-			mDataProvider.setPlotStatus(mPlotList.get(x).getId(), 1);
+			mDataProvider.setPlotStatus(mPlotList.get(x).getId(),
+					Model.STATUS_SENT);
 		}
 		// sets the flag for the sent users.
 		for (int x = 0; x < mUserList.size(); x++) {
-			mDataProvider.setUserStatus(mUserList.get(x).getId(), 1);
+			mDataProvider.setUserStatus(mUserList.get(x).getId(),
+					Model.STATUS_SENT);
 		}
 
 		return res;

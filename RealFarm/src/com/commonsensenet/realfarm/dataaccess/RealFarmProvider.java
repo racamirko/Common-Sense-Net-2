@@ -69,6 +69,7 @@ public class RealFarmProvider {
 		BigDecimal rounded = bd.setScale(precision, roundingMode);
 		return rounded.doubleValue();
 	}
+
 	/** Cached ActionTypes to improve performance. */
 	private List<Resource> mActionTypes;
 	/** Real farm database access. */
@@ -355,8 +356,7 @@ public class RealFarmProvider {
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_SEVERITY, severity);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_PROBABILITY,
 				probability);
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD,
-				isUnread);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD, isUnread);
 
 		mDatabase.open();
 
@@ -631,8 +631,8 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS,
 						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
 						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
-				RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS + " = " + sendStatus + "",
-				null, null, null, null);
+				RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS + " = "
+						+ sendStatus + "", null, null, null, null);
 
 		Action a = null;
 		if (c.moveToFirst()) {
@@ -748,8 +748,6 @@ public class RealFarmProvider {
 					at = new ActionType(c.getInt(0), c.getString(1),
 							c.getInt(2), c.getInt(3));
 					mActionTypes.add(at);
-
-					Log.d("action name values: ", at.toString());
 
 				} while (c.moveToNext());
 			}
@@ -1582,7 +1580,8 @@ public class RealFarmProvider {
 
 	// To get the plots based on send status
 	public List<Plot> getPlotsBySendStatus(int sendStatus) {
-		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_SENDSTATUS + "=" + sendStatus);
+		return getPlots(RealFarmDatabase.COLUMN_NAME_PLOT_SENDSTATUS + "="
+				+ sendStatus);
 	}
 
 	/**
@@ -2514,7 +2513,8 @@ public class RealFarmProvider {
 
 	// To get the users based on send status
 	public List<User> getUsersBySendStatus(int sendStatus) {
-		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_SENDSTATUS + "=" + sendStatus);
+		return getUsers(RealFarmDatabase.COLUMN_NAME_USER_SENDSTATUS + "="
+				+ sendStatus);
 	}
 
 	// TODO: add optimization

@@ -56,7 +56,7 @@ public class ApplicationTracker {
 	 */
 	public static ApplicationTracker getInstance() {
 		if (sInstance == null) {
-			Log.i(LOG_TAG, "Initializing sound system");
+			Log.i(LOG_TAG, "Initializing Application Tracker");
 			sInstance = new ApplicationTracker();
 		}
 		return sInstance;
