@@ -23,11 +23,11 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 	/** Reference to the current instance. */
 	private final Context context = this;
-	private String actionName = "";
+	private String mActionName = "";
 
 	@Override
 	public String getLogTag() {
-		return this.getClass().getSimpleName() + " " + actionName;
+		return this.getClass().getSimpleName() + " " + mActionName;
 	}
 
 	protected void cancelAudio() {
@@ -60,7 +60,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 		}
 
 		super.onCreate(savedInstanceState, R.layout.tpl_aggregate, context);
-		actionName = mDataProvider.getActionTypeById(mActionTypeId).getName();
+		mActionName = mDataProvider.getActionTypeById(mActionTypeId).getName();
 		mCurrentAction = RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE;
 
 		// default seed/crop type id
@@ -129,7 +129,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 						img_1, 2);
 			}
 		});
-
 	}
 
 	public boolean onLongClick(View v) {
@@ -152,19 +151,19 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			addToSoundQueue(R.raw.there_crop);
 			playSound();
 		} else if (v.getId() == R.id.aggr_img_help) {
-			if (actionName == "Sow") {
+			if (mActionName == "Sow") {
 				playAudio(R.raw.sow_help, true);
-			} else if (actionName == "Fertilize") {
+			} else if (mActionName == "Fertilize") {
 				playAudio(R.raw.sow_help, true);
-			} else if (actionName == "Irrigate") {
+			} else if (mActionName == "Irrigate") {
 				playAudio(R.raw.sow_help, true);
-			} else if (actionName == "Report") {
+			} else if (mActionName == "Report") {
 				playAudio(R.raw.sow_help, true);
-			} else if (actionName == "Spray") {
+			} else if (mActionName == "Spray") {
 				playAudio(R.raw.sow_help, true);
-			} else if (actionName == "Harvest") {
+			} else if (mActionName == "Harvest") {
 				playAudio(R.raw.sow_help, true);
-			} else if (actionName == "Sell") {
+			} else if (mActionName == "Sell") {
 				playAudio(R.raw.sow_help, true);
 			}
 

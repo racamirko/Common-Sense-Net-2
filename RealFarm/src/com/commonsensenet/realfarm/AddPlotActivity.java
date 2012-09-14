@@ -28,15 +28,13 @@ public class AddPlotActivity extends DataFormActivity {
 	private double mSize;
 	private int mType;
 	private int mSoilType;
-
-	private int defaultSoil = -1;
-	private int defaultCrop = -1;
-	private int defaultType = -1;
-	private String defaultSize = "0.0";
-
-	private List<Resource> soilList;
-	private List<Resource> cropList;
-	private List<Resource> typeList;
+	public static final int DEFAULT_SOILTYPE = -1;
+	public static final int DEFAULT_CROP = -1;
+	public static final int DEFAULT_SOIL = -1;
+	public static final String DEFAULT_SIZE = "0.0";
+	private List<Resource> mSoilTypeList;
+	private List<Resource> mCropTypeList;
+	private List<Resource> mTypeList;
 
 	/**
 	 * Adds the current plot to the database.
@@ -54,16 +52,16 @@ public class AddPlotActivity extends DataFormActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.act_add_plot);
 
-		soilList = mDataProvider.getSoilTypes();
-		cropList = mDataProvider.getVarieties();
-		typeList = mDataProvider
+		mSoilTypeList = mDataProvider.getSoilTypes();
+		mCropTypeList = mDataProvider.getVarieties();
+		mTypeList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_PLOT_TYPE);
 
 		// adds the name of the fields to validate.
-		mResultsMap.put(SOIL_TYPE, defaultSoil);
-		mResultsMap.put(MAIN_CROP, defaultCrop);
-		mResultsMap.put(SIZE, defaultSize);
-		mResultsMap.put(TYPE, defaultType);
+		mResultsMap.put(SOIL_TYPE, DEFAULT_SOILTYPE);
+		mResultsMap.put(MAIN_CROP, DEFAULT_CROP);
+		mResultsMap.put(SIZE, DEFAULT_SIZE);
+		mResultsMap.put(TYPE, DEFAULT_SOIL);
 
 		final View plotImageRow;
 		final View soilTypeRow;
@@ -124,9 +122,9 @@ public class AddPlotActivity extends DataFormActivity {
 				Log.d("in plot image dialog", "in dialog");
 				stopAudio();
 
-				displayDialog(v, soilList, SOIL_TYPE, "Select the soil type",
-						R.raw.selectsoiltype, R.id.dlg_lbl_soil_plot,
-						R.id.soiltype_tr, 0);
+				displayDialog(v, mSoilTypeList, SOIL_TYPE,
+						"Select the soil type", R.raw.selectsoiltype,
+						R.id.dlg_lbl_soil_plot, R.id.soiltype_tr, 0);
 			}
 		});
 
@@ -136,9 +134,9 @@ public class AddPlotActivity extends DataFormActivity {
 
 				stopAudio();
 
-				displayDialog(v, cropList, MAIN_CROP, "Select the variety",
-						R.raw.select_the_variety, R.id.dlg_lbl_crop_plot,
-						R.id.maincrop_tr, 0);
+				displayDialog(v, mCropTypeList, MAIN_CROP,
+						"Select the variety", R.raw.select_the_variety,
+						R.id.dlg_lbl_crop_plot, R.id.maincrop_tr, 0);
 			}
 		});
 
@@ -157,7 +155,7 @@ public class AddPlotActivity extends DataFormActivity {
 			public void onClick(View v) {
 				stopAudio();
 
-				displayDialog(v, typeList, TYPE, "Select the plot type",
+				displayDialog(v, mTypeList, TYPE, "Select the plot type",
 						R.raw.select_plot_type, R.id.type_txt, R.id.type_tr, 0);
 			}
 		});
@@ -170,7 +168,7 @@ public class AddPlotActivity extends DataFormActivity {
 
 		if (v.getId() == R.id.size_txt) {
 
-			if (mResultsMap.get(SIZE).equals(defaultSize))
+			if (mResultsMap.get(SIZE).equals(DEFAULT_SIZE))
 				playAudio(R.raw.enter_plot_size_acres, true);
 
 			else {
@@ -179,24 +177,28 @@ public class AddPlotActivity extends DataFormActivity {
 			}
 		} else if (v.getId() == R.id.dlg_lbl_crop_plot) {
 
-			if ((Integer) mResultsMap.get(MAIN_CROP) == defaultCrop)
+			if ((Integer) mResultsMap.get(MAIN_CROP) == DEFAULT_CROP)
 				playAudio(R.raw.select_maincrop, true);
 			else
-				playAudio(cropList.get(((Integer) mResultsMap.get(MAIN_CROP)))
-						.getAudio(), true);
+				playAudio(
+						mCropTypeList.get(
+								((Integer) mResultsMap.get(MAIN_CROP)))
+								.getAudio(), true);
 		} else if (v.getId() == R.id.dlg_lbl_soil_plot) {
 
-			if ((Integer) mResultsMap.get(SOIL_TYPE) == defaultSoil)
+			if ((Integer) mResultsMap.get(SOIL_TYPE) == DEFAULT_SOILTYPE)
 				playAudio(R.raw.selectsoiltype, true);
 			else
-				playAudio(soilList.get(((Integer) mResultsMap.get(SOIL_TYPE)))
-						.getAudio(), true);
+				playAudio(
+						mSoilTypeList.get(
+								((Integer) mResultsMap.get(SOIL_TYPE)))
+								.getAudio(), true);
 		} else if (v.getId() == R.id.type_txt) {
 
-			if ((Integer) mResultsMap.get(TYPE) == defaultType)
+			if ((Integer) mResultsMap.get(TYPE) == DEFAULT_SOIL)
 				playAudio(R.raw.select_plot_type, true);
 			else
-				playAudio(typeList.get(((Integer) mResultsMap.get(TYPE)))
+				playAudio(mTypeList.get(((Integer) mResultsMap.get(TYPE)))
 						.getAudio(), true);
 		}
 
@@ -246,7 +248,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.plot_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(SOIL_TYPE) != defaultSoil) {
+		if ((Integer) mResultsMap.get(SOIL_TYPE) != DEFAULT_SOILTYPE) {
 			highlightField(R.id.soiltype_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -255,7 +257,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.soiltype_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(MAIN_CROP) != defaultCrop) {
+		if ((Integer) mResultsMap.get(MAIN_CROP) != DEFAULT_CROP) {
 			highlightField(R.id.maincrop_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -264,7 +266,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.maincrop_tr, true);
 		}
 
-		if (mSize > Double.parseDouble(defaultSize)) {
+		if (mSize > Double.parseDouble(DEFAULT_SIZE)) {
 			highlightField(R.id.size_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -273,7 +275,7 @@ public class AddPlotActivity extends DataFormActivity {
 			highlightField(R.id.size_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(TYPE) != defaultType) {
+		if ((Integer) mResultsMap.get(TYPE) != DEFAULT_SOIL) {
 			highlightField(R.id.type_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -288,11 +290,11 @@ public class AddPlotActivity extends DataFormActivity {
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
 
-			mSoilType = soilList.get((Integer) mResultsMap.get(SOIL_TYPE))
+			mSoilType = mSoilTypeList.get((Integer) mResultsMap.get(SOIL_TYPE))
 					.getId();
-			mMainCrop = cropList.get((Integer) mResultsMap.get(MAIN_CROP))
+			mMainCrop = mCropTypeList.get((Integer) mResultsMap.get(MAIN_CROP))
 					.getId();
-			mType = typeList.get((Integer) mResultsMap.get(TYPE)).getId();
+			mType = mTypeList.get((Integer) mResultsMap.get(TYPE)).getId();
 
 			addPlotToDatabase();
 			return true;

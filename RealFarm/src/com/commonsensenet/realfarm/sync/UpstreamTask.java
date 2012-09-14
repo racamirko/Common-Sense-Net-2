@@ -260,7 +260,7 @@ public class UpstreamTask implements Task {
 
 		// tracks that the data that has been sent to the Server.
 		ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
-				"Upstream", sms);
+				"UPSTREAM", sms);
 
 		// gets the manager in charge of sending SMS.
 		SmsManager sm = SmsManager.getDefault();

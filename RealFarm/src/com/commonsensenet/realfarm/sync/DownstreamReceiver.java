@@ -14,6 +14,8 @@ import android.util.Log;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Model;
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class DownstreamReceiver extends BroadcastReceiver {
 
@@ -56,6 +58,10 @@ public class DownstreamReceiver extends BroadcastReceiver {
 			// it needs to begin with '%100' and have 3 parts after splitting
 			// using %
 			if (str.indexOf("%100") == 0 && separated1.length == 3) {
+
+				// tracks that a message has been received.
+				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+						"DOWNSTREAM", str);
 
 				// gets the type of message received.
 				String messageType = separated1[1];

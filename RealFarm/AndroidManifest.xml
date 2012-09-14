@@ -157,6 +157,7 @@
             android:name=".VideoActivity"
             android:label="Videos"
             android:screenOrientation="portrait"
+            android:icon="@drawable/hs_video"
             android:theme="@android:style/Theme.Black.NoTitleBar" />
         <activity
             android:name=".VideoPlayerActivity"
