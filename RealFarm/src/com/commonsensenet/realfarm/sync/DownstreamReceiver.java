@@ -4,7 +4,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
-import android.R;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -13,6 +12,7 @@ import android.os.Bundle;
 import android.telephony.SmsMessage;
 import android.util.Log;
 
+import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Model;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
@@ -62,8 +62,7 @@ public class DownstreamReceiver extends BroadcastReceiver {
 			if (str.indexOf("%100") == 0 && separated1.length == 3) {
 
 				// adds the sound to queue and plays it.
-				SoundQueue.getInstance().addToQueue(
-						com.commonsensenet.realfarm.R.raw.pong);
+				SoundQueue.getInstance().addToQueue(R.raw.pong);
 				SoundQueue.getInstance().play();
 
 				// tracks that a message has been received.
