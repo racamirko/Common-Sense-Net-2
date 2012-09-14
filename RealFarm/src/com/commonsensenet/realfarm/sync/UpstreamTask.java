@@ -1,6 +1,9 @@
 package com.commonsensenet.realfarm.sync;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.app.Activity;
@@ -52,6 +55,8 @@ public class UpstreamTask implements Task {
 	private List<Plot> mPlotList;
 	/** List of Users obtained from the Database. */
 	private List<User> mUserList;
+	/** Time in hours when a resend will be attempted. */
+	public static final int RESEND_TIME_IN_HOURS = 6;
 
 	public TaskResult doWork(ContextWrapper ctx) {
 		TaskResult res = new TaskResult();
@@ -62,13 +67,66 @@ public class UpstreamTask implements Task {
 		// gets the database provider.
 		mDataProvider = RealFarmProvider.getInstance(ctx);
 
+		// Sends first the long time waiting messages.
+		mActionList = mDataProvider.getActionsBySendStatus(Model.STATUS_SENT);
+		mPlotList = mDataProvider.getPlotsBySendStatus(Model.STATUS_SENT);
+		mUserList = mDataProvider.getUsersBySendStatus(Model.STATUS_SENT);
+
+		// initializes the list used to send the messages.
+		mMessageList = new ArrayList<Model>();
+
+		// gets the current date and subtracts RESEND_TIME_IN_HOURS hours.
+		Calendar now = GregorianCalendar.getInstance();
+		now.add(Calendar.HOUR, -RESEND_TIME_IN_HOURS);
+
+		Date date;
+		// checks all the actions that are older.
+		for (int x = 0; x < mActionList.size(); x++) {
+
+			// gets the current date of the action.
+			date = new Date(mActionList.get(x).getTimestamp());
+
+			// adds the action to the list to send.
+			if (date.before(now.getTime())) {
+				// tracks the re-sending
+				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+						"RESEND", mActionList.get(x).toString());
+				mMessageList.add(mActionList.get(x));
+			}
+		}
+		// checks all the plots that are older.
+		for (int x = 0; x < mPlotList.size(); x++) {
+
+			// gets the current date of the action.
+			date = new Date(mPlotList.get(x).getTimestamp());
+
+			// adds the action to the list to send.
+			if (date.before(now.getTime())) {
+				// tracks the re-sending
+				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+						"RESEND", mPlotList.get(x).toString());
+				mMessageList.add(mPlotList.get(x));
+			}
+		}
+		// checks all the users that are older.
+		for (int x = 0; x < mUserList.size(); x++) {
+
+			// gets the current date of the action.
+			date = new Date(mUserList.get(x).getTimestamp());
+
+			// adds the action to the list to send.
+			if (date.before(now.getTime())) {
+				// tracks the re-sending
+				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+						"RESEND", mUserList.get(x).toString());
+				mMessageList.add(mUserList.get(x));
+			}
+		}
+
 		// gets all the data from the server that has not being sent.
 		mActionList = mDataProvider.getActionsBySendStatus(Model.STATUS_UNSENT);
 		mPlotList = mDataProvider.getPlotsBySendStatus(Model.STATUS_UNSENT);
 		mUserList = mDataProvider.getUsersBySendStatus(Model.STATUS_UNSENT);
-
-		// initializes the list used to send the messages.
-		mMessageList = new ArrayList<Model>();
 
 		// adds all the elements into the message list.
 		mMessageList.addAll(mUserList);

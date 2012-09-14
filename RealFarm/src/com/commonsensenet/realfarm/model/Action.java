@@ -133,7 +133,7 @@ public class Action implements Model {
 		return mSeedTypeId;
 	}
 
-	public long getTimetamp() {
+	public long getTimestamp() {
 		return mTimestamp;
 	}
 
@@ -157,7 +157,7 @@ public class Action implements Model {
 				+ getQuantity2() + "#" + getUnit1() + "#" + getUnit2() + "#"
 				+ getResource1Id() + "#" + getResource2Id() + "#" + getPrice()
 				+ "#" + getUserId() + "#" + getIsAdminAction() + "#"
-				+ getTimetamp() + "%";
+				+ getTimestamp() + "%";
 	}
 
 	@Override
