@@ -66,7 +66,7 @@ public class UpstreamTask implements Task {
 
 				// obtains the values from the bundle.
 				if (extras != null) {
-					id = extras.getInt("id");
+					id = extras.getLong("id");
 					type = extras.getInt("type");
 				}
 
