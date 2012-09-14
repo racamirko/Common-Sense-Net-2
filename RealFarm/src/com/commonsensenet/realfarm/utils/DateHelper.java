@@ -65,9 +65,10 @@ public class DateHelper {
 				return String.format(context.getString(R.string.dateLastWeek),
 						dayDif);
 			else {
-				return String.format(
-						context.getString(R.string.dateMoreThanAWeek),
-						(int) Math.floor(dayDif / 7));
+				return "";
+				// return String.format(
+				// context.getString(R.string.dateMoreThanAWeek),
+				// (int) Math.floor(dayDif / 7));
 			}
 		} catch (ParseException e) {
 			e.printStackTrace();
@@ -82,7 +83,7 @@ public class DateHelper {
 			Date dateTime = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT)
 					.parse(date);
 
-			return new SimpleDateFormat("").format(dateTime);
+			return new SimpleDateFormat("dd/MM/yyyy").format(dateTime);
 
 		} catch (ParseException e) {
 			return date;
@@ -137,7 +138,7 @@ public class DateHelper {
 			c.set(year, month, day);
 			// getTime() will produce an exception if the date is invalid.
 
-		c.getTime();
+			c.getTime();
 		} catch (IllegalArgumentException e) {
 			return false;
 		}

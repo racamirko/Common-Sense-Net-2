@@ -97,7 +97,7 @@ public class ActionItemWrapper {
 		getTitle().setText(actionType.getName());
 		getDate().setText(
 				DateHelper.formatDate(action.getDate(), context) + " "
-						+ action.getDate());
+						+ DateHelper.formatDateShort(action.getDate()));
 
 		if (bitmapImage != null) {
 			Matrix matrix = new Matrix();

@@ -54,95 +54,105 @@ public class UpstreamTask implements Task {
 	private List<User> mUserList;
 
 	public void registerReceivers(Context context) {
-		mSendBroadcastReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context arg0, Intent arg1) {
+		if (mSendBroadcastReceiver != null) {
+			mSendBroadcastReceiver = new BroadcastReceiver() {
+				@Override
+				public void onReceive(Context arg0, Intent arg1) {
 
-				// gets the extras from the Bundle.
-				Bundle extras = arg1.getExtras();
+					// gets the extras from the Bundle.
+					Bundle extras = arg1.getExtras();
 
-				long id = -1;
-				int type = -1;
+					long id = -1;
+					int type = -1;
 
-				// obtains the values from the bundle.
-				if (extras != null) {
-					id = extras.getLong("id");
-					type = extras.getInt("type");
-				}
+					// obtains the values from the bundle.
+					if (extras != null) {
+						id = extras.getLong("id");
+						type = extras.getInt("type");
+					}
 
-				String resultMessage;
+					String resultMessage;
 
-				switch (getResultCode()) {
-				case Activity.RESULT_OK:
-					resultMessage = "SMS sent";
-					break;
-				case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-					resultMessage = "Generic Failure";
-					break;
-				case SmsManager.RESULT_ERROR_NO_SERVICE:
-					resultMessage = "No Service";
-					break;
-				case SmsManager.RESULT_ERROR_NULL_PDU:
-					resultMessage = "Null PDU";
-					break;
-				case SmsManager.RESULT_ERROR_RADIO_OFF:
-					resultMessage = "Radio Off";
-					break;
-				default:
-					resultMessage = "Error";
-					break;
-				}
+					switch (getResultCode()) {
+					case Activity.RESULT_OK:
+						resultMessage = "SMS sent";
+						break;
+					case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+						resultMessage = "Generic Failure";
+						break;
+					case SmsManager.RESULT_ERROR_NO_SERVICE:
+						resultMessage = "No Service";
+						break;
+					case SmsManager.RESULT_ERROR_NULL_PDU:
+						resultMessage = "Null PDU";
+						break;
+					case SmsManager.RESULT_ERROR_RADIO_OFF:
+						resultMessage = "Radio Off";
+						break;
+					default:
+						resultMessage = "Error";
+						break;
+					}
 
-				// tracks the send notification.
-				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
-						"SEND-" + resultMessage, "type:" + type + ", id:" + id);
-				Toast.makeText(arg0, resultMessage, Toast.LENGTH_LONG).show();
-
-			}
-		};
-
-		mDeliveredBroadcastReceiver = new BroadcastReceiver() {
-			@Override
-			public void onReceive(Context arg0, Intent arg1) {
-
-				// gets the extras from the Bundle.
-				Bundle extras = arg1.getExtras();
-
-				long id = -1;
-				int type = -1;
-
-				// obtains the values from the bundle.
-				if (extras != null) {
-					id = extras.getLong("id");
-					type = extras.getInt("type");
-				}
-
-				// checks the obtained code.
-				switch (getResultCode()) {
-				case Activity.RESULT_OK:
-
-					// marks the message as delivered.
-					updateStatus(type, id, Model.STATUS_CONFIRMED);
-
-					Toast.makeText(arg0, "SMS delivered", Toast.LENGTH_SHORT)
+					// tracks the send notification.
+					ApplicationTracker.getInstance().logSyncEvent(
+							EventType.SYNC, "SEND-" + resultMessage,
+							"type:" + type + ", id:" + id);
+					Toast.makeText(arg0, resultMessage, Toast.LENGTH_SHORT)
 							.show();
-					break;
-				case Activity.RESULT_CANCELED:
-					Toast.makeText(arg0, "SMS not delivered",
-							Toast.LENGTH_SHORT).show();
-					break;
+
 				}
+			};
 
-				// tracks the sync activity.
-				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
-						"DELIVERY", "type:" + type + ", id:" + id);
-			}
-		};
+			// registers the send receiver.
+			context.registerReceiver(mSendBroadcastReceiver, new IntentFilter(
+					SENT));
+		}
 
-		// registers the Broadcast Receivers with their corresponding filter.
-		context.registerReceiver(mSendBroadcastReceiver, new IntentFilter(SENT));
-		context.registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(
-				DELIVERED));
+		if (mDeliveredBroadcastReceiver != null) {
+			mDeliveredBroadcastReceiver = new BroadcastReceiver() {
+				@Override
+				public void onReceive(Context arg0, Intent arg1) {
+
+					// gets the extras from the Bundle.
+					Bundle extras = arg1.getExtras();
+
+					long id = -1;
+					int type = -1;
+
+					// obtains the values from the bundle.
+					if (extras != null) {
+						id = extras.getLong("id");
+						type = extras.getInt("type");
+					}
+
+					// checks the obtained code.
+					switch (getResultCode()) {
+					case Activity.RESULT_OK:
+
+						// marks the message as delivered.
+						updateStatus(type, id, Model.STATUS_CONFIRMED);
+
+						Toast.makeText(arg0, "SMS delivered",
+								Toast.LENGTH_SHORT).show();
+						break;
+					case Activity.RESULT_CANCELED:
+						Toast.makeText(arg0, "SMS not delivered",
+								Toast.LENGTH_SHORT).show();
+						break;
+					}
+
+					// tracks the sync activity.
+					ApplicationTracker.getInstance().logSyncEvent(
+							EventType.SYNC, "DELIVERY",
+							"type:" + type + ", id:" + id);
+				}
+			};
+
+			// registers the delivered receiver.
+			context.registerReceiver(mDeliveredBroadcastReceiver,
+					new IntentFilter(DELIVERED));
+		}
 	}
 
 	/**

@@ -746,10 +746,10 @@ public class RealFarmDatabase {
 			deviceId = DEFAULT_DEVICE_ID;
 		}
 
-//		{ "John", "Doe", deviceId, "", "farmer_default", "CK Pura",
-//			R.raw.john_doe, R.raw.ckpura },
+		// { "John", "Doe", deviceId, "", "farmer_default", "CK Pura",
+		// R.raw.john_doe, R.raw.ckpura },
 		Object[][] userData = {
-				
+
 				{ "Hendrik", "Knoche", "911208750956119", "8861214050",
 						"farmer_hendrik_knoche", "CK Pura", R.raw.john_doe,
 						R.raw.ckpura },
@@ -1051,6 +1051,7 @@ public class RealFarmDatabase {
 						RESOURCE_TYPE_FERTILIZE_SELECTOR, -1 },
 				{ "All", "", -1, R.drawable.yt_fertilizednotfiltered, -1, -1,
 						RESOURCE_TYPE_FERTILIZE_SELECTOR, -1 },
+				/** TODO: orbolanos: This should not go here. */
 				{ "TMV2", "TMV2", R.raw.tmv_2, R.drawable.yt_varietyselected,
 						-1, R.drawable.pic_72px_castor, RESOURCE_TYPE_VARIETY,
 						-1 },
