@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm.dataaccess;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -21,7 +20,7 @@ import com.commonsensenet.realfarm.R;
  * @author Julien Freudiger
  * @author Hendrik Knoche
  * @author Oscar Bolaños <@oscarbolanos>
- * @author Nguyen Lisa
+ * @author Lisa Nguyen
  * 
  */
 public class RealFarmDatabase {
@@ -1313,28 +1312,6 @@ public class RealFarmDatabase {
 		}
 
 		Log.d(LOG_TAG, "weather type works");
-
-		// inserts the current date in the database.
-		SimpleDateFormat df = new SimpleDateFormat(RealFarmProvider.DATE_FORMAT);
-
-		// creates the calendar and substracts one day.
-		Calendar calendar = Calendar.getInstance();
-		calendar.add(Calendar.DAY_OF_MONTH, -1);
-
-		ContentValues wf = new ContentValues();
-		int[] tempForecast = { 28, 30, 27, 29, 35 };
-
-		for (int x = 0; x < 5; x++, calendar.add(Calendar.DAY_OF_MONTH, 1)) {
-
-			wf.put(COLUMN_NAME_WEATHERFORECAST_DATE,
-					df.format(calendar.getTime()));
-			wf.put(COLUMN_NAME_WEATHERFORECAST_TEMPERATURE, tempForecast[x]);
-			wf.put(COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID, x);
-			insertEntriesIntoDatabase(TABLE_NAME_WEATHERFORECAST, wf, db);
-			wf.clear();
-		}
-
-		Log.d(LOG_TAG, "WeatherForecast inserted works");
 
 		// cropTypes
 		ContentValues croptype = new ContentValues();

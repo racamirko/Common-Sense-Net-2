@@ -620,7 +620,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			if (wt != null) {
 				weatherImage.setImageResource(wt.getImage());
 			}
-		} else { // TODO display something
+		} else {
+			// shows the unknown weather forecast icon.
 
 			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
 			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
