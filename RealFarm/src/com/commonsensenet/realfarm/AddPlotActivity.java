@@ -1,6 +1,5 @@
 package com.commonsensenet.realfarm;
 
-import java.util.Date;
 import java.util.List;
 
 import android.content.Intent;
@@ -46,39 +45,10 @@ public class AddPlotActivity extends DataFormActivity {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, Global.IsAdmin, mType);
 
-		if (!Global.IS_INITIALIZED) { // add advice related to plot
-
-			long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
-			long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);
-			long k = mDataProvider.addAdvice(R.raw.problems, 3, 5, 1);
-
-			System.out.println(i + " " + j);
-
-			mDataProvider.addAdvicePiece(i, R.raw.problems, 1, 54,
-					"Bla bla bla bla bla bla bla bla", 5);
-			mDataProvider.addAdvicePiece(i, R.raw.problems, 2, 56,
-					"gbsfassdfadfsdF", 5);
-			mDataProvider.addAdvicePiece(j, R.raw.problems, 1, 55,
-					"asdfasfdsdafasda", 5);
-			mDataProvider.addAdvicePiece(k, R.raw.problems, 1, 57,
-					"asdfasfdsdafasda", 5);
-			mDataProvider.addRecommendation(Global.plotId, i, Global.userId, 5,
-					new Date().getTime(), 130, 60);
-			mDataProvider.addRecommendation(Global.plotId, j, Global.userId, 5,
-					(new Date().getTime()) + 500000000, 90, 10);
-			mDataProvider.addRecommendation(Global.plotId, k, Global.userId, 5,
-					(new Date().getTime()) + 500000000, 80, 2);
-		}
-
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(), "add plot to database");
 
-		// shows the name of the added plot.
-		/*
-		 * Toast.makeText( getBaseContext(), "Plot Details is put to Database "
-		 * + mPlotImage + " " + mSoilType, Toast.LENGTH_SHORT).show();
-		 */
 	}
 
 	public void onCreate(Bundle savedInstanceState) {

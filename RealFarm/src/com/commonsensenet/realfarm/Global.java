@@ -4,12 +4,17 @@ import android.graphics.Bitmap;
 
 public class Global {
 
-	public static boolean isAudioEnabled = true;
-	public static long plotId = -1;
-	public static Bitmap rotated;
-	public static Class<?> selectedAction = null;
-	public static long userId = -1;
-	public static boolean IS_INITIALIZED = false;
+	/** Indicates whether the current user is an Administrator. */
 	public static int IsAdmin = 0;
+	/** Indicates if the Audio is enabled or not. */
+	public static boolean isAudioEnabled = true;
+	/** Id of the current plot. */
+	public static long plotId = -1;
+	/** Rotated Bitmap of the taken picture. */
+	public static Bitmap rotated;
+	/** Class representing the action to be performed. */
+	public static Class<?> selectedAction = null;
+	/** Identifier of the current user. */
+	public static long userId = -1;
 
 }
