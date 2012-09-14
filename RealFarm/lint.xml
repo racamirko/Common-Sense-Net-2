@@ -30,8 +30,10 @@
         <ignore path="res/layout/spraying_dialog.xml" />
         <ignore path="res/layout/tpl_ad_situation_row.xml" />
         <ignore path="res/layout/tpl_diary_item.xml" />
+        <ignore path="res/layout/tpl_market_item.xml" />
         <ignore path="res/layout/tpl_plot_item.xml" />
         <ignore path="res/layout/tpl_top_bar_selector.xml" />
+        <ignore path="res/layout/tpl_user_aggregate_item.xml" />
         <ignore path="res/layout/tpl_weather_forecast_item.xml" />
         <ignore path="res/layout/yielddetails.xml" />
     </issue>

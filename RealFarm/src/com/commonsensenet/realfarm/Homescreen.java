@@ -316,8 +316,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 					Intent intent = null;
 					switch (plotList.size()) {
 					case 0: // TODO: put audio
-						playAudio(R.raw.problems, true); // TODO AUDIO: put
-															// audio
+						playAudio(R.raw.problems, true);
 						Toast.makeText(mParentReference,
 								"Please add a plot before you do anything.",
 								Toast.LENGTH_SHORT).show();
@@ -476,45 +475,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 
 	}
 
-	private void updateAdviceNumbers() {
-		TextView tw = (TextView) findViewById(R.id.news_advice);
-		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
-				+ "");
-	}
-
-	private void updateMarketPrices() {
-		TextView tw = (TextView) findViewById(R.id.hmscrn_lbl_market_price_min);
-		tw.setText(String.valueOf(mDataProvider
-				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN)));
-		tw = (TextView) findViewById(R.id.hmscrn_lbl_market_price_max);
-		tw.setText(String.valueOf(mDataProvider
-				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
-	}
-
-	private void updateAggregatesNumbers() {
-		TextView tw = (TextView) findViewById(R.id.news_sow);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SOW_ID));
-		tw = (TextView) findViewById(R.id.news_fertilize);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID));
-		tw = (TextView) findViewById(R.id.news_irrigate);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID));
-		tw = (TextView) findViewById(R.id.news_problem);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_REPORT_ID));
-		tw = (TextView) findViewById(R.id.news_spray);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SPRAY_ID));
-		tw = (TextView) findViewById(R.id.news_harvest);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_HARVEST_ID));
-		tw = (TextView) findViewById(R.id.news_sell);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
-	}
-
 	public boolean onCreateOptionsMenu(Menu menu) {
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
@@ -595,6 +555,45 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			return super.onOptionsItemSelected(item);
 		}
 
+	}
+
+	private void updateAdviceNumbers() {
+		TextView tw = (TextView) findViewById(R.id.news_advice);
+		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
+				+ "");
+	}
+
+	private void updateAggregatesNumbers() {
+		TextView tw = (TextView) findViewById(R.id.news_sow);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SOW_ID));
+		tw = (TextView) findViewById(R.id.news_fertilize);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID));
+		tw = (TextView) findViewById(R.id.news_irrigate);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID));
+		tw = (TextView) findViewById(R.id.news_problem);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_REPORT_ID));
+		tw = (TextView) findViewById(R.id.news_spray);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SPRAY_ID));
+		tw = (TextView) findViewById(R.id.news_harvest);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_HARVEST_ID));
+		tw = (TextView) findViewById(R.id.news_sell);
+		tw.setText(mDataProvider
+				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
+	}
+
+	private void updateMarketPrices() {
+		TextView tw = (TextView) findViewById(R.id.hmscrn_lbl_market_price_min);
+		tw.setText(String.valueOf(mDataProvider
+				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN)));
+		tw = (TextView) findViewById(R.id.hmscrn_lbl_market_price_max);
+		tw.setText(String.valueOf(mDataProvider
+				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 	}
 
 	protected void updateWidgets() {

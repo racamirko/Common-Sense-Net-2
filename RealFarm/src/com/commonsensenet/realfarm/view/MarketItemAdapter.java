@@ -18,8 +18,7 @@ public class MarketItemAdapter extends AggregateItemAdapter {
 	/**
 	 * Creates a new UserAggregateItemAdapter instance.
 	 */
-	public MarketItemAdapter(Context context,
-			List<AggregateItem> marketItems,
+	public MarketItemAdapter(Context context, List<AggregateItem> marketItems,
 			RealFarmProvider dataProvider) {
 		super(context, marketItems, 1, dataProvider);
 
@@ -32,20 +31,20 @@ public class MarketItemAdapter extends AggregateItemAdapter {
 					Context.LAYOUT_INFLATER_SERVICE);
 			v = vi.inflate(R.layout.tpl_market_item, null);
 		}
-		
+
 		AggregateItem marketData = getItem(position);
 		if (marketData != null) {
 			ImageView bagImage = (ImageView) v.findViewById(R.id.imageLeft);
-			if(marketData.getCenterImage() != -1) bagImage.setImageResource(marketData.getCenterImage());
-			
+			if (marketData.getCenterImage() != -1)
+				bagImage.setImageResource(marketData.getCenterImage());
+
 			TextView userCount = (TextView) v.findViewById(R.id.number);
 			userCount.setText(String.valueOf(marketData.getNewsText()));
-			
+
 			TextView minMax = (TextView) v.findViewById(R.id.textRight);
 			minMax.setText(marketData.getRightText());
 
 		}
 		return v;
-		
 	}
 }

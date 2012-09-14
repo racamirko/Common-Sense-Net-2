@@ -85,13 +85,6 @@ public class ActionItemWrapper {
 		Plot plot = provider
 				.getPlotById(action.getPlotId(), action.getUserId());
 
-		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inTempStorage = new byte[16 * 1024];
-		options.inSampleSize = 12;
-
-		Bitmap bitmapImage = BitmapFactory.decodeFile(plot.getImagePath(),
-				options);
-
 		// sets the parts of the view.
 		getActionIcon().setImageResource(actionType.getImage1());
 		getTitle().setText(actionType.getName());
@@ -99,15 +92,29 @@ public class ActionItemWrapper {
 				DateHelper.formatDate(action.getDate(), context) + " "
 						+ DateHelper.formatDateShort(action.getDate()));
 
-		if (bitmapImage != null) {
-			Matrix matrix = new Matrix();
-			matrix.postRotate(90);
-			Bitmap rotatedImage = Bitmap.createBitmap(bitmapImage, 0, 0,
-					bitmapImage.getWidth(), bitmapImage.getHeight(), matrix,
-					true);
-			getPlotIcon().setImageBitmap(rotatedImage);
+		// checks if the plot image is valid.
+		if (plot != null && plot.getImagePath() != null
+				&& !plot.getImagePath().equals("")) {
+
+			// configuration of the Bitmap.
+			BitmapFactory.Options options = new BitmapFactory.Options();
+			options.inTempStorage = new byte[16 * 1024];
+			options.inSampleSize = 12;
+
+			Bitmap bitmapImage = BitmapFactory.decodeFile(plot.getImagePath(),
+					options);
+			if (bitmapImage != null) {
+				Matrix matrix = new Matrix();
+				matrix.postRotate(90);
+				Bitmap rotatedImage = Bitmap.createBitmap(bitmapImage, 0, 0,
+						bitmapImage.getWidth(), bitmapImage.getHeight(),
+						matrix, true);
+				getPlotIcon().setImageBitmap(rotatedImage);
+			} else {
+				getPlotIcon().setImageResource(R.drawable.ic_plots);
+			}
 		} else {
-			getPlotIcon().setImageResource(R.drawable.ic_plots);
+			getPlotIcon().setImageDrawable(null);
 		}
 	}
 }

@@ -30,7 +30,7 @@ public abstract class AggregateItemWrapper {
 	protected ImageView imageLeft;
 	protected ImageView imageCenter;
 	protected ImageView imageLeftBottom;
-	
+
 	/**
 	 * Creates a new AggregateItemWrapper instance.
 	 * 
@@ -40,7 +40,7 @@ public abstract class AggregateItemWrapper {
 	public AggregateItemWrapper(View row) {
 		mRow = row;
 	}
-	
+
 	public RelativeLayout getRelativeLayoutLeft() {
 		if (relativeLayoutLeft == null) {
 			relativeLayoutLeft = (RelativeLayout) mRow
@@ -48,7 +48,7 @@ public abstract class AggregateItemWrapper {
 		}
 		return (relativeLayoutLeft);
 	}
-	
+
 	public RelativeLayout getRelativeLayoutRight() {
 		if (relativeLayoutRight == null) {
 			relativeLayoutRight = (RelativeLayout) mRow
@@ -56,7 +56,7 @@ public abstract class AggregateItemWrapper {
 		}
 		return (relativeLayoutRight);
 	}
-	
+
 	public RelativeLayout getRelativeLayoutCenter() {
 		if (relativeLayoutCenter == null) {
 			relativeLayoutCenter = (RelativeLayout) mRow
@@ -64,55 +64,49 @@ public abstract class AggregateItemWrapper {
 		}
 		return (relativeLayoutCenter);
 	}
-	
+
 	public TextView getLabelLeft() {
 		if (labelLeft == null) {
-			labelLeft = (TextView) mRow
-					.findViewById(R.id.label_left);
+			labelLeft = (TextView) mRow.findViewById(R.id.label_left);
 		}
 		return (labelLeft);
 	}
 
 	public TextView getLabelRight() {
 		if (labelRight == null) {
-			labelRight = (TextView) mRow
-					.findViewById(R.id.label_right);
+			labelRight = (TextView) mRow.findViewById(R.id.label_right);
 		}
 		return (labelRight);
 	}
-	
+
 	public TextView getLabelCenter() {
 		if (labelCenter == null) {
-			labelCenter = (TextView) mRow
-					.findViewById(R.id.label_center);
+			labelCenter = (TextView) mRow.findViewById(R.id.label_center);
 		}
 		return (labelCenter);
 	}
-	
+
 	public TextView getLabelNews() {
 		if (labelNews == null) {
-			labelNews = (TextView) mRow
-					.findViewById(R.id.label_news);
+			labelNews = (TextView) mRow.findViewById(R.id.label_news);
 		}
 		return (labelNews);
 	}
-	
+
 	public ImageView getImageLeft() {
 		if (imageLeft == null) {
-			imageLeft = (ImageView) mRow
-					.findViewById(R.id.image_left);
+			imageLeft = (ImageView) mRow.findViewById(R.id.image_left);
 		}
 		return (imageLeft);
 	}
-	
+
 	public ImageView getImageCenter() {
 		if (imageCenter == null) {
-			imageCenter = (ImageView) mRow
-					.findViewById(R.id.image_center);
+			imageCenter = (ImageView) mRow.findViewById(R.id.image_center);
 		}
 		return (imageCenter);
 	}
-	
+
 	public ImageView getImageLeftBottom() {
 		if (imageLeftBottom == null) {
 			imageLeftBottom = (ImageView) mRow
@@ -120,13 +114,12 @@ public abstract class AggregateItemWrapper {
 		}
 		return (imageLeftBottom);
 	}
-	
+
 	public View getRow() {
 		return mRow;
 	}
-	
+
 	public abstract void populateFrom(AggregateItem aggregate,
 			RealFarmProvider provider);
 
-	
 }

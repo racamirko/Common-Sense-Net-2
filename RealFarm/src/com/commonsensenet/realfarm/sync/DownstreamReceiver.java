@@ -13,6 +13,7 @@ import android.telephony.SmsMessage;
 import android.util.Log;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Model;
 
 public class DownstreamReceiver extends BroadcastReceiver {
 
@@ -66,7 +67,6 @@ public class DownstreamReceiver extends BroadcastReceiver {
 					if (Integer.valueOf(messageType) == 1000) {
 						// actions insertions
 
-						System.out.println("In AT \n");
 						Date date1 = null;
 						try {
 							date1 = DATE_FORMATTER.parse(separated2[3]);
@@ -74,15 +74,9 @@ public class DownstreamReceiver extends BroadcastReceiver {
 							System.out.println("try in date" + date1);
 						} catch (ParseException e) {
 							e.printStackTrace();
-
 						}
 
-						// Long.valueOf(separated2[0]),Long.valueOf(separated2[13]),
-
-						System.out
-								.println("date displayed in actions:" + date1);
-						long result = mDataProvider.addAction(
-								Long.valueOf(separated2[0]),
+						mDataProvider.addAction(Long.valueOf(separated2[0]),
 								Integer.valueOf(separated2[1]),
 								Long.valueOf(separated2[2]), date1,
 								Integer.valueOf(separated2[4]),
@@ -94,18 +88,12 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Integer.valueOf(separated2[10]),
 								Integer.valueOf(separated2[11]),
 								Integer.valueOf(separated2[12]),
-								Long.valueOf(separated2[13]), 0,
+								Long.valueOf(separated2[13]),
+								Model.STATUS_CONFIRMED,
 								Integer.valueOf(separated2[14]),
 								Long.valueOf(separated2[15]));
 
-						System.out.println("result displayed in actions:"
-								+ result);
-
-					} // end of actions
-
-					if (Integer.valueOf(messageType) == 1001) {
-						// plots insertions
-						System.out.println("In PT \n");
+					} else if (Integer.valueOf(messageType) == 1001) {
 
 						mDataProvider.addPlot(Long.valueOf(separated2[0]),
 								Long.valueOf(separated2[1]),
@@ -118,9 +106,6 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Integer.valueOf(separated2[9]));
 
 					} else if (Integer.valueOf(messageType) == 1002) {
-						// users insertions
-
-						System.out.println("In US \n");
 
 						mDataProvider.addUser(separated2[0], separated2[1],
 								separated2[2], separated2[3], separated2[4],
@@ -129,14 +114,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Integer.valueOf(separated2[8]),
 								Long.valueOf(separated2[9]));
 					} else if (Integer.valueOf(messageType) == 1003) {
-						// wf insertions
-						System.out.println("In WF \n");
+
 						mDataProvider.addWeatherForecast(separated2[0],
 								Integer.valueOf(separated2[1]), separated2[2]);
-
 					} else if (Integer.valueOf(messageType) == 1004) {
 
-						System.out.println("In MP \n");
 						String sep0 = separated2[0];
 						int sep1 = Integer.valueOf(separated2[1]);
 						int sep2 = Integer.valueOf(separated2[2]);
@@ -156,7 +138,6 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Integer.valueOf(separated2[7]),
 								Integer.valueOf(separated2[8]),
 								Integer.valueOf(separated2[9]));
-
 					}
 				}
 

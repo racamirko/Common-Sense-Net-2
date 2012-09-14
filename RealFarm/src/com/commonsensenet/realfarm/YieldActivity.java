@@ -203,6 +203,7 @@ public class YieldActivity extends TopSelectorActivity implements
 		avgRow.setOnLongClickListener(this);
 		minRow.setOnLongClickListener(this);
 		number.setOnLongClickListener(this);
+
 		soilTypeSelector.setOnLongClickListener(this);
 		sowingDateSelector.setOnLongClickListener(this);
 		varietySelector.setOnLongClickListener(this);
@@ -213,15 +214,16 @@ public class YieldActivity extends TopSelectorActivity implements
 		spraySelector.setOnLongClickListener(this);
 		locationSelector.setOnLongClickListener(this);
 		yearSelector.setOnLongClickListener(this);
+
 		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
 		help.setOnLongClickListener(this);
 		crop.setOnLongClickListener(this);
-
 		home.setOnClickListener(this);
 		help.setOnClickListener(this);
 		back.setOnClickListener(this);
 		crop.setOnClickListener(this);
+
 		locationSelector.setOnClickListener(this);
 		yearSelector.setOnClickListener(this);
 		soilTypeSelector.setOnClickListener(this);

@@ -665,16 +665,27 @@ public class RealFarmProvider {
 
 		mDatabase.open();
 
-		final String RAW_QUERY = "SELECT a.* FROM %s a INNER JOIN %s p ON a.%s = p.%s WHERE p.%s = %d ORDER BY %s DESC";
-		String processedQuery = String.format(RAW_QUERY,
-				RealFarmDatabase.TABLE_NAME_ACTION,
-				RealFarmDatabase.TABLE_NAME_PLOT,
-				RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
-				RealFarmDatabase.COLUMN_NAME_PLOT_ID,
-				RealFarmDatabase.COLUMN_NAME_PLOT_USERID, userId,
-				RealFarmDatabase.COLUMN_NAME_ACTION_DATE);
-
-		Cursor c = mDatabase.rawQuery(processedQuery, new String[] {});
+		Cursor c = mDatabase.getEntries(RealFarmDatabase.TABLE_NAME_ACTION,
+				new String[] { RealFarmDatabase.COLUMN_NAME_ACTION_ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ACTIONTYPEID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_PLOTID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_DATE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SEEDTYPEID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_CROPTYPEID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY1,
+						RealFarmDatabase.COLUMN_NAME_ACTION_QUANTITY2,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT1ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_UNIT2ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE2ID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_PRICE,
+						RealFarmDatabase.COLUMN_NAME_ACTION_USERID,
+						RealFarmDatabase.COLUMN_NAME_ACTION_SENDSTATUS,
+						RealFarmDatabase.COLUMN_NAME_ACTION_ISADMINACTION,
+						RealFarmDatabase.COLUMN_NAME_ACTION_TIMESTAMP },
+				RealFarmDatabase.COLUMN_NAME_ACTION_USERID + " = " + userId,
+				null, null, null, RealFarmDatabase.COLUMN_NAME_ACTION_DATE
+						+ " DESC");
 
 		Action a = null;
 		if (c.moveToFirst()) {

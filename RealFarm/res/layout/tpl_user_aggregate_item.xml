@@ -1,99 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="80dp"
     android:background="@drawable/square_btn"
-    android:paddingTop="@dimen/margin"
+    android:paddingLeft="@dimen/margin"
     android:paddingRight="@dimen/margin"
-    android:paddingLeft="@dimen/margin">
-    
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="80dp" >
+    android:paddingTop="@dimen/margin"
+    tools:context="com.actionbarsherlock.app.SherlockListActivity" >
 
-    <ImageView
-        android:id="@+id/icon_user_aggregate_call"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:background="@android:color/transparent"
-        android:src="@drawable/call" />
-
-    <ImageView
-        android:id="@+id/icon_user_aggregate_user_avatar"
-        android:layout_width="50dp"
-        android:layout_height="50dp"
-        android:layout_marginRight="5dp"
-        android:layout_toLeftOf="@+id/icon_user_aggregate_call"
-        android:layout_alignTop="@+id/icon_user_aggregate_call"
-        android:scaleType="centerCrop"/>
-
-    <TextView
-        android:id="@+id/label_user_aggregate_user_name"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignBottom="@+id/icon_user_aggregate_call"
-        android:layout_alignParentRight="true"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="@android:color/black" />
-
-    <TextView
-        android:id="@+id/label_user_aggregate_date"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentLeft="true"
-        android:gravity="center_vertical"
-        android:textAppearance="?android:attr/textAppearanceSmall"
-        android:textColor="#9D9D9D" />
-
-    <LinearLayout
-        android:id="@+id/label_user_aggregate_differentiators"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="1dp"
-        android:layout_above="@+id/label_user_aggregate_date"
-        android:layout_alignLeft="@+id/label_user_aggregate_date"
-        android:layout_alignTop="@+id/icon_user_aggregate_user_avatar"
-        android:layout_toLeftOf="@+id/icon_user_aggregate_user_avatar"
-        android:orientation="horizontal"
-        android:gravity="center|left" >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="80dp" >
 
         <ImageView
-            android:id="@+id/label_user_aggregate_differentiator_left_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/icon_user_aggregate_call"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:background="@android:color/transparent"
+            android:src="@drawable/ua_call" />
 
         <ImageView
-            android:id="@+id/label_user_aggregate_differentiator_center_image"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+            android:id="@+id/icon_user_aggregate_user_avatar"
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_alignTop="@+id/icon_user_aggregate_call"
+            android:layout_marginRight="5dp"
+            android:layout_toLeftOf="@+id/icon_user_aggregate_call"
+            android:scaleType="centerCrop" />
 
         <TextView
-            android:id="@+id/label_user_aggregate_differentiator_left_text"
+            android:id="@+id/label_user_aggregate_user_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignBottom="@+id/icon_user_aggregate_call"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:textAppearance="?android:attr/textAppearanceMedium"
+            android:textColor="@android:color/black" />
+
+        <TextView
+            android:id="@+id/label_user_aggregate_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentLeft="true"
             android:gravity="center_vertical"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#000000" />
+            android:textColor="#9D9D9D" />
 
-        <ImageView
-            android:id="@+id/label_user_aggregate_differentiator_right_image"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
-            android:paddingLeft="2dp" />
-        
-        <TextView
-            android:id="@+id/label_user_aggregate_differentiator_right_text"
+        <LinearLayout
+            android:id="@+id/label_user_aggregate_differentiators"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:paddingLeft="2dp"    
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#000000" />
-        
-    </LinearLayout>
+            android:layout_above="@+id/label_user_aggregate_date"
+            android:layout_alignLeft="@+id/label_user_aggregate_date"
+            android:layout_alignTop="@+id/icon_user_aggregate_user_avatar"
+            android:layout_marginBottom="1dp"
+            android:layout_toLeftOf="@+id/icon_user_aggregate_user_avatar"
+            android:gravity="center|left"
+            android:orientation="horizontal" >
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/label_user_aggregate_differentiator_left_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <ImageView
+                android:id="@+id/label_user_aggregate_differentiator_center_image"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <TextView
+                android:id="@+id/label_user_aggregate_differentiator_left_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000000" />
+
+            <ImageView
+                android:id="@+id/label_user_aggregate_differentiator_right_image"
+                android:layout_width="wrap_content"
+                android:layout_height="35dp"
+                android:paddingLeft="2dp" />
+
+            <TextView
+                android:id="@+id/label_user_aggregate_differentiator_right_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingLeft="2dp"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:textColor="#000000" />
+        </LinearLayout>
+    </RelativeLayout>
+
 </LinearLayout>

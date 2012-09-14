@@ -12,5 +12,10 @@
     <color name="icon_background_end">#24AAED</color>
     <color name="button_background_green_start">#00FF00</color>
     <color name="button_background_green_end">#2B9E2F</color>
+    <!-- Colors used for the tile -->
+    <color name="purple_tile">#BB9AC4</color>
+    <color name="blue_tile">#99CDEA</color>
+    <color name="green_tile">#96D2A9</color>
+    <color name="yellow_tile">#F5EB5F</color>
 
 </resources>

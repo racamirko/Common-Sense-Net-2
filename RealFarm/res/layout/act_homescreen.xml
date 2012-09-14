@@ -103,7 +103,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin"
-            android:background="#f5eb5f"
+            android:background="@color/yellow_tile"
             android:orientation="vertical" >
 
             <!-- first row -->
@@ -287,7 +287,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="2.5dp"
                     android:layout_weight="0.5"
-                    android:background="#96d2a9" >
+                    android:background="@drawable/square_btn_green" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_advice"
@@ -314,7 +314,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="2.5dp"
                     android:layout_weight="0.5"
-                    android:background="#96d2a9" >
+                    android:background="@drawable/square_btn_green" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_video"
@@ -340,7 +340,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="2.5dp"
                     android:layout_weight="1"
-                    android:background="#99CDEA" >
+                    android:background="@drawable/square_btn_blue" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_yield"
@@ -379,7 +379,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="2.5dp"
                     android:layout_weight="1"
-                    android:background="#99CDEA"
+                    android:background="@drawable/square_btn_blue"
                     android:padding="@dimen/margin" >
 
                     <ImageView
@@ -450,7 +450,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_weight="1"
-                android:background="#bb9ac4"
+                android:background="@drawable/square_btn_purple"
                 android:padding="@dimen/margin" >
 
                 <ImageView
