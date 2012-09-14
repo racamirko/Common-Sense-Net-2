@@ -4,6 +4,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import android.R;
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
@@ -16,6 +17,7 @@ import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Model;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class DownstreamReceiver extends BroadcastReceiver {
 
@@ -58,6 +60,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 			// it needs to begin with '%100' and have 3 parts after splitting
 			// using %
 			if (str.indexOf("%100") == 0 && separated1.length == 3) {
+
+				// adds the sound to queue and plays it.
+				SoundQueue.getInstance().addToQueue(
+						com.commonsensenet.realfarm.R.raw.pong);
+				SoundQueue.getInstance().play();
 
 				// tracks that a message has been received.
 				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
