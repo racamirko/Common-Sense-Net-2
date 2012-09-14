@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Bundle;
 import android.telephony.SmsManager;
 import android.widget.Toast;
 
@@ -56,37 +57,73 @@ public class UpstreamTask implements Task {
 		mSendBroadcastReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
+
+				// gets the extras from the Bundle.
+				Bundle extras = arg1.getExtras();
+
+				long id = -1;
+				int type = -1;
+
+				// obtains the values from the bundle.
+				if (extras != null) {
+					id = extras.getInt("id");
+					type = extras.getInt("type");
+				}
+
+				String resultMessage;
+
 				switch (getResultCode()) {
 				case Activity.RESULT_OK:
-					Toast.makeText(arg0, "SMS sent", Toast.LENGTH_SHORT).show();
+					resultMessage = "SMS sent";
 					break;
 				case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-					Toast.makeText(arg0, "Generic failure", Toast.LENGTH_SHORT)
-							.show();
+					resultMessage = "Generic Failure";
 					break;
 				case SmsManager.RESULT_ERROR_NO_SERVICE:
-					Toast.makeText(arg0, "No service", Toast.LENGTH_SHORT)
-							.show();
+					resultMessage = "No Service";
 					break;
 				case SmsManager.RESULT_ERROR_NULL_PDU:
-					Toast.makeText(arg0, "Null PDU", Toast.LENGTH_SHORT).show();
+					resultMessage = "Null PDU";
 					break;
 				case SmsManager.RESULT_ERROR_RADIO_OFF:
-					Toast.makeText(arg0, "Radio off", Toast.LENGTH_SHORT)
-							.show();
+					resultMessage = "Radio Off";
+					break;
+				default:
+					resultMessage = "Error";
 					break;
 				}
+
+				// tracks the send notification.
+				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+						"SEND-" + resultMessage, "type:" + type + ", id:" + id);
+				Toast.makeText(arg0, resultMessage, Toast.LENGTH_LONG).show();
+
 			}
 		};
-
-		// when the SMS has been sent
-		context.registerReceiver(mSendBroadcastReceiver, new IntentFilter(SENT));
 
 		mDeliveredBroadcastReceiver = new BroadcastReceiver() {
 			@Override
 			public void onReceive(Context arg0, Intent arg1) {
+
+				// gets the extras from the Bundle.
+				Bundle extras = arg1.getExtras();
+
+				long id = -1;
+				int type = -1;
+
+				// obtains the values from the bundle.
+				if (extras != null) {
+					id = extras.getLong("id");
+					type = extras.getInt("type");
+				}
+
+				// checks the obtained code.
 				switch (getResultCode()) {
 				case Activity.RESULT_OK:
+
+					// marks the message as delivered.
+					updateStatus(type, id, Model.STATUS_CONFIRMED);
+
 					Toast.makeText(arg0, "SMS delivered", Toast.LENGTH_SHORT)
 							.show();
 					break;
@@ -95,12 +132,46 @@ public class UpstreamTask implements Task {
 							Toast.LENGTH_SHORT).show();
 					break;
 				}
+
+				// tracks the sync activity.
+				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+						"DELIVERY", "type:" + type + ", id:" + id);
 			}
 		};
 
-		// when the SMS has been delivered
+		// registers the Broadcast Receivers with their corresponding filter.
+		context.registerReceiver(mSendBroadcastReceiver, new IntentFilter(SENT));
 		context.registerReceiver(mDeliveredBroadcastReceiver, new IntentFilter(
 				DELIVERED));
+	}
+
+	/**
+	 * Updates the status of the entry in the database that matches the given
+	 * type and id with the new status.
+	 * 
+	 * @param type
+	 *            type of the Model to update.
+	 * @param id
+	 *            id of the Model to update.
+	 * @param status
+	 *            new status. It can be 0 (unsent), 1(sent) or 2(confirmed).
+	 */
+	private void updateStatus(int type, long id, int status) {
+
+		switch (type) {
+		case 1000: // Action
+			// changes the status of the action
+			mDataProvider.setActionStatus(id, status);
+			break;
+		case 1001: // Plot
+			// changes the status of the plot
+			mDataProvider.setPlotStatus(id, status);
+			break;
+		case 1002: // User
+			// changes the status of the user.
+			mDataProvider.setUserStatus(id, status);
+			break;
+		}
 	}
 
 	public TaskResult doWork(ContextWrapper ctx) {
@@ -113,9 +184,9 @@ public class UpstreamTask implements Task {
 		mDataProvider = RealFarmProvider.getInstance(ctx);
 
 		// gets all the data from the server that has not being sent.
-		mActionList = mDataProvider.getActionsBySendStatus(0);
-		mPlotList = mDataProvider.getPlotsBySendStatus(0);
-		mUserList = mDataProvider.getUsersBySendStatus(0);
+		mActionList = mDataProvider.getActionsBySendStatus(Model.STATUS_UNSENT);
+		mPlotList = mDataProvider.getPlotsBySendStatus(Model.STATUS_UNSENT);
+		mUserList = mDataProvider.getUsersBySendStatus(Model.STATUS_UNSENT);
 
 		// initializes the list used to send the messages.
 		mMessageList = new ArrayList<Model>();
@@ -127,24 +198,21 @@ public class UpstreamTask implements Task {
 
 		// sends all the messages to the server via SMS.
 		for (int i = 0; i < mMessageList.size(); i++) {
-			// tracks that the data that has been sent to the Server.
-			ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
-					"Upstream", mMessageList.get(i).toSmsString());
 			// sends the message.
 			sendMessage(ctx, mMessageList.get(i));
 		}
 
 		// sets the flag for the sent actions.
 		for (int x = 0; x < mActionList.size(); x++) {
-			mDataProvider.setActionFlag(mActionList.get(x).getId(), 1);
+			mDataProvider.setActionStatus(mActionList.get(x).getId(), 1);
 		}
 		// sets the flag for the sent plots.
 		for (int x = 0; x < mPlotList.size(); x++) {
-			mDataProvider.setPlotFlag(mPlotList.get(x).getId(), 1);
+			mDataProvider.setPlotStatus(mPlotList.get(x).getId(), 1);
 		}
 		// sets the flag for the sent users.
 		for (int x = 0; x < mUserList.size(); x++) {
-			mDataProvider.setUserFlag(mUserList.get(x).getId(), 1);
+			mDataProvider.setUserStatus(mUserList.get(x).getId(), 1);
 		}
 
 		return res;
@@ -174,10 +242,16 @@ public class UpstreamTask implements Task {
 				context.getApplicationContext(), 0, deliveredIntent,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 
+		// gets the data to send.
+		String sms = message.toSmsString();
+
+		// tracks that the data that has been sent to the Server.
+		ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
+				"Upstream", sms);
+
 		// gets the manager in charge of sending SMS.
 		SmsManager sm = SmsManager.getDefault();
 		// sends the messages from the phone number
-		sm.sendTextMessage(SERVER_PHONE_NUMBER, null, message.toSmsString(),
-				sentPI, deliveredPI);
+		sm.sendTextMessage(SERVER_PHONE_NUMBER, null, sms, sentPI, deliveredPI);
 	}
 }
