@@ -26,6 +26,7 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
  */
 public class PlotListActivity extends HelpEnabledActivity implements
 		OnItemClickListener, OnItemLongClickListener {
+
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the plots. */
@@ -40,7 +41,7 @@ public class PlotListActivity extends HelpEnabledActivity implements
 
 		// enables to add a new plot
 		mAddItemId = menu.add("Add New Plot").setIcon(R.drawable.ic_new_plot)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		return super.onCreateOptionsMenu(menu);
 	}

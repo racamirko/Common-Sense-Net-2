@@ -585,11 +585,11 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 
 		// adds the home button.
 		mHomeItem = menu.add("Home").setIcon(R.drawable.ic_home)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		// adds the help button.
 		mHelpItem = menu.add("Help").setIcon(R.drawable.ic_help)
-				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+				.setShowAsActionFlags(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		return true;
 	}
@@ -775,7 +775,7 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		SoundQueue.getInstance().play();
 	}
 
-	// TODO: Akshay's code needs to be merged here
+	// TODO: icon needs to be displayed when the help is clicked.
 	public void showHelpIcon(View v) {
 
 	}
