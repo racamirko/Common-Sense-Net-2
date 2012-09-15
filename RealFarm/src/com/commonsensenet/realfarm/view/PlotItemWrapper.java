@@ -21,14 +21,17 @@ import com.commonsensenet.realfarm.model.SeedType;
  * 
  */
 public class PlotItemWrapper {
+	/** Icon that represents the main crop inside that plot. */
+	private ImageView mCropIcon;
 	/** Description line of the plot. */
 	private TextView mDescription;
 	/** Icon that represents the plot. */
 	private ImageView mIcon;
-	/** Icon that represents the main crop inside that plot. */
-	private ImageView mCropIcon;
+	/** Number counter of the plot. */
+	private TextView mNumber;
 	/** The View object that represents a single row inside the ListView. */
 	private View mRow;
+
 	/** Title line of the plot. */
 	private TextView mTitle;
 
@@ -40,6 +43,13 @@ public class PlotItemWrapper {
 	 */
 	public PlotItemWrapper(View row) {
 		mRow = row;
+	}
+
+	public ImageView getCropIcon() {
+		if (mCropIcon == null) {
+			mCropIcon = (ImageView) mRow.findViewById(R.id.icon_plot_crop);
+		}
+		return (mCropIcon);
 	}
 
 	public TextView getDescription() {
@@ -57,11 +67,11 @@ public class PlotItemWrapper {
 		return (mIcon);
 	}
 
-	public ImageView getCropIcon() {
-		if (mCropIcon == null) {
-			mCropIcon = (ImageView) mRow.findViewById(R.id.icon_plot_crop);
+	public TextView getNumber() {
+		if (mNumber == null) {
+			mNumber = (TextView) mRow.findViewById(R.id.label_plot_number);
 		}
-		return (mCropIcon);
+		return (mNumber);
 	}
 
 	public TextView getTitle() {
@@ -72,7 +82,7 @@ public class PlotItemWrapper {
 		return (mTitle);
 	}
 
-	public void populateFrom(Plot plot, RealFarmProvider provider) {
+	public void populateFrom(int position, Plot plot, RealFarmProvider provider) {
 
 		SeedType seed = provider.getSeedById(plot.getSeedTypeId());
 		Resource soilType = provider.getSoilTypeById(plot.getSoilTypeId());
@@ -102,5 +112,6 @@ public class PlotItemWrapper {
 		getTitle().setText(soilType.getName());
 		getDescription().setText(seed.getName());
 		getCropIcon().setImageResource(seed.getImage1());
+		getNumber().setText((1 + position) + ".");
 	}
 }

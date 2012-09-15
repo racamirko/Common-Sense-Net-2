@@ -409,20 +409,18 @@ public class RealFarmDatabase {
 
 	public static final int ACTION_TYPE_ALL_ID = 0;
 	public static final int ACTION_TYPE_FERTILIZE_ID = 2;
-
 	public static final int ACTION_TYPE_HARVEST_ID = 6;
 	public static final int ACTION_TYPE_IRRIGATE_ID = 3;
-
 	public static final int ACTION_TYPE_PLAN_ID = 8;
 	public static final int ACTION_TYPE_REPORT_ID = 4;
 	public static final int ACTION_TYPE_SELL_ID = 7;
 	public static final int ACTION_TYPE_SOW_ID = 1;
 	public static final int ACTION_TYPE_SPRAY_ID = 5;
+
 	public static final String COLUMN_NAME_ACTION_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_ACTION_CROPTYPEID = "cropTypeId";
 	public static final String COLUMN_NAME_ACTION_DATE = "date";
 	public static final String COLUMN_NAME_ACTION_ID = "id";
-
 	public static final String COLUMN_NAME_ACTION_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_ACTION_PLOTID = "plotId";
 	public static final String COLUMN_NAME_ACTION_PRICE = "price";
@@ -436,6 +434,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTION_UNIT1ID = "unit1Id";
 	public static final String COLUMN_NAME_ACTION_UNIT2ID = "unit2Id";
 	public static final String COLUMN_NAME_ACTION_USERID = "userId";
+
 	public static final String COLUMN_NAME_ACTIONTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_ACTIONTYPE_ID = "id";
 	public static final String COLUMN_NAME_ACTIONTYPE_IMAGE = "image";
@@ -445,34 +444,33 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ADVICE_ID = "id";
 	public static final String COLUMN_NAME_ADVICE_PROBLEMID = "problemTypeId";
 	public static final String COLUMN_NAME_ADVICE_SEEDTYPEID = "seedTypeId";
-
 	public static final String COLUMN_NAME_ADVICE_STAGENUMBER = "stageNumber";
+
 	public static final String COLUMN_NAME_ADVICEPIECE_ADVICEID = "adviceId";
 	public static final String COLUMN_NAME_ADVICEPIECE_AUDIO = "audio";
 	public static final String COLUMN_NAME_ADVICEPIECE_COMMENT = "comment";
 	public static final String COLUMN_NAME_ADVICEPIECE_ID = "id";
-
 	public static final String COLUMN_NAME_ADVICEPIECE_ORDERNUMBER = "orderNumber";
 	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDACTIONID = "suggestedActionId";
 	public static final String COLUMN_NAME_ADVICEPIECE_SUGGESTEDRESOURCEID = "suggestedResourceId";
+
 	public static final String COLUMN_NAME_CROPTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_CROPTYPE_BACKGROUNDIMAGE = "backgroundImage";
 	public static final String COLUMN_NAME_CROPTYPE_ID = "id";
 	public static final String COLUMN_NAME_CROPTYPE_IMAGE = "image";
-
 	public static final String COLUMN_NAME_CROPTYPE_NAME = "name";
 	public static final String COLUMN_NAME_CROPTYPE_SHORTNAME = "shortName";
+
 	public static final String COLUMN_NAME_MARKETPRICE_DATE = "date";
 	public static final String COLUMN_NAME_MARKETPRICE_ID = "id";
 	public static final String COLUMN_NAME_MARKETPRICE_MAX = "max";
 	public static final String COLUMN_NAME_MARKETPRICE_MIN = "min";
-
 	public static final String COLUMN_NAME_MARKETPRICE_TYPE = "type";
+
 	public static final String COLUMN_NAME_PLOT_ID = "id";
 	public static final String COLUMN_NAME_PLOT_IMAGEPATH = "imagePath";
 	public static final String COLUMN_NAME_PLOT_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_PLOT_ISENABLED = "isEnabled";
-
 	public static final String COLUMN_NAME_PLOT_SEEDTYPEID = "seedtypeId";
 	public static final String COLUMN_NAME_PLOT_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_PLOT_SIZE = "size";
@@ -491,47 +489,47 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_RECOMMENDATION_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_RECOMMENDATION_USERID = "userId";
 	public static final String COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE = "validThroughDate";
+
 	public static final String COLUMN_NAME_RESOURCE_AUDIO = "audio";
 	public static final String COLUMN_NAME_RESOURCE_BACKGROUNDIMAGE = "backgroundImage";
 	public static final String COLUMN_NAME_RESOURCE_ID = "id";
 	public static final String COLUMN_NAME_RESOURCE_IMAGE1 = "image1";
-
 	public static final String COLUMN_NAME_RESOURCE_IMAGE2 = "image2";
 	public static final String COLUMN_NAME_RESOURCE_NAME = "name";
 	public static final String COLUMN_NAME_RESOURCE_SHORTNAME = "shortName";
 	public static final String COLUMN_NAME_RESOURCE_TYPE = "type";
 	public static final String COLUMN_NAME_RESOURCE_VALUE = "value";
+
 	public static final String COLUMN_NAME_SEEDTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SEEDTYPE_CROPTYPEID = "cropTypeId";
 	public static final String COLUMN_NAME_SEEDTYPE_ID = "id";
 	public static final String COLUMN_NAME_SEEDTYPE_IMAGE = "resource";
-
 	public static final String COLUMN_NAME_SEEDTYPE_NAME = "name";
 	public static final String COLUMN_NAME_SEEDTYPE_SHORTNAME = "shortName";
+
 	public static final String COLUMN_NAME_SOILMOISTURE_CLUSTER = "cluster";
 	public static final String COLUMN_NAME_SOILMOISTURE_DATE = "date";
 	public static final String COLUMN_NAME_SOILMOISTURE_ID = "id";
 	public static final String COLUMN_NAME_SOILMOISTURE_ISADMINACTION = "isAdminAction";
-
 	public static final String COLUMN_NAME_SOILMOISTURE_VALUE = "value";
+
 	public static final String COLUMN_NAME_SOILTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_SOILTYPE_ID = "id";
 	public static final String COLUMN_NAME_SOILTYPE_IMAGE = "image";
 	public static final String COLUMN_NAME_SOILTYPE_NAME = "name";
-
 	public static final String COLUMN_NAME_SOILTYPE_SHORTNAME = "shortName";
+
 	public static final String COLUMN_NAME_UNIT_ACTIONTYPEID = "actionTypeId";
 	public static final String COLUMN_NAME_UNIT_AUDIO = "audio";
 	public static final String COLUMN_NAME_UNIT_ID = "id";
 	public static final String COLUMN_NAME_UNIT_IMAGE = "image";
-
 	public static final String COLUMN_NAME_UNIT_NAME = "name";
 	public static final String COLUMN_NAME_UNIT_VALUE = "value";
+
 	public static final String COLUMN_NAME_USER_DEVICEID = "deviceId";
 	public static final String COLUMN_NAME_USER_FIRSTNAME = "firstname";
 	public static final String COLUMN_NAME_USER_ID = "id";
 	public static final String COLUMN_NAME_USER_IMAGEPATH = "imagePath";
-
 	public static final String COLUMN_NAME_USER_ISADMINACTION = "isAdminAction";
 	public static final String COLUMN_NAME_USER_ISENABLED = "isEnabled";
 	public static final String COLUMN_NAME_USER_LASTNAME = "lastname";
@@ -541,6 +539,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_USER_NAME_AUDIO = "nameAudio";
 	public static final String COLUMN_NAME_USER_SENDSTATUS = "sendStatus";
 	public static final String COLUMN_NAME_USER_TIMESTAMP = "timestamp";
+
 	public static final String COLUMN_NAME_WEATHERFORECAST_DATE = "date";
 	public static final String COLUMN_NAME_WEATHERFORECAST_ID = "id";
 	public static final String COLUMN_NAME_WEATHERFORECAST_TEMPERATURE = "temperature";
@@ -555,7 +554,6 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_YIELDAGG_HADPEST = "hadPest";
 	public static final String COLUMN_NAME_YIELDAGG_HASFERTILIZED = "hasFertilized";
 	public static final String COLUMN_NAME_YIELDAGG_HASIRRIGATED = "hasIrrigated";
-
 	public static final String COLUMN_NAME_YIELDAGG_ID = "id";
 	public static final String COLUMN_NAME_YIELDAGG_PLACEID = "placeId";
 	public static final String COLUMN_NAME_YIELDAGG_SEASONID = "seasonId";
@@ -564,22 +562,20 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_YIELDAGG_SOWINGWINDOWID = "sowingWindowId";
 	public static final String COLUMN_NAME_YIELDAGG_SPRAYED = "hasSprayed";
 	public static final String COLUMN_NAME_YIELDAGG_YIELDINQTPACRE = "yieldInQtPerAcre";
+
 	/** Filename of the database. */
 	public static final String DB_NAME = "realFarm.db";
 	/** Current version of the database. */
 	public static final int DB_VERSION = 1;
 	/** Default Device Id. */
 	public static final String DEFAULT_DEVICE_ID = "000000000";
-	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;
-
-	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
 	/** Identifier used to debug the database. */
 	public static final String LOG_TAG = "RealFarm";
 	// TODO: This is for the selling aggregate and the aggregates number
 	// indicators on the homescreen. Put that somewhere into the database
 	public static final int NUMBER_DAYS_NEWS = 14;
-	public static final int RESOURCE_TYPE_ADVICE = 12;
 
+	public static final int RESOURCE_TYPE_ADVICE = 12;
 	public static final int RESOURCE_TYPE_DAYS_SPAN = 10;
 	public static final int RESOURCE_TYPE_DISEASE_SELECTOR = 17;
 	public static final int RESOURCE_TYPE_FERTILIZE_SELECTOR = 20;
@@ -601,6 +597,7 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_UNIT = 9;
 	public static final int RESOURCE_TYPE_VARIETY = 21;
 	public static final int RESOURCE_TYPE_YEAR = 14;
+
 	public static final int SELLING_AGGREGATE_INCREMENT = 99;
 
 	public static final String TABLE_NAME_ACTION = "action";
@@ -757,28 +754,51 @@ public class RealFarmDatabase {
 		// { "John", "Doe", deviceId, "", "farmer_default", "CK Pura",
 		// R.raw.john_doe, R.raw.ckpura },
 		Object[][] userData = {
-
-				{ "Hendrik", "Knoche", "911208750941913", "8151906857",
-						"farmer_hendrik_knoche", "CK Pura", R.raw.john_doe,
-						R.raw.ckpura }, /* 4 */
-				{ "Oscar", "Bolanos", "911208750485879", "9483824373",
-						"farmer_oscar_bolanos", "CK Pura",
-						R.raw.chris_mcdougall, R.raw.ckpura }, /* 6 */
-				{ "Gangadara", "", "911208750961135", "8151905805",
-						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
-						R.raw.ckpura }, /* 9 */
-				{ "Test", "User 10", "911208750956119", "8861214050",
-						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
-						R.raw.ckpura }, /* 10 */
+				{ "Allappa", "", "911208750943398", "8151906806",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 1 */
+				{ "SH Hanumantharayappa", "", "911208750673037", "8151906807",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 2 */
+				{ "Raamanji", "", "911208750512359", "9742950225",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 3 */
+				{ "Sanjeevappa", "", "911208750941913", "8151906857",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 4 */
+				{ "Fakruddin", "", "911208750963651", "8095986819",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 5 */
+				{ "Subramanyan", "", "911208750485879", "9483824373",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 6 */
+				{ "Nagendra", "", "911208750507219", "8151906788",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 7 */
+				{ "Sanna Mallapa", "", "911208750707959", "8151906790",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 8 */
+				{ "Gangadhara", "", "911208750961135", "8151905805",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 9 */
+				{ "M Hanumantharayappa", "", "911208750956119", "8861214050",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 10 */
+				{ "Yajamana Dasi", "", "911208750715812", "8748923287",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 11 */
+				{ "Pakali Nagaraja", "", "911208750027572", "9538569084",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 12 */
 				{ "G Prabhakar", "", "911217500767007", "8151906849",
-						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
-						R.raw.ckpura }, /* 13 */
-				{ "Paramesha", "", "911217500727225", "8151906854",
-						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
-						R.raw.ckpura }, /* 14 */
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 13 */
+				{ "Paramesha", "", "911217500770324", "8151906841",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 14 */
 				{ "Bindu", "", "911217500727225", "8151906854",
-						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
-						R.raw.ckpura } /* 15 */
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 15 */
 
 		};
 

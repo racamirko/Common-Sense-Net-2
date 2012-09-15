@@ -54,7 +54,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	public void setList() {
 		int cropSeedTypeId = topSelectorData.getId();
 
-		mItems = null;
+		// gets the data to show.
 		mItems = ActionDataFactory.getData(mCurrentAction, mDataProvider,
 				mActionTypeId, cropSeedTypeId, mDaysSelectorData);
 
@@ -75,8 +75,9 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		mListView.setOnItemLongClickListener(this);
 
 		super.setTopSelector(mActionTypeId);
-		if (mCurrentAction == RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET)
+		if (mCurrentAction == TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET) {
 			setDaysSelector();
+		}
 
 	}
 

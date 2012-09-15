@@ -1,9 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
     android:background="@drawable/square_btn"
     android:padding="@dimen/margin" >
+
+    <TextView
+        android:id="@+id/label_plot_number"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:gravity="left"
+        android:singleLine="true"
+        android:text="@string/placeholder_number"
+        android:textSize="@dimen/font_xlarge" />
 
     <ImageView
         android:id="@+id/icon_plot"
@@ -11,6 +23,7 @@
         android:layout_height="@dimen/icon_size"
         android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/margin"
+        android:layout_toRightOf="@+id/label_plot_number"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:src="@drawable/pic_72px_bajra" />
@@ -48,15 +61,5 @@
         android:singleLine="true"
         android:text="Title"
         android:textSize="@dimen/font_xlarge" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:text="@string/label_arrow"
-        android:textSize="@dimen/font_large"
-        android:textStyle="bold" >
-    </TextView>
 
 </RelativeLayout>

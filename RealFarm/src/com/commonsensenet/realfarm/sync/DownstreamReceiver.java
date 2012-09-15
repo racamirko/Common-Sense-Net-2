@@ -30,6 +30,15 @@ public class DownstreamReceiver extends BroadcastReceiver {
 	/** Access to the underlying Database. */
 	private RealFarmProvider mDataProvider;
 
+	/**
+	 * Plays a sound indicating that new data has arrived.
+	 */
+	protected void playNotificationSound() {
+		// adds the sound to queue and plays it.
+		SoundQueue.getInstance().addToQueue(R.raw.pong);
+		SoundQueue.getInstance().play();
+	}
+
 	@SuppressLint("ParserError")
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -65,10 +74,6 @@ public class DownstreamReceiver extends BroadcastReceiver {
 
 				// stops the SMS message from being broadcasted
 				this.abortBroadcast();
-
-				// adds the sound to queue and plays it.
-				SoundQueue.getInstance().addToQueue(R.raw.pong);
-				SoundQueue.getInstance().play();
 
 				// tracks that a message has been received.
 				ApplicationTracker.getInstance().logSyncEvent(EventType.SYNC,
@@ -113,6 +118,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 							Integer.valueOf(messageData[14]),
 							Long.valueOf(messageData[15]));
 
+					// plays the sound if the value was inserted.
+					if (result != -1) {
+						playNotificationSound();
+					}
+
 					// tracks the result of the insertion.
 					ApplicationTracker.getInstance().logSyncEvent(
 							EventType.SYNC, "DOWNSTREAM/ACTION",
@@ -141,6 +151,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Long.valueOf(messageData[8]),
 								Integer.valueOf(messageData[9]));
 
+						// plays the sound if the value was inserted.
+						if (result != -1) {
+							playNotificationSound();
+						}
+
 						// tracks the result of the insertion.
 						ApplicationTracker.getInstance().logSyncEvent(
 								EventType.SYNC, "DOWNSTREAM/PLOT",
@@ -168,6 +183,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 								Integer.valueOf(messageData[8]),
 								Long.valueOf(messageData[9]));
 
+						// plays the sound if the value was inserted.
+						if (result != -1) {
+							playNotificationSound();
+						}
+
 						// tracks the result of the insertion.
 						ApplicationTracker.getInstance().logSyncEvent(
 								EventType.SYNC, "DOWNSTREAM/USER",
@@ -184,6 +204,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 					result = mDataProvider.addWeatherForecast(messageData[0],
 							Integer.valueOf(messageData[1]), messageData[2]);
 
+					// plays the sound if the value was inserted.
+					if (result != -1) {
+						playNotificationSound();
+					}
+
 					// tracks the result of the insertion.
 					ApplicationTracker.getInstance().logSyncEvent(
 							EventType.SYNC, "DOWNSTREAM/WEATHERFORECAST",
@@ -195,6 +220,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 					result = mDataProvider.addMarketPrice(messageData[0],
 							Integer.valueOf(messageData[1]),
 							Integer.valueOf(messageData[2]), messageData[3]);
+
+					// plays the sound if the value was inserted.
+					if (result != -1) {
+						playNotificationSound();
+					}
 
 					// tracks the result of the insertion.
 					ApplicationTracker.getInstance().logSyncEvent(
@@ -215,6 +245,11 @@ public class DownstreamReceiver extends BroadcastReceiver {
 							Integer.valueOf(messageData[7]),
 							Integer.valueOf(messageData[8]),
 							Integer.valueOf(messageData[9]));
+
+					// plays the sound if the value was inserted.
+					if (result != -1) {
+						playNotificationSound();
+					}
 
 					// tracks the result of the insertion.
 					ApplicationTracker.getInstance().logSyncEvent(

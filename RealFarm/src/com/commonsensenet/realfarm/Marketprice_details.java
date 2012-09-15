@@ -35,9 +35,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		startActivity(adminintent);
 		Marketprice_details.this.finish();
 
-		// eliminates the listener.
-		mDataProvider.setWeatherForecastDataChangeListener(null);
-
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, "back");
 		ApplicationTracker.getInstance().flushAll();
@@ -49,7 +46,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.marketdetails, context);
-		mCurrentAction = RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
+		mCurrentAction = TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
 
 		min = mDataProvider
 				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
@@ -64,9 +61,9 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		// default seed/crop type id
 		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
+		// default 1 day
 		mDaysSelectorData = mDataProvider.getResources(
-				RealFarmDatabase.RESOURCE_TYPE_DAYS_SPAN).get(0); // default: 1
-																	// day
+				RealFarmDatabase.RESOURCE_TYPE_DAYS_SPAN).get(0);
 		setList();
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);

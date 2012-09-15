@@ -50,6 +50,8 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
+		super.onCreate(savedInstanceState, R.layout.tpl_aggregate, context);
+
 		// extracts the passed parameters
 		Bundle extras = getIntent().getExtras();
 		if (extras != null
@@ -59,19 +61,23 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONTYPE);
 		}
 
-		super.onCreate(savedInstanceState, R.layout.tpl_aggregate, context);
+		// gets the name of the action to perform.
 		mActionName = mDataProvider.getActionTypeById(mActionTypeId).getName();
-		mCurrentAction = RealFarmDatabase.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE;
+
+		// indicates that aggregates will be selected.
+		mCurrentAction = TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE;
 
 		// default seed/crop type id
 		// TODO: if user doesn't have a plot
 		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
+
+		// loads the data.
 		setList();
 
-		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
-		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
-		final View crop = findViewById(R.id.aggr_crop);
+		ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
+		ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
+		View crop = findViewById(R.id.aggr_crop);
 		Button back = (Button) findViewById(R.id.button_back);
 
 		home.setOnLongClickListener(this);

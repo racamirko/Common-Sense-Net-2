@@ -23,7 +23,6 @@ public class PlotItemAdapter extends ArrayAdapter<Plot> {
 			RealFarmProvider dataProvider) {
 		super(context, android.R.layout.simple_list_item_1, plots);
 
-		// TODO: this shouldn't be done!!
 		mDataProvider = dataProvider;
 	}
 
@@ -41,7 +40,7 @@ public class PlotItemAdapter extends ArrayAdapter<Plot> {
 			wrapper = (PlotItemWrapper) row.getTag();
 		}
 
-		wrapper.populateFrom(getItem(position), mDataProvider);
+		wrapper.populateFrom(position, getItem(position), mDataProvider);
 		return (row);
 	}
 }

@@ -27,6 +27,11 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld
 		implements OnItemClickListener, OnLongClickListener,
 		OnItemLongClickListener {
 
+	/** Indicates that the selector works with aggregate data. */
+	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;
+	/** Indicates that the Selector works with Market data. */
+	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
+
 	protected Resource topSelectorData;
 	protected RealFarmProvider mDataProvider;
 	protected LayoutInflater mLayoutInflater;
