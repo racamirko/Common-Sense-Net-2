@@ -151,13 +151,14 @@ public class AdviceActivity extends HelpEnabledActivity implements
 	}
 
 	private void makeAudioSituation(AdviceSituationItem situationItem) {
+
 		playAudio(R.raw.a10);
 
 		long crop = situationItem.getCropAudio();
 		int chance = situationItem.getChance();
 		int loss = situationItem.getLoss();
 		long problem = situationItem.getProblemAudio();
-		int audio = situationItem.getAudio();
+		String audioSequence = situationItem.getAudioSequence();
 		// TODO AUDIO: Say something here:
 		// "On the plot where you sowed "+crop+", you have a "+say(chance)+"% chance of losing"+say(loss)+"kg/acre to the problem"+problem+audio
 		// TODO AUDIO: Test each of the int. if == -1, don't say anything

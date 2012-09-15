@@ -29,7 +29,7 @@ public class AddUserActivity extends Activity {
 		String firstname = mFirstnameTextField.getText().toString();
 		String lastname = mLastnameTextField.getText().toString();
 		String mobileNumber = mMobileNumberTextField.getText().toString();
-		
+
 		// gets the device id from the application which corresponds to the IMEI
 		// number.
 		String deviceId = ((RealFarmApp) getApplication()).getDeviceId();

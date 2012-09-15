@@ -19,6 +19,7 @@ import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.MarketPrice;
+import com.commonsensenet.realfarm.model.Model;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.SeedType;
@@ -183,7 +184,7 @@ public class RealFarmProvider {
 			int stageNumber) {
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_AUDIO, audio);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_AUDIOSEQUENCE, audio);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_PROBLEMID, problemId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_STAGENUMBER, stageNumber);
@@ -423,8 +424,8 @@ public class RealFarmProvider {
 		int userDeviceCount = getUserCount(deviceId);
 
 		return addUser(deviceId + (userDeviceCount + 1), firstname, lastname,
-				mobileNumber, deviceId, imagePath, location, 0, 1,
-				isAdminAction, new Date().getTime());
+				mobileNumber, deviceId, imagePath, location,
+				Model.STATUS_UNSENT, 1, isAdminAction, new Date().getTime());
 	}
 
 	// should be used by the sync service.
@@ -898,7 +899,7 @@ public class RealFarmProvider {
 				asItem.setPlotId(c.getLong(13));
 				asItem.setLoss(c.getInt(5));
 				asItem.setChance(c.getInt(6));
-				asItem.setAudio(c.getInt(4));
+				asItem.setAudioSequence(c.getString(4));
 				asItem.setUnread(c.getInt(8));
 				asItem.setValidDate(c.getLong(9));
 				asItem.setId(c.getLong(14));
@@ -1955,10 +1956,12 @@ public class RealFarmProvider {
 	}
 
 	public Resource getTopSelectorDataCrop(long userId, long defaultCropTypeId) {
-		final String MY_QUERY = "SELECT ct.backgroundImage, ct.shortName, ct.id, ct.audio FROM seedType st, plot p, cropType ct WHERE st.cropTypeId = ct.id AND st.id = p.seedtypeId AND p.userId = "
-				+ userId + " ORDER BY st.id ASC";
-		final String MY_QUERY2 = "SELECT ct.backgroundImage, ct.shortName, ct.id, ct.audio FROM cropType ct WHERE ct.id = "
-				+ defaultCropTypeId;
+		final String MY_QUERY = "SELECT ct.backgroundImage, ct.shortName, ct.id, ct.audio "
+				+ "FROM seedType st, plot p, cropType ct "
+				+ "WHERE st.cropTypeId = ct.id AND st.id = p.seedtypeId AND p.userId = "
+				+ userId + " " + "ORDER BY st.id ASC";
+		final String MY_QUERY2 = "SELECT ct.backgroundImage, ct.shortName, ct.id, ct.audio "
+				+ "FROM cropType ct " + "WHERE ct.id = " + defaultCropTypeId;
 		mDatabase.open();
 		Cursor cursor = mDatabase.rawQuery(MY_QUERY, new String[] {});
 		Resource r = null;

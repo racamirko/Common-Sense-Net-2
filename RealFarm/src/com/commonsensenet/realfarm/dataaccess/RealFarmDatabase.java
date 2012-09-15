@@ -86,7 +86,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ACTION_PRICE
 					+ " integer, "
 					+ COLUMN_NAME_ACTION_USERID
-					+ " integer, "
+					+ " integer not null, "
 					+ COLUMN_NAME_ACTION_SENDSTATUS
 					+ " integer, "
 					+ COLUMN_NAME_ACTION_ISADMINACTION
@@ -103,19 +103,17 @@ public class RealFarmDatabase {
 							COLUMN_NAME_UNIT_ID)
 					+ references(COLUMN_NAME_ACTION_UNIT2ID, TABLE_NAME_UNIT,
 							COLUMN_NAME_UNIT_ID)
-					/*
-					 * + references(COLUMN_NAME_ACTION_RESOURCE1ID,
-					 * TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
-					 */
+					+ references(COLUMN_NAME_ACTION_RESOURCE1ID,
+							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
 					+ references(COLUMN_NAME_ACTION_RESOURCE2ID,
 							TABLE_NAME_RESOURCE, COLUMN_NAME_RESOURCE_ID)
-					+ references(COLUMN_NAME_ACTION_USERID, TABLE_NAME_USER,
-							COLUMN_NAME_USER_ID)
-					/*
-					 * + references(COLUMN_NAME_ACTION_PLOTID + ", " +
-					 * COLUMN_NAME_ACTION_USERID, TABLE_NAME_PLOT,
-					 * COLUMN_NAME_PLOT_ID + ", " + COLUMN_NAME_PLOT_USERID)
-					 */
+					// + references(COLUMN_NAME_ACTION_USERID, TABLE_NAME_USER,
+					// COLUMN_NAME_USER_ID)
+					//
+					// + references(COLUMN_NAME_ACTION_PLOTID + ", "
+					// + COLUMN_NAME_ACTION_USERID, TABLE_NAME_PLOT,
+					// COLUMN_NAME_PLOT_ID + ", "
+					// + COLUMN_NAME_PLOT_USERID)
 					+ "PRIMARY KEY (" + COLUMN_NAME_ACTION_ID + ", "
 					+ COLUMN_NAME_ACTION_USERID + ")" + " ); ");
 			Log.d(LOG_TAG, "Created action table");
@@ -133,7 +131,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_ADVICE_ID
 					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_ADVICE_PROBLEMID + " integer, "
-					+ COLUMN_NAME_ADVICE_AUDIO + " integer, "
+					+ COLUMN_NAME_ADVICE_AUDIOSEQUENCE + " text, "
 					+ COLUMN_NAME_ADVICE_SEEDTYPEID + " integer, "
 					+ COLUMN_NAME_ADVICE_STAGENUMBER + " integer" + " ); ");
 			Log.d(LOG_TAG, "Created advice table");
@@ -179,7 +177,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_PLOT_ID
 					+ " integer, "
 					+ COLUMN_NAME_PLOT_USERID
-					+ " integer, "
+					+ " integer not null, "
 					+ COLUMN_NAME_PLOT_SEEDTYPEID
 					+ " integer, "
 					+ COLUMN_NAME_PLOT_SOILTYPEID
@@ -198,8 +196,8 @@ public class RealFarmDatabase {
 					+ " integer not null, "
 					+ COLUMN_NAME_PLOT_TYPE
 					+ " integer, "
-					+ references(COLUMN_NAME_PLOT_USERID, TABLE_NAME_USER,
-							COLUMN_NAME_USER_ID)
+					// + references(COLUMN_NAME_PLOT_USERID, TABLE_NAME_USER,
+					// COLUMN_NAME_USER_ID)
 					+ references(COLUMN_NAME_PLOT_SEEDTYPEID,
 							TABLE_NAME_SEEDTYPE, COLUMN_NAME_SEEDTYPE_ID)
 					+ references(COLUMN_NAME_PLOT_SOILTYPEID,
@@ -443,7 +441,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONTYPE_IMAGE = "image";
 	public static final String COLUMN_NAME_ACTIONTYPE_NAME = "name";
 
-	public static final String COLUMN_NAME_ADVICE_AUDIO = "audio";
+	public static final String COLUMN_NAME_ADVICE_AUDIOSEQUENCE = "audio";
 	public static final String COLUMN_NAME_ADVICE_ID = "id";
 	public static final String COLUMN_NAME_ADVICE_PROBLEMID = "problemTypeId";
 	public static final String COLUMN_NAME_ADVICE_SEEDTYPEID = "seedTypeId";
@@ -979,7 +977,7 @@ public class RealFarmDatabase {
 						RESOURCE_TYPE_DAYS_SPAN, 21 },
 				{ "1 month", "1 month", R.raw.one_month, -1, -1, -1,
 						RESOURCE_TYPE_DAYS_SPAN, 31 },
-				{ "year", "year", R.raw.year, -1, -1, -1,
+				{ "1 year", "1 year", R.raw.year, -1, -1, -1,
 						RESOURCE_TYPE_DAYS_SPAN, 366 },
 
 				/** Treated */
