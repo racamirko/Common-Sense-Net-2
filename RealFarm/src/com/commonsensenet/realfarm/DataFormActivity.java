@@ -49,8 +49,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		dialog.setCanceledOnTouchOutside(true);
 
 		// creates an adapter that handles the data.
-		DialogAdapter adapter = new DialogAdapter(v.getContext(),
-				R.layout.mc_dialog_row, data);
+		DialogAdapter adapter = new DialogAdapter(v.getContext(), data);
 		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(adapter);
 
@@ -87,12 +86,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				// put backgrounds (specific to the application) TODO: optimize
 				// the resize
 				putBackgrounds(choice, var_text, imageType);
-
-				/*
-				 * Toast.makeText(mParentReference,
-				 * mResultsMap.get(propertyKey).toString(),
-				 * Toast.LENGTH_SHORT).show();
-				 */
 
 				// plays the name of the chosen option.
 				int iden = choice.getAudio();

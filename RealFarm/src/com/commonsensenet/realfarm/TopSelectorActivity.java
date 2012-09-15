@@ -62,8 +62,7 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld
 		dialog.setCancelable(true);
 		dialog.setCanceledOnTouchOutside(true);
 
-		DialogAdapter m_adapter = new DialogAdapter(v.getContext(),
-				R.layout.mc_dialog_row, data);
+		DialogAdapter m_adapter = new DialogAdapter(v.getContext(), data);
 		ListView mList = (ListView) dialog.findViewById(R.id.dialog_list);
 		mList.setAdapter(m_adapter);
 

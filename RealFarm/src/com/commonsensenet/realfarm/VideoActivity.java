@@ -48,9 +48,9 @@ public class VideoActivity extends HelpEnabledActivity {
 						getResources().getResourceEntryName(v.getId()));
 
 				// passes the selected video.
-				mTargetIntent
-						.putExtra(SELECTED_VIDEO,
-								"android.resource://com.commonsensenet.realfarm/kannada.mp4");
+				mTargetIntent.putExtra(SELECTED_VIDEO,
+						"android.resource://com.commonsensenet.realfarm/"
+								+ R.raw.kannada);
 
 				startActivity(mTargetIntent);
 				VideoActivity.this.finish();
@@ -66,9 +66,9 @@ public class VideoActivity extends HelpEnabledActivity {
 						getResources().getResourceEntryName(v.getId()));
 
 				// passes the selected video.
-				mTargetIntent
-						.putExtra(SELECTED_VIDEO,
-								"android.resource://com.commonsensenet.realfarm/english.mp4");
+				mTargetIntent.putExtra(SELECTED_VIDEO,
+						"android.resource://com.commonsensenet.realfarm/"
+								+ R.raw.english);
 				// R.raw.english
 
 				startActivity(mTargetIntent);

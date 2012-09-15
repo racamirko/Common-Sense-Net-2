@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/dialog_row_layout"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center_vertical"
+    android:padding="@dimen/margin" >
+
+    <ImageView
+        android:id="@+id/dialog_row_icon"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/icon_size_small"
+        android:layout_marginRight="@dimen/margin"
+        android:adjustViewBounds="true"
+        android:maxHeight="@dimen/icon_size_small"
+        android:maxWidth="@dimen/icon_size_small"
+        android:src="@drawable/ic_pestcategory" />
+
+    <ImageView
+        android:id="@+id/dialog_row_icon2"
+        android:layout_width="wrap_content"
+        android:layout_height="@dimen/icon_size_small"
+        android:layout_marginRight="@dimen/margin"
+        android:adjustViewBounds="true"
+        android:maxHeight="@dimen/icon_size_small"
+        android:maxWidth="@dimen/icon_size_small"
+        android:src="@drawable/pr_leaf_miner" />
+
+    <TextView
+        android:id="@+id/dialog_row_text"
+        android:layout_width="0dip"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:gravity="center_vertical"
+        android:text="@string/placeholder_text"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_large" />
+
+</LinearLayout>

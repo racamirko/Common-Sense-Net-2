@@ -32,7 +32,7 @@
                 android:layout_width="40dp"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:src="@drawable/ic_problemtype" />
+                android:src="@drawable/ic_problemselect" />
 
             <TextView
                 android:id="@+id/dlg_lbl_var_prob"

@@ -217,7 +217,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			final List<Resource> data = mDataProvider.getActionTypes();
 			// creates an adapter that handles the data.
 			final DialogAdapter adapter = new DialogAdapter(v.getContext(),
-					R.layout.mc_dialog_row, data);
+					data);
 			ListView dialogList = (ListView) dialog
 					.findViewById(R.id.dialog_list);
 			dialogList.setAdapter(adapter);
@@ -468,8 +468,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);
 		long k = mDataProvider.addAdvice(R.raw.problems, 3, 5, 1);
 
-		System.out.println(i + " " + j);
-
 		mDataProvider.addAdvicePiece(i, R.raw.problems, 1, 54,
 				"Bla bla bla bla bla bla bla bla", 5);
 		mDataProvider.addAdvicePiece(i, R.raw.problems, 2, 56,
@@ -643,16 +641,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				weatherImage.setImageResource(wt.getImage());
 			}
 		} else {
-			// shows the unknown weather forecast icon.
 
+			// shows the unknown weather forecast icon.
 			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
 			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
 			weatherTemp.setText("?");
 			weatherImage.setImageResource(R.drawable.wf_unknown);
 		}
-	}
-
-	protected void writeDatabaseToSDcard() {
-		throw new Error("Not implemented");
 	}
 }

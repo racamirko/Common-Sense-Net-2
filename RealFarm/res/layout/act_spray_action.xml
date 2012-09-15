@@ -30,9 +30,9 @@
             <ImageView
                 android:id="@+id/variety_sow_img_btn"
                 android:layout_width="40dp"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:src="@drawable/ic_problemtype" />
+                android:src="@drawable/ic_problemselect" />
 
             <TextView
                 android:id="@+id/dlg_lbl_prob_spray"
