@@ -15,6 +15,8 @@ import android.util.Log;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Model;
+import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.User;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.utils.SoundQueue;
@@ -61,6 +63,9 @@ public class DownstreamReceiver extends BroadcastReceiver {
 			// using %
 			if (str.indexOf("%100") == 0 && separated1.length == 3) {
 
+				// stops the SMS message from being broadcasted
+				this.abortBroadcast();
+
 				// adds the sound to queue and plays it.
 				SoundQueue.getInstance().addToQueue(R.raw.pong);
 				SoundQueue.getInstance().play();
@@ -70,106 +75,153 @@ public class DownstreamReceiver extends BroadcastReceiver {
 						"DOWNSTREAM", str);
 
 				// gets the type of message received.
-				String messageType = separated1[1];
+				int messageType = Integer.valueOf(separated1[1]);
 
-				for (int i = 2; i < separated1.length; i++) {
+				// extracts the message parts.
+				String[] messageData = separated1[2].split("#");
 
-					String[] separated2 = separated1[i].split("#");
+				// result of the insertion.
+				long result;
 
-					if (Integer.valueOf(messageType) == 1000) {
-						// actions insertions
+				// inserts the action
+				if (messageType == 1000) {
 
-						Date date1 = null;
-						try {
-							date1 = DATE_FORMATTER.parse(separated2[3]);
+					Date date1 = null;
+					try {
+						date1 = DATE_FORMATTER.parse(messageData[3]);
 
-							System.out.println("try in date" + date1);
-						} catch (ParseException e) {
-							e.printStackTrace();
-						}
-
-						mDataProvider.addAction(Long.valueOf(separated2[0]),
-								Integer.valueOf(separated2[1]),
-								Long.valueOf(separated2[2]), date1,
-								Integer.valueOf(separated2[4]),
-								Integer.valueOf(separated2[5]),
-								Double.valueOf(separated2[6]),
-								Double.valueOf(separated2[7]),
-								Integer.valueOf(separated2[8]),
-								Integer.valueOf(separated2[9]),
-								Integer.valueOf(separated2[10]),
-								Integer.valueOf(separated2[11]),
-								Integer.valueOf(separated2[12]),
-								Long.valueOf(separated2[13]),
-								Model.STATUS_CONFIRMED,
-								Integer.valueOf(separated2[14]),
-								Long.valueOf(separated2[15]));
-
-					} else if (Integer.valueOf(messageType) == 1001) {
-
-						mDataProvider.addPlot(Long.valueOf(separated2[0]),
-								Long.valueOf(separated2[1]),
-								Integer.valueOf(separated2[2]), separated2[4],
-								Integer.valueOf(separated2[3]),
-								Double.valueOf(separated2[5]), 0,
-								Integer.valueOf(separated2[6]),
-								Integer.valueOf(separated2[7]),
-								Long.valueOf(separated2[8]),
-								Integer.valueOf(separated2[9]));
-
-					} else if (Integer.valueOf(messageType) == 1002) {
-
-						mDataProvider.addUser(separated2[0], separated2[1],
-								separated2[2], separated2[3], separated2[4],
-								separated2[5], separated2[6], 0,
-								Integer.valueOf(separated2[7]),
-								Integer.valueOf(separated2[8]),
-								Long.valueOf(separated2[9]));
-					} else if (Integer.valueOf(messageType) == 1003) {
-
-						mDataProvider.addWeatherForecast(separated2[0],
-								Integer.valueOf(separated2[1]), separated2[2]);
-					} else if (Integer.valueOf(messageType) == 1004) {
-
-						String sep0 = separated2[0];
-						int sep1 = Integer.valueOf(separated2[1]);
-						int sep2 = Integer.valueOf(separated2[2]);
-						String sep3 = separated2[3];
-						mDataProvider.addMarketPrice(sep0, sep1, sep2, sep3);
-
-					} else if (Integer.valueOf(messageType) == 1005) {
-
-						mDataProvider.addRecommendation(
-								Long.valueOf(separated2[0]),
-								Long.valueOf(separated2[1]),
-								Long.valueOf(separated2[2]),
-								Long.valueOf(separated2[3]),
-								Long.valueOf(separated2[4]),
-								Integer.valueOf(separated2[5]),
-								Long.valueOf(separated2[6]),
-								Integer.valueOf(separated2[7]),
-								Integer.valueOf(separated2[8]),
-								Integer.valueOf(separated2[9]));
+						System.out.println("try in date" + date1);
+					} catch (ParseException e) {
+						e.printStackTrace();
 					}
+
+					result = mDataProvider.addAction(
+							Long.valueOf(messageData[0]),
+							Integer.valueOf(messageData[1]),
+							Long.valueOf(messageData[2]), date1,
+							Integer.valueOf(messageData[4]),
+							Integer.valueOf(messageData[5]),
+							Double.valueOf(messageData[6]),
+							Double.valueOf(messageData[7]),
+							Integer.valueOf(messageData[8]),
+							Integer.valueOf(messageData[9]),
+							Integer.valueOf(messageData[10]),
+							Integer.valueOf(messageData[11]),
+							Integer.valueOf(messageData[12]),
+							Long.valueOf(messageData[13]),
+							Model.STATUS_CONFIRMED,
+							Integer.valueOf(messageData[14]),
+							Long.valueOf(messageData[15]));
+
+					// tracks the result of the insertion.
+					ApplicationTracker.getInstance().logSyncEvent(
+							EventType.SYNC, "DOWNSTREAM/ACTION",
+							"result: " + result);
+
+					// inserts the plot
+				} else if (messageType == 1001) {
+
+					// test if the Plot already existed.
+					Plot tmpPlot = mDataProvider.getPlotById(
+							Long.valueOf(messageData[0]),
+							Long.valueOf(messageData[1]));
+
+					if (tmpPlot == null) {
+
+						result = mDataProvider.addPlot(
+								Long.valueOf(messageData[0]),
+								Long.valueOf(messageData[1]),
+								Integer.valueOf(messageData[2]),
+								messageData[4],
+								Integer.valueOf(messageData[3]),
+								Double.valueOf(messageData[5]),
+								Model.STATUS_CONFIRMED,
+								Integer.valueOf(messageData[6]),
+								Integer.valueOf(messageData[7]),
+								Long.valueOf(messageData[8]),
+								Integer.valueOf(messageData[9]));
+
+						// tracks the result of the insertion.
+						ApplicationTracker.getInstance().logSyncEvent(
+								EventType.SYNC, "DOWNSTREAM/PLOT",
+								"result: " + result);
+					} else {
+						// tracks the result of the insertion.
+						ApplicationTracker.getInstance().logSyncEvent(
+								EventType.SYNC, "DOWNSTREAM/PLOT", "duplicate");
+					}
+
+					// inserts the user
+				} else if (messageType == 1002) {
+
+					// tests if the User currently exists.
+					User tmpUser = mDataProvider.getUserById(Long
+							.valueOf(messageData[0]));
+
+					if (tmpUser == null) {
+
+						result = mDataProvider.addUser(messageData[0],
+								messageData[1], messageData[2], messageData[3],
+								messageData[4], messageData[5], messageData[6],
+								Model.STATUS_CONFIRMED,
+								Integer.valueOf(messageData[7]),
+								Integer.valueOf(messageData[8]),
+								Long.valueOf(messageData[9]));
+
+						// tracks the result of the insertion.
+						ApplicationTracker.getInstance().logSyncEvent(
+								EventType.SYNC, "DOWNSTREAM/USER",
+								"result: " + result);
+					} else {
+						// tracks the result of the insertion.
+						ApplicationTracker.getInstance().logSyncEvent(
+								EventType.SYNC, "DOWNSTREAM/USER", "duplicate");
+					}
+
+					// inserts the weather forecast
+				} else if (messageType == 1003) {
+
+					result = mDataProvider.addWeatherForecast(messageData[0],
+							Integer.valueOf(messageData[1]), messageData[2]);
+
+					// tracks the result of the insertion.
+					ApplicationTracker.getInstance().logSyncEvent(
+							EventType.SYNC, "DOWNSTREAM/WEATHERFORECAST",
+							"result: " + result);
+
+					// inserts the market price
+				} else if (messageType == 1004) {
+
+					result = mDataProvider.addMarketPrice(messageData[0],
+							Integer.valueOf(messageData[1]),
+							Integer.valueOf(messageData[2]), messageData[3]);
+
+					// tracks the result of the insertion.
+					ApplicationTracker.getInstance().logSyncEvent(
+							EventType.SYNC, "DOWNSTREAM/MARKETPRICE",
+							"result: " + result);
+
+					// inserts the recommendation
+				} else if (messageType == 1005) {
+
+					result = mDataProvider.addRecommendation(
+							Long.valueOf(messageData[0]),
+							Long.valueOf(messageData[1]),
+							Long.valueOf(messageData[2]),
+							Long.valueOf(messageData[3]),
+							Long.valueOf(messageData[4]),
+							Integer.valueOf(messageData[5]),
+							Long.valueOf(messageData[6]),
+							Integer.valueOf(messageData[7]),
+							Integer.valueOf(messageData[8]),
+							Integer.valueOf(messageData[9]));
+
+					// tracks the result of the insertion.
+					ApplicationTracker.getInstance().logSyncEvent(
+							EventType.SYNC, "DOWNSTREAM/RECOMMENDATION",
+							"result: " + result);
 				}
-
-				// stops the SMS message from being broadcasted
-				this.abortBroadcast();
 			}
-
-			// ---launch the SMSActivity---
-			// Intent mainActivityIntent = new Intent(context,
-			// SMSActivity.class);
-			// mainActivityIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-			// context.startActivity(mainActivityIntent);
-
-			// ---send a broadcast intent to update the SMS received in the
-			// activity---
-			// Intent broadcastIntent = new Intent();
-			// broadcastIntent.setAction("SMS_RECEIVED_ACTION");
-			// broadcastIntent.putExtra("sms", str);
-			// context.sendBroadcast(broadcastIntent);
-
 		}
 	}
 }

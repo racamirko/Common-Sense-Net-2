@@ -166,7 +166,7 @@ public class RealFarmDatabase {
 					+ COLUMN_NAME_MARKETPRICE_MIN + " integer, "
 					+ COLUMN_NAME_MARKETPRICE_MAX + " integer, "
 					+ COLUMN_NAME_MARKETPRICE_DATE + " text, "
-					+ COLUMN_NAME_MARKETPRICE_TYPE + " integer" + " ); ");
+					+ COLUMN_NAME_MARKETPRICE_TYPE + " text" + " ); ");
 			Log.d(LOG_TAG, "Created market price table");
 
 			// plots
@@ -480,11 +480,11 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_PLOT_TIMESTAMP = "timestamp";
 	public static final String COLUMN_NAME_PLOT_TYPE = "type";
 	public static final String COLUMN_NAME_PLOT_USERID = "userId";
+
 	public static final String COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE = "actionRequiredByDate";
 	public static final String COLUMN_NAME_RECOMMENDATION_ADVICEID = "adviceId";
 	public static final String COLUMN_NAME_RECOMMENDATION_ID = "id";
 	public static final String COLUMN_NAME_RECOMMENDATION_ISUNREAD = "isUnread";
-
 	public static final String COLUMN_NAME_RECOMMENDATION_PLOTID = "plotId";
 	public static final String COLUMN_NAME_RECOMMENDATION_PROBABILITY = "probability";
 	public static final String COLUMN_NAME_RECOMMENDATION_SEVERITY = "severity";
@@ -760,13 +760,25 @@ public class RealFarmDatabase {
 
 				{ "Hendrik", "Knoche", "911208750941913", "8151906857",
 						"farmer_hendrik_knoche", "CK Pura", R.raw.john_doe,
-						R.raw.ckpura },
+						R.raw.ckpura }, /* 4 */
 				{ "Oscar", "Bolanos", "911208750485879", "9483824373",
 						"farmer_oscar_bolanos", "CK Pura",
-						R.raw.chris_mcdougall, R.raw.ckpura },
-				{ "Prakruthi", "Keshavamurthy", "911208750961135",
-						"8151905805", "farmer_default", "CK Pura",
-						R.raw.chris_mcdougall, R.raw.ckpura }
+						R.raw.chris_mcdougall, R.raw.ckpura }, /* 6 */
+				{ "Gangadara", "", "911208750961135", "8151905805",
+						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
+						R.raw.ckpura }, /* 9 */
+				{ "Test", "User 10", "911208750956119", "8861214050",
+						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
+						R.raw.ckpura }, /* 10 */
+				{ "G Prabhakar", "", "911217500767007", "8151906849",
+						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
+						R.raw.ckpura }, /* 13 */
+				{ "Paramesha", "", "911217500727225", "8151906854",
+						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
+						R.raw.ckpura }, /* 14 */
+				{ "Bindu", "", "911217500727225", "8151906854",
+						"farmer_default", "CK Pura", R.raw.chris_mcdougall,
+						R.raw.ckpura } /* 15 */
 
 		};
 

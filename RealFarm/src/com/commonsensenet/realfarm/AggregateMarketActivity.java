@@ -58,8 +58,9 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		mItems = ActionDataFactory.getData(mCurrentAction, mDataProvider,
 				mActionTypeId, cropSeedTypeId, mDaysSelectorData);
 
-		if (mItems == null || mItems.size() < 1)
+		if (mItems == null || mItems.size() < 1) {
 			playAudio(R.raw.no_info_seeds, true);
+		}
 
 		// creates the data adapter.
 		mItemAdapter = ActionDataFactory.getAdapter(mCurrentAction,
