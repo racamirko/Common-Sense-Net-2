@@ -464,17 +464,21 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Log.d(getLogTag(), actions.get(x).toString());
 		}
 
-		// updates the news indicators for the aggregates
-		updateAggregatesNumbers();
+		long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
+		long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);
+		long k = mDataProvider.addAdvice(R.raw.problems, 3, 5, 1);
 
-		// updates the market prices
-		updateMarketPrices();
+		System.out.println(i + " " + j);
 
-		// updates the advice news
-		updateAdviceNumbers();
+		mDataProvider.addAdvicePiece(i, R.raw.problems, 1, 54,
+				"Bla bla bla bla bla bla bla bla", 5);
+		mDataProvider.addAdvicePiece(i, R.raw.problems, 2, 56,
+				"gbsfassdfadfsdF", 5);
+		mDataProvider.addAdvicePiece(j, R.raw.problems, 1, 55,
+				"asdfasfdsdafasda", 5);
+		mDataProvider.addAdvicePiece(k, R.raw.problems, 1, 57,
+				"asdfasfdsdafasda", 5);
 
-		// adds the widgets
-		updateWidgets();
 		// adds the listeners
 		initActionListener();
 
@@ -566,6 +570,20 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		TextView tw = (TextView) findViewById(R.id.news_advice);
 		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
 				+ "");
+	}
+
+	@Override
+	public void onStart() {
+		super.onStart();
+
+		// updates the news indicators for the aggregates
+		updateAggregatesNumbers();
+		// updates the market prices
+		updateMarketPrices();
+		// updates the advice news
+		updateAdviceNumbers();
+		// adds the widgets
+		updateWidgets();
 	}
 
 	private void updateAggregatesNumbers() {

@@ -34,11 +34,13 @@ public class UserListActivity extends Activity {
 
 		setContentView(R.layout.act_admin_user_list);
 
+		// gets an instance of the data provider
 		mDataProvider = RealFarmProvider.getInstance(this);
 
 		// gets the buttons from the layout
 		Button addUserButton = (Button) findViewById(R.id.admin_user_list_button_add_user);
 
+		// adds all the users to the ListView
 		populateUserList();
 
 		// add the event listeners
@@ -146,6 +148,9 @@ public class UserListActivity extends Activity {
 
 	}
 
+	/**
+	 * Populates the listView
+	 */
 	public void populateUserList() {
 
 		// gets the list where the data is displayed

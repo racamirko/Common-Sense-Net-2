@@ -13,6 +13,7 @@ import android.telephony.TelephonyManager;
 import android.util.Log;
 
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.model.Model;
 
 /**
  * Class to manage database, i.e., input, remove and read data.
@@ -129,16 +130,18 @@ public class RealFarmDatabase {
 
 			// advice topics
 			db.execSQL("create table " + TABLE_NAME_ADVICE + " ( "
-					+ COLUMN_NAME_ADVICE_ID + " integer primary key, "
+					+ COLUMN_NAME_ADVICE_ID
+					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_ADVICE_PROBLEMID + " integer, "
 					+ COLUMN_NAME_ADVICE_AUDIO + " integer, "
 					+ COLUMN_NAME_ADVICE_SEEDTYPEID + " integer, "
 					+ COLUMN_NAME_ADVICE_STAGENUMBER + " integer" + " ); ");
 			Log.d(LOG_TAG, "Created advice table");
 
-			// advicepieces
+			// advice pieces
 			db.execSQL("create table " + TABLE_NAME_ADVICEPIECE + " ( "
-					+ COLUMN_NAME_ADVICEPIECE_ID + " integer primary key, "
+					+ COLUMN_NAME_ADVICEPIECE_ID
+					+ " integer primary key autoincrement, "
 					+ COLUMN_NAME_ADVICEPIECE_AUDIO + " integer, "
 					+ COLUMN_NAME_ADVICEPIECE_COMMENT + " text, "
 					+ COLUMN_NAME_ADVICEPIECE_ADVICEID + " integer, "
@@ -813,8 +816,9 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_LOCATION, (String) userData[x][5]);
 			users.put(COLUMN_NAME_USER_NAME_AUDIO, (Integer) userData[x][6]);
 			users.put(COLUMN_NAME_USER_LOCATION_AUDIO, (Integer) userData[x][7]);
-			users.put(COLUMN_NAME_USER_SENDSTATUS,
-					userData[x][2].equals(deviceId) ? 0 : 1);
+			users.put(COLUMN_NAME_USER_SENDSTATUS, userData[x][2]
+					.equals(deviceId) ? Model.STATUS_UNSENT
+					: Model.STATUS_CONFIRMED);
 			users.put(COLUMN_NAME_USER_ISENABLED, 1);
 			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
 			users.put(COLUMN_NAME_USER_TIMESTAMP, new Date().getTime());
@@ -1460,9 +1464,6 @@ public class RealFarmDatabase {
 			insertEntriesIntoDatabase(TABLE_NAME_YIELDAGG, yieldAgg, db);
 			yieldAgg.clear();
 		}
-
-		Log.d(LOG_TAG, "seedtype works");
-
 	}
 
 	/**

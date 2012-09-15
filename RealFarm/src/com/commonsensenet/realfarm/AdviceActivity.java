@@ -40,10 +40,15 @@ import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 public class AdviceActivity extends HelpEnabledActivity implements
 		OnChildClickListener, OnGroupClickListener, OnItemLongClickListener {
 
+	/** Adapter used to manage the advices. */
 	private AdviceAdapter mAdviceAdapter;
+	/** Data access provider. */
 	private RealFarmProvider mDataProvider;
-	private ExpandableListView mExpandableListView;
+	/** ListView used to display the situations. */
+	private ExpandableListView mListView;
+	/** Inflater used to add custom layouts. */
 	private LayoutInflater mLayoutInflater;
+	/** List of Situations for the user. */
 	private ArrayList<AdviceSituationItem> mSituationItems;
 
 	public void copyView(AggregateItem aggregate, View destination) {
@@ -104,38 +109,34 @@ public class AdviceActivity extends HelpEnabledActivity implements
 			ArrayList<AdviceSituationItem> situationItems) {
 		for (int i = 0; i < mAdviceAdapter.getGroupCount(); i++) {
 			if (situationItems.get(i).getValidDate() >= new Date().getTime())
-				mExpandableListView.expandGroup(i);
+				mListView.expandGroup(i);
 		}
 	}
 
 	private AggregateItem getSelectedItem(AdviceSituationItem situationItem,
 			AdviceSolutionItem solutionItem) {
+
 		int actionTypeId = solutionItem.getSuggestedActionId();
-		if (actionTypeId == -1)
+
+		// spray is the default action type.
+		if (actionTypeId == -1) {
 			actionTypeId = RealFarmDatabase.ACTION_TYPE_SPRAY_ID;
+		}
+
+		// creates a new Aggregate Item.
 		AggregateItem selectedItem = new AggregateItem(actionTypeId);
 
+		// sets the values.
 		selectedItem.setCenterText(situationItem.getCropShortName());
 		selectedItem.setCenterBackground(situationItem.getCropBackground());
 		selectedItem.setLeftText(situationItem.getProblemShortName());
 		selectedItem.setLeftImage(situationItem.getProblemImage());
 		selectedItem.setCenterImage(solutionItem.getPesticideImage());
 		selectedItem.setRightText(solutionItem.getPesticideShortName());
-
 		selectedItem.setSelector1(situationItem.getCropId());
 		selectedItem.setSelector2(situationItem.getProblemId());
 		selectedItem.setSelector3(solutionItem.getPesticideId());
 		return selectedItem;
-	}
-
-	public ArrayList<AdviceSituationItem> initLists() {
-		ArrayList<AdviceSituationItem> adviceData = mDataProvider
-				.getAdviceData(Global.userId);
-		if (adviceData == null || adviceData.size() == 0) {
-			// TODO AUDIO: No data to present
-			playAudio(R.raw.problems);
-		}
-		return adviceData;
 	}
 
 	private void makeAudioCallUser(UserAggregateItem user) {
@@ -408,23 +409,31 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 		// gets the data provider.
 		mDataProvider = RealFarmProvider.getInstance(this);
+		// layout inflater used to add new elements.
 		mLayoutInflater = getLayoutInflater();
 
 		// gets the list from the layout.
-		mExpandableListView = (ExpandableListView) findViewById(R.id.exp_list);
+		mListView = (ExpandableListView) findViewById(R.id.exp_list);
 
-		// configures the listview.
-		mSituationItems = initLists();
+		// fetches the data from the database.
+		mSituationItems = mDataProvider.getAdviceData(Global.userId);
+
+		if (mSituationItems == null || mSituationItems.size() == 0) {
+			// TODO AUDIO: No data to present
+			playAudio(R.raw.problems);
+		}
+
+		// creates the adapter
 		mAdviceAdapter = new AdviceAdapter(AdviceActivity.this,
 				mSituationItems, this);
-		mExpandableListView.setAdapter(mAdviceAdapter);
+		mListView.setAdapter(mAdviceAdapter);
 
 		expandCurrentLists(mSituationItems);
 
 		// adds the events.
-		mExpandableListView.setOnChildClickListener(this);
-		mExpandableListView.setOnGroupClickListener(this);
-		mExpandableListView.setOnItemLongClickListener(this);
+		mListView.setOnChildClickListener(this);
+		mListView.setOnGroupClickListener(this);
+		mListView.setOnItemLongClickListener(this);
 	}
 
 	public boolean onGroupClick(ExpandableListView parent, View v,
@@ -440,7 +449,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 			int position, long id) {
 		stopAudio();
 
-		long data = mExpandableListView.getExpandableListPosition(position);
+		long data = mListView.getExpandableListPosition(position);
 		int type = ExpandableListView.getPackedPositionType(data);
 		AdviceSituationItem situationItem = mSituationItems
 				.get(ExpandableListView.getPackedPositionGroup(data));

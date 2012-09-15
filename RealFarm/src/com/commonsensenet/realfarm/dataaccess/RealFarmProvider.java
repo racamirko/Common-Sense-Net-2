@@ -181,14 +181,8 @@ public class RealFarmProvider {
 
 	public long addAdvice(int audio, int problemId, int seedTypeId,
 			int stageNumber) {
-		return addAdvice(new Date().getTime(), audio, problemId, seedTypeId,
-				stageNumber);
-	}
-
-	public long addAdvice(long id, int audio, int problemId, int seedTypeId,
-			int stageNumber) {
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_ID, id);
+
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_AUDIO, audio);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_PROBLEMID, problemId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_SEEDTYPEID, seedTypeId);
@@ -207,15 +201,9 @@ public class RealFarmProvider {
 
 	public long addAdvicePiece(long adviceId, int audio, int orderNumber,
 			int suggestedResourceId, String comment, int actionTypeId) {
-		return addAdvicePiece(new Date().getTime(), adviceId, audio,
-				orderNumber, suggestedResourceId, comment, actionTypeId);
-	}
 
-	public long addAdvicePiece(long id, long adviceId, int audio,
-			int orderNumber, int suggestedResourceId, String comment,
-			int actionTypeId) {
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_ID, id);
+
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_ADVICEID, adviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_AUDIO, audio);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICEPIECE_ORDERNUMBER,
@@ -335,12 +323,13 @@ public class RealFarmProvider {
 			int probability) {
 		return addRecommendation(new Date().getTime(), new Date().getTime(),
 				plotId, adviceId, userId, actReqByDate, validThroughDate,
-				severity, probability, 0);
+				severity, probability, 1);
 	}
 
 	public long addRecommendation(long id, long timestamp, long plotId,
-			long adviceId, long userId, int actReqByDate,
+			long adviceId, long userId, long actReqByDate,
 			long validThroughDate, int severity, int probability, int isUnread) {
+
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_TIMESTAMP,
@@ -784,27 +773,41 @@ public class RealFarmProvider {
 	}
 
 	public ArrayList<AdviceSituationItem> getAdviceData(long userId) {
+
+		// gets the current year data.
 		long dateBeginningYear = DateHelper.getBeginningYear();
 
+		// lists where the advices and situations will be stored.
 		ArrayList<AdviceSituationItem> situationList = new ArrayList<AdviceSituationItem>();
 		ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
+
+		// gets the NONE resource.
 		Resource none = getResources(RealFarmDatabase.RESOURCE_TYPE_ADVICE)
 				.get(0);
 
-		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.isUnread, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id, rec.id, st.audio, res.audio FROM recommendation rec, seedType st, cropType ct, resource res, advice ad, plot p WHERE rec.timestamp >= "
+		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.isUnread, rec.validThroughDate, ad.id, st.id, ad.problemTypeId, p.id, rec.id, st.audio, res.audio "
+				+ "FROM recommendation rec, seedType st, cropType ct, resource res, advice ad, plot p "
+				+ "WHERE rec.timestamp >= "
 				+ dateBeginningYear
 				+ " AND rec.userId = "
 				+ userId
-				+ " AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.seedTypeId = st.id AND ad.problemTypeId = res.id AND st.cropTypeId = ct.id ORDER BY rec.timestamp DESC";
+				+ " AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.seedTypeId = st.id AND ad.problemTypeId = res.id AND st.cropTypeId = ct.id "
+				+ "ORDER BY rec.timestamp DESC";
+
 		mDatabase.open();
+		// queries the recommendations.
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
 		if (c.moveToFirst()) {
+			System.out.println(c.getCount());
 			do {
 
-				final String MY_QUERY2 = "SELECT adp.orderNumber, adp.comment, res.ShortName, res.image1, adp.id, adp.adviceId, adp.suggestedResourceId, adp.suggestedActionId, at.audio, res.audio FROM resource res, advicePiece adp, actionType at WHERE at.id = adp.suggestedActionId AND adp.adviceId = "
+				final String MY_QUERY2 = "SELECT adp.orderNumber, adp.comment, res.ShortName, res.image1, adp.id, adp.adviceId, adp.suggestedResourceId, adp.suggestedActionId, at.audio, res.audio "
+						+ "FROM resource res, advicePiece adp, actionType at "
+						+ "WHERE at.id = adp.suggestedActionId AND adp.adviceId = "
 						+ c.getLong(10)
-						+ " AND adp.suggestedResourceId = res.id ORDER BY adp.orderNumber ASC";
+						+ " AND adp.suggestedResourceId = res.id "
+						+ "ORDER BY adp.orderNumber ASC";
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
 				int number = 0;
@@ -1677,10 +1680,12 @@ public class RealFarmProvider {
 								+ userId
 								+ "' AND "
 								+ RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD
-								+ " = 0 AND "
+								+ " = 1 AND "
 								+ RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE
 								+ " >= " + new Date().getTime(), null, null,
 						null, null);
+
+		// counts the total active recommendations.
 		int recommendationCount = c.getCount();
 
 		// closes the cursor and database.
