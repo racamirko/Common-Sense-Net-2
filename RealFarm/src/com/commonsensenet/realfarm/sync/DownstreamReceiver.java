@@ -2,7 +2,9 @@ package com.commonsensenet.realfarm.sync;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
@@ -86,7 +88,7 @@ public class DownstreamReceiver extends BroadcastReceiver {
 				String[] messageData = separated1[2].split("#");
 
 				// result of the insertion.
-				long result;
+				long result = -1;
 
 				// inserts the action
 				if (messageType == 1000) {
@@ -201,12 +203,31 @@ public class DownstreamReceiver extends BroadcastReceiver {
 					// inserts the weather forecast
 				} else if (messageType == 1003) {
 
-					result = mDataProvider.addWeatherForecast(messageData[0],
-							Integer.valueOf(messageData[1]), messageData[2]);
+					try {
 
-					// plays the sound if the value was inserted.
-					if (result != -1) {
+						// parses the base date from the server.
+						Date baseDate = DATE_FORMATTER.parse(messageData[0]);
+
+						// creates a calendar
+						Calendar cal = GregorianCalendar.getInstance();
+						cal.setTime(baseDate);
+
+						String[] weatherData;
+						for (int y = 1; y < messageData.length; y++, cal.add(
+								Calendar.DAY_OF_MONTH, 1)) {
+							weatherData = messageData[y].split("/");
+
+							result = mDataProvider.addWeatherForecast(
+									DATE_FORMATTER.format(cal.getTime()),
+									Integer.valueOf(weatherData[0]),
+									Integer.valueOf(weatherData[1]));
+
+						}
+
+						// plays the sound if the value was inserted.
 						playNotificationSound();
+
+					} catch (ParseException e) {
 					}
 
 					// tracks the result of the insertion.
@@ -214,9 +235,9 @@ public class DownstreamReceiver extends BroadcastReceiver {
 							EventType.SYNC, "DOWNSTREAM/WEATHERFORECAST",
 							"result: " + result);
 
-					// inserts the market price
 				} else if (messageType == 1004) {
 
+					// inserts the market price
 					result = mDataProvider.addMarketPrice(messageData[0],
 							Integer.valueOf(messageData[1]),
 							Integer.valueOf(messageData[2]), messageData[3]);

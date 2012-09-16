@@ -42,9 +42,6 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 		// gets the Database
 		mDataProvider = RealFarmProvider.getInstance(this);
-		// sets the data change listener in case the weather information is
-		// updated.
-		mDataProvider.setWeatherForecastDataChangeListener(this);
 
 		// gets the forecast from the database for today.
 		mWeatherForecasts = mDataProvider.getWeatherForecasts(new Date());
@@ -67,8 +64,23 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		mWeatherForecastListView.setOnItemLongClickListener(this);
 	}
 
+	protected void onResume() {
+		super.onResume();
+
+		// sets the data change listener in case the weather information is
+		// updated.
+		mDataProvider.setWeatherForecastDataChangeListener(this);
+	}
+
+	protected void onPause() {
+		super.onPause();
+
+		// removes the data change listener.
+		mDataProvider.setWeatherForecastDataChangeListener(null);
+	}
+
 	// TODO: this is not implemented.
-	public void onDataChanged(String date, int temperature, String type) {
+	public void onDataChanged(String date, int temperature, int weatherTypeId) {
 		// item should be added to the adapter.
 	}
 

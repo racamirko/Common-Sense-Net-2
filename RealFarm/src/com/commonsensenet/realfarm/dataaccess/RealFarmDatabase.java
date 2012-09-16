@@ -331,6 +331,8 @@ public class RealFarmDatabase {
 					+ " text unique not null, "
 					+ COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID
 					+ " integer, "
+					+ COLUMN_NAME_WEATHERFORECAST_TIMESTAMP
+					+ " integer not null, "
 					+ references(COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
 							TABLE_NAME_WEATHERTYPE,
 							COLUMN_NAME_WEATHERFORECAST_ID, false) + " ); ");
@@ -545,6 +547,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_WEATHERFORECAST_ID = "id";
 	public static final String COLUMN_NAME_WEATHERFORECAST_TEMPERATURE = "temperature";
 	public static final String COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID = "weatherTypeId";
+	public static final String COLUMN_NAME_WEATHERFORECAST_TIMESTAMP = "timestamp";
 
 	public static final String COLUMN_NAME_WEATHERTYPE_AUDIO = "audio";
 	public static final String COLUMN_NAME_WEATHERTYPE_ID = "id";
@@ -800,6 +803,9 @@ public class RealFarmDatabase {
 				{ "Bindu", "", "911217500727225", "8151906854",
 						"farmer_911217500727225", "CK Pura", R.raw.bindu,
 						R.raw.ckpura },/* 15 */
+				{ "Sheshagiri", "", "354717046643814", "9448379025",
+						"farmer_default", "CK Pura", R.raw.sheshagiri,
+						R.raw.ckpura } /* 16 */
 
 		};
 
@@ -874,7 +880,8 @@ public class RealFarmDatabase {
 						R.drawable.pr_unknown_disease, -1,
 						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Disease not listed", "D unlisted", R.raw.disease_not_listed,
-						R.drawable.ic_diseasecategory, R.drawable.def_img, -1,
+						R.drawable.ic_diseasecategory,
+						R.drawable.square_btn_normal, -1,
 						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Aphids", "Aphids", R.raw.aphids, R.drawable.ic_pestcategory,
 						R.drawable.pr_aphids, -1, RESOURCE_TYPE_PROBLEM, -1 },
@@ -886,7 +893,8 @@ public class RealFarmDatabase {
 						-1, RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Red hairy caterpillar", "R H Caterpillar",
 						R.raw.red_hairy_caterpillar,
-						R.drawable.ic_pestcategory, R.drawable.def_img, -1,
+						R.drawable.ic_pestcategory,
+						R.drawable.pr_red_hairy_caterpillar, -1,
 						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Root grub", "Root grub", R.raw.root_grub,
 						R.drawable.ic_pestcategory, R.drawable.pr_root_grub,
@@ -895,7 +903,8 @@ public class RealFarmDatabase {
 						R.drawable.ic_pestcategory, R.drawable.pr_pestunknown,
 						-1, RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Pest not listed", "Pe-unlisted", R.raw.pest_not_listed,
-						R.drawable.ic_pestcategory, R.drawable.def_img, -1,
+						R.drawable.ic_pestcategory,
+						R.drawable.square_btn_normal, -1,
 						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "No rain", "No rain", R.raw.no_sound_help,
 						R.drawable.ic_otherproblemcategory,
@@ -908,8 +917,9 @@ public class RealFarmDatabase {
 						R.drawable.pr_pegs_not_developed, -1,
 						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Pod germination", "Pod germination", R.raw.pod_germination,
-						R.drawable.ic_otherproblemcategory, R.drawable.def_img,
-						-1, RESOURCE_TYPE_PROBLEM, -1 },
+						R.drawable.ic_otherproblemcategory,
+						R.drawable.square_btn_normal, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Reduced flowering", "Red flowering",
 						R.raw.reduced_flowering,
 						R.drawable.ic_otherproblemcategory,
@@ -925,15 +935,16 @@ public class RealFarmDatabase {
 						R.drawable.pr_too_much_vegetation_growth, -1,
 						RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Weeds", "Weeds", R.raw.weeds,
-						R.drawable.ic_otherproblemcategory, R.drawable.def_img,
+						R.drawable.ic_otherproblemcategory, R.drawable.pr_weed,
 						-1, RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Wild boar", "Wild boar", R.raw.wild_boar,
-						R.drawable.ic_otherproblemcategory, R.drawable.def_img,
-						-1, RESOURCE_TYPE_PROBLEM, -1 },
+						R.drawable.ic_otherproblemcategory,
+						R.drawable.pr_wild_boar, -1, RESOURCE_TYPE_PROBLEM, -1 },
 				{ "Problem not listed", "Pb-unlisted",
 						R.raw.problem_not_listed,
-						R.drawable.ic_otherproblemcategory, R.drawable.def_img,
-						-1, RESOURCE_TYPE_PROBLEM, -1 },
+						R.drawable.ic_otherproblemcategory,
+						R.drawable.square_btn_normal, -1,
+						RESOURCE_TYPE_PROBLEM, -1 },
 				/** Treatment */
 				{ "Treated", "Treated", R.raw.treatmenttoseeds2,
 						R.drawable.ic_sowingseedtreated, -1, -1,
@@ -1545,8 +1556,12 @@ public class RealFarmDatabase {
 		return mDb.rawQuery(sql, selectionArgs);
 	}
 
-	public int update(String tableName, ContentValues args, String whereClause,
-			String[] whereArgs) {
-		return mDb.update(tableName, args, whereClause, whereArgs);
+	public long update(String tableName, ContentValues values,
+			String whereClause, String[] whereArgs) {
+		long result = -1;
+		if (tableName != null && values != null) {
+			result = mDb.update(tableName, values, whereClause, whereArgs);
+		}
+		return result;
 	}
 }

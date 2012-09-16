@@ -43,7 +43,7 @@ public class RealFarmProvider {
 	 */
 	public abstract interface OnWeatherForecastDataChangeListener {
 		public abstract void onDataChanged(String date, int temperature,
-				String type);
+				int weatherTypeId);
 	}
 
 	/** Date format used throughout the application. */
@@ -180,11 +180,12 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long addAdvice(int audio, int problemId, int seedTypeId,
+	public long addAdvice(String audioSequence, int problemId, int seedTypeId,
 			int stageNumber) {
 		ContentValues args = new ContentValues();
 
-		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_AUDIOSEQUENCE, audio);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_AUDIOSEQUENCE,
+				audioSequence);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_PROBLEMID, problemId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_STAGENUMBER, stageNumber);
@@ -462,29 +463,72 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	// TODO: check that the date is respected.
-	public long addWeatherForecast(String date, int value, String type) {
+	/**
+	 * Adds a new WeatherForecast to the Database. If a forecast of the given
+	 * date already existed.
+	 * 
+	 * 
+	 * @param date
+	 *            date of the WeatherForecast in yyyy-MM-dd format.
+	 * @param temperature
+	 *            temperature in Celcius.
+	 * @param weatherTypeId
+	 *            WeatherTypeId of the received weather forecast
+	 * 
+	 * @return the id of the inserted weather forecast or -1 if an error was
+	 *         produced.
+	 */
+	public long addWeatherForecast(String date, int temperature,
+			int weatherTypeId) {
 
-		Log.d("WF values: ", "in setdata");
+		// checks if a forecast for the date already exists.
+		WeatherForecast wf = getWeatherForecastByDate(date);
+
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE, date);
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
-				value);
+				temperature);
 		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
-				type);
+				weatherTypeId);
+		args.put(RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP,
+				new Date().getTime());
+
+		long result;
+
+		// opens the database.
 		mDatabase.open();
+		if (wf == null) {
 
-		long result = mDatabase.insertEntries(
-				RealFarmDatabase.TABLE_NAME_WEATHERFORECAST, args);
+			// inserts the new data.
+			result = mDatabase.insertEntries(
+					RealFarmDatabase.TABLE_NAME_WEATHERFORECAST, args);
 
+		} else {
+			// updates the data since it already existed.
+			result = mDatabase.update(
+					RealFarmDatabase.TABLE_NAME_WEATHERFORECAST, args,
+					RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID + " = "
+							+ wf.getId(), null);
+
+			// if no results were modified it is changed to
+			if (result == 0) {
+				result = -1;
+			} else {
+				// if correctly modified the result gets updated to the id.
+				result = wf.getId();
+			}
+		}
+
+		// closes the database.
 		mDatabase.close();
 
 		// notifies any listener that the data changed.
 		if (sWeatherForecastDataListener != null) {
-			sWeatherForecastDataListener.onDataChanged(date, value, type);
+			sWeatherForecastDataListener.onDataChanged(date, temperature,
+					weatherTypeId);
 		}
-		Log.d("done: ", "wf setdata");
+
 		return result;
 	}
 
@@ -2719,7 +2763,8 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID },
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP },
 						null, null, null, null,
 						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
 								+ " ASC");
@@ -2730,7 +2775,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				wf = new WeatherForecast(c.getInt(0), c.getString(1),
-						c.getInt(2), c.getInt(3));
+						c.getInt(2), c.getInt(3), c.getInt(4));
 				tmpList.add(wf);
 
 				Log.d("WF values: ", wf.toString());
@@ -2755,6 +2800,46 @@ public class RealFarmProvider {
 	 */
 	public List<WeatherForecast> getWeatherForecasts(Date startDate) {
 		return getWeatherForecasts(sDateFormat.format(startDate));
+	}
+
+	public WeatherForecast getWeatherForecastByDate(String date) {
+
+		// opens the database.
+		mDatabase.open();
+
+		// query all actions
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_WEATHERFORECAST,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP },
+
+						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
+								+ " = '" + date + "'", null, null, null,
+						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP
+								+ " ASC");
+
+		WeatherForecast wf = null;
+		if (c.moveToFirst()) {
+
+			Log.d("RealFarmProvider",
+					"total wf found with date: " + c.getCount());
+
+			wf = new WeatherForecast(c.getInt(0), c.getString(1), c.getInt(2),
+					c.getInt(3), c.getLong(4));
+
+			Log.d("WF values: ", wf.toString());
+
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return wf;
 	}
 
 	/**
@@ -2782,7 +2867,8 @@ public class RealFarmProvider {
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
 								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID },
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP },
 						"date("
 								+ RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
 								+ ") >= date('" + startDate + "')", null, null,
@@ -2796,7 +2882,7 @@ public class RealFarmProvider {
 		if (c.moveToFirst()) {
 			do {
 				wf = new WeatherForecast(c.getInt(0), c.getString(1),
-						c.getInt(2), c.getInt(3));
+						c.getInt(2), c.getInt(3), c.getLong(4));
 				tmpList.add(wf);
 
 				Log.d("WF values: ", wf.toString());

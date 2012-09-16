@@ -35,6 +35,7 @@ import com.commonsensenet.realfarm.actions.SprayActionActivity;
 import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnWeatherForecastDataChangeListener;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
@@ -53,7 +54,8 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
  * @author Oscar Bolaños <@oscarbolanos>
  * @author Nguyen Lisa
  */
-public class Homescreen extends HelpEnabledActivity implements OnClickListener {
+public class Homescreen extends HelpEnabledActivity implements OnClickListener,
+		OnWeatherForecastDataChangeListener {
 
 	/** Access to the underlying database of the application. */
 	private RealFarmProvider mDataProvider;
@@ -464,9 +466,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			Log.d(getLogTag(), actions.get(x).toString());
 		}
 
-		long i = mDataProvider.addAdvice(R.raw.problems, 1, 3, 1);
-		long j = mDataProvider.addAdvice(R.raw.problems, 2, 4, 1);
-		long k = mDataProvider.addAdvice(R.raw.problems, 3, 5, 1);
+		long i = mDataProvider.addAdvice(R.raw.problems + "", 1, 3, 1);
+		long j = mDataProvider.addAdvice(R.raw.problems + "", 2, 4, 1);
+		long k = mDataProvider.addAdvice(R.raw.problems + "", 3, 5, 1);
 
 		mDataProvider.addAdvicePiece(i, R.raw.problems, 1, 54,
 				"Bla bla bla bla bla bla bla bla", 5);
@@ -581,7 +583,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 		// updates the advice news
 		updateAdviceNumbers();
 		// adds the widgets
-		updateWidgets();
+		updateWeatherForecast();
 	}
 
 	private void updateAggregatesNumbers() {
@@ -617,7 +619,20 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 	}
 
-	protected void updateWidgets() {
+	protected void onResume() {
+		super.onResume();
+
+		mDataProvider.setWeatherForecastDataChangeListener(this);
+	}
+
+	protected void onPause() {
+		super.onPause();
+
+		// removes the listener
+		mDataProvider.setWeatherForecastDataChangeListener(null);
+	}
+
+	private void updateWeatherForecast() {
 
 		// gets the forecast from the database.
 		List<WeatherForecast> forecastList = mDataProvider
@@ -648,5 +663,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener {
 			weatherTemp.setText("?");
 			weatherImage.setImageResource(R.drawable.wf_unknown);
 		}
+	}
+
+	public void onDataChanged(String date, int temperature, int weatherTypeId) {
+		updateWeatherForecast();
 	}
 }

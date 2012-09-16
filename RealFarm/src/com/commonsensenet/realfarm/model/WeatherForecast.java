@@ -12,14 +12,18 @@ public class WeatherForecast {
 	private int mId;
 	/** Temperature in Celcius. */
 	private int mTemperature;
+	/** Indicates when was the WeatherForecast created or updated. */
+	private long mTimestamp;
 	/** WeatherType id that describes the weather forecast. */
 	private int mWeatherTypeId;
 
-	public WeatherForecast(int id, String date, int temperature, int type) {
+	public WeatherForecast(int id, String date, int temperature, int type,
+			long timestamp) {
 		mId = id;
 		mDate = date;
 		mTemperature = temperature;
 		mWeatherTypeId = type;
+		mTimestamp = timestamp;
 	}
 
 	public String getDate() {
@@ -34,6 +38,10 @@ public class WeatherForecast {
 		return mTemperature;
 	}
 
+	public long getTimestamp() {
+		return mTimestamp;
+	}
+
 	public int getWeatherTypeId() {
 		return mWeatherTypeId;
 	}
@@ -42,8 +50,8 @@ public class WeatherForecast {
 	public String toString() {
 
 		return String
-				.format("[WeatherForecast id='%s', date='%s', temperature='%d', weatherTypeId='%d']",
-						mId, mDate, mTemperature, mWeatherTypeId);
+				.format("[WeatherForecast id='%s', date='%s', temperature='%d', weatherTypeId='%d', timestamp='%d']",
+						mId, mDate, mTemperature, mWeatherTypeId, mTimestamp);
 	}
 
 }
