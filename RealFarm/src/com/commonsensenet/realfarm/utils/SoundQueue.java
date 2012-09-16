@@ -66,7 +66,11 @@ public class SoundQueue implements OnCompletionListener {
 		}
 
 		// adds the id to the queue to play.
-		mResToPlay.add(MediaPlayer.create(mContext, resId));
+		if (mResToPlay != null) {
+			mResToPlay.add(MediaPlayer.create(mContext, resId));
+		} else {
+			Log.d(LOG_TAG, "Queue is empty!!");
+		}
 	}
 
 	/**
@@ -139,5 +143,5 @@ public class SoundQueue implements OnCompletionListener {
 		// removes any other existing sound in the queue.
 		clean();
 	}
-	
+
 }

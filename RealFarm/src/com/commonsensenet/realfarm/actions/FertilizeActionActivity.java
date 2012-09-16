@@ -20,6 +20,12 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 	public static final String AMOUNT = "amount";
 	public static final String DAY = "day";
+	public static final String DEFAULT_AMOUNT = "0";
+	public static final String DEFAULT_DAY = "0";
+	public static final int DEFAULT_FERTILIZER = -1;
+
+	public static final int DEFAULT_MONTH = -1;
+	public static final int DEFAULT_UNIT = -1;
 	public static final String FERTILIZER = "fertilizer";
 	public static final String MONTH = "month";
 	public static final String UNIT = "unit";
@@ -27,37 +33,30 @@ public class FertilizeActionActivity extends DataFormActivity implements
 	private double mAmount;
 	private int mDay;
 	private int mFertilizer;
+	private List<Resource> mFertilizerList;
 	private int mMonth;
+	private List<Resource> mMonthList;
 	private int mUnit;
-
-	private int defaultFertilizer = -1;
-	private int defaultUnit = -1;
-	private int defaultMonth = -1;
-	private String defaultAmount = "0";
-	private String defaultDay = "0";
-
-	private List<Resource> fertilizerList;
-	private List<Resource> monthList;
-	private List<Resource> unitList;
+	private List<Resource> mUnitList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_fertilize_action);
 
-		fertilizerList = mDataProvider
+		mFertilizerList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_FERTILIZER);
-		monthList = mDataProvider
+		mMonthList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
-		unitList = mDataProvider
+		mUnitList = mDataProvider
 				.getUnits(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID);
 
 		// adds the values that need to be validated.
-		mResultsMap.put(FERTILIZER, defaultFertilizer);
-		mResultsMap.put(AMOUNT, defaultAmount);
-		mResultsMap.put(UNIT, defaultUnit);
-		mResultsMap.put(DAY, defaultDay);
-		mResultsMap.put(MONTH, defaultMonth);
+		mResultsMap.put(FERTILIZER, DEFAULT_FERTILIZER);
+		mResultsMap.put(AMOUNT, DEFAULT_AMOUNT);
+		mResultsMap.put(UNIT, DEFAULT_UNIT);
+		mResultsMap.put(DAY, DEFAULT_DAY);
+		mResultsMap.put(MONTH, DEFAULT_MONTH);
 
 		playAudio(R.raw.clickingfertilising);
 
@@ -95,7 +94,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 				// TODO AUDIO: "Select the fertilizer" This is the audio that is
 				// heard when the selector dialog opens
-				displayDialog(v, fertilizerList, FERTILIZER,
+				displayDialog(v, mFertilizerList, FERTILIZER,
 						"Choose the fertilizer", R.raw.selecttypeoffertilizer,
 						R.id.dlg_lbl_var_fert, R.id.var_fert_tr, 0);
 			}
@@ -125,7 +124,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
 
-				displayDialog(v, unitList, UNIT, "Choose the unit",
+				displayDialog(v, mUnitList, UNIT, "Choose the unit",
 						R.raw.selecttheunits, R.id.dlg_lbl_units_fert,
 						R.id.units_fert_tr, 1);
 			}
@@ -154,7 +153,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
 
-				displayDialog(v, monthList, MONTH, "Select the month",
+				displayDialog(v, mMonthList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_fert,
 						R.id.day_fert_tr, 0);
 			}
@@ -169,50 +168,49 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 		if (v.getId() == R.id.dlg_lbl_var_fert) {
 
-			if ((Integer) mResultsMap.get(FERTILIZER) == defaultFertilizer)
+			if ((Integer) mResultsMap.get(FERTILIZER) == DEFAULT_FERTILIZER) {
 				playAudio(R.raw.selecttypeoffertilizer, true);
-			else
+			} else {
 				playAudio(
-						fertilizerList.get(
+						mFertilizerList.get(
 								((Integer) mResultsMap.get(FERTILIZER)))
 								.getAudio(), true);
+			}
 		} else if (v.getId() == R.id.dlg_lbl_units_fert) {
 
-			if ((Integer) mResultsMap.get(UNIT) == defaultUnit)
+			if ((Integer) mResultsMap.get(UNIT) == DEFAULT_UNIT) {
 				playAudio(R.raw.selecttheunits, true);
-			else
-				playAudio(unitList.get(((Integer) mResultsMap.get(UNIT)))
-						.getAudio(), true);
+			} else {
+				playAudio(mUnitList.get(((Integer) mResultsMap.get(UNIT)))
+
+				.getAudio(), true);
+			}
 		} else if (v.getId() == R.id.dlg_lbl_unit_no_fert) {
 
-			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
+			if (mResultsMap.get(AMOUNT).equals(DEFAULT_AMOUNT)) {
 				playAudio(R.raw.select_unit_number, true);
-			// TODO AUDIO: Say the number
-			// Double.parseDouble(mResultsMap.get(AMOUNT).toString());
-			else
+				// TODO AUDIO: Say the number
+				// Double.parseDouble(mResultsMap.get(AMOUNT).toString());
+			} else {
 				playAudio(R.raw.a1, true);
+			}
 
 		} else if (v.getId() == R.id.dlg_lbl_day_fert) {
 
-			if (mResultsMap.get(DAY).equals(defaultDay))
+			if (mResultsMap.get(DAY).equals(DEFAULT_DAY)) {
 				playAudio(R.raw.dateinfo, true);
-
-			else
+			} else {
 				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+			}
 
 		} else if (v.getId() == R.id.dlg_lbl_month_fert) {
 
-			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
+			if ((Integer) mResultsMap.get(MONTH) == DEFAULT_MONTH) {
 				playAudio(R.raw.choosethemonth, true);
-			else
-				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
+			} else {
+				playAudio(mMonthList.get(((Integer) mResultsMap.get(MONTH)))
 						.getAudio(), true);
-		}
-
-		else if (v.getId() == R.id.button_ok) {
-			playAudio(R.raw.ok, true);
-		} else if (v.getId() == R.id.button_cancel) {
-			playAudio(R.raw.cancel, true);
+			}
 		} else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.fert_help, true);
 		} else if (v.getId() == R.id.var_fert_tr) {
@@ -242,8 +240,8 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		// flag to indicate the validity of the form.
 		boolean isValid = true;
 
-		if ((Integer) mResultsMap.get(UNIT) != defaultUnit
-				&& mAmount > Double.parseDouble(defaultAmount)) {
+		if ((Integer) mResultsMap.get(UNIT) != DEFAULT_UNIT
+				&& mAmount > Double.parseDouble(DEFAULT_AMOUNT)) {
 			highlightField(R.id.units_fert_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -252,7 +250,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			highlightField(R.id.units_fert_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(FERTILIZER) != defaultFertilizer) {
+		if ((Integer) mResultsMap.get(FERTILIZER) != DEFAULT_FERTILIZER) {
 			highlightField(R.id.var_fert_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -261,10 +259,11 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			highlightField(R.id.var_fert_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(MONTH) != defaultMonth
-				&& mDay > Integer.parseInt(defaultDay)
+		if ((Integer) mResultsMap.get(MONTH) != DEFAULT_MONTH
+				&& mDay > Integer.parseInt(DEFAULT_DAY)
 				&& validDate(mDay,
-						monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
+						mMonthList.get((Integer) mResultsMap.get(MONTH))
+								.getId())) {
 			highlightField(R.id.day_fert_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -279,10 +278,10 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
 
-			mFertilizer = fertilizerList.get(
+			mFertilizer = mFertilizerList.get(
 					(Integer) mResultsMap.get(FERTILIZER)).getId();
-			mUnit = unitList.get((Integer) mResultsMap.get(UNIT)).getId();
-			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
+			mUnit = mUnitList.get((Integer) mResultsMap.get(UNIT)).getId();
+			mMonth = mMonthList.get((Integer) mResultsMap.get(MONTH)).getId();
 
 			long result = mDataProvider.addFertilizeAction(Global.userId,
 					Global.plotId, mAmount, mFertilizer, mUnit,

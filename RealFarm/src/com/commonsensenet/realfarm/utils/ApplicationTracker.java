@@ -66,6 +66,10 @@ public class ApplicationTracker {
 	private LinkedList<String> mActivityLog;
 	/** Date format used in each log. */
 	private SimpleDateFormat mDateFormat;
+
+	/** DeviceId used to name the log file. */
+	private String mDeviceId;
+
 	/** Path where the log is stored in the SD card. */
 	private String mExternalDirectoryLog;
 	/**
@@ -112,7 +116,8 @@ public class ApplicationTracker {
 		mExternalDirectoryLog = folder.getAbsolutePath();
 
 		// creates the log file.
-		mFile = new File(mExternalDirectoryLog, LOG_FILENAME);
+		mFile = new File(mExternalDirectoryLog,
+				mDeviceId != null ? (mDeviceId + "-") : "" + LOG_FILENAME);
 
 		try {
 			// initializes the file writer
@@ -170,7 +175,8 @@ public class ApplicationTracker {
 		mExternalDirectoryLog = folder.getAbsolutePath();
 
 		// creates the log file.
-		mFile = new File(mExternalDirectoryLog, SYNC_LOG_FILENAME);
+		mFile = new File(mExternalDirectoryLog,
+				mDeviceId != null ? (mDeviceId + "-") : "" + SYNC_LOG_FILENAME);
 
 		try {
 			// initializes the file writer
@@ -193,6 +199,10 @@ public class ApplicationTracker {
 		} catch (Exception e) {
 			Log.e("WRITE TO SD", e.getMessage());
 		}
+	}
+
+	public String getDeviceId() {
+		return mDeviceId;
 	}
 
 	public int getMaxLogSize() {
@@ -290,6 +300,10 @@ public class ApplicationTracker {
 		// flushSync();
 		// }
 		// }
+	}
+
+	public void setDeviceId(String deviceId) {
+		mDeviceId = deviceId;
 	}
 
 	public void setMaxLogSize(int value) {

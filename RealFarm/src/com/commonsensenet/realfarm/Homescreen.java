@@ -382,6 +382,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 		super.onCreate(savedInstanceState);
 
+		// sets the DeviceId which is used as part of the name of the log file.
+		ApplicationTracker.getInstance().setDeviceId(
+				((RealFarmApp) getApplication()).getDeviceId());
+
 		// adds the Task to the scheduler.
 		SchedulerManager.getInstance().saveTask(getApplicationContext(),
 				"*/1 * * * *", // a cron string
@@ -635,14 +639,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	private void updateWeatherForecast() {
 
 		// gets the forecast from the database.
-		List<WeatherForecast> forecastList = mDataProvider
-				.getWeatherForecasts(new Date());
+		WeatherForecast wf = mDataProvider
+				.getWeatherForecastByDate(RealFarmProvider.sDateFormat
+						.format(new Date()));
 
-		// if there is at least one value
-		if (forecastList.size() != 0) {
+		// if the forecast is valid.
+		if (wf != null) {
 
-			// sets the first forecast
-			WeatherForecast wf = forecastList.get(0);
+			// sets the image and text related to the forecast.
 			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
 			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
 			weatherTemp.setText(wf.getTemperature()
@@ -665,7 +669,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		}
 	}
 
+	/**
+	 * Updates the UI when a new Forecast is obtained.
+	 */
 	public void onDataChanged(String date, int temperature, int weatherTypeId) {
+
 		updateWeatherForecast();
 	}
 }

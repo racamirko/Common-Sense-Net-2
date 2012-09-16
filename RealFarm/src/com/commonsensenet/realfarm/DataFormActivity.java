@@ -105,7 +105,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(),
-						data.get(position).getShortName());
+						data.get(position).getName());
 
 				playAudio(iden, true);
 				return true;
@@ -310,7 +310,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		if (v.getId() == R.id.button_ok) {
 			playAudio(R.raw.ok);
 		} else if (v.getId() == R.id.button_cancel) {
-			System.out.println("lala");
 			playAudio(R.raw.cancel);
 		}
 
