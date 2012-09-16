@@ -1497,6 +1497,62 @@ public class RealFarmDatabase {
 			insertEntriesIntoDatabase(TABLE_NAME_YIELDAGG, yieldAgg, db);
 			yieldAgg.clear();
 		}
+
+		Object[][] adviceData = {
+				{
+						R.raw.till_date_collected_info + ","
+								+ R.raw.because_lateeafspot_podrot + ","
+								+ R.raw.percent_loss, -1, -1, 1 },
+				{
+						R.raw.till_date_collected_info + ","
+								+ R.raw.caused_by_leaf_miner + ","
+								+ R.raw.percent_loss, -1, -1, 1 }
+
+		};
+
+		ContentValues adviceAgg = new ContentValues();
+		for (int x = 0; x < adviceData.length; x++) {
+			adviceAgg.put(COLUMN_NAME_ADVICE_AUDIOSEQUENCE,
+					(String) adviceData[x][0]);
+			adviceAgg.put(COLUMN_NAME_ADVICE_PROBLEMID,
+					(Integer) adviceData[x][1]);
+			adviceAgg.put(COLUMN_NAME_ADVICE_SEEDTYPEID,
+					(Integer) adviceData[x][2]);
+			adviceAgg.put(COLUMN_NAME_ADVICE_STAGENUMBER,
+					(Integer) adviceData[x][3]);
+			insertEntriesIntoDatabase(TABLE_NAME_ADVICE, adviceAgg, db);
+			adviceAgg.clear();
+		}
+
+		Object[][] advicePieceData = {
+				{
+						1,
+						R.raw.advice_lateleafspot_podrot,
+						"34 g/ha  (0.5 g per liter) of cyproconazole and 420 g/ha (1 g per liter) of chlorothalonil",
+						1, ACTION_TYPE_SPRAY_ID, -1 },
+				{ 2, R.raw.advice_leafminer, "monocrotophos 36 SL @ 1ml/l", 1,
+						ACTION_TYPE_SPRAY_ID, -1 },
+
+		};
+
+		ContentValues advicePieceAgg = new ContentValues();
+		for (int x = 0; x < advicePieceData.length; x++) {
+			advicePieceAgg.put(COLUMN_NAME_ADVICEPIECE_ADVICEID,
+					(Integer) advicePieceData[x][0]);
+			advicePieceAgg.put(COLUMN_NAME_ADVICEPIECE_AUDIO,
+					(Integer) advicePieceData[x][1]);
+			advicePieceAgg.put(COLUMN_NAME_ADVICEPIECE_COMMENT,
+					(String) advicePieceData[x][2]);
+			advicePieceAgg.put(COLUMN_NAME_ADVICEPIECE_ORDERNUMBER,
+					(Integer) advicePieceData[x][3]);
+			advicePieceAgg.put(COLUMN_NAME_ADVICEPIECE_SUGGESTEDACTIONID,
+					(Integer) advicePieceData[x][4]);
+			advicePieceAgg.put(COLUMN_NAME_ADVICEPIECE_SUGGESTEDRESOURCEID,
+					(Integer) advicePieceData[x][5]);
+			insertEntriesIntoDatabase(TABLE_NAME_ADVICEPIECE, advicePieceAgg,
+					db);
+			advicePieceAgg.clear();
+		}
 	}
 
 	/**

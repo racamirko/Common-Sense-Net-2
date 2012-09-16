@@ -15,7 +15,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.telephony.SmsManager;
-import android.widget.Toast;
 
 import com.buzzbox.mob.android.scheduler.Task;
 import com.buzzbox.mob.android.scheduler.TaskResult;
@@ -211,8 +210,6 @@ public class UpstreamTask implements Task {
 					ApplicationTracker.getInstance().logSyncEvent(
 							EventType.SYNC, "SEND-" + resultMessage,
 							"type:" + type + ", id:" + id);
-					Toast.makeText(arg0, resultMessage, Toast.LENGTH_SHORT)
-							.show();
 
 				}
 			};
@@ -245,13 +242,9 @@ public class UpstreamTask implements Task {
 
 						// marks the message as delivered.
 						updateStatus(type, id, Model.STATUS_CONFIRMED);
-
-						Toast.makeText(arg0, "SMS delivered",
-								Toast.LENGTH_SHORT).show();
 						break;
 					case Activity.RESULT_CANCELED:
-						Toast.makeText(arg0, "SMS not delivered",
-								Toast.LENGTH_SHORT).show();
+
 						break;
 					}
 

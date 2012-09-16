@@ -69,10 +69,11 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 		RelativeLayout rl = (RelativeLayout) destination
 				.findViewById(R.id.relative_layout_left);
-		if (aggregate.getLeftBackground() != -1)
+		if (aggregate.getLeftBackground() != -1) {
 			rl.setBackgroundResource(aggregate.getLeftBackground());
-		else
+		} else {
 			tw.setTextColor(Color.BLACK);
+		}
 
 		tw = (TextView) destination.findViewById(R.id.label_center);
 		tw.setText(aggregate.getCenterText());

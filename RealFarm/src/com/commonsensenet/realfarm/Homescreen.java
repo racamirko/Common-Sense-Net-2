@@ -470,19 +470,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			Log.d(getLogTag(), actions.get(x).toString());
 		}
 
-		long i = mDataProvider.addAdvice(R.raw.problems + "", 1, 3, 1);
-		long j = mDataProvider.addAdvice(R.raw.problems + "", 2, 4, 1);
-		long k = mDataProvider.addAdvice(R.raw.problems + "", 3, 5, 1);
-
-		mDataProvider.addAdvicePiece(i, R.raw.problems, 1, 54,
-				"Bla bla bla bla bla bla bla bla", 5);
-		mDataProvider.addAdvicePiece(i, R.raw.problems, 2, 56,
-				"gbsfassdfadfsdF", 5);
-		mDataProvider.addAdvicePiece(j, R.raw.problems, 1, 55,
-				"asdfasfdsdafasda", 5);
-		mDataProvider.addAdvicePiece(k, R.raw.problems, 1, 57,
-				"asdfasfdsdafasda", 5);
-
 		// adds the listeners
 		initActionListener();
 

@@ -193,12 +193,10 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "text",
 						textView.getText());
-				System.out.println("Checking float or int");
 
 				float number = Float.valueOf(textView.getText().toString());
 				int result = (int) (number * 100);
 				int rem = result % 100;
-				System.out.println("finished checking float or int");
 
 				if ((rem == 100) || (rem == 0)) {
 					float num = Float.valueOf(textView.getText().toString());

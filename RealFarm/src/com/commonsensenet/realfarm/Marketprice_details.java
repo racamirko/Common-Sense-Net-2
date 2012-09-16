@@ -17,8 +17,8 @@ import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Marketprice_details extends AggregateMarketActivity implements
 		OnLongClickListener {
