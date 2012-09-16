@@ -17,6 +17,7 @@ import android.widget.ListView;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.Homescreen;
 import com.commonsensenet.realfarm.R;
+import com.commonsensenet.realfarm.RealFarmApp;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.User;
 
@@ -59,24 +60,20 @@ public class UserListActivity extends Activity {
 			public void onItemClick(AdapterView<?> parent, View v,
 					int position, long id) {
 
-				// gets all the available users.
-				List<User> userList = mDataProvider.getUsers();
-
-				// TODO: should use the underlying list adapter instead
-				// of querying the database again.
 				// sets the id of the selected user.
-				Global.userId = userList.get(position).getId();
+				Global.userId = mUserList.get(position).getId();
 
-				// If the user's mobile number is same as deviceId, then he owns
-				// the mobile
-				if (userList.get(position).getDeviceId() == userList.get(
-						position).getMobileNumber()) {
+				// If the user's device id is the same as the current device's
+				// id
+				if (mUserList.get(position).getId() == Long
+						.valueOf(((RealFarmApp) getApplication()).getDeviceId()
+								+ "1")) {
 					Global.IsAdmin = 0;
 				} else {
 					Global.IsAdmin = 1;
 				}
 
-				// redirects to the homescreen.
+				// redirects to the home screen.
 				startActivity(new Intent(UserListActivity.this,
 						Homescreen.class));
 
@@ -90,15 +87,9 @@ public class UserListActivity extends Activity {
 					public boolean onItemLongClick(AdapterView<?> parent,
 							View v, int position, long id) {
 
-						// TODO: should use the underlying list adapter instead
-						// of querying the database again.
-
-						// gets the full list of users.
-						List<User> userListNoDelete = mDataProvider.getUsers();
-
 						// sets the user id corresponding to the position that
 						// is selected.
-						Global.userId = userListNoDelete.get(position).getId();
+						Global.userId = mUserList.get(position).getId();
 
 						AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
 								UserListActivity.this);
@@ -148,6 +139,9 @@ public class UserListActivity extends Activity {
 
 	}
 
+	/** List of the Users obtained from the Database. */
+	private List<User> mUserList;
+
 	/**
 	 * Populates the listView
 	 */
@@ -165,16 +159,17 @@ public class UserListActivity extends Activity {
 		mListView.setAdapter(mListAdapter);
 
 		// shows all the available users.
-		List<User> userList = mDataProvider.getUsers();
-		// adds the users into the list adapter.
-		for (int x = 0; x < userList.size(); x++) {
-			mListAdapter.add(userList.get(x).getFirstname() + " "
-					+ userList.get(x).getLastname());
+		mUserList = mDataProvider
+				.getUsersByDeviceId(((RealFarmApp) getApplication())
+						.getDeviceId());
 
+		// adds the users into the list adapter.
+		for (int x = 0; x < mUserList.size(); x++) {
+			mListAdapter.add(mUserList.get(x).getFirstname() + " "
+					+ mUserList.get(x).getLastname());
 		}
 
 		// indicates that the data has been changed.
 		mListAdapter.notifyDataSetChanged();
 	}
-
 }

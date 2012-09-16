@@ -2513,6 +2513,7 @@ public class RealFarmProvider {
 						RealFarmDatabase.COLUMN_NAME_USER_NAME_AUDIO,
 						RealFarmDatabase.COLUMN_NAME_USER_LOCATION_AUDIO },
 				selection, null, null, null, null);
+		// RealFarmDatabase.COLUMN_NAME_USER_FIRSTNAME + " DESC"
 
 		User u = null;
 		// user exists in database
