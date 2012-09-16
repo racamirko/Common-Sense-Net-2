@@ -28,7 +28,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.marketdetails, this);
+		super.onCreate(savedInstanceState, R.layout.act_marketdetails, this);
 
 		// indicates that should obtain market prices.
 		mCurrentAction = TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;

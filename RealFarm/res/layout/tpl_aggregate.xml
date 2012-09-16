@@ -4,9 +4,9 @@
     android:layout_height="match_parent"
     android:orientation="vertical" >
 
-   <include
-            android:id="@+id/top_bar"
-            layout="@layout/tpl_top_bar_selector" />
+    <include
+        android:id="@+id/top_bar"
+        layout="@layout/layout_top_bar_selector" />
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -17,8 +17,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/back_bar"
-            android:background="#FFFFFF"
-            android:layout_alignParentTop="true" >
+            android:layout_alignParentTop="true"
+            android:background="#FFFFFF" >
         </ListView>
 
         <include

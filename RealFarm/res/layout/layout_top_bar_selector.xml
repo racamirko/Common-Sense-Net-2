@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="@dimen/action_bar_height"
+    android:layout_alignParentTop="true"
     android:background="@drawable/bg_curved_extended" >
 
     <RelativeLayout
@@ -51,6 +52,7 @@
         android:layout_margin="2dp"
         android:layout_toLeftOf="@+id/aggr_img_help"
         android:background="@drawable/square_btn_transp_normal"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_home" />
 
     <ImageButton
@@ -60,6 +62,7 @@
         android:layout_alignParentRight="true"
         android:layout_margin="2dp"
         android:background="@drawable/square_btn_transp"
+        android:scaleType="fitXY"
         android:src="@drawable/ic_help" />
 
 </RelativeLayout>
