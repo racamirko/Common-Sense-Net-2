@@ -143,8 +143,9 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				mCurrentAction, topSelectorData.getId(), selectedItem,
 				mDaysSelectorData, mDataProvider);
 
-		if (list == null || list.size() < 1)
-			playAudio(R.raw.no_info_farmers, true);
+		if (list == null || list.size() < 1) {
+			playAudio(R.raw.no_info_farmers);
+		}
 
 		// gets the ListView from the layout
 		ListView userListView = (ListView) layout
@@ -165,7 +166,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		dialog.setContentView(layout);
 		dialog.setCancelable(true);
 
-		// displays the dialog & describes the topbar with audio
+		// displays the dialog & describes the top bar with audio
 		dialog.show();
 		makeAudioUserTopBar(false);
 
@@ -333,9 +334,8 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	private void makeAudioUserTopBar(boolean canHear) {
 
 		if (!canHear) {
-			playAudio(R.raw.cant_hear_when_turned_off, true);
+			// playAudio(R.raw.cant_hear_when_turned_off, true);
 		}
-
 	}
 
 	private void makeAudioCallUser(UserAggregateItem user) {
