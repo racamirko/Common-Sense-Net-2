@@ -1499,11 +1499,11 @@ public class RealFarmDatabase {
 				{
 						R.raw.till_date_collected_info + ","
 								+ R.raw.because_lateeafspot_podrot + ","
-								+ R.raw.percent_loss, -1, -1, 1 },
+								+ R.raw.percent_loss, 1, -1, 1 },
 				{
 						R.raw.till_date_collected_info + ","
 								+ R.raw.caused_by_leaf_miner + ","
-								+ R.raw.percent_loss, -1, -1, 1 }
+								+ R.raw.percent_loss, 6, -1, 1 }
 
 		};
 

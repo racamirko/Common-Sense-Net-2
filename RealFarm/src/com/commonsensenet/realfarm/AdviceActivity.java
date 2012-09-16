@@ -210,7 +210,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		play_integer(plotNumber);
 		sq.addToQueue(Integer.valueOf(audioPieces[1]));
 		play_integer(loss);
-		sq.addToQueue(Integer.valueOf(audioPieces[3]));
+		sq.addToQueue(Integer.valueOf(audioPieces[2]));
 
 		sq.play();
 	}
