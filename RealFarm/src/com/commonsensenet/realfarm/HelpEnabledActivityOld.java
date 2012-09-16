@@ -821,7 +821,7 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		}
 		if (num <= 100) // adds audio from 1 to 100
 		{
-			if ((num % 100 != 0) | (num % 100 == 0) | (num % 100 == 100)) {
+			if ((num % 100 != 0) | (num % 100 == 0)) {
 				if (num % 100 == 100) {
 					add_audio_single(101); // adds audio "zero"
 				} else if (num % 100 == 0) {
@@ -831,6 +831,7 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 				}
 
 			}
+
 		}
 
 		// System.out.println("sound played in integer");
@@ -954,5 +955,4 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 	protected void stopAudio() {
 		SoundQueue.getInstance().stop();
 	}
-
 }

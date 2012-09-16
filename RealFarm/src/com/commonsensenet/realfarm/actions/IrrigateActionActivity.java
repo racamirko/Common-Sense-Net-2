@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.View;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
@@ -33,6 +34,22 @@ public class IrrigateActionActivity extends DataFormActivity {
 
 	private List<Resource> methodList;
 	private List<Resource> monthList;
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.equals(mHelpItem)) {
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "help");
+			playAudio(R.raw.irr_help, true);
+
+			return true;
+		} else { // asks the parent.
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -153,15 +170,19 @@ public class IrrigateActionActivity extends DataFormActivity {
 			if (mResultsMap.get(HOURS).equals(defaultHours))
 				playAudio(R.raw.noofhours, true);
 
-			else
+			else {
 				play_integer(Integer.valueOf(mResultsMap.get(HOURS).toString()));
+				playSound();
+			}
 		} else if (v.getId() == R.id.dlg_lbl_day_irr) {
 
 			if (mResultsMap.get(DAY).equals(defaultDay))
 				playAudio(R.raw.selectthedate, true);
 
-			else
+			else {
 				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				playSound();
+			}
 		} else if (v.getId() == R.id.dlg_lbl_month_irr) {
 
 			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)

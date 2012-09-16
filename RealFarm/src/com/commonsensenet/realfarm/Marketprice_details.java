@@ -116,8 +116,8 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		help.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-				// TODO AUDIO: help audio
-				playAudio(R.raw.help);
+			
+				playAudio(R.raw.mp_help);
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
@@ -148,7 +148,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 				List<Resource> data = ActionDataFactory.getTopSelectorList(
 						mActionTypeId, mDataProvider);
-				displayDialog(v, data, "Select the variety", R.raw.problems,
+				displayDialog(v, data, "Select the variety", R.raw.select_the_variety,
 						img_1, 2);
 			}
 		});
@@ -178,7 +178,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		Marketprice_details.this.finish();
 	}
 
-	// TODO AUDIO: check the right audio
+	
 	public boolean onLongClick(View v) {
 
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
@@ -186,41 +186,42 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				getResources().getResourceEntryName(v.getId()));
 
 		if (v.getId() == R.id.aggr_img_home) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.homepage, true);
 		} else if (v.getId() == R.id.aggr_crop) {
 			int crop = topSelectorData.getAudio();
 			int action = mDataProvider.getActionTypeById(mActionTypeId)
 					.getAudio();
-			// TODO AUDIO: Say something: action + crop
-			System.out.println(action + " " + crop);
+		
 
 			playAudio(topSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.market_info) {
-			// TODO AUDIO: Say something:
-			// "Market Challekere, today prices go from " + say(min) + " to " +
-			// say(max) + " rupees"
-			System.out.println("Market Challekere, today prices go from " + min
-					+ " to " + max + " rupees");
+			addToSoundQueue(R.raw.chal_max_price);
+			play_integer(max);
+			addToSoundQueue(R.raw.rupees_every_quintal);
+			
+			addToSoundQueue(R.raw.chal_min_price);
+			play_integer(min);
+			addToSoundQueue(R.raw.rupees_every_quintal);
+			playSound();
+			
+			
+			
 		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.mp_help, true);
 		} else if (v.getId() == R.id.button_back) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.back_button, true);
 		} else if (v.getId() == R.id.selector_days) {
 			playAudio(mDaysSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.days_selector_row) {
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.select_time_span, true);
 		}
 		return true;
 	}
 
 	protected void makeAudioAggregateMarketItem(AggregateItem item,
 			boolean header) {
-		// TODO AUDIO IMPORTANT: if header == true, don't say the outro (Touch
-		// briefly once to see...)
-
-		// TODO AUDIO: Dummy audio. To be removed.
-		playAudio(R.raw.a2, true);
-
+		
+		
 		int variety = topSelectorData.getAudio();
 		int days = mDaysSelectorData.getAudio();
 		int number = item.getNews();
@@ -230,26 +231,12 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				RealFarmDatabase.TABLE_NAME_UNIT,
 				RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO);
 
-		// TODO AUDIO: Say something here: say(number) +
-		// " people have sold bags of " + kg + " of " + variety +
-		// " at prices between " + say(min) + " and " + say(max) +
-		// " rupees per quintal " + " these last " + days +
-		// " days. Touch briefly to view the farmers and their individual prices"
-		// TODO AUDIO: Test each of the int. if == -1, don't say anything
-		System.out
-				.println(number
-						+ " people have sold bags of "
-						+ kg
-						+ " of "
-						+ variety
-						+ " at prices between "
-						+ min
-						+ " and "
-						+ max
-						+ " rupees per quintal "
-						+ " these last "
-						+ days
-						+ " days. Touch briefly to view the farmers and their individual prices");
+		
+		addToSoundQueue(R.raw.last);
+		addToSoundQueue(days);
+		addToSoundQueue(R.raw.days_paid_price_touch_here);
+		playSound();
+		
 
 	}
 }

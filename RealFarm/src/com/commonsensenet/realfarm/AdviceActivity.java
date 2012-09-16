@@ -1,7 +1,11 @@
 package com.commonsensenet.realfarm;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 
 import android.app.Dialog;
@@ -27,6 +31,7 @@ import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
+import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.aggregate.AdviceSituationItem;
 import com.commonsensenet.realfarm.model.aggregate.AdviceSolutionItem;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
@@ -34,6 +39,7 @@ import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.AdviceAdapter;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
@@ -152,20 +158,63 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	private void makeAudioSituation(AdviceSituationItem situationItem) {
 
-		playAudio(R.raw.a10);
-
 		long crop = situationItem.getCropAudio();
 		int chance = situationItem.getChance();
 		int loss = situationItem.getLoss();
 		long problem = situationItem.getProblemAudio();
 		String audioSequence = situationItem.getAudioSequence();
-		// TODO AUDIO: Say something here:
-		// "On the plot where you sowed "+crop+", you have a "+say(chance)+"% chance of losing"+say(loss)+"kg/acre to the problem"+problem+audio
-		// TODO AUDIO: Test each of the int. if == -1, don't say anything
+
+		List<Plot> plotList = mDataProvider.getPlotsByUserId(Global.userId);
+
+		int plotNumber = 0;
+		for (int x = 0; x < plotList.size(); x++) {
+			if (plotList.get(x).getId() == situationItem.getPlotId()) {
+				plotNumber = x;
+				break;
+			}
+		}
+
+		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
+		Date date = null;
+		try {
+			date = df.parse("2012-09-16");
+		} catch (ParseException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		Calendar cal = new GregorianCalendar();
+		cal.setTime(date);
+
+		cal.get(Calendar.MONTH); // starts with 0
+		cal.get(Calendar.YEAR);
+		cal.get(Calendar.DAY_OF_MONTH); // status with 1
+
+		System.out.println("****************Displaying date***************");
+		System.out.println(cal.get(Calendar.MONTH));
+		System.out.println(cal.get(Calendar.YEAR));
+		System.out.println(cal.get(Calendar.DAY_OF_MONTH));
+		System.out
+				.println("****************Finisehed Displaying date***************");
+
+		String[] audioPieces = audioSequence.split(",");
+
+		SoundQueue sq = SoundQueue.getInstance();
+
+		// plays the advice audio.
+		play_integer(cal.get(Calendar.MONTH) + 1); // says
+		play_integer(cal.get(Calendar.MONTH));
+		play_integer(cal.get(Calendar.YEAR));
+		sq.addToQueue(Integer.valueOf(audioPieces[0]));
+		play_integer(plotNumber);
+		sq.addToQueue(Integer.valueOf(audioPieces[1]));
+		play_integer(loss);
+		sq.addToQueue(Integer.valueOf(audioPieces[3]));
+
+		sq.play();
 	}
 
 	private void makeAudioSolution(AdviceSolutionItem solutionItem) {
-		playAudio(R.raw.a20);
 
 		int number = solutionItem.getNumber();
 		int action = solutionItem.getActionAudio();
@@ -175,27 +224,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		int plan = solutionItem.getLikes();
 		int audio = solutionItem.getAudio();
 
-		// TODO AUDIO IMPORTANT:
-		// if(solutionItem.getPesticideShortName().equals("")) don't say how
-		// many people planned it and don't say that you can plan it
-		// TODO AUDIO: Say something here:
-		// "Solution"+say(number)+action+pesticide+comment+say(didIt)+"people did it and"+say(plan)+"people plan to do it. To see who did it, tap on the row. If you plan to do it, tap on the right icon."+audio
-		// TODO AUDIO: Test each of the int. if == -1, don't say anything
+		SoundQueue.getInstance().addToQueue(audio);
 
-		/*
-		 * if((number!=-1)&(action!=-1)&(pesticide!=-1)&(comment!=-1)&(didIt!=-1)
-		 * &(plan!=-1)&(audio!=-1)) { playAudio(R.raw.solution, true);
-		 * play_integer(number); playAudio(action, true);
-		 * playAudio((int)pesticide, true); playAudio(comment, true);
-		 * playAudio(didIt, true); playAudio(R.raw.people_did_it, true);
-		 * if(solutionItem.getPesticideShortName().equals("")) {
-		 * playAudio(R.raw.and, true); playAudio(plan, true);
-		 * layAudio(R.raw.you_plan_tap_right_icon, true); playAudio(audio,
-		 * true); } playAudio(R.raw.see_who_did_tap_row, true);
-		 * 
-		 * 
-		 * }
-		 */
+		playSound();
+
 	}
 
 	protected void makeAudioUserItem(UserAggregateItem user) {
@@ -277,10 +309,9 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		rl.addView(tmpView);
 
 		// gets the data and data adapter.
-		// TODO AUDIO: In case there is no users in the result. Set an error
-		// message
+
 		if (list == null || list.size() < 1)
-			playAudio(R.raw.problems, true);
+			playAudio(R.raw.no_info_farmers, true);
 
 		// gets the ListView from the layout
 		ListView userListView = (ListView) layout
@@ -420,8 +451,8 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		mSituationItems = mDataProvider.getAdviceData(Global.userId);
 
 		if (mSituationItems == null || mSituationItems.size() == 0) {
-			// TODO AUDIO: No data to present
-			playAudio(R.raw.problems);
+
+			playAudio(R.raw.no_information);
 		}
 
 		// creates the adapter

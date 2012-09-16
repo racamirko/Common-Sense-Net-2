@@ -6,6 +6,7 @@ import java.util.List;
 import android.os.Bundle;
 import android.view.View;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.DataFormActivity;
 import com.commonsensenet.realfarm.Global;
 import com.commonsensenet.realfarm.R;
@@ -41,6 +42,22 @@ public class SprayActionActivity extends DataFormActivity {
 	private List<Resource> pesticideList;
 	private List<Resource> unitList;
 	List<Resource> monthList;
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.equals(mHelpItem)) {
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "help");
+			playAudio(R.raw.spray_help, true);
+
+			return true;
+		} else { // asks the parent.
+			return super.onOptionsItemSelected(item);
+		}
+	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -216,16 +233,21 @@ public class SprayActionActivity extends DataFormActivity {
 			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
 				playAudio(R.raw.select_unit_number, true);
 
-			else
+			else {
 				play_integer(Integer
 						.valueOf(mResultsMap.get(AMOUNT).toString()));
+				playSound();
+			}
 		} else if (v.getId() == R.id.dlg_lbl_day_spray) {
 
 			if (mResultsMap.get(DAY).equals(defaultDay))
 				playAudio(R.raw.dateinfo, true);
 
-			else
+			else {
+
 				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				playSound();
+			}
 		} else if (v.getId() == R.id.dlg_lbl_month_spray) {
 
 			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)

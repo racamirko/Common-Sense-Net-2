@@ -157,24 +157,37 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			addToSoundQueue(R.raw.there_crop);
 			playSound();
 		} else if (v.getId() == R.id.aggr_img_help) {
-			if (mActionName == "Sow") {
-				playAudio(R.raw.sow_help, true);
-			} else if (mActionName == "Fertilize") {
-				playAudio(R.raw.sow_help, true);
-			} else if (mActionName == "Irrigate") {
-				playAudio(R.raw.sow_help, true);
-			} else if (mActionName == "Report") {
-				playAudio(R.raw.sow_help, true);
-			} else if (mActionName == "Spray") {
-				playAudio(R.raw.sow_help, true);
-			} else if (mActionName == "Harvest") {
-				playAudio(R.raw.sow_help, true);
-			} else if (mActionName == "Sell") {
-				playAudio(R.raw.sow_help, true);
+			
+			switch (mActionTypeId) {
+			case RealFarmDatabase.ACTION_TYPE_SOW_ID:
+				playAudio(R.raw.aggr_sow_help, true);
+				break;
+			case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
+				playAudio(R.raw.aggr_fert_help, true);
+				break;
+			case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
+				playAudio(R.raw.aggr_irrigate_help, true);
+				break;
+			case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
+				playAudio(R.raw.aggr_report_help, true);
+				break;
+			case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
+				playAudio(R.raw.aggr_spray_help, true);
+				break;
+			case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
+				playAudio(R.raw.aggr_harvest_help, true);
+				break;
+			case RealFarmDatabase.ACTION_TYPE_SELL_ID:
+				playAudio(R.raw.aggr_selling_help, true);
+				break;
+
+			default:
+				break;
 			}
 
+
 		} else if (v.getId() == R.id.button_back) {
-			playAudio(R.raw.back_aggregates, true);
+			playAudio(R.raw.back_button, true);
 		}
 
 		return true;

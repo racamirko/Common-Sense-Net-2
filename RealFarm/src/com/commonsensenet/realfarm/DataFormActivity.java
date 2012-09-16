@@ -157,10 +157,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				tw_sow.setText(result);
 				feedbackRow
 						.setBackgroundResource(android.R.drawable.list_selector_background);
-				/*
-				 * Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
-				 * .show();
-				 */
+
 				dialog.cancel();
 				playAudio(okAudio);
 				// TODO AUDIO: play the number result
@@ -196,10 +193,29 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "text",
 						textView.getText());
-				// TODO AUDIO: read the number textView.getText()
+				System.out.println("Checking float or int");
 
-				// TO DO:Has to play audio for floating numbers also
-				play_day_audio(Integer.valueOf(textView.getText().toString()));
+				float number = Float.valueOf(textView.getText().toString());
+				int result = (int) (number * 100);
+				int rem = result % 100;
+				System.out.println("finished checking float or int");
+
+				if ((rem == 100) || (rem == 0)) {
+					float num = Float.valueOf(textView.getText().toString());
+					int temp = (int) num;
+					if (rem != 100) {
+						play_integer(temp);
+					} else {
+						add_audio_single(101);
+					}
+					playSound();
+				} else {
+					System.out.println("Float value:"
+							+ Float.valueOf(textView.getText().toString()));
+					play_float(Float.valueOf(textView.getText().toString()));
+					playSound();
+
+				}
 				return false;
 			}
 		});
@@ -310,6 +326,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		if (v.getId() == R.id.button_ok) {
 			playAudio(R.raw.ok);
 		} else if (v.getId() == R.id.button_cancel) {
+			System.out.println("lala");
 			playAudio(R.raw.cancel);
 		}
 
