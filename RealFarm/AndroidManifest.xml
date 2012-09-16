@@ -137,6 +137,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ChoosePlotActivity"
+            android:icon="@drawable/ic_plots"
             android:label="Select a Plot"
             android:screenOrientation="portrait" />
         <activity
