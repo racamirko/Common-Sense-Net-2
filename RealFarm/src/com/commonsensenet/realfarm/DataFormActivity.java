@@ -36,6 +36,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	private final DataFormActivity mParentReference = this;
 	/** Results map used to handle the validation of the form. */
 	protected HashMap<String, Object> mResultsMap;
+	int result;
 
 	protected void displayDialog(View v, final List<Resource> data,
 			final String propertyKey, final String title, int audio,
@@ -86,6 +87,12 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				// put backgrounds (specific to the application) TODO: optimize
 				// the resize
 				putBackgrounds(choice, var_text, imageType);
+
+				/*
+				 * Toast.makeText(mParentReference,
+				 * mResultsMap.get(propertyKey).toString(),
+				 * Toast.LENGTH_SHORT).show();
+				 */
 
 				// plays the name of the chosen option.
 				int iden = choice.getAudio();
@@ -157,10 +164,37 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				tw_sow.setText(result);
 				feedbackRow
 						.setBackgroundResource(android.R.drawable.list_selector_background);
-
+				/*
+				 * Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
+				 * .show();
+				 */
 				dialog.cancel();
-				playAudio(okAudio);
-				// TODO AUDIO: play the number result
+
+				// playing number
+				System.out.println("Checking float or int");
+
+				float number = Float.valueOf(textView.getText().toString());
+				int result1 = (int) (number * 100);
+				int rem = result1 % 100;
+				System.out.println("finished checking float or int");
+
+				if ((rem == 100) || (rem == 0)) {
+					float num = Float.valueOf(textView.getText().toString());
+					int temp = (int) num;
+					if (rem != 100) {
+						play_integer(temp);
+					} else {
+						add_audio_single(101);
+					}
+					playSound();
+				} else {
+					System.out.println("Float value:"
+							+ Float.valueOf(textView.getText().toString()));
+					play_float(Float.valueOf(textView.getText().toString()));
+					playSound();
+
+				}
+
 			}
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {
@@ -193,10 +227,12 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "text",
 						textView.getText());
+				System.out.println("Checking float or int");
 
 				float number = Float.valueOf(textView.getText().toString());
 				int result = (int) (number * 100);
 				int rem = result % 100;
+				System.out.println("finished checking float or int");
 
 				if ((rem == 100) || (rem == 0)) {
 					float num = Float.valueOf(textView.getText().toString());
@@ -208,6 +244,8 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 					}
 					playSound();
 				} else {
+					System.out.println("Float value:"
+							+ Float.valueOf(textView.getText().toString()));
 					play_float(Float.valueOf(textView.getText().toString()));
 					playSound();
 
@@ -313,9 +351,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 
 	@Override
 	public boolean onLongClick(View v) {
-		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-				Global.userId, getLogTag(),
-				getResources().getResourceEntryName(v.getId()));
 
 		if (v.getId() == R.id.button_ok) {
 			playAudio(R.raw.ok);
@@ -324,6 +359,10 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 		} else {
 			return super.onLongClick(v);
 		}
+
+		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+				Global.userId, getLogTag(),
+				getResources().getResourceEntryName(v.getId()));
 
 		showHelpIcon(v);
 

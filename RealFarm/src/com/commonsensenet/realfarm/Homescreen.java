@@ -296,11 +296,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 										Global.userId, 1);
 						// if no plot available, do nothing
 						if (plotList.size() == 0) {
-							playAudio(R.raw.problems, true);
 							Toast.makeText(
 									mParentReference,
 									"Please sow on your plot before you harvest.",
 									Toast.LENGTH_SHORT).show();
+							playAudio(R.raw.please_sow_before_harvest, true);
+
 							return;
 						}
 					} else {
@@ -313,11 +314,13 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 					Intent intent = null;
 					switch (plotList.size()) {
-					case 0: // TODO: put audio
-						playAudio(R.raw.problems, true);
+					case 0:
 						Toast.makeText(mParentReference,
 								"Please add a plot before you do anything.",
 								Toast.LENGTH_SHORT).show();
+
+						playAudio(R.raw.please_plot_before_anything, true);
+
 						intent = new Intent(mParentReference,
 								AddPlotActivity.class);
 						break;
@@ -353,6 +356,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 				Global.isAudioEnabled = true;
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "audio enabled");
+				playAudio(R.raw.yes_sound_help);
+
 			} else {
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.ic_sound_off);
@@ -360,6 +365,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 				Global.isAudioEnabled = false;
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "audio disabled");
+				playAudio(R.raw.no_sound_help);
 			}
 
 			// no need to start an intent
@@ -476,7 +482,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		return super.onCreateOptionsMenu(menu);
 	}
 
-	// TODO: replace all sounds
+	public void onDataChanged(String date, int temperature, int weatherTypeId) {
+		updateWeatherForecast();
+	}
+
 	public boolean onLongClick(View v) {
 
 		// long click sounds are always played, no matter the audio setting.
@@ -485,16 +494,19 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 					.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
 			int max = mDataProvider
 					.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX);
-			// TODO AUDIO: Say the min and max prices:
-			// "Market Challekere, today prices go from " + say(min) + " to " +
-			// say(max) + " rupees"
-			System.out.println("Market Challekere, today prices go from " + min
-					+ " to " + max + " rupees");
-			playAudio(R.raw.ckpura_avgmarketprice, true);
+
+			addToSoundQueue(R.raw.chal_max_price);
+			play_integer(max);
+			addToSoundQueue(R.raw.rupees_every_quintal);
+
+			addToSoundQueue(R.raw.chal_min_price);
+			play_integer(min);
+			addToSoundQueue(R.raw.rupees_every_quintal);
+			playSound();
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
 			playAudio(R.raw.advice_maincrop, true);
 		} else if (v.getId() == R.id.hmscrn_btn_weather) {
-			playAudio(R.raw.weather_today, true);
+			playAudio(R.raw.wf_forecast, true);
 		} else if (v.getId() == R.id.hmscrn_btn_video) {
 			playAudio(R.raw.new_video, true);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
@@ -519,6 +531,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			playAudio(R.raw.your_plot, true);
 		} else if (v.getId() == R.id.hmscrn_btn_sound) {
 			playAudio(R.raw.sound22, true);
+		} else if (v.getId() == R.id.aggr_img_help) {
+			playAudio(R.raw.home_help, true);
+
 		} else {
 			return super.onLongClick(v);
 		}
@@ -536,6 +551,16 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 	public boolean onOptionsItemSelected(MenuItem item) {
 
+		if (item.equals(mHelpItem)) {
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "help");
+			playAudio(R.raw.home_help, true);
+			stopAudio();
+			return true;
+		}
+
 		// handles the item selection.
 		switch (item.getItemId()) {
 		case R.id.menu_settings:
@@ -550,10 +575,17 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 	}
 
-	private void updateAdviceNumbers() {
-		TextView tw = (TextView) findViewById(R.id.news_advice);
-		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
-				+ "");
+	protected void onPause() {
+		super.onPause();
+
+		// removes the listener
+		mDataProvider.setWeatherForecastDataChangeListener(null);
+	}
+
+	protected void onResume() {
+		super.onResume();
+
+		mDataProvider.setWeatherForecastDataChangeListener(this);
 	}
 
 	@Override
@@ -568,6 +600,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		updateAdviceNumbers();
 		// adds the widgets
 		updateWeatherForecast();
+	}
+
+	private void updateAdviceNumbers() {
+		TextView tw = (TextView) findViewById(R.id.news_advice);
+		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
+				+ "");
 	}
 
 	private void updateAggregatesNumbers() {
@@ -603,27 +641,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 	}
 
-	protected void onResume() {
-		super.onResume();
-
-		mDataProvider.setWeatherForecastDataChangeListener(this);
-	}
-
-	protected void onPause() {
-		super.onPause();
-
-		// removes the listener
-		mDataProvider.setWeatherForecastDataChangeListener(null);
-	}
-
 	private void updateWeatherForecast() {
 
-		// gets the forecast from the database.
+		// gets the forecast matching the date.
 		WeatherForecast wf = mDataProvider
 				.getWeatherForecastByDate(RealFarmProvider.sDateFormat
 						.format(new Date()));
 
-		// if the forecast is valid.
+		// if there is at least one value
 		if (wf != null) {
 
 			// sets the image and text related to the forecast.
@@ -640,20 +665,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 				weatherImage.setImageResource(wt.getImage());
 			}
 		} else {
-
 			// shows the unknown weather forecast icon.
 			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
 			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
 			weatherTemp.setText("?");
 			weatherImage.setImageResource(R.drawable.wf_unknown);
+
 		}
-	}
-
-	/**
-	 * Updates the UI when a new Forecast is obtained.
-	 */
-	public void onDataChanged(String date, int temperature, int weatherTypeId) {
-
-		updateWeatherForecast();
 	}
 }

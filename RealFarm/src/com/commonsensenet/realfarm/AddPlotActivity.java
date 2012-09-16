@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.ownCamera.OwnCameraActivity;
@@ -17,28 +18,25 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
 public class AddPlotActivity extends DataFormActivity {
 
+	public static final int DEFAULT_CROP = -1;
+	public static final String DEFAULT_SIZE = "0.0";
+	public static final int DEFAULT_SOIL = -1;
+	public static final int DEFAULT_SOILTYPE = -1;
 	public static final String MAIN_CROP = "mainCrop";
+
 	public static final String PLOT_IMAGE = "plotImage";
 	public static final String SIZE = "size";
-	public static final String TYPE = "type";
 	public static final String SOIL_TYPE = "soilType";
-
+	public static final String TYPE = "type";
+	private List<Resource> mCropTypeList;
 	private int mMainCrop;
 	private String mPlotImage = "0";
 	private double mSize;
-	private int mType;
 	private int mSoilType;
-	public static final int DEFAULT_SOILTYPE = -1;
-	public static final int DEFAULT_CROP = -1;
-	public static final int DEFAULT_SOIL = -1;
-	public static final String DEFAULT_SIZE = "0.0";
 	private List<Resource> mSoilTypeList;
-	private List<Resource> mCropTypeList;
+	private int mType;
 	private List<Resource> mTypeList;
 
-	/**
-	 * Adds the current plot to the database.
-	 */
 	private void addPlotToDatabase() {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, Global.IsAdmin, mType);
@@ -46,7 +44,6 @@ public class AddPlotActivity extends DataFormActivity {
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(), "add plot to database");
-
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -203,7 +200,7 @@ public class AddPlotActivity extends DataFormActivity {
 		}
 
 		else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help_parcel_enterdetails, true);
+			playAudio(R.raw.plot_help, true);
 		} else if (v.getId() == R.id.dlg_plot_img_test) {
 			playAudio(R.raw.take_plot_pic_touch, true);
 		} else if (v.getId() == R.id.maincrop_tr) {
@@ -229,6 +226,25 @@ public class AddPlotActivity extends DataFormActivity {
 		}
 
 		return true;
+	}
+
+	/**
+	 * Adds the current plot to the database.
+	 */
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.equals(mHelpItem)) {
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "help");
+			playAudio(R.raw.plot_help, true);
+
+			return true;
+		} else { // asks the parent.
+			return super.onOptionsItemSelected(item);
+		}
 	}
 
 	@Override

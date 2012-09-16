@@ -10,13 +10,14 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnWeatherForecastDataChangeListener;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.WeatherForecastItemAdapter;
 
 public class WeatherForecastActivity extends HelpEnabledActivity implements
@@ -42,10 +43,13 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 		// gets the Database
 		mDataProvider = RealFarmProvider.getInstance(this);
+		// sets the data change listener in case the weather information is
+		// updated.
+		mDataProvider.setWeatherForecastDataChangeListener(this);
 
 		// gets the forecast from the database for today.
 		mWeatherForecasts = mDataProvider.getWeatherForecasts(new Date());
-		// TODO AUDIO: no results
+
 		if (mWeatherForecasts == null || mWeatherForecasts.size() == 0)
 			playAudio(R.raw.no_wf);
 
@@ -64,23 +68,12 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		mWeatherForecastListView.setOnItemLongClickListener(this);
 	}
 
-	protected void onResume() {
-		super.onResume();
+	public void onDataChanged(String date, int temperature, int weatherTypeId) {
 
-		// sets the data change listener in case the weather information is
-		// updated.
-		mDataProvider.setWeatherForecastDataChangeListener(this);
-	}
-
-	protected void onPause() {
-		super.onPause();
-
-		// removes the data change listener.
-		mDataProvider.setWeatherForecastDataChangeListener(null);
 	}
 
 	// TODO: this is not implemented.
-	public void onDataChanged(String date, int temperature, int weatherTypeId) {
+	public void onDataChanged(String date, int temperature, String type) {
 		// item should be added to the adapter.
 	}
 
@@ -134,5 +127,36 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 		playSound();
 
 		return true;
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.equals(mHelpItem)) {
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "help");
+			playAudio(R.raw.wf_help, true);
+
+			return true;
+		} else { // asks the parent.
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	protected void onPause() {
+		super.onPause();
+
+		// removes the data change listener.
+		mDataProvider.setWeatherForecastDataChangeListener(null);
+	}
+
+	protected void onResume() {
+		super.onResume();
+
+		// sets the data change listener in case the weather information is
+		// updated.
+		mDataProvider.setWeatherForecastDataChangeListener(this);
 	}
 }
