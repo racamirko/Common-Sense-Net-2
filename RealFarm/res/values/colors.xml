@@ -17,5 +17,6 @@
     <color name="blue_tile">#99CDEA</color>
     <color name="green_tile">#96D2A9</color>
     <color name="yellow_tile">#F5EB5F</color>
+    <color name="red_tile">#FFA8A8</color>
 
 </resources>

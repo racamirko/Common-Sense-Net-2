@@ -978,8 +978,6 @@ public class RealFarmDatabase {
 				{ "12 December", "Dec", R.raw.dec, -1, -1, -1,
 						RESOURCE_TYPE_MONTH, Calendar.DECEMBER },
 				/** Days span */
-				{ "1 day", "1 day", R.raw.one_day, -1, -1, -1,
-						RESOURCE_TYPE_DAYS_SPAN, 1 },
 				{ "7 days", "7 days", R.raw.seven_days, -1, -1, -1,
 						RESOURCE_TYPE_DAYS_SPAN, 7 },
 				{ "14 days", "14 days", R.raw.fourteen_days, -1, -1, -1,
@@ -1340,7 +1338,6 @@ public class RealFarmDatabase {
 
 		Log.d(LOG_TAG, "unit works");
 
-		// TODO: set correct image.
 		Object[][] soilTypes = {
 				{ "Red loam", "Red loam", R.drawable.st_redloam, R.raw.red_loam },
 				{ "Sandy", "Sandy", R.drawable.st_sandloam, R.raw.sandy },

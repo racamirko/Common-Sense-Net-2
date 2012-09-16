@@ -909,16 +909,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		if (v.getId() == R.id.hmscrn_btn_sound) {
 			playAudio(R.raw.audio3, true);
 		}
-
-		// if (v.getId() == R.id.hmscrn_help_button || v.getId() ==
-		// R.id.hmscrn_help_button) {
-		//
-		// playAudioalways(R.raw.audio3);
-		// }
-		if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudio(R.raw.audio4, true);
-		}
-
 		if (v.getId() == R.id.hmscrn_btn_weather) {
 			playAudio(R.raw.weatherforecast, true);
 		}

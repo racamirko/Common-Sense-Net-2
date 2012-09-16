@@ -66,10 +66,8 @@ public class ApplicationTracker {
 	private LinkedList<String> mActivityLog;
 	/** Date format used in each log. */
 	private SimpleDateFormat mDateFormat;
-
 	/** DeviceId used to name the log file. */
 	private String mDeviceId;
-
 	/** Path where the log is stored in the SD card. */
 	private String mExternalDirectoryLog;
 	/**
@@ -117,7 +115,7 @@ public class ApplicationTracker {
 
 		// creates the log file.
 		mFile = new File(mExternalDirectoryLog,
-				mDeviceId != null ? (mDeviceId + "-") : "" + LOG_FILENAME);
+				(mDeviceId != null ? (mDeviceId + "-") : "") + LOG_FILENAME);
 
 		try {
 			// initializes the file writer
@@ -176,7 +174,8 @@ public class ApplicationTracker {
 
 		// creates the log file.
 		mFile = new File(mExternalDirectoryLog,
-				mDeviceId != null ? (mDeviceId + "-") : "" + SYNC_LOG_FILENAME);
+				(mDeviceId != null ? (mDeviceId + "-") : "")
+						+ SYNC_LOG_FILENAME);
 
 		try {
 			// initializes the file writer

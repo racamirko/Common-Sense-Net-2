@@ -1945,7 +1945,7 @@ public class RealFarmProvider {
 			tmpRes.setId(c.getInt(0));
 			tmpRes.setName(c.getString(1));
 			tmpRes.setShortName(c.getString(2));
-			tmpRes.setBackgroundImage(c.getInt(2));
+			tmpRes.setBackgroundImage(c.getInt(3));
 			tmpRes.setAudio(c.getInt(4));
 
 		}

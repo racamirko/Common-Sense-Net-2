@@ -5,7 +5,9 @@
         <ignore path="res/layout/act_diary.xml" />
         <ignore path="res/layout/act_fertilize_action.xml" />
         <ignore path="res/layout/act_homescreen.xml" />
+        <ignore path="res/layout/act_marketdetails.xml" />
         <ignore path="res/layout/act_report_action.xml" />
+        <ignore path="res/layout/act_spray_action.xml" />
         <ignore path="res/layout/action_aggr_sel_dialog.xml" />
         <ignore path="res/layout/dialog_action.xml" />
         <ignore path="res/layout/dialog_aggregate_details.xml" />

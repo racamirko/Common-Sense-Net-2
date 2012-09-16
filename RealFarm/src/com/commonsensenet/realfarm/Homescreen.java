@@ -77,9 +77,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		findViewById(R.id.hmscrn_btn_video).setOnClickListener(this);
 		findViewById(R.id.hmscrn_btn_video).setOnLongClickListener(this);
 
-		findViewById(R.id.hmscrn_btn_yield).setOnClickListener(this);
-		findViewById(R.id.hmscrn_btn_yield).setOnLongClickListener(this);
-
 		findViewById(R.id.hmscrn_btn_market).setOnClickListener(this);
 		findViewById(R.id.hmscrn_btn_market).setOnLongClickListener(this);
 
@@ -201,8 +198,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
-		} else if (v.getId() == R.id.hmscrn_btn_yield) {
-			intent = new Intent(this, YieldActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_market) {
 			intent = new Intent(this, Marketprice_details.class);
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
@@ -496,8 +491,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			System.out.println("Market Challekere, today prices go from " + min
 					+ " to " + max + " rupees");
 			playAudio(R.raw.ckpura_avgmarketprice, true);
-		} else if (v.getId() == R.id.hmscrn_btn_yield) {
-			playAudio(R.raw.ckpura_avgyield, true);
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
 			playAudio(R.raw.advice_maincrop, true);
 		} else if (v.getId() == R.id.hmscrn_btn_weather) {

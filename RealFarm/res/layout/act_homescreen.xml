@@ -70,10 +70,12 @@
 
         <ImageButton
             android:id="@+id/hmscrn_btn_sound"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:scaleType="fitXY"
+            android:layout_margin="@dimen/margin"
             android:background="@drawable/square_btn_transp"
             android:src="@drawable/ic_sound_on" />
 
@@ -85,9 +87,9 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="@dimen/margin"
             android:layout_toRightOf="@id/hmscrn_usr_icon"
-            android:background="@drawable/square_btn_transp"
+            android:background="@drawable/square_btn_yellow"
             android:scaleType="fitXY"
-            android:src="@drawable/hmscrn_btn_actions" />
+            android:src="@drawable/hs_allactions" />
     </RelativeLayout>
 
     <!-- Actions part -->
@@ -103,7 +105,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin"
-            android:background="@color/yellow_tile"
+            android:background="@color/blue_tile"
             android:orientation="vertical" >
 
             <!-- first row -->
@@ -113,19 +115,11 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/margin" >
 
-                <ImageView
-                    android:id="@+id/img_aggregates"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:src="@drawable/ic_48px_news" />
-
                 <ImageButton
                     android:id="@+id/btn_action_sow"
                     android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/img_aggregates"
+                    android:layout_marginLeft="75dp"
                     android:background="@drawable/circular_btn"
                     android:src="@drawable/sowingsection" />
 
@@ -285,15 +279,15 @@
                     android:id="@+id/hmscrn_btn_advice"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="2.5dp"
-                    android:layout_weight="0.5"
                     android:background="@drawable/square_btn_green" >
 
                     <ImageView
                         android:id="@+id/hmscrn_img_advice"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:scaleType="fitEnd"
                         android:src="@drawable/ic_75px_advice" />
 
                     <TextView
@@ -315,13 +309,6 @@
                     android:layout_marginTop="2.5dp"
                     android:layout_weight="0.5"
                     android:background="@drawable/square_btn_green" >
-
-                    <ImageView
-                        android:id="@+id/hmscrn_img_video"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:src="@drawable/hs_video" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -335,51 +322,10 @@
                 android:orientation="vertical" >
 
                 <RelativeLayout
-                    android:id="@+id/hmscrn_btn_yield"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="2.5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/square_btn_blue" >
-
-                    <ImageView
-                        android:id="@+id/hmscrn_img_yield"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:layout_margin="@dimen/margin"
-                        android:src="@drawable/ic_44px_yield_bags" />
-
-                    <TextView
-                        android:id="@+id/hmscrn_lbl_yield_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/hmscrn_img_yield"
-                        android:layout_marginLeft="@dimen/margin"
-                        android:layout_toRightOf="@id/hmscrn_img_yield"
-                        android:text="@string/homescreen_label_yield_number"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_medium" />
-
-                    <TextView
-                        android:id="@+id/hmscrn_lbl_yield_unit"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignLeft="@+id/hmscrn_lbl_yield_number"
-                        android:layout_below="@id/hmscrn_lbl_yield_number"
-                        android:layout_toRightOf="@id/hmscrn_img_yield"
-                        android:text="@string/homescreen_label_yield_unit"
-                        android:textColor="@android:color/black"
-                        android:textSize="@dimen/font_small" />
-                </RelativeLayout>
-
-                <RelativeLayout
                     android:id="@+id/hmscrn_btn_market"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginTop="2.5dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/square_btn_blue"
+                    android:background="@drawable/square_btn_red"
                     android:padding="@dimen/margin" >
 
                     <ImageView
@@ -457,6 +403,7 @@
                     android:id="@+id/hmscrn_img_weather"
                     android:layout_width="80dp"
                     android:layout_height="80dp"
+                    android:layout_centerInParent="true"
                     android:scaleType="fitXY"
                     android:src="@drawable/wf_sunny" />
 

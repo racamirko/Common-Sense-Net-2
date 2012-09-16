@@ -29,7 +29,7 @@
         android:src="@drawable/pic_72px_bajra" />
 
     <ImageView
-        android:id="@+id/icon_plot_crop"
+        android:id="@+id/icon_plot_soil_type"
         android:layout_width="@dimen/icon_size"
         android:layout_height="@dimen/icon_size"
         android:layout_centerVertical="true"
@@ -45,7 +45,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_toRightOf="@+id/icon_plot_crop"
+        android:layout_toRightOf="@+id/icon_plot_soil_type"
         android:singleLine="true"
         android:text="Description"
         android:textSize="@dimen/font_medium" />
@@ -56,7 +56,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/icon_plot_crop"
+        android:layout_toRightOf="@+id/icon_plot_soil_type"
         android:gravity="top"
         android:singleLine="true"
         android:text="Title"
