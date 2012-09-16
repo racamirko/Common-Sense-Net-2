@@ -59,7 +59,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				mActionTypeId, cropSeedTypeId, mDaysSelectorData);
 
 		if (mItems == null || mItems.size() < 1) {
-			playAudio(R.raw.no_info_seeds, true);
+			playAudio(R.raw.no_info_seeds);
 		}
 
 		// creates the data adapter.

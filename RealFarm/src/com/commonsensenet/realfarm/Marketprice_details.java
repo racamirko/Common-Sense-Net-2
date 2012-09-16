@@ -2,7 +2,6 @@ package com.commonsensenet.realfarm;
 
 import java.util.List;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -18,45 +17,32 @@ import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 
 public class Marketprice_details extends AggregateMarketActivity implements
 		OnLongClickListener {
 
-	private final Context context = this;
-	private int min = 0;
-	private int max = 0;
-
-	public void onBackPressed() {
-
-		Intent adminintent = new Intent(Marketprice_details.this,
-				Homescreen.class);
-
-		startActivity(adminintent);
-		Marketprice_details.this.finish();
-
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-				Global.userId, "back");
-		ApplicationTracker.getInstance().flushAll();
-
-		SoundQueue sq = SoundQueue.getInstance();
-		sq.stop();
-	}
+	/** Minimum market price. */
+	private int mMin = 0;
+	/** Maximum market price. */
+	private int mMax = 0;
 
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.marketdetails, context);
+		super.onCreate(savedInstanceState, R.layout.marketdetails, this);
+
+		// indicates that should obtain market prices.
 		mCurrentAction = TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
 
-		min = mDataProvider
+		// obtains the market price values.
+		mMin = mDataProvider
 				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MIN);
-		max = mDataProvider
+		mMax = mDataProvider
 				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX);
 
 		TextView tw = (TextView) findViewById(R.id.max_price);
-		tw.setText(String.valueOf(max));
+		tw.setText(String.valueOf(mMax));
 		tw = (TextView) findViewById(R.id.min_price);
-		tw.setText(String.valueOf(min));
+		tw.setText(String.valueOf(mMin));
 
 		// default seed/crop type id
 		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
@@ -64,6 +50,8 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		// default 1 day
 		mDaysSelectorData = mDataProvider.getResources(
 				RealFarmDatabase.RESOURCE_TYPE_DAYS_SPAN).get(0);
+
+		// shows the list of available prices.
 		setList();
 
 		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
@@ -116,7 +104,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		help.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
-			
 				playAudio(R.raw.mp_help);
 
 				// tracks the application usage.
@@ -148,8 +135,8 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
 				List<Resource> data = ActionDataFactory.getTopSelectorList(
 						mActionTypeId, mDataProvider);
-				displayDialog(v, data, "Select the variety", R.raw.select_the_variety,
-						img_1, 2);
+				displayDialog(v, data, "Select the variety",
+						R.raw.select_the_variety, img_1, 2);
 			}
 		});
 
@@ -178,7 +165,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		Marketprice_details.this.finish();
 	}
 
-	
 	public boolean onLongClick(View v) {
 
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
@@ -191,21 +177,18 @@ public class Marketprice_details extends AggregateMarketActivity implements
 			int crop = topSelectorData.getAudio();
 			int action = mDataProvider.getActionTypeById(mActionTypeId)
 					.getAudio();
-		
 
 			playAudio(topSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.market_info) {
 			addToSoundQueue(R.raw.chal_max_price);
-			play_integer(max);
+			play_integer(mMax);
 			addToSoundQueue(R.raw.rupees_every_quintal);
-			
+
 			addToSoundQueue(R.raw.chal_min_price);
-			play_integer(min);
+			play_integer(mMin);
 			addToSoundQueue(R.raw.rupees_every_quintal);
 			playSound();
-			
-			
-			
+
 		} else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.mp_help, true);
 		} else if (v.getId() == R.id.button_back) {
@@ -220,8 +203,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 
 	protected void makeAudioAggregateMarketItem(AggregateItem item,
 			boolean header) {
-		
-		
+
 		int variety = topSelectorData.getAudio();
 		int days = mDaysSelectorData.getAudio();
 		int number = item.getNews();
@@ -231,12 +213,10 @@ public class Marketprice_details extends AggregateMarketActivity implements
 				RealFarmDatabase.TABLE_NAME_UNIT,
 				RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO);
 
-		
 		addToSoundQueue(R.raw.last);
 		addToSoundQueue(days);
 		addToSoundQueue(R.raw.days_paid_price_touch_here);
 		playSound();
-		
 
 	}
 }

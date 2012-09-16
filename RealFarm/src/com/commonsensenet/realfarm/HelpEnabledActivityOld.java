@@ -672,10 +672,19 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 		playAudio(R.raw.ok);
 	}
 
+	@Override
 	public void onBackPressed() {
 		// stops any currently playing sound.
 		stopAudio();
 
+		// tracks the back button.
+		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+				Global.userId, getLogTag(), "back");
+
+		// forces the application to flush its data.
+		ApplicationTracker.getInstance().flushAll();
+
+		// performs the system default operation.
 		super.onBackPressed();
 	}
 

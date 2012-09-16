@@ -208,8 +208,6 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 					}
 					playSound();
 				} else {
-					System.out.println("Float value:"
-							+ Float.valueOf(textView.getText().toString()));
 					play_float(Float.valueOf(textView.getText().toString()));
 					playSound();
 
@@ -319,14 +317,15 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
 
-		showHelpIcon(v);
-
 		if (v.getId() == R.id.button_ok) {
 			playAudio(R.raw.ok);
 		} else if (v.getId() == R.id.button_cancel) {
-			System.out.println("lala");
 			playAudio(R.raw.cancel);
+		} else {
+			return super.onLongClick(v);
 		}
+
+		showHelpIcon(v);
 
 		return true;
 	}
