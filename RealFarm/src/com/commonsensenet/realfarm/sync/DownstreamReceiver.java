@@ -268,17 +268,6 @@ public class DownstreamReceiver extends BroadcastReceiver {
 						actReqByDate = DATE_FORMATTER.parse(messageData[5]);
 						validThroughDate = DATE_FORMATTER.parse(messageData[6]);
 
-						User user = mDataProvider.getUserById(Long
-								.valueOf(messageData[4]));
-						Plot plot = mDataProvider.getPlotById(
-								Long.valueOf(messageData[2]),
-								Long.valueOf(messageData[4]));
-
-						Log.d("Downstream", user.toString());
-						Log.d("Downstream", plot.toString());
-
-						mDataProvider.getAdvices();
-
 						// inserts the recommendation.
 						result = mDataProvider.addRecommendation(
 								Long.valueOf(messageData[0]),

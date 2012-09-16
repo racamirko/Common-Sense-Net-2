@@ -1235,10 +1235,6 @@ public class RealFarmProvider {
 	public List<AggregateItem> getAggregateItemsSow(int actionTypeId,
 			int seedTypeId) {
 
-		// for (int x = 2; x < c.getColumnCount(); x++) {
-		// a.addValue(c.getColumnName(x), c.getString(x));
-		// }
-
 		String dateNow = DateHelper.getDateNow();
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
@@ -1408,27 +1404,6 @@ public class RealFarmProvider {
 		mDatabase.close();
 
 		return -1;
-	}
-
-	public void getAdvices() {
-
-		mDatabase.open();
-		// query all actions
-		Cursor c = mDatabase.getAllEntries(RealFarmDatabase.TABLE_NAME_ADVICE,
-				new String[] { RealFarmDatabase.COLUMN_NAME_ADVICE_ID });
-
-		if (c.moveToFirst()) {
-			do {
-
-				Log.d("Provider", "found id: " + c.getInt(0));
-
-			} while (c.moveToNext());
-		}
-
-		// closes the cursor and the database.
-		c.close();
-		mDatabase.close();
-
 	}
 
 	// TODO: add optimization

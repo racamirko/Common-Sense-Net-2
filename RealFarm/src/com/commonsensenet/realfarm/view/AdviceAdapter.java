@@ -200,11 +200,11 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 
 		tv = (TextView) view.findViewById(R.id.loss);
 		tv.setTypeface(null, Typeface.NORMAL);
-		tv.setText(group.getLoss() + " kg/acre");
+		tv.setText(group.getChance() + "% loss");
 
 		tv = (TextView) view.findViewById(R.id.percentage);
 		tv.setTypeface(null, Typeface.NORMAL);
-		tv.setText(group.getChance() + "%");
+		tv.setText("");
 
 		ImageView iw;
 		iw = (ImageView) view.findViewById(R.id.image_left);
