@@ -805,7 +805,10 @@ public class RealFarmDatabase {
 						R.raw.ckpura },/* 15 */
 				{ "Sheshagiri", "", "354717046643814", "9448379025",
 						"farmer_default", "CK Pura", R.raw.sheshagiri,
-						R.raw.ckpura } /* 16 */
+						R.raw.ckpura }, /* 16 */
+				{ "Hendrik", "", "911208750949379", "9483824373",
+						"farmer_hendrik_knoche", "Aalborg",
+						R.raw.hendrik_knoche, R.raw.ckpura },/* 17 */
 
 		};
 
