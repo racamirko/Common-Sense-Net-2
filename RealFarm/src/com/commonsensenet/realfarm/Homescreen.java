@@ -36,7 +36,6 @@ import com.commonsensenet.realfarm.admin.LoginActivity;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnWeatherForecastDataChangeListener;
-import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.User;
@@ -462,28 +461,40 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))
 				.setImageResource(userImageResId);
 
-		// clears the database
-		// initDb();
-
-		List<Action> actions = mDataProvider.getActions();
-
-		for (int x = 0; x < actions.size(); x++) {
-			Log.d(getLogTag(), actions.get(x).toString());
-		}
-
 		// adds the listeners
 		initActionListener();
-
 	}
 
 	public boolean onCreateOptionsMenu(Menu menu) {
+
+		// loads the menu from the XML.
 		MenuInflater inflater = getSupportMenuInflater();
 		inflater.inflate(R.menu.menu, menu);
+
 		return super.onCreateOptionsMenu(menu);
 	}
 
 	public void onDataChanged(String date, int temperature, int weatherTypeId) {
-		updateWeatherForecast();
+		String today = RealFarmProvider.sDateFormat.format(new Date());
+
+		// if it is today's date the forecast is updated.
+		if (today.equalsIgnoreCase(date)) {
+
+			// gets the weather tile elements.
+			ImageView weatherImage = (ImageView) findViewById(R.id.hmscrn_img_weather);
+			TextView weatherTemp = (TextView) findViewById(R.id.hmscrn_lbl_weather);
+
+			// sets the temperature
+			weatherTemp.setText(temperature + WeatherForecastActivity.CELSIUS);
+
+			// loads the active weather type.
+			WeatherType wt = mDataProvider.getWeatherTypeById(weatherTypeId);
+
+			// sets the icon
+			if (wt != null) {
+				weatherImage.setImageResource(wt.getImage());
+			}
+		}
 	}
 
 	public boolean onLongClick(View v) {
@@ -585,6 +596,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	protected void onResume() {
 		super.onResume();
 
+		// adds the weather listener used to detect when new weather data is
+		// available.
 		mDataProvider.setWeatherForecastDataChangeListener(this);
 	}
 
@@ -602,12 +615,19 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		updateWeatherForecast();
 	}
 
+	/**
+	 * Updates the number of advices for the user.
+	 */
 	private void updateAdviceNumbers() {
 		TextView tw = (TextView) findViewById(R.id.news_advice);
 		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
 				+ "");
 	}
 
+	/**
+	 * Updates all the aggregate numbers indicating the number of actions
+	 * performed in the last 15 days that match this.
+	 */
 	private void updateAggregatesNumbers() {
 		TextView tw = (TextView) findViewById(R.id.news_sow);
 		tw.setText(mDataProvider
@@ -632,6 +652,9 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
 	}
 
+	/**
+	 * Updates the MarkerPrice Tile.
+	 */
 	private void updateMarketPrices() {
 		TextView tw = (TextView) findViewById(R.id.hmscrn_lbl_market_price_min);
 		tw.setText(String.valueOf(mDataProvider
@@ -641,6 +664,10 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 				.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX)));
 	}
 
+	/**
+	 * Updates the WeatherTile with the the forecast matching the current date.
+	 * If the data is not available an icon indicating this is used.
+	 */
 	private void updateWeatherForecast() {
 
 		// gets the forecast matching the date.

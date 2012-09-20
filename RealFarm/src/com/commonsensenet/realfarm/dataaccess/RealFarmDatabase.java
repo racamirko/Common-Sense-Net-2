@@ -755,8 +755,7 @@ public class RealFarmDatabase {
 			deviceId = DEFAULT_DEVICE_ID;
 		}
 
-		// { "John", "Doe", deviceId, "", "farmer_default", "CK Pura",
-		// R.raw.john_doe, R.raw.ckpura },
+		boolean testUserAdded = false;
 		Object[][] userData = {
 				{ "Allappa", "", "911208750943398", "8151906806",
 						"farmer_911208750943398", "CK Pura", R.raw.allappa,
@@ -804,10 +803,10 @@ public class RealFarmDatabase {
 						"farmer_911217500727225", "CK Pura", R.raw.bindu,
 						R.raw.ckpura },/* 15 */
 				{ "Sheshagiri", "", "354717046643814", "9448379025",
-						"farmer_default", "CK Pura", R.raw.sheshagiri,
+						"farmer_354717046643814", "CK Pura", R.raw.sheshagiri,
 						R.raw.ckpura }, /* 16 */
 				{ "Hendrik", "", "911208750949379", "9483824373",
-						"farmer_hendrik_knoche", "Aalborg",
+						"farmer_911208750949379", "Aalborg",
 						R.raw.hendrik_knoche, R.raw.ckpura },/* 17 */
 
 		};
@@ -831,6 +830,29 @@ public class RealFarmDatabase {
 			users.put(COLUMN_NAME_USER_TIMESTAMP, new Date().getTime());
 			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 			users.clear();
+
+			// checks if a user that matches the current device id was added.
+			if (userData[x][2].equals(deviceId)) {
+				testUserAdded = true;
+			}
+		}
+
+		// adds the test used John Doe.I
+		if (!testUserAdded) {
+			users.put(COLUMN_NAME_USER_ID, deviceId + "1");
+			users.put(COLUMN_NAME_USER_FIRSTNAME, "John");
+			users.put(COLUMN_NAME_USER_LASTNAME, "Doe");
+			users.put(COLUMN_NAME_USER_DEVICEID, deviceId);
+			users.put(COLUMN_NAME_USER_MOBILENUMBER, "0000000000");
+			users.put(COLUMN_NAME_USER_IMAGEPATH, "farmer_default");
+			users.put(COLUMN_NAME_USER_LOCATION, "CK Pura");
+			users.put(COLUMN_NAME_USER_NAME_AUDIO, R.raw.john_doe);
+			users.put(COLUMN_NAME_USER_LOCATION_AUDIO, R.raw.ckpura);
+			users.put(COLUMN_NAME_USER_SENDSTATUS, Model.STATUS_UNSENT);
+			users.put(COLUMN_NAME_USER_ISENABLED, 1);
+			users.put(COLUMN_NAME_USER_ISADMINACTION, 0);
+			users.put(COLUMN_NAME_USER_TIMESTAMP, new Date().getTime());
+			insertEntriesIntoDatabase(TABLE_NAME_USER, users, db);
 		}
 		Log.d(LOG_TAG, "users works");
 

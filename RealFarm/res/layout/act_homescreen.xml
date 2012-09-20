@@ -74,9 +74,9 @@
             android:layout_height="40dp"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:scaleType="fitXY"
             android:layout_margin="@dimen/margin"
             android:background="@drawable/square_btn_transp"
+            android:scaleType="fitXY"
             android:src="@drawable/ic_sound_on" />
 
         <ImageButton
@@ -121,25 +121,28 @@
                     android:layout_height="50dp"
                     android:layout_marginLeft="75dp"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/sowingsection" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/hs_sowing" />
 
                 <ImageButton
                     android:id="@+id/btn_action_fertilize"
-                    android:layout_width="75dp"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
-                    android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_sow"
+                    android:adjustViewBounds="true"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/fertilizingsection" />
+                    android:scaleType="center"
+                    android:src="@drawable/hs_fertilizing" />
 
                 <ImageButton
                     android:id="@+id/btn_action_irrigate"
-                    android:layout_width="75dp"
+                    android:layout_width="50dp"
                     android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_fertilize"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/irrigationsection" />
+                    android:scaleType="fitXY"
+                    android:src="@drawable/hs_irrigation" />
 
                 <TextView
                     android:id="@+id/news_sow"
@@ -186,7 +189,7 @@
                     android:layout_height="50dp"
                     android:layout_centerVertical="true"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/problemsection" />
+                    android:src="@drawable/hs_problem" />
 
                 <ImageButton
                     android:id="@+id/btn_action_spray"
@@ -195,7 +198,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_report"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/sprayingsection" />
+                    android:src="@drawable/hs_spraying" />
 
                 <ImageButton
                     android:id="@+id/btn_action_harvest"
@@ -204,7 +207,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_spray"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/harvestingsection" />
+                    android:src="@drawable/hs_harvesting" />
 
                 <ImageButton
                     android:id="@+id/btn_action_sell"
@@ -213,7 +216,7 @@
                     android:layout_centerVertical="true"
                     android:layout_toRightOf="@+id/btn_action_harvest"
                     android:background="@drawable/circular_btn"
-                    android:src="@drawable/sellingsection" />
+                    android:src="@drawable/hs_selling" />
 
                 <TextView
                     android:id="@+id/news_problem"
