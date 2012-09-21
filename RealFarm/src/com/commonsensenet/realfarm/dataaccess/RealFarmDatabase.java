@@ -211,19 +211,17 @@ public class RealFarmDatabase {
 			// recommendation
 			db.execSQL("create table " + TABLE_NAME_RECOMMENDATION + " ( "
 					+ COLUMN_NAME_RECOMMENDATION_ID + " integer primary key, "
-					+ COLUMN_NAME_RECOMMENDATION_TIMESTAMP
-					+ " integer not null, " + COLUMN_NAME_RECOMMENDATION_PLOTID
-					+ " integer, " + COLUMN_NAME_RECOMMENDATION_ADVICEID
-					+ " integer, " + COLUMN_NAME_RECOMMENDATION_USERID
-					+ " integer, "
+					+ COLUMN_NAME_RECOMMENDATION_PLOTID + " integer, "
+					+ COLUMN_NAME_RECOMMENDATION_ADVICEID + " integer, "
+					+ COLUMN_NAME_RECOMMENDATION_USERID + " integer, "
+					+ COLUMN_NAME_RECOMMENDATION_DATACOLLECTIONDATE + " text,"
 					+ COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE
-					+ " integer, "
-					+ COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE
-					+ " integer not null, "
-					+ COLUMN_NAME_RECOMMENDATION_SEVERITY + " integer, "
-					+ COLUMN_NAME_RECOMMENDATION_PROBABILITY + " integer, "
-					+ COLUMN_NAME_RECOMMENDATION_ISUNREAD + " boolean "
-					+ " ); ");
+					+ " text, " + COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE
+					+ " text, " + COLUMN_NAME_RECOMMENDATION_SEVERITY
+					+ " integer, " + COLUMN_NAME_RECOMMENDATION_PROBABILITY
+					+ " integer, " + COLUMN_NAME_RECOMMENDATION_ISUNREAD
+					+ " boolean, " + COLUMN_NAME_RECOMMENDATION_TIMESTAMP
+					+ " integer not null " + " ); ");
 			Log.d(LOG_TAG, "Created recommendation table");
 
 			// resource
@@ -490,6 +488,7 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_RECOMMENDATION_PROBABILITY = "probability";
 	public static final String COLUMN_NAME_RECOMMENDATION_SEVERITY = "severity";
 	public static final String COLUMN_NAME_RECOMMENDATION_TIMESTAMP = "timestamp";
+	public static final String COLUMN_NAME_RECOMMENDATION_DATACOLLECTIONDATE = "dataCollectionDate";
 	public static final String COLUMN_NAME_RECOMMENDATION_USERID = "userId";
 	public static final String COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE = "validThroughDate";
 
