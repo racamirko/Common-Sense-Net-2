@@ -312,31 +312,29 @@ public class RealFarmProvider {
 
 		mDatabase.close();
 
-		// if the plot was correctly inserted the id is given.
-		if (result != -1)
-			return id;
-		else
-			return -1;
-
+		return result;
 	}
 
 	public long addRecommendation(long plotId, int adviceId, long userId,
-			int actReqByDate, long validThroughDate, int severity,
-			int probability) {
-		return addRecommendation(new Date().getTime(), new Date().getTime(),
-				plotId, adviceId, userId, actReqByDate, validThroughDate,
+			String dataCollectionDate, String actReqByDate,
+			String validThroughDate, int severity, int probability) {
+		return addRecommendation(new Date().getTime(), plotId, adviceId,
+				userId, dataCollectionDate, actReqByDate, validThroughDate,
 				severity, probability, 1);
 	}
 
-	public long addRecommendation(long id, long timestamp, long plotId,
-			int adviceId, long userId, long actReqByDate,
-			long validThroughDate, int severity, int probability, int isUnread) {
+	public long addRecommendation(long id, long plotId, int adviceId,
+			long userId, String dataCollectionDate, String actReqByDate,
+			String validThroughDate, int severity, int probability, int isUnread) {
 
 		ContentValues args = new ContentValues();
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID, id);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_PLOTID, plotId);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ADVICEID, adviceId);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_USERID, userId);
+		args.put(
+				RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_DATACOLLECTIONDATE,
+				dataCollectionDate);
 		args.put(
 				RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE,
 				actReqByDate);
@@ -347,7 +345,7 @@ public class RealFarmProvider {
 				probability);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD, isUnread);
 		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_TIMESTAMP,
-				timestamp);
+				new Date().getTime());
 
 		mDatabase.open();
 

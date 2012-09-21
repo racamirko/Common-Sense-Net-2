@@ -269,17 +269,17 @@ public class DownstreamReceiver extends BroadcastReceiver {
 						validThroughDate = DATE_FORMATTER.parse(messageData[6]);
 
 						// inserts the recommendation.
-						result = mDataProvider.addRecommendation(
-								Long.valueOf(messageData[0]),
-								timestamp.getTime(),
-								Long.valueOf(messageData[2]),
-								Integer.valueOf(messageData[3]),
-								Long.valueOf(messageData[4]),
-								actReqByDate.getTime(),
-								validThroughDate.getTime(),
-								Integer.valueOf(messageData[7]),
-								Integer.valueOf(messageData[8]),
-								Integer.valueOf(messageData[9]));
+//						result = mDataProvider.addRecommendation(
+//								Long.valueOf(messageData[0]),
+//								timestamp.getTime(),
+//								Long.valueOf(messageData[2]),
+//								Integer.valueOf(messageData[3]),
+//								Long.valueOf(messageData[4]),
+//								actReqByDate.getTime(),
+//								validThroughDate.getTime(),
+//								Integer.valueOf(messageData[7]),
+//								Integer.valueOf(messageData[8]),
+//								Integer.valueOf(messageData[9]));
 
 						// plays the sound if the value was inserted.
 						if (result != -1) {
