@@ -73,9 +73,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		findViewById(R.id.hmscrn_btn_advice).setOnClickListener(this);
 		findViewById(R.id.hmscrn_btn_advice).setOnLongClickListener(this);
 
-		findViewById(R.id.hmscrn_btn_video).setOnClickListener(this);
-		findViewById(R.id.hmscrn_btn_video).setOnLongClickListener(this);
-
 		findViewById(R.id.hmscrn_btn_market).setOnClickListener(this);
 		findViewById(R.id.hmscrn_btn_market).setOnLongClickListener(this);
 
@@ -167,8 +164,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			intent = new Intent(this, WeatherForecastActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {
 			intent = new Intent(this, AdviceActivity.class);
-		} else if (v.getId() == R.id.hmscrn_btn_video) {
-			intent = new Intent(this, VideoActivity.class);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
 			intent = new Intent(this, ActionAggregateActivity.class);
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
@@ -518,8 +513,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			playAudio(R.raw.advice_maincrop, true);
 		} else if (v.getId() == R.id.hmscrn_btn_weather) {
 			playAudio(R.raw.wf_forecast, true);
-		} else if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudio(R.raw.new_video, true);
 		} else if (v.getId() == R.id.btn_action_fertilize) {
 			playAudio(R.raw.fertilizing_lastweek, true);
 		} else if (v.getId() == R.id.btn_action_spray) {

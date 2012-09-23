@@ -918,10 +918,6 @@ public abstract class HelpEnabledActivityOld extends Activity implements
 			playAudio(R.raw.marketprice, true);
 		}
 
-		if (v.getId() == R.id.hmscrn_btn_video) {
-			playAudio(R.raw.video, true);
-		}
-
 		// if (v.getId() == R.id.hmscrn_btn_diary) { // changes
 		// playAudioalways(R.raw.dairy);
 		// }
