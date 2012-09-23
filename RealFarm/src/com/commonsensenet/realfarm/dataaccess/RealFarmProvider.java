@@ -2739,6 +2739,46 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
+	public WeatherForecast getWeatherForecastByDate(String date) {
+
+		// opens the database.
+		mDatabase.open();
+
+		// query all actions
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_WEATHERFORECAST,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
+								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP },
+
+						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
+								+ " = '" + date + "'", null, null, null,
+						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP
+								+ " ASC");
+
+		WeatherForecast wf = null;
+		if (c.moveToFirst()) {
+
+			Log.d("RealFarmProvider",
+					"total wf found with date: " + c.getCount());
+
+			wf = new WeatherForecast(c.getInt(0), c.getString(1), c.getInt(2),
+					c.getInt(3), c.getLong(4));
+
+			Log.d("WF values: ", wf.toString());
+
+		}
+
+		c.close();
+		mDatabase.close();
+
+		return wf;
+	}
+
 	/**
 	 * Gets all the available WeatherForecasts, sorted by date. Old forecasts
 	 * will be included as well.
@@ -2796,46 +2836,6 @@ public class RealFarmProvider {
 	 */
 	public List<WeatherForecast> getWeatherForecasts(Date startDate) {
 		return getWeatherForecasts(sDateFormat.format(startDate));
-	}
-
-	public WeatherForecast getWeatherForecastByDate(String date) {
-
-		// opens the database.
-		mDatabase.open();
-
-		// query all actions
-		Cursor c = mDatabase
-				.getEntries(
-						RealFarmDatabase.TABLE_NAME_WEATHERFORECAST,
-						new String[] {
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_ID,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TEMPERATURE,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_WEATHERTYPEID,
-								RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP },
-
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_DATE
-								+ " = '" + date + "'", null, null, null,
-						RealFarmDatabase.COLUMN_NAME_WEATHERFORECAST_TIMESTAMP
-								+ " ASC");
-
-		WeatherForecast wf = null;
-		if (c.moveToFirst()) {
-
-			Log.d("RealFarmProvider",
-					"total wf found with date: " + c.getCount());
-
-			wf = new WeatherForecast(c.getInt(0), c.getString(1), c.getInt(2),
-					c.getInt(3), c.getLong(4));
-
-			Log.d("WF values: ", wf.toString());
-
-		}
-
-		c.close();
-		mDatabase.close();
-
-		return wf;
 	}
 
 	/**

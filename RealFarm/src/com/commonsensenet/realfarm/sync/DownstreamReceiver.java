@@ -32,15 +32,6 @@ public class DownstreamReceiver extends BroadcastReceiver {
 	/** Access to the underlying Database. */
 	private RealFarmProvider mDataProvider;
 
-	/**
-	 * Plays a sound indicating that new data has arrived.
-	 */
-	protected void playNotificationSound() {
-		// adds the sound to queue and plays it.
-		SoundQueue.getInstance().addToQueue(R.raw.pong);
-		SoundQueue.getInstance().play();
-	}
-
 	@SuppressLint("ParserError")
 	@Override
 	public void onReceive(Context context, Intent intent) {
@@ -255,50 +246,38 @@ public class DownstreamReceiver extends BroadcastReceiver {
 					// inserts the recommendation
 				} else if (messageType == 1005) {
 
-					// date format used for the timestamp.
-					SimpleDateFormat df = new SimpleDateFormat(
-							"yyyy-mm-dd hh:mm:ss");
+					// inserts the recommendation.
+					result = mDataProvider.addRecommendation(
+							Long.valueOf(messageData[0]),
+							Long.valueOf(messageData[1]),
+							Integer.valueOf(messageData[2]),
+							Long.valueOf(messageData[3]), messageData[4],
+							messageData[5], messageData[6],
+							Integer.valueOf(messageData[7]),
+							Integer.valueOf(messageData[8]),
+							Integer.valueOf(messageData[9]));
 
-					Date timestamp;
-					Date actReqByDate;
-					Date validThroughDate;
-					try {
-						// converts the received dates.
-						timestamp = df.parse(messageData[1]);
-						actReqByDate = DATE_FORMATTER.parse(messageData[5]);
-						validThroughDate = DATE_FORMATTER.parse(messageData[6]);
-
-						// inserts the recommendation.
-//						result = mDataProvider.addRecommendation(
-//								Long.valueOf(messageData[0]),
-//								timestamp.getTime(),
-//								Long.valueOf(messageData[2]),
-//								Integer.valueOf(messageData[3]),
-//								Long.valueOf(messageData[4]),
-//								actReqByDate.getTime(),
-//								validThroughDate.getTime(),
-//								Integer.valueOf(messageData[7]),
-//								Integer.valueOf(messageData[8]),
-//								Integer.valueOf(messageData[9]));
-
-						// plays the sound if the value was inserted.
-						if (result != -1) {
-							playNotificationSound();
-						}
-
-						// tracks the result of the insertion.
-						ApplicationTracker.getInstance().logSyncEvent(
-								EventType.SYNC, "DOWNSTREAM/RECOMMENDATION",
-								"result: " + result);
-
-					} catch (ParseException e) {
-						// tracks the result of the insertion.
-						ApplicationTracker.getInstance().logSyncEvent(
-								EventType.SYNC, "DOWNSTREAM/RECOMMENDATION",
-								"date error");
+					// plays the sound if the value was inserted.
+					if (result != -1) {
+						playNotificationSound();
 					}
+
+					// tracks the result of the insertion.
+					ApplicationTracker.getInstance().logSyncEvent(
+							EventType.SYNC, "DOWNSTREAM/RECOMMENDATION",
+							"result: " + result);
+
 				}
 			}
 		}
+	}
+
+	/**
+	 * Plays a sound indicating that new data has arrived.
+	 */
+	protected void playNotificationSound() {
+		// adds the sound to queue and plays it.
+		SoundQueue.getInstance().addToQueue(R.raw.pong);
+		SoundQueue.getInstance().play();
 	}
 }
