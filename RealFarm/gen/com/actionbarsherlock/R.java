@@ -732,18 +732,19 @@ containing a value of this type.
          be either a fraction or a dimension. 
          */
         public static final int abs__dialog_min_width_minor=0x7f09000a;
-        public static final int action_bar_height=0x7f090014;
+        public static final int action_bar_height=0x7f090015;
         /**  Minimum width for an action button in the menu area of an action bar 
  Minimum width for an action button in the menu area of an action bar 
          */
         public static final int action_button_min_width=0x7f09000b;
+        public static final int action_icon_size=0x7f090013;
         public static final int font_large=0x7f09000d;
         public static final int font_medium=0x7f09000e;
         public static final int font_small=0x7f09000f;
         public static final int font_weather_forecast=0x7f090010;
         public static final int font_xlarge=0x7f09000c;
         public static final int icon_size=0x7f090012;
-        public static final int icon_size_small=0x7f090013;
+        public static final int icon_size_small=0x7f090014;
         public static final int margin=0x7f090011;
     }
     public static final class drawable {

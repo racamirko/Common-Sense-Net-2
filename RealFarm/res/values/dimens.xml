@@ -8,6 +8,7 @@
     <dimen name="font_weather_forecast">12sp</dimen>
     <dimen name="margin">5dip</dimen>
     <dimen name="icon_size">55dip</dimen>
+    <dimen name="action_icon_size">48dp</dimen>
     <dimen name="icon_size_small">35dip</dimen>
     <dimen name="action_bar_height">45dip</dimen>
 

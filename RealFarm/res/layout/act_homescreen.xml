@@ -106,42 +106,40 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/margin"
             android:background="@color/blue_tile"
-            android:orientation="vertical" >
+            android:orientation="vertical"
+            android:padding="@dimen/margin" >
 
             <!-- first row -->
 
             <RelativeLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin" >
+                android:layout_marginBottom="@dimen/margin" >
 
                 <ImageButton
                     android:id="@+id/btn_action_sow"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/action_icon_size"
+                    android:layout_height="@dimen/action_icon_size"
                     android:layout_marginLeft="75dp"
                     android:background="@drawable/circular_btn"
-                    android:scaleType="fitXY"
+                    android:scaleType="center"
                     android:src="@drawable/hs_sowing" />
 
                 <ImageButton
                     android:id="@+id/btn_action_fertilize"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="@dimen/action_icon_size"
+                    android:layout_height="@dimen/action_icon_size"
                     android:layout_toRightOf="@+id/btn_action_sow"
-                    android:adjustViewBounds="true"
                     android:background="@drawable/circular_btn"
                     android:scaleType="center"
                     android:src="@drawable/hs_fertilizing" />
 
                 <ImageButton
                     android:id="@+id/btn_action_irrigate"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/action_icon_size"
+                    android:layout_height="@dimen/action_icon_size"
                     android:layout_toRightOf="@+id/btn_action_fertilize"
                     android:background="@drawable/circular_btn"
-                    android:scaleType="fitXY"
                     android:src="@drawable/hs_irrigation" />
 
                 <TextView
@@ -179,41 +177,35 @@
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="0dip"
-                android:layout_weight="1"
-                android:padding="@dimen/margin" >
+                android:layout_height="wrap_content" >
 
                 <ImageButton
                     android:id="@+id/btn_action_report"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/action_icon_size"
+                    android:layout_height="@dimen/action_icon_size"
                     android:background="@drawable/circular_btn"
                     android:src="@drawable/hs_problem" />
 
                 <ImageButton
                     android:id="@+id/btn_action_spray"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/action_icon_size"
+                    android:layout_height="@dimen/action_icon_size"
                     android:layout_toRightOf="@+id/btn_action_report"
                     android:background="@drawable/circular_btn"
                     android:src="@drawable/hs_spraying" />
 
                 <ImageButton
                     android:id="@+id/btn_action_harvest"
-                    android:layout_width="75dp"
-                    android:layout_height="50dp"
-                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/action_icon_size"
+                    android:layout_height="@dimen/action_icon_size"
                     android:layout_toRightOf="@+id/btn_action_spray"
                     android:background="@drawable/circular_btn"
                     android:src="@drawable/hs_harvesting" />
 
                 <ImageButton
                     android:id="@+id/btn_action_sell"
-                    android:layout_width="@dimen/icon_size"
-                    android:layout_height="@dimen/icon_size"
-                    android:layout_centerVertical="true"
+                    android:layout_width="@dimen/action_icon_size"
+                    android:layout_height="@dimen/action_icon_size"
                     android:layout_toRightOf="@+id/btn_action_harvest"
                     android:background="@drawable/circular_btn"
                     android:src="@drawable/hs_selling" />
