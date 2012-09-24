@@ -321,8 +321,11 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				if (validateForm()) {
 					playAudio(R.raw.ok); // TODO: say something here?
 
-					startActivity(new Intent(DataFormActivity.this,
-							Homescreen.class));
+					Intent intent = new Intent(DataFormActivity.this,
+							Homescreen.class);
+					intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+
+					startActivity(intent);
 					DataFormActivity.this.finish();
 				} else {
 					missingValue();
