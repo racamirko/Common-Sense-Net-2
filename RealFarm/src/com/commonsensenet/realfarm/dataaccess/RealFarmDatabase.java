@@ -1551,7 +1551,7 @@ public class RealFarmDatabase {
 						R.raw.advice_lateleafspot_podrot,
 						"34 g/ha  (0.5 g per liter) of cyproconazole and 420 g/ha (1 g per liter) of chlorothalonil",
 						1, ACTION_TYPE_SPRAY_ID, -1 },
-				{ 2, R.raw.advice_leafminer, "monocrotophos 36 SL @ 1ml/l", 1,
+				{ 2, R.raw.advice_leafminer, "monocrotophos 36 SL @ 1ml/l", 2,
 						ACTION_TYPE_SPRAY_ID, -1 },
 
 		};

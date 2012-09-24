@@ -860,12 +860,10 @@ public class RealFarmProvider {
 				// queries the advice pieces that match the
 				// recommendations found.
 				final String MY_QUERY2 = "SELECT adp.id, adp.audio, adp.comment, adp.adviceId, adp.suggestedActionId, adp.suggestedResourceId, adp.orderNumber, "
-						+ "res.id, res.name, res.shortName, res.audio, res.image1, res.image2, res.backgroundImage, at.id, at.audio "
-						+ "FROM advicePiece adp, resource res, actionType at "
+						+ "at.id, at.audio "
+						+ "FROM advicePiece adp, actionType at "
 						+ "WHERE at.id = adp.suggestedActionId AND adp.adviceId = "
-						+ c.getInt(2)
-						+ " AND adp.suggestedResourceId = res.id "
-						+ "ORDER BY adp.orderNumber ASC";
+						+ c.getInt(2) + " ORDER BY adp.orderNumber ASC";
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
 				Log.d("Provider", "" + c2.getCount());
@@ -877,24 +875,20 @@ public class RealFarmProvider {
 								c.getString(2), c.getInt(3), c.getInt(4),
 								c.getInt(5), c.getInt(6));
 
-						res = new Resource(c.getInt(7), c.getString(8),
-								c.getString(9), c.getInt(10), c.getInt(11),
-								c.getInt(12), c.getInt(13), -1, -1);
-
 						// creates and advice item.
 						AdviceSolutionItem aSolItem = new AdviceSolutionItem();
 						aSolItem.setAdvicePiece(ap);
-						aSolItem.setResource(res);
+						// aSolItem.setResource(res);
 
 						// action related data.
-						aSolItem.setActionId(c2.getInt(14));
-						aSolItem.setActionAudio(c2.getInt(15));
+						aSolItem.setActionId(c2.getInt(7));
+						aSolItem.setActionAudio(c2.getInt(8));
 
 						final String MY_QUERY4 = "SELECT COUNT(plotId) FROM action WHERE actionTypeId = "
 								+ RealFarmDatabase.ACTION_TYPE_PLAN_ID
 								+ " AND date LIKE '"
 								+ Calendar.getInstance().get(Calendar.YEAR)
-								+ "-%' AND resource1Id = " + res.getId();
+								+ "-%'";
 						Cursor c4 = mDatabase.rawQuery(MY_QUERY4,
 								new String[] {});
 

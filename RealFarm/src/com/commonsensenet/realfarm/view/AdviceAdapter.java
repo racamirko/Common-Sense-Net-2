@@ -85,23 +85,28 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 			final int childPosition) {
 		RelativeLayout rl = (RelativeLayout) view
 				.findViewById(R.id.left_background);
-		if (child.getResource().getBackgroundImage() != -1) {
+		if (child.getResource() != null
+				&& child.getResource().getBackgroundImage() != -1) {
 			rl.setBackgroundResource(child.getResource().getBackgroundImage());
 		} else {
 			rl.setBackgroundColor(Color.TRANSPARENT);
 		}
 
 		ImageView iw = (ImageView) view.findViewById(R.id.image_left);
-		if (child.getResource().getImage1() != -1)
+		if (child.getResource() != null
+				&& child.getResource().getImage1() != -1)
 			iw.setImageResource(child.getResource().getImage1());
 		else
 			iw.setImageResource(Color.TRANSPARENT);
 
-		TextView tv = (TextView) view.findViewById(R.id.left_text);
-		tv.setText(child.getResource().getShortName());
+		TextView tv;
+		if (child.getResource() != null) {
+			tv = (TextView) view.findViewById(R.id.left_text);
+			tv.setText(child.getResource().getShortName());
+		}
 
 		tv = (TextView) view.findViewById(R.id.number);
-		tv.setText("#"); // String.valueOf(child.getNumber())
+		tv.setText(String.valueOf(child.getAdvicePiece().getAdviceId()));
 
 		tv = (TextView) view.findViewById(R.id.center_left_text);
 		tv.setText(""); // String.valueOf(child.getDidIt())
@@ -114,7 +119,9 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 
 		ImageView like = (ImageView) view.findViewById(R.id.right_image);
 
-		if (child.getResource().getShortName().equals("")) {
+		if (child.getResource() == null
+				|| child.getResource().getShortName().equals("")) {
+
 			tv.setVisibility(View.GONE);
 			like.setVisibility(View.GONE);
 		} else {

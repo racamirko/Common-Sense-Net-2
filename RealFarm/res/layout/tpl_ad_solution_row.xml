@@ -2,10 +2,10 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/solution_row"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@drawable/square_btn"
     android:orientation="horizontal"
-    android:gravity="center" 
-    android:padding="2dp" >
+    android:padding="@dimen/margin" >
 
     <TextView
         android:id="@+id/number"
@@ -21,14 +21,14 @@
     <LinearLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:gravity="center" 
+        android:gravity="center"
         android:orientation="vertical" >
 
         <LinearLayout
             android:layout_width="fill_parent"
             android:layout_height="50dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical" >
+            android:gravity="center_vertical"
+            android:orientation="horizontal" >
 
             <RelativeLayout
                 android:id="@+id/left_background"
@@ -65,7 +65,7 @@
                 android:text="12"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000000" />
-            
+
             <TextView
                 android:id="@+id/center_right_text"
                 android:layout_width="40dp"
@@ -76,7 +76,7 @@
                 android:text="12"
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:textColor="#000000" />
-            
+
             <ImageView
                 android:id="@+id/right_image"
                 android:layout_width="50dp"
@@ -94,6 +94,6 @@
             android:text="Advice text skjssdafvas sdfacdfdc dgjahfjkacsnfkja sdgfasgdaskufsin"
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="#000000" />
-
     </LinearLayout>
+
 </LinearLayout>

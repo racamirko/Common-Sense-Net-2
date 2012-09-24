@@ -136,10 +136,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		// sets the values.
 		selectedItem.setLeftText(situationItem.getProblem().getShortName());
 		selectedItem.setLeftImage(situationItem.getProblem().getImage1());
-		selectedItem.setCenterImage(solutionItem.getResource().getImage1());
-		selectedItem.setRightText(solutionItem.getResource().getShortName());
+		// selectedItem.setCenterImage(solutionItem.getResource().getImage1());
+		// selectedItem.setRightText(solutionItem.getResource().getShortName());
 		selectedItem.setSelector1(situationItem.getProblem().getId());
-		selectedItem.setSelector2(solutionItem.getResource().getId());
+		// selectedItem.setSelector2(solutionItem.getResource().getId());
 		return selectedItem;
 	}
 
@@ -217,7 +217,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		// int comment = solutionItem.getAudio();
 		// int didIt = solutionItem.getDidIt();
 		// int plan = solutionItem.getLikes();
-		int audio = solutionItem.getResource().getAudio();
+		int audio = solutionItem.getAdvicePiece().getAudio();
 
 		SoundQueue.getInstance().addToQueue(audio);
 
@@ -240,9 +240,9 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		System.out.println("On " + date + userName + " from " + userLocation);
 
 		// Mid
-		int uni = user.getAudioRightImage();
-		int pesticide = user.getAudioLeftImage();
-		int pb = user.getAudioCenterImage();
+		// int uni = user.getAudioRightImage();
+		// int pesticide = user.getAudioLeftImage();
+		// int pb = user.getAudioCenterImage();
 		// TODO AUDIO: Say something here: uni + "per acre of" + pesticide +
 		// "against" + pb
 		// TODO AUDIO: Test each of the int. if == -1, don't say anything
