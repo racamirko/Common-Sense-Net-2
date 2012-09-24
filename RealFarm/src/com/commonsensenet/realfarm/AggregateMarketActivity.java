@@ -316,9 +316,10 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		tw = (TextView) destination.findViewById(R.id.label_right);
 		tw.setText(aggregate.getRightText());
 
-		iw = (ImageView) destination.findViewById(R.id.image_left);
-		if (aggregate.getLeftImage() != -1)
-			iw.setImageResource(aggregate.getLeftImage());
+		// iw = (ImageView) destination.findViewById(R.id.image_left);
+		// if (aggregate.getLeftImage() != -1) {
+		// iw.setImageResource(aggregate.getLeftImage());
+		// }
 
 		iw = (ImageView) destination.findViewById(R.id.image_left_bottom);
 		if (aggregate.getLeftBottomImage() != -1)

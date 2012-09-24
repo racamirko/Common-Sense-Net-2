@@ -29,7 +29,6 @@
         android:label="@string/app_name" >
         <activity
             android:name=".Homescreen"
-            android:noHistory="true"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
             <intent-filter>
