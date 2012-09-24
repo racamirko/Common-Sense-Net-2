@@ -23,11 +23,11 @@ public class AddPlotActivity extends DataFormActivity {
 	public static final int DEFAULT_SOIL = -1;
 	public static final int DEFAULT_SOILTYPE = -1;
 	public static final String MAIN_CROP = "mainCrop";
-
 	public static final String PLOT_IMAGE = "plotImage";
 	public static final String SIZE = "size";
 	public static final String SOIL_TYPE = "soilType";
 	public static final String TYPE = "type";
+
 	private List<Resource> mCropTypeList;
 	private int mMainCrop;
 	private String mPlotImage = "0";
@@ -40,6 +40,11 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, Global.IsAdmin, mType);
+
+		if (Global.plotId != -1) {
+			mDataProvider.addRecommendation(Global.plotId, 1, Global.userId,
+					"2012-09-22", "2012-09-31", "2012-09-31", 1, 1);
+		}
 
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,

@@ -1,7 +1,6 @@
 package com.commonsensenet.realfarm.view;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -76,7 +75,6 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 			view = infalInflater.inflate(R.layout.tpl_ad_solution_row, null);
 		}
 
-		// child.getAudio();
 		setSolutionView(view, child, group, groupPosition, childPosition);
 
 		return view;
@@ -87,70 +85,64 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 			final int childPosition) {
 		RelativeLayout rl = (RelativeLayout) view
 				.findViewById(R.id.left_background);
-		if (child.getPesticideBackground() != -1)
-			rl.setBackgroundResource(child.getPesticideBackground());
-		else
+		if (child.getResource().getBackgroundImage() != -1) {
+			rl.setBackgroundResource(child.getResource().getBackgroundImage());
+		} else {
 			rl.setBackgroundColor(Color.TRANSPARENT);
+		}
 
 		ImageView iw = (ImageView) view.findViewById(R.id.image_left);
-		if (child.getPesticideImage() != -1)
-			iw.setImageResource(child.getPesticideImage());
+		if (child.getResource().getImage1() != -1)
+			iw.setImageResource(child.getResource().getImage1());
 		else
 			iw.setImageResource(Color.TRANSPARENT);
 
 		TextView tv = (TextView) view.findViewById(R.id.left_text);
-		tv.setText(child.getPesticideShortName());
+		tv.setText(child.getResource().getShortName());
 
 		tv = (TextView) view.findViewById(R.id.number);
-		tv.setText(String.valueOf(child.getNumber()));
+		tv.setText("#"); // String.valueOf(child.getNumber())
 
 		tv = (TextView) view.findViewById(R.id.center_left_text);
-		tv.setText(String.valueOf(child.getDidIt()));
+		tv.setText(""); // String.valueOf(child.getDidIt())
 
 		tv = (TextView) view.findViewById(R.id.comment);
-		tv.setText(child.getComment());
+		tv.setText(child.getAdvicePiece().getComment());
 
 		tv = (TextView) view.findViewById(R.id.center_right_text);
 		tv.setText(String.valueOf(child.getLikes()));
 
 		ImageView like = (ImageView) view.findViewById(R.id.right_image);
 
-		if (child.getPesticideShortName().equals("")) {
+		if (child.getResource().getShortName().equals("")) {
 			tv.setVisibility(View.GONE);
 			like.setVisibility(View.GONE);
 		} else {
 			tv.setVisibility(View.VISIBLE);
-			if (group.getValidDate() < new Date().getTime()) {
-				like.setVisibility(View.GONE);
-			} else {
-				like.setVisibility(View.VISIBLE);
-				like.setOnClickListener(new View.OnClickListener() {
-					public void onClick(View v) {
-						adviceActivity
-								.onLikeClick(groupPosition, childPosition);
-					}
-				});
+			// TODO: show if valid date.
+			like.setVisibility(View.VISIBLE);
+			like.setOnClickListener(new View.OnClickListener() {
+				public void onClick(View v) {
+					adviceActivity.onLikeClick(groupPosition, childPosition);
+				}
+			});
 
-				like.setOnLongClickListener(new View.OnLongClickListener() {
-					public boolean onLongClick(View v) {
-						adviceActivity.onLikeLongClick(groupPosition,
-								childPosition);
-						return true;
-					}
-				});
-				if (child.getHasLiked())
-					like.setImageResource(R.drawable.plantofollowafterclick);
-				else
-					like.setImageResource(R.drawable.plantofollowbeforeclick);
-			}
+			like.setOnLongClickListener(new View.OnLongClickListener() {
+				public boolean onLongClick(View v) {
+					adviceActivity
+							.onLikeLongClick(groupPosition, childPosition);
+					return true;
+				}
+			});
+			if (child.getHasLiked())
+				like.setImageResource(R.drawable.plantofollowafterclick);
+			else
+				like.setImageResource(R.drawable.plantofollowbeforeclick);
+
 		}
 
-		if (group.getValidDate() < new Date().getTime())
-			setDatePassed((LinearLayout) view.findViewById(R.id.solution_row),
-					0.5F);
-		else
-			setDatePassed((LinearLayout) view.findViewById(R.id.solution_row),
-					1.0F);
+		setDatePassed((LinearLayout) view.findViewById(R.id.solution_row), 1.0F);
+
 	}
 
 	public int getChildrenCount(int groupPosition) {
@@ -180,27 +172,20 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 			view = inf.inflate(R.layout.tpl_ad_situation_row, null);
 		}
 
-		// group.setAudio(c.getInt(5));
-
 		setSituationView(view, group);
 		return view;
 	}
 
 	private void setSituationView(View view, AdviceSituationItem group) {
 		TextView tv;
-		tv = (TextView) view.findViewById(R.id.left_text);
-		tv.setTypeface(null, Typeface.NORMAL);
-		tv.setText(group.getCropShortName());
-		if (group.getCropBackground() != -1)
-			tv.setBackgroundResource(group.getCropBackground());
 
 		tv = (TextView) view.findViewById(R.id.center_text);
 		tv.setTypeface(null, Typeface.NORMAL);
-		tv.setText(group.getProblemShortName());
+		tv.setText(group.getProblem().getShortName());
 
 		tv = (TextView) view.findViewById(R.id.loss);
 		tv.setTypeface(null, Typeface.NORMAL);
-		tv.setText(group.getChance() + "% loss");
+		tv.setText(group.getRecommendation().getProbablity() + "% loss");
 
 		tv = (TextView) view.findViewById(R.id.percentage);
 		tv.setTypeface(null, Typeface.NORMAL);
@@ -208,8 +193,9 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 
 		ImageView iw;
 		iw = (ImageView) view.findViewById(R.id.image_left);
-		if (group.getProblemImage() != -1)
-			iw.setImageResource(group.getProblemImage());
+		if (group.getProblem().getImage1() != -1) {
+			iw.setImageResource(group.getProblem().getImage1());
+		}
 
 		iw = (ImageView) view.findViewById(R.id.leftImage);
 
@@ -228,25 +214,21 @@ public class AdviceAdapter extends BaseExpandableListAdapter {
 			iw.setImageBitmap(rotatedImage);
 		} else {
 			iw.setImageResource(R.drawable.ic_plots);
-
 		}
 
 		LinearLayout ll = (LinearLayout) view.findViewById(R.id.situation_row);
-		if (group.getValidDate() < new Date().getTime()) {
-			setDatePassed(ll, 0.5F);
-		} else {
-			setDatePassed(ll, 1.0F);
-			if (group.getUnread() == 0) {
-				((TextView) (view.findViewById(R.id.left_text))).setTypeface(
-						null, Typeface.BOLD);
-				((TextView) (view.findViewById(R.id.center_text))).setTypeface(
-						null, Typeface.BOLD);
-				((TextView) (view.findViewById(R.id.loss))).setTypeface(null,
-						Typeface.BOLD);
-				((TextView) (view.findViewById(R.id.percentage))).setTypeface(
-						null, Typeface.BOLD);
-			}
+
+		setDatePassed(ll, 1.0F);
+
+		if (group.getRecommendation().getIsUnread() == 0) {
+			((TextView) (view.findViewById(R.id.center_text))).setTypeface(
+					null, Typeface.BOLD);
+			((TextView) (view.findViewById(R.id.loss))).setTypeface(null,
+					Typeface.BOLD);
+			((TextView) (view.findViewById(R.id.percentage))).setTypeface(null,
+					Typeface.BOLD);
 		}
+
 	}
 
 	public void setDatePassed(View ll, float anim) {

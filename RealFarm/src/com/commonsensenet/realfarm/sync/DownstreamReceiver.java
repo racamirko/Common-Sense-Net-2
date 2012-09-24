@@ -168,9 +168,10 @@ public class DownstreamReceiver extends BroadcastReceiver {
 
 					if (tmpUser == null) {
 
-						result = mDataProvider.addUser(messageData[0],
-								messageData[1], messageData[2], messageData[3],
-								messageData[4], messageData[5], messageData[6],
+						result = mDataProvider.addUser(
+								Long.valueOf(messageData[0]), messageData[1],
+								messageData[2], messageData[3], messageData[4],
+								messageData[5], messageData[6],
 								Model.STATUS_CONFIRMED,
 								Integer.valueOf(messageData[7]),
 								Integer.valueOf(messageData[8]),

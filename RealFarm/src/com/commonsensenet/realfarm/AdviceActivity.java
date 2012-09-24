@@ -115,15 +115,15 @@ public class AdviceActivity extends HelpEnabledActivity implements
 	private void expandCurrentLists(
 			ArrayList<AdviceSituationItem> situationItems) {
 		for (int i = 0; i < mAdviceAdapter.getGroupCount(); i++) {
-			if (situationItems.get(i).getValidDate() >= new Date().getTime())
-				mListView.expandGroup(i);
+			// if (situationItems.get(i).getValidDate() >= new Date().getTime())
+			mListView.expandGroup(i);
 		}
 	}
 
 	private AggregateItem getSelectedItem(AdviceSituationItem situationItem,
 			AdviceSolutionItem solutionItem) {
 
-		int actionTypeId = solutionItem.getSuggestedActionId();
+		int actionTypeId = solutionItem.getAdvicePiece().getSuggestedActionId();
 
 		// spray is the default action type.
 		if (actionTypeId == -1) {
@@ -134,15 +134,12 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		AggregateItem selectedItem = new AggregateItem(actionTypeId);
 
 		// sets the values.
-		selectedItem.setCenterText(situationItem.getCropShortName());
-		selectedItem.setCenterBackground(situationItem.getCropBackground());
-		selectedItem.setLeftText(situationItem.getProblemShortName());
-		selectedItem.setLeftImage(situationItem.getProblemImage());
-		selectedItem.setCenterImage(solutionItem.getPesticideImage());
-		selectedItem.setRightText(solutionItem.getPesticideShortName());
-		selectedItem.setSelector1(situationItem.getCropId());
-		selectedItem.setSelector2(situationItem.getProblemId());
-		selectedItem.setSelector3(solutionItem.getPesticideId());
+		selectedItem.setLeftText(situationItem.getProblem().getShortName());
+		selectedItem.setLeftImage(situationItem.getProblem().getImage1());
+		selectedItem.setCenterImage(solutionItem.getResource().getImage1());
+		selectedItem.setRightText(solutionItem.getResource().getShortName());
+		selectedItem.setSelector1(situationItem.getProblem().getId());
+		selectedItem.setSelector2(solutionItem.getResource().getId());
 		return selectedItem;
 	}
 
@@ -159,11 +156,8 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	private void makeAudioSituation(AdviceSituationItem situationItem) {
 
-		long crop = situationItem.getCropAudio();
-		int chance = situationItem.getChance();
-		int loss = situationItem.getLoss();
-		long problem = situationItem.getProblemAudio();
-		String audioSequence = situationItem.getAudioSequence();
+		int severity = situationItem.getRecommendation().getSeverity();
+		String audioSequence = situationItem.getAdvice().getAudioSequence();
 
 		List<Plot> plotList = mDataProvider.getPlotsByUserId(Global.userId);
 
@@ -209,7 +203,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		sq.addToQueue(Integer.valueOf(audioPieces[0]));
 		play_integer(plotNumber);
 		sq.addToQueue(Integer.valueOf(audioPieces[1]));
-		play_integer(loss);
+		play_integer(severity);
 		sq.addToQueue(Integer.valueOf(audioPieces[2]));
 
 		sq.play();
@@ -217,13 +211,13 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	private void makeAudioSolution(AdviceSolutionItem solutionItem) {
 
-		int number = solutionItem.getNumber();
-		int action = solutionItem.getActionAudio();
-		long pesticide = solutionItem.getPesticideAudio();
-		int comment = solutionItem.getAudio();
-		int didIt = solutionItem.getDidIt();
-		int plan = solutionItem.getLikes();
-		int audio = solutionItem.getAudio();
+		// int number = solutionItem.getNumber();
+		// int action = solutionItem.getActionAudio();
+		// long pesticide = solutionItem.getPesticideAudio();
+		// int comment = solutionItem.getAudio();
+		// int didIt = solutionItem.getDidIt();
+		// int plan = solutionItem.getLikes();
+		int audio = solutionItem.getResource().getAudio();
 
 		SoundQueue.getInstance().addToQueue(audio);
 
@@ -490,18 +484,19 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		if (type == ExpandableListView.PACKED_POSITION_TYPE_CHILD) {
 			AdviceSolutionItem solutionItem = situationItem.getItems().get(
 					ExpandableListView.getPackedPositionChild(data));
-			if (situationItem.getUnread() == 0)
+			if (situationItem.getRecommendation().getIsUnread() == 0)
 				makeAudioSituation(situationItem);
 			makeAudioSolution(solutionItem);
 		} else {
 			makeAudioSituation(situationItem);
 		}
 
-		if (situationItem.getUnread() == 0) {
-			mDataProvider.setAdviceRead(situationItem.getId());
+		if (situationItem.getRecommendation().getIsUnread() == 0) {
+			mDataProvider.setRecommendationUnread(situationItem
+					.getRecommendation().getIsUnread(), 0);
 			mSituationItems
 					.get(ExpandableListView.getPackedPositionGroup(data))
-					.setUnread(1);
+					.getRecommendation().setIsUnread(1);
 			mAdviceAdapter.setGroups(mSituationItems);
 			mAdviceAdapter.notifyDataSetChanged();
 		}
@@ -528,9 +523,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				childPosition);
 
 		// TODO: delete system
-		if (!mDataProvider.hasLiked(solutionItem.getId(), Global.userId)) {
-			mDataProvider.addPlanAction(Global.userId,
-					situationItem.getPlotId(), solutionItem.getId(),
+		if (!mDataProvider.hasLiked(solutionItem.getAdvicePiece().getId(),
+				Global.userId)) {
+			mDataProvider.addPlanAction(Global.userId, situationItem
+					.getPlotId(), solutionItem.getAdvicePiece().getId(),
 					Global.IsAdmin);
 			mSituationItems.get(groupPosition).getItems().get(childPosition)
 					.setHasLiked(true);

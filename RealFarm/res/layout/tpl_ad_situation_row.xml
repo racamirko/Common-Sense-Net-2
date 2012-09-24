@@ -1,33 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/situation_row"
-    android:layout_width="fill_parent"
-    android:layout_height="60dp"
+    android:layout_width="match_parent"
+    android:layout_height="?android:attr/listPreferredItemHeight"
+    android:background="@drawable/square_btn"
     android:orientation="horizontal"
-    android:padding="2dp" >
+    android:padding="@dimen/margin" >
 
     <ImageView
         android:id="@+id/leftImage"
-        android:layout_width="55dp"
-        android:layout_height="55dp"
-        android:scaleType="fitXY"
-        android:src="@drawable/ic_plots" />
-
-    <TextView
-        android:id="@+id/left_text"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
-        android:background="@drawable/pic_90px_groundnut_tiled"
-        android:gravity="center"
-        android:text="Gndnut"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:textColor="#FFFFFF" />
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginRight="@dimen/margin"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:src="@drawable/pic_72px_bajra" />
 
     <RelativeLayout
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="5dp"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginRight="@dimen/margin"
         android:background="#CFFFFF"
         android:padding="2dp" >
 
@@ -39,22 +31,21 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="2dp"
             android:gravity="right|bottom"
-            android:text="Aphids"
+            android:text="@string/placeholder_text"
             android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#000000" />
+            android:textColor="@android:color/black" />
 
         <ImageView
             android:id="@+id/image_left"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
+            android:layout_width="@dimen/icon_size_small"
+            android:layout_height="@dimen/icon_size_small"
             android:layout_alignParentTop="true"
             android:src="@drawable/ic_pestcategory" />
     </RelativeLayout>
 
     <LinearLayout
         android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_marginLeft="5dp"
+        android:layout_height="match_parent"
         android:gravity="center"
         android:orientation="vertical" >
 

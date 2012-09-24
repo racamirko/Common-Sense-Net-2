@@ -612,9 +612,14 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	 * Updates the number of advices for the user.
 	 */
 	private void updateAdviceNumbers() {
+
+		// gets the total recommendations
+		int recomCount = mDataProvider
+				.getRecommendationCountByUser(Global.userId);
 		TextView tw = (TextView) findViewById(R.id.news_advice);
-		tw.setText(mDataProvider.getRecommendationCountByUser(Global.userId)
-				+ "");
+
+		// if the value is 0, a blank is added instead.
+		tw.setText(recomCount > 0 ? (recomCount + "") : "");
 	}
 
 	/**

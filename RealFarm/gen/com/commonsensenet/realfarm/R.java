@@ -1260,7 +1260,7 @@ containing a value of this type.
         public static final int cancel=0x7f060102;
         public static final int center_left_text=0x7f06012b;
         public static final int center_right_text=0x7f06012c;
-        public static final int center_text=0x7f060124;
+        public static final int center_text=0x7f060123;
         public static final int choose_plot_listview_list=0x7f06003a;
         public static final int comment=0x7f06012e;
         public static final int crop_sell_tr=0x7f060091;
@@ -1369,7 +1369,7 @@ containing a value of this type.
         public static final int imageCenter=0x7f060142;
         public static final int imageLeft=0x7f060141;
         public static final int image_center=0x7f060134;
-        public static final int image_left=0x7f060125;
+        public static final int image_left=0x7f060124;
         public static final int image_left_bottom=0x7f060138;
         public static final int img_bg_var_fert=0x7f0600dd;
         public static final int intercrop_sow_tr=0x7f0600a9;
@@ -1397,8 +1397,8 @@ containing a value of this type.
         public static final int label_weather_forecast_forecast=0x7f060156;
         public static final int label_weather_forecast_temperature=0x7f060155;
         public static final int leftImage=0x7f060122;
-        public static final int left_background=0x7f06012a;
-        public static final int left_text=0x7f060123;
+        public static final int left_background=0x7f060129;
+        public static final int left_text=0x7f06012a;
         public static final int linearLayout1=0x7f0600bf;
         public static final int linearLayout19=0x7f0600d2;
         public static final int linearLayout2=0x7f0600be;
@@ -1406,7 +1406,7 @@ containing a value of this type.
         public static final int list_dialog_aggregate=0x7f0600c9;
         public static final int list_market_aggregates=0x7f060089;
         public static final int location_selector_label=0x7f060166;
-        public static final int loss=0x7f060127;
+        public static final int loss=0x7f060126;
         public static final int maincrop_tr=0x7f06002d;
         public static final int market_info=0x7f06007e;
         public static final int market_name=0x7f060082;
@@ -1428,9 +1428,9 @@ containing a value of this type.
         public static final int news_sow=0x7f06005c;
         public static final int news_spray=0x7f060064;
         public static final int normal=0x7f060001;
-        public static final int number=0x7f060129;
+        public static final int number=0x7f060128;
         public static final int ok=0x7f060101;
-        public static final int percentage=0x7f060126;
+        public static final int percentage=0x7f060125;
         public static final int pest_spray_tr=0x7f0600af;
         public static final int plot_tr=0x7f060027;
         public static final int preview_bottom_bar=0x7f060107;
@@ -1474,7 +1474,7 @@ containing a value of this type.
         public static final int size_txt=0x7f060030;
         public static final int sm_enter_tr=0x7f060120;
         public static final int soiltype_tr=0x7f06002b;
-        public static final int solution_row=0x7f060128;
+        public static final int solution_row=0x7f060127;
         public static final int tabMode=0x7f060003;
         public static final int tableRow1=0x7f0600fa;
         public static final int text=0x7f06011a;

@@ -18,9 +18,12 @@ import android.util.Log;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.model.ActionType;
+import com.commonsensenet.realfarm.model.Advice;
+import com.commonsensenet.realfarm.model.AdvicePiece;
 import com.commonsensenet.realfarm.model.MarketPrice;
 import com.commonsensenet.realfarm.model.Model;
 import com.commonsensenet.realfarm.model.Plot;
+import com.commonsensenet.realfarm.model.Recommendation;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.SeedType;
 import com.commonsensenet.realfarm.model.User;
@@ -177,16 +180,17 @@ public class RealFarmProvider {
 
 		mDatabase.close();
 
-		return result;
+		return result != -1 ? id : -1;
 	}
 
-	public long addAdvice(String audioSequence, int problemId, int seedTypeId,
-			int stageNumber) {
+	public long addAdvice(String audioSequence, int problemTypeId,
+			int seedTypeId, int stageNumber) {
 		ContentValues args = new ContentValues();
 
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_AUDIOSEQUENCE,
 				audioSequence);
-		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_PROBLEMID, problemId);
+		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_PROBLEMTYPEID,
+				problemTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_SEEDTYPEID, seedTypeId);
 		args.put(RealFarmDatabase.COLUMN_NAME_ADVICE_STAGENUMBER, stageNumber);
 
@@ -312,7 +316,7 @@ public class RealFarmProvider {
 
 		mDatabase.close();
 
-		return result;
+		return result != -1 ? id : -1;
 	}
 
 	public long addRecommendation(long plotId, int adviceId, long userId,
@@ -422,13 +426,14 @@ public class RealFarmProvider {
 		// gets the number of users that share the device id.
 		int userDeviceCount = getUserCount(deviceId);
 
-		return addUser(deviceId + (userDeviceCount + 1), firstname, lastname,
-				mobileNumber, deviceId, imagePath, location,
-				Model.STATUS_UNSENT, 1, isAdminAction, new Date().getTime());
+		return addUser(Long.valueOf(deviceId + (userDeviceCount + 1)),
+				firstname, lastname, mobileNumber, deviceId, imagePath,
+				location, Model.STATUS_UNSENT, 1, isAdminAction,
+				new Date().getTime());
 	}
 
 	// should be used by the sync service.
-	public long addUser(String id, String firstname, String lastname,
+	public long addUser(long id, String firstname, String lastname,
 			String mobileNumber, String deviceId, String imagePath,
 			String location, int isSent, int isEnabled, int isAdminAction,
 			long timestamp) {
@@ -458,7 +463,7 @@ public class RealFarmProvider {
 
 		mDatabase.close();
 
-		return result;
+		return result != -1 ? id : -1;
 	}
 
 	/**
@@ -818,139 +823,120 @@ public class RealFarmProvider {
 	public ArrayList<AdviceSituationItem> getAdviceData(long userId) {
 
 		// gets the current year data.
-		long dateBeginningYear = DateHelper.getBeginningYear();
+		// long dateBeginningYear = DateHelper.getBeginningYear();
 
 		// lists where the advices and situations will be stored.
 		ArrayList<AdviceSituationItem> situationList = new ArrayList<AdviceSituationItem>();
-		ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
 
-		// gets the NONE resource.
-		Resource none = getResources(RealFarmDatabase.RESOURCE_TYPE_ADVICE)
-				.get(0);
-
-		final String MY_QUERY = "SELECT res.shortName, res.image1, res.image1, res.shortName, ad.audio, rec.severity, rec.probability, p.imagePath, rec.isUnread, rec.validThroughDate, ad.id, ad.id, ad.problemTypeId, p.id, rec.id, res.audio, res.audio "
-				+ "FROM recommendation rec, resource res, advice ad, plot p "
-				+ "WHERE rec.timestamp >= "
-				+ dateBeginningYear
-				+ " AND rec.userId = "
+		// queries the recommendations and other related information.
+		final String MY_QUERY = "SELECT rec.id, rec.plotId, rec.adviceId, rec.dataCollectionDate, rec.actionRequiredByDate, rec.validThroughDate, rec.severity, rec.probability, rec.isUnread, rec.timestamp, "
+				+ "res.id, res.name, res.shortName, res.audio, res.image1, res.image2, res.backgroundImage, "
+				+ "ad.id, ad.problemTypeId, ad.seedTypeId, ad.audioSequence, ad.stageNumber, "
+				+ "p.id, p.imagePath "
+				+ "FROM recommendation rec, advice ad, plot p, resource res "
+				+ "WHERE rec.userId = "
 				+ userId
 				+ " AND rec.plotId = p.id AND rec.adviceId = ad.id AND ad.problemTypeId = res.id "
 				+ "ORDER BY rec.timestamp DESC";
 
 		mDatabase.open();
+
 		// queries the recommendations.
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+
+		AdviceSituationItem asItem;
+		Recommendation r;
+		Resource res;
+		Advice a;
 
 		Log.d("Provider", "" + c.getCount());
 
 		if (c.moveToFirst()) {
-			System.out.println(c.getCount());
 			do {
 
-				final String MY_QUERY2 = "SELECT adp.orderNumber, adp.comment, res.ShortName, res.image1, adp.id, adp.adviceId, adp.suggestedResourceId, adp.suggestedActionId, at.audio, res.audio "
-						+ "FROM resource res, advicePiece adp, actionType at "
+				// list used to store the obtained solutions.
+				ArrayList<AdviceSolutionItem> solutionList = new ArrayList<AdviceSolutionItem>();
+
+				// queries the advice pieces that match the
+				// recommendations found.
+				final String MY_QUERY2 = "SELECT adp.id, adp.audio, adp.comment, adp.adviceId, adp.suggestedActionId, adp.suggestedResourceId, adp.orderNumber, "
+						+ "res.id, res.name, res.shortName, res.audio, res.image1, res.image2, res.backgroundImage, at.id, at.audio "
+						+ "FROM advicePiece adp, resource res, actionType at "
 						+ "WHERE at.id = adp.suggestedActionId AND adp.adviceId = "
-						+ c.getLong(10)
+						+ c.getInt(2)
 						+ " AND adp.suggestedResourceId = res.id "
 						+ "ORDER BY adp.orderNumber ASC";
 				Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
-				int number = 0;
+				Log.d("Provider", "" + c2.getCount());
+
+				AdvicePiece ap;
 				if (c2.moveToFirst()) {
 					do {
+						ap = new AdvicePiece(c.getInt(0), c.getInt(1),
+								c.getString(2), c.getInt(3), c.getInt(4),
+								c.getInt(5), c.getInt(6));
+
+						res = new Resource(c.getInt(7), c.getString(8),
+								c.getString(9), c.getInt(10), c.getInt(11),
+								c.getInt(12), c.getInt(13), -1, -1);
+
+						// creates and advice item.
 						AdviceSolutionItem aSolItem = new AdviceSolutionItem();
-						aSolItem.setSuggestedActionId(c2.getInt(7));
-						aSolItem.setPesticideId(c2.getLong(6));
-						aSolItem.setPesticideShortName(c2.getString(2));
-						aSolItem.setPesticideImage(R.drawable.sprayingaction);
-						aSolItem.setId(c2.getInt(4));
-						aSolItem.setComment(c2.getString(1));
-						aSolItem.setNumber(c2.getInt(0));
-						aSolItem.setActionAudio(c2.getInt(8));
-						aSolItem.setPesticideAudio(c2.getInt(9));
-						number = c2.getInt(0);
-						final String MY_QUERY3 = "SELECT COUNT(id) FROM action WHERE actionTypeId = "
-								+ RealFarmDatabase.ACTION_TYPE_SPRAY_ID
-								+ " AND resource1Id = "
-								+ c.getInt(12)
-								+ " AND date LIKE '"
-								+ Calendar.getInstance().get(Calendar.YEAR)
-								+ "-%' AND resource2Id = "
-								+ c2.getInt(6)
-								+ " AND plotId IN (SELECT plotId FROM action WHERE actionTypeId = "
-								+ RealFarmDatabase.ACTION_TYPE_REPORT_ID
-								+ " AND date LIKE '"
-								+ Calendar.getInstance().get(Calendar.YEAR)
-								+ "-%' AND resource1Id = "
-								+ c.getInt(12)
-								+ " AND seedTypeId = " + c.getInt(11) + " )";
-						Cursor c3 = mDatabase.rawQuery(MY_QUERY3,
-								new String[] {});
-						if (c3.moveToFirst()) {
-							aSolItem.setDidIt(c3.getInt(0));
-							c3.close();
-						}
+						aSolItem.setAdvicePiece(ap);
+						aSolItem.setResource(res);
+
+						// action related data.
+						aSolItem.setActionId(c2.getInt(14));
+						aSolItem.setActionAudio(c2.getInt(15));
+
 						final String MY_QUERY4 = "SELECT COUNT(plotId) FROM action WHERE actionTypeId = "
 								+ RealFarmDatabase.ACTION_TYPE_PLAN_ID
 								+ " AND date LIKE '"
 								+ Calendar.getInstance().get(Calendar.YEAR)
-								+ "-%' AND resource1Id = " + c2.getInt(4);
+								+ "-%' AND resource1Id = " + res.getId();
 						Cursor c4 = mDatabase.rawQuery(MY_QUERY4,
 								new String[] {});
+
 						if (c4.moveToFirst()) {
 							aSolItem.setLikes(c4.getInt(0));
-							c4.close();
 						}
-						aSolItem.setHasLiked(hasLiked(c2.getInt(4), userId));
-						solutionList.add(aSolItem);
-					} while (c2.moveToNext());
 
-					AdviceSolutionItem aSolItem = new AdviceSolutionItem();
-					aSolItem.setNumber(number + 1);
-					final String MY_QUERY3 = "SELECT COUNT(id) FROM action WHERE actionTypeId = "
-							+ RealFarmDatabase.ACTION_TYPE_REPORT_ID
-							+ " AND resource1Id = "
-							+ c.getInt(12)
-							+ " AND date LIKE '"
-							+ Calendar.getInstance().get(Calendar.YEAR)
-							+ "-%' AND seedTypeId = "
-							+ c.getInt(11)
-							+ " AND plotId NOT IN (SELECT plotId FROM action WHERE actionTypeId = "
-							+ RealFarmDatabase.ACTION_TYPE_SPRAY_ID
-							+ " AND date LIKE '"
-							+ Calendar.getInstance().get(Calendar.YEAR)
-							+ "-%' AND resource1Id = " + c.getInt(12) + ")";
-					Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
-					if (c3.moveToFirst()) {
-						aSolItem.setDidIt(c3.getInt(0));
-						c3.close();
-					}
-					aSolItem.setPesticideBackground(none.getBackgroundImage());
-					aSolItem.setPesticideId(none.getId());
-					solutionList.add(aSolItem);
+						c4.close();
+
+						aSolItem.setHasLiked(hasLiked(c2.getInt(4), userId));
+
+						// adds the item into the solution list.
+						solutionList.add(aSolItem);
+
+					} while (c2.moveToNext());
 
 					c2.close();
 				}
 
-				AdviceSituationItem asItem = new AdviceSituationItem();
-				asItem.setCropId(c.getLong(11));
-				asItem.setCropShortName(c.getString(0));
-				asItem.setPlotImage(c.getString(7));
-				asItem.setCropBackground(c.getInt(1));
-				asItem.setProblemId(c.getLong(12));
-				asItem.setProblemShortName(c.getString(3));
-				asItem.setProblemImage(c.getInt(2));
-				asItem.setPlotId(c.getLong(13));
-				asItem.setLoss(c.getInt(5));
-				asItem.setChance(c.getInt(6));
-				asItem.setAudioSequence(c.getString(4));
-				asItem.setUnread(c.getInt(8));
-				asItem.setValidDate(c.getLong(9));
-				asItem.setId(c.getLong(14));
-				asItem.setCropAudio(c.getInt(15));
-				asItem.setProblemAudio(c.getInt(16));
+				// creates the situation from the cursor.
+				asItem = new AdviceSituationItem();
+
+				r = new Recommendation(c.getLong(0), c.getLong(1), c.getInt(2),
+						c.getString(3), c.getString(4), c.getString(5),
+						c.getInt(6), c.getInt(7), c.getInt(8), c.getLong(9));
+				res = new Resource(c.getInt(10), c.getString(11),
+						c.getString(12), c.getInt(13), c.getInt(14),
+						c.getInt(15), c.getInt(16), -1, -1);
+				a = new Advice(c.getInt(17), c.getInt(18), c.getInt(19),
+						c.getString(20), c.getInt(21));
+
+				asItem.setRecommendation(r);
+				asItem.setResource(res);
+				asItem.setAdvice(a);
+
+				// gets the plot related info.
+				asItem.setPlotId(c.getLong(22));
+				asItem.setPlotImage(c.getString(23));
+
 				asItem.setItems(solutionList);
-				solutionList = new ArrayList<AdviceSolutionItem>();
+
+				// adds the item to the list.
 				situationList.add(asItem);
 
 			} while (c.moveToNext());
@@ -1004,8 +990,8 @@ public class RealFarmProvider {
 					a.setLeftImage(R.drawable.fertilizingaction);
 					a.setCenterImage(c.getInt(1));
 					a.setCenterText(c.getString(2));
-					a.setSelector1(seedTypeId);
-					a.setSelector2(c.getInt(0));
+					a.setSelector2(seedTypeId);
+					a.setSelector3(c.getInt(0));
 					tmpList.add(a);
 				}
 				c3.close();
@@ -1614,6 +1600,49 @@ public class RealFarmProvider {
 	 */
 	public List<Plot> getPlots() {
 		return getPlots(null);
+	}
+
+	public List<Recommendation> getRecommendations() {
+
+		// list used to store all the objects obtained from the database.
+		List<Recommendation> tmpList = new ArrayList<Recommendation>();
+
+		// opens the database.
+		mDatabase.open();
+
+		// query all actions
+		Cursor c = mDatabase
+				.getEntries(
+						RealFarmDatabase.TABLE_NAME_RECOMMENDATION,
+						new String[] {
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_PLOTID,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ADVICEID,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_DATACOLLECTIONDATE,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ACTIONREQUIREDBYDATE,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_VALIDTHROUGHDATE,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_SEVERITY,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_PROBABILITY,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD,
+								RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_TIMESTAMP },
+						null, null, null, null, null);
+
+		Recommendation r = null;
+		if (c.moveToFirst()) {
+			do {
+				r = new Recommendation(c.getLong(0), c.getLong(1), c.getInt(2),
+						c.getString(3), c.getString(4), c.getString(5),
+						c.getInt(6), c.getInt(7), c.getInt(8), c.getLong(9));
+				tmpList.add(r);
+				Log.d("Recommendation: ", r.toString());
+			} while (c.moveToNext());
+		}
+
+		// closes the database and the cursor.
+		c.close();
+		mDatabase.close();
+
+		return tmpList;
 	}
 
 	protected List<Plot> getPlots(String selection) {
@@ -2993,25 +3022,18 @@ public class RealFarmProvider {
 		return result;
 	}
 
-	public long setAdviceRead(long id) {
-		return setAdviceUnRead(id, 1);
-	}
-
-	public long setAdviceUnread(long id) {
-		return setAdviceUnRead(id, 0);
-	}
-
-	public long setAdviceUnRead(long id, int read) {
+	public long setRecommendationUnread(long id, int isUnread) {
 		ContentValues args = new ContentValues();
-		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD, read);
+		args.put(RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ISUNREAD, isUnread);
 
 		long result;
 
 		mDatabase.open();
 
-		result = mDatabase.update(RealFarmDatabase.TABLE_NAME_RECOMMENDATION,
-				args, RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID + "='"
-						+ id + "'", null);
+		result = mDatabase
+				.update(RealFarmDatabase.TABLE_NAME_RECOMMENDATION, args,
+						RealFarmDatabase.COLUMN_NAME_RECOMMENDATION_ID + "="
+								+ id, null);
 
 		mDatabase.close();
 

@@ -130,9 +130,9 @@ public class RealFarmDatabase {
 			db.execSQL("create table " + TABLE_NAME_ADVICE + " ( "
 					+ COLUMN_NAME_ADVICE_ID
 					+ " integer primary key autoincrement, "
-					+ COLUMN_NAME_ADVICE_PROBLEMID + " integer, "
-					+ COLUMN_NAME_ADVICE_AUDIOSEQUENCE + " text, "
+					+ COLUMN_NAME_ADVICE_PROBLEMTYPEID + " integer, "
 					+ COLUMN_NAME_ADVICE_SEEDTYPEID + " integer, "
+					+ COLUMN_NAME_ADVICE_AUDIOSEQUENCE + " text, "
 					+ COLUMN_NAME_ADVICE_STAGENUMBER + " integer" + " ); ");
 			Log.d(LOG_TAG, "Created advice table");
 
@@ -441,9 +441,9 @@ public class RealFarmDatabase {
 	public static final String COLUMN_NAME_ACTIONTYPE_IMAGE = "image";
 	public static final String COLUMN_NAME_ACTIONTYPE_NAME = "name";
 
-	public static final String COLUMN_NAME_ADVICE_AUDIOSEQUENCE = "audio";
+	public static final String COLUMN_NAME_ADVICE_AUDIOSEQUENCE = "audioSequence";
 	public static final String COLUMN_NAME_ADVICE_ID = "id";
-	public static final String COLUMN_NAME_ADVICE_PROBLEMID = "problemTypeId";
+	public static final String COLUMN_NAME_ADVICE_PROBLEMTYPEID = "problemTypeId";
 	public static final String COLUMN_NAME_ADVICE_SEEDTYPEID = "seedTypeId";
 	public static final String COLUMN_NAME_ADVICE_STAGENUMBER = "stageNumber";
 
@@ -1535,7 +1535,7 @@ public class RealFarmDatabase {
 		for (int x = 0; x < adviceData.length; x++) {
 			adviceAgg.put(COLUMN_NAME_ADVICE_AUDIOSEQUENCE,
 					(String) adviceData[x][0]);
-			adviceAgg.put(COLUMN_NAME_ADVICE_PROBLEMID,
+			adviceAgg.put(COLUMN_NAME_ADVICE_PROBLEMTYPEID,
 					(Integer) adviceData[x][1]);
 			adviceAgg.put(COLUMN_NAME_ADVICE_SEEDTYPEID,
 					(Integer) adviceData[x][2]);
