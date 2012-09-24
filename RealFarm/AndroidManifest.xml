@@ -73,10 +73,10 @@
             android:label="Weather Forecast"
             android:screenOrientation="portrait" />
         <activity
-            android:name="Marketprice_details"
-            android:label="Market prices"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:name=".MarketPriceActivity"
+            android:icon="@drawable/sellingaction"
+            android:label="Groundnut prices"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".AdviceActivity"
             android:icon="@drawable/advice"
@@ -84,8 +84,7 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".YieldActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".actions.HarvestActionActivity"
             android:icon="@drawable/harvestingaction"
@@ -122,10 +121,6 @@
             android:label="Report"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".My_setting_plot_info"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity
             android:name=".AddPlotActivity"
             android:icon="@drawable/ic_new_plot"
             android:label="Add new Plot"
@@ -160,35 +155,28 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
         <activity
-            android:name=".ownCamera.OwnCameraActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
-        </activity>
-        <activity
             android:name=".aggregates.fertilize_aggregate"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".aggregates.selling_aggregate"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".aggregates.problem_aggregate"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".aggregates.harvest_aggregate"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActionAggregateActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ownCamera.OwnCameraActivity"
+            android:label="@string/app_name" >
+        </activity>
         <activity
             android:name=".ownCamera.ViewPictureActivity"
-            android:label="@string/app_name"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
+            android:label="@string/app_name" />
+
         <receiver
             android:name=".sync.DownstreamReceiver"
             android:enabled="true"
@@ -197,7 +185,6 @@
                 <action android:name="android.provider.Telephony.SMS_RECEIVED" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

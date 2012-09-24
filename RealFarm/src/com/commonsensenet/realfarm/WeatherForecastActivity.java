@@ -11,7 +11,6 @@ import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
 import com.actionbarsherlock.view.MenuItem;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider.OnWeatherForecastDataChangeListener;
 import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
@@ -26,8 +25,6 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	/** Celsius indicator. */
 	public static final String CELSIUS = "¡";
-	/** Access to the underlying database of the application. */
-	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the weather forecasts. */
 	private WeatherForecastItemAdapter mWeatherForecastItemAdapter;
 	/** ListView where the weather forecasts are rendered. */
@@ -36,13 +33,8 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 	private List<WeatherForecast> mWeatherForecasts;
 
 	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState, R.layout.act_weather_forecast);
 
-		super.onCreate(savedInstanceState);
-		// sets the layout
-		setContentView(R.layout.act_weather_forecast);
-
-		// gets the Database
-		mDataProvider = RealFarmProvider.getInstance(this);
 		// sets the data change listener in case the weather information is
 		// updated.
 		mDataProvider.setWeatherForecastDataChangeListener(this);

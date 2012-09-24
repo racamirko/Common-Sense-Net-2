@@ -2,13 +2,10 @@ package com.commonsensenet.realfarm;
 
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -18,7 +15,7 @@ import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 
-public class Marketprice_details extends AggregateMarketActivity implements
+public class MarketPriceActivity extends AggregateMarketActivity implements
 		OnLongClickListener {
 
 	/** Minimum market price. */
@@ -27,8 +24,10 @@ public class Marketprice_details extends AggregateMarketActivity implements
 	private int mMax = 0;
 
 	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState, R.layout.act_marketprice);
 
-		super.onCreate(savedInstanceState, R.layout.act_marketdetails, this);
+		// TODO: remove demo data.
+		mDataProvider.addMarketPrice("2012-09-24", 2400, 3400, "gjje");
 
 		// indicates that should obtain market prices.
 		mCurrentAction = TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
@@ -47,16 +46,14 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		// default seed/crop type id
 		mTopSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
-		// default 1 day
+		// default 7 days.
 		mDaysSelectorData = mDataProvider.getResources(
 				RealFarmDatabase.RESOURCE_TYPE_DAYS_SPAN).get(0);
 
 		// shows the list of available prices.
 		setList();
 
-		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
-		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
-		final View crop = findViewById(R.id.aggr_crop);
+		// final View crop = findViewById(R.id.aggr_crop);
 		final View daySelectorRow = findViewById(R.id.days_selector_row);
 		final View marketInfo = findViewById(R.id.market_info);
 		final View daysSelector = findViewById(R.id.selector_days);
@@ -65,23 +62,8 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		daySelectorRow.setOnLongClickListener(this);
 		daysSelector.setOnLongClickListener(this);
 		marketInfo.setOnLongClickListener(this);
-		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
-		help.setOnLongClickListener(this);
-		crop.setOnLongClickListener(this);
-
-		home.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				startActivity(new Intent(Marketprice_details.this,
-						Homescreen.class));
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
-			}
-		});
+		// crop.setOnLongClickListener(this);
 
 		marketInfo.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -101,44 +83,26 @@ public class Marketprice_details extends AggregateMarketActivity implements
 			}
 		});
 
-		help.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				playAudio(R.raw.mp_help);
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
-			}
-		});
-
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				cancelAudio();
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
-
+				onBackPressed();
 			}
 		});
 
-		crop.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
-
-				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
-				List<Resource> data = ActionDataFactory.getTopSelectorList(
-						mActionTypeId, mDataProvider);
-				displayDialog(v, data, "Select the variety",
-						R.raw.select_the_variety, img_1, 2);
-			}
-		});
+		// crop.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		//
+		// ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+		// Global.userId, getLogTag(),
+		// getResources().getResourceEntryName(v.getId()));
+		//
+		// final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
+		// List<Resource> data = ActionDataFactory.getTopSelectorList(
+		// mActionTypeId, mDataProvider);
+		// displayDialog(v, data, "Select the variety",
+		// R.raw.select_the_variety, img_1, 2);
+		// }
+		// });
 
 		daysSelector.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
@@ -153,16 +117,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 						null, 1);
 			}
 		});
-
-	}
-
-	protected void cancelAudio() {
-
-		Intent adminintent = new Intent(Marketprice_details.this,
-				Homescreen.class);
-
-		startActivity(adminintent);
-		Marketprice_details.this.finish();
 	}
 
 	public boolean onLongClick(View v) {
@@ -174,10 +128,6 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.homepage, true);
 		} else if (v.getId() == R.id.aggr_crop) {
-			int crop = mTopSelectorData.getAudio();
-			int action = mDataProvider.getActionTypeById(mActionTypeId)
-					.getAudio();
-
 			playAudio(mTopSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.market_info) {
 			addToSoundQueue(R.raw.chal_max_price);

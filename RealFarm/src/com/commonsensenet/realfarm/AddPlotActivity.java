@@ -37,10 +37,16 @@ public class AddPlotActivity extends DataFormActivity {
 	private int mType;
 	private List<Resource> mTypeList;
 
+	/**
+	 * Creates a new plot with the given details in the database and assigns it
+	 * as the active plot.
+	 */
 	private void addPlotToDatabase() {
+		// adds a new plot to the database.
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, Global.IsAdmin, mType);
 
+		// TODO: remove, demo data.
 		if (Global.plotId != -1) {
 			mDataProvider.addRecommendation(Global.plotId, 1, Global.userId,
 					"2012-09-22", "2012-09-31", "2012-09-31", 1, 1);

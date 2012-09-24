@@ -21,7 +21,6 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.commonsensenet.realfarm.control.NumberPicker;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -30,13 +29,10 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
 
 public abstract class DataFormActivity extends HelpEnabledActivity {
 
-	/** Access to the underlying database of the application. */
-	protected RealFarmProvider mDataProvider;
 	/** Reference to the current class used in internal classes. */
 	private final DataFormActivity mParentReference = this;
 	/** Results map used to handle the validation of the form. */
 	protected HashMap<String, Object> mResultsMap;
-	int result;
 
 	protected void displayDialog(View v, final List<Resource> data,
 			final String propertyKey, final String title, int audio,
@@ -306,13 +302,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 	}
 
 	public void onCreate(Bundle savedInstanceState, int layoutId) {
-		super.onCreate(savedInstanceState);
-
-		// sets the layout
-		setContentView(layoutId);
-
-		// gets the data provider
-		mDataProvider = RealFarmProvider.getInstance(this);
+		super.onCreate(savedInstanceState, layoutId);
 
 		// map used to automatize the validation.
 		mResultsMap = new HashMap<String, Object>();

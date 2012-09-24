@@ -6,6 +6,7 @@
         <ignore path="res/layout/act_fertilize_action.xml" />
         <ignore path="res/layout/act_homescreen.xml" />
         <ignore path="res/layout/act_marketdetails.xml" />
+        <ignore path="res/layout/act_marketprice.xml" />
         <ignore path="res/layout/act_report_action.xml" />
         <ignore path="res/layout/act_spray_action.xml" />
         <ignore path="res/layout/action_aggr_sel_dialog.xml" />
@@ -17,6 +18,7 @@
         <ignore path="res/layout/harvest_aggregate.xml" />
         <ignore path="res/layout/harvest_dialog.xml" />
         <ignore path="res/layout/irrigate_dialog.xml" />
+        <ignore path="res/layout/layout_top_bar_selector.xml" />
         <ignore path="res/layout/marketdetails.xml" />
         <ignore path="res/layout/mc_dialog_row.xml" />
         <ignore path="res/layout/mp_details.xml" />
@@ -32,6 +34,7 @@
         <ignore path="res/layout/sowing_dialog.xml" />
         <ignore path="res/layout/spraying_dialog.xml" />
         <ignore path="res/layout/tpl_ad_situation_row.xml" />
+        <ignore path="res/layout/tpl_aggregate_item.xml" />
         <ignore path="res/layout/tpl_diary_item.xml" />
         <ignore path="res/layout/tpl_market_item.xml" />
         <ignore path="res/layout/tpl_plot_item.xml" />

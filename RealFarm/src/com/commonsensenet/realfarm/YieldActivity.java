@@ -3,7 +3,6 @@ package com.commonsensenet.realfarm;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -23,7 +22,7 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 /**
  * Yield tool. Acts as a search engine.
  * 
- * @author Nguyen Lisa
+ * @author Andrea Navares
  */
 public class YieldActivity extends TopSelectorActivity implements
 		OnClickListener {
@@ -38,7 +37,6 @@ public class YieldActivity extends TopSelectorActivity implements
 	private static final int VARIETY = 11;
 
 	private TextView avgLabel;
-	private final Context context = this;
 	private TextView dateLabel;
 	private Resource dateSelectorData;
 	private TextView diseaseLabel;
@@ -154,7 +152,7 @@ public class YieldActivity extends TopSelectorActivity implements
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState, R.layout.yielddetails, context);
+		super.onCreate(savedInstanceState, R.layout.yielddetails);
 		setList();
 
 		soilTypeSelector = (ImageView) findViewById(R.id.selector_soil_type);

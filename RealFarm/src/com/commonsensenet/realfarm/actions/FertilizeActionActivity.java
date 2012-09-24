@@ -40,7 +40,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 	private List<Resource> fertilizerList;
 	private List<Resource> monthList;
 	private List<Resource> unitList;
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -50,7 +50,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "help");
 			playAudio(R.raw.fert_help, true);
-			
+
 			return true;
 		} else { // asks the parent.
 			return super.onOptionsItemSelected(item);
@@ -187,7 +187,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.fert_help, true);
 		}
-		
+
 		if (v.getId() == R.id.dlg_lbl_var_fert) {
 
 			if ((Integer) mResultsMap.get(FERTILIZER) == defaultFertilizer)
@@ -208,11 +208,10 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
 				playAudio(R.raw.select_unit_number, true);
-			else
-			{
-			
-			play_float(Float.valueOf(mResultsMap.get(AMOUNT).toString()));
-			playSound();
+			else {
+
+				play_float(Float.valueOf(mResultsMap.get(AMOUNT).toString()));
+				playSound();
 			}
 
 		} else if (v.getId() == R.id.dlg_lbl_day_fert) {
@@ -220,8 +219,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			if (mResultsMap.get(DAY).equals(defaultDay))
 				playAudio(R.raw.dateinfo, true);
 
-			else
-			{
+			else {
 				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
@@ -239,9 +237,9 @@ public class FertilizeActionActivity extends DataFormActivity implements
 			playAudio(R.raw.ok, true);
 		} else if (v.getId() == R.id.button_cancel) {
 			playAudio(R.raw.cancel, true);
-		}  else if (v.getId() == R.id.var_fert_tr) {
+		} else if (v.getId() == R.id.var_fert_tr) {
 			playAudio(R.raw.fertilizer_name, true);
-			//playAudio(R.raw.a1, true);
+			// playAudio(R.raw.a1, true);
 		} else if (v.getId() == R.id.day_fert_tr) {
 			playAudio(R.raw.date, true);
 		} else if (v.getId() == R.id.units_fert_tr) {

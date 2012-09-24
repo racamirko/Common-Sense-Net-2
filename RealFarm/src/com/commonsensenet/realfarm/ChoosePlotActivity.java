@@ -10,7 +10,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.commonsensenet.realfarm.actions.HarvestActionActivity;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.PlotItemAdapter;
 
@@ -18,13 +17,11 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
  * Activity that enables the selection of one plot.
  * 
  * @author Oscar Bola–os <@oscarbolanos>
- * @author Nguyen Lisa
+ * @author Lisa Nguyen
  * 
  */
 public class ChoosePlotActivity extends HelpEnabledActivity implements
 		OnItemClickListener {
-	/** Access to the underlying database of the application. */
-	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the plots. */
 	private PlotItemAdapter mPlotItemAdapter;
 	/** ListView where the plots are rendered. */
@@ -37,28 +34,25 @@ public class ChoosePlotActivity extends HelpEnabledActivity implements
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		// sets the layout
-		setContentView(R.layout.act_choose_plot);
-
-		// gets the data provider
-		mDataProvider = RealFarmProvider.getInstance(this);
+		super.onCreate(savedInstanceState, R.layout.act_choose_plot);
 
 		// gets the users from the database.
 		List<Plot> plots;
-		if(Global.selectedAction == HarvestActionActivity.class){
+		if (Global.selectedAction == HarvestActionActivity.class) {
 			plots = mDataProvider.getPlotsByUserIdAndEnabledFlagAndHasCrops(
-				Global.userId, 1);
-		} else {
-			plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(
 					Global.userId, 1);
+		} else {
+			plots = mDataProvider.getPlotsByUserIdAndEnabledFlag(Global.userId,
+					1);
 		}
 
-		if(plots == null || plots.size() == 0) 	playAudio(R.raw.problems, true);
-		
-		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
+		// indicates that no plots where found.
+		if (plots == null || plots.size() == 0) {
+			playAudio(R.raw.problems);
+		}
 
+		// adapter used to handle the data.
+		mPlotItemAdapter = new PlotItemAdapter(this, plots, mDataProvider);
 		// gets the list from the UI.
 		mPlotsListView = (ListView) findViewById(R.id.choose_plot_listview_list);
 		// enables the focus on the items.

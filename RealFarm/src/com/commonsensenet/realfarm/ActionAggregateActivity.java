@@ -1,18 +1,12 @@
 package com.commonsensenet.realfarm;
 
-import java.util.List;
-
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
-import com.commonsensenet.realfarm.model.Resource;
+import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
@@ -21,8 +15,6 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 public class ActionAggregateActivity extends AggregateMarketActivity implements
 		OnLongClickListener {
 
-	/** Reference to the current instance. */
-	private final Context context = this;
 	/** Name of the active action. */
 	private String mActionName = "";
 
@@ -31,22 +23,10 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 		return this.getClass().getSimpleName() + " " + mActionName;
 	}
 
-	public void onBackPressed() {
-
-		// stops all active audio.
-		stopAudio();
-		// tracks the application usage.
-		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-				Global.userId, getLogTag(), "back");
-		ApplicationTracker.getInstance().flushAll();
-		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
-
-	}
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState, R.layout.tpl_aggregate, context);
+		super.onCreate(savedInstanceState, R.layout.act_action_aggregate);
 
 		// extracts the passed parameters
 		Bundle extras = getIntent().getExtras();
@@ -57,81 +37,52 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					.getInt(RealFarmDatabase.TABLE_NAME_ACTIONTYPE);
 		}
 
+		ActionType at = mDataProvider.getActionTypeById(mActionTypeId);
 		// gets the name of the action to perform.
-		mActionName = mDataProvider.getActionTypeById(mActionTypeId).getName();
+		mActionName = at.getName();
 
 		// indicates that aggregates will be selected.
 		mCurrentAction = TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE;
 
-		// default seed/crop type id
-		// TODO: if user doesn't have a plot
+		// gets the data to select.
 		mTopSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
+
+		// sets the name and icon based on the action type.
+		getSupportActionBar().setIcon(at.getImage1());
+		getSupportActionBar().setTitle(mActionName);
 
 		// loads the data.
 		setList();
 
-		ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
-		ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
-		View crop = findViewById(R.id.aggr_crop);
+		// View crop = findViewById(R.id.aggr_crop);
 		Button back = (Button) findViewById(R.id.button_back);
 
-		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
-		help.setOnLongClickListener(this);
-		crop.setOnLongClickListener(this);
-
-		home.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				startActivity(new Intent(ActionAggregateActivity.this,
-						Homescreen.class));
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
-			}
-		});
-
-		help.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				playAudio(R.raw.help);
-
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
-			}
-		});
+		// crop.setOnLongClickListener(this);
 
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 
 				// behaves like a back button press.
 				onBackPressed();
-
-				// tracks the application usage.
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
 			}
 		});
 
-		crop.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						getResources().getResourceEntryName(v.getId()));
-
-				final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
-				List<Resource> data = ActionDataFactory.getTopSelectorList(
-						mActionTypeId, mDataProvider);
-				displayDialog(v, data, "Select the variety", R.raw.problems,
-						img_1, 2);
-			}
-		});
+		// crop.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		//
+		// ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+		// Global.userId, getLogTag(),
+		// getResources().getResourceEntryName(v.getId()));
+		//
+		// final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
+		// List<Resource> data = ActionDataFactory.getTopSelectorList(
+		// mActionTypeId, mDataProvider);
+		// displayDialog(v, data, "Select the variety", R.raw.problems,
+		// img_1, 2);
+		// }
+		// });
 	}
 
 	public boolean onLongClick(View v) {
@@ -205,7 +156,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
 				addToSoundQueue(variety);
-				addToSoundQueue(R.raw.growing); // says "growing"
+				addToSoundQueue(R.raw.growing);
 				play_integer(total);
 				addToSoundQueue(R.raw.farmers);
 				addToSoundQueue(fertilizer);
@@ -409,7 +360,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					addToSoundQueue(R.raw.about_farmers_spraying);
 				}
 				playSound();
-
 			}
 			break;
 
@@ -417,5 +367,4 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			break;
 		}
 	}
-
 }

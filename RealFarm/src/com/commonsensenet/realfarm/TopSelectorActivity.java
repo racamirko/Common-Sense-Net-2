@@ -3,7 +3,6 @@ package com.commonsensenet.realfarm;
 import java.util.List;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -14,44 +13,86 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
-import android.widget.TextView;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
-import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.DialogAdapter;
 
-public abstract class TopSelectorActivity extends HelpEnabledActivityOld
-		implements OnItemClickListener, OnLongClickListener,
-		OnItemLongClickListener {
+public abstract class TopSelectorActivity extends HelpEnabledActivity implements
+		OnItemClickListener, OnLongClickListener, OnItemLongClickListener {
 
 	/** Indicates that the selector works with aggregate data. */
 	public static final int LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE = 1;
 	/** Indicates that the Selector works with Market data. */
 	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
 
+	/** Current Resource used as the active filter. */
 	protected Resource mTopSelectorData;
-	protected RealFarmProvider mDataProvider;
+	/** Inflater used to dynamically add layouts from XML. */
 	protected LayoutInflater mLayoutInflater;
 
-	public void onCreate(Bundle savedInstanceState, int resLayoutId,
-			Context context) {
-		super.onCreate(savedInstanceState, resLayoutId);
-		mDataProvider = RealFarmProvider.getInstance(context);
+	public void onCreate(Bundle savedInstanceState, int layoutId) {
+		super.onCreate(savedInstanceState, layoutId);
 
+		// loads the inflater used to add new layouts.
+		mLayoutInflater = getLayoutInflater();
+	}
+
+	// adds audio from 1000 to 10000
+	protected void add_action_aggregate(int n) {
+
+		switch (n) {
+		case 1:
+			mSoundQueue.addToQueue(R.raw.farmers); // say "farmers"
+			break;
+		case 2:
+			mSoundQueue.addToQueue(R.raw.done_sowing); // says "done sowing"
+			break;
+		case 3:
+			mSoundQueue.addToQueue(R.raw.this_season); // says "this season"
+			break;
+		case 4:
+			mSoundQueue.addToQueue(R.raw.people_from_past); // says
+															// "people from past"
+			break;
+		case 5:
+			mSoundQueue.addToQueue(R.raw.days_done); // says "days done"
+			break;
+		case 6:
+			mSoundQueue.addToQueue(R.raw.about_farmer_and_sowing_click); // says
+			// "about farmers and sowing"
+			break;
+		case 7:
+			mSoundQueue.addToQueue(R.raw.aggregate_in); // says "in"
+			break;
+		case 8:
+			mSoundQueue.addToQueue(R.raw.every_acre); // says "every acre"
+			break;
+		case 9:
+			mSoundQueue.addToQueue(R.raw.seru); // says "seru"
+			break;
+		case 10:
+			mSoundQueue.addToQueue(R.raw.in_call_sowing); // says "sowing done"
+			break;
+		default:
+			break;
+		}
 	}
 
 	protected void setTopSelector(int mActionTypeId) {
-		ActionType actionType = mDataProvider.getActionTypeById(mActionTypeId);
-		final ImageView actionImg = (ImageView) findViewById(R.id.aggr_action);
-		actionImg.setImageResource(actionType.getImage1());
-		final ImageView selectorImg = (ImageView) findViewById(R.id.aggr_crop_img);
-		selectorImg
-				.setBackgroundResource(mTopSelectorData.getBackgroundImage());
-		final TextView selectorText = (TextView) findViewById(R.id.textView1);
-		selectorText.setText(mTopSelectorData.getShortName());
+		// ActionType actionType =
+		// mDataProvider.getActionTypeById(mActionTypeId);
+		// final ImageView actionImg = (ImageView)
+		// findViewById(R.id.aggr_action);
+		// actionImg.setImageResource(actionType.getImage1());
+		// final ImageView selectorImg = (ImageView)
+		// findViewById(R.id.aggr_crop_img);
+		// selectorImg
+		// .setBackgroundResource(mTopSelectorData.getBackgroundImage());
+		// final TextView selectorText = (TextView)
+		// findViewById(R.id.textView1);
+		// selectorText.setText(mTopSelectorData.getShortName());
 	}
 
 	protected void displayDialog(View v, final List<Resource> data,

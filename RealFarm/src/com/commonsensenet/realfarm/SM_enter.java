@@ -13,20 +13,8 @@ import com.commonsensenet.realfarm.control.NumberPicker;
 
 public class SM_enter extends HelpEnabledActivity {
 
-	public void onBackPressed() {
-
-		stopAudio();
-		Intent adminintent123 = new Intent(SM_enter.this,
-				ChoosePlotActivity.class);
-
-		startActivity(adminintent123);
-		SM_enter.this.finish();
-	}
-
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.smenter_dialog);
-		System.out.println("SM enter");
+		super.onCreate(savedInstanceState, R.layout.smenter_dialog);
 
 		ImageButton home1;
 		ImageButton help1;

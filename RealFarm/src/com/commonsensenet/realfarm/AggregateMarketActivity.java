@@ -3,12 +3,9 @@ package com.commonsensenet.realfarm;
 import java.util.List;
 
 import android.app.Dialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.view.Window;
@@ -42,22 +39,20 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	protected AggregateItemAdapter mItemAdapter;
 	protected int mActionTypeId = RealFarmDatabase.ACTION_TYPE_SELL_ID;
 	protected int mCurrentAction = 0;
-	protected LayoutInflater mLayoutInflater;
 	protected boolean mHeader;
 
-	public void onCreate(Bundle savedInstanceState, int resLayoutId,
-			Context context) {
-		super.onCreate(savedInstanceState, resLayoutId, context);
-		mLayoutInflater = getLayoutInflater();
-	}
-
 	public void setList() {
+
+		// sets the selector information.
+		setTopSelector(mActionTypeId);
+
 		int cropSeedTypeId = mTopSelectorData.getId();
 
 		// gets the data to show.
 		mItems = ActionDataFactory.getData(mCurrentAction, mDataProvider,
 				mActionTypeId, cropSeedTypeId, mDaysSelectorData);
 
+		// plays a sound to indicate that no items are available.
 		if (mItems == null || mItems.size() < 1) {
 			playAudio(R.raw.no_info_seeds);
 		}
@@ -74,7 +69,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		// sets the listener for the sound
 		mListView.setOnItemLongClickListener(this);
 
-		super.setTopSelector(mActionTypeId);
 		if (mCurrentAction == TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET) {
 			setDaysSelector();
 		}

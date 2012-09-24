@@ -27,7 +27,7 @@ public abstract class AggregateItemWrapper {
 	protected TextView labelNews;
 	protected TextView labelCenter;
 	protected TextView labelRight;
-	protected ImageView imageLeft;
+	// protected ImageView imageLeft;
 	protected ImageView imageCenter;
 	protected ImageView imageLeftBottom;
 
@@ -93,12 +93,12 @@ public abstract class AggregateItemWrapper {
 		return (labelNews);
 	}
 
-	public ImageView getImageLeft() {
-		if (imageLeft == null) {
-			imageLeft = (ImageView) mRow.findViewById(R.id.image_left);
-		}
-		return (imageLeft);
-	}
+//	public ImageView getImageLeft() {
+//		if (imageLeft == null) {
+//			imageLeft = (ImageView) mRow.findViewById(R.id.image_left);
+//		}
+//		return (imageLeft);
+//	}
 
 	public ImageView getImageCenter() {
 		if (imageCenter == null) {

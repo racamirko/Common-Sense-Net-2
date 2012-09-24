@@ -1,32 +1,21 @@
 package com.commonsensenet.realfarm;
 
-import com.commonsensenet.realfarm.utils.ApplicationTracker;
-import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import com.commonsensenet.realfarm.utils.ApplicationTracker;
+import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+
 public class VideoActivity extends HelpEnabledActivity {
 	/** Intent that is capable of playing the selected video. */
 	private Intent mTargetIntent;
 
-	public void onBackPressed() {
-
-		startActivity(new Intent(VideoActivity.this, Homescreen.class));
-		VideoActivity.this.finish();
-
-		super.onBackPressed();
-	}
-
 	public static final String SELECTED_VIDEO = "selectedVideo";
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		// sets the layout of the activity.
-		setContentView(R.layout.act_video);
+		super.onCreate(savedInstanceState, R.layout.act_video);
 
 		// obtains the buttons from the form
 		Button video1 = (Button) findViewById(R.id.video_button_video1);

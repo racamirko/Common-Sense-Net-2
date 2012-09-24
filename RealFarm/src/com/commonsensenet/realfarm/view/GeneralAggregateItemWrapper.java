@@ -52,9 +52,9 @@ public class GeneralAggregateItemWrapper extends AggregateItemWrapper {
 			getImageCenter().setImageResource(aggregate.getCenterImage());
 		}
 
-		if (aggregate.getLeftImage() != -1) {
-			getImageLeft().setImageResource(aggregate.getLeftImage());
-		}
+		// if (aggregate.getLeftImage() != -1) {
+		// getImageLeft().setImageResource(aggregate.getLeftImage());
+		// }
 		if (aggregate.getLeftBottomImage() != -1) {
 			getImageLeftBottom().setImageResource(
 					aggregate.getLeftBottomImage());

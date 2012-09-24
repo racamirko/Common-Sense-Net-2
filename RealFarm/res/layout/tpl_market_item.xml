@@ -1,26 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="80dp"
+    android:layout_height="?android:attr/listPreferredItemHeight"
     android:background="@drawable/square_btn"
-    android:paddingTop="@dimen/margin"
-    android:paddingRight="@dimen/margin"
-    android:paddingLeft="@dimen/margin">
+    android:padding="@dimen/margin" >
 
     <ImageView
         android:id="@+id/imageLeft"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin"
         android:src="@drawable/bag20kg" />
 
     <ImageView
         android:id="@+id/imageCenter"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="5dp"
         android:layout_centerVertical="true"
+        android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@+id/imageLeft"
         android:src="@drawable/farmers" />
 
@@ -28,21 +26,22 @@
         android:id="@+id/textRight"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="#000000"
-        android:textSize="20dp"
-        android:layout_toRightOf="@+id/imageCenter"
         android:layout_centerVertical="true"
-        android:layout_marginLeft="5dp"
-        android:text="TextView" />
+        android:layout_toRightOf="@+id/imageCenter"
+        android:text="@string/placeholder_text"
+        android:textColor="@android:color/black"
+        android:textSize="@dimen/font_large" />
 
     <TextView
         android:id="@+id/number"
+        android:textStyle="bold"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/imageCenter"
+        android:layout_alignLeft="@+id/imageCenter"
         android:layout_alignRight="@+id/imageCenter"
-        android:layout_below="@+id/imageCenter"
-        android:text="12"
-        android:paddingRight="12dp"
-        android:textColor="#000000" />
+        android:gravity="center"
+        android:text="@string/placeholder_number"
+        android:textColor="@android:color/black" />
 
 </RelativeLayout>

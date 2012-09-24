@@ -10,8 +10,8 @@ import android.widget.MediaController;
 import android.widget.VideoView;
 
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
+import com.commonsensenet.realfarm.utils.SoundQueue;
 
 /**
  * Activity that is able to play a given, showing required Playback controls.
@@ -32,15 +32,12 @@ public class VideoPlayerActivity extends Activity {
 				Global.userId, this.getClass().getSimpleName(), "back");
 		ApplicationTracker.getInstance().flushAll();
 
-		Intent adminintent123 = new Intent(VideoPlayerActivity.this,
-				VideoActivity.class);
-		startActivity(adminintent123);
+		startActivity(new Intent(VideoPlayerActivity.this, VideoActivity.class));
 		VideoPlayerActivity.this.finish();
 	}
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		// sets the Bundle
 		super.onCreate(savedInstanceState);
 		// sets the layout of the activity.
 		setContentView(R.layout.act_video_player);

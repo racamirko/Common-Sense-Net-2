@@ -47,8 +47,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	/** Adapter used to manage the advices. */
 	private AdviceAdapter mAdviceAdapter;
-	/** Data access provider. */
-	private RealFarmProvider mDataProvider;
 	/** Inflater used to add custom layouts. */
 	private LayoutInflater mLayoutInflater;
 	/** ListView used to display the situations. */
@@ -216,7 +214,6 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		SoundQueue.getInstance().addToQueue(audio);
 
 		playSound();
-
 	}
 
 	protected void makeAudioUserItem(UserAggregateItem user) {
@@ -423,13 +420,8 @@ public class AdviceActivity extends HelpEnabledActivity implements
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState, R.layout.act_advice);
 
-		// sets the layout of the activity
-		setContentView(R.layout.act_advice);
-
-		// gets the data provider.
-		mDataProvider = RealFarmProvider.getInstance(this);
 		// layout inflater used to add new elements.
 		mLayoutInflater = getLayoutInflater();
 		// gets the list from the layout.

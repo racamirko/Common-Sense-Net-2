@@ -2,72 +2,60 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/listPreferredItemHeight"
-    android:background="@drawable/square_btn"  >
+    android:background="@drawable/square_btn"
+    android:padding="@dimen/margin" >
 
     <RelativeLayout
         android:id="@+id/relative_layout_left"
-        android:layout_width="70dp"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginLeft="@dimen/margin"
-        android:layout_height="match_parent"
-        android:background="#CFFFFF" >
-        
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginRight="@dimen/margin"
+        android:background="@drawable/pic_72px_bajra" >
+
         <TextView
             android:id="@+id/label_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
-            android:gravity="right|bottom"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
-
-        <ImageView
-            android:id="@+id/image_left"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentTop="true" />
-
+            android:layout_marginRight="2dp"
+            android:text="@string/placeholder_text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/white"
+            android:textStyle="bold" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_center"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginLeft="10dp"
-        android:layout_toRightOf="@+id/relative_layout_left"  >
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
+        android:layout_marginRight="@dimen/margin"
+        android:layout_toRightOf="@+id/relative_layout_left" >
 
         <TextView
             android:id="@+id/label_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="2dp"
-            android:textColor="#FFFFFF"
             android:layout_alignParentBottom="true"
-            android:textAppearance="?android:attr/textAppearanceSmall" />
+            android:layout_marginLeft="2dp"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="#FFFFFF" />
 
         <ImageView
             android:id="@+id/image_center"
-            android:layout_width="35dp"
-            android:layout_height="35dp"
-            android:layout_alignParentTop="true" />
-
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_right"
         android:layout_width="70dp"
         android:layout_height="match_parent"
-        android:layout_marginTop="@dimen/margin"
-        android:layout_marginBottom="@dimen/margin"
-        android:layout_marginLeft="@dimen/margin"
-        android:padding="5dp"
+        android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@+id/relative_layout_center"
-        android:gravity="left|center" >
+        android:gravity="left|center"
+        android:padding="5dp" >
 
         <TextView
             android:id="@+id/label_right"
@@ -76,7 +64,6 @@
             android:layout_alignParentBottom="true"
             android:textAppearance="?android:attr/textAppearanceMedium"
             android:textColor="#000000" />
-
     </RelativeLayout>
 
     <!--
@@ -95,8 +82,8 @@
         android:layout_height="fill_parent"
         android:layout_alignParentTop="true"
         android:layout_marginLeft="60dp"
-        android:padding="1dp"
-        android:orientation="vertical" >
+        android:orientation="vertical"
+        android:padding="1dp" >
 
         <TextView
             android:id="@+id/label_news"

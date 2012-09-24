@@ -871,9 +871,9 @@ public class RealFarmProvider {
 				AdvicePiece ap;
 				if (c2.moveToFirst()) {
 					do {
-						ap = new AdvicePiece(c.getInt(0), c.getInt(1),
-								c.getString(2), c.getInt(3), c.getInt(4),
-								c.getInt(5), c.getInt(6));
+						ap = new AdvicePiece(c2.getInt(0), c2.getInt(1),
+								c2.getString(2), c2.getInt(3), c2.getInt(4),
+								c2.getInt(5), c2.getInt(6));
 
 						// creates and advice item.
 						AdviceSolutionItem aSolItem = new AdviceSolutionItem();
@@ -955,7 +955,7 @@ public class RealFarmProvider {
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
-		final String MY_QUERY2 = "SELECT st.shortName, ct.backgroundImage FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
+		final String MY_QUERY2 = "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
 				+ seedTypeId;
 		Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
@@ -1005,7 +1005,7 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
-		final String MY_QUERY = "SELECT st.shortName, ct.backgroundImage FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
+		final String MY_QUERY = "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
 				+ seedTypeId;
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
@@ -1065,7 +1065,7 @@ public class RealFarmProvider {
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
-		final String MY_QUERY2 = "SELECT st.shortName, ct.backgroundImage FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
+		final String MY_QUERY2 = "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
 				+ seedTypeId;
 		Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
@@ -1076,7 +1076,7 @@ public class RealFarmProvider {
 						+ dateNow
 						+ "' AND date >= '"
 						+ stopDate
-						+ "') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p WHERE a.plotId = p.id AND plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
+						+ "') THEN 1 ELSE 0 END) AS newsUsers, a.seedTypeId FROM action a, plot p WHERE a.plotId = p.id AND plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
 						+ seedTypeId
 						+ ") AND a.actionTypeId= "
 						+ actionTypeId
@@ -1122,7 +1122,7 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, st.shortName, ct.backgroundImage, SUM(CASE WHEN (a.date <= '"
+				final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, st.shortName, ct.image, SUM(CASE WHEN (a.date <= '"
 						+ dateNow
 						+ "' AND date >= '"
 						+ stopDate
@@ -1172,7 +1172,7 @@ public class RealFarmProvider {
 		for (int min = 0; min < 10000; min = min
 				+ RealFarmDatabase.SELLING_AGGREGATE_INCREMENT + 1) {
 
-			final String MY_QUERY3 = "SELECT COUNT(a.plotId), ct.shortName, ct.backgroundImage, SUM(CASE WHEN (a.date <= '"
+			final String MY_QUERY3 = "SELECT COUNT(a.plotId), ct.shortName, ct.image, SUM(CASE WHEN (a.date <= '"
 					+ dateNow
 					+ "' AND date >= '"
 					+ stopDate
@@ -1225,18 +1225,17 @@ public class RealFarmProvider {
 
 		if (c.moveToFirst()) {
 			do {
-				final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, st.shortName, ct.backgroundImage, SUM(CASE WHEN (a.date <= '"
+				final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, st.shortName, ct.image, SUM(CASE WHEN (a.date <= '"
 						+ dateNow
 						+ "' AND date >= '"
 						+ stopDate
-						+ "') THEN 1 ELSE 0 END) AS newsUsers FROM action a, seedType st, cropType ct, plot p WHERE a.plotId = p.id AND st.cropTypeId = ct.id AND a.seedTypeId = st.id AND a.actionTypeId= "
+						+ "') THEN 1 ELSE 0 END) AS newsUsers, a.seedTypeId FROM action a, seedType st, cropType ct, plot p WHERE a.plotId = p.id AND st.cropTypeId = ct.id AND a.seedTypeId = st.id AND a.actionTypeId= "
 						+ actionTypeId
-						+ " AND a.seedTypeId = "
-						+ seedTypeId
 						+ " AND a.resource1Id = "
 						+ c.getInt(0)
 						+ " AND a.date LIKE '"
 						+ Calendar.getInstance().get(Calendar.YEAR) + "-%'";
+
 				Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
 
 				if (c3.moveToFirst() && c3.getInt(0) > 0) {
@@ -1247,7 +1246,7 @@ public class RealFarmProvider {
 					a.setNews(c3.getInt(3));
 					a.setTotal(c3.getInt(0));
 					a.setLeftImage(R.drawable.sowingaction);
-					a.setSelector1(seedTypeId);
+					a.setSelector1(c3.getInt(4));
 					a.setSelector2(c.getInt(0));
 
 					tmpList.add(a);
@@ -1275,7 +1274,7 @@ public class RealFarmProvider {
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
 
-		final String MY_QUERY2 = "SELECT st.shortName, ct.backgroundImage FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
+		final String MY_QUERY2 = "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
 				+ seedTypeId;
 		Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
 
@@ -1336,7 +1335,7 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	public String getAggregatesNumbers(int actionTypeId) {
+	public int getAggregatesNumbers(int actionTypeId) {
 
 		String dateNow = DateHelper.getDateNow();
 		String stopDate = DateHelper.getDatePast(-14);
@@ -1353,12 +1352,13 @@ public class RealFarmProvider {
 		if (cursor.moveToFirst()) {
 			res = cursor.getInt(0);
 		}
+
+		// closes the cursor and the database.
 		cursor.close();
 		mDatabase.close();
-		if (res < 1)
-			return "";
-		else
-			return String.valueOf(res);
+
+		return res;
+
 	}
 
 	// TODO: add cache optimization.

@@ -14,7 +14,6 @@ import com.actionbarsherlock.view.Menu;
 import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.actions.HarvestActionActivity;
 import com.commonsensenet.realfarm.actions.ReportActionActivity;
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Plot;
 import com.commonsensenet.realfarm.view.PlotItemAdapter;
 
@@ -27,8 +26,6 @@ import com.commonsensenet.realfarm.view.PlotItemAdapter;
 public class PlotListActivity extends HelpEnabledActivity implements
 		OnItemClickListener, OnItemLongClickListener {
 
-	/** Access to the underlying database of the application. */
-	private RealFarmProvider mDataProvider;
 	/** ListAdapter used to handle the plots. */
 	private PlotItemAdapter mPlotItemAdapter;
 	/** ListView where the plots are rendered. */
@@ -59,13 +56,7 @@ public class PlotListActivity extends HelpEnabledActivity implements
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		// sets the layout
-		setContentView(R.layout.act_choose_plot);
-
-		// gets the data provider
-		mDataProvider = RealFarmProvider.getInstance(this);
+		super.onCreate(savedInstanceState, R.layout.act_choose_plot);
 
 		// gets the users from the database.
 		List<Plot> plots;
@@ -106,8 +97,6 @@ public class PlotListActivity extends HelpEnabledActivity implements
 		if (Global.selectedAction != null) {
 			view.getContext().startActivity(
 					new Intent(view.getContext(), Global.selectedAction));
-			// ensures that back will not reach it.
-			PlotListActivity.this.finish();
 		}
 	}
 

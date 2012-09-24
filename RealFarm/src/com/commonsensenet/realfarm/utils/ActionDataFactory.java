@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.commonsensenet.realfarm.HelpEnabledActivityOld;
 import com.commonsensenet.realfarm.R;
 import com.commonsensenet.realfarm.TopSelectorActivity;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
@@ -28,15 +27,15 @@ import com.commonsensenet.realfarm.view.MarketItemAdapter;
 public final class ActionDataFactory {
 
 	public static AggregateItemAdapter getAdapter(int currentAction,
-			int mActionTypeId, HelpEnabledActivityOld helpEnabledActivityOld,
+			int mActionTypeId, TopSelectorActivity topEnabledActivity,
 			List<AggregateItem> mItems, RealFarmProvider mDataProvider,
 			RealFarmProvider mDataProvider2) {
 		switch (currentAction) {
 		case TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET:
-			return new MarketItemAdapter(helpEnabledActivityOld, mItems,
+			return new MarketItemAdapter(topEnabledActivity, mItems,
 					mDataProvider);
 		case TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_AGGREGATE:
-			return new AggregateItemAdapter(helpEnabledActivityOld, mItems,
+			return new AggregateItemAdapter(topEnabledActivity, mItems,
 					mActionTypeId, mDataProvider);
 		default:
 			return null;

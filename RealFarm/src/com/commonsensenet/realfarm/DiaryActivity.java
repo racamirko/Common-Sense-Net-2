@@ -9,7 +9,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 
-import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.Action;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
@@ -26,19 +25,11 @@ public class DiaryActivity extends HelpEnabledActivity implements
 
 	/** ListAdapter used to handle the actions. */
 	private ActionItemAdapter mActionItemAdapter;
-	/** Access to the underlying database of the application. */
-	private RealFarmProvider mDataProvider;
 	/** ListView where the diary is rendered. */
 	private ListView mDiaryListView;
 
 	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-
-		// sets the layout
-		setContentView(R.layout.act_diary);
-
-		// gets the data provider
-		mDataProvider = RealFarmProvider.getInstance(this);
+		super.onCreate(savedInstanceState, R.layout.act_diary);
 
 		// gets the actions from the database
 		List<Action> actions = mDataProvider.getActionsByUserId(Global.userId);

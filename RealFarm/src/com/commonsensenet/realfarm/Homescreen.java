@@ -56,8 +56,6 @@ import com.commonsensenet.realfarm.view.DialogAdapter;
 public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		OnWeatherForecastDataChangeListener {
 
-	/** Access to the underlying database of the application. */
-	private RealFarmProvider mDataProvider;
 	/** Currently selected language. */
 	final private Homescreen mParentReference = this;
 
@@ -193,7 +191,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			intent.putExtra(RealFarmDatabase.TABLE_NAME_ACTIONTYPE,
 					RealFarmDatabase.ACTION_TYPE_SPRAY_ID);
 		} else if (v.getId() == R.id.hmscrn_btn_market) {
-			intent = new Intent(this, Marketprice_details.class);
+			intent = new Intent(this, MarketPriceActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_actions) {
 
 			// creates a new dialog and configures it.
@@ -375,7 +373,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
-		super.onCreate(savedInstanceState);
+		super.onCreate(savedInstanceState, R.layout.act_homescreen);
 
 		// sets the DeviceId which is used as part of the name of the log file.
 		ApplicationTracker.getInstance().setDeviceId(
@@ -401,9 +399,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		// disables the home button in the home screen.
 		getSupportActionBar().setDisplayShowHomeEnabled(false);
 
-		// sets the layout of the activity.
-		setContentView(R.layout.act_homescreen);
-
 		// starts the audio manager.
 		SoundQueue.getInstance().init(this);
 
@@ -415,9 +410,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 			snd.setImageResource(R.drawable.ic_sound_off);
 		}
-
-		// gets the data provider.
-		mDataProvider = RealFarmProvider.getInstance(this);
 
 		User user = null;
 		// if there is no valid userId, the user is obtained using the deviceId.
@@ -435,6 +427,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 				Global.userId = user.getId();
 			}
 		} else {
+			// gets the user using the id.
 			user = mDataProvider.getUserById(Global.userId);
 		}
 
@@ -453,6 +446,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			userImageResId = R.drawable.farmer_default;
 		}
 
+		// sets the user icon.
 		((ImageView) findViewById(R.id.hmscrn_usr_icon))
 				.setImageResource(userImageResId);
 
@@ -537,7 +531,12 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			playAudio(R.raw.sound22, true);
 		} else if (v.getId() == R.id.aggr_img_help) {
 			playAudio(R.raw.home_help, true);
+		} else if (v.getId() == R.id.hmscrn_usr_icon) {
 
+			User user = mDataProvider.getUserById(Global.userId);
+			if (user.getNameAudio() != -1) {
+				playAudio(user.getNameAudio(), true);
+			}
 		} else {
 			return super.onLongClick(v);
 		}
@@ -612,14 +611,25 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	 * Updates the number of advices for the user.
 	 */
 	private void updateAdviceNumbers() {
+		updateNotificationCount(R.id.news_advice,
+				mDataProvider.getRecommendationCountByUser(Global.userId));
+	}
 
-		// gets the total recommendations
-		int recomCount = mDataProvider
-				.getRecommendationCountByUser(Global.userId);
-		TextView tw = (TextView) findViewById(R.id.news_advice);
+	private void updateNotificationCount(int id, int value) {
+		TextView tv = (TextView) findViewById(id);
 
-		// if the value is 0, a blank is added instead.
-		tw.setText(recomCount > 0 ? (recomCount + "") : "");
+		// hides the notification if the count is low.
+		if (value < 1) {
+			tv.setVisibility(View.INVISIBLE);
+			// shows the number
+		} else if (value < 10) {
+			tv.setVisibility(View.VISIBLE);
+			tv.setText(String.valueOf(value));
+		} else {
+			// indicates that there are more than 9.
+			tv.setVisibility(View.VISIBLE);
+			tv.setText("9+");
+		}
 	}
 
 	/**
@@ -627,27 +637,36 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 	 * performed in the last 15 days that match this.
 	 */
 	private void updateAggregatesNumbers() {
-		TextView tw = (TextView) findViewById(R.id.news_sow);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SOW_ID));
-		tw = (TextView) findViewById(R.id.news_fertilize);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID));
-		tw = (TextView) findViewById(R.id.news_irrigate);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID));
-		tw = (TextView) findViewById(R.id.news_problem);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_REPORT_ID));
-		tw = (TextView) findViewById(R.id.news_spray);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SPRAY_ID));
-		tw = (TextView) findViewById(R.id.news_harvest);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_HARVEST_ID));
-		tw = (TextView) findViewById(R.id.news_sell);
-		tw.setText(mDataProvider
-				.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
+
+		updateNotificationCount(
+				R.id.news_sow,
+				mDataProvider
+						.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SOW_ID));
+		updateNotificationCount(
+				R.id.news_fertilize,
+				mDataProvider
+						.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID));
+		updateNotificationCount(
+				R.id.news_irrigate,
+				mDataProvider
+						.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID));
+		updateNotificationCount(
+				R.id.news_problem,
+				mDataProvider
+						.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_REPORT_ID));
+		updateNotificationCount(
+				R.id.news_spray,
+				mDataProvider
+						.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SPRAY_ID));
+		updateNotificationCount(
+				R.id.news_harvest,
+				mDataProvider
+						.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_HARVEST_ID));
+		updateNotificationCount(
+				R.id.news_sell,
+				mDataProvider
+						.getAggregatesNumbers(RealFarmDatabase.ACTION_TYPE_SELL_ID));
+
 	}
 
 	/**
