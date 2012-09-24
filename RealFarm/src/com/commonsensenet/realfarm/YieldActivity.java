@@ -290,7 +290,7 @@ public class YieldActivity extends TopSelectorActivity implements
 
 	public void setList() {
 
-		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
+		mTopSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
 		// default: CK Pura
 		locationSelectorData = mDataProvider.getResources(
@@ -315,7 +315,7 @@ public class YieldActivity extends TopSelectorActivity implements
 		soilTypeSelectorData = mDataProvider.getResources(
 				RealFarmDatabase.RESOURCE_TYPE_SOIL_TYPE).get(0);
 
-		if (topSelectorData != null)
+		if (mTopSelectorData != null)
 			super.setTopSelector(mActionTypeId);
 		if (locationSelectorData != null)
 			setLocationSelector();
@@ -342,7 +342,7 @@ public class YieldActivity extends TopSelectorActivity implements
 	public void setList(int type, Resource choice) {
 		switch (type) {
 		case 2:
-			topSelectorData = choice;
+			mTopSelectorData = choice;
 			super.setTopSelector(mActionTypeId);
 			// TODO: reinitialize the variety selector below according to the
 			// new crop?

@@ -52,7 +52,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	}
 
 	public void setList() {
-		int cropSeedTypeId = topSelectorData.getId();
+		int cropSeedTypeId = mTopSelectorData.getId();
 
 		// gets the data to show.
 		mItems = ActionDataFactory.getData(mCurrentAction, mDataProvider,
@@ -84,7 +84,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	public void setList(int type, Resource choice) {
 
 		if (type == 2) { // change the query
-			topSelectorData = choice;
+			mTopSelectorData = choice;
 		} else if (type == 1) { // days span
 			mDaysSelectorData = choice;
 		}
@@ -140,7 +140,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 		// gets the data and data adapter.
 		final List<UserAggregateItem> list = ActionDataFactory.getUserList(
-				mCurrentAction, topSelectorData.getId(), selectedItem,
+				mCurrentAction, mTopSelectorData.getId(), selectedItem,
 				mDaysSelectorData, mDataProvider);
 
 		if (list == null || list.size() < 1) {
@@ -369,7 +369,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				+ action);
 
 		// Mid
-		int variety = topSelectorData.getAudio();
+		int variety = mTopSelectorData.getAudio();
 		switch (mActionTypeId) {
 		case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
 			double numberOffertilizer = Double.parseDouble(user.getLeftText());

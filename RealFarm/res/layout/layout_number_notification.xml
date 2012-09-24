@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="23dp"
+    android:layout_height="23dp"
+    android:background="@drawable/circular_border"
+    android:gravity="center"
+    android:singleLine="true"
+    android:text="@string/placeholder_number"
+    android:textColor="#000000"
+    android:textSize="12sp"
+    android:textStyle="bold" />

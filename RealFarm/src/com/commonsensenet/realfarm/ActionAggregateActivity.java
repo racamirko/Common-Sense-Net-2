@@ -23,16 +23,12 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 	/** Reference to the current instance. */
 	private final Context context = this;
+	/** Name of the active action. */
 	private String mActionName = "";
 
 	@Override
 	public String getLogTag() {
 		return this.getClass().getSimpleName() + " " + mActionName;
-	}
-
-	protected void cancelAudio() {
-
-		startActivity(new Intent(ActionAggregateActivity.this, Homescreen.class));
 	}
 
 	public void onBackPressed() {
@@ -69,7 +65,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 		// default seed/crop type id
 		// TODO: if user doesn't have a plot
-		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
+		mTopSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
 
 		// loads the data.
@@ -111,8 +107,9 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-				cancelAudio();
-				stopAudio();
+
+				// behaves like a back button press.
+				onBackPressed();
 
 				// tracks the application usage.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
@@ -146,18 +143,17 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.homepage, true);
 		} else if (v.getId() == R.id.aggr_crop) {
-			int crop = topSelectorData.getAudio();
+			int crop = mTopSelectorData.getAudio();
 			int action = mDataProvider.getActionTypeById(mActionTypeId)
 					.getAudio();
 
-			System.out.println(action + " " + crop);
 			addToSoundQueue(action);
 			addToSoundQueue(R.raw.there);
 			addToSoundQueue(crop);
 			addToSoundQueue(R.raw.there_crop);
 			playSound();
 		} else if (v.getId() == R.id.aggr_img_help) {
-			
+
 			switch (mActionTypeId) {
 			case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 				playAudio(R.raw.aggr_sow_help, true);
@@ -185,7 +181,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				break;
 			}
 
-
 		} else if (v.getId() == R.id.button_back) {
 			playAudio(R.raw.back_button, true);
 		}
@@ -196,7 +191,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 	protected void makeAudioAggregateMarketItem(AggregateItem item,
 			boolean header) {
 
-		int variety = topSelectorData.getAudio();
+		int variety = mTopSelectorData.getAudio();
 		int number = item.getNews();
 		int total = item.getTotal();
 
@@ -205,18 +200,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			int fertilizer = mDataProvider.getResourceImageById(
 					item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE,
 					RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
-
-			System.out
-					.println(total
-							+ " farmers growing "
-							+ variety
-							+ " have applied "
-							+ fertilizer
-							+ " their parcels this season."
-							+ number
-							+ " people have done it in the last"
-							+ RealFarmDatabase.NUMBER_DAYS_NEWS
-							+ " days. Touch briefly once to view the farmers and how much they used");
 
 			if ((total != -1) & (variety != -1) & (fertilizer != -1)
 					& (number != -1)
@@ -247,18 +230,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 		case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
 			double amount = item.getResult();
 
-			System.out
-					.println(total
-							+ " have harvested "
-							+ variety
-							+ " at an average yield of "
-							+ amount
-							+ " quintal per acre this season."
-							+ number
-							+ " people have harvested in the last"
-							+ RealFarmDatabase.NUMBER_DAYS_NEWS
-							+ " days. Touch briefly once to view the farmers and their yields");
-
 			if ((total != -1) & (variety != -1) & (amount != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
@@ -288,18 +259,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			int irrigation = mDataProvider.getResourceImageById(
 					item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE,
 					RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
-
-			System.out
-					.println(total
-							+ " farmers growing "
-							+ variety
-							+ " have "
-							+ irrigation
-							+ " their parcels this season."
-							+ number
-							+ " people have done it in the last"
-							+ RealFarmDatabase.NUMBER_DAYS_NEWS
-							+ " days. Touch briefly to view farmers and their duration of irrigation");
 
 			if ((total != -1) & (variety != -1) & (irrigation != -1)
 					& (number != -1)
@@ -332,18 +291,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE,
 					RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
 
-			System.out
-					.println(total
-							+ " people have reported "
-							+ problem
-							+ " for "
-							+ variety
-							+ " this season."
-							+ number
-							+ " people have reported it in the last"
-							+ RealFarmDatabase.NUMBER_DAYS_NEWS
-							+ " days. Touch briefly here to view the farmers and their dates of reporting the problem");
-
 			if ((total != -1) & (problem != -1) & (variety != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
@@ -370,21 +317,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 		case RealFarmDatabase.ACTION_TYPE_SELL_ID:
 			long min = item.getSelector2();
-
-			System.out
-					.println(total
-							+ " people have sold "
-							+ variety
-							+ " at prices between "
-							+ min
-							+ " and "
-							+ (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)
-							+ " rupees per quintal "
-							+ " this season."
-							+ number
-							+ " people have sold for this price in the last"
-							+ RealFarmDatabase.NUMBER_DAYS_NEWS
-							+ " days. Touch briefly to view the farmers, the weight of the bags and their individual prices");
 
 			if ((total != -1)
 					& (variety != -1)
@@ -421,18 +353,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					item.getSelector2(), RealFarmDatabase.TABLE_NAME_RESOURCE,
 					RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
 
-			System.out
-					.println(total
-							+ " farmers have sown "
-							+ variety
-							+ " and "
-							+ treatment
-							+ " the seeds this season."
-							+ number
-							+ " people have done it in the last"
-							+ RealFarmDatabase.NUMBER_DAYS_NEWS
-							+ " days. Touch briefly to view the farmers and how much they sowed");
-
 			if ((total != -1) & (variety != -1) & (treatment != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
@@ -455,11 +375,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				}
 				playSound();
 			}
-			System.out.println("total" + total);
-			System.out.println("variety" + variety);
-			System.out.println("treatment" + treatment);
-			System.out.println("number" + number);
-			System.out.println("days" + RealFarmDatabase.NUMBER_DAYS_NEWS);
 
 			break;
 
@@ -470,20 +385,6 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			int pesticide = mDataProvider.getResourceImageById(
 					item.getSelector3(), RealFarmDatabase.TABLE_NAME_RESOURCE,
 					RealFarmDatabase.COLUMN_NAME_RESOURCE_AUDIO);
-
-			System.out
-					.println(total
-							+ " people have reported "
-							+ prob
-							+ " for "
-							+ variety
-							+ " and used "
-							+ pesticide
-							+ " as medicine this season."
-							+ number
-							+ " people have done it in the last"
-							+ RealFarmDatabase.NUMBER_DAYS_NEWS
-							+ " days. Touch briefly here to view the farmers and their dates of spraying");
 
 			if ((total != -1) & (prob != -1) & (variety != -1)
 					& (pesticide != -1) & (number != -1)

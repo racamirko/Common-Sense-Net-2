@@ -133,13 +133,18 @@
 
                     <TextView
                         android:id="@+id/news_sow"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_alignRight="@+id/btn_action_sow"
                         android:layout_alignTop="@+id/btn_action_sow"
-                        android:background="#CCCCCC"
+                        android:layout_marginRight="-10dp"
+                        android:background="@drawable/notification"
+                        android:gravity="center"
+                        android:singleLine="true"
                         android:text="@string/placeholder_number"
-                        android:textColor="#000000" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_small"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -158,13 +163,18 @@
 
                     <TextView
                         android:id="@+id/news_fertilize"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_alignRight="@+id/btn_action_fertilize"
                         android:layout_alignTop="@+id/btn_action_fertilize"
-                        android:background="#CCCCCC"
+                        android:layout_marginRight="-10dp"
+                        android:background="@drawable/notification"
+                        android:gravity="center"
+                        android:singleLine="true"
                         android:text="@string/placeholder_number"
-                        android:textColor="#000000" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_small"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -183,13 +193,18 @@
 
                     <TextView
                         android:id="@+id/news_irrigate"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_alignRight="@+id/btn_action_irrigate"
                         android:layout_alignTop="@+id/btn_action_irrigate"
-                        android:background="#CCCCCC"
+                        android:layout_marginRight="-10dp"
+                        android:background="@drawable/notification"
+                        android:gravity="center"
+                        android:singleLine="true"
                         android:text="@string/placeholder_number"
-                        android:textColor="#000000" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_small"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>
 
@@ -216,13 +231,18 @@
 
                     <TextView
                         android:id="@+id/news_problem"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_alignRight="@+id/btn_action_report"
                         android:layout_alignTop="@+id/btn_action_report"
-                        android:background="#CCCCCC"
+                        android:layout_marginRight="-10dp"
+                        android:background="@drawable/notification"
+                        android:gravity="center"
+                        android:singleLine="true"
                         android:text="@string/placeholder_number"
-                        android:textColor="#000000" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_small"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -242,13 +262,18 @@
 
                     <TextView
                         android:id="@+id/news_spray"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_alignRight="@+id/btn_action_spray"
                         android:layout_alignTop="@+id/btn_action_spray"
-                        android:background="#CCCCCC"
+                        android:layout_marginRight="-10dp"
+                        android:background="@drawable/notification"
+                        android:gravity="center"
+                        android:singleLine="true"
                         android:text="@string/placeholder_number"
-                        android:textColor="#000000" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_small"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -267,13 +292,18 @@
 
                     <TextView
                         android:id="@+id/news_harvest"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_alignRight="@+id/btn_action_harvest"
                         android:layout_alignTop="@+id/btn_action_harvest"
-                        android:background="#CCCCCC"
+                        android:layout_marginRight="-10dp"
+                        android:background="@drawable/notification"
+                        android:gravity="center"
+                        android:singleLine="true"
                         android:text="@string/placeholder_number"
-                        android:textColor="#000000" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_small"
+                        android:textStyle="bold" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -292,13 +322,18 @@
 
                     <TextView
                         android:id="@+id/news_sell"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="23dp"
+                        android:layout_height="23dp"
                         android:layout_alignRight="@+id/btn_action_sell"
                         android:layout_alignTop="@+id/btn_action_sell"
-                        android:background="#CCCCCC"
+                        android:layout_marginRight="-10dp"
+                        android:background="@drawable/notification"
+                        android:gravity="center"
+                        android:singleLine="true"
                         android:text="@string/placeholder_number"
-                        android:textColor="#000000" />
+                        android:textColor="@android:color/black"
+                        android:textSize="@dimen/font_small"
+                        android:textStyle="bold" />
                 </RelativeLayout>
             </LinearLayout>
         </LinearLayout>
@@ -332,14 +367,17 @@
 
                 <TextView
                     android:id="@+id/news_advice"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="23dp"
+                    android:layout_height="23dp"
                     android:layout_alignRight="@+id/hmscrn_img_advice"
                     android:layout_alignTop="@+id/hmscrn_img_advice"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="2dp"
-                    android:background="#CCCCCC"
-                    android:textColor="#000000" />
+                    android:background="@drawable/notification"
+                    android:gravity="center"
+                    android:singleLine="true"
+                    android:text="@string/placeholder_number"
+                    android:textColor="@android:color/black"
+                    android:textSize="@dimen/font_small"
+                    android:textStyle="bold" />
             </RelativeLayout>
 
             <!-- Second column -->

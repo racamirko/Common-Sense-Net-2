@@ -34,7 +34,7 @@ public class Recommendation {
 		mIsUnread = value;
 	}
 
-	public String dataCollectionDate() {
+	public String getDataCollectionDate() {
 		return mDataCollectionDate;
 	}
 

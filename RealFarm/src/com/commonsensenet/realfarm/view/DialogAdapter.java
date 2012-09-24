@@ -28,6 +28,7 @@ public class DialogAdapter extends ArrayAdapter<Resource> {
 	}
 
 	@Override
+	@SuppressWarnings("deprecation")
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {

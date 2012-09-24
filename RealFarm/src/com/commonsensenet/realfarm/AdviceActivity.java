@@ -1,7 +1,6 @@
 package com.commonsensenet.realfarm;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -50,10 +49,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 	private AdviceAdapter mAdviceAdapter;
 	/** Data access provider. */
 	private RealFarmProvider mDataProvider;
-	/** ListView used to display the situations. */
-	private ExpandableListView mListView;
 	/** Inflater used to add custom layouts. */
 	private LayoutInflater mLayoutInflater;
+	/** ListView used to display the situations. */
+	private ExpandableListView mListView;
 	/** List of Situations for the user. */
 	private ArrayList<AdviceSituationItem> mSituationItems;
 
@@ -156,11 +155,16 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	private void makeAudioSituation(AdviceSituationItem situationItem) {
 
-		int severity = situationItem.getRecommendation().getSeverity();
+		// gets the related variables.
 		String audioSequence = situationItem.getAdvice().getAudioSequence();
+		int severity = situationItem.getRecommendation().getSeverity();
+		String dataCollectionDate = situationItem.getRecommendation()
+				.getDataCollectionDate();
 
+		// gets the plots listed by the user.
 		List<Plot> plotList = mDataProvider.getPlotsByUserId(Global.userId);
 
+		// finds out the plot number.
 		int plotNumber = 0;
 		for (int x = 0; x < plotList.size(); x++) {
 			if (plotList.get(x).getId() == situationItem.getPlotId()) {
@@ -169,44 +173,34 @@ public class AdviceActivity extends HelpEnabledActivity implements
 			}
 		}
 
-		SimpleDateFormat df = new SimpleDateFormat("yyyy-MM-dd");
-		Date date = null;
 		try {
-			date = df.parse("2012-09-16");
+			Date date = RealFarmProvider.sDateFormat.parse(dataCollectionDate);
+			Calendar cal = new GregorianCalendar();
+			cal.setTime(date);
+
+			cal.get(Calendar.MONTH); // starts with 0
+			cal.get(Calendar.YEAR);
+			cal.get(Calendar.DAY_OF_MONTH); // starts with 1
+
+			// separates the sequence using the , as separator.
+			String[] audioPieces = audioSequence.split(",");
+
+			SoundQueue sq = SoundQueue.getInstance();
+
+			// plays the advice audio.
+			play_integer(cal.get(Calendar.MONTH) + 1);
+			play_integer(cal.get(Calendar.MONTH));
+			play_integer(cal.get(Calendar.YEAR));
+			sq.addToQueue(Integer.valueOf(audioPieces[0]));
+			play_integer(plotNumber);
+			sq.addToQueue(Integer.valueOf(audioPieces[1]));
+			play_integer(severity);
+			sq.addToQueue(Integer.valueOf(audioPieces[2]));
+
+			sq.play();
+
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
-
-		Calendar cal = new GregorianCalendar();
-		cal.setTime(date);
-
-		cal.get(Calendar.MONTH); // starts with 0
-		cal.get(Calendar.YEAR);
-		cal.get(Calendar.DAY_OF_MONTH); // status with 1
-
-		System.out.println("****************Displaying date***************");
-		System.out.println(cal.get(Calendar.MONTH));
-		System.out.println(cal.get(Calendar.YEAR));
-		System.out.println(cal.get(Calendar.DAY_OF_MONTH));
-		System.out
-				.println("****************Finisehed Displaying date***************");
-
-		String[] audioPieces = audioSequence.split(",");
-
-		SoundQueue sq = SoundQueue.getInstance();
-
-		// plays the advice audio.
-		play_integer(cal.get(Calendar.MONTH) + 1); // says
-		play_integer(cal.get(Calendar.MONTH));
-		play_integer(cal.get(Calendar.YEAR));
-		sq.addToQueue(Integer.valueOf(audioPieces[0]));
-		play_integer(plotNumber);
-		sq.addToQueue(Integer.valueOf(audioPieces[1]));
-		play_integer(severity);
-		sq.addToQueue(Integer.valueOf(audioPieces[2]));
-
-		sq.play();
 	}
 
 	private void makeAudioSolution(AdviceSolutionItem solutionItem) {
@@ -438,15 +432,13 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		mDataProvider = RealFarmProvider.getInstance(this);
 		// layout inflater used to add new elements.
 		mLayoutInflater = getLayoutInflater();
-
 		// gets the list from the layout.
 		mListView = (ExpandableListView) findViewById(R.id.exp_list);
-
 		// fetches the data from the database.
 		mSituationItems = mDataProvider.getAdviceData(Global.userId);
 
+		// plays a sound indicating that no items where found.
 		if (mSituationItems == null || mSituationItems.size() == 0) {
-
 			playAudio(R.raw.no_information);
 		}
 

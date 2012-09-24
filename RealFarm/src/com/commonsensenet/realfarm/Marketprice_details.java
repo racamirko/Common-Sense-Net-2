@@ -45,7 +45,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		tw.setText(String.valueOf(mMin));
 
 		// default seed/crop type id
-		topSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
+		mTopSelectorData = ActionDataFactory.getTopSelectorData(mActionTypeId,
 				mDataProvider, Global.userId);
 		// default 1 day
 		mDaysSelectorData = mDataProvider.getResources(
@@ -174,11 +174,11 @@ public class Marketprice_details extends AggregateMarketActivity implements
 		if (v.getId() == R.id.aggr_img_home) {
 			playAudio(R.raw.homepage, true);
 		} else if (v.getId() == R.id.aggr_crop) {
-			int crop = topSelectorData.getAudio();
+			int crop = mTopSelectorData.getAudio();
 			int action = mDataProvider.getActionTypeById(mActionTypeId)
 					.getAudio();
 
-			playAudio(topSelectorData.getAudio(), true);
+			playAudio(mTopSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.market_info) {
 			addToSoundQueue(R.raw.chal_max_price);
 			play_integer(mMax);
@@ -204,7 +204,7 @@ public class Marketprice_details extends AggregateMarketActivity implements
 	protected void makeAudioAggregateMarketItem(AggregateItem item,
 			boolean header) {
 
-		int variety = topSelectorData.getAudio();
+		int variety = mTopSelectorData.getAudio();
 		int days = mDaysSelectorData.getAudio();
 		int number = item.getNews();
 		long min = item.getSelector3();

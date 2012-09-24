@@ -10,11 +10,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
 import com.commonsensenet.realfarm.model.ActionType;
@@ -32,7 +32,7 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld
 	/** Indicates that the Selector works with Market data. */
 	public static final int LIST_WITH_TOP_SELECTOR_TYPE_MARKET = 2;
 
-	protected Resource topSelectorData;
+	protected Resource mTopSelectorData;
 	protected RealFarmProvider mDataProvider;
 	protected LayoutInflater mLayoutInflater;
 
@@ -48,9 +48,10 @@ public abstract class TopSelectorActivity extends HelpEnabledActivityOld
 		final ImageView actionImg = (ImageView) findViewById(R.id.aggr_action);
 		actionImg.setImageResource(actionType.getImage1());
 		final ImageView selectorImg = (ImageView) findViewById(R.id.aggr_crop_img);
-		selectorImg.setBackgroundResource(topSelectorData.getBackgroundImage());
+		selectorImg
+				.setBackgroundResource(mTopSelectorData.getBackgroundImage());
 		final TextView selectorText = (TextView) findViewById(R.id.textView1);
-		selectorText.setText(topSelectorData.getShortName());
+		selectorText.setText(mTopSelectorData.getShortName());
 	}
 
 	protected void displayDialog(View v, final List<Resource> data,
