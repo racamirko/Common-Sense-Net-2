@@ -1288,6 +1288,7 @@ containing a value of this type.
         public static final int diary_listview_list=0x7f06003d;
         public static final int disableHome=0x7f060009;
         public static final int dlg_img_seed=0x7f0600f1;
+        public static final int dlg_lbl_amount_sow=0x7f0600a3;
         public static final int dlg_lbl_crop_plot=0x7f060030;
         public static final int dlg_lbl_crop_sell=0x7f060092;
         public static final int dlg_lbl_date_sell=0x7f060094;
@@ -1318,7 +1319,6 @@ containing a value of this type.
         public static final int dlg_lbl_unit_no_irr=0x7f06007a;
         public static final int dlg_lbl_unit_no_rem_sell=0x7f06009e;
         public static final int dlg_lbl_unit_no_sell=0x7f060097;
-        public static final int dlg_lbl_unit_no_sow=0x7f0600a3;
         public static final int dlg_lbl_unit_no_spray=0x7f0600b2;
         public static final int dlg_lbl_unit_rem_sell=0x7f06009f;
         public static final int dlg_lbl_unit_sell=0x7f060098;

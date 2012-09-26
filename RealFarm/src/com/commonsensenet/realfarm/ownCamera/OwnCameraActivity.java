@@ -141,6 +141,12 @@ public class OwnCameraActivity extends Activity implements
 
 	private final int SECONDARY_ACTIVITY_REQUEST_CODE = 0;
 
+	public void addToSoundQueue(int resid) {
+		SoundQueue sq = SoundQueue.getInstance();
+		// adds the sound to the queue
+		sq.addToQueue(resid);
+	}
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode,
 			Intent intent) {
@@ -231,6 +237,16 @@ public class OwnCameraActivity extends Activity implements
 		Log.d(LOG_TAG, "Activity destroyed");
 	}
 
+	public boolean onLongClick(View v) {
+
+		if (v.getId() == R.id.button_capture) {
+			addToSoundQueue(R.raw.plotimage);
+			playSound();
+
+		}
+		return true;
+	}
+
 	@Override
 	protected void onPause() {
 		super.onPause();
@@ -269,6 +285,10 @@ public class OwnCameraActivity extends Activity implements
 		Log.d(LOG_TAG, "Activity stopped");
 	}
 
+	public void playSound() {
+		SoundQueue.getInstance().play();
+	}
+
 	private void releaseCamera() {
 		if (mCamera != null) {
 			Log.d(LOG_TAG, "Releasing camera");
@@ -285,6 +305,10 @@ public class OwnCameraActivity extends Activity implements
 		finish();
 		overridePendingTransition(0, 0);
 		startActivity(intent);
+	}
+
+	protected void stopAudio() {
+		SoundQueue.getInstance().stop();
 	}
 
 	public void surfaceChanged(SurfaceHolder mholder, int format, int w, int h) {
@@ -346,33 +370,5 @@ public class OwnCameraActivity extends Activity implements
 			mCamera.release();
 		}
 		Log.d(LOG_TAG, "Preview destroyed");
-	}
-
-	public boolean onLongClick(View v) {
-
-		if (v.getId() == R.id.button_capture) {
-			Add_To_Queue(R.raw.plotimage);
-			play_Sound(true);
-
-		}
-		return true;
-	}
-
-	public void Add_To_Queue(int resid) // adds to queue
-	{
-		SoundQueue sq = SoundQueue.getInstance();
-		// adds the sound to the queue
-		sq.addToQueue(resid);
-	}
-
-	public void play_Sound(boolean play) // added for audio
-	{
-		if (play == true) {
-			SoundQueue.getInstance().play();
-		}
-	}
-
-	protected void stopAudio() {
-		SoundQueue.getInstance().stop();
 	}
 }

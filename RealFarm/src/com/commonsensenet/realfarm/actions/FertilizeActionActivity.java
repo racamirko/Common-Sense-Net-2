@@ -210,7 +210,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				playAudio(R.raw.select_unit_number, true);
 			else {
 
-				play_float(Float.valueOf(mResultsMap.get(AMOUNT).toString()));
+				playFloat(Float.valueOf(mResultsMap.get(AMOUNT).toString()));
 				playSound();
 			}
 
@@ -220,7 +220,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 				playAudio(R.raw.dateinfo, true);
 
 			else {
-				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
 
@@ -308,7 +308,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 			long result = mDataProvider.addFertilizeAction(Global.userId,
 					Global.plotId, mAmount, mFertilizer, mUnit,
-					getDate(mDay, mMonth), Global.IsAdmin);
+					getDate(mDay, mMonth), Global.isAdmin);
 
 			return result != -1;
 		}

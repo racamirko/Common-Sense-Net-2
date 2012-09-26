@@ -981,7 +981,7 @@ public class RealFarmProvider {
 					a.setLeftText(c2.getString(0));
 					a.setNews(c3.getInt(1));
 					a.setTotal(c3.getInt(0));
-					a.setLeftImage(R.drawable.fertilizingaction);
+					// a.setLeftImage(R.drawable.fertilizingaction);
 					a.setCenterImage(c.getInt(1));
 					a.setCenterText(c.getString(2));
 					a.setSelector2(seedTypeId);
@@ -997,7 +997,6 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	// TODO: add optimisation
 	public List<AggregateItem> getAggregateItemsHarvest(int actionTypeId,
 			int seedTypeId) {
 
@@ -1036,9 +1035,9 @@ public class RealFarmProvider {
 					a.setLeftText(c.getString(0));
 					a.setNews(c3.getInt(1));
 					a.setTotal(c3.getInt(2));
-					a.setLeftImage(R.drawable.harvestingaction);
+					// a.setLeftImage(R.drawable.harvestingaction);
 					a.setSelector1(seedTypeId);
-					a.setResult(round(c3.getDouble(0), 2,
+					a.setResult((float) round(c3.getDouble(0), 2,
 							BigDecimal.ROUND_HALF_UP));
 					tmpList.add(a);
 				}
@@ -1091,7 +1090,7 @@ public class RealFarmProvider {
 					a.setLeftText(c2.getString(0));
 					a.setNews(c3.getInt(1));
 					a.setTotal(c3.getInt(0));
-					a.setLeftImage(R.drawable.irrigationaction);
+					// a.setLeftImage(R.drawable.irrigationaction);
 					a.setCenterBackground(c.getInt(1));
 					a.setSelector1(seedTypeId);
 					a.setSelector2(c.getInt(0));
@@ -1144,7 +1143,7 @@ public class RealFarmProvider {
 					a.setLeftText(c3.getString(1));
 					a.setNews(c3.getInt(3));
 					a.setTotal(c3.getInt(0));
-					a.setLeftImage(R.drawable.problemreportingaction);
+					// a.setLeftImage(R.drawable.problemreportingaction);
 					a.setSelector1(seedTypeId);
 					a.setSelector2(c.getInt(0));
 
@@ -1198,7 +1197,7 @@ public class RealFarmProvider {
 				a.setLeftText(c3.getString(1));
 				a.setNews(c3.getInt(3));
 				a.setTotal(c3.getInt(0));
-				a.setLeftImage(R.drawable.sellingaction);
+				// a.setLeftImage(R.drawable.sellingaction);
 				a.setSelector1(cropTypeId);
 				a.setSelector2(min);
 				tmpList.add(a);
@@ -1245,7 +1244,7 @@ public class RealFarmProvider {
 					a.setLeftText(c3.getString(1));
 					a.setNews(c3.getInt(3));
 					a.setTotal(c3.getInt(0));
-					a.setLeftImage(R.drawable.sowingaction);
+					// a.setLeftImage(R.drawable.sowingaction);
 					a.setSelector1(c3.getInt(4));
 					a.setSelector2(c.getInt(0));
 
@@ -1315,7 +1314,7 @@ public class RealFarmProvider {
 								a.setNews(c4.getInt(1));
 								a.setTotal(c4.getInt(0));
 								a.setCenterImage(R.drawable.sprayingaction);
-								a.setLeftImage(c.getInt(1));
+								// a.setLeftImage(c.getInt(1));
 								a.setLeftText(c.getString(2));
 								a.setSelector1(seedTypeId);
 								a.setSelector2(c.getInt(0));
@@ -1475,7 +1474,7 @@ public class RealFarmProvider {
 					mi.setNews(c2.getInt(2));
 					mi.setLeftBackground(c2.getInt(4));
 					mi.setLeftText(c2.getString(3));
-					mi.setLeftImage(R.drawable.sellingaction);
+					// mi.setLeftImage(R.drawable.sellingaction);
 					tmpList.add(mi);
 				}
 				c2.close();

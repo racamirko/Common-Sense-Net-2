@@ -17,9 +17,11 @@ import android.util.Log;
  */
 public class SoundQueue implements OnCompletionListener {
 
+	/** Indicates if the Audio is enabled or not. */
+	public static boolean isAudioEnabled = true;
 	/** Identifier of the class used for logging. */
 	private static final String LOG_TAG = "SoundQueue";
-	/** Singleton instance of the SoundQueue. ` */
+	/** Singleton instance of the SoundQueue. */
 	private static SoundQueue sInstance = null;
 
 	/**
@@ -28,6 +30,8 @@ public class SoundQueue implements OnCompletionListener {
 	 * @return the SoundQueue instance.
 	 */
 	public static SoundQueue getInstance() {
+
+		// follows the singleton pattern to create a new instance.
 		if (sInstance == null) {
 			Log.i(LOG_TAG, "Initializing sound system");
 			sInstance = new SoundQueue();
@@ -47,6 +51,7 @@ public class SoundQueue implements OnCompletionListener {
 	 */
 	private SoundQueue() {
 
+		// initializes the data structure used to hold the media players.
 		mResToPlay = new LinkedList<MediaPlayer>();
 		mCurrentMediaPlayer = null;
 	}
@@ -56,10 +61,10 @@ public class SoundQueue implements OnCompletionListener {
 	 * sequentially using play(). If a sound is currently being played, the new
 	 * resource will be added to the end of the sequence.
 	 * 
-	 * @param pResId
+	 * @param resourceId
 	 *            the resourceId to play
 	 */
-	public void addToQueue(int resId) {
+	public void addToQueue(int resourceId) {
 
 		if (mContext == null) {
 			Log.i(LOG_TAG, "Context not set, use init() to set it");
@@ -67,9 +72,12 @@ public class SoundQueue implements OnCompletionListener {
 
 		// adds the id to the queue to play.
 		if (mResToPlay != null) {
-			mResToPlay.add(MediaPlayer.create(mContext, resId));
+			// only adds the audio if valid.
+			if (resourceId != -1) {
+				mResToPlay.add(MediaPlayer.create(mContext, resourceId));
+			}
 		} else {
-			Log.d(LOG_TAG, "Queue is empty!!");
+			Log.d(LOG_TAG, "Queue is not initialized!!");
 		}
 	}
 
@@ -85,6 +93,9 @@ public class SoundQueue implements OnCompletionListener {
 			mCurrentMediaPlayer.release();
 			mCurrentMediaPlayer = null;
 		}
+
+		// cancels any forcePlay setting.
+		mForcePlay = false;
 
 		// deletes all the active MediaPlayers in the queue
 		for (MediaPlayer p : mResToPlay) {
@@ -106,33 +117,63 @@ public class SoundQueue implements OnCompletionListener {
 		mContext = context;
 	}
 
-	public void onCompletion(MediaPlayer arg0) {
+	public void onCompletion(MediaPlayer mediaPlayer) {
 
 		// releases the active media player.
-		arg0.setOnCompletionListener(null);
-		arg0.release();
+		mediaPlayer.setOnCompletionListener(null);
+		mediaPlayer.release();
+
 		// clears the reference.
 		mCurrentMediaPlayer = null;
-		// plays the next sound
-		play();
+
+		// plays the next sound using the stored forcePlay setting.
+		play(mForcePlay);
 	}
 
 	/**
-	 * Plays the next sound in the SoundQueue. If a sound is currently being
-	 * played, it ignores it.
+	 * Plays the next sound in the SoundQueue respecting the current sound
+	 * setting.
 	 */
 	public void play() {
 
-		// plays the next file in the queue
-		// if no sound is currently being played.
-		if (!mResToPlay.isEmpty() && mCurrentMediaPlayer == null) {
-			// gets the next element.
-			mCurrentMediaPlayer = mResToPlay.poll();
-			mCurrentMediaPlayer.setOnCompletionListener(this);
-			// plays the current sound.
-			mCurrentMediaPlayer.start();
+		// does not override the isEnabledSound setting.
+		play(false);
+	}
+
+	/**
+	 * Plays the next sound in the SoundQueue. The sound is only played if the
+	 * <code>isAudioEnabled</code> is <code>true</code> or if it is forced no
+	 * matter the <code>isAudioEnabled</code> setting. If a sound is currently
+	 * being played, it will continue the process normally.
+	 * 
+	 * @param forcePlay
+	 *            whether or not to override the <code>isAudioEnabled</code>
+	 *            setting.
+	 */
+	public void play(Boolean forcePlay) {
+
+		// stores the last used forcePlay setting.
+		mForcePlay = forcePlay;
+
+		if (isAudioEnabled || forcePlay) {
+			// plays the next file in the queue
+			// if no sound is currently being played.
+			if (!mResToPlay.isEmpty() && mCurrentMediaPlayer == null) {
+				// gets the next element.
+				mCurrentMediaPlayer = mResToPlay.poll();
+				mCurrentMediaPlayer.setOnCompletionListener(this);
+				// plays the current sound.
+				mCurrentMediaPlayer.start();
+			}
+		} else {
+			Log.d(LOG_TAG,
+					"Cleared the pending audios since the sound is disabled.");
+			clean();
 		}
 	}
+
+	/** Stores the last forcePlay setting. */
+	private boolean mForcePlay = false;
 
 	/**
 	 * Plays the currently playing sound and removes all pending sounds from the
@@ -143,5 +184,4 @@ public class SoundQueue implements OnCompletionListener {
 		// removes any other existing sound in the queue.
 		clean();
 	}
-
 }

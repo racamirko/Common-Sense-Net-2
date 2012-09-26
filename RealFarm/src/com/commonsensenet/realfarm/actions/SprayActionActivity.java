@@ -234,7 +234,7 @@ public class SprayActionActivity extends DataFormActivity {
 				playAudio(R.raw.select_unit_number, true);
 
 			else {
-				play_integer(Integer
+				playInteger(Integer
 						.valueOf(mResultsMap.get(AMOUNT).toString()));
 				playSound();
 			}
@@ -245,7 +245,7 @@ public class SprayActionActivity extends DataFormActivity {
 
 			else {
 
-				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_month_spray) {
@@ -346,7 +346,7 @@ public class SprayActionActivity extends DataFormActivity {
 
 			long result = mDataProvider.addSprayAction(Global.userId,
 					Global.plotId, mProblem, mPesticide, mAmount, mUnit,
-					getDate(mDay, mMonth), Global.IsAdmin);
+					getDate(mDay, mMonth), Global.isAdmin);
 
 			return result != -1;
 		}

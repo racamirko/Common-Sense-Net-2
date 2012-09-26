@@ -19,6 +19,12 @@ public class SowActionActivity extends DataFormActivity {
 
 	public static final String AMOUNT = "amount";
 	public static final String DAY = "day";
+	public static final String DEFAULT_AMOUNT = "0";
+	public static final String DEFAULT_DAY = "0";
+	public static final int DEFAULT_INTERCROP = -1;
+	public static final int DEFAULT_MONTH = -1;
+	public static final int DEFAULT_TREATMENT = -1;
+	public static final int DEFAULT_VARIETY = -1;
 	public static final String INTERCROP = "intercrop";
 	public static final String MONTH = "month";
 	public static final String TREATMENT = "treatment";
@@ -27,74 +33,51 @@ public class SowActionActivity extends DataFormActivity {
 	private int mAmount;
 	private int mDay;
 	private int mIntercrop;
+	private List<Resource> mIntercropList;
 	private int mMonth;
+	private List<Resource> mMonthsList;
 	private int mSeedType;
 	private int mTreatment;
-
-	private List<Resource> varietiesList;
-	private List<Resource> treatmentList;
-	private List<Resource> intercropList;
-	private List<Resource> monthList;
-
-	private int defaultVariety = -1;
-	private String defaultAmount = "0";
-	private String defaultDay = "0";
-	private int defaultMonth = -1;
-	private int defaultTreatment = -1;
-	private int defaultIntercrop = -1;
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-
-		if (item.equals(mHelpItem)) {
-
-			// tracks the application usage
-			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
-			playAudio(R.raw.sow_help, true);
-
-			return true;
-		} else { // asks the parent.
-			return super.onOptionsItemSelected(item);
-		}
-	}
+	private List<Resource> mTreatmentList;
+	private List<Resource> mVarietiesList;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
 		super.onCreate(savedInstanceState, R.layout.act_sow_action);
 
-		varietiesList = mDataProvider.getVarieties();
-		treatmentList = mDataProvider
+		// loads the data from the database.
+		mVarietiesList = mDataProvider.getVarieties();
+		mTreatmentList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_TREATMENT);
-		intercropList = mDataProvider
+		mIntercropList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_INTERCROP);
-		monthList = mDataProvider
+		mMonthsList = mDataProvider
 				.getResources(RealFarmDatabase.RESOURCE_TYPE_MONTH);
 
 		// adds the fields to validate to the map.
-		mResultsMap.put(VARIETY, defaultVariety);
-		mResultsMap.put(AMOUNT, defaultAmount);
-		mResultsMap.put(DAY, defaultDay);
-		mResultsMap.put(MONTH, defaultMonth);
-		mResultsMap.put(TREATMENT, defaultTreatment);
-		mResultsMap.put(INTERCROP, defaultIntercrop);
+		mResultsMap.put(VARIETY, DEFAULT_VARIETY);
+		mResultsMap.put(AMOUNT, DEFAULT_AMOUNT);
+		mResultsMap.put(DAY, DEFAULT_DAY);
+		mResultsMap.put(MONTH, DEFAULT_MONTH);
+		mResultsMap.put(TREATMENT, DEFAULT_TREATMENT);
+		mResultsMap.put(INTERCROP, DEFAULT_INTERCROP);
 
 		playAudio(R.raw.thankyouclickingactionsowing);
 
-		View item1 = findViewById(R.id.dlg_var_text_sow);
-		View item2 = findViewById(R.id.dlg_lbl_unit_no_sow);
-		View item3 = findViewById(R.id.dlg_lbl_day_sow);
-		View item4 = findViewById(R.id.dlg_lbl_month_sow);
-		View item5 = findViewById(R.id.dlg_lbl_treat_sow);
-		View item6 = findViewById(R.id.dlg_lbl_intercrop_sow);
+		View varietyLabel = findViewById(R.id.dlg_var_text_sow);
+		View amountLabel = findViewById(R.id.dlg_lbl_amount_sow);
+		View dayLabel = findViewById(R.id.dlg_lbl_day_sow);
+		View monthLabel = findViewById(R.id.dlg_lbl_month_sow);
+		View treatmentLabel = findViewById(R.id.dlg_lbl_treat_sow);
+		View intercropLabel = findViewById(R.id.dlg_lbl_intercrop_sow);
 
-		item1.setOnLongClickListener(this);
-		item2.setOnLongClickListener(this);
-		item3.setOnLongClickListener(this);
-		item4.setOnLongClickListener(this);
-		item5.setOnLongClickListener(this);
-		item6.setOnLongClickListener(this);
+		varietyLabel.setOnLongClickListener(this);
+		amountLabel.setOnLongClickListener(this);
+		dayLabel.setOnLongClickListener(this);
+		monthLabel.setOnLongClickListener(this);
+		treatmentLabel.setOnLongClickListener(this);
+		intercropLabel.setOnLongClickListener(this);
 
 		View varietyRow = findViewById(R.id.seed_type_sow_tr);
 		View amountRow = findViewById(R.id.units_sow_tr);
@@ -108,7 +91,7 @@ public class SowActionActivity extends DataFormActivity {
 		treatmentRow.setOnLongClickListener(this);
 		intercropRow.setOnLongClickListener(this);
 
-		item1.setOnClickListener(new View.OnClickListener() {
+		varietyLabel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
 
@@ -116,13 +99,13 @@ public class SowActionActivity extends DataFormActivity {
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
 
-				displayDialog(v, varietiesList, VARIETY, "Select the variety",
+				displayDialog(v, mVarietiesList, VARIETY, "Select the variety",
 						R.raw.select_the_variety, R.id.dlg_var_text_sow,
 						R.id.seed_type_sow_tr, 0);
 			}
 		});
 
-		item3.setOnClickListener(new View.OnClickListener() {
+		dayLabel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
 
@@ -137,7 +120,7 @@ public class SowActionActivity extends DataFormActivity {
 			}
 		});
 
-		item5.setOnClickListener(new View.OnClickListener() {
+		treatmentLabel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
 
@@ -145,7 +128,7 @@ public class SowActionActivity extends DataFormActivity {
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
 
-				displayDialog(v, treatmentList, TREATMENT,
+				displayDialog(v, mTreatmentList, TREATMENT,
 						"Select if the seeds were treated",
 						R.raw.treatmenttoseeds1, R.id.dlg_lbl_treat_sow,
 						R.id.treatment_sow_tr, 0);
@@ -153,7 +136,7 @@ public class SowActionActivity extends DataFormActivity {
 			}
 		});
 
-		item2.setOnClickListener(new View.OnClickListener() {
+		amountLabel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
 
@@ -163,12 +146,12 @@ public class SowActionActivity extends DataFormActivity {
 
 				displayDialogNP("Choose the number of serus", AMOUNT,
 						R.raw.choose_serus, 1, 999, 1, 1, 0,
-						R.id.dlg_lbl_unit_no_sow, R.id.units_sow_tr, R.raw.ok,
+						R.id.dlg_lbl_amount_sow, R.id.units_sow_tr, R.raw.ok,
 						R.raw.cancel, R.raw.seru_ok, R.raw.seru_cancel);
 			}
 		});
 
-		item6.setOnClickListener(new View.OnClickListener() {
+		intercropLabel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
 
@@ -176,13 +159,13 @@ public class SowActionActivity extends DataFormActivity {
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
 
-				displayDialog(v, intercropList, INTERCROP,
+				displayDialog(v, mIntercropList, INTERCROP,
 						"Main crop or intercrop?", R.raw.maincrop_intercrop,
 						R.id.dlg_lbl_intercrop_sow, R.id.intercrop_sow_tr, 0);
 			}
 		});
 
-		item4.setOnClickListener(new View.OnClickListener() {
+		monthLabel.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
 				stopAudio();
 
@@ -190,7 +173,7 @@ public class SowActionActivity extends DataFormActivity {
 						Global.userId, getLogTag(),
 						getResources().getResourceEntryName(v.getId()));
 
-				displayDialog(v, monthList, MONTH, "Select the month",
+				displayDialog(v, mMonthsList, MONTH, "Select the month",
 						R.raw.choosethemonth, R.id.dlg_lbl_month_sow,
 						R.id.day_sow_tr, 0);
 			}
@@ -209,52 +192,55 @@ public class SowActionActivity extends DataFormActivity {
 		// checks which view was clicked.
 		if (v.getId() == R.id.dlg_var_text_sow) {
 
-			if ((Integer) mResultsMap.get(VARIETY) == defaultVariety)
+			if ((Integer) mResultsMap.get(VARIETY) == DEFAULT_VARIETY)
 				playAudio(R.raw.select_the_variety, true);
 			else
 				playAudio(
-						varietiesList.get(((Integer) mResultsMap.get(VARIETY)))
+						mVarietiesList
+								.get(((Integer) mResultsMap.get(VARIETY)))
 								.getAudio(), true);
-		} else if (v.getId() == R.id.dlg_lbl_unit_no_sow) {
+		} else if (v.getId() == R.id.dlg_lbl_amount_sow) {
 
-			if (mResultsMap.get(AMOUNT).equals(defaultAmount))
+			if (mResultsMap.get(AMOUNT).equals(DEFAULT_AMOUNT)) {
 				playAudio(R.raw.choose_serus, true);
-
-			else {
-				play_integer(Integer
+			} else {
+				playInteger(Integer
 						.valueOf(mResultsMap.get(AMOUNT).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_month_sow) {
 
-			if ((Integer) mResultsMap.get(MONTH) == defaultMonth)
+			if ((Integer) mResultsMap.get(MONTH) == DEFAULT_MONTH) {
 				playAudio(R.raw.choosethemonth, true);
-			else
-				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
+			} else {
+				playAudio(mMonthsList.get(((Integer) mResultsMap.get(MONTH)))
 						.getAudio(), true);
+			}
 		} else if (v.getId() == R.id.dlg_lbl_treat_sow) {
 
-			if ((Integer) mResultsMap.get(TREATMENT) == defaultTreatment)
+			if ((Integer) mResultsMap.get(TREATMENT) == DEFAULT_TREATMENT) {
 				playAudio(R.raw.treatmenttoseeds1, true);
-			else
-				playAudio(monthList.get(((Integer) mResultsMap.get(TREATMENT)))
-						.getAudio(), true);
+			} else {
+				playAudio(
+						mMonthsList.get(((Integer) mResultsMap.get(TREATMENT)))
+								.getAudio(), true);
+			}
 		} else if (v.getId() == R.id.dlg_lbl_intercrop_sow) {
 
-			if ((Integer) mResultsMap.get(INTERCROP) == defaultIntercrop)
+			if ((Integer) mResultsMap.get(INTERCROP) == DEFAULT_INTERCROP) {
 				playAudio(R.raw.maincrop_intercrop, true);
-			else
+			} else {
 				playAudio(
-						intercropList.get(
+						mIntercropList.get(
 								((Integer) mResultsMap.get(INTERCROP)))
 								.getAudio(), true);
+			}
 		} else if (v.getId() == R.id.dlg_lbl_day_sow) {
 
-			if (mResultsMap.get(DAY).equals(defaultDay))
+			if (mResultsMap.get(DAY).equals(DEFAULT_DAY)) {
 				playAudio(R.raw.dateinfo, true);
-
-			else {
-				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+			} else {
+				playInteger(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
 		}
@@ -283,6 +269,22 @@ public class SowActionActivity extends DataFormActivity {
 	}
 
 	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.equals(mHelpItem)) {
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), "help");
+			playAudio(R.raw.sow_help, true);
+
+			return true;
+		} else { // asks the parent.
+			return super.onOptionsItemSelected(item);
+		}
+	}
+
+	@Override
 	protected Boolean validateForm() {
 
 		// gets the current values from the map.
@@ -293,7 +295,7 @@ public class SowActionActivity extends DataFormActivity {
 		// flag that indicates if the form is valid.
 		boolean isValid = true;
 
-		if ((Integer) mResultsMap.get(VARIETY) != defaultVariety) {
+		if ((Integer) mResultsMap.get(VARIETY) != DEFAULT_VARIETY) {
 			highlightField(R.id.seed_type_sow_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -302,7 +304,7 @@ public class SowActionActivity extends DataFormActivity {
 			highlightField(R.id.seed_type_sow_tr, true);
 		}
 
-		if (mAmount > Integer.parseInt(defaultAmount)) {
+		if (mAmount > Integer.parseInt(DEFAULT_AMOUNT)) {
 			highlightField(R.id.units_sow_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -312,10 +314,11 @@ public class SowActionActivity extends DataFormActivity {
 			highlightField(R.id.units_sow_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(MONTH) != defaultMonth
-				&& mDay > Integer.parseInt(defaultDay)
+		if ((Integer) mResultsMap.get(MONTH) != DEFAULT_MONTH
+				&& mDay > Integer.parseInt(DEFAULT_DAY)
 				&& validDate(mDay,
-						monthList.get((Integer) mResultsMap.get(MONTH)).getId())) {
+						mMonthsList.get((Integer) mResultsMap.get(MONTH))
+								.getId())) {
 			highlightField(R.id.day_sow_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -324,7 +327,7 @@ public class SowActionActivity extends DataFormActivity {
 			highlightField(R.id.day_sow_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(TREATMENT) != defaultTreatment) {
+		if ((Integer) mResultsMap.get(TREATMENT) != DEFAULT_TREATMENT) {
 			highlightField(R.id.treatment_sow_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -334,7 +337,7 @@ public class SowActionActivity extends DataFormActivity {
 			highlightField(R.id.treatment_sow_tr, true);
 		}
 
-		if ((Integer) mResultsMap.get(INTERCROP) != defaultIntercrop) {
+		if ((Integer) mResultsMap.get(INTERCROP) != DEFAULT_INTERCROP) {
 			highlightField(R.id.intercrop_sow_tr, false);
 		} else {
 			ApplicationTracker.getInstance().logEvent(EventType.ERROR,
@@ -349,18 +352,18 @@ public class SowActionActivity extends DataFormActivity {
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 					Global.userId, getLogTag(), "data entered");
 
-			mSeedType = varietiesList.get((Integer) mResultsMap.get(VARIETY))
+			mSeedType = mVarietiesList.get((Integer) mResultsMap.get(VARIETY))
 					.getId();
-			mMonth = monthList.get((Integer) mResultsMap.get(MONTH)).getId();
-			mTreatment = treatmentList
-					.get((Integer) mResultsMap.get(TREATMENT)).getId();
-			mIntercrop = intercropList
-					.get((Integer) mResultsMap.get(INTERCROP)).getId();
+			mMonth = mMonthsList.get((Integer) mResultsMap.get(MONTH)).getId();
+			mTreatment = mTreatmentList.get(
+					(Integer) mResultsMap.get(TREATMENT)).getId();
+			mIntercrop = mIntercropList.get(
+					(Integer) mResultsMap.get(INTERCROP)).getId();
 
 			// inserts the new plot into the table.
 			long result = mDataProvider.addSowAction(Global.userId,
 					Global.plotId, mAmount, mSeedType, mTreatment, mIntercrop,
-					getDate(mDay, mMonth), Global.IsAdmin);
+					getDate(mDay, mMonth), Global.isAdmin);
 
 			// returns true if no error was produced.
 			return result != -1;

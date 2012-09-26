@@ -5,9 +5,7 @@ import android.graphics.Bitmap;
 public class Global {
 
 	/** Indicates whether the current user is an Administrator. */
-	public static int IsAdmin = 0;
-	/** Indicates if the Audio is enabled or not. */
-	public static boolean isAudioEnabled = true;
+	public static int isAdmin = 0;
 	/** Id of the current plot. */
 	public static long plotId = -1;
 	/** Rotated Bitmap of the taken picture. */

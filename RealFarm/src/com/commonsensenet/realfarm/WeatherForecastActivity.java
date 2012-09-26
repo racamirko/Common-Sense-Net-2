@@ -90,30 +90,24 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 				Global.userId, getLogTag(),
 				mWeatherForecasts.get(position).getDate());
 
-		SoundQueue sq = SoundQueue.getInstance();
 		// stops any sound that could be playing.
-		sq.stop();
+		stopAudio();
 
 		// gets the selected forecast
 		WeatherForecast wf = mWeatherForecastItemAdapter.getItem(position);
 		WeatherType wt = mDataProvider
 				.getWeatherTypeById(wf.getWeatherTypeId());
 
-		System.out.println("date" + wf.getDate());
-		System.out.println("Id" + wf.getId());
-		System.out.println("Temp" + wf.getTemperature());
-		System.out.println("Wf type" + wf.getWeatherTypeId());
-
 		String date1 = wf.getDate();
 		String[] separated1 = date1.split("-");
-		play_integer(Integer.valueOf(separated1[2]));
-		play_integer(Integer.valueOf(separated1[1]));
-		play_integer(Integer.valueOf(separated1[0]));
+		playInteger(Integer.valueOf(separated1[2]));
+		playInteger(Integer.valueOf(separated1[1]));
+		playInteger(Integer.valueOf(separated1[0]));
 		addToSoundQueue(R.raw.forecastss);
 		addToSoundQueue(wt.getAudio());
 		addToSoundQueue(R.raw.and);
 		addToSoundQueue(R.raw.max_temp);
-		play_integer(wf.getTemperature());
+		playInteger(wf.getTemperature());
 		addToSoundQueue(R.raw.degree_centigrade);
 
 		playSound();

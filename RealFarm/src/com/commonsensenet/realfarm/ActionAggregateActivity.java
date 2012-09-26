@@ -157,15 +157,15 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.growing);
-				play_integer(total);
+				playInteger(total);
 				addToSoundQueue(R.raw.farmers);
 				addToSoundQueue(fertilizer);
 				addToSoundQueue(R.raw.put_to_plot);
 
 				if (number > 0) {
-					play_integer(number);
+					playInteger(number);
 					add_action_aggregate(4); // say "people from past"
-					play_integer(RealFarmDatabase.NUMBER_DAYS_NEWS);
+					playInteger(RealFarmDatabase.NUMBER_DAYS_NEWS);
 					add_action_aggregate(5); // say "days done"
 
 				}
@@ -179,22 +179,22 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
-			double amount = item.getResult();
+			float amount = item.getResult();
 
 			if ((total != -1) & (variety != -1) & (amount != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
-				play_integer(total);
+				playInteger(total);
 				addToSoundQueue(R.raw.people);
 				addToSoundQueue(R.raw.every_acre);
-				play_float(amount);
+				playFloat(amount);
 				addToSoundQueue(R.raw.quintal_average_yield);
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.this_done_harvesting);
 				if (number > 0) {
-					play_integer(number);
+					playInteger(number);
 					add_action_aggregate(4); // say "people from past"
-					play_integer(RealFarmDatabase.NUMBER_DAYS_NEWS);
+					playInteger(RealFarmDatabase.NUMBER_DAYS_NEWS);
 					add_action_aggregate(5); // say "days done"
 
 				}
@@ -216,15 +216,15 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.growing);
-				play_integer(total);
+				playInteger(total);
 				addToSoundQueue(R.raw.farmers);
 				addToSoundQueue(irrigation);
 				addToSoundQueue(R.raw.irrigation_this_season);
 
 				if (number > 0) {
-					play_integer(number);
+					playInteger(number);
 					add_action_aggregate(4); // say "people from past"
-					play_integer(RealFarmDatabase.NUMBER_DAYS_NEWS);
+					playInteger(RealFarmDatabase.NUMBER_DAYS_NEWS);
 					add_action_aggregate(5); // say "days done"
 
 				}
@@ -245,16 +245,16 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			if ((total != -1) & (problem != -1) & (variety != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
-				play_integer(total);
+				playInteger(total);
 				addToSoundQueue(R.raw.people);
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.to);
 				addToSoundQueue(problem);
 				addToSoundQueue(R.raw.report_this_season);
 				if (number > 0) {
-					play_integer(number);
+					playInteger(number);
 					addToSoundQueue(R.raw.people_about_this_last);
-					play_integer(RealFarmDatabase.NUMBER_DAYS_NEWS);
+					playInteger(RealFarmDatabase.NUMBER_DAYS_NEWS);
 					addToSoundQueue(R.raw.days_informed);
 				}
 				if (header == false) {
@@ -275,19 +275,19 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					& (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
-				play_integer(total);
+				playInteger(total);
 				addToSoundQueue(R.raw.people);
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.this_for_every_quintal);
-				play_integer((int) min);
+				playInteger((int) min);
 				addToSoundQueue(R.raw.from);
-				play_integer((int) min
+				playInteger((int) min
 						+ RealFarmDatabase.SELLING_AGGREGATE_INCREMENT);
 				addToSoundQueue(R.raw.to_rupees_sold);
 				if (number > 0) {
-					play_integer(number);
+					playInteger(number);
 					addToSoundQueue(R.raw.people_about_this_last);
-					play_integer(RealFarmDatabase.NUMBER_DAYS_NEWS);
+					playInteger(RealFarmDatabase.NUMBER_DAYS_NEWS);
 					addToSoundQueue(R.raw.days_informed);
 				}
 
@@ -307,16 +307,16 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			if ((total != -1) & (variety != -1) & (treatment != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
-				play_integer(total);
+				playInteger(total);
 				add_action_aggregate(1); // say "farmers"
 				addToSoundQueue(variety);
 				add_action_aggregate(2); // say "done_sowing"
 				add_action_aggregate(3); // say "this season"
 				addToSoundQueue(treatment);
 				if (number > 0) {
-					play_integer(number);
+					playInteger(number);
 					add_action_aggregate(4); // say "people from past"
-					play_integer(RealFarmDatabase.NUMBER_DAYS_NEWS);
+					playInteger(RealFarmDatabase.NUMBER_DAYS_NEWS);
 					add_action_aggregate(5); // say "days done"
 
 				}
@@ -340,7 +340,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			if ((total != -1) & (prob != -1) & (variety != -1)
 					& (pesticide != -1) & (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
-				play_integer(total);
+				playInteger(total);
 				addToSoundQueue(R.raw.people);
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.to);
@@ -350,9 +350,9 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				addToSoundQueue(pesticide);
 				addToSoundQueue(R.raw.used_as_medicine_this_season);
 				if (number > 0) {
-					play_integer(number);
+					playInteger(number);
 					add_action_aggregate(4); // say "people from past"
-					play_integer(RealFarmDatabase.NUMBER_DAYS_NEWS);
+					playInteger(RealFarmDatabase.NUMBER_DAYS_NEWS);
 					add_action_aggregate(5); // say "days done"
 
 				}

@@ -100,9 +100,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		tw = (TextView) destination.findViewById(R.id.label_right);
 		tw.setText(aggregate.getRightText());
 
-		iw = (ImageView) destination.findViewById(R.id.image_left);
-		if (aggregate.getLeftImage() != -1)
-			iw.setImageResource(aggregate.getLeftImage());
+		// iw = (ImageView) destination.findViewById(R.id.image_left);
+		// if (aggregate.getLeftImage() != -1) {
+		// iw.setImageResource(aggregate.getLeftImage());
+		// }
 
 		iw = (ImageView) destination.findViewById(R.id.image_left_bottom);
 		if (aggregate.getLeftBottomImage() != -1)
@@ -132,11 +133,11 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 		// sets the values.
 		selectedItem.setLeftText(situationItem.getProblem().getShortName());
-		selectedItem.setLeftImage(situationItem.getProblem().getImage1());
-		// selectedItem.setCenterImage(solutionItem.getResource().getImage1());
-		// selectedItem.setRightText(solutionItem.getResource().getShortName());
+		// selectedItem.setLeftImage(situationItem.getProblem().getImage1());
+		selectedItem.setCenterImage(solutionItem.getResource().getImage1());
+		selectedItem.setRightText(solutionItem.getResource().getShortName());
 		selectedItem.setSelector1(situationItem.getProblem().getId());
-		// selectedItem.setSelector2(solutionItem.getResource().getId());
+		selectedItem.setSelector2(solutionItem.getResource().getId());
 		return selectedItem;
 	}
 
@@ -183,19 +184,17 @@ public class AdviceActivity extends HelpEnabledActivity implements
 			// separates the sequence using the , as separator.
 			String[] audioPieces = audioSequence.split(",");
 
-			SoundQueue sq = SoundQueue.getInstance();
-
 			// plays the advice audio.
-			play_integer(cal.get(Calendar.MONTH) + 1);
-			play_integer(cal.get(Calendar.MONTH));
-			play_integer(cal.get(Calendar.YEAR));
-			sq.addToQueue(Integer.valueOf(audioPieces[0]));
-			play_integer(plotNumber);
-			sq.addToQueue(Integer.valueOf(audioPieces[1]));
-			play_integer(severity);
-			sq.addToQueue(Integer.valueOf(audioPieces[2]));
+			playInteger(cal.get(Calendar.MONTH) + 1);
+			playInteger(cal.get(Calendar.MONTH));
+			playInteger(cal.get(Calendar.YEAR));
+			addToSoundQueue(Integer.valueOf(audioPieces[0]));
+			playInteger(plotNumber);
+			addToSoundQueue(Integer.valueOf(audioPieces[1]));
+			playInteger(severity);
+			addToSoundQueue(Integer.valueOf(audioPieces[2]));
 
-			sq.play();
+			playSound();
 
 		} catch (ParseException e) {
 		}
@@ -211,8 +210,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		// int plan = solutionItem.getLikes();
 		int audio = solutionItem.getAdvicePiece().getAudio();
 
-		SoundQueue.getInstance().addToQueue(audio);
-
+		addToSoundQueue(audio);
 		playSound();
 	}
 
@@ -245,7 +243,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	private void makeAudioUserTopBar(boolean canHear) {
 		// TODO AUDIO: Dummy audio. To be removed.
-		playAudio(R.raw.a30, true);
+		playAudio(R.raw.a30, canHear);
 
 		// TODO AUDIO: if(!canHear) then you can't hear the audio when the sound
 		// is disabled
@@ -511,7 +509,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 				Global.userId)) {
 			mDataProvider.addPlanAction(Global.userId, situationItem
 					.getPlotId(), solutionItem.getAdvicePiece().getId(),
-					Global.IsAdmin);
+					Global.isAdmin);
 			mSituationItems.get(groupPosition).getItems().get(childPosition)
 					.setHasLiked(true);
 			mSituationItems.get(groupPosition).getItems().get(childPosition)
@@ -534,7 +532,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	public void onLikeLongClick(int groupPosition, int childPosition) {
 		// TODO AUDIO: explain what the like button does
-		playAudio(R.raw.problems);
+		playAudio(R.raw.problems, true);
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId,
 				"like gr:" + groupPosition + " pos:" + childPosition);

@@ -152,45 +152,38 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public void onClick(View view) {
 				String result = textView.getText().toString();
 
+				// tracks the action.
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "numberPicker",
 						"ok " + result);
 
+				// adds the value into the result map
 				mResultsMap.put(mapEntry, result);
 				tw_sow.setText(result);
 				feedbackRow
 						.setBackgroundResource(android.R.drawable.list_selector_background);
-				/*
-				 * Toast.makeText(mParentReference, result, Toast.LENGTH_LONG)
-				 * .show();
-				 */
-				dialog.cancel();
+
+				// closes the dialog.
+				dialog.dismiss();
 
 				// playing number
-				System.out.println("Checking float or int");
-
 				float number = Float.valueOf(textView.getText().toString());
 				int result1 = (int) (number * 100);
 				int rem = result1 % 100;
-				System.out.println("finished checking float or int");
 
 				if ((rem == 100) || (rem == 0)) {
 					float num = Float.valueOf(textView.getText().toString());
 					int temp = (int) num;
 					if (rem != 100) {
-						play_integer(temp);
+						playInteger(temp);
 					} else {
 						add_audio_single(101);
 					}
 					playSound();
 				} else {
-					System.out.println("Float value:"
-							+ Float.valueOf(textView.getText().toString()));
-					play_float(Float.valueOf(textView.getText().toString()));
+					playFloat(Float.valueOf(textView.getText().toString()));
 					playSound();
-
 				}
-
 			}
 		});
 		cancel.setOnClickListener(new View.OnClickListener() {
@@ -206,7 +199,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public boolean onLongClick(View view) {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "ok");
-				playAudio(infoOkAudio);
+				playAudio(infoOkAudio, true);
 				return true;
 			}
 		});
@@ -214,7 +207,7 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 			public boolean onLongClick(View view) {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "cancel");
-				playAudio(infoCancelAudio);
+				playAudio(infoCancelAudio, true);
 				return true;
 			}
 		});
@@ -223,27 +216,24 @@ public abstract class DataFormActivity extends HelpEnabledActivity {
 				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 						Global.userId, getLogTag(), "numberPicker", "text",
 						textView.getText());
-				System.out.println("Checking float or int");
 
 				float number = Float.valueOf(textView.getText().toString());
 				int result = (int) (number * 100);
 				int rem = result % 100;
-				System.out.println("finished checking float or int");
 
 				if ((rem == 100) || (rem == 0)) {
 					float num = Float.valueOf(textView.getText().toString());
 					int temp = (int) num;
 					if (rem != 100) {
-						play_integer(temp);
+						playInteger(temp);
 					} else {
 						add_audio_single(101);
 					}
-					playSound();
+					playSound(true);
 				} else {
-					System.out.println("Float value:"
-							+ Float.valueOf(textView.getText().toString()));
-					play_float(Float.valueOf(textView.getText().toString()));
-					playSound();
+
+					playFloat(Float.valueOf(textView.getText().toString()));
+					playSound(true);
 
 				}
 				return false;

@@ -341,23 +341,33 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			intent = new Intent(this, PlotListActivity.class);
 		} else if (v.getId() == R.id.hmscrn_btn_sound) {
 
-			if (!Global.isAudioEnabled) {
+			if (!SoundQueue.isAudioEnabled) {
+				// enables the sound.
+				SoundQueue.isAudioEnabled = true;
+
+				// updates the graphics.
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.ic_sound_on);
-				// enables the sound.
-				Global.isAudioEnabled = true;
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(), "audio enabled");
+
 				playAudio(R.raw.yes_sound_help);
 
+				// tracks the user activity.
+				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+						Global.userId, getLogTag(), "audio enabled");
+
 			} else {
+				// updates the sound icon.
 				ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 				snd.setImageResource(R.drawable.ic_sound_off);
-				// disables the audio.
-				Global.isAudioEnabled = false;
+
+				playAudio(R.raw.no_sound_help);
+
+				// tracks the user activity
 				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 						Global.userId, getLogTag(), "audio disabled");
-				playAudio(R.raw.no_sound_help);
+
+				// disables the audio.
+				SoundQueue.isAudioEnabled = false;
 			}
 
 			// no need to start an intent
@@ -403,7 +413,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		SoundQueue.getInstance().init(this);
 
 		// sets the audio icon based on the audio preferences.
-		if (Global.isAudioEnabled) {
+		if (SoundQueue.isAudioEnabled) {
 			ImageButton snd = (ImageButton) findViewById(R.id.hmscrn_btn_sound);
 			snd.setImageResource(R.drawable.ic_sound_on);
 		} else {
@@ -496,11 +506,11 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 					.getLimitPrice(RealFarmDatabase.COLUMN_NAME_MARKETPRICE_MAX);
 
 			addToSoundQueue(R.raw.chal_max_price);
-			play_integer(max);
+			playInteger(max);
 			addToSoundQueue(R.raw.rupees_every_quintal);
 
 			addToSoundQueue(R.raw.chal_min_price);
-			play_integer(min);
+			playInteger(min);
 			addToSoundQueue(R.raw.rupees_every_quintal);
 			playSound();
 		} else if (v.getId() == R.id.hmscrn_btn_advice) {

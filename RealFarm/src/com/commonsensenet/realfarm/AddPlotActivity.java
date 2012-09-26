@@ -44,7 +44,7 @@ public class AddPlotActivity extends DataFormActivity {
 	private void addPlotToDatabase() {
 		// adds a new plot to the database.
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
-				mSoilType, mPlotImage, mSize, Global.IsAdmin, mType);
+				mSoilType, mPlotImage, mSize, Global.isAdmin, mType);
 
 		// TODO: remove, demo data.
 		if (Global.plotId != -1) {
@@ -180,7 +180,7 @@ public class AddPlotActivity extends DataFormActivity {
 				playAudio(R.raw.enter_plot_size_acres, true);
 
 			else {
-				play_float(Float.parseFloat(mResultsMap.get(SIZE).toString()));
+				playFloat(Float.parseFloat(mResultsMap.get(SIZE).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_crop_plot) {

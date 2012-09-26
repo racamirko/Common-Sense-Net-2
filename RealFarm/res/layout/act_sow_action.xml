@@ -75,7 +75,7 @@
                 android:src="@drawable/amount" />
 
             <TextView
-                android:id="@+id/dlg_lbl_unit_no_sow"
+                android:id="@+id/dlg_lbl_amount_sow"
                 android:layout_width="80dp"
                 android:layout_height="48dp"
                 android:layout_marginLeft="10dp"

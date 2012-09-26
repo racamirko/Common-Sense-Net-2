@@ -230,7 +230,7 @@ public class HarvestActionActivity extends DataFormActivity {
 				playAudio(R.raw.selectthedate, true);
 
 			else {
-				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_month_harvest) {
@@ -332,7 +332,7 @@ public class HarvestActionActivity extends DataFormActivity {
 
 			long result = mDataProvider.addHarvestAction(Global.userId,
 					Global.plotId, mVariety, mAmount, mUnit, mSatisfaction,
-					getDate(mDay, mMonth), Global.IsAdmin);
+					getDate(mDay, mMonth), Global.isAdmin);
 
 			return result != -1;
 		}

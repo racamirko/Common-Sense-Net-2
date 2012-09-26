@@ -171,7 +171,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 				playAudio(R.raw.noofhours, true);
 
 			else {
-				play_integer(Integer.valueOf(mResultsMap.get(HOURS).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(HOURS).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_day_irr) {
@@ -180,7 +180,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 				playAudio(R.raw.selectthedate, true);
 
 			else {
-				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_month_irr) {
@@ -261,7 +261,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 
 			long result = mDataProvider.addIrrigateAction(Global.userId,
 					Global.plotId, mHours, mMethod, getDate(mDay, mMonth),
-					Global.IsAdmin);
+					Global.isAdmin);
 
 			return result != -1;
 		}

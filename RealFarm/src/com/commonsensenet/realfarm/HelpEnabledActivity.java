@@ -649,8 +649,37 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		}
 	}
 
-	public void play_float(double num) // For audio added
-	{
+	/**
+	 * Plays the given resourceId using the SoundQueue.
+	 * 
+	 * @param resourceId
+	 *            id of the audio.
+	 */
+	protected void playAudio(int resourceId) {
+
+		playAudio(resourceId, false);
+	}
+
+	/**
+	 * Plays the given resourceId. The forcePlay flag can be use to play an
+	 * audio no matter the Global.enableAudio setting.
+	 * 
+	 * @param resourceId
+	 *            id of the audio to play.
+	 * @param forcePlay
+	 *            whether the Global.enableAudio setting is respected or not.
+	 */
+	protected void playAudio(int resourceId, Boolean forcePlay) {
+
+		// cleans any possibly playing sound
+		mSoundQueue.clean();
+		// adds the sound to the queue
+		mSoundQueue.addToQueue(resourceId);
+		// plays the sound
+		mSoundQueue.play(forcePlay);
+	}
+
+	protected void playFloat(float num) {
 
 		int result = (int) (num * 100);
 		int quot = result / 100;
@@ -689,64 +718,16 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		}
 		if ((rem == 25) || ((rem == 50) & (quot != 0)) || (rem == 75)) {
 			if (rem == 25) {
-				mSoundQueue.addToQueue(R.raw.quarter);
+				addToSoundQueue(R.raw.quarter);
 			} else if (rem == 50) {
-				mSoundQueue.addToQueue(R.raw.half);
+				addToSoundQueue(R.raw.half);
 			} else if (rem == 75) {
-				mSoundQueue.addToQueue(R.raw.three_fourth);
+				addToSoundQueue(R.raw.three_fourth);
 			}
 		}
 	}
 
-	public void play_float(float num) {
-
-		int result = (int) (num * 100);
-		int quot = result / 100;
-		int rem = result % 100;
-
-		if (quot == 0) {
-			add_audio_single(101); // says "zero"
-		} else {
-			add_audio_single(quot);
-		}
-
-		if ((quot == 0) & (rem <= 90)) {
-			int rem1 = rem / 10;
-			add_audio_single(102); // says "point"
-			add_audio_single(rem1);
-		}
-		if ((rem <= 9) & (rem != 0)) // To handle cases 2.09, ..etc
-		{
-			add_audio_single(102); // says point
-			add_audio_single(101); // says number after decimal point
-			add_audio_single(rem);
-		}
-		if ((rem > 9) & (quot != 0)) // To handle cases 2.90, ..etc
-		{
-			if ((rem != 25) & (rem != 50) & (rem != 75) & (rem != 0)) {
-				int rem1 = rem / 10;
-				int rem2 = rem % 10;
-
-				add_audio_single(102); // says point
-				add_audio_single(rem1); // //says number after decimal point
-				if (rem2 != 0) {
-					add_audio_single(rem2); // says second number after decimal
-											// point
-				}
-			}
-		}
-		if ((rem == 25) || ((rem == 50) & (quot != 0)) || (rem == 75)) {
-			if (rem == 25) {
-				mSoundQueue.addToQueue(R.raw.quarter);
-			} else if (rem == 50) {
-				mSoundQueue.addToQueue(R.raw.half);
-			} else if (rem == 75) {
-				mSoundQueue.addToQueue(R.raw.three_fourth);
-			}
-		}
-	}
-
-	public void play_integer(int num) {
+	protected void playInteger(int num) {
 		if (num >= 1000) {
 			if (num % 1000 == 0) {
 				int quot = num / 1000;
@@ -784,48 +765,18 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 				} else {
 					add_audio_single(num % 100);
 				}
-
 			}
 		}
 	}
 
-	/**
-	 * Plays the given resourceId. The sound is only played if
-	 * Global.enabledAudio is true, otherwise it is not played.
-	 * 
-	 * @param resourceId
-	 *            id of the audio.
-	 */
-	protected void playAudio(int resourceId) {
-		// plays the sound if the id is valid.
-		if (resourceId != -1) {
-			playAudio(resourceId, false);
-		}
-	}
-
-	/**
-	 * Plays the given resourceId. The forcePlay flag can be use to play an
-	 * audio no matter the Global.enableAudio setting.
-	 * 
-	 * @param resid
-	 *            id of the audio to play.
-	 * @param forcePlay
-	 *            whether the Global.enableAudio setting is respected or not.
-	 */
-	protected void playAudio(int resid, Boolean forcePlay) {
-		// checking for audio enable
-		if (Global.isAudioEnabled || forcePlay) {
-			// cleans any possibly playing sound
-			mSoundQueue.clean();
-			// adds the sound to the queue
-			mSoundQueue.addToQueue(resid);
-			// plays the sound
-			mSoundQueue.play();
-		}
-	}
-
 	protected void playSound() {
-		mSoundQueue.play();
+		playSound(false);
+	}
+
+	protected void playSound(Boolean forcePlay) {
+
+		// plays the current queue.
+		mSoundQueue.play(forcePlay);
 	}
 
 	// TODO: icon needs to be displayed when the help is clicked.
@@ -840,5 +791,4 @@ public abstract class HelpEnabledActivity extends SherlockActivity implements
 		// stops the sounds being played by the SoundQueue.
 		mSoundQueue.stop();
 	}
-
 }

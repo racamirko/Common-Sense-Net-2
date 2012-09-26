@@ -313,12 +313,15 @@ public class YieldActivity extends TopSelectorActivity implements
 		soilTypeSelectorData = mDataProvider.getResources(
 				RealFarmDatabase.RESOURCE_TYPE_SOIL_TYPE).get(0);
 
-		if (mTopSelectorData != null)
-			super.setTopSelector(mActionTypeId);
-		if (locationSelectorData != null)
+		if (mTopSelectorData != null) {
+			setTopSelector(mActionTypeId);
+		}
+		if (locationSelectorData != null) {
 			setLocationSelector();
-		if (yearSelectorData != null)
+		}
+		if (yearSelectorData != null) {
 			setYearSelector();
+		}
 		/*
 		 * if(dateSelectorData != null) updateSelector(dateLabel,
 		 * sowingDateSelector, dateSelectorData); if(soilTypeSelectorData !=
@@ -341,7 +344,7 @@ public class YieldActivity extends TopSelectorActivity implements
 		switch (type) {
 		case 2:
 			mTopSelectorData = choice;
-			super.setTopSelector(mActionTypeId);
+			setTopSelector(mActionTypeId);
 			// TODO: reinitialize the variety selector below according to the
 			// new crop?
 			break;

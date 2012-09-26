@@ -337,7 +337,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 		int userName = user.getAudioName();
 
-		System.out.println(userName);
 		if (userName != -1) {
 			addToSoundQueue(userName);
 			addToSoundQueue(R.raw.calling);
@@ -352,7 +351,8 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		String date = user.getDate();
 		int userName = user.getAudioName();
 		int userLocation = user.getAudioLocation();
-		int action = mDataProvider.getActionTypeById(mActionTypeId).getAudio();
+		// int action =
+		// mDataProvider.getActionTypeById(mActionTypeId).getAudio();
 
 		date = date + "2012";
 
@@ -360,24 +360,19 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		addToSoundQueue(userLocation);
 		add_action_aggregate(7); // says "in"
 
-		System.out.println("On " + date + userName + " from " + userLocation
-				+ action);
-
 		// Mid
 		int variety = mTopSelectorData.getAudio();
 		switch (mActionTypeId) {
 		case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
-			double numberOffertilizer = Double.parseDouble(user.getLeftText());
+			float numberOffertilizer = Float.parseFloat(user.getLeftText());
 			int unit = user.getAudioRightImage();
 
-			System.out.println(variety + " with " + unit + " per acre");
-			System.out.println("fertilizer" + numberOffertilizer);
-
 			if ((variety != -1) & (unit != -1) & (numberOffertilizer != -1)) {
-				add_action_aggregate(8); // says "every acre"
+				// says "every acre"
+				add_action_aggregate(8);
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.to);
-				play_float(numberOffertilizer);
+				playFloat(numberOffertilizer);
 				addToSoundQueue(R.raw.so_much);
 				addToSoundQueue(unit);
 				addToSoundQueue(R.raw.fertilizer_put);
@@ -387,14 +382,12 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
-			Double amount = Double.parseDouble(user.getLeftText());
-
-			System.out.println(amount + " quintal per acre of " + variety);
+			float amount = Float.parseFloat(user.getLeftText());
 
 			if ((amount != -1) & (variety != -1)) {
 
 				addToSoundQueue(R.raw.every_acre);
-				play_float(amount);
+				playFloat(amount);
 				addToSoundQueue(R.raw.quintal_so_much);
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.done_harvest);
@@ -406,12 +399,10 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 			int hours = Integer.parseInt(user.getLeftText());
 			int irrigation = user.getAudioLeftImage();
 
-			System.out.println(hours + " through " + irrigation);
-
 			if ((hours != -1) & (irrigation != -1)) {
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.to);
-				play_integer(hours);
+				playInteger(hours);
 				addToSoundQueue(R.raw.hourly_duration);
 				addToSoundQueue(irrigation);
 				addToSoundQueue(R.raw.irrigation_done);
@@ -421,8 +412,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 		case RealFarmDatabase.ACTION_TYPE_REPORT_ID:
 			int problem = user.getAudioLeftImage();
-
-			System.out.println(problem + " with " + variety);
 
 			if ((problem != -1) & (variety != -1)) {
 				addToSoundQueue(variety);
@@ -437,29 +426,24 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 			int kg = user.getAudioLeftImage();
 			int price = Integer.parseInt(user.getLeftText());
 
-			System.out.println(variety + " at " + price
-					+ " rupees per quintal of " + kg + " bags");
-
 			if ((variety != -1) & (price != -1) & (kg != -1)) {
 				addToSoundQueue(variety);
 				addToSoundQueue(R.raw.every_quintals);
 				addToSoundQueue(kg);
 				addToSoundQueue(R.raw.ss);
-				play_integer(price);
+				playInteger(price);
 				addToSoundQueue(R.raw.to_rupees_sold);
 			}
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
-			double numberOfSerus = Double.parseDouble(user.getLeftText());
+			float numberOfSerus = Float.parseFloat(user.getLeftText());
 			int treatment = user.getAudioCenterImage();
 			int intercrop = user.getAudioLeftImage();
 
-			System.out.println(numberOfSerus + " serus per acre of "
-					+ treatment + variety + " as " + intercrop);
 			if ((treatment != -1) & (intercrop != -1) & (numberOfSerus != -1)) {
 				add_action_aggregate(8); // says "every acre"
-				play_float(numberOfSerus);
+				playFloat(numberOfSerus);
 				add_action_aggregate(9); // says "seru"
 				addToSoundQueue(variety);
 				addToSoundQueue(treatment);
@@ -470,13 +454,10 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 			break;
 
 		case RealFarmDatabase.ACTION_TYPE_SPRAY_ID:
-			double amountSprayed = Double.parseDouble(user.getLeftText());
+			float amountSprayed = Float.parseFloat(user.getLeftText());
 			int uni = user.getAudioRightImage();
 			int pesticide = user.getAudioLeftImage();
 			int pb = user.getAudioCenterImage();
-
-			System.out.println(uni + " per acre of " + pesticide + " on "
-					+ variety + " against " + pb);
 
 			if ((uni != -1) & (pesticide != -1) & (variety != -1) & (pb != -1)) {
 				addToSoundQueue(variety);
@@ -484,7 +465,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 				addToSoundQueue(R.raw.infected);
 				addToSoundQueue(pb);
 				addToSoundQueue(R.raw.to_solve_every_acre);
-				play_float(amountSprayed);
+				playFloat(amountSprayed);
 				addToSoundQueue(uni);
 				addToSoundQueue(R.raw.quantity_s);
 				addToSoundQueue(pesticide);
@@ -499,16 +480,17 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		// Outro
 		if (mHeader == false) {
 			if (userName == -1) {
-				addToSoundQueue(R.raw.farmers); // says "farmer" if username is
-												// not there
+				// says "farmer" if username is not there.
+				addToSoundQueue(R.raw.farmers);
 			} else {
 				addToSoundQueue(userName);
 			}
-			addToSoundQueue(R.raw.to_call_click); // says
-													// "to call touch here briefly"
+			// says "to call touch here briefly"
+			addToSoundQueue(R.raw.to_call_click);
+
 		}
 		playSound();
-		System.out.println("To call " + userName + " touch here briefly");
+
 	}
 
 	protected abstract void makeAudioAggregateMarketItem(AggregateItem item,

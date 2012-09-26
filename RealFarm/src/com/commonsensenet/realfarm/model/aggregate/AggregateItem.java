@@ -21,18 +21,16 @@ public class AggregateItem {
 	private String leftText = "";
 	private String centerText = "";
 	private String rightText = "";
-	private int leftImage = -1;
 	private int centerImage = -1;
 	private int leftBottomImage = -1;
 	private int news = 0;
 	private int total = 0;
-	private double result = 0.0;
+	private float result = 0.0f;
 
 	public AggregateItem(int actionTypeId) {
 		mActionTypeId = actionTypeId;
 		// initializes the data structure
 		mAggregateValues = new Hashtable<String, String>();
-
 	}
 
 	public void addValue(String key, String value) {
@@ -123,14 +121,6 @@ public class AggregateItem {
 		return news + "/" + total;
 	}
 
-	public void setLeftImage(int img) {
-		leftImage = img;
-	}
-
-	public int getLeftImage() {
-		return leftImage;
-	}
-
 	public void setCenterImage(int img) {
 		centerImage = img;
 	}
@@ -171,11 +161,11 @@ public class AggregateItem {
 		return selector3;
 	}
 
-	public void setResult(double res) {
+	public void setResult(float res) {
 		result = res;
 	}
 
-	public double getResult() {
+	public float getResult() {
 		return result;
 	}
 }

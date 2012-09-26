@@ -68,9 +68,9 @@ public class UserListActivity extends Activity {
 				if (mUserList.get(position).getId() == Long
 						.valueOf(((RealFarmApp) getApplication()).getDeviceId()
 								+ "1")) {
-					Global.IsAdmin = 0;
+					Global.isAdmin = 0;
 				} else {
-					Global.IsAdmin = 1;
+					Global.isAdmin = 1;
 				}
 
 				// redirects to the home screen.

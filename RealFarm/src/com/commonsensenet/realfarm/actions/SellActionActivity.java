@@ -258,7 +258,7 @@ public class SellActionActivity extends DataFormActivity {
 				playAudio(R.raw.dateinfo, true);
 
 			else {
-				play_integer(Integer.valueOf(mResultsMap.get(DAY).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_month_sell) {
@@ -274,7 +274,7 @@ public class SellActionActivity extends DataFormActivity {
 				playAudio(R.raw.select_unit_number, true);
 
 			else {
-				play_integer(Integer
+				playInteger(Integer
 						.valueOf(mResultsMap.get(AMOUNT).toString()));
 				playSound();
 			}
@@ -298,7 +298,7 @@ public class SellActionActivity extends DataFormActivity {
 				playAudio(R.raw.select_unit_number, true);
 
 			else
-				play_integer(Integer
+				playInteger(Integer
 						.valueOf(mResultsMap.get(AMOUNT).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
 
@@ -415,7 +415,7 @@ public class SellActionActivity extends DataFormActivity {
 
 			long result = mDataProvider.addSellAction(Global.userId, 0, mCrop,
 					mAmount, mRemaining, mUnit, mUnit2, mPrice,
-					getDate(mDay, mMonth), Global.IsAdmin);
+					getDate(mDay, mMonth), Global.isAdmin);
 
 			return result != -1;
 

@@ -131,11 +131,11 @@ public class MarketPriceActivity extends AggregateMarketActivity implements
 			playAudio(mTopSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.market_info) {
 			addToSoundQueue(R.raw.chal_max_price);
-			play_integer(mMax);
+			playInteger(mMax);
 			addToSoundQueue(R.raw.rupees_every_quintal);
 
 			addToSoundQueue(R.raw.chal_min_price);
-			play_integer(mMin);
+			playInteger(mMin);
 			addToSoundQueue(R.raw.rupees_every_quintal);
 			playSound();
 
