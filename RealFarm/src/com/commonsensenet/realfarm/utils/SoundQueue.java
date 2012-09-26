@@ -43,6 +43,9 @@ public class SoundQueue implements OnCompletionListener {
 	protected Context mContext;
 	/** Current MediaPlayer used to play the sound. */
 	protected MediaPlayer mCurrentMediaPlayer;
+	/** Stores the last forcePlay setting. */
+	private boolean mForcePlay = false;
+
 	/** Queue that contains the sounds in the order that need to be played. */
 	protected Queue<MediaPlayer> mResToPlay;
 
@@ -171,9 +174,6 @@ public class SoundQueue implements OnCompletionListener {
 			clean();
 		}
 	}
-
-	/** Stores the last forcePlay setting. */
-	private boolean mForcePlay = false;
 
 	/**
 	 * Plays the currently playing sound and removes all pending sounds from the

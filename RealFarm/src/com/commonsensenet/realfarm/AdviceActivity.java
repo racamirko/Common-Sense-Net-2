@@ -133,11 +133,15 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 		// sets the values.
 		selectedItem.setLeftText(situationItem.getProblem().getShortName());
-		// selectedItem.setLeftImage(situationItem.getProblem().getImage1());
-		selectedItem.setCenterImage(solutionItem.getResource().getImage1());
-		selectedItem.setRightText(solutionItem.getResource().getShortName());
 		selectedItem.setSelector1(situationItem.getProblem().getId());
-		selectedItem.setSelector2(solutionItem.getResource().getId());
+		// selectedItem.setLeftImage(situationItem.getProblem().getImage1());
+
+		if (solutionItem.getResource() != null) {
+			selectedItem.setSelector2(solutionItem.getResource().getId());
+			selectedItem.setCenterImage(solutionItem.getResource().getImage1());
+			selectedItem
+					.setRightText(solutionItem.getResource().getShortName());
+		}
 		return selectedItem;
 	}
 
@@ -292,10 +296,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		copyView(selectedItem, tmpView);
 		rl.addView(tmpView);
 
-		// gets the data and data adapter.
-
-		if (list == null || list.size() < 1)
+		// indicates that the list has no information.
+		if (list == null || list.size() < 1) {
 			playAudio(R.raw.no_info_farmers, true);
+		}
 
 		// gets the ListView from the layout
 		ListView userListView = (ListView) layout
