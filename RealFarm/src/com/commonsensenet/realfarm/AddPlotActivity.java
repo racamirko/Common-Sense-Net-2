@@ -208,10 +208,6 @@ public class AddPlotActivity extends DataFormActivity {
 			else
 				playAudio(mTypeList.get(((Integer) mResultsMap.get(TYPE)))
 						.getAudio(), true);
-		}
-
-		else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.plot_help, true);
 		} else if (v.getId() == R.id.dlg_plot_img_test) {
 			playAudio(R.raw.take_plot_pic_touch, true);
 		} else if (v.getId() == R.id.maincrop_tr) {
@@ -239,23 +235,21 @@ public class AddPlotActivity extends DataFormActivity {
 		return true;
 	}
 
-	/**
-	 * Adds the current plot to the database.
-	 */
-
 	public boolean onOptionsItemSelected(MenuItem item) {
 
 		if (item.equals(mHelpItem)) {
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.plot_help, true);
 
 			return true;
-		} else { // asks the parent.
-			return super.onOptionsItemSelected(item);
 		}
+
+		// asks the parent.
+		return super.onOptionsItemSelected(item);
+
 	}
 
 	@Override

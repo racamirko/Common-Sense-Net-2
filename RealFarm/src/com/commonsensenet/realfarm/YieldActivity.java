@@ -3,12 +3,10 @@ package com.commonsensenet.realfarm;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -68,25 +66,14 @@ public class YieldActivity extends TopSelectorActivity implements
 	private Resource varietySelectorData;
 	private Resource yearSelectorData;
 
-	protected void cancelAudio() {
-
-		Intent adminintent = new Intent(YieldActivity.this, Homescreen.class);
-		startActivity(adminintent);
-		YieldActivity.this.finish();
-	}
-
 	public void onClick(View v) {
 		// tracks the application usage.
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
 
-		if (v.getId() == R.id.aggr_img_home) {
-			startActivity(new Intent(YieldActivity.this, Homescreen.class));
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help);
-		} else if (v.getId() == R.id.button_back) {
-			cancelAudio();
+		if (v.getId() == R.id.button_back) {
+			onBackPressed();
 		} else if (v.getId() == R.id.selector_location) {
 			List<Resource> data = mDataProvider
 					.getResources(RealFarmDatabase.RESOURCE_TYPE_LOCATION);
@@ -190,8 +177,6 @@ public class YieldActivity extends TopSelectorActivity implements
 		final LinearLayout avgRow = (LinearLayout) findViewById(R.id.avg_row);
 		final LinearLayout minRow = (LinearLayout) findViewById(R.id.min_row);
 
-		final ImageButton home = (ImageButton) findViewById(R.id.aggr_img_home);
-		final ImageButton help = (ImageButton) findViewById(R.id.aggr_img_help);
 		final View crop = findViewById(R.id.aggr_crop);
 		final View locationSelector = findViewById(R.id.selector_location);
 		final View yearSelector = findViewById(R.id.selector_year);
@@ -213,12 +198,8 @@ public class YieldActivity extends TopSelectorActivity implements
 		locationSelector.setOnLongClickListener(this);
 		yearSelector.setOnLongClickListener(this);
 
-		home.setOnLongClickListener(this);
 		back.setOnLongClickListener(this);
-		help.setOnLongClickListener(this);
 		crop.setOnLongClickListener(this);
-		home.setOnClickListener(this);
-		help.setOnClickListener(this);
 		back.setOnClickListener(this);
 		crop.setOnClickListener(this);
 
@@ -245,11 +226,7 @@ public class YieldActivity extends TopSelectorActivity implements
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
 
-		if (v.getId() == R.id.aggr_img_home) {
-
-		} else if (v.getId() == R.id.aggr_img_help) {
-
-		} else if (v.getId() == R.id.button_back) {
+		if (v.getId() == R.id.button_back) {
 
 		} else if (v.getId() == R.id.selector_location) {
 

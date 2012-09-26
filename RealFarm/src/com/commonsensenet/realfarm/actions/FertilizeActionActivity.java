@@ -48,7 +48,7 @@ public class FertilizeActionActivity extends DataFormActivity implements
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.fert_help, true);
 
 			return true;
@@ -183,10 +183,6 @@ public class FertilizeActionActivity extends DataFormActivity implements
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
-
-		if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.fert_help, true);
-		}
 
 		if (v.getId() == R.id.dlg_lbl_var_fert) {
 

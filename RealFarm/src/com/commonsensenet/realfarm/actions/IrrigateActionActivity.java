@@ -42,7 +42,7 @@ public class IrrigateActionActivity extends DataFormActivity {
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.irr_help, true);
 
 			return true;
@@ -190,10 +190,6 @@ public class IrrigateActionActivity extends DataFormActivity {
 			else
 				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
 						.getAudio(), true);
-		}
-
-		else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.irr_help, true);
 		} else if (v.getId() == R.id.method_irr_tr) {
 			playAudio(R.raw.method, true);
 		} else if (v.getId() == R.id.units_irr_tr) {

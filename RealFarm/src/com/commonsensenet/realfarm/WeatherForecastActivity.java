@@ -16,7 +16,6 @@ import com.commonsensenet.realfarm.model.WeatherForecast;
 import com.commonsensenet.realfarm.model.WeatherType;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.WeatherForecastItemAdapter;
 
 public class WeatherForecastActivity extends HelpEnabledActivity implements

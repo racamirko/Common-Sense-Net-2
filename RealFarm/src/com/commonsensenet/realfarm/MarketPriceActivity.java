@@ -8,6 +8,7 @@ import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.Resource;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
@@ -18,10 +19,29 @@ import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 public class MarketPriceActivity extends AggregateMarketActivity implements
 		OnLongClickListener {
 
-	/** Minimum market price. */
-	private int mMin = 0;
 	/** Maximum market price. */
 	private int mMax = 0;
+	/** Minimum market price. */
+	private int mMin = 0;
+
+	protected void makeAudioAggregateMarketItem(AggregateItem item,
+			boolean header) {
+
+		int variety = mTopSelectorData.getAudio();
+		int days = mDaysSelectorData.getAudio();
+		int number = item.getNews();
+		long min = item.getSelector3();
+		long max = item.getSelector2();
+		int kg = mDataProvider.getResourceImageById(item.getSelector1(),
+				RealFarmDatabase.TABLE_NAME_UNIT,
+				RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO);
+
+		addToSoundQueue(R.raw.last);
+		addToSoundQueue(days);
+		addToSoundQueue(R.raw.days_paid_price_touch_here);
+		playSound();
+
+	}
 
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.act_marketprice);
@@ -125,22 +145,16 @@ public class MarketPriceActivity extends AggregateMarketActivity implements
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
 
-		if (v.getId() == R.id.aggr_img_home) {
-			playAudio(R.raw.homepage, true);
-		} else if (v.getId() == R.id.aggr_crop) {
+		if (v.getId() == R.id.aggr_crop) {
 			playAudio(mTopSelectorData.getAudio(), true);
 		} else if (v.getId() == R.id.market_info) {
 			addToSoundQueue(R.raw.chal_max_price);
 			playInteger(mMax);
 			addToSoundQueue(R.raw.rupees_every_quintal);
-
 			addToSoundQueue(R.raw.chal_min_price);
 			playInteger(mMin);
 			addToSoundQueue(R.raw.rupees_every_quintal);
 			playSound();
-
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.mp_help, true);
 		} else if (v.getId() == R.id.button_back) {
 			playAudio(R.raw.back_button, true);
 		} else if (v.getId() == R.id.selector_days) {
@@ -151,22 +165,17 @@ public class MarketPriceActivity extends AggregateMarketActivity implements
 		return true;
 	}
 
-	protected void makeAudioAggregateMarketItem(AggregateItem item,
-			boolean header) {
+	public boolean onOptionsItemSelected(MenuItem item) {
 
-		int variety = mTopSelectorData.getAudio();
-		int days = mDaysSelectorData.getAudio();
-		int number = item.getNews();
-		long min = item.getSelector3();
-		long max = item.getSelector2();
-		int kg = mDataProvider.getResourceImageById(item.getSelector1(),
-				RealFarmDatabase.TABLE_NAME_UNIT,
-				RealFarmDatabase.COLUMN_NAME_UNIT_AUDIO);
+		if (item.equals(mHelpItem)) {
 
-		addToSoundQueue(R.raw.last);
-		addToSoundQueue(days);
-		addToSoundQueue(R.raw.days_paid_price_touch_here);
-		playSound();
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), item.getTitle());
+			playAudio(R.raw.mp_help, true);
+			return true;
+		}
 
+		return super.onOptionsItemSelected(item);
 	}
 }

@@ -38,7 +38,6 @@ import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
 import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
-import com.commonsensenet.realfarm.utils.SoundQueue;
 import com.commonsensenet.realfarm.view.AdviceAdapter;
 import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 

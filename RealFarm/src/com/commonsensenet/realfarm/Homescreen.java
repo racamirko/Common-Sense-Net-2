@@ -539,8 +539,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 			playAudio(R.raw.your_plot, true);
 		} else if (v.getId() == R.id.hmscrn_btn_sound) {
 			playAudio(R.raw.sound22, true);
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.home_help, true);
 		} else if (v.getId() == R.id.hmscrn_usr_icon) {
 
 			User user = mDataProvider.getUserById(Global.userId);
@@ -568,9 +566,8 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.home_help, true);
-			stopAudio();
 			return true;
 		}
 
@@ -585,7 +582,6 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 		default:
 			return super.onOptionsItemSelected(item);
 		}
-
 	}
 
 	protected void onPause() {

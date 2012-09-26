@@ -50,7 +50,7 @@ public class HarvestActionActivity extends DataFormActivity {
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.harvest_help, true);
 
 			return true;
@@ -253,8 +253,6 @@ public class HarvestActionActivity extends DataFormActivity {
 			playAudio(R.raw.harvestyear, true);
 		} else if (v.getId() == R.id.units_harvest_tr) {
 			playAudio(R.raw.amount, true);
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.help, true);
 		} else if (v.getId() == R.id.var_harvest_crop) {
 			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.satisfaction_harvest_tr) {

@@ -204,8 +204,7 @@ public class SowActionActivity extends DataFormActivity {
 			if (mResultsMap.get(AMOUNT).equals(DEFAULT_AMOUNT)) {
 				playAudio(R.raw.choose_serus, true);
 			} else {
-				playInteger(Integer
-						.valueOf(mResultsMap.get(AMOUNT).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_month_sow) {
@@ -243,10 +242,6 @@ public class SowActionActivity extends DataFormActivity {
 				playInteger(Integer.valueOf(mResultsMap.get(DAY).toString()));
 				playSound();
 			}
-		}
-
-		else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.data_sow_help, true);
 		} else if (v.getId() == R.id.seed_type_sow_tr) {
 			playAudio(R.raw.variety, true);
 		} else if (v.getId() == R.id.units_sow_tr) {
@@ -275,7 +270,7 @@ public class SowActionActivity extends DataFormActivity {
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.sow_help, true);
 
 			return true;

@@ -5,6 +5,7 @@ import android.view.View;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
 
+import com.actionbarsherlock.view.MenuItem;
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.model.ActionType;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
@@ -91,9 +92,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()));
 
-		if (v.getId() == R.id.aggr_img_home) {
-			playAudio(R.raw.homepage, true);
-		} else if (v.getId() == R.id.aggr_crop) {
+		if (v.getId() == R.id.aggr_crop) {
 			int crop = mTopSelectorData.getAudio();
 			int action = mDataProvider.getActionTypeById(mActionTypeId)
 					.getAudio();
@@ -103,7 +102,20 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			addToSoundQueue(crop);
 			addToSoundQueue(R.raw.there_crop);
 			playSound();
-		} else if (v.getId() == R.id.aggr_img_help) {
+		} else if (v.getId() == R.id.button_back) {
+			playAudio(R.raw.back_button, true);
+		}
+
+		return true;
+	}
+
+	public boolean onOptionsItemSelected(MenuItem item) {
+
+		if (item.equals(mHelpItem)) {
+
+			// tracks the application usage
+			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+					Global.userId, getLogTag(), item.getTitle());
 
 			switch (mActionTypeId) {
 			case RealFarmDatabase.ACTION_TYPE_SOW_ID:
@@ -127,16 +139,13 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			case RealFarmDatabase.ACTION_TYPE_SELL_ID:
 				playAudio(R.raw.aggr_selling_help, true);
 				break;
-
-			default:
-				break;
 			}
 
-		} else if (v.getId() == R.id.button_back) {
-			playAudio(R.raw.back_button, true);
+			return true;
 		}
 
-		return true;
+		// asks the parent.
+		return super.onOptionsItemSelected(item);
 	}
 
 	protected void makeAudioAggregateMarketItem(AggregateItem item,

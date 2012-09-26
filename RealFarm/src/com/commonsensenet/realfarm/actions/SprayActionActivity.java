@@ -50,7 +50,7 @@ public class SprayActionActivity extends DataFormActivity {
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.spray_help, true);
 
 			return true;
@@ -234,8 +234,7 @@ public class SprayActionActivity extends DataFormActivity {
 				playAudio(R.raw.select_unit_number, true);
 
 			else {
-				playInteger(Integer
-						.valueOf(mResultsMap.get(AMOUNT).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_day_spray) {
@@ -255,10 +254,6 @@ public class SprayActionActivity extends DataFormActivity {
 			else
 				playAudio(monthList.get(((Integer) mResultsMap.get(MONTH)))
 						.getAudio(), true);
-		}
-
-		else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.spray_help, true);
 		} else if (v.getId() == R.id.prob_spray_tr) {
 			playAudio(R.raw.problems, true);
 		} else if (v.getId() == R.id.day_spray_tr) {

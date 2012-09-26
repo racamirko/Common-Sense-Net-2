@@ -55,7 +55,7 @@ public class SellActionActivity extends DataFormActivity {
 
 			// tracks the application usage
 			ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-					Global.userId, getLogTag(), "help");
+					Global.userId, getLogTag(), item.getTitle());
 			playAudio(R.raw.sell_help, true);
 
 			return true;
@@ -274,8 +274,7 @@ public class SellActionActivity extends DataFormActivity {
 				playAudio(R.raw.select_unit_number, true);
 
 			else {
-				playInteger(Integer
-						.valueOf(mResultsMap.get(AMOUNT).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));
 				playSound();
 			}
 		} else if (v.getId() == R.id.dlg_lbl_unit_sell) {
@@ -298,8 +297,7 @@ public class SellActionActivity extends DataFormActivity {
 				playAudio(R.raw.select_unit_number, true);
 
 			else
-				playInteger(Integer
-						.valueOf(mResultsMap.get(AMOUNT).toString()));
+				playInteger(Integer.valueOf(mResultsMap.get(AMOUNT).toString()));
 		} else if (v.getId() == R.id.dlg_lbl_unit_rem_sell) {
 
 			if ((Integer) mResultsMap.get(UNIT2) == DEFAULT_UNIT2) {
@@ -322,8 +320,6 @@ public class SellActionActivity extends DataFormActivity {
 			playAudio(R.raw.priceperquintal, true);
 		} else if (v.getId() == R.id.rem_quant_sell_tr) {
 			playAudio(R.raw.remaining, true);
-		} else if (v.getId() == R.id.aggr_img_help) {
-			playAudio(R.raw.sell_help, true);
 		} else {
 			return super.onLongClick(v);
 		}
