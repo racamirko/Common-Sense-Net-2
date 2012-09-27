@@ -1208,7 +1208,6 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	// TODO: add optimization
 	public List<AggregateItem> getAggregateItemsSow(int actionTypeId,
 			int seedTypeId) {
 
@@ -1216,50 +1215,51 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
-		final String MY_QUERY = "SELECT id, image1 FROM resource WHERE type = "
-				+ RealFarmDatabase.RESOURCE_TYPE_TREATMENT + " ORDER BY id ASC";
+		String sqlTest = "SELECT COUNT(a.id), st.resource, r.image1, st.shortName, SUM(CASE WHEN (a.date <= '"
+				+ dateNow
+				+ "' AND a.date >= '"
+				+ stopDate
+				+ "') THEN 1 ELSE 0 END) AS newsUsers, st.id, r.id, r.shortName "
+				+ "FROM action a, resource r, seedType st "
+				+ "WHERE a.seedTypeId = st.id AND a.resource1Id = r.id AND a.actionTypeId = "
+				+ actionTypeId
+				+ " AND a.date LIKE '"
+				+ Calendar.getInstance().get(Calendar.YEAR)
+				+ "-%' "
+				+ "GROUP BY a.actionTypeId, a.seedTypeId, r.type, r.id "
+				+ "ORDER BY a.date DESC";
+
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 		mDatabase.open();
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		Cursor c = mDatabase.rawQuery(sqlTest, new String[] {});
+
+		AggregateItem tmpAgg;
 
 		if (c.moveToFirst()) {
 			do {
-				final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, st.shortName, ct.image, SUM(CASE WHEN (a.date <= '"
-						+ dateNow
-						+ "' AND date >= '"
-						+ stopDate
-						+ "') THEN 1 ELSE 0 END) AS newsUsers, a.seedTypeId FROM action a, seedType st, cropType ct, plot p WHERE a.plotId = p.id AND st.cropTypeId = ct.id AND a.seedTypeId = st.id AND a.actionTypeId= "
-						+ actionTypeId
-						+ " AND a.resource1Id = "
-						+ c.getInt(0)
-						+ " AND a.date LIKE '"
-						+ Calendar.getInstance().get(Calendar.YEAR) + "-%'";
 
-				Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
+				tmpAgg = new AggregateItem(actionTypeId);
+				tmpAgg.setLeftBackground(c.getInt(1)); // crop type image.
+				tmpAgg.setCenterImage(c.getInt(2)); // treatment image.
+				tmpAgg.setLeftText(c.getString(3)); // seed type short name
+				tmpAgg.setNews(c.getInt(4)); // new user count.
+				tmpAgg.setTotal(c.getInt(0)); // user count
+				tmpAgg.setSelector1(c.getInt(5)); // seedTypeId
+				tmpAgg.setSelector2(c.getInt(6)); // treatment id
+				// tmpAgg.setCenterText(c.getString(7)); // resource shortText
 
-				if (c3.moveToFirst() && c3.getInt(0) > 0) {
-					AggregateItem a = new AggregateItem(actionTypeId);
-					a.setLeftBackground(c3.getInt(2));
-					a.setCenterImage(c.getInt(1));
-					a.setLeftText(c3.getString(1));
-					a.setNews(c3.getInt(3));
-					a.setTotal(c3.getInt(0));
-					// a.setLeftImage(R.drawable.sowingaction);
-					a.setSelector1(c3.getInt(4));
-					a.setSelector2(c.getInt(0));
+				tmpList.add(tmpAgg);
 
-					tmpList.add(a);
-				}
-				c3.close();
 			} while (c.moveToNext());
 		}
+
+		// closes the cursor and the database.
 		c.close();
 		mDatabase.close();
 
 		return tmpList;
 	}
 
-	// TODO: add optimisation
 	public List<AggregateItem> getAggregateItemsSpray(int actionTypeId,
 			int seedTypeId) {
 
@@ -1882,7 +1882,7 @@ public class RealFarmProvider {
 				new String[] { RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
-						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_IMAGE,
+						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
 						RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO },
 				RealFarmDatabase.COLUMN_NAME_SEEDTYPE_ID + "=" + seedId, null,
 				null, null, null);
@@ -1918,7 +1918,7 @@ public class RealFarmProvider {
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_NAME,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_SHORTNAME,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_CROPTYPEID,
-							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_IMAGE,
+							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_RESOURCE,
 							RealFarmDatabase.COLUMN_NAME_SEEDTYPE_AUDIO });
 
 			if (c.moveToFirst()) {

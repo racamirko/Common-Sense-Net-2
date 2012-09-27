@@ -44,22 +44,10 @@ public class GeneralAggregateItemWrapper extends AggregateItemWrapper {
 					aggregate.getCenterBackground());
 		} else {
 			getLabelCenter().setTextColor(Color.BLACK);
-			// hack
-			getRelativeLayoutCenter().getLayoutParams().width = 150;
 			getLabelCenter().setTextSize(20);
 		}
 		if (aggregate.getCenterImage() != -1) {
 			getImageCenter().setImageResource(aggregate.getCenterImage());
 		}
-
-		// if (aggregate.getLeftImage() != -1) {
-		// getImageLeft().setImageResource(aggregate.getLeftImage());
-		// }
-		if (aggregate.getLeftBottomImage() != -1) {
-			getImageLeftBottom().setImageResource(
-					aggregate.getLeftBottomImage());
-		}
-
 	}
-
 }

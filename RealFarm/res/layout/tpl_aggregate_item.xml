@@ -23,12 +23,21 @@
             android:textAppearance="?android:attr/textAppearanceSmall"
             android:textColor="@android:color/white"
             android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/label_news"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:background="#CCCCCC"
+            android:text="@string/placeholder_number"
+            android:textColor="#000000" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_center"
-        android:layout_width="@dimen/icon_size"
-        android:layout_height="@dimen/icon_size"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@+id/relative_layout_left" >
 
@@ -45,17 +54,16 @@
             android:id="@+id/image_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true" />
+            android:layout_centerInParent="true"
+            android:src="@drawable/treatment" />
     </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/relative_layout_right"
-        android:layout_width="70dp"
-        android:layout_height="match_parent"
-        android:layout_marginRight="@dimen/margin"
+        android:layout_width="@dimen/icon_size"
+        android:layout_height="@dimen/icon_size"
         android:layout_toRightOf="@+id/relative_layout_center"
-        android:gravity="left|center"
-        android:padding="5dp" >
+        android:gravity="left|center" >
 
         <TextView
             android:id="@+id/label_right"
@@ -76,27 +84,5 @@
         android:background="@drawable/circular_btn"
         android:src="@drawable/ic_48px_thumbs_up" />
     -->
-
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="fill_parent"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="60dp"
-        android:orientation="vertical"
-        android:padding="1dp" >
-
-        <TextView
-            android:id="@+id/label_news"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="#CCCCCC"
-            android:textColor="#000000" />
-
-        <ImageView
-            android:id="@+id/image_left_bottom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp" />
-    </LinearLayout>
 
 </RelativeLayout>

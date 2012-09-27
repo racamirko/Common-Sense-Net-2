@@ -22,7 +22,6 @@ public class AggregateItem {
 	private String centerText = "";
 	private String rightText = "";
 	private int centerImage = -1;
-	private int leftBottomImage = -1;
 	private int news = 0;
 	private int total = 0;
 	private float result = 0.0f;
@@ -127,14 +126,6 @@ public class AggregateItem {
 
 	public int getCenterImage() {
 		return centerImage;
-	}
-
-	public void setLeftBottomImage(int img) {
-		leftBottomImage = img;
-	}
-
-	public int getLeftBottomImage() {
-		return leftBottomImage;
 	}
 
 	public void setSelector1(long sel1) {

@@ -321,9 +321,10 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		// iw.setImageResource(aggregate.getLeftImage());
 		// }
 
-		iw = (ImageView) destination.findViewById(R.id.image_left_bottom);
-		if (aggregate.getLeftBottomImage() != -1)
-			iw.setImageResource(aggregate.getLeftBottomImage());
+		// iw = (ImageView) destination.findViewById(R.id.image_left_bottom);
+		// if (aggregate.getLeftBottomImage() != -1) {
+		// iw.setImageResource(aggregate.getLeftBottomImage());
+		// }
 	}
 
 	private void makeAudioUserTopBar(boolean canHear) {

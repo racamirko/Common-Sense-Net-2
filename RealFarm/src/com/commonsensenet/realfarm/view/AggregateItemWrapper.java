@@ -17,19 +17,17 @@ import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
  * 
  */
 public abstract class AggregateItemWrapper {
-	/** The View object that represents a single row inside the ListView. */
-	protected View mRow;
+	protected ImageView imageCenter;
 
-	protected RelativeLayout relativeLayoutLeft;
-	protected RelativeLayout relativeLayoutCenter;
-	protected RelativeLayout relativeLayoutRight;
+	protected TextView labelCenter;
 	protected TextView labelLeft;
 	protected TextView labelNews;
-	protected TextView labelCenter;
 	protected TextView labelRight;
-	// protected ImageView imageLeft;
-	protected ImageView imageCenter;
-	protected ImageView imageLeftBottom;
+	/** The View object that represents a single row inside the ListView. */
+	protected View mRow;
+	protected RelativeLayout relativeLayoutCenter;
+	protected RelativeLayout relativeLayoutLeft;
+	protected RelativeLayout relativeLayoutRight;
 
 	/**
 	 * Creates a new AggregateItemWrapper instance.
@@ -39,6 +37,49 @@ public abstract class AggregateItemWrapper {
 	 */
 	public AggregateItemWrapper(View row) {
 		mRow = row;
+	}
+
+	public ImageView getImageCenter() {
+		if (imageCenter == null) {
+			imageCenter = (ImageView) mRow.findViewById(R.id.image_center);
+		}
+		return (imageCenter);
+	}
+
+	public TextView getLabelCenter() {
+		if (labelCenter == null) {
+			labelCenter = (TextView) mRow.findViewById(R.id.label_center);
+		}
+		return (labelCenter);
+	}
+
+	public TextView getLabelLeft() {
+		if (labelLeft == null) {
+			labelLeft = (TextView) mRow.findViewById(R.id.label_left);
+		}
+		return (labelLeft);
+	}
+
+	public TextView getLabelNews() {
+		if (labelNews == null) {
+			labelNews = (TextView) mRow.findViewById(R.id.label_news);
+		}
+		return (labelNews);
+	}
+
+	public TextView getLabelRight() {
+		if (labelRight == null) {
+			labelRight = (TextView) mRow.findViewById(R.id.label_right);
+		}
+		return (labelRight);
+	}
+
+	public RelativeLayout getRelativeLayoutCenter() {
+		if (relativeLayoutCenter == null) {
+			relativeLayoutCenter = (RelativeLayout) mRow
+					.findViewById(R.id.relative_layout_center);
+		}
+		return (relativeLayoutCenter);
 	}
 
 	public RelativeLayout getRelativeLayoutLeft() {
@@ -55,64 +96,6 @@ public abstract class AggregateItemWrapper {
 					.findViewById(R.id.relative_layout_right);
 		}
 		return (relativeLayoutRight);
-	}
-
-	public RelativeLayout getRelativeLayoutCenter() {
-		if (relativeLayoutCenter == null) {
-			relativeLayoutCenter = (RelativeLayout) mRow
-					.findViewById(R.id.relative_layout_center);
-		}
-		return (relativeLayoutCenter);
-	}
-
-	public TextView getLabelLeft() {
-		if (labelLeft == null) {
-			labelLeft = (TextView) mRow.findViewById(R.id.label_left);
-		}
-		return (labelLeft);
-	}
-
-	public TextView getLabelRight() {
-		if (labelRight == null) {
-			labelRight = (TextView) mRow.findViewById(R.id.label_right);
-		}
-		return (labelRight);
-	}
-
-	public TextView getLabelCenter() {
-		if (labelCenter == null) {
-			labelCenter = (TextView) mRow.findViewById(R.id.label_center);
-		}
-		return (labelCenter);
-	}
-
-	public TextView getLabelNews() {
-		if (labelNews == null) {
-			labelNews = (TextView) mRow.findViewById(R.id.label_news);
-		}
-		return (labelNews);
-	}
-
-//	public ImageView getImageLeft() {
-//		if (imageLeft == null) {
-//			imageLeft = (ImageView) mRow.findViewById(R.id.image_left);
-//		}
-//		return (imageLeft);
-//	}
-
-	public ImageView getImageCenter() {
-		if (imageCenter == null) {
-			imageCenter = (ImageView) mRow.findViewById(R.id.image_center);
-		}
-		return (imageCenter);
-	}
-
-	public ImageView getImageLeftBottom() {
-		if (imageLeftBottom == null) {
-			imageLeftBottom = (ImageView) mRow
-					.findViewById(R.id.image_left_bottom);
-		}
-		return (imageLeftBottom);
 	}
 
 	public View getRow() {

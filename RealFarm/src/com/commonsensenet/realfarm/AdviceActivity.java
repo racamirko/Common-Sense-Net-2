@@ -104,9 +104,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		// iw.setImageResource(aggregate.getLeftImage());
 		// }
 
-		iw = (ImageView) destination.findViewById(R.id.image_left_bottom);
-		if (aggregate.getLeftBottomImage() != -1)
-			iw.setImageResource(aggregate.getLeftBottomImage());
+		// iw = (ImageView) destination.findViewById(R.id.image_left_bottom);
+		// if (aggregate.getLeftBottomImage() != -1) {
+		// iw.setImageResource(aggregate.getLeftBottomImage());
+		// }
 	}
 
 	private void expandCurrentLists(
@@ -197,7 +198,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 			playInteger(severity);
 			addToSoundQueue(Integer.valueOf(audioPieces[2]));
 
-			playSound();
+			playSound(true);
 
 		} catch (ParseException e) {
 		}
@@ -214,7 +215,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		int audio = solutionItem.getAdvicePiece().getAudio();
 
 		addToSoundQueue(audio);
-		playSound();
+		playSound(true);
 	}
 
 	protected void makeAudioUserItem(UserAggregateItem user) {
@@ -297,7 +298,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 		// indicates that the list has no information.
 		if (list == null || list.size() < 1) {
-			playAudio(R.raw.no_info_farmers, true);
+			playAudio(R.raw.no_info_farmers);
 		}
 
 		// gets the ListView from the layout
