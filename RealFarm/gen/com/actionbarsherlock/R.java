@@ -1335,13 +1335,13 @@ containing a value of this type.
         public static final int icon_weather_forecast=0x7f06011b;
         public static final int imageCenter=0x7f060109;
         public static final int imageLeft=0x7f060108;
-        public static final int image_center=0x7f0600fd;
+        public static final int image_center=0x7f0600fc;
         public static final int image_left=0x7f0600ed;
         public static final int intercrop_sow_tr=0x7f0600a9;
         public static final int intercrop_sow_txt=0x7f0600aa;
         public static final int intrecrop_sow_img_btn=0x7f0600ab;
         public static final int l1=0x7f0600de;
-        public static final int label_center=0x7f0600fc;
+        public static final int label_center=0x7f0600fd;
         public static final int label_diary_date=0x7f060107;
         public static final int label_diary_title=0x7f060106;
         public static final int label_left=0x7f0600f9;

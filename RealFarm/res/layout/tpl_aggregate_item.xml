@@ -38,24 +38,27 @@
         android:id="@+id/relative_layout_center"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
         android:layout_marginRight="@dimen/margin"
         android:layout_toRightOf="@+id/relative_layout_left" >
-
-        <TextView
-            android:id="@+id/label_center"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginLeft="2dp"
-            android:textAppearance="?android:attr/textAppearanceSmall"
-            android:textColor="#FFFFFF" />
 
         <ImageView
             android:id="@+id/image_center"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="2dp"
             android:src="@drawable/treatment" />
+
+        <TextView
+            android:id="@+id/label_center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_toRightOf="@+id/image_center"
+            android:text="@string/placeholder_text"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:textColor="@android:color/black" />
     </RelativeLayout>
 
     <RelativeLayout

@@ -44,10 +44,12 @@ public class GeneralAggregateItemWrapper extends AggregateItemWrapper {
 					aggregate.getCenterBackground());
 		} else {
 			getLabelCenter().setTextColor(Color.BLACK);
-			getLabelCenter().setTextSize(20);
 		}
 		if (aggregate.getCenterImage() != -1) {
 			getImageCenter().setImageResource(aggregate.getCenterImage());
+			getImageCenter().setVisibility(View.VISIBLE);
+		} else {
+			getImageCenter().setVisibility(View.GONE);
 		}
 	}
 }
