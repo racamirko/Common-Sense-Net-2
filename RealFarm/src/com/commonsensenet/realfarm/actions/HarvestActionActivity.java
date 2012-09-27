@@ -194,7 +194,6 @@ public class HarvestActionActivity extends DataFormActivity {
 						R.id.satisfaction_harvest_tr, 1);
 			}
 		});
-
 	}
 
 	@Override

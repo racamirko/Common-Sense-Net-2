@@ -1423,16 +1423,16 @@ public class RealFarmDatabase {
 						R.drawable.pic_90px_castor_tiled, R.raw.castor },
 				{ "Cow pea", "Cow pea", R.drawable.pic_72px_cowpea,
 						R.drawable.pic_90px_cowpea_tiled, R.raw.cowpea },
-				{ "Field beans", "F beans", R.drawable.fieldbean,
+				{ "Field beans", "F beans", R.drawable.pic_72px_fieldbean,
 						R.drawable.fieldbean, R.raw.field_beans },
 				{ "Green / moong gram", "Gr gram",
 						R.drawable.pic_72px_greengram,
 						R.drawable.pic_90px_greengram_tiled, R.raw.greengram },
 				{ "Horse gram", "H gram", R.drawable.pic_72px_horsegram,
 						R.drawable.pic_90px_horsegram_tiled, R.raw.horsegram },
-				{ "Padddy / rice", "Padddy", R.drawable.paddy,
+				{ "Padddy / rice", "Padddy", R.drawable.pic_72px_paddy,
 						R.drawable.paddy, R.raw.paddy },
-				{ "Ragi / finger millet", "Ragi", R.drawable.ragi,
+				{ "Ragi / finger millet", "Ragi", R.drawable.pic_72px_ragi,
 						R.drawable.ragi, R.raw.ragi },
 				{ "Sorghum", "Sorghum", R.drawable.pic_72px_sorghum,
 						R.drawable.pic_90px_sorghum_tiled, R.raw.sorghum }
@@ -1457,8 +1457,8 @@ public class RealFarmDatabase {
 				{ "JL24", "JL24", R.drawable.pic_72px_groundnut, R.raw.jl_24, 1 },
 				{ "K6 / Kadari ghat", "K6", R.drawable.pic_72px_groundnut,
 						R.raw.k_6, 1 },
-				{ "Samrat", "Samrat", R.drawable.pic_72px_groundnut, R.raw.samrat,
-						1 },
+				{ "Samrat", "Samrat", R.drawable.pic_72px_groundnut,
+						R.raw.samrat, 1 },
 				{ "TMV2 / Bunching", "TMV2", R.drawable.pic_72px_groundnut,
 						R.raw.tmv_2, 1 },
 				{ "Bajra / pearl millet", "Bajra", R.drawable.pic_72px_bajra,
@@ -1473,9 +1473,10 @@ public class RealFarmDatabase {
 						R.drawable.pic_72px_greengram, R.raw.greengram, 6 },
 				{ "Horse gram", "H gram", R.drawable.pic_72px_horsegram,
 						R.raw.horsegram, 7 },
-				{ "Paddy / rice", "Paddy", R.drawable.pic_72px_paddy, R.raw.paddy, 8 },
-				{ "Ragi / finger millet", "Ragi", R.drawable.pic_72px_ragi, R.raw.ragi,
-						9 },
+				{ "Paddy / rice", "Paddy", R.drawable.pic_72px_paddy,
+						R.raw.paddy, 8 },
+				{ "Ragi / finger millet", "Ragi", R.drawable.pic_72px_ragi,
+						R.raw.ragi, 9 },
 				{ "Sorghum", "Sorghum", R.drawable.pic_72px_sorghum,
 						R.raw.sorghum, 10 }
 
@@ -1485,7 +1486,8 @@ public class RealFarmDatabase {
 			seedtype.put(COLUMN_NAME_SEEDTYPE_NAME, (String) seedData[x][0]);
 			seedtype.put(COLUMN_NAME_SEEDTYPE_SHORTNAME,
 					(String) seedData[x][1]);
-			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE, (Integer) seedData[x][2]);
+			seedtype.put(COLUMN_NAME_SEEDTYPE_RESOURCE,
+					(Integer) seedData[x][2]);
 			seedtype.put(COLUMN_NAME_SEEDTYPE_AUDIO, (Integer) seedData[x][3]);
 			seedtype.put(COLUMN_NAME_SEEDTYPE_CROPTYPEID,
 					(Integer) seedData[x][4]);

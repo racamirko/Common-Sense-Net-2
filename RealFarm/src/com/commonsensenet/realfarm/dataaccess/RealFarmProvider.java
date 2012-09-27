@@ -992,66 +992,6 @@ public class RealFarmProvider {
 		return tmpList;
 	}
 
-	// public List<AggregateItem> getAggregateItemsFertilize(int actionTypeId,
-	// int seedTypeId) {
-	//
-	// String dateNow = DateHelper.getDateNow();
-	// String stopDate = DateHelper
-	// .getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
-	//
-	// final String MY_QUERY =
-	// "SELECT id, image1, shortName FROM resource WHERE type = "
-	// + RealFarmDatabase.RESOURCE_TYPE_FERTILIZER
-	// + " ORDER BY id ASC";
-	// List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
-	// mDatabase.open();
-	// Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
-	//
-	// final String MY_QUERY2 =
-	// "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
-	// + seedTypeId;
-	// Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
-	//
-	// if (c.moveToFirst() && c2.moveToFirst()) {
-	// do {
-	//
-	// final String MY_QUERY3 =
-	// "SELECT COUNT(p.userId) as users, SUM(CASE WHEN (a.date <= '"
-	// + dateNow
-	// + "' AND date >= '"
-	// + stopDate
-	// +
-	// "') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p WHERE a.plotId = p.id AND plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
-	// + seedTypeId
-	// + ") AND a.actionTypeId= "
-	// + actionTypeId
-	// + " AND a.resource1Id = "
-	// + c.getInt(0)
-	// + " AND a.date LIKE '"
-	// + Calendar.getInstance().get(Calendar.YEAR) + "-%'";
-	// Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
-	// if (c3.moveToFirst() && c3.getInt(0) > 0) {
-	// AggregateItem a = new AggregateItem(actionTypeId);
-	// a.setLeftBackground(c2.getInt(1));
-	// a.setLeftText(c2.getString(0));
-	// a.setNews(c3.getInt(1));
-	// a.setTotal(c3.getInt(0));
-	// // a.setLeftImage(R.drawable.fertilizingaction);
-	// a.setCenterImage(c.getInt(1));
-	// a.setCenterText(c.getString(2));
-	// a.setSelector2(seedTypeId);
-	// a.setSelector3(c.getInt(0));
-	// tmpList.add(a);
-	// }
-	// c3.close();
-	// } while (c.moveToNext());
-	// }
-	// c2.close();
-	// c.close();
-	// mDatabase.close();
-	// return tmpList;
-	// }
-
 	public List<AggregateItem> getAggregateItemsHarvest(int actionTypeId,
 			int seedTypeId) {
 
@@ -1059,52 +999,54 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
-		final String MY_QUERY = "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
-				+ seedTypeId;
-		mDatabase.open();
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		String sqlTest = "SELECT COUNT(a.id), st.resource, st.shortName, SUM(CASE WHEN (a.date <= '"
+				+ dateNow
+				+ "' AND a.date >= '"
+				+ stopDate
+				+ "') THEN 1 ELSE 0 END) AS newsUsers, st.id, AVG((a.quantity1 * u.value)/(100*p.size)) AS price "
+				+ "FROM action a, seedType st, unit u, plot p "
+				+ "WHERE a.seedTypeId = st.id AND a.plotId = p.id AND a.unit1Id = u.id AND a.actionTypeId = "
+				+ actionTypeId
+				+ " AND a.date LIKE '"
+				+ Calendar.getInstance().get(Calendar.YEAR)
+				+ "-%' "
+				+ "GROUP BY a.actionTypeId, a.seedTypeId "
+				+ "ORDER BY a.date DESC";
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(sqlTest, new String[] {});
+
+		AggregateItem tmpAgg;
 
 		if (c.moveToFirst()) {
+			do {
 
-			final String MY_QUERY3 = "SELECT AVG((a.quantity1*u.value)/(100*p.size)), SUM(CASE WHEN (a.date <= '"
-					+ dateNow
-					+ "' AND date >= '"
-					+ stopDate
-					+ "') THEN 1 ELSE 0 END) AS newsUsers, COUNT(a.date) as dat FROM action a, plot p, unit u WHERE a.plotId = p.id AND a.unit1Id = u.id AND a.actionTypeId= "
-					+ actionTypeId
-					+ " AND a.seedTypeId = "
-					+ seedTypeId
-					+ " AND a.date LIKE '"
-					+ Calendar.getInstance().get(Calendar.YEAR) + "-%'";
-			Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
-
-			if (c3.moveToFirst()) {
-				String result = String.valueOf(round(c3.getDouble(0), 2,
+				String result = String.valueOf(round(c.getFloat(5), 2,
 						BigDecimal.ROUND_HALF_UP));
-				if (c3.getInt(2) != 0) {
-					AggregateItem a = new AggregateItem(actionTypeId);
-					a.setLeftBackground(c.getInt(1));
-					a.setCenterText(result + " qt/acre");
-					a.setLeftText(c.getString(0));
-					a.setNews(c3.getInt(1));
-					a.setTotal(c3.getInt(2));
-					// a.setLeftImage(R.drawable.harvestingaction);
-					a.setSelector1(seedTypeId);
-					a.setResult((float) round(c3.getDouble(0), 2,
-							BigDecimal.ROUND_HALF_UP));
-					tmpList.add(a);
-				}
-			}
-			c3.close();
+
+				tmpAgg = new AggregateItem(actionTypeId);
+				tmpAgg.setTotal(c.getInt(0)); // user count
+				tmpAgg.setLeftBackground(c.getInt(1)); // crop type image.
+				tmpAgg.setLeftText(c.getString(2)); // seed type short name
+				tmpAgg.setCenterText(result + " qt/acre");
+				tmpAgg.setNews(c.getInt(3)); // new user count.
+				tmpAgg.setSelector1(c.getInt(4)); // seedTypeId
+				tmpAgg.setResult((float) round(c.getFloat(5), 2,
+						BigDecimal.ROUND_HALF_UP));
+
+				tmpList.add(tmpAgg);
+
+			} while (c.moveToNext());
 		}
+
+		// closes the cursor and the database.
 		c.close();
 		mDatabase.close();
+
 		return tmpList;
 	}
 
-	// TODO: add optimisation
 	public List<AggregateItem> getAggregateItemsIrrigate(int actionTypeId,
 			int seedTypeId) {
 
@@ -1112,55 +1054,51 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
-		final String MY_QUERY = "SELECT id, image1 FROM resource WHERE type = "
-				+ RealFarmDatabase.RESOURCE_TYPE_IRRIGATIONMETHOD
-				+ " ORDER BY id ASC";
+		String sqlTest = "SELECT COUNT(a.id), st.resource, r.image1, st.shortName, SUM(CASE WHEN (a.date <= '"
+				+ dateNow
+				+ "' AND a.date >= '"
+				+ stopDate
+				+ "') THEN 1 ELSE 0 END) AS newsUsers, st.id, r.id, r.shortName "
+				+ "FROM action a, resource r, seedType st, plot p "
+				+ "WHERE a.plotId = p.id AND p.seedTypeId = st.id AND a.resource1Id = r.id AND a.actionTypeId = "
+				+ actionTypeId
+				+ " AND a.date LIKE '"
+				+ Calendar.getInstance().get(Calendar.YEAR)
+				+ "-%' "
+				+ "GROUP BY a.actionTypeId, p.seedTypeId, r.type, r.id "
+				+ "ORDER BY a.date DESC";
+
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 		mDatabase.open();
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		Cursor c = mDatabase.rawQuery(sqlTest, new String[] {});
 
-		final String MY_QUERY2 = "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
-				+ seedTypeId;
-		Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+		AggregateItem tmpAgg;
 
-		if (c.moveToFirst() && c2.moveToFirst()) {
+		if (c.moveToFirst()) {
 			do {
 
-				final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, SUM(CASE WHEN (a.date <= '"
-						+ dateNow
-						+ "' AND date >= '"
-						+ stopDate
-						+ "') THEN 1 ELSE 0 END) AS newsUsers, a.seedTypeId FROM action a, plot p WHERE a.plotId = p.id AND plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
-						+ seedTypeId
-						+ ") AND a.actionTypeId= "
-						+ actionTypeId
-						+ " AND a.resource1Id = "
-						+ c.getInt(0)
-						+ " AND a.date LIKE '"
-						+ Calendar.getInstance().get(Calendar.YEAR) + "-%'";
-				Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
-				if (c3.moveToFirst() && c3.getInt(0) > 0) {
-					AggregateItem a = new AggregateItem(actionTypeId);
-					a.setLeftBackground(c2.getInt(1));
-					a.setLeftText(c2.getString(0));
-					a.setNews(c3.getInt(1));
-					a.setTotal(c3.getInt(0));
-					// a.setLeftImage(R.drawable.irrigationaction);
-					a.setCenterBackground(c.getInt(1));
-					a.setSelector1(seedTypeId);
-					a.setSelector2(c.getInt(0));
-					tmpList.add(a);
-				}
-				c3.close();
+				tmpAgg = new AggregateItem(actionTypeId);
+				tmpAgg.setLeftBackground(c.getInt(1)); // crop type image.
+				tmpAgg.setCenterImage(c.getInt(2)); // irrigation method image.
+				tmpAgg.setLeftText(c.getString(3)); // seed type short name
+				tmpAgg.setNews(c.getInt(4)); // new user count.
+				tmpAgg.setTotal(c.getInt(0)); // user count
+				tmpAgg.setSelector1(c.getInt(5)); // seedTypeId
+				tmpAgg.setSelector2(c.getInt(6)); // irrigation method id
+				tmpAgg.setCenterText(c.getString(7)); // resource shortText
+
+				tmpList.add(tmpAgg);
+
 			} while (c.moveToNext());
 		}
-		c2.close();
+
+		// closes the cursor and the database.
 		c.close();
 		mDatabase.close();
+
 		return tmpList;
 	}
 
-	// TODO: add optimisation
 	public List<AggregateItem> getAggregateItemsReport(int actionTypeId,
 			int seedTypeId) {
 
@@ -1168,52 +1106,51 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
-		final String MY_QUERY = "SELECT id, image1, shortName FROM resource WHERE type = "
-				+ RealFarmDatabase.RESOURCE_TYPE_PROBLEM + " ORDER BY id ASC";
+		String sqlTest = "SELECT COUNT(a.id), st.resource, r.image1, st.shortName, SUM(CASE WHEN (a.date <= '"
+				+ dateNow
+				+ "' AND a.date >= '"
+				+ stopDate
+				+ "') THEN 1 ELSE 0 END) AS newsUsers, st.id, r.id, r.shortName "
+				+ "FROM action a, resource r, seedType st, plot p "
+				+ "WHERE a.plotId = p.id AND p.seedTypeId = st.id AND a.resource1Id = r.id AND a.actionTypeId = "
+				+ actionTypeId
+				+ " AND a.date LIKE '"
+				+ Calendar.getInstance().get(Calendar.YEAR)
+				+ "-%' "
+				+ "GROUP BY a.actionTypeId, p.seedTypeId, r.type, r.id "
+				+ "ORDER BY a.date DESC";
+
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 		mDatabase.open();
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		Cursor c = mDatabase.rawQuery(sqlTest, new String[] {});
+
+		AggregateItem tmpAgg;
 
 		if (c.moveToFirst()) {
 			do {
-				final String MY_QUERY3 = "SELECT COUNT(p.userId) as users, st.shortName, ct.image, SUM(CASE WHEN (a.date <= '"
-						+ dateNow
-						+ "' AND date >= '"
-						+ stopDate
-						+ "') THEN 1 ELSE 0 END) AS newsUsers FROM action a, seedType st, cropType ct, plot p WHERE a.plotId = p.id AND st.cropTypeId = ct.id AND a.seedTypeId = st.id AND a.actionTypeId= "
-						+ actionTypeId
-						+ " AND a.seedTypeId = "
-						+ seedTypeId
-						+ " AND a.resource1Id = "
-						+ c.getInt(0)
-						+ " AND a.date LIKE '"
-						+ Calendar.getInstance().get(Calendar.YEAR) + "-%'";
-				Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
 
-				if (c3.moveToFirst() && c3.getInt(0) > 0) {
-					AggregateItem a = new AggregateItem(actionTypeId);
-					a.setLeftBackground(c3.getInt(2));
-					a.setCenterImage(c.getInt(1));
-					a.setCenterText(c.getString(2));
-					a.setLeftText(c3.getString(1));
-					a.setNews(c3.getInt(3));
-					a.setTotal(c3.getInt(0));
-					// a.setLeftImage(R.drawable.problemreportingaction);
-					a.setSelector1(seedTypeId);
-					a.setSelector2(c.getInt(0));
+				tmpAgg = new AggregateItem(actionTypeId);
+				tmpAgg.setLeftBackground(c.getInt(1)); // crop type image.
+				tmpAgg.setCenterImage(c.getInt(2)); // problem image.
+				tmpAgg.setLeftText(c.getString(3)); // seed type short name
+				tmpAgg.setNews(c.getInt(4)); // new user count.
+				tmpAgg.setTotal(c.getInt(0)); // user count
+				tmpAgg.setSelector1(c.getInt(5)); // seedTypeId
+				tmpAgg.setSelector2(c.getInt(6)); // problem id
+				tmpAgg.setCenterText(c.getString(7)); // resource shortText
 
-					tmpList.add(a);
-				}
-				c3.close();
+				tmpList.add(tmpAgg);
+
 			} while (c.moveToNext());
 		}
+
+		// closes the cursor and the database.
 		c.close();
 		mDatabase.close();
 
 		return tmpList;
 	}
 
-	// TODO: add optimisation
 	public List<AggregateItem> getAggregateItemsSell(int actionTypeId,
 			int cropTypeId) {
 
@@ -1221,45 +1158,55 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
+		String sqlTest = "SELECT COUNT(a.id), ct.image, ct.shortName, SUM(CASE WHEN (a.date <= '"
+				+ dateNow
+				+ "' AND a.date >= '"
+				+ stopDate
+				+ "') THEN 1 ELSE 0 END) AS newsUsers, ct.id, CAST((a.price/500) as integer)*500, CAST((a.price/500) as integer)*500 + 499 "
+				+ "FROM action a, cropType ct "
+				+ "WHERE a.cropTypeId = ct.id AND a.actionTypeId = "
+				+ actionTypeId
+				+ " AND a.date LIKE '"
+				+ Calendar.getInstance().get(Calendar.YEAR)
+				+ "-%' "
+				+ "GROUP BY a.actionTypeId, ct.id, CAST((a.price/500) as integer) "
+				+ "ORDER BY a.date DESC";
+
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
+		mDatabase.open();
+		Cursor c = mDatabase.rawQuery(sqlTest, new String[] {});
 
-		for (int min = 0; min < 10000; min = min
-				+ RealFarmDatabase.SELLING_AGGREGATE_INCREMENT + 1) {
+		AggregateItem tmpAgg;
 
-			final String MY_QUERY3 = "SELECT COUNT(a.plotId), ct.shortName, ct.image, SUM(CASE WHEN (a.date <= '"
-					+ dateNow
-					+ "' AND date >= '"
-					+ stopDate
-					+ "') THEN 1 ELSE 0 END) AS newsUsers FROM action a, cropType ct WHERE a.cropTypeId = ct.id AND a.actionTypeId= "
-					+ actionTypeId
-					+ " AND a.cropTypeId = "
-					+ cropTypeId
-					+ " AND a.price >= "
-					+ min
-					+ " AND a.price < "
-					+ (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)
-					+ " AND a.date LIKE '"
-					+ Calendar.getInstance().get(Calendar.YEAR) + "-%'";
-			mDatabase.open();
-			Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
+		if (c.moveToFirst()) {
+			do {
 
-			if (c3.moveToFirst() && c3.getInt(0) > 0) {
-				AggregateItem a = new AggregateItem(actionTypeId);
-				a.setLeftBackground(c3.getInt(2));
-				a.setCenterText(min + " - "
-						+ (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)
-						+ " Rs/qt");
-				a.setLeftText(c3.getString(1));
-				a.setNews(c3.getInt(3));
-				a.setTotal(c3.getInt(0));
+				tmpAgg = new AggregateItem(actionTypeId);
+				tmpAgg.setTotal(c.getInt(0)); // user count
+				tmpAgg.setLeftBackground(c.getInt(1)); // crop type image.
+				tmpAgg.setLeftText(c.getString(2)); // seed type short name
+				tmpAgg.setNews(c.getInt(3)); // new user count.
+				tmpAgg.setSelector1(c.getInt(4)); // crop type id
+				// tmpAgg.setSelector2(c.getInt(6)); // irrigation method id
+				tmpAgg.setCenterText(c.getString(5) + "-" + c.getString(6)
+						+ " Rs/qt "); // price range
+
+				tmpList.add(tmpAgg);
+
+				// a.setCenterText(min + " - "
+				// + (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)
+				// + " Rs/qt");
 				// a.setLeftImage(R.drawable.sellingaction);
-				a.setSelector1(cropTypeId);
-				a.setSelector2(min);
-				tmpList.add(a);
-			}
-			c3.close();
+				// a.setSelector1(cropTypeId);
+				// a.setSelector2(min);
+
+			} while (c.moveToNext());
 		}
+
+		// closes the cursor and the database.
+		c.close();
 		mDatabase.close();
+
 		return tmpList;
 	}
 
@@ -1322,72 +1269,51 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
-		// gets the problem types.
-		final String MY_QUERY = "SELECT id, image1, shortName FROM resource WHERE type = "
-				+ RealFarmDatabase.RESOURCE_TYPE_PROBLEM + " ORDER BY id ASC";
+		String sqlTest = "SELECT COUNT(a.id), st.resource, r.image2, st.shortName, SUM(CASE WHEN (a.date <= '"
+				+ dateNow
+				+ "' AND a.date >= '"
+				+ stopDate
+				+ "') THEN 1 ELSE 0 END) AS newsUsers, st.id, r.id, r.shortName, r2.id, r2.image1, r2.shortName "
+				+ "FROM action a, resource r, resource r2, seedType st, plot p "
+				+ "WHERE a.plotId = p.id AND p.seedTypeId = st.id AND a.resource1Id = r.id AND a.resource2Id = r2.id AND a.actionTypeId = "
+				+ actionTypeId
+				+ " AND a.date LIKE '"
+				+ Calendar.getInstance().get(Calendar.YEAR)
+				+ "-%' "
+				+ "GROUP BY a.actionTypeId, p.seedTypeId, r.type, r.id, r2.type, r2.id "
+				+ "ORDER BY a.date DESC";
+
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
 		mDatabase.open();
-		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
+		Cursor c = mDatabase.rawQuery(sqlTest, new String[] {});
 
-		// gets the seedtype images.
-		final String MY_QUERY2 = "SELECT st.shortName, ct.image FROM seedType st, cropType ct WHERE st.cropTypeId = ct.id AND st.id = "
-				+ seedTypeId;
-		Cursor c2 = mDatabase.rawQuery(MY_QUERY2, new String[] {});
+		AggregateItem tmpAgg;
 
-		if (c.moveToFirst() && c2.moveToFirst()) {
+		if (c.moveToFirst()) {
 			do {
 
-				final String MY_QUERY3 = "SELECT DISTINCT r.shortName, a.resource2Id FROM action a, resource r WHERE a.resource2Id = r.id AND plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
-						+ seedTypeId
-						+ ") AND a.actionTypeId= "
-						+ actionTypeId
-						+ " AND a.resource1Id = "
-						+ c.getInt(0)
-						+ " AND a.date LIKE '"
-						+ Calendar.getInstance().get(Calendar.YEAR) + "-%'";
-				Cursor c3 = mDatabase.rawQuery(MY_QUERY3, new String[] {});
+				tmpAgg = new AggregateItem(actionTypeId);
+				tmpAgg.setLeftBackground(c.getInt(1)); // crop type image.
+				tmpAgg.setCenterImage(c.getInt(2)); // fertilizer image.
+				tmpAgg.setLeftText(c.getString(3)); // seed type short name
+				tmpAgg.setNews(c.getInt(4)); // new user count.
+				tmpAgg.setTotal(c.getInt(0)); // user count
+				tmpAgg.setSelector1(c.getInt(5)); // seedTypeId
+				tmpAgg.setSelector2(c.getInt(6)); // problem id
+				tmpAgg.setSelector3(c.getInt(8)); // pesticide id
+				tmpAgg.setCenterText(c.getString(7)); // resource shortText
+				tmpAgg.setRightBackground(c.getInt(9)); // pesticide background
+				tmpAgg.setRightText(c.getString(10)); // pesticide name
 
-				if (c3.moveToFirst()) {
-					do {
-						final String MY_QUERY4 = "SELECT COUNT(p.userId) as users, SUM(CASE WHEN (a.date <= '"
-								+ dateNow
-								+ "' AND date >= '"
-								+ stopDate
-								+ "') THEN 1 ELSE 0 END) AS newsUsers FROM action a, plot p WHERE a.plotId = p.id AND a.actionTypeId= "
-								+ actionTypeId
-								+ " AND a.resource1Id = "
-								+ c.getInt(0)
-								+ " AND a.resource2Id = "
-								+ c3.getInt(1);
-						Cursor c4 = mDatabase.rawQuery(MY_QUERY4,
-								new String[] {});
-						if (c4.moveToFirst() && c4.getInt(0) > 0) {
-							do {
-								AggregateItem a = new AggregateItem(
-										actionTypeId);
-								a.setCenterBackground(c2.getInt(1));
-								a.setCenterText(c2.getString(0));
-								a.setRightText(c3.getString(0));
-								a.setNews(c4.getInt(1));
-								a.setTotal(c4.getInt(0));
-								a.setCenterImage(R.drawable.sprayingaction);
-								// a.setLeftImage(c.getInt(1));
-								a.setLeftText(c.getString(2));
-								a.setSelector1(seedTypeId);
-								a.setSelector2(c.getInt(0));
-								a.setSelector3(c3.getInt(1));
-								tmpList.add(a);
-							} while (c4.moveToNext());
-						}
-						c4.close();
-					} while (c3.moveToNext());
-					c3.close();
-				}
+				tmpList.add(tmpAgg);
+
 			} while (c.moveToNext());
 		}
-		c2.close();
+
+		// closes the cursor and the database.
 		c.close();
 		mDatabase.close();
+
 		return tmpList;
 	}
 
