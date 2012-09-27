@@ -1106,18 +1106,18 @@ public class RealFarmProvider {
 		String stopDate = DateHelper
 				.getDatePast(-RealFarmDatabase.NUMBER_DAYS_NEWS);
 
-		String sqlTest = "SELECT COUNT(a.id), st.resource, r.image1, st.shortName, SUM(CASE WHEN (a.date <= '"
+		String sqlTest = "SELECT COUNT(a.id), st.resource, IFNULL(r.image2, r.image1), st.shortName, SUM(CASE WHEN (a.date <= '"
 				+ dateNow
 				+ "' AND a.date >= '"
 				+ stopDate
 				+ "') THEN 1 ELSE 0 END) AS newsUsers, st.id, r.id, r.shortName "
-				+ "FROM action a, resource r, seedType st, plot p "
-				+ "WHERE a.plotId = p.id AND p.seedTypeId = st.id AND a.resource1Id = r.id AND a.actionTypeId = "
+				+ "FROM action a, resource r, seedType st "
+				+ "WHERE a.seedTypeId = st.id AND a.resource1Id = r.id AND a.actionTypeId = "
 				+ actionTypeId
 				+ " AND a.date LIKE '"
 				+ Calendar.getInstance().get(Calendar.YEAR)
 				+ "-%' "
-				+ "GROUP BY a.actionTypeId, p.seedTypeId, r.type, r.id "
+				+ "GROUP BY a.actionTypeId, a.seedTypeId, r.type, r.id "
 				+ "ORDER BY a.date DESC";
 
 		List<AggregateItem> tmpList = new ArrayList<AggregateItem>();
@@ -2088,11 +2088,13 @@ public class RealFarmProvider {
 			int actionTypeId, long seedTypeId, long fertilizerId) {
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size , u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size , u.nameAudio, u.locationAudio, u.id "
+				+ "FROM action a, user u, plot p "
+				+ "WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
 				+ actionTypeId
-				+ " AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
+				+ " AND p.seedTypeId = "
 				+ seedTypeId
-				+ ") AND a.date LIKE '"
+				+ " AND a.date LIKE '"
 				+ Calendar.getInstance().get(Calendar.YEAR)
 				+ "-%' AND a.resource1Id = "
 				+ fertilizerId
@@ -2135,7 +2137,9 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, un.value, p.size , u.nameAudio, u.locationAudio, u.id FROM action a, user u, unit un, plot p WHERE a.plotId = p.id AND a.userId = u.id AND a.unit1Id = un.id AND a.actionTypeId = "
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, un.value, p.size, u.nameAudio, u.locationAudio, u.id "
+				+ "FROM action a, user u, unit un, plot p "
+				+ "WHERE a.plotId = p.id AND a.userId = u.id AND a.unit1Id = un.id AND a.actionTypeId = "
 				+ actionTypeId
 				+ " AND a.date LIKE '"
 				+ Calendar.getInstance().get(Calendar.YEAR)
@@ -2173,11 +2177,13 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.quantity1, u.nameAudio, u.locationAudio, u.id "
+				+ "FROM action a, user u, plot p "
+				+ "WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
 				+ actionTypeId
-				+ " AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
+				+ " AND p.seedTypeId = "
 				+ seedTypeId
-				+ ") AND a.date LIKE '"
+				+ " AND a.date LIKE '"
 				+ Calendar.getInstance().get(Calendar.YEAR)
 				+ "-%' AND a.resource1Id = "
 				+ irrigateMethodId
@@ -2222,9 +2228,11 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, u.nameAudio, u.locationAudio, u.id  FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, u.nameAudio, u.locationAudio, u.id "
+				+ "FROM action a, user u, plot p "
+				+ "WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
 				+ actionTypeId
-				+ " AND a.seedTypeId = "
+				+ " AND p.seedTypeId = "
 				+ seedTypeId
 				+ " AND a.date LIKE '"
 				+ Calendar.getInstance().get(Calendar.YEAR)
@@ -2262,7 +2270,9 @@ public class RealFarmProvider {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
-		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price, a.unit1Id, u.nameAudio, u.locationAudio, u.id FROM action a, user u WHERE a.userId = u.id AND a.actionTypeId = "
+		final String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.price, a.unit1Id, u.nameAudio, u.locationAudio, u.id "
+				+ "FROM action a, user u "
+				+ "WHERE a.userId = u.id AND a.actionTypeId = "
 				+ actionTypeId
 				+ " AND a.cropTypeId = "
 				+ cropTypeId
