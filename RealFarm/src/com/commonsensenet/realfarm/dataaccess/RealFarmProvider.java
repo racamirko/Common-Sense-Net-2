@@ -940,7 +940,6 @@ public class RealFarmProvider {
 		return situationList;
 	}
 
-	// TODO: add optimisation
 	public List<AggregateItem> getAggregateItemsFertilize(int actionTypeId,
 			int seedTypeId) {
 

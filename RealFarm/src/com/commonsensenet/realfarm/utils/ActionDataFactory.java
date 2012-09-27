@@ -50,7 +50,7 @@ public final class ActionDataFactory {
 		case RealFarmDatabase.ACTION_TYPE_SOW_ID:
 			return dataProvider.getAggregateItemsSow(actionTypeId, seedTypeId);
 		case RealFarmDatabase.ACTION_TYPE_FERTILIZE_ID:
-			return dataProvider.getAggregateItemsFertilize(actionTypeId,
+			return dataProvider.getAggregateItemsSow(actionTypeId,
 					seedTypeId);
 		case RealFarmDatabase.ACTION_TYPE_IRRIGATE_ID:
 			return dataProvider.getAggregateItemsIrrigate(actionTypeId,
