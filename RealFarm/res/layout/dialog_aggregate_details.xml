@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:background="#FFFFFF" >
 
-    <LinearLayout
+    <RelativeLayout
         android:id="@+id/dialog_aggregate_header"
         android:layout_width="match_parent"
         android:layout_height="?android:attr/listPreferredItemHeight"
@@ -13,33 +13,32 @@
 
         <RelativeLayout
             android:id="@+id/top_user_info"
-            android:layout_width="235dp"
-            android:layout_height="match_parent" >
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
         </RelativeLayout>
 
         <ImageView
             android:id="@+id/aggr_details_img_help"
-            android:layout_width="54dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="3dp"
-            android:background="@drawable/ic_help" />
-    </LinearLayout>
-
-    <View
-        android:id="@+id/dialog_aggregate_header_divider"
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:layout_below="@+id/dialog_aggregate_header"
-        android:background="#FFFFFF" />
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="@dimen/margin"
+            android:background="@drawable/circular_btn"
+            android:src="@drawable/ic_help" />
+    </RelativeLayout>
 
     <ListView
         android:id="@+id/list_dialog_aggregate"
         android:layout_width="match_parent"
-        android:layout_height="265dp"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/aggregate_details_layout_back_bar"
         android:layout_below="@+id/dialog_aggregate_header"
-        android:background="#FFFFFF" >
+        android:background="@android:color/white" >
     </ListView>
 
-    <include layout="@layout/layout_back_bar" />
+    <include
+        android:id="@+id/aggregate_details_layout_back_bar"
+        layout="@layout/layout_back_bar" />
 
 </RelativeLayout>

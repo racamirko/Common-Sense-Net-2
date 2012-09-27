@@ -13,7 +13,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -166,7 +165,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 		ImageView helpDetail = (ImageView) layout
 				.findViewById(R.id.aggr_details_img_help);
-		LinearLayout dialogAggregateHeader = (LinearLayout) layout
+		View dialogAggregateHeader = layout
 				.findViewById(R.id.dialog_aggregate_header);
 
 		helpDetail.setOnLongClickListener(new View.OnLongClickListener() {
@@ -315,16 +314,6 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 
 		tw = (TextView) destination.findViewById(R.id.label_right);
 		tw.setText(aggregate.getRightText());
-
-		// iw = (ImageView) destination.findViewById(R.id.image_left);
-		// if (aggregate.getLeftImage() != -1) {
-		// iw.setImageResource(aggregate.getLeftImage());
-		// }
-
-		// iw = (ImageView) destination.findViewById(R.id.image_left_bottom);
-		// if (aggregate.getLeftBottomImage() != -1) {
-		// iw.setImageResource(aggregate.getLeftBottomImage());
-		// }
 	}
 
 	private void makeAudioUserTopBar(boolean canHear) {

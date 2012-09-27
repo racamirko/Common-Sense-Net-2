@@ -22,7 +22,6 @@ import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -326,7 +325,7 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 		ImageView helpDetail = (ImageView) layout
 				.findViewById(R.id.aggr_details_img_help);
-		LinearLayout dialogAggregateHeader = (LinearLayout) layout
+		View dialogAggregateHeader = layout
 				.findViewById(R.id.dialog_aggregate_header);
 
 		helpDetail.setOnLongClickListener(new View.OnLongClickListener() {

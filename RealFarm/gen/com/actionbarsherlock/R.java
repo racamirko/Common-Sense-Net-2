@@ -1206,6 +1206,7 @@ containing a value of this type.
         public static final int aggr_crop_dropdwn=0x7f060089;
         public static final int aggr_crop_img=0x7f0600d7;
         public static final int aggr_details_img_help=0x7f0600c7;
+        public static final int aggregate_details_layout_back_bar=0x7f0600c9;
         public static final int amount_sow_img_btn=0x7f060042;
         public static final int amount_sow_txt=0x7f060041;
         public static final int avg_label=0x7f060122;
@@ -1252,7 +1253,6 @@ containing a value of this type.
         public static final int days_selector_label=0x7f060088;
         public static final int days_selector_row=0x7f060086;
         public static final int dialog_aggregate_header=0x7f0600c5;
-        public static final int dialog_aggregate_header_divider=0x7f0600c8;
         public static final int dialog_list=0x7f0600d8;
         public static final int dialog_row_icon=0x7f060101;
         public static final int dialog_row_icon2=0x7f060102;
@@ -1367,7 +1367,7 @@ containing a value of this type.
         public static final int linearLayout1=0x7f0600bf;
         public static final int linearLayout2=0x7f0600be;
         public static final int listMode=0x7f060002;
-        public static final int list_dialog_aggregate=0x7f0600c9;
+        public static final int list_dialog_aggregate=0x7f0600c8;
         public static final int list_market_aggregates=0x7f060027;
         public static final int location_selector_label=0x7f06012e;
         public static final int loss=0x7f0600ef;
