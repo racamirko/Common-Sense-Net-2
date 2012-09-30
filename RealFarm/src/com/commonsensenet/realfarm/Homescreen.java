@@ -73,7 +73,7 @@ public class Homescreen extends HelpEnabledActivity implements OnClickListener,
 
 		findViewById(R.id.hmscrn_btn_market).setOnClickListener(this);
 		findViewById(R.id.hmscrn_btn_market).setOnLongClickListener(this);
-
+ 
 		findViewById(R.id.hmscrn_btn_actions).setOnClickListener(this);
 		findViewById(R.id.hmscrn_btn_actions).setOnLongClickListener(this);
 

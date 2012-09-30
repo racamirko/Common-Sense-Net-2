@@ -277,11 +277,9 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 
 		case RealFarmDatabase.ACTION_TYPE_SELL_ID:
 			long min = item.getSelector2();
+			long max = item.getSelector3();
 
-			if ((total != -1)
-					& (variety != -1)
-					& (min != -1)
-					& (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT != -1)
+			if ((total != -1) & (variety != -1) & (min != -1) & (max != -1)
 					& (number != -1)
 					& (RealFarmDatabase.NUMBER_DAYS_NEWS != -1)) {
 				playInteger(total);
@@ -290,8 +288,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				addToSoundQueue(R.raw.this_for_every_quintal);
 				playInteger((int) min);
 				addToSoundQueue(R.raw.from);
-				playInteger((int) min
-						+ RealFarmDatabase.SELLING_AGGREGATE_INCREMENT);
+				playInteger((int) max);
 				addToSoundQueue(R.raw.to_rupees_sold);
 				if (number > 0) {
 					playInteger(number);

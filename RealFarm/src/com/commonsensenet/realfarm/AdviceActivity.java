@@ -7,25 +7,18 @@ import java.util.Date;
 import java.util.GregorianCalendar;
 import java.util.List;
 
-import android.app.Dialog;
-import android.content.Intent;
 import android.graphics.Color;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.Window;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ExpandableListView;
 import android.widget.ExpandableListView.OnChildClickListener;
 import android.widget.ExpandableListView.OnGroupClickListener;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.commonsensenet.realfarm.dataaccess.RealFarmDatabase;
 import com.commonsensenet.realfarm.dataaccess.RealFarmProvider;
@@ -34,11 +27,9 @@ import com.commonsensenet.realfarm.model.aggregate.AdviceSituationItem;
 import com.commonsensenet.realfarm.model.aggregate.AdviceSolutionItem;
 import com.commonsensenet.realfarm.model.aggregate.AggregateItem;
 import com.commonsensenet.realfarm.model.aggregate.UserAggregateItem;
-import com.commonsensenet.realfarm.utils.ActionDataFactory;
 import com.commonsensenet.realfarm.utils.ApplicationTracker;
 import com.commonsensenet.realfarm.utils.ApplicationTracker.EventType;
 import com.commonsensenet.realfarm.view.AdviceAdapter;
-import com.commonsensenet.realfarm.view.UserAggregateItemAdapter;
 
 public class AdviceActivity extends HelpEnabledActivity implements
 		OnChildClickListener, OnGroupClickListener, OnItemLongClickListener {
@@ -254,7 +245,10 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	public boolean onChildClick(ExpandableListView parent, View v,
 			int groupPosition, int childPosition, long id) {
-		// Object e = (Object)adapter.getChild(groupPosition, childPosition);
+
+		// stops any other active audio.
+		stopAudio();
+
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(),
 				getResources().getResourceEntryName(v.getId()),
@@ -263,161 +257,164 @@ public class AdviceActivity extends HelpEnabledActivity implements
 		AdviceSituationItem situationItem = mSituationItems.get(groupPosition);
 		AdviceSolutionItem solutionItem = situationItem.getItems().get(
 				childPosition);
-		AggregateItem selectedItem = getSelectedItem(situationItem,
-				solutionItem);
-		final List<UserAggregateItem> list = ActionDataFactory
-				.getUserAggregateData(selectedItem, mDataProvider);
 
-		// dialog used to request the information
-		final Dialog dialog = new Dialog(this);
+		makeAudioSolution(solutionItem);
+		// AggregateItem selectedItem = getSelectedItem(situationItem,
+		// solutionItem);
+		// final List<UserAggregateItem> list = ActionDataFactory
+		// .getUserAggregateData(selectedItem, mDataProvider);
+		//
+		// // dialog used to request the information
+		// final Dialog dialog = new Dialog(this);
+		//
+		// // loads the dialog layout
+		// View layout = mLayoutInflater.inflate(
+		// R.layout.dialog_aggregate_details, null);
+		//
+		// // adds the event to dismiss the dialog.
+		// layout.findViewById(R.id.button_back).setOnClickListener(
+		// new View.OnClickListener() {
+		// public void onClick(View v) {
+		// // closes the dialog.
+		// ApplicationTracker.getInstance().logEvent(
+		// EventType.CLICK, Global.userId, getLogTag(),
+		// "back");
+		// dialog.dismiss();
+		// }
+		// });
+		//
+		// // sets the data of the header using the old view.
+		// RelativeLayout rl = (RelativeLayout) layout
+		// .findViewById(R.id.top_user_info);
+		// View tmpView = mLayoutInflater.inflate(R.layout.tpl_aggregate_item,
+		// null);
+		// copyView(selectedItem, tmpView);
+		// rl.addView(tmpView);
+		//
+		// // indicates that the list has no information.
+		// if (list == null || list.size() < 1) {
+		// playAudio(R.raw.no_info_farmers);
+		// }
+		//
+		// // gets the ListView from the layout
+		// ListView userListView = (ListView) layout
+		// .findViewById(R.id.list_dialog_aggregate);
+		//
+		// // selectedItem.getSeedTypeId()
+		//
+		// UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
+		// this, list);
+		// // sets the adapter.
+		// userListView.setAdapter(userAdapter);
+		//
+		// // userListView.setOnItemLongClickListener(mParentReference);
+		//
+		// // disables the title in the dialog
+		// dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+		// // sets the view
+		// dialog.setContentView(layout);
+		// dialog.setCancelable(true);
+		//
+		// // displays the dialog & describes the topbar with audio
+		// dialog.show();
+		// makeAudioUserTopBar(false);
+		//
+		// ImageView helpDetail = (ImageView) layout
+		// .findViewById(R.id.aggr_details_img_help);
+		// View dialogAggregateHeader = layout
+		// .findViewById(R.id.dialog_aggregate_header);
+		//
+		// helpDetail.setOnLongClickListener(new View.OnLongClickListener() {
+		// public boolean onLongClick(View v) {
+		// // TODO AUDIO: check the right audio
+		// ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+		// Global.userId, getLogTag(), "dialog help");
+		//
+		// playAudio(R.raw.help, true);
+		// return true;
+		// }
+		// });
+		//
+		// helpDetail.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		// // TODO AUDIO: check the right audio
+		// ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+		// Global.userId, getLogTag(), "dialog help");
+		//
+		// playAudio(R.raw.help, true);
+		// }
+		// });
+		//
+		// dialogAggregateHeader
+		// .setOnLongClickListener(new View.OnLongClickListener() {
+		// public boolean onLongClick(View v) {
+		// // Say something according to the layout's contents.
+		// // This is the top header of the dialog to call people
+		// // in the aggregates
+		// makeAudioUserTopBar(true);
+		// ApplicationTracker.getInstance().logEvent(
+		// EventType.LONG_CLICK, Global.userId,
+		// getLogTag(), "dialog header");
+		// // makeAudioAggregateMarketItem(selectedItem, true);
+		// return true;
+		// }
+		// });
+		//
+		// dialogAggregateHeader.setOnClickListener(new View.OnClickListener() {
+		// public void onClick(View v) {
+		// // TODO AUDIO: check the right audio
+		// ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+		// Global.userId, getLogTag(), "dialog header");
+		// }
+		// });
+		//
+		// userListView.setOnItemClickListener(new OnItemClickListener() {
+		//
+		// public void onItemClick(AdapterView<?> parent, View view,
+		// int position, long id) {
+		//
+		// if (list.get(position).getId() == Global.userId) {
+		// Toast.makeText(getBaseContext(),
+		// "You cannot call yourself", Toast.LENGTH_SHORT)
+		// .show();
+		//
+		// playAudio(R.raw.you_cant_call_yourself);
+		// return;
+		// }
+		//
+		// ApplicationTracker.getInstance().logEvent(EventType.CLICK,
+		// Global.userId, getLogTag(),
+		// "dialog call " + list.get(position).getName());
+		//
+		// // TODO: calling Mr ...
+		// UserAggregateItem choice = list.get(position);
+		// makeAudioCallUser(choice);
+		//
+		// String phoneNumber = choice.getTel();
+		// Intent intent = new Intent(Intent.ACTION_CALL);
+		// intent.setData(Uri.parse("tel:" + phoneNumber));
+		// startActivity(intent);
+		// }
+		// });
+		//
+		// userListView.setOnItemLongClickListener(new OnItemLongClickListener()
+		// {
+		//
+		// public boolean onItemLongClick(AdapterView<?> parent, View view,
+		// int position, long id) {
+		// ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
+		// Global.userId, getLogTag(),
+		// "dialog call " + list.get(position).getName());
+		//
+		// // TODO: audio
+		// UserAggregateItem choice = list.get(position);
+		// makeAudioUserItem(choice);
+		//
+		// return true;
+		// }
+		// });
 
-		// loads the dialog layout
-		View layout = mLayoutInflater.inflate(
-				R.layout.dialog_aggregate_details, null);
-
-		// adds the event to dismiss the dialog.
-		layout.findViewById(R.id.button_back).setOnClickListener(
-				new View.OnClickListener() {
-					public void onClick(View v) {
-						// closes the dialog.
-						ApplicationTracker.getInstance().logEvent(
-								EventType.CLICK, Global.userId, getLogTag(),
-								"back");
-						dialog.dismiss();
-					}
-				});
-
-		// sets the data of the header using the old view.
-		RelativeLayout rl = (RelativeLayout) layout
-				.findViewById(R.id.top_user_info);
-		View tmpView = mLayoutInflater.inflate(R.layout.tpl_aggregate_item,
-				null);
-		copyView(selectedItem, tmpView);
-		rl.addView(tmpView);
-
-		// indicates that the list has no information.
-		if (list == null || list.size() < 1) {
-			playAudio(R.raw.no_info_farmers);
-		}
-
-		// gets the ListView from the layout
-		ListView userListView = (ListView) layout
-				.findViewById(R.id.list_dialog_aggregate);
-
-		// selectedItem.getSeedTypeId()
-
-		UserAggregateItemAdapter userAdapter = new UserAggregateItemAdapter(
-				this, list);
-		// sets the adapter.
-		userListView.setAdapter(userAdapter);
-
-		// userListView.setOnItemLongClickListener(mParentReference);
-
-		// disables the title in the dialog
-		dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-		// sets the view
-		dialog.setContentView(layout);
-		dialog.setCancelable(true);
-
-		// displays the dialog & describes the topbar with audio
-		dialog.show();
-		makeAudioUserTopBar(false);
-
-		ImageView helpDetail = (ImageView) layout
-				.findViewById(R.id.aggr_details_img_help);
-		View dialogAggregateHeader = layout
-				.findViewById(R.id.dialog_aggregate_header);
-
-		helpDetail.setOnLongClickListener(new View.OnLongClickListener() {
-			public boolean onLongClick(View v) {
-				// TODO AUDIO: check the right audio
-				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-						Global.userId, getLogTag(), "dialog help");
-
-				playAudio(R.raw.help, true);
-				return true;
-			}
-		});
-
-		helpDetail.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO AUDIO: check the right audio
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(), "dialog help");
-
-				playAudio(R.raw.help, true);
-			}
-		});
-
-		dialogAggregateHeader
-				.setOnLongClickListener(new View.OnLongClickListener() {
-					public boolean onLongClick(View v) {
-						// Say something according to the layout's contents.
-						// This is the top header of the dialog to call people
-						// in the aggregates
-						makeAudioUserTopBar(true);
-						ApplicationTracker.getInstance().logEvent(
-								EventType.LONG_CLICK, Global.userId,
-								getLogTag(), "dialog header");
-						// makeAudioAggregateMarketItem(selectedItem, true);
-						return true;
-					}
-				});
-
-		dialogAggregateHeader.setOnClickListener(new View.OnClickListener() {
-			public void onClick(View v) {
-				// TODO AUDIO: check the right audio
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(), "dialog header");
-			}
-		});
-
-		userListView.setOnItemClickListener(new OnItemClickListener() {
-
-			public void onItemClick(AdapterView<?> parent, View view,
-					int position, long id) {
-
-				if (list.get(position).getId() == Global.userId) {
-					Toast.makeText(getBaseContext(),
-							"You cannot call yourself", Toast.LENGTH_SHORT)
-							.show();
-
-					playAudio(R.raw.you_cant_call_yourself);
-					return;
-				}
-
-				ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-						Global.userId, getLogTag(),
-						"dialog call " + list.get(position).getName());
-
-				// TODO: calling Mr ...
-				UserAggregateItem choice = list.get(position);
-				makeAudioCallUser(choice);
-
-				String phoneNumber = choice.getTel();
-				Intent intent = new Intent(Intent.ACTION_CALL);
-				intent.setData(Uri.parse("tel:" + phoneNumber));
-				startActivity(intent);
-			}
-		});
-
-		userListView.setOnItemLongClickListener(new OnItemLongClickListener() {
-
-			public boolean onItemLongClick(AdapterView<?> parent, View view,
-					int position, long id) {
-				ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
-						Global.userId, getLogTag(),
-						"dialog call " + list.get(position).getName());
-
-				// TODO: audio
-				UserAggregateItem choice = list.get(position);
-				makeAudioUserItem(choice);
-
-				return true;
-			}
-		});
-
-		return false;
+		return true;
 	}
 
 	public void onCreate(Bundle savedInstanceState) {
@@ -459,6 +456,8 @@ public class AdviceActivity extends HelpEnabledActivity implements
 
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
+
+		// stops any audio currently being played.
 		stopAudio();
 
 		long data = mListView.getExpandableListPosition(position);

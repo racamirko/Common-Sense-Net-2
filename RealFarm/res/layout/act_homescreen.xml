@@ -128,6 +128,8 @@
                         android:layout_height="@dimen/action_icon_size"
                         android:layout_centerInParent="true"
                         android:background="@drawable/circular_btn"
+                        android:cropToPadding="false"
+                        android:padding="@dimen/margin"
                         android:scaleType="centerInside"
                         android:src="@drawable/hs_sowing" />
 

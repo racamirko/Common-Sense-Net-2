@@ -601,8 +601,6 @@ public class RealFarmDatabase {
 	public static final int RESOURCE_TYPE_VARIETY = 21;
 	public static final int RESOURCE_TYPE_YEAR = 14;
 
-	public static final int SELLING_AGGREGATE_INCREMENT = 99;
-
 	public static final String TABLE_NAME_ACTION = "action";
 	public static final String TABLE_NAME_ACTIONTYPE = "actionType";
 	public static final String TABLE_NAME_ADVICE = "advice";
@@ -804,9 +802,12 @@ public class RealFarmDatabase {
 				{ "Sheshagiri", "", "354717046643814", "9448379025",
 						"farmer_354717046643814", "CK Pura", R.raw.sheshagiri,
 						R.raw.ckpura }, /* 16 */
-				{ "Hendrik", "", "911208750949379", "9483824373",
+				{ "Hendrik", "Knoche", "911208750949379", "9483824373",
 						"farmer_911208750949379", "Aalborg",
 						R.raw.hendrik_knoche, R.raw.ckpura },/* 17 */
+				{ "Prakruthi", "", "911208750715499", "9483824373",
+						"farmer_default", "CK Pura", R.raw.john_doe,
+						R.raw.ckpura },/* 18 */
 
 		};
 

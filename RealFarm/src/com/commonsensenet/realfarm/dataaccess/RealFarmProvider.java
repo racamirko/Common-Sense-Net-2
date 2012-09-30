@@ -1187,18 +1187,12 @@ public class RealFarmProvider {
 				tmpAgg.setLeftText(c.getString(2)); // seed type short name
 				tmpAgg.setNews(c.getInt(3)); // new user count.
 				tmpAgg.setSelector1(c.getInt(4)); // crop type id
-				// tmpAgg.setSelector2(c.getInt(6)); // irrigation method id
+				tmpAgg.setSelector2(c.getInt(5)); // min
+				tmpAgg.setSelector3(c.getInt(6)); // max
 				tmpAgg.setCenterText(c.getString(5) + "-" + c.getString(6)
 						+ " Rs/qt "); // price range
 
 				tmpList.add(tmpAgg);
-
-				// a.setCenterText(min + " - "
-				// + (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)
-				// + " Rs/qt");
-				// a.setLeftImage(R.drawable.sellingaction);
-				// a.setSelector1(cropTypeId);
-				// a.setSelector2(min);
 
 			} while (c.moveToNext());
 		}
@@ -2266,7 +2260,7 @@ public class RealFarmProvider {
 	}
 
 	public List<UserAggregateItem> getUserAggregateItemSell(int actionTypeId,
-			long cropTypeId, long min) {
+			long cropTypeId, long min, long max) {
 
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
 
@@ -2281,7 +2275,7 @@ public class RealFarmProvider {
 				+ "-%' AND a.price >= "
 				+ min
 				+ " AND a.price < "
-				+ (min + RealFarmDatabase.SELLING_AGGREGATE_INCREMENT)
+				+ max
 				+ " ORDER BY a.date DESC";
 		mDatabase.open();
 		Cursor c = mDatabase.rawQuery(MY_QUERY, new String[] {});
@@ -2374,8 +2368,11 @@ public class RealFarmProvider {
 
 		int noneId = getResources(RealFarmDatabase.RESOURCE_TYPE_ADVICE).get(0)
 				.getId();
+
 		List<UserAggregateItem> tmpList = new ArrayList<UserAggregateItem>();
-		String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size, u.nameAudio, u.locationAudio, u.id FROM action a, user u, plot p WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
+		String MY_QUERY = "SELECT u.firstname, u.lastname, u.location, a.date, u.mobileNumber, u.imagePath, a.unit1Id, a.quantity1, p.size, u.nameAudio, u.locationAudio, u.id "
+				+ "FROM action a, user u, plot p "
+				+ "WHERE a.userId = u.id AND a.plotId = p.id AND a.actionTypeId = "
 				+ actionTypeId
 				+ " AND a.plotId IN (SELECT DISTINCT plotId FROM action WHERE seedTypeId = "
 				+ seedTypeId

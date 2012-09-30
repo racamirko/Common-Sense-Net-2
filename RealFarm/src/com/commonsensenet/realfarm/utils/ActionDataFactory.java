@@ -159,10 +159,6 @@ public final class ActionDataFactory {
 			return dataProvider.getUserAggregateItemReport(
 					aggregateItem.getActionTypeId(),
 					aggregateItem.getSelector1(), aggregateItem.getSelector2());
-			// return
-			// dataProvider.getUserAggregateItem(aggregateItem.getActionTypeId(),
-			// aggregateItem.getValue(RealFarmDatabase.COLUMN_NAME_ACTION_RESOURCE1ID));
-			// TODO: Resource1ID has a satisfaction type, is this what we want?
 		case RealFarmDatabase.ACTION_TYPE_HARVEST_ID:
 			return dataProvider.getUserAggregateItemHarvest(
 					aggregateItem.getActionTypeId(),
@@ -175,7 +171,8 @@ public final class ActionDataFactory {
 		case RealFarmDatabase.ACTION_TYPE_SELL_ID:
 			return dataProvider.getUserAggregateItemSell(
 					aggregateItem.getActionTypeId(),
-					aggregateItem.getSelector1(), aggregateItem.getSelector2());
+					aggregateItem.getSelector1(), aggregateItem.getSelector2(),
+					aggregateItem.getSelector3());
 		default:
 			return null;
 		}
