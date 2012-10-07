@@ -93,6 +93,9 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 
+		// stops any active sound.
+		mSoundQueue.stop();
+
 		ApplicationTracker.getInstance().logEvent(EventType.LONG_CLICK,
 				Global.userId, getLogTag(), position);
 
@@ -484,7 +487,7 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 			addToSoundQueue(R.raw.to_call_click);
 
 		}
-		playSound();
+		playSound(true);
 
 	}
 

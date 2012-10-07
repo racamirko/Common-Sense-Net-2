@@ -82,7 +82,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 			addToSoundQueue(R.raw.there);
 			addToSoundQueue(crop);
 			addToSoundQueue(R.raw.there_crop);
-			playSound();
+			playSound(true);
 		} else if (v.getId() == R.id.button_back) {
 			playAudio(R.raw.back_button, true);
 		}
@@ -163,7 +163,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					addToSoundQueue(R.raw.about_farmers_fertilize);
 				}
 
-				playSound();
+				playSound(true);
 			}
 
 			break;
@@ -191,7 +191,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				if (header == false) {
 					addToSoundQueue(R.raw.about_farmers_harvest);
 				}
-				playSound();
+				playSound(true);
 			}
 
 			break;
@@ -222,7 +222,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					// says to know about farmers and irrigation duration
 					addToSoundQueue(R.raw.about_farmers_irrigation);
 				}
-				playSound();
+				playSound(true);
 			}
 
 			break;
@@ -251,7 +251,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					// says "to know about farmers and reporting"
 					addToSoundQueue(R.raw.about_farmers_report);
 				}
-				playSound();
+				playSound(true);
 			}
 
 			break;
@@ -281,7 +281,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				if (header == false) {
 					addToSoundQueue(R.raw.about_farmers_selling);
 				}
-				playSound();
+				playSound(true);
 			}
 
 			break;
@@ -311,7 +311,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 					// say "to know about farmers and sowing"
 					add_action_aggregate(6);
 				}
-				playSound();
+				playSound(true);
 			}
 
 			break;
@@ -346,7 +346,7 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 				if (header == false) {
 					addToSoundQueue(R.raw.about_farmers_spraying);
 				}
-				playSound();
+				playSound(true);
 			}
 			break;
 
