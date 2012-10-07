@@ -56,34 +56,15 @@ public class ActionAggregateActivity extends AggregateMarketActivity implements
 		// loads the data.
 		setList();
 
-		// View crop = findViewById(R.id.aggr_crop);
 		Button back = (Button) findViewById(R.id.button_back);
-
 		back.setOnLongClickListener(this);
-		// crop.setOnLongClickListener(this);
 
 		back.setOnClickListener(new View.OnClickListener() {
 			public void onClick(View v) {
-
 				// behaves like a back button press.
 				onBackPressed();
 			}
 		});
-
-		// crop.setOnClickListener(new View.OnClickListener() {
-		// public void onClick(View v) {
-		//
-		// ApplicationTracker.getInstance().logEvent(EventType.CLICK,
-		// Global.userId, getLogTag(),
-		// getResources().getResourceEntryName(v.getId()));
-		//
-		// final ImageView img_1 = (ImageView) findViewById(R.id.aggr_crop_img);
-		// List<Resource> data = ActionDataFactory.getTopSelectorList(
-		// mActionTypeId, mDataProvider);
-		// displayDialog(v, data, "Select the variety", R.raw.problems,
-		// img_1, 2);
-		// }
-		// });
 	}
 
 	public boolean onLongClick(View v) {

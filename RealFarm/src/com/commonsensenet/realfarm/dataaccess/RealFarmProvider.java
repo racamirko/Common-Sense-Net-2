@@ -603,7 +603,6 @@ public class RealFarmProvider {
 		return tmpActions;
 	}
 
-	// TODO: sort by date
 	public List<Action> getActionsByPlotId(long plotId) {
 
 		List<Action> tmpActions = new ArrayList<Action>();
@@ -706,7 +705,6 @@ public class RealFarmProvider {
 		return tmpActions;
 	}
 
-	// TODO: should order elements properly.
 	public List<Action> getActionsByUserId(long userId) {
 
 		List<Action> tmpActions = new ArrayList<Action>();

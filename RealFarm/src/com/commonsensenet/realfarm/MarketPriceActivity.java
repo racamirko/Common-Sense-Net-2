@@ -46,9 +46,6 @@ public class MarketPriceActivity extends AggregateMarketActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState, R.layout.act_marketprice);
 
-		// TODO: remove demo data.
-		mDataProvider.addMarketPrice("2012-09-24", 2400, 3400, "gjje");
-
 		// indicates that should obtain market prices.
 		mCurrentAction = TopSelectorActivity.LIST_WITH_TOP_SELECTOR_TYPE_MARKET;
 

@@ -63,7 +63,8 @@ public class WeatherForecastActivity extends HelpEnabledActivity implements
 
 	}
 
-	// TODO: this is not implemented.
+	// TODO: this is not implemented. If a new weather is added it should be
+	// displayed in the ui
 	public void onDataChanged(String date, int temperature, String type) {
 		// item should be added to the adapter.
 	}

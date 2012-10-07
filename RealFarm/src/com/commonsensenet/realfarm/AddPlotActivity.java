@@ -46,12 +46,6 @@ public class AddPlotActivity extends DataFormActivity {
 		Global.plotId = mDataProvider.addPlot(Global.userId, mMainCrop,
 				mSoilType, mPlotImage, mSize, Global.isAdmin, mType);
 
-		// TODO: remove, demo data.
-		if (Global.plotId != -1) {
-			mDataProvider.addRecommendation(Global.plotId, 1, Global.userId,
-					"2012-09-22", "2012-09-31", "2012-09-31", 1, 1);
-		}
-
 		// logs the event
 		ApplicationTracker.getInstance().logEvent(EventType.CLICK,
 				Global.userId, getLogTag(), "add plot to database");

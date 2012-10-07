@@ -309,11 +309,16 @@ public abstract class AggregateMarketActivity extends TopSelectorActivity
 		}
 
 		ImageView iw = (ImageView) destination.findViewById(R.id.image_center);
-		if (aggregate.getCenterImage() != -1)
+		if (aggregate.getCenterImage() != -1) {
 			iw.setImageResource(aggregate.getCenterImage());
+			iw.setVisibility(View.VISIBLE);
+		} else {
+			iw.setVisibility(View.GONE);
+		}
 
 		tw = (TextView) destination.findViewById(R.id.label_right);
 		tw.setText(aggregate.getRightText());
+
 	}
 
 	private void makeAudioUserTopBar(boolean canHear) {

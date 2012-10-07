@@ -154,13 +154,11 @@ public abstract class TopSelectorActivity extends HelpEnabledActivity implements
 	}
 
 	public void onItemClick(AdapterView<?> arg0, View arg1, int arg2, long arg3) {
-		// TODO Auto-generated method stub
 
 	}
 
 	public boolean onItemLongClick(AdapterView<?> arg0, View arg1, int arg2,
 			long arg3) {
-		// TODO Auto-generated method stub
 		return false;
 	}
 
